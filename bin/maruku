@@ -1,0 +1,25 @@
+#!/usr/bin/env ruby
+
+require 'maruku'
+
+if File.basename($0) =~ /^maruku/
+	# Convert each file 
+	ARGV.each do |f|
+		puts "Opening #{f}"
+	
+		# read file content
+		input =  File.open(f,'r').read
+		
+		# create Maruku
+		doc = Maruku.new(input)
+		# convert to a complete html document
+		html = doc.to_html_document
+	
+		# write to file
+		dir = File.dirname(f)
+		filename = File.basename(f, File.extname(f)) + ".html"
+
+		out_xml = File.join(dir, filename)	
+		File.open(out_xml,'w') do |f| f.puts html end
+	end
+end
