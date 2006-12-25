@@ -1,8 +1,16 @@
+**This bug is now solved**
 
-Use the [`syntax`][syntax]
+Previously, a bug would not let you use `code` inside links text.
 
-Use the `[syntax][syntax]`
+So this:
+	Use the [`syntax`][syntax]
+produces:
+> Use the [`syntax`][syntax]
 
+And this:
+	Use the `[syntax][syntax]`
+produces:
+> Use the `[syntax][syntax]`
 
 [syntax]: http://gogole.com
 

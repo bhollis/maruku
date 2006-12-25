@@ -11,6 +11,13 @@ Search on [Google images][]
 
 Search on [Google images][ 	GoOgle search ]
 
+Inline: [Google images](http://google.com)
+
+Inline with title: [Google images](http://google.com "Title")
+
+Inline with title: [Google images]( http://google.com  "Title" )
+
+
 Search on <http://www.gogole.com> or <http://Here.com> or ask <mailto:bill@google.com>
 or you might ask bill@google.com.
 

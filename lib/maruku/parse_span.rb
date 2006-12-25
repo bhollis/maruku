@@ -16,18 +16,25 @@ class Maruku
 		span = MDElement.new
 		span.children = res
 
-		# then, encode all escapes
+		# encode all escapes
 		span.replace_each_string { |s| s.escape_md_special }
 
+
+# The order of processing is significant: 
+# 1. inline code
+# 2. immediate links
+# 3. inline HTML 
+# 4. everything else
+
 		# search for ``code`` markers
-		span.match_couple_of('``') { |children| 
+		span.match_couple_of('``') { |children, match1, match2| 
 			e = create_md_element(:inline_code)
 			e.meta[:raw_code] = children.join('') # this is now opaque to processing
 			e
 		}
 
 		# Search for `single tick`  code markers
-		span.match_couple_of('`') { |children| 
+		span.match_couple_of('`') { |children, match1, match2|
 			e = create_md_element(:inline_code)
 			e.meta[:raw_code] = children.join('').unescape_md_special 
 			# this is now opaque to processing
@@ -122,32 +129,81 @@ class Maruku
 			e
 		}
 
+		# an id reference: "[id]",  "[ id  ]"
+		reg_id_ref = %r{
+			\[ # opening bracket 
+			([^\]]*) # 0 or more non-closing bracket (this is too permissive)
+			\] # closing bracket
+			}x
+			
 		# Detect any link like [Google engine][google]
-		span.map_match(/\[([^\]]+)\]\s?\[([^\]]*)\]/) { |match| 
-			text = match[1]
-			id = match[2]
+		span.match_couple_of('[',  # opening bracket
+			%r{\]                   # closing bracket
+			[ ]?                    # optional whitespace
+			#{reg_id_ref} # ref id, with $1 being the reference 
+			}x
+				) { |children, match1, match2| 
+					
+#			puts "children = #{children.inspect}"
+
+			id = match2[1]
 			id = id.strip.downcase
 			
 			if id.size == 0
-				id = text.strip.downcase
+				id = children.join.strip.downcase
 			end
 			
-			e = create_md_element(:link, [text])
+			e = create_md_element(:link, children)
 			e.meta[:ref_id] = id
 			e
 		}
 		
+		# validates a url, only $1 is set to the url
+ 		reg_url = 
+			/((?:\w+):\/\/(?:\w+:{0,1}\w*@)?(?:\S+)(?::[0-9]+)?(?:\/|\/([\w#!:.?+=&%@!\-\/]))?)/
+		
+		# A string enclosed in quotes.
+		reg_title = %r{
+			" # opening
+			[^"]*   # anything = 1
+			" # closing
+			}x
+		
+		# (http://www.google.com "Google.com"), (http://www.google.com),
+		reg_url_and_title = %r{
+			\(  # opening
+			\s* # whitespace 
+			#{reg_url}  # url = 1 
+			(?:\s+["'](.*)["'])? # optional title  = 2
+			\s* # whitespace 
+			\) # closing
+		}x
+
 		# Detect any link with immediate url: [Google](http://www.google.com)
 		# a dummy ref is created and put in the symbol table
-		span.map_match(/\[([^\]]+)\]\s?\(([^\)]*)\)/) { |match| 
-			text = match[1]
-			url = match[2]
-			url = url.strip.downcase
+
+		span.match_couple_of('[',  # opening bracket
+				%r{\]                   # closing bracket
+				[ ]?                    # optional whitespace
+				#{reg_url_and_title}    # ref id, with $1 being the url and $2 being the title
+				}x
+					) { |children, match1, match2| 
+		
+			puts "match2 = #{match2.to_s}"
+			puts "         #{match2.inspect}"
+			
+			url   = match2[1]
+			title = match2[3] # XXX? 
 			# create a dummy id
 			id="dummy_#{@refs.size}"
 			@refs[id] = {:url=>url}
+			@refs[id][:title] = title if title
 			
-			e = create_md_element(:link, [text])
+
+			puts "url = #{url}"
+			puts "title = #{title}"
+
+			e = create_md_element(:link, children)
 			e.meta[:ref_id] = id
 			e
 		}
@@ -164,16 +220,16 @@ class Maruku
 		# And now the easy stuff
 	
 		# search for **strong**
-		span.match_couple_of('**') { |children|  create_md_element(:strong,   children) }
+		span.match_couple_of('**') { |children,m1,m2|  create_md_element(:strong,   children) }
 
 		# search for __strong__
-		span.match_couple_of('__') { |children|  create_md_element(:strong,   children) }
+		span.match_couple_of('__') { |children,m1,m2|  create_md_element(:strong,   children) }
 
 		# search for *emphasis*
-		span.match_couple_of('*')  { |children|  create_md_element(:emphasis, children) }
+		span.match_couple_of('*')  { |children,m1,m2|  create_md_element(:emphasis, children) }
 		
 		# search for _emphasis_
-		span.match_couple_of('_')  { |children|  create_md_element(:emphasis, children) }
+		span.match_couple_of('_')  { |children,m1,m2|  create_md_element(:emphasis, children) }
 		
 		# finally, unescape the special characters
 		span.replace_each_string { |s|  s.unescape_md_special}
@@ -264,11 +320,20 @@ class MDElement
 	end
 	
 	# Finds couple of delimiters in a hierarchy of Strings and MDElements
-	def match_couple_of(marker, &block)
-		regexp = Regexp.new(Regexp.escape(marker))
+	#
+	# Open and close are two delimiters (like '[' and ']'), or two Regexp.
+	#
+	# If you don't pass close, it defaults to open.
+	#
+	# Each block is called with |contained children, match1, match2|
+	def match_couple_of(open, close=nil, &block)
+		close = close || open
+		 open_regexp =  open.kind_of?(Regexp) ?  open : Regexp.new(Regexp.escape(open))
+		close_regexp = close.kind_of?(Regexp) ? close : Regexp.new(Regexp.escape(close))
 		
+		# Do the same to children first
 		for c in @children; if c.kind_of? MDElement
-			c.match_couple_of(marker, &block)
+			c.match_couple_of(open_regexp, close_regexp, &block)
 		end end
 		
 		processed_children = []
@@ -276,37 +341,37 @@ class MDElement
 		until @children.empty?
 			c = @children.shift
 			if c.kind_of? String
-				match = regexp.match(c)
-				if not match 
+				match1 = open_regexp.match(c)
+				if not match1
 					processed_children << c
 				else # we found opening, now search closing
 #					puts "Found opening (#{marker}) in #{c.inspect}"
 					# pre match is processed
-					processed_children.push match.pre_match if 
-						match.pre_match && match.pre_match.size > 0
+					processed_children.push match1.pre_match if 
+						match1.pre_match && match1.pre_match.size > 0
 					# we will process again the post_match
-					@children.unshift match.post_match if 
-						match.post_match && match.post_match.size>0
-														
+					@children.unshift match1.post_match if 
+						match1.post_match && match1.post_match.size>0
+					
 					contained = []; found_closing = false
 					until @children.empty?  || found_closing
 						c = @children.shift
 						if c.kind_of? String
-							match = regexp.match(c)
-							if not match 
+							match2 = close_regexp.match(c)
+							if not match2 
 								contained << c
 							else
 								# we found closing
 								found_closing = true
 								# pre match is contained
-								contained.push match.pre_match if 
-									match.pre_match && match.pre_match.size>0
+								contained.push match2.pre_match if 
+									match2.pre_match && match2.pre_match.size>0
 								# we will process again the post_match
-								@children.unshift match.post_match if 
-									match.post_match && match.post_match.size>0
+								@children.unshift match2.post_match if 
+									match2.post_match && match2.post_match.size>0
 
 								# And now we call the block
-								substitute = block.call(contained) 
+								substitute = block.call(contained, match1, match2) 
 								processed_children  << substitute
 								
 #								puts "Found closing (#{marker}) in #{c.inspect}"
@@ -319,8 +384,8 @@ class MDElement
 					end
 					
 					if not found_closing
-						$stderr.puts "##### Could not find closing for #{marker}"
-						processed_children << "?"
+						# $stderr.puts "##### Could not find closing for #{open}, #{close} -- ignoring"
+						processed_children << match1.to_s
 						contained.reverse.each do |c|
 							@children.unshift c
 						end
@@ -331,6 +396,17 @@ class MDElement
 			end
 		end
 		
-		@children = processed_children
+		raise "BugBug" unless @children.empty?
+		
+		rebuilt = []
+		# rebuild strings
+		processed_children.each do |c|
+			if c.kind_of?(String) && rebuilt.last && rebuilt.last.kind_of?(String)
+				rebuilt.last << c
+			else
+				rebuilt << c
+			end
+		end
+		@children = rebuilt
 	end
 end
