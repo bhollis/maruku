@@ -22,7 +22,7 @@ if File.basename($0) =~ /^marutex/
 
 		File.open(filename,'w') do |f| f.puts latex end
 
-		system "pdflatex #{job}"
+		system "pdflatex '#{job}'"
 #		system "open #{job}.pdf"
 	end
 end

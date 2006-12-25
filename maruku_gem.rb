@@ -1,4 +1,4 @@
-spec = Gem::Specification.new do |s|
+$spec = Gem::Specification.new do |s|
   s.name = 'maruku'
   s.version = '0.2.1'
   s.summary = "A Markdown interpreter in Ruby"
