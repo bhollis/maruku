@@ -78,7 +78,22 @@ class MDElement
 		else
 			color
 		end
-		
+	end
+
+	# \color[named]{name} 	
+	# \color[rgb]{1,0.2,0.3} 
+	def latex_color(s, command='color')
+		if s =~ /^\#(\w\w)(\w\w)(\w\w)$/
+			r = $1.hex; g = $2.hex; b=$3.hex				
+			# convert from 0-255 to 0.0-1.0
+			r = r / 255.0 
+			g = g / 255.0 
+			b = b / 255.0 
+			
+			"\\#{command}[rgb]{#{r},#{g},#{b}}"
+		else
+			"\\#{command}{#{s}}"
+		end
 	end
 	
 	def to_latex_code;
@@ -95,13 +110,10 @@ class MDElement
 				s+= "\\lstset{showspaces=false,showtabs=false}\n"
 			end
 			
-			color = get_setting(:code_background_color,DEFAULT_CODE_COLOR)
-			if color
-				colorname, declaration = define_color_if_necessary(color)
-				s+= declaration if declaration
-				s+= "\\lstset{backgroundcolor=\\color{#{colorname}}}\n" 
-			end
-
+			color = latex_color get_setting(:code_background_color,DEFAULT_CODE_COLOR)
+			
+			s+= "\\lstset{backgroundcolor=#{color}}\n" 
+			
 			s+= "\\lstset{basicstyle=\\ttfamily\\footnotesize}\n" 
 			
 			
@@ -175,10 +187,9 @@ class MDElement
 		# Convert to printable latex chars (is much better than using \verb)
 		s=latex_escape(source)
 			
-		color = get_setting(:code_background_color,DEFAULT_CODE_COLOR)
-		colorname, declaration = define_color_if_necessary(color)
-		(declaration||'')+
-		"\\colorbox{#{colorname}}{\\tt #{s}}"
+		color = latex_color(get_setting(:code_background_color,DEFAULT_CODE_COLOR),'colorbox')
+
+		"#{color}{\\tt #{s}}"
 	end
 
 	def to_latex_immediate_link

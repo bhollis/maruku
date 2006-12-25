@@ -68,7 +68,7 @@ Anonymous access to the repository is possible with:
 
 	$ svn checkout svn://rubyforge.org/var/svn/maruku
 
-If you want commit-access, just [drop me a mail][drop].
+If you want commit-access, just create an account on Rubyforge and [drop me a mail][drop].
 
 [drop]: http://www.dis.uniroma1.it/~acensi/contact.html
 [gem]: http://rubygems.rubyforge.org/
@@ -135,7 +135,7 @@ Examples of PHP Markdown Extra syntax {#extra}
 
 * footnotes [^foot]
 
-  	*footnotes [^foot]
+  	* footnotes [^foot]
 
   	[^foot]: I really was missing those.
 
@@ -182,7 +182,7 @@ difference is that *parsing* is separated from *rendering*.
 In Maruku, an in-memory representation of the Markdown
 document is created. Instead, Bluecloth mantains the document in
 memory as a String at all times, and does a series of `gsub` 
-to transform to HTML.[^1]
+to transform to HTML.
 
 [^1]: "a different philosophy" stands for "ugly" `:-)`
 
@@ -286,15 +286,13 @@ List of meta-data       {#metalist}
 
 
 **`title`, `subject`**
-: (document) Sets the title of the document use in `title` element.
+: (document) Sets the title of the document (HTML: used in the `TITLE` element).
 
 **`css`**
 : (document, HTML) Url of stylesheet.
 
-**`latex_use_syntax`**
+**`html_use_syntax`**
 : (document, HTML) Use the [`syntax` library][syntax] to add source highlighting.
-
-[syntax]: http://syntax.rubyforge.org/
 
 **`latex_use_listings`**
 : (document, LaTex) Use fancy `listing` package for better displaying code blocks.
@@ -321,12 +319,11 @@ List of meta-data       {#metalist}
 
     * for **LaTeX output**, if it is a named color, it must be a color accepted
       by the latex `color` packages. If it is of the form `#ff00ff`, Maruku
-      defines a color using the `\definecolor` macro. 
+      defines a color using the `\color[rgb]{r,g,b}` macro. 
 
-      For example, for `#0000ff`, the macro is called as:
+      For example, for `#0000ff`, the macro is called as: `\color[rgb]{0,0,1}`.
 
-      @ lang: tex
-      	\definecolor{DummyName}{rgb}{0,0,1} 
+[syntax]: http://syntax.rubyforge.org/
 
 
 ### Examples ###

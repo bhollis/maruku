@@ -1,6 +1,6 @@
 
-out=index.html maruku.pdf maruku.html  markdown_syntax.pdf
-others=maruku.md style.css
+out=index.html maruku.pdf maruku.html markdown_syntax.pdf markdown_syntax.html 
+others=maruku.md style.css markdown_syntax.md
 
 all: $(out)
 
