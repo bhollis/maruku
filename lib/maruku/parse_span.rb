@@ -136,6 +136,66 @@ class Maruku
 			\] # closing bracket
 			}x
 			
+		
+		# validates a url, only $1 is set to the url
+ 		reg_url = 
+			/((?:\w+):\/\/(?:\w+:{0,1}\w*@)?(?:\S+)(?::[0-9]+)?(?:\/|\/([\w#!:.?+=&%@!\-\/]))?)/
+		reg_url = %r{([^\s\]\)]+)}
+		
+		# A string enclosed in quotes.
+		reg_title = %r{
+			" # opening
+			[^"]*   # anything = 1
+			" # closing
+			}x
+		
+		# (http://www.google.com "Google.com"), (http://www.google.com),
+		reg_url_and_title = %r{
+			\(  # opening
+			\s* # whitespace 
+			#{reg_url}  # url = 1 
+			(?:\s+["'](.*)["'])? # optional title  = 2
+			\s* # whitespace 
+			\) # closing
+		}x
+		
+		# Detect a link like ![Alt text][id]
+		span.map_match(/\[([^\]]+)\]\s?\[([^\]]*)\]/) { |match|
+			text = match[1]
+			id = match[2].strip.downcase
+			
+			if id.size == 0
+				id = text.strip.downcase
+			end
+
+			children = parse_lines_as_span(text)
+			e = create_md_element(:link, children)
+			e.meta[:ref_id] = id
+			e
+		}
+		
+		# Detect any immage with immediate url: ![Alt](url "title")
+		# a dummy ref is created and put in the symbol table
+		link1 = /!\[([^\]]+)\]\s?\(([^\s\)]*)(?:\s+["'](.*)["'])?\)/
+		span.map_match(link1) { |match|
+			text = match[1]
+			children = parse_lines_as_span(text)
+			
+			url = match[2]
+			title = match[3]
+			
+			url = url.strip
+			# create a dummy id
+			id="dummy_#{@refs.size}"
+			@refs[id] = {:url=>url, :title=>title}
+			@refs[id][:title] = title if title
+			
+			e = create_md_element(:link, children)
+			e.meta[:ref_id] = id
+			e
+		}
+		
+
 		# Detect any link like [Google engine][google]
 		span.match_couple_of('[',  # opening bracket
 			%r{\]                   # closing bracket
@@ -154,35 +214,9 @@ class Maruku
 			e.meta[:ref_id] = id
 			e
 		}
-		
-		# validates a url, only $1 is set to the url
- 		reg_url = 
-			/((?:\w+):\/\/(?:\w+:{0,1}\w*@)?(?:\S+)(?::[0-9]+)?(?:\/|\/([\w#!:.?+=&%@!\-\/]))?)/
-		reg_url = %r{([^\s\]\)]+)}
-
-#		short_url = /(#?[\w]+)/
-#		reg_url = Regexp::union(long_url, short_url)
-		
-		# A string enclosed in quotes.
-		reg_title = %r{
-			" # opening
-			[^"]*   # anything = 1
-			" # closing
-			}x
-		
-		# (http://www.google.com "Google.com"), (http://www.google.com),
-		reg_url_and_title = %r{
-			\(  # opening
-			\s* # whitespace 
-			#{reg_url}  # url = 1 
-			(?:\s+["'](.*)["'])? # optional title  = 2
-			\s* # whitespace 
-			\) # closing
-		}x
 
 		# Detect any link with immediate url: [Google](http://www.google.com)
 		# a dummy ref is created and put in the symbol table
-
 		span.match_couple_of('[',  # opening bracket
 				%r{\]                   # closing bracket
 				[ ]?                    # optional whitespace

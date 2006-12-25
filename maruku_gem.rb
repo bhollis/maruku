@@ -1,12 +1,13 @@
 $spec = Gem::Specification.new do |s|
   s.name = 'maruku'
-  s.version = '0.2.1'
+  s.version = '0.2.2'
   s.summary = "A Markdown interpreter in Ruby"
   s.description = %{Maruku is a Markdown interpreter in Ruby.
 	It features native export to HTML and PDF (via Latex). The
 	output is really beautiful!
 	}
-  s.files = Dir['lib/**/*.rb'] + Dir['lib/*.rb'] + Dir['docs/*'] + Dir['tests/*.md'] +   
+  s.files = Dir['lib/**/*.rb'] + Dir['lib/*.rb'] + 
+		Dir['**/*.md'] +
           Dir['bin/*'] 
 
   s.bindir = 'bin'

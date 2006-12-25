@@ -82,7 +82,7 @@ class Maruku
 		while cur_line
 			
 #  Prints detected type
-			puts "#{cur_line_node_type}|#{cur_line}"
+#			puts "#{cur_line_node_type}|#{cur_line}"
 			case cur_line_node_type
 				when :empty; 
 					shift_line; 
