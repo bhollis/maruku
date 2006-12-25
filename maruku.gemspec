@@ -15,13 +15,14 @@ spec = Gem::Specification.new do |s|
   s.require_path = 'lib'
   s.autorequire = 'maruku'
 
-#  s.has_rdoc = true
-#  s.extra_rdoc_files = Dir['[A-Z]*']
-#  s.rdoc_options << '--title' <<  'Builder -- Easy XML Building'
-
   s.add_dependency('syntax', '>= 1.0.0')
 
   s.author = "Andrea Censi"
   s.email = "andrea@rubyforge.org"
   s.homepage = "http://maruku.rubyforge.org"
 end
+
+#  s.has_rdoc = true
+#  s.extra_rdoc_files = Dir['[A-Z]*']
+#  s.rdoc_options << '--title' <<  'Builder -- Easy XML Building'
+
