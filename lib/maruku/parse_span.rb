@@ -143,9 +143,6 @@ class Maruku
 			#{reg_id_ref} # ref id, with $1 being the reference 
 			}x
 				) { |children, match1, match2| 
-					
-#			puts "children = #{children.inspect}"
-
 			id = match2[1]
 			id = id.strip.downcase
 			
@@ -161,6 +158,10 @@ class Maruku
 		# validates a url, only $1 is set to the url
  		reg_url = 
 			/((?:\w+):\/\/(?:\w+:{0,1}\w*@)?(?:\S+)(?::[0-9]+)?(?:\/|\/([\w#!:.?+=&%@!\-\/]))?)/
+		reg_url = %r{([^\s\]\)]+)}
+
+#		short_url = /(#?[\w]+)/
+#		reg_url = Regexp::union(long_url, short_url)
 		
 		# A string enclosed in quotes.
 		reg_title = %r{
@@ -188,20 +189,14 @@ class Maruku
 				#{reg_url_and_title}    # ref id, with $1 being the url and $2 being the title
 				}x
 					) { |children, match1, match2| 
-		
-			puts "match2 = #{match2.to_s}"
-			puts "         #{match2.inspect}"
 			
 			url   = match2[1]
-			title = match2[3] # XXX? 
+			title = match2[3] # XXX? Is it a bug? I would use [2]
+			 
 			# create a dummy id
 			id="dummy_#{@refs.size}"
 			@refs[id] = {:url=>url}
 			@refs[id][:title] = title if title
-			
-
-			puts "url = #{url}"
-			puts "title = #{title}"
 
 			e = create_md_element(:link, children)
 			e.meta[:ref_id] = id

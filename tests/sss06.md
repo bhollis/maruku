@@ -339,14 +339,14 @@ And here's the research version:
 References
 ----------
 
-[1]  [http://www.spellingsociety.org/news/media/poems.php](http://www.spellingsociety.org/news/media/poems.php)  
-[2]  [http://www.flickr.com/photos/censi/236722418/](http://www.flickr.com/photos/censi/236722418/)  
-[3]  [http://www.oxfordstory.co.uk](http://www.oxfordstory.co.uk)  
-[4]  [http://www.botanical.com/botanical/mgmh/p/parsni12.html](http://www.botanical.com/botanical/mgmh/p/parsni12.html  )  
-[5]  E. Meijer, M. Fokkinga, R. Paterson. "Functional Programming with Bananas, Lenses, Envelopes and Barbed Wire" (1991)  
+\[1\]   [http://www.spellingsociety.org/news/media/poems.php](http://www.spellingsociety.org/news/media/poems.php)  
+\[2\] dde [http://www.flickr.com/photos/censi/236722418/](http://www.flickr.com/photos/censi/236722418/)  
+\[3\]  [http://www.oxfordstory.co.uk](http://www.oxfordstory.co.uk)  
+\[4\]   [http://www.botanical.com/botanical/mgmh/p/parsni12.html](http://www.botanical.com/botanical/mgmh/p/parsni12.html  )  
+\[5\]  E. Meijer, M. Fokkinga, R. Paterson. "Functional Programming with Bananas, Lenses, Envelopes and Barbed Wire" (1991)  
  [http://citeseer.ist.psu.edu/meijer91functional.html](http://citeseer.ist.psu.edu/meijer91functional.html)  
-[6]  R. Lammel, J. Visser, J. Kort. "Dealing with large bananas" (2000) <http://citeseer.ist.psu.edu/lammel00dealing.html>  
-[7]  [http://www.informatik.uni-freiburg.de/~burgard/](http://citeseer.ist.psu.edu/lammel00dealing.html)  
-[8]  [http://asl.epfl.ch/~scaramuz/cabaret/cabaret.wmv](http://asl.epfl.ch/~scaramuz/cabaret/cabaret.wmv)  
-[9]  [http://www.anth.uconn.edu/faculty/boster/cultvar/euweb/](http://www.anth.uconn.edu/faculty/boster/cultvar/euweb/)  
-[10]  [http://www.infonegocio.com/xeron/bruno/italy.html](http://www.infonegocio.com/xeron/bruno/italy.html)  
+\[6\]  R. Lammel, J. Visser, J. Kort. "Dealing with large bananas" (2000) <http://citeseer.ist.psu.edu/lammel00dealing.html>  
+\[7\]  [http://www.informatik.uni-freiburg.de/~burgard/](http://citeseer.ist.psu.edu/lammel00dealing.html)  
+\[8\]  [http://asl.epfl.ch/~scaramuz/cabaret/cabaret.wmv](http://asl.epfl.ch/~scaramuz/cabaret/cabaret.wmv)  
+\[9\]  [http://www.anth.uconn.edu/faculty/boster/cultvar/euweb/](http://www.anth.uconn.edu/faculty/boster/cultvar/euweb/)  
+\[10\]  [http://www.infonegocio.com/xeron/bruno/italy.html](http://www.infonegocio.com/xeron/bruno/italy.html)  
