@@ -204,7 +204,7 @@ class Maruku
 		}
 
 		# Detect an email address <andrea@invalid.it>
-		span.map_match( /<([^:]+@[^:]+)>/) { |match| 
+		span.map_match(EMailAddress) { |match| 
 			email = match[1]
 			e = create_md_element(:email_address, [])
 			e.meta[:email] = email

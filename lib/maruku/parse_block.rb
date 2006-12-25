@@ -80,7 +80,9 @@ class Maruku
 		output = []; current_metadata = just_read_metadata = nil
 		# run state machine
 		while cur_line
-#			puts "#{cur_line_node_type}|#{cur_line}"
+			
+#  Prints detected type
+			puts "#{cur_line_node_type}|#{cur_line}"
 			case cur_line_node_type
 				when :empty; 
 					shift_line; 
@@ -233,7 +235,7 @@ class Maruku
 		begin
 			e.meta[:parsed_html] = Document.new(raw_html)
 		rescue 
-			$stderr.puts "Malformed HTML:\n#{raw_html}"
+			$stderr.puts "Malformed block of HTML:\n#{raw_html}"
 		end
 		
 		e.meta[:raw_html] = raw_html

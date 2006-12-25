@@ -145,6 +145,9 @@ class Maruku
 		return :ref if l =~ LinkRegex or l=~ IncompleteLink
 		return :abbreviation if l =~ Abbreviation
 		return :definition if l =~ Definition
+		# I had a bug with emails and urls at the beginning of the 
+		# line that were mistaken for raw_html
+		return :text if l=~EMailAddress or l=~ URL
 		return :raw_html if l =~ %r{^[ ]?[ ]?[ ]?</?\s*\w+}
 		return :ulist    if l =~ /^\s?(\*|-)\s+.*\w+/
 		return :olist    if l =~ /^\s?\d\..*\w+/
@@ -220,6 +223,10 @@ class Maruku
 	Sep = /\s*(\:)?\s*-+\s*(\:)?\s*/
 	# | -------------:| ------------------------------ |
 	TableSeparator = %r{^(\|?#{Sep}\|?)+\s*$}
+	
+	
+	EMailAddress = /<([^:]+@[^:]+)>/
+	URL = /^<http:/
 end
 
 class String

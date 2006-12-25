@@ -6,7 +6,9 @@ html_use_syntax: true
 Mar**u**k**u**: a Markdown interpreter 
 ======================================
 
-Maruku is a Markdown interpreter written in [Ruby][].
+[Maruku][] is a Markdown interpreter written in [Ruby][].
+
+[maruku]: <http://maruku.rubyforge.org/>
 
 Maruku allows you to write in an easy-to-read-and-write syntax, like this:
 
@@ -57,21 +59,28 @@ Contributors are most welcome!
 Download       {#download}
 --------
 
-The development site is <http://maruku.rubyforge.net/>.
+The development site is <http://rubyforge.org/projects/maruku/>.
 
-Download current [gem][] at <http://rubyforge.org/frs/?group_id=2795> or
-try to install with:
+	
+Install with:
 
 	$ gem install maruku
+
+Released files can also be seen at <http://rubyforge.org/frs/?group_id=2795>.
 
 Anonymous access to the repository is possible with:
 
 	$ svn checkout svn://rubyforge.org/var/svn/maruku
 
-If you want commit-access, just create an account on Rubyforge and [drop me a mail][drop].
+If you want commit access to the repository, just create an account on Rubyforge and [drop me a mail][drop].
 
 [drop]: http://www.dis.uniroma1.it/~acensi/contact.html
 [gem]: http://rubygems.rubyforge.org/
+
+### Bugs report ###
+
+Use the [tracker](http://rubyforge.org/tracker/?group_id=2795)
+or [drop me an email][drop].
 
 Usage
 --------
@@ -80,18 +89,13 @@ This is the basic usage:
 
 @ lang: ruby
 
+	require 'rubygems'
 	require 'maruku'
 
 	doc = Maruku.new(markdown_string)
 	puts doc.to_html
 
-or, if you install through RubyGems,
-
-@ lang: ruby
-	require 'rubygems'
-	require 'maruku'
-
-This outputs a complete XHTML 1.0 document:
+The method `to_html` outputs only an HTML fragment, while the method `to_html_document` output a complete XHTML 1.0 document:
 
 @ lang: ruby
 
