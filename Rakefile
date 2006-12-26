@@ -23,9 +23,18 @@ RUBY_FORGE_PACKAGEID = '3292'
 
 desc "Publish the release files to RubyForge."
 task :release => [:gem, :package] do
-  files = ["gem", "tgz", "zip"].map { |ext| "pkg/#{PKG_FILE_NAME}.#{ext}" }
-  system("rubyforge login --username #{RUBY_FORGE_USER}")
-  files.each do |file|
-    system("rubyforge add_release #{RUBY_FORGE_GROUPID} #{RUBY_FORGE_PACKAGEID} \"#{RELEASE_NAME}\" #{file}")
+	system("rubyforge login --username #{RUBY_FORGE_USER}")
+
+	gem = "pkg/#{PKG_FILE_NAME}.gem"
+	system("rubyforge add_release %s %s \"%s\" %s" %
+		[RUBY_FORGE_GROUPID, RUBY_FORGE_PACKAGEID, RELEASE_NAME, gem])
+	
+	files = ["gem", "tgz", "zip"].map { |ext| "pkg/#{PKG_FILE_NAME}.#{ext}" }
+	files.each do |file|
+#		system("rubyforge add_file %s %s %s %s" %
+#		[RUBY_FORGE_GROUPID, RUBY_FORGE_PACKAGEID, RELEASE_NAME, file])
   end
 end
+
+
+

@@ -2,6 +2,7 @@ require 'rexml/document'
 
 
 class String
+	
 	# escapes special characters
 	def to_latex
 		s = self
@@ -10,9 +11,19 @@ class String
 		# better yet, we should use the catcode for {}
 		s = String.convert_entities(s)
 		s = s.gsub(/([\$\&\%\#\_])/) { |m| "\\#{m}" }
-#		s = s.gsub(/([\$\&\%\#\_\{\}])/) { |m| "\\#{m}" }
+
+		OtherGoodies.each do |k, v|
+			s.gsub!(k, v)
+		end
 		s
 	end
+	
+	# other things that are good on the eyes
+	OtherGoodies = {
+		'LaTeX' => '\\LaTeX', # XXX not if already \latex
+		'HTML' => '\\textsc{html}',
+		'PDF' => '\\textsc{pdf}'
+	}
 	
 	def String.convert_entities(s)
 		init_tables

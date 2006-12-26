@@ -16,12 +16,9 @@ class Maruku
 		end
 
 		body = to_latex
-
-		# I found a fix!! :-)
-		# ## xxx only if `...` is used in footnotes
-		# header += "\\usepackage{fancyvrb}\n"
-		# body = "\\VerbatimFootnotes\n"+body
 		
+		body += render_latex_signature
+
 "\\documentclass{article}
 
 #{header}
@@ -34,6 +31,16 @@ class Maruku
 #{body}
 \\end{document}
 "	
+	end
+	
+	
+	def render_latex_signature
+"\\vfill
+\\hrule
+\\vspace{1.2mm}
+\\begin{tiny}
+Created by \\href{http://maruku.rubyforge.org}{Maruku} #{self.nice_date}.
+\\end{tiny}"
 	end
 
 end
@@ -55,32 +62,6 @@ class MDElement
 		self.meta[name] || @doc.meta[name] || default
 	end
 	
-	# Returns the name to use and possibly a declaration to append
-	def define_color_if_necessary(color)
-		if color =~ /^\#(\w\w)(\w\w)(\w\w)$/
-			# init colors hash in document
-			hash = (@doc.meta[:defined_colors] ||= {})
-			if hash[color] then 
-				return hash[color], nil
-			else
-				r = $1.hex; g = $2.hex; b=$3.hex
-				
-				colorname = "maruku_color#{hash.size}"
-				
-				# convert from 0-255 to 0.0-1.0
-				r = r / 255.0 
-				g = g / 255.0 
-				b = b / 255.0 
-				declaration = "\\definecolor{#{colorname}}{rgb}{#{r},#{g},#{b}}\n"
-				hash[color] = colorname
-				
-				return colorname, declaration
-			end
-		else
-			color
-		end
-	end
-
 	# \color[named]{name} 	
 	# \color[rgb]{1,0.2,0.3} 
 	def latex_color(s, command='color')
@@ -137,23 +118,31 @@ class MDElement
 
 	def to_latex_header
 		h = TexHeaders[@meta[:level]] || 'paragraph'
-		s = 
-		# \hyperdef{category}{name}{text} 
-
-		if @meta[:id]
-			id = @meta[:id]
+		
+		title = children_to_latex
+		if number = section_number
+			title = number + title
+		end
+		
+		if id = @meta[:id]
+			# drop '#' at the beginning
 			if id[0,1] == '#' then id = [1,id.size] end
-			%{\\hypertarget{%s}{}\\%s*{{%s}}\n\n} % [ id,h,  children_to_latex]
-				
-#			s + "\\hypertarget{user}{#{id}}{link}"
+			%{\\hypertarget{%s}{}\\%s*{{%s}}\\label{%s}\n\n} % [ id, h, title, id ]
 		else
-			%{\\%s*{%s}\n\n} % [ h, children_to_latex]
+			%{\\%s*{%s}\n\n} % [ h, title]
 		end
 	end
 	
-	def to_latex_quote;        wrap_as_environment('quote')               end
 	
-	def to_latex_ul;        wrap_as_environment('itemize')               end
+	def to_latex_ul;       
+		if @meta[:toc]
+			@doc.toc.to_latex
+		else
+			wrap_as_environment('itemize')
+		end
+	end
+		   
+	def to_latex_quote;        wrap_as_environment('quote')               end
 	def to_latex_ol;        wrap_as_environment('enumerate')               end
 	def to_latex_li;        
 		"\\item #{children_to_latex}\n"  
@@ -203,7 +192,7 @@ class MDElement
 		ref = @doc.refs[id]
 		if not ref
 			$stderr.puts "Could not find id = '#{id}'"
-			return title.to_latex
+			return children_to_latex
 		else
 			url = ref[:url]
 			#title = ref[:title] || 'no title'
@@ -298,8 +287,7 @@ class MDElement
 		
 		s
 	end
-#	def to_latex_definition_term; "" end
-#	def to_latex_definition_data; "" end	
+	
 
 	def to_latex_abbreviation
 		children_to_latex

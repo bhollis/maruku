@@ -82,12 +82,49 @@ class Maruku
 			if @doc.meta[:footnotes_used]
 				body << render_footnotes
 			end
-		
+			
+			# When we are rendering a whole document, we add a signature 
+			# at the bottom. 
+			body << maruku_html_signature
 			
 		root << head
 		root << body
 		
 		doc
+	end
+	
+	# returns "st","nd","rd" or "th" as appropriate
+	def day_suffix(day)
+		case day%10
+			when 1; 'st'
+			when 2; 'nd'
+			when 3; 'rd'
+			else 'th'
+		end
+	end
+
+	# formats a nice date
+	def nice_date
+		t = Time.now
+		t.strftime(" at %H:%M on ")+
+		t.strftime("%A, %B %d")+
+		day_suffix(t.day)+
+		t.strftime(", %Y")
+	end
+	
+	def maruku_html_signature		
+		div = Element.new 'div'
+			div.attributes['class'] = 'maruku_signature'
+			Element.new 'hr', div
+			span = Element.new 'span', div
+				span.attributes['style'] = 'font-size: small; font-style: italic'
+				span << Text.new('Created by ')
+				a = Element.new('a', span)
+					a.attributes['href'] = 'http://maruku.rubyforge.org'
+					a.attributes['title'] = 'Maruku: a Markdown interpreter'
+					a << Text.new('Maruku')
+				span << Text.new(nice_date+".")
+		div
 	end
 	
 	def render_footnotes
@@ -147,14 +184,58 @@ class MDElement
 	end
 
 	def to_html_paragraph; wrap_as_element('p')                end
-	def to_html_ul;        wrap_as_element('ul')               end
+	
+	def to_html_ul
+		if @meta[:toc]
+			# render toc
+			html_toc = @doc.toc.to_html
+			return html_toc
+		else
+			wrap_as_element('ul')               
+		end
+	end
+	
+	
 	def to_html_ol;        wrap_as_element('ol')               end
 	def to_html_li;        wrap_as_element('li')               end
 	def to_html_li_span;   wrap_as_element('li')               end
 	def to_html_quote;     wrap_as_element('blockquote')       end
 	def to_html_strong;    wrap_as_element('strong')           end
 	def to_html_emphasis;  wrap_as_element('em')               end
-	def to_html_header;    wrap_as_element "h#{@meta[:level]}" end
+
+	# nil if not applicable, else string
+	def section_number
+		return nil if not @doc.meta[:use_numbered_headers]
+		
+		if (s = @meta[:section]) and not s.section_number.empty?
+			 s.section_number.join('.')+". "
+		else
+			nil
+		end
+	end
+	
+	# nil if not applicable, else SPAN element
+	def render_section_number
+		# if we are bound to a section, add section number
+		if num = section_number
+			span = Element.new 'span'
+			span.attributes['class'] = 'maruku_section_number'
+			span << Text.new(section_number)
+			span
+		else
+			nil
+		end
+	end
+	
+	def to_html_header
+		element_name = "h#{@meta[:level]}" 
+		h = wrap_as_element element_name
+		
+		if span = render_section_number
+			h.insert_before(h.children.first, span)
+		end
+		h
+	end
 
 	def source2html(source)
 		source = source.gsub(/&/,'&amp;')

@@ -21,6 +21,20 @@ class Maruku
 		
 		self.search_abbreviations
 		self.substitute_markdown_inside_raw_html
+		
+		toc = create_toc
+
+		# use title if not set
+		if not self.meta[:title] and toc.header_element
+			title = toc.header_element.to_s
+			self.meta[:title]  = title
+			puts "Set document title to #{title}"
+		end
+		
+		# save for later use
+		self.toc = toc
+		
+		#puts toc.inspect
 	end
 
 	def search_abbreviations
@@ -91,18 +105,9 @@ class Maruku
 						(next_line && next_line =~ TableSeparator)
 						output << read_table
 					elsif [:header1,:header2].include? next_line_node_type
-						e = create_md_element(:header)
-						line = shift_line.strip
-						if line =~ HeaderWithId 
-							line = $1.strip
-							e.meta[:id] = $2
-						end
-						e.children = parse_lines_as_span [ line ]
-
-						e.meta[:level] = cur_line_node_type == :header2 ? 2 : 1
-						shift_line
-
-						output << e
+						output << read_header12
+					
+					
 					elsif eventually_comes_a_def_list
 					 	definition = read_definition
 						if output.last && output.last.node_type == :definition_list
@@ -119,16 +124,7 @@ class Maruku
 					shift_line
 					output << create_md_element(:hrule)
 				when :header3
-					e = create_md_element(:header)
-					line = shift_line.strip
-					if line =~ HeaderWithId 
-						line = $1.strip
-						e.meta[:id] = $2
-					end
-					
-					e.meta[:level] = num_leading_hashes(line)
-					e.children =  parse_lines_as_span [strip_hashes(line)] 
-					output << e
+					output << read_header3
 				when :ulist, :olist
 					list_type = cur_line_node_type == :ulist ? :ul : :ol
 					li = read_list_item
@@ -205,6 +201,43 @@ class Maruku
 	def next_line; top.empty? ? nil : top[1] end
 	def next_line_node_type; (top.size >= 2) ? line_node_type(top[1]) : nil end
 	def shift_line; top.shift; end
+		
+	# reads a header (with ----- or ========)
+	def read_header12
+		e = create_md_element(:header)
+		line = shift_line.strip
+		if line =~ HeaderWithId 
+			line = $1.strip
+			e.meta[:id] = $2
+		end
+		e.children = parse_lines_as_span [ line ]
+
+		e.meta[:level] = cur_line_node_type == :header2 ? 2 : 1
+		shift_line
+
+		# generate an id if one is not provided
+		e.meta[:id] = e.generate_id if not e.meta[:id]
+
+		e
+	end
+
+	# reads a header like '#### header ####'
+	def read_header3
+		e = create_md_element(:header)
+		line = shift_line.strip
+		if line =~ HeaderWithId 
+			line = $1.strip
+			e.meta[:id] = $2
+		end
+		
+		e.meta[:level] = num_leading_hashes(line)
+		e.children =  parse_lines_as_span [strip_hashes(line)] 
+		
+		# generate an id if one is not provided
+		e.meta[:id] = e.generate_id if not e.meta[:id]
+
+		e
+	end
 	
 	
 	def read_raw_html
@@ -413,18 +446,21 @@ class Maruku
 	end
 	
 	# parse one metadata line
+	# TODO: read quote-delimited values
 	def parse_metadata(l)
 		hash = {}
 		# remove leading '@'
 		l = l[1, l.size].strip
 		l.split(';').each do |kv|
 			k, v = kv.split(':')
-			v ||= 'true'
-			k = k.strip.to_sym
-			hash[k] = v.strip
+			k, v = normalize_key_and_value(k, v)
+			
+			hash[k.to_sym] = v
 		end
 		hash 
 	end
+	
+
 	
 	def read_ref
 		line = shift_line

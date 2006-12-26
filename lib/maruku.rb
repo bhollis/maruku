@@ -11,6 +11,9 @@ require 'maruku/parse_span'
 # Ugly things kept in a closet
 require 'maruku/string_utils'
 
+# Code for creating a table of contents
+require 'maruku/toc'
+
 
 # Exporting to html
 require 'maruku/to_html'
@@ -18,3 +21,6 @@ require 'maruku/to_html'
 # Exporting to latex
 require 'maruku/to_latex'
 require 'maruku/to_latex_strings'
+
+# Exporting to text: strips all formatting (not complete)
+require 'maruku/to_s'

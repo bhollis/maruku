@@ -21,10 +21,25 @@ class Maruku
 			headers = $1
 			headers.split("\n").each do |l| 
 				k, v = l.split(':')
-				keys[k.strip.downcase.to_sym] = v.strip
+				k, v = normalize_key_and_value(k, v)
+				k = k.to_sym
+#				puts "K = #{k}, V=#{v}"
+				keys[k] = v
 			end
 		end
 		keys
+	end
+	
+	def normalize_key_and_value(k,v)
+		v = v ? v.strip : true # no value defaults to true
+
+		# check synonyms
+		v = true if ['yes','true'].include?(v.to_s.downcase)
+		v = false if ['no','false'].include?(v.to_s.downcase)
+		
+		k = k.strip.downcase.gsub(' ','_')
+		
+		return k, v
 	end
 	
 	# Returns the number of leading spaces, considering that
