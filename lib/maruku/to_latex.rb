@@ -28,6 +28,7 @@ class Maruku
 \\usepackage{hyperref}
 %\\usepackage[x11names]{xcolor}
 \\usepackage[usenames,dvipsnames]{color}
+\\usepackage[margin=1in]{geometry}
 \\hypersetup{colorlinks=true}
 \\begin{document} 
 #{body}
