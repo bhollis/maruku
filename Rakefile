@@ -4,7 +4,6 @@ require 'rake/gempackagetask'
 
 require 'maruku_gem'
 
-
 task :default => [:package]
 
 Rake::GemPackageTask.new($spec) do |pkg|
@@ -13,11 +12,11 @@ Rake::GemPackageTask.new($spec) do |pkg|
 end
 
 PKG_NAME = 'maruku'
-PKG_FILE_NAME = "#{PKG_NAME}-#{PKG_VERSION}"
+PKG_FILE_NAME = "#{PKG_NAME}-#{Maruku::Version}"
 RUBY_FORGE_PROJECT = PKG_NAME
 RUBY_FORGE_USER = 'andrea'
 
-RELEASE_NAME  = PKG_VERSION
+RELEASE_NAME  = Maruku::Version
 RUBY_FORGE_GROUPID = '2795'
 RUBY_FORGE_PACKAGEID = '3292'
 

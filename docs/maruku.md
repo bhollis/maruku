@@ -283,6 +283,29 @@ These can also be separated by newlines:
 
 	Paragraph 1 is a warning
 
+
+### Shortcuts ###
+
+This:
+
+	@ .xyz
+	Paragraph
+
+is equivalent to:
+
+	@ class: xyz
+	Paragraph
+
+This:
+
+	@ #xyz
+	Paragraph
+
+is equivalent to:
+
+	@ id: xyz
+	Paragraph
+
 Also, if the value is not present, it defaults to `true`:
 
 	@ test
@@ -293,8 +316,9 @@ Also, if the value is not present, it defaults to `true`:
 
 
 
+@ #metalist
 
-### List of meta-data  ### {#metalist} 
+### List of meta-data  ### 
 
 [listings]: http://www.ctan.org/tex-archive/macros/latex/contrib/listings/
 

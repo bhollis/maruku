@@ -10,7 +10,7 @@ class Maruku
 		a
 	end
 	
-	## This parses email headers. Returns an hash. hash['data'] is the message
+	# This parses email headers. Returns an hash. hash['data'] is the message.
 	def parse_email_headers(s)
 		keys={}
 		match = (s =~ /((\w+: .*\n)+)\n/)
@@ -30,16 +30,26 @@ class Maruku
 		keys
 	end
 	
+	# `.xyz` => class: xyz
+	# `#xyz` => id: xyz
 	def normalize_key_and_value(k,v)
 		v = v ? v.strip : true # no value defaults to true
-
-		# check synonyms
-		v = true if ['yes','true'].include?(v.to_s.downcase)
-		v = false if ['no','false'].include?(v.to_s.downcase)
+		k = k.strip
 		
-		k = k.strip.downcase.gsub(' ','_')
+		# `.xyz` => class: xyz
+		if k =~ /^\.([\w\d]+)/
+			return :class, $1
+		# `#xyz` => id: xyz
+		elsif k =~ /^\#([\w\d]+)/
+			return :id, $1
+		else
+			# check synonyms
+			v = true if ['yes','true'].include?(v.to_s.downcase)
+			v = false if ['no','false'].include?(v.to_s.downcase)
 		
-		return k, v
+			k = k.downcase.gsub(' ','_')
+			return k, v
+		end
 	end
 	
 	# Returns the number of leading spaces, considering that

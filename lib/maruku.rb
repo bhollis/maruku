@@ -14,6 +14,9 @@ require 'maruku/string_utils'
 # Code for creating a table of contents
 require 'maruku/toc'
 
+# Version and URL
+require 'maruku/version'
+
 
 # Exporting to html
 require 'maruku/to_html'
