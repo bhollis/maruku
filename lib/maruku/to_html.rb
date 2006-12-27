@@ -253,37 +253,28 @@ class MDElement
 		
 		element = 
 		if use_syntax && lang
-			convertor = Syntax::Convertors::HTML.for_syntax lang
-			html = convertor.convert( source )
+			begin
+				convertor = Syntax::Convertors::HTML.for_syntax lang
+				html = convertor.convert( source )
 			
-			show_spaces = get_setting(:code_show_spaces) 
-			if show_spaces
-				s.gsub!(/\t/,'&raquo;'+'&nbsp;'*3)
-				s.gsub!(/ /,'&not;')
+				show_spaces = get_setting(:code_show_spaces) 
+				if show_spaces
+					s.gsub!(/\t/,'&raquo;'+'&nbsp;'*3)
+					s.gsub!(/ /,'&not;')
+				end
+			
+				pre = Document.new(html, {:respect_whitespace =>:all}).root
+				pre.attributes['class'] = lang
+				pre
+			rescue Object => e
+				$stderr.puts "Error while using the syntax library for code:\n#{source.inspect}"
+				$stderr.puts "Lang is #{lang} object is: "
+				$stderr.puts @meta.inspect
+				$stderr.puts "Exception: #{e.class}: #{e.message}\n\t#{e.backtrace.join("\n\t")}"
+				to_html_code_using_pre(source)
 			end
-			
-#			puts "html: #{html}"
-			pre = Document.new(html, {:respect_whitespace =>:all}).root
-			pre.attributes['class'] = lang
-#			puts "After: #{pre}"
-			pre
 		else
-			pre = Element.new 'pre'
-			s = source
-			
-			s  = s.gsub(/&/,'&amp;')
-			s = Text.normalize(s)
-
-			show_spaces = get_setting(:code_show_spaces) 
-			if show_spaces
-				s.gsub!(/\t/,'&raquo;'+'&nbsp;'*3)
-				s.gsub!(/ /,'&not;')
-			end
-
-			text = Text.new(s, true, nil, false )
-			
-			pre << text
-			pre
+			to_html_code_using_pre(source)
 		end
 		
 		color = get_setting(:code_background_color,DEFAULT_CODE_COLOR)
@@ -291,6 +282,25 @@ class MDElement
 			element.attributes['style'] = "background-color: #{color};"
 		end
 		element
+	end
+	
+	def to_html_code_using_pre(source)
+		pre = Element.new 'pre'
+		s = source
+		
+		s  = s.gsub(/&/,'&amp;')
+		s = Text.normalize(s)
+
+		show_spaces = get_setting(:code_show_spaces) 
+		if show_spaces
+			s.gsub!(/\t/,'&raquo;'+'&nbsp;'*3)
+			s.gsub!(/ /,'&not;')
+		end
+
+		text = Text.new(s, true, nil, false )
+		
+		pre << text
+		pre
 	end
 
 	def to_html_inline_code; 

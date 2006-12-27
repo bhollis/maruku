@@ -421,14 +421,19 @@ class Maruku
 			lines << strip_indent(shift_line, 4)
 		end
 		
-		while lines.last && (line_node_type(lines.last) == :empty )
+		#while lines.last && (line_node_type(lines.last) == :empty )
+		while lines.last && lines.last.strip.size == 0
 			lines.pop 
 		end
 		
 		return nil if lines.empty?
+
+		source = lines.join("\n")
+		# ignore trailing lines 
+		source = source.gsub(/\n*$/,'')
 		
 #		dbg_describe_ary(lines, 'CODE')
-		e.meta[:raw_code] = lines.join("\n")
+		e.meta[:raw_code] = source
 		e
 	end
 

@@ -484,7 +484,7 @@ So the idea is:
   1. Opening brace `{`.
   2. Any string that does not contain the sequence `}@`.
   3. Closing brace and at-symbol `}@`.
-  4 Attributes specification like the block-level metadata.
+  4. Attributes specification like the block-level metadata.
 
 Other examples:
 
