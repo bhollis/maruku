@@ -23,6 +23,7 @@ class Maruku
 
 #{header}
 \\usepackage{hyperref}
+\\usepackage{xspace}
 %\\usepackage[x11names]{xcolor}
 \\usepackage[usenames,dvipsnames]{color}
 \\usepackage[margin=1in]{geometry}

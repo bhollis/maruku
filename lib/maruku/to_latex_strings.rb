@@ -20,9 +20,9 @@ class String
 	
 	# other things that are good on the eyes
 	OtherGoodies = {
-		'LaTeX' => '\\LaTeX', # XXX not if already \latex
-		'HTML' => '\\textsc{html}',
-		'PDF' => '\\textsc{pdf}'
+		/(\s)LaTeX/ => '\1\\LaTeX\\xspace', # XXX not if already \latex
+		'HTML' => '\\textsc{html}\\xspace',
+		'PDF' => '\\textsc{pdf}\\xspace'
 	}
 	
 	def String.convert_entities(s)
