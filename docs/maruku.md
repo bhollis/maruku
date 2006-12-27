@@ -116,7 +116,7 @@ There are two command-line programs installed: `maruku` and `marutex`.
 
   	$ maruku file.md  # creates file.html
 
-* `marutex` converts Markdown to TeX, then calls `pdfLaTeX` to 
+* `marutex` converts Markdown to LaTeX, then calls `pdflatex` to 
 transform to PDF:
 
   	$ marutex file.md  # creates file.tex and file.pdf
@@ -235,6 +235,7 @@ When creating the document through
 
 the title and stylesheet are added as expected.
 
+Meta-data keys are assumed to be case-insensitive.
 
 ### Meta-data for elements ###
 
@@ -288,15 +289,14 @@ Also, if the value is not present, it defaults to `true`:
 
 	This paragraph has the attribute `test` set to `true`.
 
-
-
-
 * * *
 
 
 
 
 ### List of meta-data  ### {#metalist} 
+
+[listings]: http://www.ctan.org/tex-archive/macros/latex/contrib/listings/
 
 **`title`, `subject`**
 : (document) Sets the title of the document (HTML: used in the `TITLE` element).
@@ -308,10 +308,10 @@ Also, if the value is not present, it defaults to `true`:
 : (document, HTML) Url of stylesheet.
 
 **`html_use_syntax`**
-: (document, HTML) If set, use the [`syntax` library][syntax] to add source highlighting.
+: (document, HTML) If set, use the [Ruby `syntax` library][syntax] to add source highlighting.
 
 **`latex_use_listings`**
-: (document, LaTeX) If set, use fancy `listing` package for better displaying code blocks.
+: (document, LaTeX) If set, use the fancy [`listings` package][listings] for better displaying code blocks.
      
      If not set,  use standard `verbatim` environment.
 
@@ -319,9 +319,13 @@ Also, if the value is not present, it defaults to `true`:
 : (any block object, HTML) Standard CSS attributes are copied.
 
 **`lang`**
-: (code blocks) Name of programming language (`ruby`) for syntax highlighting (does not work yet)
+: (code blocks) Name of programming language (`ruby`) for syntax highlighting.
 
       Default for this is `code_lang` in document.
+      
+      Syntax highlighting is delegated to the [`syntax` library][syntax] for
+      HTML output and to the [`listings` package][listings] for LaTeX output.
+
 
 **`code_show_spaces`**
 : Shows tabs and newlines (default is read in the document object).
@@ -415,7 +419,13 @@ TODO list
 
 
 * Export to HTML
-  * Include RubyPants
+  1. Add `-split` options to `maruku` that splits the document over multiple 
+     pages. 
+
+     This should require the possibility of specifying a template for navigational
+     elements. Investigate template engine.
+
+  2. Include RubyPants
 
 * Export to PDF 
   * support for images
@@ -434,23 +444,91 @@ I would love to have an equivalent in Ruby.
 [Pandoc]: http://sophos.berkeley.edu/macfarlane/pandoc/
 [MultiMarkdown]: http://fletcher.freeshell.org/wiki/MultiMarkdown
 
-### Syntax improvements ###                     {#future-syntax}
 
-Things I'm thinking about:
+### A syntax for specifying meta-data for span-level elements ###
 
-* a syntax for commenting parts of the document:
+Maybe something like this:
+  
+	This is a paragraph. The second line of this paragraph has
+	the last element {with meta data}@ class: important_span
+	and the paragraph continues...
 
-      This is a paragraph
-      % This is a comment
+So the idea is:
 
-* choose a syntax for adding math:
+* Only elements at the end of the line can have meta data.
+* Syntax is:
+  1. Opening brace `{`.
+  2. Any string that does not contain the sequence `}@`.
+  3. Closing brace and at-symbol `}@`.
+  4 Attributes specification like the block-level metadata.
 
-      This is inline math: $\alpha$
+Other examples:
 
-      This is an equation with label:
+	Lorem ipsum dolor sit amet, consectetuer adipiscing 
+	elit. Donec sit amet sapien vitae augue {interdum hendrerit.}@  id: special
+	Maecenas tempor ultrices nisl. Praesent laoreet tortor sit
+	amet est. Praesent in nisl eu libero sodales bibendum.
 
-      $ \alpha = \beta + \gamma  $        (eq:1)
+Or, we could allow metadata specified **after the text**.
+In the following, three fragments are marked as "special", 
+and, after their containing block-level elements, their 
+attributes are set:
 
-      This is a reference to equation: please see (eq:1)
+	Lorem ipsum dolor sit @{amet}, consectetuer adipiscing 
+	elit. Donec sit amet sapien vitae augue @{interdum hendrerit.}
+	Maecenas tempor ultrices nisl. @{Praesent laoreet tortor sit
+	amet est.} Praesent in nisl eu libero sodales bibendum.
+
+	@{1} id: amet
+	@{2} style: "font-style: bold"
+	@{3} class: warning
+
+We can be much liberal in the syntax. For example, instead of 
+numeric references to the part in the text, we could write:
+
+	Lorem ipsum dolor sit @{amet}, consectetuer adipiscing 
+	elit. Donec sit amet sapien vitae augue @{interdum hendrerit.}
+	Maecenas tempor ultrices nisl. @{Praesent laoreet tortor sit
+	amet est.} Praesent in nisl eu libero sodales bibendum.
+
+	@{amet} id: amet
+	@{interdum ...} style: "font-style: bold"
+	@{Praesent ...} class: warning
+
+with `...` acting as a wildcard, to match a long phrase (`{	Praesent laoreet tortor sit amet est.}`) without specifying the full text.
+
+I feel this is very readable and not intrusive. But then again,
+subjective tastes vary. Let me know of any comments and suggestions.
+I want to wait for feedback before implementing this.
+
+### A syntax for commenting parts of the document ###
+
+	This is a paragraph
+	% This is a comment
+
+Or `%` on a line by itself comments the following block:
+
+	% The following paragraph is ignored
+	
+	%
+	Lorem ipsum dolor sit amet, consectetuer adipiscing 
+	elit. Donec sit amet sapien vitae augue interdum hendrerit.
+	Maecenas tempor ultrices nisl. Praesent laoreet tortor sit
+	amet est. Praesent in nisl eu libero sodales bibendum.
+
+	This paragraph is not ignored.
+
+### A syntax for adding math ###
+
+Something inspired from LaTeX should be familiar to all:
+
+	This is inline math: $\alpha$
+
+
+	This is an equation with label:
+
+	$ \alpha = \beta + \gamma  $        (eq:1)
+
+	This is a reference to equation: please see (eq:1)
 
 

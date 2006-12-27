@@ -1,4 +1,4 @@
-PKG_VERSION = '0.2.4'
+PKG_VERSION = '0.2.6'
 
 $spec = Gem::Specification.new do |s|
   s.name = 'maruku'
