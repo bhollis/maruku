@@ -47,14 +47,16 @@ class Maruku
 		# search for ``code`` markers
 		span.match_couple_of('``') { |children, match1, match2| 
 			e = create_md_element(:inline_code)
-			e.meta[:raw_code] = children.join('') # this is now opaque to processing
+			# this is now opaque to processing
+			e.meta[:raw_code] = children.join('').it_was_a_code_block
 			e
 		}
 
 		# Search for `single tick`  code markers
 		span.match_couple_of('`') { |children, match1, match2|
 			e = create_md_element(:inline_code)
-			e.meta[:raw_code] = children.join('').unescape_md_special 
+			# this is now opaque to processing
+			e.meta[:raw_code] = children.join('').it_was_a_code_block
 			# this is now opaque to processing
 			e
 		}
@@ -167,11 +169,13 @@ class Maruku
 			" # closing
 			}x
 		
-		# (http://www.google.com "Google.com"), (http://www.google.com),
+		# [bah](http://www.google.com "Google.com"), 
+		# [bah](http://www.google.com),
+		# [empty]()
 		reg_url_and_title = %r{
 			\(  # opening
 			\s* # whitespace 
-			#{reg_url}  # url = 1 
+			#{reg_url}?  # url = 1 might be  empty
 			(?:\s+["'](.*)["'])? # optional title  = 2
 			\s* # whitespace 
 			\) # closing
@@ -234,6 +238,7 @@ class Maruku
 		}
 
 		# Detect any link with immediate url: [Google](http://www.google.com)
+		# XXX Note that the url can be empty: [Empty]()
 		# a dummy ref is created and put in the symbol table
 		span.match_couple_of('[',  # opening bracket
 				%r{\]                   # closing bracket
@@ -265,6 +270,13 @@ class Maruku
 
 
 		# And now the easy stuff
+
+		# search for ***strong and em***
+		span.match_couple_of('***') { |children,m1,m2|  
+			create_md_element(:strong, [create_md_element(:emphasis, children)] ) }
+
+		span.match_couple_of('___') { |children,m1,m2|  
+			create_md_element(:strong, [create_md_element(:emphasis, children)] ) }
 	
 		# search for **strong**
 		span.match_couple_of('**') { |children,m1,m2|  create_md_element(:strong,   children) }

@@ -193,7 +193,7 @@ class Maruku
 		# line that were mistaken for raw_html
 		return :text if l=~EMailAddress or l=~ URL
 		return :raw_html if l =~ %r{^[ ]?[ ]?[ ]?</?\s*\w+}
-		return :ulist    if l =~ /^\s?(\*|-)\s+.*\w+/
+		return :ulist    if l =~ /^\s?([\*-\+])\s+.*\w+/
 		return :olist    if l =~ /^\s?\d\..*\w+/
 		return :empty    if l.strip.size == 0
 		return :header1  if l =~ /^(=)+/ 
@@ -274,16 +274,16 @@ class Maruku
 end
 
 class String
-	S = 240
+	S = 230
 	MarkdownEscaped = 
-		[["\\",S+0],
+		[["\\",S+0], 
 		 ['`',S+1],
 		 ['*',S+2],
 		['_',S+3],['{',S+4],['}',S+5],['[',S+6],[']',S+7],
 		['(',S+8],[')',S+9],['#',S+10],['.',S+11],
 		['!',S+12],
 		# PHP Markdown extra
-		['|',S+13],[':',S+14]]
+		['|',S+13],[':',S+14], ["+",S+15], ["-",S+16], [">",S+17]]
 
 	MarkdownAdd = 200
 	
@@ -313,6 +313,23 @@ class String
 			end
 		end
 		self
+	end
+
+	def it_was_a_code_block
+		s = ""; tmp =" "
+		each_byte do |b|
+			tmp[0] = b
+			found = false
+			for e in MarkdownEscaped
+				if b == e[1]
+					s << '\\'
+					s << e[0]
+					found = true
+				end
+			end
+			s << tmp if not found
+		end
+		s
 	end
 	
 	def unescape_md_special; dup.unescape_md_special! end
