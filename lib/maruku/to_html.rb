@@ -1,3 +1,22 @@
+#   Copyright (C) 2006  Andrea Censi  <andrea (at) rubyforge.org>
+#
+# This file is part of Maruku.
+# 
+#   Maruku is free software; you can redistribute it and/or modify
+#   it under the terms of the GNU General Public License as published by
+#   the Free Software Foundation; either version 2 of the License, or
+#   (at your option) any later version.
+# 
+#   Maruku is distributed in the hope that it will be useful,
+#   but WITHOUT ANY WARRANTY; without even the implied warranty of
+#   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#   GNU General Public License for more details.
+# 
+#   You should have received a copy of the GNU General Public License
+#   along with Maruku; if not, write to the Free Software
+#   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+
+
 require 'rexml/document'
 
 require 'rubygems'
@@ -388,17 +407,26 @@ class MDElement
 	end
 
 	def to_html_raw_html
-		if @meta[:parsed_html]
-			return @meta[:parsed_html].root
+		if rexml_doc = @meta[:parsed_html]
+			root =  rexml_doc.root
+			if root.nil?
+				s = "Bug in REXML: root() of Document is nil: \n#{rexml_doc.inspect}"
+				$stderr.puts s
+				div = Element.new 'div'
+				div << Text.new(s)
+				return div
+			end
+			
+			return root
 		else # invalid
 			raw_html = @meta[:raw_html]
 			# Creates red box with offending HTML
 			$stderr.puts "Malformed HTML: #{raw_html}"
-			div = Element.new('pre')
-			div.attributes['style'] = 'border: solid 3px red; background-color: pink'
-			div.attributes['class'] = 'markdown-html-error'
-			div << Text.new("HTML parse error: \n#{raw_html}", true)
-			return div
+			pre = Element.new('pre')
+			pre.attributes['style'] = 'border: solid 3px red; background-color: pink'
+			pre.attributes['class'] = 'markdown-html-error'
+			pre << Text.new("HTML parse error: \n#{raw_html}", true)
+			return pre
 		end
 	end
 
@@ -504,7 +532,8 @@ class MDElement
 			h =  c.send(method)
 			
 			if h.nil?
-				raise "Nil html for #{c.inspect} created with method #{method}"
+				raise "Nil html created by method  #{method}:\n#{h.inspect}\n"+
+				" for object #{c.inspect[0,300]}"
 			end
 			
 			if h.kind_of?Array
