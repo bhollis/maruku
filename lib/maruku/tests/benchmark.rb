@@ -9,9 +9,6 @@ stats =
 [[BlueCloth, :to_html],
  [Maruku,:to_html],
  [Maruku, :to_latex],
- [BlueCloth, :to_html],
- [Maruku,:to_html],
- [Maruku, :to_latex],
 ].map do |c, method|
 	puts "Computing for #{c}"
 
