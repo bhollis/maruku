@@ -54,7 +54,11 @@ class Maruku
 		# REXML Bug? if indent!=-1 whitespace is not respected for 'pre' elements
 		# containing code.
 		doc.write(xml,indent=-1,transitive=false,ie_hack=true);
-		xhtml10strict  = "<?xml version='1.0'?>
+		
+		encoding = ( (enc=@meta[:encoding]) ? 
+			"encoding='#{enc}'" : "")
+		
+		xhtml10strict  = "<?xml version='1.0' #{encoding}?>
 <!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Strict//EN'
 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'>\n"
 		xhtml10strict + xml
@@ -407,10 +411,12 @@ class MDElement
 	end
 
 	def to_html_raw_html
+		raw_html = @meta[:raw_html]
 		if rexml_doc = @meta[:parsed_html]
 			root =  rexml_doc.root
 			if root.nil?
-				s = "Bug in REXML: root() of Document is nil: \n#{rexml_doc.inspect}"
+				s = "Bug in REXML: root() of Document is nil: \n#{rexml_doc.inspect}\n"+
+				"Raw HTML:\n#{raw_html.inspect}"
 				$stderr.puts s
 				div = Element.new 'div'
 				div << Text.new(s)
@@ -419,7 +425,6 @@ class MDElement
 			
 			return root
 		else # invalid
-			raw_html = @meta[:raw_html]
 			# Creates red box with offending HTML
 			$stderr.puts "Malformed HTML: #{raw_html}"
 			pre = Element.new('pre')

@@ -81,7 +81,8 @@ class Maruku
 				# warn if we forgot something
 				else
 					node_type = cur_line_node_type
-					$stderr.puts "Ignoring line '#{shift_line}' type = #{node_type}"
+					line = shift_line
+#					$stderr.puts "Ignoring line '#{line}' type = #{node_type}"
 			end
 			
 			if current_metadata and output.last
@@ -155,13 +156,18 @@ class Maruku
 		e
 	end
 
+	# returns an hash
+	def parse_attributes(s)
+		{:id => s[1,s.size]}
+	end
 	# reads a header like '#### header ####'
+	
 	def read_header3
 		e = create_md_element(:header)
 		line = shift_line.strip
-		if line =~ HeaderWithId 
+		if line =~ HeaderWithAttributes
 			line = $1.strip
-			e.meta[:id] = $2
+			e.meta.merge! parse_attributes($2)
 		end
 		
 		e.meta[:level] = num_leading_hashes(line)
@@ -200,6 +206,10 @@ class Maruku
 		e = create_md_element(:raw_html)
 
 		begin
+			# remove newlines and whitespace at begin
+			# end end of string, or else REXML gets confused
+			raw_html = raw_html.gsub(/\A\s*</,'<').
+			                    gsub(/>[\s\n]*\Z/,'>')
 			e.meta[:parsed_html] = Document.new(raw_html)
 		rescue 
 			$stderr.puts "Malformed block of HTML:\n#{raw_html}"

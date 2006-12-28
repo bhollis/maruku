@@ -202,6 +202,7 @@ class Maruku
 		return :hrule    if l =~ /^(\s*-\s*){3,1000}$/ # or hyphens
 		return :quote    if l =~ /^>/
 		return :metadata if l =~ /^@/
+		return :m2ref    if l =~ /^\s{0,3}\{[\w\d\s]+\}:/
 		return :text
 	end
 	
@@ -256,6 +257,8 @@ class Maruku
 	IncompleteLink = %r{^\s*\[(.+)\]:\s*$}
 
 	HeaderWithId = /^(.*)\{\#([\w_-]+)\}\s*$/
+
+	HeaderWithAttributes = /^(.*)\{(.*)\}\s*$/
 
 	TabSize = 4;
 
