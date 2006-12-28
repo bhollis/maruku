@@ -364,7 +364,7 @@ class Maruku
 
 		source = lines.join("\n")
 		# ignore trailing lines 
-		source = source.gsub(/\n*$/,'')
+		source = source.gsub(/\n+\Z/,'')
 		
 #		dbg_describe_ary(lines, 'CODE')
 		e.meta[:raw_code] = source
