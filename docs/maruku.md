@@ -197,7 +197,8 @@ to transform to HTML.
 [^1]: "a different philosophy" stands for "ugly" `:-)`
 
 The in-memory representation makes it very easy to export
-to various formats (altough, for, now)
+to various formats (at the moment HTML and LaTeX/PDF; 
+the next is pretty-printed Markdown).
 
 Other improvements over Bluecloth:
 
@@ -420,23 +421,39 @@ produces:
 
 * * *
 
-Other Features
+@ #features
+Other Features 
 --------------
 
 ### Automatic generation of the table of contents ###
 
-If you create a list, and the set the `toc` attribute, when rendering
+If you create a list, and then set the `toc` attribute, when rendering
 Maruku will create an auto-generated table of contents.
 
 	@ toc
-	* This will become a table of contents
+	* This will become a table of contents (this text will be scraped).
 
 You can see an example of this at the beginning of this document.
 
 ### This header contains *emphasis* **strong text** and `code` ####
 
-Note that this header contains formatting and it still works, also
-in the table of contents.
+Note that this header contains formatting and it still works, also in the table of contents.
+
+And [This is a *link* with **all** ***sort*** of `weird stuff`](#features) in the text.
+
+### Use HTML entities ###
+
+If you want to use HTML entities, go on! We will take care
+of the translation to LaTeX:
+
+Entity      | Result
+------------|----------
+`&copy;`    |  &copy;
+`&pound;`   |  &pound;
+`a&nbsp;b`  |  a&nbsp;b
+`&lambda;`  |  &lambda;
+`&mdash;`   |  &mdash;
+
 
 TODO list
 --------------------------
@@ -473,8 +490,8 @@ I would love to have an equivalent in Ruby.
 
 Maybe something like this:
   
-	This is a paragraph. The second line of this paragraph has
-	the last element {with meta data}@ class: important_span
+	This is a paragraph. Really, a normal paragraph. The second 
+	line of this  paragraph has the last element {with meta data}@   class: important_span
 	and the paragraph continues...
 
 So the idea is:
@@ -485,13 +502,6 @@ So the idea is:
   2. Any string that does not contain the sequence `}@`.
   3. Closing brace and at-symbol `}@`.
   4. Attributes specification like the block-level metadata.
-
-Other examples:
-
-	Lorem ipsum dolor sit amet, consectetuer adipiscing 
-	elit. Donec sit amet sapien vitae augue {interdum hendrerit.}@  id: special
-	Maecenas tempor ultrices nisl. Praesent laoreet tortor sit
-	amet est. Praesent in nisl eu libero sodales bibendum.
 
 Or, we could allow metadata specified **after the text**.
 In the following, three fragments are marked as "special", 

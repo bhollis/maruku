@@ -23,8 +23,8 @@ if File.basename($0) =~ /^marutex/
 		File.open(filename,'w') do |f| f.puts latex end
 
 		# run twice for cross references
-		system "pdflatex '#{job}'"
-		system "pdflatex '#{job}'"
+		system "pdflatex '#{job}'  '-output-directory=#{dir}' "
+		system "pdflatex '#{job}' '-output-directory=#{dir}' "
 		
 #		system "open #{job}.pdf"
 	end

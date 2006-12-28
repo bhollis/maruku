@@ -44,6 +44,7 @@ require 'maruku/to_html'
 # Exporting to latex
 require 'maruku/to_latex'
 require 'maruku/to_latex_strings'
+require 'maruku/to_latex_entities'
 
 # Exporting to text: strips all formatting (not complete)
 require 'maruku/to_s'

@@ -267,6 +267,15 @@ class Maruku
 			e.meta[:email] = email
 			e
 		}
+		
+		# Detect HTML entitis
+		span.map_match(/&([\w\d]+);/) { |match| 
+			entity_name = match[1]
+
+			e = create_md_element(:entity, [])
+			e.meta[:entity_name] = entity_name
+			e
+		}
 
 
 		# And now the easy stuff

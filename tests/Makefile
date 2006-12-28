@@ -1,2 +1,2 @@
 all:
-	./parser.sh
+	./convert_all.sh

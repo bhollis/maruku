@@ -504,7 +504,10 @@ class MDElement
 	def to_html_head_cell; wrap_as_element('th') end
 	def to_html_cell; wrap_as_element('td') end
 	
-
+	def to_html_entity 
+		entity_name = @meta[:entity_name]
+		Text.new('&%s;' % [entity_name])
+	end
 end
 
 # We only want to output the children in Maruku::to_html
