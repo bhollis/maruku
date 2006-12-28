@@ -102,17 +102,12 @@ class Maruku
 		case line_node_type(s)
 		when :ulist
 			i=0;
-			# skip whitespace
+			# skip whitespace if present
 			while s[i,1] =~ /\s/; i+=1 end
-			# skip indicator
+			# skip indicator (+, -, *)
 			i+=1
-			# skip whitespace
+			# skip optional whitespace
 			while s[i,1] =~ /\s/; i+=1 end
-						# 
-			# while i < s.size
-			# 	break if not [' ',"\t",'*','-'].include? s[i,1]
-			# 	i += 1
-			# end
 			return i
 		when :olist
 			i=0;
@@ -125,6 +120,9 @@ class Maruku
 			# skip whitespace
 			while s[i,1] =~ /\s/; i+=1 end
 			return i
+		else
+			$stderr.puts "Error: #{s} is not a list"
+			0
 		end
 	end
 
@@ -193,8 +191,8 @@ class Maruku
 		# line that were mistaken for raw_html
 		return :text if l=~EMailAddress or l=~ URL
 		return :raw_html if l =~ %r{^[ ]?[ ]?[ ]?</?\s*\w+}
-		return :ulist    if l =~ /^\s?([\*-\+])\s+.*\w+/
-		return :olist    if l =~ /^\s?\d\..*\w+/
+		return :ulist    if l =~ /^\s?([\*\-\+])\s+.*\w+/
+		return :olist    if l =~ /^\s?\d+\..*\w+/
 		return :empty    if l.strip.size == 0
 		return :header1  if l =~ /^(=)+/ 
 		return :header2  if l =~ /^([-\s])+$/ 
@@ -298,8 +296,10 @@ class String
 
 		# But if you surround an * or _ with spaces, 
 		# it’ll be treated as a literal asterisk or underscore.
-		gsub!(/\s\*(\s|$)/, [S+2].pack('c'))
-		gsub!(/\s_(\s|$)/,  [S+2].pack('c'))
+		escaped_ast = [S+2].pack('c')
+		gsub!(/(\s)\*(\s|$)/, '\1%s\2' % [escaped_ast] )
+		escaped_under =  [S+3].pack('c')
+		gsub!(/(\s)_(\s|$)/, '\1%s\2' % [escaped_under])
 		
 		self
 	end
@@ -315,6 +315,7 @@ class String
 		self
 	end
 
+	# Resubstitute '\<char>' as this was a code block
 	def it_was_a_code_block
 		s = ""; tmp =" "
 		each_byte do |b|

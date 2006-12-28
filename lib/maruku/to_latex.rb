@@ -90,7 +90,7 @@ class MDElement
 			g = g / 255.0 
 			b = b / 255.0 
 			
-			"\\#{command}[rgb]{#{r},#{g},#{b}}"
+			"\\#{command}[rgb]{%0.2f,%0.2f,%0.2f}" % [r,g,b]
 		else
 			"\\#{command}{#{s}}"
 		end

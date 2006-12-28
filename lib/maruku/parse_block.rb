@@ -17,89 +17,6 @@
 #   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 class Maruku
-	def initialize(s=nil)
-		@node_type = :document
-		@doc       = self
-
-		@refs = {}
-		@footnotes = {}
-		@abbreviations = {}
-		
-		parse_doc(s) if s 
-	end
-		
-	def parse_doc(s)
-		# setup initial stack
-		@stack = []
-		
-		@meta = parse_email_headers(s)
-		lines =  split_lines(@meta[:data])
-		@children = parse_lines_as_markdown(lines)
-		
-		self.search_abbreviations
-		self.substitute_markdown_inside_raw_html
-		
-		toc = create_toc
-
-		# use title if not set
-		if not self.meta[:title] and toc.header_element
-			title = toc.header_element.to_s
-			self.meta[:title]  = title
-			puts "Set document title to #{title}"
-		end
-		
-		# save for later use
-		self.toc = toc
-		
-		#puts toc.inspect
-	end
-
-	def search_abbreviations
-		@abbreviations.each do |abbrev, title|
-#		puts "#{abbrev} => #{title}"
-			self.map_match(Regexp.new(Regexp.escape(abbrev))) {
-				e = create_md_element(:abbreviation)
-				e.children = [abbrev.dup]
-				e.meta[:title] = title.dup if title
-				e
-			}
-		end
-	end
-	
-	# (PHP Markdown extra) Search for elements that have
-	# markdown=1 or markdown=block defined
-	def substitute_markdown_inside_raw_html
-		self.each_element(:raw_html) do |e|
-			doc = e.meta[:parsed_html]
-			if doc # valid html
-				# parse block-level markdown elements in these HTML tags
-				block_tags = ['div']
-				# use xpath to find elements with 'markdown' attribute
-				doc.elements.to_a( "//*[attribute::markdown]" ).each do |e|
-					# should we parse block-level or span-level?
-					parse_blocks = (e.attributes['markdown'] == 'block') || 
-					               block_tags.include?(e.name)
-					# remove 'markdown' attribute
-					e.delete_attribute 'markdown'
-					# Select all text elements of e
-					e.texts.each do |original_text|
-#						puts "parse_blocks = #{parse_blocks} found = #{original_text} "
-						s = original_text.to_s.strip # XXX
-						el = create_md_element(:dummy,
-						 	parse_blocks ? parse_text_as_markdown(s) :
-						                  parse_lines_as_span(s) )
-						el.children_to_html.each do |x|
-							e.insert_before(original_text, x)
-						end
-						e.delete(original_text)
-					end
-					
-				end
-			end
-		end
-	end
-
-
 	# Splits the string and calls parse_lines_as_markdown
 	def parse_text_as_markdown(text)
 		lines =  split_lines(text)
@@ -317,7 +234,7 @@ class Maruku
 			read_indented_content(indentation, break_list, item_type)
 
 		# add first line
-			# Strip first '*' or '-' from first line
+			# Strip first '*', '-', '+' from first line
 			stripped = first[indentation, first.size-1]
 		lines.unshift stripped
 		
@@ -507,6 +424,7 @@ class Maruku
 				stuff.split.each do |couple|
 #					puts "found #{couple}"
 					k, v = couple.split('=')
+					v ||= ""
 					if v[0,1]=='"' then v = v[1, v.size-2] end
 #					puts "key:_#{k}_ value=_#{v}_"
 					hash[k.to_sym] = v
@@ -595,15 +513,15 @@ class Maruku
 
 		want_paragraph = false
 
-		raise "Bug!Bug" if not cur_line
-					
+		raise "Chunky Bacon!" if not cur_line
+
 		# one optional empty
 		if cur_line_node_type == :empty
 			want_my_paragraph = true
 			shift_line
 		end
 		
-		raise "Bug!Bug" if cur_line_node_type != :definition
+		raise "Chunky Bacon!" if cur_line_node_type != :definition
 		
 		# Read one or more definitions
 		definitions = []

@@ -19,10 +19,13 @@
 # Structures definition
 require 'maruku/structures'
 
-# Code for parsing block-level elements
+# Code for parsing whole Markdown documents
+require 'maruku/parse_doc'
+
+# Code for parsing Markdown block-level elements
 require 'maruku/parse_block'
 
-# Code for parsing span-level elements
+# Code for parsing Markdown span-level elements
 require 'maruku/parse_span'
 
 # Ugly things kept in a closet
