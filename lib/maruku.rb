@@ -22,6 +22,9 @@ require 'maruku/structures'
 # Code for parsing whole Markdown documents
 require 'maruku/parse_doc'
 
+# A class for reading and sanitizing inline HTML
+require 'maruku/html_helper'
+
 # Code for parsing Markdown block-level elements
 require 'maruku/parse_block'
 

@@ -417,10 +417,11 @@ class MDElement
 			if root.nil?
 				s = "Bug in REXML: root() of Document is nil: \n#{rexml_doc.inspect}\n"+
 				"Raw HTML:\n#{raw_html.inspect}"
-				$stderr.puts s
+#				$stderr.puts s
 				div = Element.new 'div'
-				div << Text.new(s)
+#				div << Text.new(s)
 				return div
+
 			end
 			
 			return root

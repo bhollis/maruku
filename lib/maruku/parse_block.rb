@@ -70,7 +70,7 @@ class Maruku
 					end
 				when :quote;    output << read_quote
 				when :code;     e = read_code; output << e if e
-				when :raw_html; output << read_raw_html
+				when :raw_html; e = read_raw_html; output << e if e
 
 				# these do not produce output
 				when :footnote_text; read_footnote_text
@@ -178,31 +178,28 @@ class Maruku
 
 		e
 	end
-	
-	
-	def read_raw_html
-		lines = []
-		
-		cur_line =~ %r{^<(\w+)}
-		tag = $1 
-#		puts "Start tag = #{tag} "
-		
-		while cur_line 
-			break if (number_of_leading_spaces(cur_line) == 0) &&
-				(not [:raw_html, :empty].include?  cur_line_node_type)
 
-			lines << shift_line
-			# check for a closing tag
-			if (lines.last =~ %r{^</(\w+)}|| 
-				lines.last =~ %r{</(\w+)>\s*$})  && $1 == tag
-				break
+
+	def read_raw_html
+#		raw_html = ""
+		
+		h = HTMLHelper.new
+		begin 
+			l=shift_line
+			h.eat_this l
+#			puts "\nBLOCK:\nhtml -> #{l.inspect}"
+			while cur_line and not h.is_finished? 
+				l=shift_line
+#				puts "html -> #{l.inspect}"
+				h.eat_this l
 			end
+		rescue Exception => e
+			puts e.inspect
+#			puts h.inspect
 		end
 		
-#		dbg_describe_ary(lines, 'HTML')
-
-		raw_html = lines.join("\n")
-
+		raw_html = h.stuff_you_read
+		
 		e = create_md_element(:raw_html)
 
 		begin
@@ -212,7 +209,8 @@ class Maruku
 			                    gsub(/>[\s\n]*\Z/,'>')
 			e.meta[:parsed_html] = Document.new(raw_html)
 		rescue 
-			$stderr.puts "Malformed block of HTML:\n#{raw_html}"
+			#$stderr.puts "Malformed block of HTML:\n#{raw_html}"
+			#puts h.inspect
 		end
 		
 		e.meta[:raw_html] = raw_html
@@ -369,12 +367,16 @@ class Maruku
 		while lines.last && lines.last.strip.size == 0
 			lines.pop 
 		end
+
+		while lines.first && lines.first.strip.size == 0
+			lines.shift 
+		end
 		
 		return nil if lines.empty?
 
 		source = lines.join("\n")
 		# ignore trailing lines 
-		source = source.gsub(/\n+\Z/,'')
+#		source = source.gsub(/\n+\Z/,'')
 		
 #		dbg_describe_ary(lines, 'CODE')
 		e.meta[:raw_code] = source

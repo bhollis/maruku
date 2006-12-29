@@ -17,7 +17,7 @@
 #   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 class Maruku
-	Version = '0.2.12'
+	Version = '0.2.13'
 	
 	MarukuURL = 'http://maruku.rubyforge.org/'
 end

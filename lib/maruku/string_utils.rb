@@ -191,6 +191,7 @@ class Maruku
 		# line that were mistaken for raw_html
 		return :text if l=~EMailAddress or l=~ URL
 		return :raw_html if l =~ %r{^[ ]?[ ]?[ ]?</?\s*\w+}
+		return :raw_html if l =~ %r{[ ]{0,3}<\!\-\-}
 		return :ulist    if l =~ /^\s?([\*\-\+])\s+.*\w+/
 		return :olist    if l =~ /^\s?\d+\..*\w+/
 		return :empty    if l.strip.size == 0
@@ -200,6 +201,7 @@ class Maruku
 		# at least three asterisks on a line, and only whitespace
 		return :hrule    if l =~ /^(\s*\*\s*){3,1000}$/ 
 		return :hrule    if l =~ /^(\s*-\s*){3,1000}$/ # or hyphens
+		return :hrule    if l =~ /^(\s*_\s*){3,1000}$/ # or underscores	
 		return :quote    if l =~ /^>/
 		return :metadata if l =~ /^@/
 		return :m2ref    if l =~ /^\s{0,3}\{[\w\d\s]+\}:/

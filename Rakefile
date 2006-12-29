@@ -25,8 +25,12 @@ task :release => [:gem, :package] do
 	system("rubyforge login --username #{RUBY_FORGE_USER}")
 
 	gem = "pkg/#{PKG_FILE_NAME}.gem"
-	system("rubyforge add_release %s %s \"%s\" %s" %
-		[RUBY_FORGE_GROUPID, RUBY_FORGE_PACKAGEID, RELEASE_NAME, gem])
+	# -n notes/#{Maruku::Version}.txt
+	cmd = "rubyforge  add_release %s %s \"%s\" %s" %
+		[RUBY_FORGE_GROUPID, RUBY_FORGE_PACKAGEID, RELEASE_NAME, gem]
+	
+	puts cmd
+	system(cmd)
 	
 	files = ["gem", "tgz", "zip"].map { |ext| "pkg/#{PKG_FILE_NAME}.#{ext}" }
 	files.each do |file|

@@ -23,3 +23,5 @@ TD,TH { border: solid 1px #888; padding: 3px; margin: 3px; }
 
 TABLE { border: solid 4px black; padding: 3px;}
 TBODY, THEAD { border: solid 3px #888; padding: 3px;}
+
+IMG { min-width: 40px; min-height: 40px; border: solid 2px yellow;}

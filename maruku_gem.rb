@@ -10,7 +10,7 @@ $spec = Gem::Specification.new do |s|
 	output is really beautiful!
 	}
   s.files = Dir['lib/**/*.rb'] + Dir['lib/*.rb'] + 
-	Dir['docs/**/*.md'] +
+	Dir['docs/*.md'] +	Dir['docs/*.html'] +
 	Dir['tests/**/*.md'] +
           Dir['bin/*'] 
 

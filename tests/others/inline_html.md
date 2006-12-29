@@ -6,8 +6,15 @@ Result: <em>Emphasis</em>
 
 Input:
 	<img src="http://jigsaw.w3.org/css-validator/images/vcss"/>
-Result: <img src="http://jigsaw.w3.org/css-validator/images/vcss"/>
+Result on span: <img src="http://jigsaw.w3.org/css-validator/images/vcss"/>
 
+Result alone: 
+
+<img src="http://jigsaw.w3.org/css-validator/images/vcss"/>
+
+Without closing:
+
+<img src="http://jigsaw.w3.org/css-validator/images/vcss">
 
 <div markdown="1">
 	This is *true* markdown text (paragraph)
