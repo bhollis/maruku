@@ -44,7 +44,7 @@
 #
 #     @doc.meta[:my_property] # => 'value'
 #
-# from whichever MDElement.
+# from whichever MDElement in the hierarchy.
 
 class MDElement 
 	# XXX List not complete
@@ -62,13 +62,22 @@ class MDElement
 	# reference of containing document (document has list of ref)
 	attr_accessor :doc
 	
-	def initialize
+	def initialize(node_type_=:unset, children_=[], meta_={} )
 		super(); 
-		@children = []; 
-		@node_type = :unset
-		@meta = {};
+		@children = children_ 
+		@node_type = node_type_
+		@meta = meta_
 	end
 	
+	def inspect
+		"MDElement.new(:%s,[%s],\n\t%s)" % [@node_type,
+			add_tabs(@children.map{|x| "\n"+x.inspect}.join(",\n"),1),
+			@meta.inspect]
+	end
+	
+	def add_tabs(s,n=1)
+		s.split("\n").map{|x| "\t"*n+x }.join("\n")
+	end
 end
 
 # The Maruku class represent the whole document 

@@ -256,12 +256,7 @@ Now:
     	{key1=This=is"myValue_%&$&d9i key2=true}
 
   * A quoted value is enclosed in double quotes and may contain every char.
-    In a quoted value there are two escaping rules:
-
-    1. The sequence ` \\ ` is replaced by ` \ `
-    2. The sequence `\"` is replaced by `"`
-
-    this makes it possible to include both `"` and `\` in the strings.
+    In a quoted value, double quotes and backslashes can be escaped:
 
     	{key1="\\\" backslash and quote also	a tab"}
 

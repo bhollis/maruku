@@ -1,0 +1,214 @@
+#!/usr/bin/env ruby
+
+require 'maruku'
+
+MARKER = "\n***EOF***\n"
+TOTEST = [:to_html,:to_latex,:to_s,:to_s,:inspect]
+
+def run_test(filename, its_ok)
+	# read file content
+	input =  (f=File.open(filename,'r')).read; f.close
+	
+	# split the input in sections
+	
+	stuff = input.split(MARKER)
+
+	markdown       = stuff[0]
+#	puts "read #{markdown.inspect}"
+	
+	actual = {}
+	for s in TOTEST
+		doc = Maruku.new(markdown)
+		if s==:to_html
+			actual[s] = doc.to_html({:indent=>1})
+		else
+			actual[s] = doc.send s
+		end
+	end
+	
+	begin
+	#	d = eval(actual[:inspect])
+	rescue
+		puts "Cannot eval: #{actual[:inspect].inspect}"
+	end
+
+	expected = {}
+	if (stuff.size < TOTEST.size + 1)
+		$stdout.write " (first time!) "
+		TOTEST.each do |x| expected[x] = actual[x] end
+	else
+		TOTEST.each_index do |i|
+			expected[TOTEST[i]] = stuff[1+i]
+		end
+	end
+
+	failed = []
+	relaxed = []
+	
+	TOTEST.each do |x|
+		if actual[x] != expected[x]
+			if its_ok.include? x
+				expected[x] = actual[x]
+				$stdout.write " relax:#{x} "
+				relaxed << x
+			else
+		#	puts "#{x} differs:\n#{expected[x].inspect}" +
+		#	"\n#{actual[x].inspect}"
+				actual[x] = "-----| WARNING | -----\n" + actual[x]
+				failed << x
+			end
+		end
+	end
+	
+	f = File.open(filename, 'w')
+	f.write markdown
+
+	TOTEST.each do |x|
+		f.write MARKER 
+		f.write expected[x]
+	end
+	f.write MARKER
+	
+	f.puts "\nFailed tests:   #{failed.inspect} \n"+
+	"And the following are the actual outputs for methods:\n"+
+	"   #{TOTEST.inspect}:\n\n"
+	
+	TOTEST.each do |x|
+		f.write MARKER 
+		f.write actual[x]
+	end
+
+	
+	md_pl = markdown_pl(markdown)
+		
+	f.write MARKER 
+	f.write md_pl
+	
+	f.write MARKER 
+	begin 
+		doc = REXML::Document.new("<div>#{md_pl}</div>",{
+			:compress_whitespace=>['div','p'],
+			:ignore_whitespace_nodes=>['div','p'],
+			:respect_whitespace=>['pre','code']
+		})
+		div = doc.root
+		xml =""
+		div.write_children(xml,indent=1,transitive=true,ie_hack=false)
+		f.write xml
+	rescue Exception=>e
+		f.puts "Error: #{e.inspect}"
+	end
+	f.close
+	
+	
+	return failed, relaxed
+end
+
+def markdown_pl(markdown)
+	tmp1 = "/tmp/marutest1"
+	tmp2 = "/tmp/marutest2"
+	File.open(tmp1,'w') do |f| f.puts markdown end
+	system "Markdown.pl < #{tmp1} > #{tmp2}"
+	f = File.open(tmp2,'r')
+	s = f.read
+	f.close
+	s
+end
+
+def passed?(args, arg)
+	if args.include? arg
+		args.delete arg
+		true
+	else
+		false
+	end
+end
+
+def marutest
+	args = ARGV.clone
+
+	dont_worry = []
+	TOTEST.each do |x|
+		arg = "ok:#{x}"
+	#	puts arg
+		if passed?(args, arg)
+			dont_worry << x
+		end
+	end
+	
+	if passed?(args, 'ok')
+		dont_worry = TOTEST.clone
+	end
+	
+	if dont_worry.size > 0
+		puts "Relaxed on #{dont_worry.inspect}"
+	end
+	
+
+	failed = {}
+	relaxed = {}
+	
+	args.each do |f|
+		$stdout.write "#{f}  "
+		tf, tr= run_test(f, dont_worry)
+		
+		if tr.size > 0
+			$stdout.write " relax #{tr.inspect} \n"
+		end
+		
+		if tf.size>0
+			$stdout.write " failed on #{tf.inspect} \n"
+		else
+			$stdout.write " OK \n"
+		end
+		
+		failed[f]  = tf
+		relaxed[f]  = tr	
+	end
+	
+	num_failed = 0
+	failed_cat = {}
+
+	puts "\n\n\n**** FINAL REPORT ****\n\n"
+
+	
+	if failed.size > 0
+		failed.each do |file, fl|
+			num_failed += failed.size
+			if fl.size > 0
+				puts "\t#{file}\tfailed on #{fl.inspect}"
+			end
+			fl.each do |x|
+				failed_cat[x] = failed_cat[x] || 0
+				failed_cat[x] = failed_cat[x]  + 1
+			end
+		end
+	end
+
+	if dont_worry.size > 0
+		puts "Relaxed on #{dont_worry.inspect}"
+	end
+
+	if relaxed.size > 0
+		relaxed.each do |file, r|
+			if r.size > 0
+				puts "\t#{file}\t\trelaxed on #{r.inspect}"
+			end
+		end
+	end
+	
+	if failed_cat.size > 0
+		puts "\nCategories:\n"
+	
+		failed_cat.each do |x, num|
+			puts "\t#{x.inspect} \tfailed #{num}/#{args.size}"
+		end
+	end
+	
+	num_failed
+end
+
+
+marutest
+
+

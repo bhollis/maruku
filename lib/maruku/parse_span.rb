@@ -97,15 +97,8 @@ class Maruku
 		
 		for reg in [inlineHTML1, inlineHTML2]
 			span.map_match(reg) { |match| 
-				raw_html = (match[1] || raise("No html?"))
-				e = create_md_element(:raw_html)
-				e.meta[:raw_html]  = raw_html
-				begin
-					e.meta[:parsed_html] = Document.new(raw_html)
-				rescue 
-					$stderr.puts "Malformed HTML:\n#{raw_html}"
-				end
-				e
+				raw_html = match[1]
+				convert_raw_html_in_list(raw_html)
 			}
 		end
 		
@@ -319,6 +312,19 @@ class Maruku
 		end
 		res << s if s.size > 0
 		res
+	end
+
+	# raw_html is something like 
+	#  <em> A</em> dopwkk *maruk* <em>A</em>  
+	def convert_raw_html_in_list(raw_html)
+		e = create_md_element(:raw_html)
+		e.meta[:raw_html]  = raw_html
+		begin
+			e.meta[:parsed_html] = Document.new(raw_html)
+		rescue 
+			$stderr.puts "Malformed HTML:\n#{raw_html}"
+		end
+		e
 	end
 
 end

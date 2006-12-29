@@ -28,7 +28,10 @@ class Maruku
 	include REXML
 
 	# Render as an HTML fragment (no head, just the content of BODY). (returns a string)
-	def to_html
+	def to_html(hash={})
+		indent = hash[:indent] || -1
+		ie_hack = hash[:ie_hack] ||true
+		
 		div = Element.new 'dummy'
 			children_to_html.each do |e|
 				div << e
@@ -42,7 +45,7 @@ class Maruku
 		# REXML Bug? if indent!=-1 whitespace is not respected for 'pre' elements
 		# containing code.
 		xml =""
-		div.write_children(xml,indent=-1,transitive=false,ie_hack=true)
+		div.write_children(xml,indent,transitive=true,ie_hack)
 		xml
 	end
 	
@@ -272,7 +275,7 @@ class MDElement
 		lang = self.meta[:lang] || @doc.meta[:code_lang] 
 
 		lang = 'xml' if lang=='html'
-		use_syntax = @doc.meta[:html_use_syntax] 
+		use_syntax = get_setting(:html_use_syntax)
 		
 		element = 
 		if use_syntax && lang
@@ -301,7 +304,7 @@ class MDElement
 		end
 		
 		color = get_setting(:code_background_color,DEFAULT_CODE_COLOR)
-		if color
+		if color != DEFAULT_CODE_COLOR
 			element.attributes['style'] = "background-color: #{color};"
 		end
 		element
@@ -309,6 +312,7 @@ class MDElement
 	
 	def to_html_code_using_pre(source)
 		pre = Element.new 'pre'
+		code = Element.new 'code', pre
 		s = source
 		
 		s  = s.gsub(/&/,'&amp;')
@@ -322,17 +326,17 @@ class MDElement
 
 		text = Text.new(s, true, nil, false )
 		
-		pre << text
+		code << text
 		pre
 	end
 
 	def to_html_inline_code; 
-		pre = Element.new 'tt'
+		pre = Element.new 'code'
 			source = self.meta[:raw_code]
 			pre << source2html(source) 
 			
 			color = get_setting(:code_background_color, DEFAULT_CODE_COLOR)
-			if color
+			if color != DEFAULT_CODE_COLOR
 				pre.attributes['style'] = "background-color: #{color};"
 			end
 			

@@ -134,7 +134,8 @@ class Maruku
 	def cur_line_node_type; line_node_type top.first  end
 	def cur_line; top.empty? ? nil : top.first end
 	def next_line; top.empty? ? nil : top[1] end
-	def next_line_node_type; (top.size >= 2) ? line_node_type(top[1]) : nil end
+	def next_line_node_type
+		(top.size >= 2) ? line_node_type(top[1]) : nil end
 	def shift_line; top.shift; end
 		
 	# reads a header (with ----- or ========)
@@ -219,13 +220,17 @@ class Maruku
 	
 	def read_paragraph
 		lines = []
-		while cur_line && cur_line_node_type == :text
+		while cur_line 
+			break if [:quote,:header3,:empty,:raw_html].include?(
+				cur_line_node_type)
+			break if [:header1,:header2].include? next_line_node_type
+			
 			lines << shift_line
 		end
 #		dbg_describe_ary(lines, 'PAR')
 		children = parse_lines_as_span(lines)
 
-		e = create_md_element(:paragraph, children)
+		create_md_element(:paragraph, children)
 	end
 	
 	
@@ -291,55 +296,55 @@ class Maruku
 	# This is the only ugly function in the code base.
 	# It is used to read list items, descriptions, footnote text
 	def read_indented_content(indentation, break_list, item_type)
-			lines =[]
-			# collect all indented lines
-			saw_empty = false; saw_anything_after = false
-			while cur_line 
-				if cur_line_node_type == :empty
-					saw_empty = true
-					lines << shift_line
-					next
-				end
-			
-				# after a white line
-				if saw_empty
-					# we expect things to be properly aligned
-					if number_of_leading_spaces(cur_line) < indentation
+		lines =[]
+		# collect all indented lines
+		saw_empty = false; saw_anything_after = false
+		while cur_line 
+			if cur_line_node_type == :empty
+				saw_empty = true
+				lines << shift_line
+				next
+			end
+		
+			# after a white line
+			if saw_empty
+				# we expect things to be properly aligned
+				if number_of_leading_spaces(cur_line) < indentation
 #						debug "breaking for spaces: #{cur_line}"
-						break
-					end
-					saw_anything_after = true
-				else
-					break if break_list.include? cur_line_node_type
-	#				break if cur_line_node_type != :text
+					break
 				end
-			
-	#			debug "Accepted '#{cur_line}'"
+				saw_anything_after = true
+			else
+				break if break_list.include? cur_line_node_type
+#				break if cur_line_node_type != :text
+			end
+		
+#			debug "Accepted '#{cur_line}'"
 
-				stripped = strip_indent(shift_line, indentation)
-				lines << stripped
-			
-				# You are only required to indent the first line of 
-				# a child paragraph.
-				if line_node_type(stripped) == :text
-					while cur_line && (cur_line_node_type == :text)
-						lines << strip_indent(shift_line, indentation)
-					end
+			stripped = strip_indent(shift_line, indentation)
+			lines << stripped
+		
+			# You are only required to indent the first line of 
+			# a child paragraph.
+			if line_node_type(stripped) == :text
+				while cur_line && (cur_line_node_type == :text)
+					lines << strip_indent(shift_line, indentation)
 				end
 			end
-
-			want_my_paragraph = saw_anything_after || 
-				(saw_empty && (cur_line  && (cur_line_node_type == item_type))) 
-		
-	#		dbg_describe_ary(lines, 'LI')
-			# create a new context 
-		
-			while lines.last && (line_node_type(lines.last) == :empty)
-				lines.pop
-			end
-			
-			return lines, want_my_paragraph
 		end
+
+		want_my_paragraph = saw_anything_after || 
+			(saw_empty && (cur_line  && (cur_line_node_type == item_type))) 
+	
+#		dbg_describe_ary(lines, 'LI')
+		# create a new context 
+	
+		while lines.last && (line_node_type(lines.last) == :empty)
+			lines.pop
+		end
+		
+		return lines, want_my_paragraph
+	end
 
 	
 	def read_quote

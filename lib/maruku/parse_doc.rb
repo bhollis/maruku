@@ -47,7 +47,7 @@ class Maruku
 		if not self.meta[:title] and toc.header_element
 			title = toc.header_element.to_s
 			self.meta[:title]  = title
-			puts "Set document title to #{title}"
+#			puts "Set document title to #{title}"
 		end
 		
 		# save for later use

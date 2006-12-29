@@ -22,3 +22,23 @@ Paragraph (2 spaces after), list with no space:
 Paragraph (3 spaces after), list with no space:   
 * ciao
 
+Paragraph with block quote:
+> Quoted
+
+Paragraph with header:
+### header ###
+
+Paragraph with header on two lines:
+header
+------
+
+
+Paragraph with html after
+<div></div>
+
+Paragraph with html after, indented:
+     <em>Emphasis</em>
+
+Paragraph with html after, indented: <em>Emphasis</em> *tralla* <em>Emph</em>
+
+Paragraph with html after, indented: <em>Emphasis *tralla* Emph</em>
