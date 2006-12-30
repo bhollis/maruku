@@ -69,8 +69,18 @@ class MDElement
 		@meta = meta_
 	end
 	
+	def ==(o)
+		ok = o.kind_of?(MDElement) &&
+		(self.node_type == o.node_type) &&
+		(self.meta == o.meta) &&
+		(self.children == o.children)
+		ok
+	end
 	def inspect
-		"MDElement.new(:%s,[%s],\n\t%s)" % [@node_type,
+		(@children.empty? ?
+		"MDElement.new(:%s,[%s],%s)" :
+		"MDElement.new(:%s,[%s\n], %s)") %
+		[@node_type,
 			add_tabs(@children.map{|x| "\n"+x.inspect}.join(",\n"),1),
 			@meta.inspect]
 	end

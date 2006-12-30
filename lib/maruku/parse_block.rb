@@ -122,11 +122,12 @@ class Maruku
 		output
 	end
 		 
-	def create_md_element(node_type, children=[])
+	def create_md_element(node_type, children=[], meta = {})
 		e = MDElement.new
 		e.node_type = node_type
 		e.children = children
 		e.doc = self
+		e.meta = meta
 		e
 	end
 	

@@ -37,11 +37,9 @@ class Maruku
 		body += render_latex_signature
 
 "\\documentclass{article}
-
 #{header}
 \\usepackage{hyperref}
 \\usepackage{xspace}
-%\\usepackage[x11names]{xcolor}
 \\usepackage[usenames,dvipsnames]{color}
 \\usepackage[margin=1in]{geometry}
 \\hypersetup{colorlinks=true}
@@ -176,6 +174,7 @@ class MDElement
 	def wrap_as_span(c)
 		"{#{c} #{children_to_latex}}"
 	end
+	
 	def wrap_as_environment(name)
 "\\begin{#{name}}%
 #{children_to_latex}
@@ -183,6 +182,7 @@ class MDElement
 	end
 	
 	# the ultimate escaping
+	# (is much better than using \verb)
 	def latex_escape(source)
 		s=""; 
 		source.each_byte do |b| s+= "\\char%d" % b end
@@ -192,12 +192,13 @@ class MDElement
 	def to_latex_inline_code; 
 		source = self.meta[:raw_code]
 		
-		# Convert to printable latex chars (is much better than using \verb)
-		s=latex_escape(source)
-			
-		color = latex_color(get_setting(:code_background_color,DEFAULT_CODE_COLOR),'colorbox')
+		# Convert to printable latex chars 
+		s = latex_escape(source)
+		
+		color = get_setting(:code_background_color,DEFAULT_CODE_COLOR)
+		colorspec = latex_color(color, 'colorbox')
 
-		"#{color}{\\tt #{s}}"
+		"#{colorspec}{\\tt #{s}}"
 	end
 
 	def to_latex_immediate_link
