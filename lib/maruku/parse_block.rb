@@ -193,7 +193,7 @@ class Maruku
 			while cur_line and not h.is_finished? 
 				l=shift_line
 #				puts "html -> #{l.inspect}"
-				h.eat_this l
+				h.eat_this "\n"+l
 			end
 		rescue Exception => e
 			puts e.inspect

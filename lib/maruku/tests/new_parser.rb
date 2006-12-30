@@ -1,36 +1,39 @@
 require 'maruku'
+require 'maruku/helpers'
 
 require 'maruku/parse_span_better'
 
 class Maruku
 
+
 	class TestNewParser
-		
+		include Helpers
+			
 		def do_it(verbose, break_on_first_error)
 		good_cases = [
-			["",      [],      'Empty string gives empty list'],
-			["a",  ["a"],      'Easy char'],
-			[' ',  [' '],      'One char => one string'],
-			['  ',  [' '],    'Two chars => one char'],
-			['a  b',  ['a b'],    'Spaces are compressed'],
-			['a  b',  ['a b'],    'Newlines are spaces'],
-			["a\nb",  ['a b'],    'Newlines are spaces'],
+			["",       [],      'Empty string gives empty list'],
+			["a",      ["a"],      'Easy char'],
+			[' ',      [' '],      'One char => one string'],
+			['  ',     [' '],    'Two chars => one char'],
+			['a  b',   ['a b'],    'Spaces are compressed'],
+			['a  b',   ['a b'],    'Newlines are spaces'],
+			["a\nb",   ['a b'],    'Newlines are spaces'],
 			["a\n b",  ['a b'],    'Compress newlines 1'],
 			["a \nb",  ['a b'],    'Compress newlines 2'],
-			[" \nb",  [' b'],    'Compress newlines 3'],
-			["\nb",   [' b'],    'Compress newlines 4'],
-			["b\n",   ['b '],    'Compress newlines 4'],
-			["\n",    [' '],    'Compress newlines 4'],
+			[" \nb",   [' b'],    'Compress newlines 3'],
+			["\nb",    [' b'],    'Compress newlines 4'],
+			["b\n",    ['b '],    'Compress newlines 4'],
+			["\n",     [' '],    'Compress newlines 4'],
 			["\n\n\n", [' '],    'Compress newlines 4'],
 			
 			[nil, nil, "Should throw on nil"],
 			
 			# Code blocks
-			["`" ,  nil,  'Unclosed single ticks'],
+			["`" ,   nil,  'Unclosed single ticks'],
 			["``" ,  nil,  'Unclosed double ticks'],
-			["`a`" , [md_code('a')], 'Simple inline code 1'],
-			["`\'`" , [md_code('\'')], 'Simple inline code 2'],
-			["``a``" , [md_code('a')], 'Simple inline code 3'],
+			["`a`" ,     [md_code('a')],    'Simple inline code 1'],
+			["`\'`" ,    [md_code('\'')],   'Simple inline code 2'],
+			["``a``" ,   [md_code('a')],    'Simple inline code 3'],
 			["``\\'``" , [md_code('\\\'')], 'Simple inline code 4'],
 			
 			# Newlines 
@@ -42,16 +45,33 @@ class Maruku
 			
 			# Inline HTML
 			["a < b", ['a < b'], '< can be on itself'],
-			["<hr>",  [md_html('<hr/>')], 'HR will be sanitized'],
-			["<hr/>", [md_html('<hr/>')], 'Closed tag is ok'],
-			["<hr  />", [md_html('<hr/>')], 'Closed tag is ok 2'],
-			["<hr/>a", [md_html('<hr/>'),'a'], 'Closed tag is ok 2'],
+			["<hr>",  [md_html('<hr />')], 'HR will be sanitized'],
+			["<hr/>", [md_html('<hr />')], 'Closed tag is ok'],
+			["<hr  />", [md_html('<hr />')], 'Closed tag is ok 2'],
+			["<hr/>a", [md_html('<hr />'),'a'], 'Closed tag is ok 2'],
 			["<em></em>a", [md_html('<em></em>'),'a'], 'Inline HTML 1'],
 			["<em>e</em>a", [md_html('<em>e</em>'),'a'], 'Inline HTML 2'],
+			["a<em>e</em>b", ['a',md_html('<em>e</em>'),'b'], 'Inline HTML 5'],
+			["<em>e</em>a<em>f</em>", 
+				[md_html('<em>e</em>'),'a',md_html('<em>f</em>')], 
+				'Inline HTML 3'],
+			["<em>e</em><em>f</em>a", 
+				[md_html('<em>e</em>'),md_html('<em>f</em>'),'a'], 
+				'Inline HTML 4'],
 			
 			["a <b", nil, 'Bad HTML 1'],
 			["<b",   nil, 'Bad HTML 2'],
 			["<b!",  nil, 'Bad HTML 3'],
+
+			# links
+			["\\[a]",  ["[a]"], 'Escaping 1'],
+			["\\[a\\]", ["[a]"], 'Escaping 2'],
+			["[a]",   ["a"],   'Not a link'],
+			["[a][]",   [ md_link('',["a"])], 'Empty link'],
+			["[a\\]][]", [ md_link('',["a]"])], 'Escape inside link'],
+
+			["[a",  nil,   'Link not closed'],
+			["[a][",  nil,   'Ref not closed'],
 			
 		]
 
@@ -103,22 +123,6 @@ class Maruku
 			if @verbose and verbose_text
 				puts verbose_text
 			end
-		end
-
-		def md_code(code)
-			md_el(:inline_code, [], {:raw_code => code})
-		end
-		
-		def md_el(node_type, children=[], meta={})
-			e = MDElement.new
-			e.node_type = node_type
-			e.children = children
-			e.meta = meta
-			e
-		end
-		
-		def md_html(html)
-			md_el(:raw_html, [], {:raw_html=>html})
 		end
 		
 	end # class Test
