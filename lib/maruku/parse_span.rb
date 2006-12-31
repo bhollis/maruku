@@ -31,8 +31,7 @@ class Maruku
 		# first, get rid of linebreaks
 		res = resolve_linebreaks(lines)
 
-		span = MDElement.new
-		span.children = res
+		span = MDElement.new(:dummy, res)
 
 		# encode all escapes
 		span.replace_each_string { |s| s.escape_md_special }

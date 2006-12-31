@@ -19,7 +19,7 @@
 class Maruku
 	# Splits the string and calls parse_lines_as_markdown
 	def parse_text_as_markdown(text)
-		lines =  split_lines(text)
+		lines =  Maruku.split_lines(text)
 		parse_lines_as_markdown(lines)
 	end
 	

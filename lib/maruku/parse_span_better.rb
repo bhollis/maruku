@@ -48,10 +48,7 @@ class Maruku
 				src.ignore_char
 				con.push_space 
 			when ?`
-				case d = src.next_char
-					when ?`; read_double_ticks(src, con)
-					else read_single_ticks(src, con)
-				end
+				read_inline_code(src,con)
 			when ?<
 				case d = src.next_char
 					when ?!; 
@@ -255,44 +252,42 @@ class Maruku
 		end
 	end
 	
-	def read_double_ticks(src, con)
-		src.ignore_chars(2)
+	def read_inline_code(src, con)
+		num_ticks = 0
+		
+		while src.cur_char == ?` 
+			num_ticks += 1
+			src.ignore_char
+		end
+		
+		# ignore space
+		if num_ticks > 1 && src.cur_char == SPACE
+			src.ignore_char
+		end
+
+		end_string = "`"*num_ticks
+		
 		code = ''
 		while true
-			error("Double ticks not finished: #{code.inspect}"
-			) if not src.cur_char
+			error("Ticks not finished: read #{code.inspect}"+
+			 " and waiting for #{end_string.inspect} num=#{num_ticks}") if 
+				not src.cur_char
 			
-			c = src.shift_char
-			if (c == ?`) and (src.cur_char == ?`)
-				src.ignore_char # last tick
-				break
-			end
-			code << c
+			break if src.next_chars_are end_string
+			
+			code << src.shift_char
 		end
+		src.ignore_chars num_ticks
+
+		# drop last space 
+		if num_ticks > 1 && code[-1] == SPACE
+			code = code[0,code.size-1]
+		end
+
 #		puts "Read `` code: #{code.inspect}"
 		con.push_element md_code(code)
 	end
 
-	def read_single_ticks(src, con)
-		src.ignore_char # first tick
-		code = ''
-		while true 
-			case c = src.shift_char
-			when nil;  error("Single tick not finished:"+
-				             " #{code.inspect}")
-			when  ?`;  break
-			when  ?\\ 
-				case next_char
-				when ?` ; code << ?`;  src.ignore_char
-				when ?\\; code << ?\\; src.ignore_char 
-				else      code << ?\\
-				end
-			else  code << c
-			end
-		end
-		
-		con.push_element md_code(code)
-	end
 	
 	
 	def read_server_directive

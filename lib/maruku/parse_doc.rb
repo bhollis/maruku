@@ -35,7 +35,7 @@ class Maruku
 		@meta = parse_email_headers(s)
 		data = @meta[:data]
 		@meta.delete :data
-		lines =  split_lines(data)
+		lines = Maruku.split_lines(data)
 		@children = parse_lines_as_markdown(lines)
 		
 		self.search_abbreviations

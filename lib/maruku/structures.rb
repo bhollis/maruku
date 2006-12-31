@@ -50,9 +50,9 @@ class MDElement
 	# XXX List not complete
 	# Allowed: :document, :paragraph, :ul, :ol, :li, 
 	# :li_span, :strong, :emphasis, :link, :email
-	attr_reader :node_type
+	attr_accessor :node_type
 	# Children are either Strings or MDElement
-	attr_reader :children
+	attr_accessor :children
 	# Hash for metadata
 	# contains :id for :link1
 	# :li :want_my_paragraph

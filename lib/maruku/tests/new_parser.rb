@@ -41,9 +41,10 @@ class Maruku
 			["`" ,   :throw,  'Unclosed single ticks'],
 			["``" ,  :throw,  'Unclosed double ticks'],
 			["`a`" ,     [md_code('a')],    'Simple inline code'],
-			["`\'`" ,    [md_code('\'')],   ],
+			["`` ` ``" ,    [md_code('`')],   ],
+			["`` \\` ``" ,    [md_code('\\`')],   ],
 			["``a``" ,   [md_code('a')],    ],
-			["``\\'``" , [md_code('\\\'')], ],
+			["`` a ``" ,   [md_code('a')],    ],
 			
 			# Newlines 
 			["a  \n", ['a',md_el(:linebreak)], 'Two spaces give br.'],
