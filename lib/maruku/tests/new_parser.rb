@@ -61,13 +61,13 @@ class Maruku
 			["<hr/>a", [md_html('<hr />'),'a'], 'Closed tag is ok 2'],
 			["<em></em>a", [md_html('<em></em>'),'a'], 'Inline HTML 1'],
 			["<em>e</em>a", [md_html('<em>e</em>'),'a'], 'Inline HTML 2'],
-			["a<em>e</em>b", ['a',md_html('<em>e</em>'),'b'], 'Inline HTML 5'],
+			["a<em>e</em>b", ['a',md_html('<em>e</em>'),'b'], 'Inline HTML 3'],
 			["<em>e</em>a<em>f</em>", 
 				[md_html('<em>e</em>'),'a',md_html('<em>f</em>')], 
-				'Inline HTML 3'],
+				'Inline HTML 4'],
 			["<em>e</em><em>f</em>a", 
 				[md_html('<em>e</em>'),md_html('<em>f</em>'),'a'], 
-				'Inline HTML 4'],
+				'Inline HTML 5'],
 			
 			# emphasis
 			["**", :throw, 'Unclosed double **'],
@@ -132,6 +132,7 @@ class Maruku
 			["\\[a\\]", ["[a]"], 'Escaping 2'],
 			["[a]",   ["a"],   'Not a link'],
 			["[a][]",   [ md_link(["a"],'')], 'Empty link'],
+			["[a][]b",   [ md_link(["a"],''),'b'], 'Empty link'],
 			["[a\\]][]", [ md_link(["a]"],'')], 'Escape inside link'],
 			
 			["[a",  :throw,   'Link not closed'],
@@ -139,10 +140,10 @@ class Maruku
 			
 			# links of the form [text](url)
 			["\\[a](b)",  ["[a](b)"], 'Links'],
-			["[a](url)",  [md_im_link(['a'],'url')], 'url'],
-			["[a]( url )" ],
-			["[a] (	url )" ],
-			["[a] (	url)" ],
+			["[a](url)c",  [md_im_link(['a'],'url'),'c'], 'url'],
+			["[a]( url )c" ],
+			["[a] (	url )c" ],
+			["[a] (	url)c" ],
 			
 			["[a](ur:/l/ 'Title')",  [md_im_link(['a'],'ur:/l/','Title')],
 			 	'url and title'],
@@ -167,6 +168,8 @@ class Maruku
 			
 			["[a](/url)", [md_im_link(['a'],'/url')], 'Funny chars in url'],
 			["[a](#url)", [md_im_link(['a'],'#url')]],
+			["[a](</script?foo=1&bar=2>)", [md_im_link(['a'],'/script?foo=1&bar=2')]],
+			
 			
 			# Images
 			["\\![a](url)",  ['!', md_im_link(['a'],'url') ], 'Escaping images'],
@@ -188,6 +191,13 @@ class Maruku
 			["![a][ imref ]"],
 			["![a][\timref\t]"],
 			
+			['<http://example.com/?foo=1&bar=2>', 
+				[md_url('http://example.com/?foo=1&bar=2')], 'Immediate link'],
+				['a<http://example.com/?foo=1&bar=2>b', 
+					['a',md_url('http://example.com/?foo=1&bar=2'),'b']  ],
+			['<andrea@censi.org>', 
+				[md_email('andrea@censi.org')], 'Email address'],
+			['<mailto:andrea@censi.org>'],
 					
 			["a<!-- -->b", ['a',md_html('<!-- -->'),'b'], 
 				'HTML Comment'],

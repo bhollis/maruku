@@ -28,9 +28,9 @@ class Maruku
 	include REXML
 
 	# Render as an HTML fragment (no head, just the content of BODY). (returns a string)
-	def to_html(hash={})
-		indent = hash[:indent] || -1
-		ie_hack = hash[:ie_hack] ||true
+	def to_html(context={})
+		indent = context[:indent] || -1
+		ie_hack = context[:ie_hack] ||true
 		
 		div = Element.new 'dummy'
 			children_to_html.each do |e|
@@ -50,13 +50,15 @@ class Maruku
 	end
 	
 	# Render to a complete HTML document (returns a string)
-	def to_html_document
+	def to_html_document(context={})
+		indent = context[:indent] || -1
+		ie_hack = context[:ie_hack] ||true
 		doc = to_html_document_tree
 		xml  = "" 
 		
 		# REXML Bug? if indent!=-1 whitespace is not respected for 'pre' elements
 		# containing code.
-		doc.write(xml,indent=-1,transitive=false,ie_hack=true);
+		doc.write(xml,indent,transitive=true,ie_hack);
 		
 		encoding = ( (enc=@meta[:encoding]) ? 
 			"encoding='#{enc}'" : "")
@@ -356,15 +358,25 @@ class MDElement
 	def to_html_link
 		a =  wrap_as_element 'a'
 		
-		id = @meta[:ref_id]
-		ref = @doc.refs[id]
-		if not ref
-			$stderr.puts "Could not find id = '#{id}'"
+		if id = @meta[:ref_id]
+			ref = @doc.refs[id]
+			if not ref
+				$stderr.puts "Could not find id = #{id.inspect}"
+			else
+				url = ref[:url]
+				title = ref[:title]
+				a.attributes['href'] = url
+				a.attributes['title'] = title if title
+			end
 		else
-			url = ref[:url]
-			title = ref[:title]
-			a.attributes['href'] = url
-			a.attributes['title'] = title if title
+			url = @meta[:url]
+			title = @meta[:title]
+			if url
+				a.attributes['href'] = url
+				a.attributes['title'] = title if title
+			else
+				$stderr.puts "Could not find url in #{self.inspect}"
+			end
 		end
 		a
 	end

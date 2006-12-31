@@ -3,7 +3,6 @@ require 'set'
 class Maruku
 	include Helpers
 	
-	
 	EscapedCharInText = 
 		Set.new [?\\,?`,?*,?_,?{,?},?[,?],?(,?),?#,?.,?!,?|,?:,?+,?-,?>]
 
@@ -11,6 +10,11 @@ class Maruku
 		Set.new [?\\,?`,?*,?_,?{,?},?[,?],?(,?),?#,?.,?!,?|,?:,?+,?-,?>,?',?"]
 	
 	EscapedCharInInlineCode = [?\\,?`]
+
+	def parse_lines_as_span(lines)
+		puts "new!"
+		parse_span_better lines.join("\n")
+	end
 
 	def parse_span_better(string)
 		if not string.kind_of? String then 
@@ -50,6 +54,13 @@ class Maruku
 			when ?`
 				read_inline_code(src,con)
 			when ?<
+				# It could be:
+				# 1) HTML "<div ..."
+				# 2) HTML "<!-- ..."
+				# 3) url "<http:// ", "<ftp:// ..."
+				# 4) email "<andrea@... ", "<mailto:andrea@..."
+				# 5) on itself! "a < b	"
+				
 				case d = src.next_char
 					when ?!; 
 						if src.next_chars_are '<!--'
@@ -58,10 +69,19 @@ class Maruku
 							con.push_char src.shift_char
 						end
 					when ??; read_server_directive
+					when ?\ , ?\t 
+						con.push_char src.shift_char
 					else;  
-						if src.cur_chars(2) =~ /^<\w/
+						if src.next_matches(/<mailto:/) or
+						   src.next_matches(/<[\w\.]+\@/)
+							read_email_el(src, con)
+						elsif src.next_matches(/<\w+:/)
+							read_url_el(src, con)
+						elsif src.next_matches(/<\w/)
+							puts "This is HTML: #{src.cur_chars(20)}"
 							read_inline_html(src, con)
 						else 
+							puts "This is NOT HTML: #{src.cur_chars(20)}"
 							con.push_char src.shift_char
 						end
 				end
@@ -123,15 +143,39 @@ class Maruku
 		con.elements
 	end
 
+	def read_url_el(src,con)
+		src.ignore_char # leading <
+		url = read_simple(src, [], [?>])
+		src.ignore_char # closing >
+		
+		con.push_element md_url(url)
+	end
+
+	def read_email_el(src,con)
+		src.ignore_char # leading <
+		mail = read_simple(src, [], [?>])
+		src.ignore_char # closing >
+		
+		address = mail.gsub(/^mailto:/,'')
+		con.push_element md_email(address)
+	end
 	
 	def read_url(src, break_on)
-		# urls must start with a w
-		c = src.cur_char
-		s = ""<<c
-		if not s =~ /[\w\/\#]/
+		if [?',?"].include? src.cur_char 
 			return nil
 		end
-		read_simple(src, [], break_on)
+		
+		url = read_simple(src, [], break_on)
+		
+		if url[0] == ?< && url[-1] == ?>
+			url = url[1, url.size-2]
+		end
+		
+		if url.size == 0 
+			return nil
+		end
+		
+		url
 	end
 	
 	# Tries to read a quoted value. If stream does not
@@ -205,13 +249,16 @@ class Maruku
 	
 	SPACE = ?\ # = 32
 	
-	R_REF_ID = Regexp.compile(/([^\]\s]*)\s*\]/)
+	R_REF_ID = Regexp.compile(/([^\]\s]*)(\s*\])/)
 	
 	# Reads a bracketed id "[refid]". Consumes also both brackets.
 	def read_ref_id(src)
 		src.ignore_char
 		src.consume_whitespace
+#		puts "Next: #{src.cur_chars(10).inspect}"
 		if m = src.read_regexp(R_REF_ID) 
+#			puts "Got: #{m[1].inspect} Ignored: #{m[2].inspect}"
+#			puts "Then: #{src.cur_chars(10).inspect}"
 			m[1]
 		else
 			error "Could not read ref_id"
@@ -269,9 +316,10 @@ class Maruku
 		
 		code = ''
 		while true
-			error("Ticks not finished: read #{code.inspect}"+
-			 " and waiting for #{end_string.inspect} num=#{num_ticks}") if 
-				not src.cur_char
+			if not src.cur_char
+				error("Ticks not finished: read #{code.inspect}"+
+				      " and waiting for #{end_string.inspect} num=#{num_ticks}") 
+			end
 			
 			break if src.next_chars_are end_string
 			
@@ -465,12 +513,19 @@ class CharSource
 		r2 = /^.{#{@buffer_index}}#{Regexp.escape string}/xm
 		@buffer =~ r2
 	end
+
+	def next_matches(r)
+		r2 = /^.{#{@buffer_index}}#{r}/
+		r2.match @buffer
+	end
 	
 	def read_regexp(r)
 		r2 = /^.{#{@buffer_index}}#{r}/
 		m = r2.match @buffer
 		if m
-			ignore_chars m.to_s.size
+			consumed = m.to_s.size - @buffer_index
+#			puts "Consumed #{consumed} chars (entire is #{m.to_s.inspect})"
+			ignore_chars consumed
 		else
 #			puts "Could not read regexp #{r2.inspect} from #{buf.inspect}"
 		end

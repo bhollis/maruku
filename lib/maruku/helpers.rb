@@ -9,7 +9,9 @@ module Helpers
 	end
 	
 	def md_el(node_type, children=[], meta={})
-		MDElement.new(node_type, children, meta)
+		e=MDElement.new(node_type, children, meta)
+		e.doc = self
+		e
 	end
 	
 	def md_html(html)
@@ -42,6 +44,17 @@ module Helpers
 
 	def md_emstrong(children)
 		md_strong(md_em(children))
+	end
+
+	# <http://www.example.com/>
+	def md_url(url)
+		md_el(:immediate_link, [], {:url=>url})
+	end
+	
+	# <andrea@rubyforge.org>
+	# <mailto:andrea@rubyforge.org>
+	def md_email(email)
+		md_el(:email_address, [], {:email=>email})
 	end
 	
 end
