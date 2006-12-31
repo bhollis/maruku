@@ -66,26 +66,23 @@ This block is composed of three lines:This block is composed of 5
 ***EOF***
 MDElement.new(:document,[	
 	MDElement.new(:paragraph,[	
-		"This block is composed of three lines:"],
-		{}),
+		"This block is composed of three lines:"
+	], {}),
 	
-	MDElement.new(:code,[],
-		{:raw_code=>"one\n\nthree\n"}),
-	
-	MDElement.new(:paragraph,[	
-		"This block is composed of 5"],
-		{}),
-	
-	MDElement.new(:code,[],
-		{:raw_code=>"one\n\n\nfour\n\n"}),
+	MDElement.new(:code,[],{:raw_code=>"one\n\nthree\n"}),
 	
 	MDElement.new(:paragraph,[	
-		"This block is composed of 2"],
-		{}),
+		"This block is composed of 5"
+	], {}),
 	
-	MDElement.new(:code,[],
-		{:raw_code=>"two\n\n"})],
-	{})
+	MDElement.new(:code,[],{:raw_code=>"one\n\n\nfour\n\n"}),
+	
+	MDElement.new(:paragraph,[	
+		"This block is composed of 2"
+	], {}),
+	
+	MDElement.new(:code,[],{:raw_code=>"two\n\n"})
+], {})
 ***EOF***
 
 Failed tests:   [:to_latex, :to_s, :to_s] 
@@ -150,26 +147,23 @@ This block is composed of three lines:This block is composed of 5This block is c
 ***EOF***
 MDElement.new(:document,[	
 	MDElement.new(:paragraph,[	
-		"This block is composed of three lines:"],
-		{}),
+		"This block is composed of three lines:"
+	], {}),
 	
-	MDElement.new(:code,[],
-		{:raw_code=>"one\n\nthree\n"}),
-	
-	MDElement.new(:paragraph,[	
-		"This block is composed of 5"],
-		{}),
-	
-	MDElement.new(:code,[],
-		{:raw_code=>"one\n\n\nfour\n\n"}),
+	MDElement.new(:code,[],{:raw_code=>"one\n\nthree\n"}),
 	
 	MDElement.new(:paragraph,[	
-		"This block is composed of 2"],
-		{}),
+		"This block is composed of 5"
+	], {}),
 	
-	MDElement.new(:code,[],
-		{:raw_code=>"two\n\n"})],
-	{})
+	MDElement.new(:code,[],{:raw_code=>"one\n\n\nfour\n\n"}),
+	
+	MDElement.new(:paragraph,[	
+		"This block is composed of 2"
+	], {}),
+	
+	MDElement.new(:code,[],{:raw_code=>"two\n\n"})
+], {})
 ***EOF***
 <p>This block is composed of three lines:</p>
 

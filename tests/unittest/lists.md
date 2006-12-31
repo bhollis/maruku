@@ -103,70 +103,70 @@ Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aliquam hendrerit mi p
 MDElement.new(:document,[	
 	MDElement.new(:ul,[	
 		MDElement.new(:li_span,[	
-			"Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aliquam hendrerit mi posuere lectus. Vestibulum enim wisi, viverra nec, fringilla in, laoreet vitae, risus."],
-			{:want_my_paragraph=>false}),
+			"Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aliquam hendrerit mi posuere lectus. Vestibulum enim wisi, viverra nec, fringilla in, laoreet vitae, risus."
+		], {:want_my_paragraph=>false}),
 		
 		MDElement.new(:li_span,[	
-			"Donec sit amet nisl. Aliquam semper ipsum sit amet velit. Suspendisse id sem consectetuer libero luctus adipiscing."],
-			{:want_my_paragraph=>false}),
+			"Donec sit amet nisl. Aliquam semper ipsum sit amet velit. Suspendisse id sem consectetuer libero luctus adipiscing."
+		], {:want_my_paragraph=>false}),
 		
 		MDElement.new(:li_span,[	
-			"Donec sit amet nisl. Aliquam semper ipsum sit amet velit. Suspendisse id sem consectetuer libero luctus adipiscing"],
-			{:want_my_paragraph=>false}),
+			"Donec sit amet nisl. Aliquam semper ipsum sit amet velit. Suspendisse id sem consectetuer libero luctus adipiscing"
+		], {:want_my_paragraph=>false}),
 		
 		MDElement.new(:li_span,[	
-			"Donec sit amet nisl. Aliquam semper ipsum sit amet velit. Suspendisse id sem consectetuer libero luctus adipiscing"],
-			{:want_my_paragraph=>false}),
+			"Donec sit amet nisl. Aliquam semper ipsum sit amet velit. Suspendisse id sem consectetuer libero luctus adipiscing"
+		], {:want_my_paragraph=>false}),
 		
 		MDElement.new(:li_span,[	
-			"Donec sit amet nisl. Aliquam semper ipsum sit amet velit. Suspendisse id sem consectetuer libero luctus adipiscing."],
-			{:want_my_paragraph=>false})],
-		{}),
+			"Donec sit amet nisl. Aliquam semper ipsum sit amet velit. Suspendisse id sem consectetuer libero luctus adipiscing."
+		], {:want_my_paragraph=>false})
+	], {}),
 	
 	MDElement.new(:paragraph,[	
-		"Ancora"],
-		{}),
+		"Ancora"
+	], {}),
 	
 	MDElement.new(:ul,[	
 		MDElement.new(:li,[	
 			MDElement.new(:paragraph,[	
-				"This is a list item with two paragraphs. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aliquam hendrerit mi posuere lectus."],
-				{}),
+				"This is a list item with two paragraphs. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aliquam hendrerit mi posuere lectus."
+			], {}),
 			
 			MDElement.new(:paragraph,[	
-				"ATTENZIONE!"],
-				{})],
-			{:want_my_paragraph=>true}),
+				"ATTENZIONE!"
+			], {})
+		], {:want_my_paragraph=>true}),
 		
 		MDElement.new(:li,[	
 			MDElement.new(:paragraph,[	
-				"Suspendisse id sem consectetuer libero luctus adipiscing."],
-				{})],
-			{:want_my_paragraph=>false})],
-		{}),
+				"Suspendisse id sem consectetuer libero luctus adipiscing."
+			], {})
+		], {:want_my_paragraph=>false})
+	], {}),
 	
 	MDElement.new(:paragraph,[	
-		"Ancora"],
-		{}),
+		"Ancora"
+	], {}),
 	
 	MDElement.new(:ul,[	
 		MDElement.new(:li,[	
 			MDElement.new(:paragraph,[	
-				"This is a list item with two paragraphs."],
-				{}),
+				"This is a list item with two paragraphs."
+			], {}),
 			
 			MDElement.new(:paragraph,[	
-				"This is the second paragraph in the list item. You're only required to indent the first line. Lorem ipsum dolo sit amet, consectetuer adipiscing elit"],
-				{})],
-			{:want_my_paragraph=>true}),
+				"This is the second paragraph in the list item. You're only required to indent the first line. Lorem ipsum dolo sit amet, consectetuer adipiscing elit"
+			], {})
+		], {:want_my_paragraph=>true}),
 		
 		MDElement.new(:li,[	
 			MDElement.new(:paragraph,[	
-				"Another item in the same list."],
-				{})],
-			{:want_my_paragraph=>false})],
-		{})],
-	{})
+				"Another item in the same list."
+			], {})
+		], {:want_my_paragraph=>false})
+	], {})
+], {})
 ***EOF***
 
 Failed tests:   [] 
@@ -247,70 +247,70 @@ Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aliquam hendrerit mi p
 MDElement.new(:document,[	
 	MDElement.new(:ul,[	
 		MDElement.new(:li_span,[	
-			"Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aliquam hendrerit mi posuere lectus. Vestibulum enim wisi, viverra nec, fringilla in, laoreet vitae, risus."],
-			{:want_my_paragraph=>false}),
+			"Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aliquam hendrerit mi posuere lectus. Vestibulum enim wisi, viverra nec, fringilla in, laoreet vitae, risus."
+		], {:want_my_paragraph=>false}),
 		
 		MDElement.new(:li_span,[	
-			"Donec sit amet nisl. Aliquam semper ipsum sit amet velit. Suspendisse id sem consectetuer libero luctus adipiscing."],
-			{:want_my_paragraph=>false}),
+			"Donec sit amet nisl. Aliquam semper ipsum sit amet velit. Suspendisse id sem consectetuer libero luctus adipiscing."
+		], {:want_my_paragraph=>false}),
 		
 		MDElement.new(:li_span,[	
-			"Donec sit amet nisl. Aliquam semper ipsum sit amet velit. Suspendisse id sem consectetuer libero luctus adipiscing"],
-			{:want_my_paragraph=>false}),
+			"Donec sit amet nisl. Aliquam semper ipsum sit amet velit. Suspendisse id sem consectetuer libero luctus adipiscing"
+		], {:want_my_paragraph=>false}),
 		
 		MDElement.new(:li_span,[	
-			"Donec sit amet nisl. Aliquam semper ipsum sit amet velit. Suspendisse id sem consectetuer libero luctus adipiscing"],
-			{:want_my_paragraph=>false}),
+			"Donec sit amet nisl. Aliquam semper ipsum sit amet velit. Suspendisse id sem consectetuer libero luctus adipiscing"
+		], {:want_my_paragraph=>false}),
 		
 		MDElement.new(:li_span,[	
-			"Donec sit amet nisl. Aliquam semper ipsum sit amet velit. Suspendisse id sem consectetuer libero luctus adipiscing."],
-			{:want_my_paragraph=>false})],
-		{}),
+			"Donec sit amet nisl. Aliquam semper ipsum sit amet velit. Suspendisse id sem consectetuer libero luctus adipiscing."
+		], {:want_my_paragraph=>false})
+	], {}),
 	
 	MDElement.new(:paragraph,[	
-		"Ancora"],
-		{}),
+		"Ancora"
+	], {}),
 	
 	MDElement.new(:ul,[	
 		MDElement.new(:li,[	
 			MDElement.new(:paragraph,[	
-				"This is a list item with two paragraphs. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aliquam hendrerit mi posuere lectus."],
-				{}),
+				"This is a list item with two paragraphs. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aliquam hendrerit mi posuere lectus."
+			], {}),
 			
 			MDElement.new(:paragraph,[	
-				"ATTENZIONE!"],
-				{})],
-			{:want_my_paragraph=>true}),
+				"ATTENZIONE!"
+			], {})
+		], {:want_my_paragraph=>true}),
 		
 		MDElement.new(:li,[	
 			MDElement.new(:paragraph,[	
-				"Suspendisse id sem consectetuer libero luctus adipiscing."],
-				{})],
-			{:want_my_paragraph=>false})],
-		{}),
+				"Suspendisse id sem consectetuer libero luctus adipiscing."
+			], {})
+		], {:want_my_paragraph=>false})
+	], {}),
 	
 	MDElement.new(:paragraph,[	
-		"Ancora"],
-		{}),
+		"Ancora"
+	], {}),
 	
 	MDElement.new(:ul,[	
 		MDElement.new(:li,[	
 			MDElement.new(:paragraph,[	
-				"This is a list item with two paragraphs."],
-				{}),
+				"This is a list item with two paragraphs."
+			], {}),
 			
 			MDElement.new(:paragraph,[	
-				"This is the second paragraph in the list item. You're only required to indent the first line. Lorem ipsum dolo sit amet, consectetuer adipiscing elit"],
-				{})],
-			{:want_my_paragraph=>true}),
+				"This is the second paragraph in the list item. You're only required to indent the first line. Lorem ipsum dolo sit amet, consectetuer adipiscing elit"
+			], {})
+		], {:want_my_paragraph=>true}),
 		
 		MDElement.new(:li,[	
 			MDElement.new(:paragraph,[	
-				"Another item in the same list."],
-				{})],
-			{:want_my_paragraph=>false})],
-		{})],
-	{})
+				"Another item in the same list."
+			], {})
+		], {:want_my_paragraph=>false})
+	], {})
+], {})
 ***EOF***
 <ul>
 <li>Lorem ipsum dolor sit amet, consectetuer adipiscing elit.

@@ -96,103 +96,100 @@ MDElement.new(:document,[
 		"Search on ",
 		
 		MDElement.new(:link,[	
-			"Google"],
-			{:ref_id=>"google"})],
-		{}),
+			"Google"
+		], {:ref_id=>"google"})
+	], {}),
 	
 	MDElement.new(:paragraph,[	
 		"Search on ",
 		
 		MDElement.new(:link,[	
-			"Google"],
-			{:ref_id=>"google"})],
-		{}),
+			"Google"
+		], {:ref_id=>"google"})
+	], {}),
 	
 	MDElement.new(:paragraph,[	
 		"Search on ",
 		
 		MDElement.new(:link,[	
-			"Google"],
-			{:ref_id=>"google"})],
-		{}),
+			"Google"
+		], {:ref_id=>"google"})
+	], {}),
 	
 	MDElement.new(:paragraph,[	
 		"Search on ",
 		
 		MDElement.new(:link,[	
-			"Google"],
-			{:ref_id=>"google"})],
-		{}),
+			"Google"
+		], {:ref_id=>"google"})
+	], {}),
 	
 	MDElement.new(:paragraph,[	
 		"Search on ",
 		
 		MDElement.new(:link,[	
-			"Google images"],
-			{:ref_id=>"google images"})],
-		{}),
+			"Google images"
+		], {:ref_id=>"google images"})
+	], {}),
 	
 	MDElement.new(:paragraph,[	
 		"Search on ",
 		
 		MDElement.new(:link,[	
-			"Google images"],
-			{:ref_id=>"google search"})],
-		{}),
+			"Google images"
+		], {:ref_id=>"google search"})
+	], {}),
 	
 	MDElement.new(:paragraph,[	
 		"Inline: ",
 		
 		MDElement.new(:link,[	
-			"Google images"],
-			{:ref_id=>"dummy_0"})],
-		{}),
+			"Google images"
+		], {:ref_id=>"dummy_0"})
+	], {}),
 	
 	MDElement.new(:paragraph,[	
 		"Inline with title: ",
 		
 		MDElement.new(:link,[	
-			"Google images"],
-			{:ref_id=>"dummy_1"})],
-		{}),
+			"Google images"
+		], {:ref_id=>"dummy_1"})
+	], {}),
 	
 	MDElement.new(:paragraph,[	
 		"Inline with title: ",
 		
 		MDElement.new(:link,[	
-			"Google images"],
-			{:ref_id=>"dummy_2"})],
-		{}),
+			"Google images"
+		], {:ref_id=>"dummy_2"})
+	], {}),
 	
 	MDElement.new(:paragraph,[	
 		"Search on ",
 		
-		MDElement.new(:immediate_link,[],
-			{:url=>"http://www.gogole.com"}),
+		MDElement.new(:immediate_link,[],{:url=>"http://www.gogole.com"}),
 		
 		" or ",
 		
-		MDElement.new(:immediate_link,[],
-			{:url=>"http://Here.com"}),
+		MDElement.new(:immediate_link,[],{:url=>"http://Here.com"}),
 		
 		" or ask ",
 		
-		MDElement.new(:immediate_link,[],
-			{:url=>"mailto:bill@google.com"}),
+		MDElement.new(:immediate_link,[],{:url=>"mailto:bill@google.com"}),
 		
-		" or you might ask bill@google.com."],
-		{}),
+		" or you might ask bill@google.com."
+	], {}),
 	
 	MDElement.new(:paragraph,[	
 		"If all else fails, ask ",
 		
 		MDElement.new(:link,[	
-			"Google"],
-			{:ref_id=>"dummy_3"}),
+			"Google"
+		], {:ref_id=>"dummy_3"}),
 		
-		"  [google]: http://www.google.com"],
-		{})],
-	{})
+		"  [google]: http://www.google.com"
+	], {})
+], {})
 ***EOF***
 
 Failed tests:   [] 
@@ -260,103 +257,100 @@ MDElement.new(:document,[
 		"Search on ",
 		
 		MDElement.new(:link,[	
-			"Google"],
-			{:ref_id=>"google"})],
-		{}),
+			"Google"
+		], {:ref_id=>"google"})
+	], {}),
 	
 	MDElement.new(:paragraph,[	
 		"Search on ",
 		
 		MDElement.new(:link,[	
-			"Google"],
-			{:ref_id=>"google"})],
-		{}),
+			"Google"
+		], {:ref_id=>"google"})
+	], {}),
 	
 	MDElement.new(:paragraph,[	
 		"Search on ",
 		
 		MDElement.new(:link,[	
-			"Google"],
-			{:ref_id=>"google"})],
-		{}),
+			"Google"
+		], {:ref_id=>"google"})
+	], {}),
 	
 	MDElement.new(:paragraph,[	
 		"Search on ",
 		
 		MDElement.new(:link,[	
-			"Google"],
-			{:ref_id=>"google"})],
-		{}),
+			"Google"
+		], {:ref_id=>"google"})
+	], {}),
 	
 	MDElement.new(:paragraph,[	
 		"Search on ",
 		
 		MDElement.new(:link,[	
-			"Google images"],
-			{:ref_id=>"google images"})],
-		{}),
+			"Google images"
+		], {:ref_id=>"google images"})
+	], {}),
 	
 	MDElement.new(:paragraph,[	
 		"Search on ",
 		
 		MDElement.new(:link,[	
-			"Google images"],
-			{:ref_id=>"google search"})],
-		{}),
+			"Google images"
+		], {:ref_id=>"google search"})
+	], {}),
 	
 	MDElement.new(:paragraph,[	
 		"Inline: ",
 		
 		MDElement.new(:link,[	
-			"Google images"],
-			{:ref_id=>"dummy_0"})],
-		{}),
+			"Google images"
+		], {:ref_id=>"dummy_0"})
+	], {}),
 	
 	MDElement.new(:paragraph,[	
 		"Inline with title: ",
 		
 		MDElement.new(:link,[	
-			"Google images"],
-			{:ref_id=>"dummy_1"})],
-		{}),
+			"Google images"
+		], {:ref_id=>"dummy_1"})
+	], {}),
 	
 	MDElement.new(:paragraph,[	
 		"Inline with title: ",
 		
 		MDElement.new(:link,[	
-			"Google images"],
-			{:ref_id=>"dummy_2"})],
-		{}),
+			"Google images"
+		], {:ref_id=>"dummy_2"})
+	], {}),
 	
 	MDElement.new(:paragraph,[	
 		"Search on ",
 		
-		MDElement.new(:immediate_link,[],
-			{:url=>"http://www.gogole.com"}),
+		MDElement.new(:immediate_link,[],{:url=>"http://www.gogole.com"}),
 		
 		" or ",
 		
-		MDElement.new(:immediate_link,[],
-			{:url=>"http://Here.com"}),
+		MDElement.new(:immediate_link,[],{:url=>"http://Here.com"}),
 		
 		" or ask ",
 		
-		MDElement.new(:immediate_link,[],
-			{:url=>"mailto:bill@google.com"}),
+		MDElement.new(:immediate_link,[],{:url=>"mailto:bill@google.com"}),
 		
-		" or you might ask bill@google.com."],
-		{}),
+		" or you might ask bill@google.com."
+	], {}),
 	
 	MDElement.new(:paragraph,[	
 		"If all else fails, ask ",
 		
 		MDElement.new(:link,[	
-			"Google"],
-			{:ref_id=>"dummy_3"}),
+			"Google"
+		], {:ref_id=>"dummy_3"}),
 		
-		"  [google]: http://www.google.com"],
-		{})],
-	{})
+		"  [google]: http://www.google.com"
+	], {})
+], {})
 ***EOF***
 <p>Search on <a href="http://www.google.com">Google</a></p>
 
@@ -376,7 +370,7 @@ MDElement.new(:document,[
 
 <p>Inline with title: <a href="http://google.com  "Title"">Google images</a></p>
 
-<p>Search on <a href="http://www.gogole.com">http://www.gogole.com</a> or <a href="http://Here.com">http://Here.com</a> or ask <a href="&#109;&#97;&#x69;&#x6C;&#116;&#x6F;:&#98;&#x69;&#x6C;&#x6C;&#64;&#x67;&#x6F;&#111;&#x67;&#108;&#101;&#46;&#x63;&#111;&#109;">&#98;&#x69;&#x6C;&#x6C;&#64;&#x67;&#x6F;&#111;&#x67;&#108;&#101;&#46;&#x63;&#111;&#109;</a>
+<p>Search on <a href="http://www.gogole.com">http://www.gogole.com</a> or <a href="http://Here.com">http://Here.com</a> or ask <a href="&#x6D;ai&#108;&#x74;o:&#98;&#105;&#108;&#x6C;&#64;&#103;&#111;&#x6F;&#x67;&#108;&#101;&#46;&#99;&#111;&#109;">&#98;&#105;&#108;&#x6C;&#64;&#103;&#111;&#x6F;&#x67;&#108;&#101;&#46;&#99;&#111;&#109;</a>
 or you might ask bill@google.com.</p>
 
 <p>If all else fails, ask <a href="http://www.google.com">Google</a></p>

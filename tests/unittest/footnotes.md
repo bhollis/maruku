@@ -66,26 +66,23 @@ MDElement.new(:document,[
 	MDElement.new(:paragraph,[	
 		"That's some text with a footnote ",
 		
-		MDElement.new(:footnote_reference,[],
-			{:footnote_id=>"^b"}),
+		MDElement.new(:footnote_reference,[],{:footnote_id=>"^b"}),
 		
 		" and another ",
 		
-		MDElement.new(:footnote_reference,[],
-			{:footnote_id=>"^c"}),
+		MDElement.new(:footnote_reference,[],{:footnote_id=>"^c"}),
 		
 		" and another ",
 		
-		MDElement.new(:footnote_reference,[],
-			{:footnote_id=>"^a"}),
+		MDElement.new(:footnote_reference,[],{:footnote_id=>"^a"}),
 		
-		"."],
-		{}),
+		"."
+	], {}),
 	
 	MDElement.new(:paragraph,[	
-		"This is not a footnote."],
-		{})],
-	{})
+		"This is not a footnote."
+	], {})
+], {})
 ***EOF***
 
 Failed tests:   [] 
@@ -144,26 +141,23 @@ MDElement.new(:document,[
 	MDElement.new(:paragraph,[	
 		"That's some text with a footnote ",
 		
-		MDElement.new(:footnote_reference,[],
-			{:footnote_id=>"^b"}),
+		MDElement.new(:footnote_reference,[],{:footnote_id=>"^b"}),
 		
 		" and another ",
 		
-		MDElement.new(:footnote_reference,[],
-			{:footnote_id=>"^c"}),
+		MDElement.new(:footnote_reference,[],{:footnote_id=>"^c"}),
 		
 		" and another ",
 		
-		MDElement.new(:footnote_reference,[],
-			{:footnote_id=>"^a"}),
+		MDElement.new(:footnote_reference,[],{:footnote_id=>"^a"}),
 		
-		"."],
-		{}),
+		"."
+	], {}),
 	
 	MDElement.new(:paragraph,[	
-		"This is not a footnote."],
-		{})],
-	{})
+		"This is not a footnote."
+	], {})
+], {})
 ***EOF***
 <p>That's some text with a footnote [^b] and another [^c] and another [^a].</p>
 

@@ -42,27 +42,26 @@ This is a header.This is the first list item.This is the second list item.Here's
 MDElement.new(:document,[	
 	MDElement.new(:quote,[	
 		MDElement.new(:header,[	
-			"This is a header."],
-			{:id=>"this_is_a_header", :level=>2}),
+			"This is a header."
+		], {:id=>"this_is_a_header", :level=>2}),
 		
 		MDElement.new(:ol,[	
 			MDElement.new(:li_span,[	
-				"This is the first list item."],
-				{:want_my_paragraph=>false}),
+				"This is the first list item."
+			], {:want_my_paragraph=>false}),
 			
 			MDElement.new(:li_span,[	
-				"This is the second list item."],
-				{:want_my_paragraph=>false})],
-			{}),
+				"This is the second list item."
+			], {:want_my_paragraph=>false})
+		], {}),
 		
 		MDElement.new(:paragraph,[	
-			"Here's some example code:"],
-			{}),
+			"Here's some example code:"
+		], {}),
 		
-		MDElement.new(:code,[],
-			{:raw_code=>"return shell_exec(\"echo $input | $markdown_script\");"})],
-		{})],
-	{})
+		MDElement.new(:code,[],{:raw_code=>"return shell_exec(\"echo $input | $markdown_script\");"})
+	], {})
+], {})
 ***EOF***
 
 Failed tests:   [] 
@@ -106,27 +105,26 @@ This is a header.This is the first list item.This is the second list item.Here's
 MDElement.new(:document,[	
 	MDElement.new(:quote,[	
 		MDElement.new(:header,[	
-			"This is a header."],
-			{:id=>"this_is_a_header", :level=>2}),
+			"This is a header."
+		], {:id=>"this_is_a_header", :level=>2}),
 		
 		MDElement.new(:ol,[	
 			MDElement.new(:li_span,[	
-				"This is the first list item."],
-				{:want_my_paragraph=>false}),
+				"This is the first list item."
+			], {:want_my_paragraph=>false}),
 			
 			MDElement.new(:li_span,[	
-				"This is the second list item."],
-				{:want_my_paragraph=>false})],
-			{}),
+				"This is the second list item."
+			], {:want_my_paragraph=>false})
+		], {}),
 		
 		MDElement.new(:paragraph,[	
-			"Here's some example code:"],
-			{}),
+			"Here's some example code:"
+		], {}),
 		
-		MDElement.new(:code,[],
-			{:raw_code=>"return shell_exec(\"echo $input | $markdown_script\");"})],
-		{})],
-	{})
+		MDElement.new(:code,[],{:raw_code=>"return shell_exec(\"echo $input | $markdown_script\");"})
+	], {})
+], {})
 ***EOF***
 <blockquote>
   <h2>This is a header.</h2>

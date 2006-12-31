@@ -42,45 +42,45 @@ Header 1Header 2Header 3Then you can create links to different parts of the same
 ***EOF***
 MDElement.new(:document,[	
 	MDElement.new(:header,[	
-		"Header 1"],
-		{:section=>_(1)>	  : Header 1 (id: 'header1')
+		"Header 1"
+	], {:section=>_(1)>	  : Header 1 (id: 'header1')
 	__(2)>	 1 : Header 2 (id: 'header2')
 	___(3)>	 1.1 : Header 3 (id: 'header3')
 	, :level=>1, :id=>"header1"}),
 	
 	MDElement.new(:header,[	
-		"Header 2"],
-		{:section=>_(2)>	 1 : Header 2 (id: 'header2')
+		"Header 2"
+	], {:section=>_(2)>	 1 : Header 2 (id: 'header2')
 	__(3)>	 1.1 : Header 3 (id: 'header3')
 	, :level=>2, :id=>"header2"}),
 	
 	MDElement.new(:header,[	
-		"Header 3"],
-		{:section=>_(3)>	 1.1 : Header 3 (id: 'header3')
+		"Header 3"
+	], {:section=>_(3)>	 1.1 : Header 3 (id: 'header3')
 	, :level=>3, :id=>"header3"}),
 	
 	MDElement.new(:paragraph,[	
-		"Then you can create links to different parts of the same document like this:"],
-		{}),
+		"Then you can create links to different parts of the same document like this:"
+	], {}),
 	
 	MDElement.new(:paragraph,[	
 		MDElement.new(:link,[	
-			"Link back to header 1"],
-			{:ref_id=>"dummy_0"}),
+			"Link back to header 1"
+		], {:ref_id=>"dummy_0"}),
 		
 		", ",
 		
 		MDElement.new(:link,[	
-			"Link back to header 2"],
-			{:ref_id=>"dummy_1"}),
+			"Link back to header 2"
+		], {:ref_id=>"dummy_1"}),
 		
 		", ",
 		
 		MDElement.new(:link,[	
-			"Link back to header 3"],
-			{:ref_id=>"dummy_2"})],
-		{})],
-	{:title=>"Header 1"})
+			"Link back to header 3"
+		], {:ref_id=>"dummy_2"})
+	], {})
+], {:title=>"Header 1"})
 ***EOF***
 
 Failed tests:   [] 
@@ -118,45 +118,45 @@ Header 1Header 2Header 3Then you can create links to different parts of the same
 ***EOF***
 MDElement.new(:document,[	
 	MDElement.new(:header,[	
-		"Header 1"],
-		{:section=>_(1)>	  : Header 1 (id: 'header1')
+		"Header 1"
+	], {:section=>_(1)>	  : Header 1 (id: 'header1')
 	__(2)>	 1 : Header 2 (id: 'header2')
 	___(3)>	 1.1 : Header 3 (id: 'header3')
 	, :level=>1, :id=>"header1"}),
 	
 	MDElement.new(:header,[	
-		"Header 2"],
-		{:section=>_(2)>	 1 : Header 2 (id: 'header2')
+		"Header 2"
+	], {:section=>_(2)>	 1 : Header 2 (id: 'header2')
 	__(3)>	 1.1 : Header 3 (id: 'header3')
 	, :level=>2, :id=>"header2"}),
 	
 	MDElement.new(:header,[	
-		"Header 3"],
-		{:section=>_(3)>	 1.1 : Header 3 (id: 'header3')
+		"Header 3"
+	], {:section=>_(3)>	 1.1 : Header 3 (id: 'header3')
 	, :level=>3, :id=>"header3"}),
 	
 	MDElement.new(:paragraph,[	
-		"Then you can create links to different parts of the same document like this:"],
-		{}),
+		"Then you can create links to different parts of the same document like this:"
+	], {}),
 	
 	MDElement.new(:paragraph,[	
 		MDElement.new(:link,[	
-			"Link back to header 1"],
-			{:ref_id=>"dummy_0"}),
+			"Link back to header 1"
+		], {:ref_id=>"dummy_0"}),
 		
 		", ",
 		
 		MDElement.new(:link,[	
-			"Link back to header 2"],
-			{:ref_id=>"dummy_1"}),
+			"Link back to header 2"
+		], {:ref_id=>"dummy_1"}),
 		
 		", ",
 		
 		MDElement.new(:link,[	
-			"Link back to header 3"],
-			{:ref_id=>"dummy_2"})],
-		{})],
-	{:title=>"Header 1"})
+			"Link back to header 3"
+		], {:ref_id=>"dummy_2"})
+	], {})
+], {:title=>"Header 1"})
 ***EOF***
 <h1>Header 1            {#header1}</h1>
 

@@ -55,35 +55,31 @@ This is code (4 spaces):This is not code CodeThis is code (1 tab):This is not co
 ***EOF***
 MDElement.new(:document,[	
 	MDElement.new(:paragraph,[	
-		"This is code (4 spaces):"],
-		{}),
+		"This is code (4 spaces):"
+	], {}),
 	
-	MDElement.new(:code,[],
-		{:raw_code=>"Code"}),
+	MDElement.new(:code,[],{:raw_code=>"Code"}),
 	
 	MDElement.new(:paragraph,[	
 		"This is not code ",
 		
-		MDElement.new(:linebreak,[],
-			{}),
+		MDElement.new(:linebreak,[],{}),
 		
-		"Code"],
-		{}),
+		"Code"
+	], {}),
 	
 	MDElement.new(:paragraph,[	
-		"This is code (1 tab):"],
-		{}),
+		"This is code (1 tab):"
+	], {}),
 	
-	MDElement.new(:code,[],
-		{:raw_code=>"Code"}),
+	MDElement.new(:code,[],{:raw_code=>"Code"}),
 	
 	MDElement.new(:paragraph,[	
-		"This is not code"],
-		{}),
+		"This is not code"
+	], {}),
 	
-	MDElement.new(:code,[],
-		{:raw_code=>"Code\n\n"})],
-	{})
+	MDElement.new(:code,[],{:raw_code=>"Code\n\n"})
+], {})
 ***EOF***
 
 Failed tests:   [] 
@@ -131,35 +127,31 @@ This is code (4 spaces):This is not code CodeThis is code (1 tab):This is not co
 ***EOF***
 MDElement.new(:document,[	
 	MDElement.new(:paragraph,[	
-		"This is code (4 spaces):"],
-		{}),
+		"This is code (4 spaces):"
+	], {}),
 	
-	MDElement.new(:code,[],
-		{:raw_code=>"Code"}),
+	MDElement.new(:code,[],{:raw_code=>"Code"}),
 	
 	MDElement.new(:paragraph,[	
 		"This is not code ",
 		
-		MDElement.new(:linebreak,[],
-			{}),
+		MDElement.new(:linebreak,[],{}),
 		
-		"Code"],
-		{}),
+		"Code"
+	], {}),
 	
 	MDElement.new(:paragraph,[	
-		"This is code (1 tab):"],
-		{}),
+		"This is code (1 tab):"
+	], {}),
 	
-	MDElement.new(:code,[],
-		{:raw_code=>"Code"}),
+	MDElement.new(:code,[],{:raw_code=>"Code"}),
 	
 	MDElement.new(:paragraph,[	
-		"This is not code"],
-		{}),
+		"This is not code"
+	], {}),
 	
-	MDElement.new(:code,[],
-		{:raw_code=>"Code\n\n"})],
-	{})
+	MDElement.new(:code,[],{:raw_code=>"Code\n\n"})
+], {})
 ***EOF***
 <p>This is code (4 spaces):</p>
 

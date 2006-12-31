@@ -310,416 +310,415 @@ GeneralOperating System : Mac OS X: heaven, after the purgatory of Linux and the
 ***EOF***
 MDElement.new(:document,[	
 	MDElement.new(:header,[	
-		"General"],
-		{:id=>"general", :level=>3}),
+		"General"
+	], {:id=>"general", :level=>3}),
 	
 	MDElement.new(:ul,[	
 		MDElement.new(:li_span,[	
 			MDElement.new(:emphasis,[	
-				"Operating System"],
-				{}),
+				"Operating System"
+			], {}),
 			
 			" : ",
 			
 			MDElement.new(:link,[	
-				"Mac OS X"],
-				{:ref_id=>"switch"}),
+				"Mac OS X"
+			], {:ref_id=>"switch"}),
 			
-			": heaven, after the purgatory of Linux and the hell of Windows."],
-			{:want_my_paragraph=>false}),
+			": heaven, after the purgatory of Linux and the hell of Windows."
+		], {:want_my_paragraph=>false}),
 		
 		MDElement.new(:li_span,[	
 			MDElement.new(:emphasis,[	
-				"Browser"],
-				{}),
+				"Browser"
+			], {}),
 			
 			": ",
 			
 			MDElement.new(:link,[	
-				"Firefox"],
-				{:ref_id=>"firefox"}),
+				"Firefox"
+			], {:ref_id=>"firefox"}),
 			
 			". On a Mac, ",
 			
 			MDElement.new(:link,[	
-				"Camino"],
-				{:ref_id=>"camino"}),
+				"Camino"
+			], {:ref_id=>"camino"}),
 			
-			"."],
-			{:want_my_paragraph=>false}),
+			"."
+		], {:want_my_paragraph=>false}),
 		
 		MDElement.new(:li_span,[	
 			MDElement.new(:emphasis,[	
-				"Email"],
-				{}),
+				"Email"
+			], {}),
 			
 			": ",
 			
 			MDElement.new(:link,[	
-				"GMail"],
-				{:ref_id=>"gmail"}),
+				"GMail"
+			], {:ref_id=>"gmail"}),
 			
-			", \"search, don't sort\" really works."],
-			{:want_my_paragraph=>false}),
+			", \"search, don't sort\" really works."
+		], {:want_my_paragraph=>false}),
 		
 		MDElement.new(:li_span,[	
 			MDElement.new(:emphasis,[	
-				"Text Editor"],
-				{}),
+				"Text Editor"
+			], {}),
 			
 			": ",
 			
 			MDElement.new(:link,[	
-				"TextMate"],
-				{:ref_id=>"textmate"}),
+				"TextMate"
+			], {:ref_id=>"textmate"}),
 			
 			", you have to buy it, but it's worth every penny. There are rumours that it's been converting (recovering) Emacs users (addicts). Unfortunately, it's Mac only. An alternative is ",
 			
 			MDElement.new(:link,[	
-				"jedit"],
-				{:ref_id=>"jedit"}),
+				"jedit"
+			], {:ref_id=>"jedit"}),
 			
-			" (GPL, Java)."],
-			{:want_my_paragraph=>false})],
-		{}),
+			" (GPL, Java)."
+		], {:want_my_paragraph=>false})
+	], {}),
 	
 	MDElement.new(:header,[	
-		"Development"],
-		{:id=>"development", :level=>3}),
+		"Development"
+	], {:id=>"development", :level=>3}),
 	
 	MDElement.new(:ul,[	
 		MDElement.new(:li,[	
 			MDElement.new(:paragraph,[	
 				MDElement.new(:emphasis,[	
-					"Build system"],
-					{}),
+					"Build system"
+				], {}),
 				
 				": ",
 				
 				MDElement.new(:link,[	
-					"cmake"],
-					{:ref_id=>"cmake"}),
+					"cmake"
+				], {:ref_id=>"cmake"}),
 				
 				", throw the ",
 				
 				MDElement.new(:link,[	
-					"autotools"],
-					{:ref_id=>"autotools"}),
+					"autotools"
+				], {:ref_id=>"autotools"}),
 				
-				" away."],
-				{})],
-			{:want_my_paragraph=>false}),
+				" away."
+			], {})
+		], {:want_my_paragraph=>false}),
 		
 		MDElement.new(:li,[	
 			MDElement.new(:paragraph,[	
 				MDElement.new(:emphasis,[	
-					"Source code control system"],
-					{}),
+					"Source code control system"
+				], {}),
 				
 				": ditch CVS for ",
 				
 				MDElement.new(:link,[	
-					"subversion"],
-					{:ref_id=>"subversion"}),
+					"subversion"
+				], {:ref_id=>"subversion"}),
 				
-				"."],
-				{})],
-			{:want_my_paragraph=>false}),
+				"."
+			], {})
+		], {:want_my_paragraph=>false}),
 		
 		MDElement.new(:li,[	
 			MDElement.new(:paragraph,[	
 				MDElement.new(:emphasis,[	
-					"Project management"],
-					{}),
+					"Project management"
+				], {}),
 				
 				": ",
 				
 				MDElement.new(:link,[	
-					"Trac"],
-					{:ref_id=>"trac"}),
+					"Trac"
+				], {:ref_id=>"trac"}),
 				
-				" tracks everything."],
-				{})],
-			{:want_my_paragraph=>false}),
+				" tracks everything."
+			], {})
+		], {:want_my_paragraph=>false}),
 		
 		MDElement.new(:li,[	
 			MDElement.new(:paragraph,[	
 				MDElement.new(:emphasis,[	
-					"Scripting language"],
-					{}),
+					"Scripting language"
+				], {}),
 				
 				": ",
 				
 				MDElement.new(:link,[	
-					"Ruby"],
-					{:ref_id=>"ruby"}),
+					"Ruby"
+				], {:ref_id=>"ruby"}),
 				
 				" is Japanese pragmatism (and has a ",
 				
 				MDElement.new(:link,[	
-					"poignant"],
-					{:ref_id=>"poignant"}),
+					"poignant"
+				], {:ref_id=>"poignant"}),
 				
-				" guide). Python, you say? Python is too academic and snob:"],
-				{}),
+				" guide). Python, you say? Python is too academic and snob:"
+			], {}),
 			
-			MDElement.new(:code,[],
-				{:raw_code=>"$ python       \nPython 2.4.1 (\\#1, Jun  4 2005, 00:54:33) \nType \"help\", \"copyright\", \"credits\" or \"license\" for more information.\n>>> exit\n'Use Ctrl-D (i.e. EOF) to exit.'\n>>> quit\n'Use Ctrl-D (i.e. EOF) to exit.'"})],
-			{:want_my_paragraph=>true}),
+			MDElement.new(:code,[],{:raw_code=>"$ python       \nPython 2.4.1 (\\#1, Jun  4 2005, 00:54:33) \nType \"help\", \"copyright\", \"credits\" or \"license\" for more information.\n>>> exit\n'Use Ctrl-D (i.e. EOF) to exit.'\n>>> quit\n'Use Ctrl-D (i.e. EOF) to exit.'"})
+		], {:want_my_paragraph=>true}),
 		
 		MDElement.new(:li,[	
 			MDElement.new(:paragraph,[	
 				MDElement.new(:emphasis,[	
-					"Java IDE"],
-					{}),
+					"Java IDE"
+				], {}),
 				
 				": ",
 				
 				MDElement.new(:link,[	
-					"JBuilder"],
-					{:ref_id=>"jbuilder"}),
+					"JBuilder"
+				], {:ref_id=>"jbuilder"}),
 				
 				" is great software and has a free version (IMHO better than Eclipse). Java is not a pain anymore since it gained ",
 				
 				MDElement.new(:link,[	
-					"generics"],
-					{:ref_id=>"java-generics"}),
+					"generics"
+				], {:ref_id=>"java-generics"}),
 				
-				" and got opensourced."],
-				{})],
-			{:want_my_paragraph=>false}),
+				" and got opensourced."
+			], {})
+		], {:want_my_paragraph=>false}),
 		
 		MDElement.new(:li,[	
 			MDElement.new(:paragraph,[	
 				MDElement.new(:emphasis,[	
-					"Mark-up language"],
-					{}),
+					"Mark-up language"
+				], {}),
 				
 				": HTML is so 2001, why don't you take at look at ",
 				
 				MDElement.new(:link,[	
-					"Markdown"],
-					{:ref_id=>"markdown"}),
+					"Markdown"
+				], {:ref_id=>"markdown"}),
 				
 				"? ",
 				
 				MDElement.new(:link,[	
-					"Look at the source of this page"],
-					{:ref_id=>"dummy_0"}),
+					"Look at the source of this page"
+				], {:ref_id=>"dummy_0"}),
 				
-				"."],
-				{})],
-			{:want_my_paragraph=>false}),
+				"."
+			], {})
+		], {:want_my_paragraph=>false}),
 		
 		MDElement.new(:li,[	
 			MDElement.new(:paragraph,[	
 				MDElement.new(:emphasis,[	
-					"C++ libraries"],
-					{}),
+					"C++ libraries"
+				], {}),
 				
 				": * ",
 				
 				MDElement.new(:link,[	
-					"QT"],
-					{:ref_id=>"qt"}),
+					"QT"
+				], {:ref_id=>"qt"}),
 				
 				" for GUIs. * ",
 				
 				MDElement.new(:link,[	
-					"GSL"],
-					{:ref_id=>"gsl"}),
+					"GSL"
+				], {:ref_id=>"gsl"}),
 				
 				" for math. * ",
 				
 				MDElement.new(:link,[	
-					"Magick++"],
-					{:ref_id=>"magick"}),
+					"Magick++"
+				], {:ref_id=>"magick"}),
 				
 				" for manipulating images. * ",
 				
 				MDElement.new(:link,[	
-					"Cairo"],
-					{:ref_id=>"cairo"}),
+					"Cairo"
+				], {:ref_id=>"cairo"}),
 				
 				" for creating PDFs. * ",
 				
 				MDElement.new(:link,[	
-					"Boost"],
-					{:ref_id=>"boost"}),
+					"Boost"
+				], {:ref_id=>"boost"}),
 				
-				" for just about everything else."],
-				{})],
-			{:want_my_paragraph=>false})],
-		{}),
+				" for just about everything else."
+			], {})
+		], {:want_my_paragraph=>false})
+	], {}),
 	
 	MDElement.new(:header,[	
-		"Research"],
-		{:id=>"research", :level=>3}),
+		"Research"
+	], {:id=>"research", :level=>3}),
 	
 	MDElement.new(:ul,[	
 		MDElement.new(:li_span,[	
 			MDElement.new(:emphasis,[	
-				"Writing papers"],
-				{}),
+				"Writing papers"
+			], {}),
 			
 			": ",
 			
 			MDElement.new(:link,[	
-				"LaTeX"],
-				{:ref_id=>"latex"})],
-			{:want_my_paragraph=>false}),
+				"LaTeX"
+			], {:ref_id=>"latex"})
+		], {:want_my_paragraph=>false}),
 		
 		MDElement.new(:li_span,[	
 			MDElement.new(:emphasis,[	
-				"Writing papers & enjoying the process"],
-				{}),
+				"Writing papers & enjoying the process"
+			], {}),
 			
 			": ",
 			
 			MDElement.new(:link,[	
-				"LyX"],
-				{:ref_id=>"lyx"})],
-			{:want_my_paragraph=>false}),
+				"LyX"
+			], {:ref_id=>"lyx"})
+		], {:want_my_paragraph=>false}),
 		
 		MDElement.new(:li_span,[	
 			MDElement.new(:emphasis,[	
-				"Handsome figures in your papers"],
-				{}),
+				"Handsome figures in your papers"
+			], {}),
 			
 			": ",
 			
 			MDElement.new(:link,[	
-				"xfig"],
-				{:ref_id=>"xfig"}),
+				"xfig"
+			], {:ref_id=>"xfig"}),
 			
 			" or, better, ",
 			
 			MDElement.new(:link,[	
-				"jfig"],
-				{:ref_id=>"jfig"}),
+				"jfig"
+			], {:ref_id=>"jfig"}),
 			
-			"."],
-			{:want_my_paragraph=>false}),
+			"."
+		], {:want_my_paragraph=>false}),
 		
 		MDElement.new(:li_span,[	
 			MDElement.new(:emphasis,[	
-				"The occasional presentation with many graphical content"],
-				{}),
+				"The occasional presentation with many graphical content"
+			], {}),
 			
 			": ",
 			
 			MDElement.new(:link,[	
-				"OpenOffice Impress"],
-				{:ref_id=>"impress"}),
+				"OpenOffice Impress"
+			], {:ref_id=>"impress"}),
 			
 			" (using the ",
 			
 			MDElement.new(:link,[	
-				"OOOlatex plugin"],
-				{:ref_id=>"ooolatex"}),
+				"OOOlatex plugin"
+			], {:ref_id=>"ooolatex"}),
 			
 			"); the alternative is PowerPoint with the ",
 			
 			MDElement.new(:link,[	
-				"TexPoint"],
-				{:ref_id=>"texpoint"}),
+				"TexPoint"
+			], {:ref_id=>"texpoint"}),
 			
-			" plugin."],
-			{:want_my_paragraph=>false}),
+			" plugin."
+		], {:want_my_paragraph=>false}),
 		
 		MDElement.new(:li_span,[	
 			MDElement.new(:emphasis,[	
-				"Managing BibTeX"],
-				{}),
+				"Managing BibTeX"
+			], {}),
 			
 			": ",
 			
 			MDElement.new(:link,[	
-				"jabref"],
-				{:ref_id=>"jabref"}),
+				"jabref"
+			], {:ref_id=>"jabref"}),
 			
-			": multi-platform, for all your bibtex needs."],
-			{:want_my_paragraph=>false}),
+			": multi-platform, for all your bibtex needs."
+		], {:want_my_paragraph=>false}),
 		
 		MDElement.new(:li_span,[	
 			MDElement.new(:emphasis,[	
-				"IEEExplore and BibTeX"],
-				{}),
+				"IEEExplore and BibTeX"
+			], {}),
 			
 			": convert citations using ",
 			
 			MDElement.new(:link,[	
-				"BibConverter"],
-				{:ref_id=>"bibconverter"}),
+				"BibConverter"
+			], {:ref_id=>"bibconverter"}),
 			
-			"."],
-			{:want_my_paragraph=>false})],
-		{}),
+			"."
+		], {:want_my_paragraph=>false})
+	], {}),
 	
 	MDElement.new(:header,[	
-		"Cool websites"],
-		{:id=>"cool_websites", :level=>3}),
+		"Cool websites"
+	], {:id=>"cool_websites", :level=>3}),
 	
 	MDElement.new(:ul,[	
 		MDElement.new(:li_span,[	
 			MDElement.new(:emphasis,[	
-				"Best site in the wwworld"],
-				{}),
+				"Best site in the wwworld"
+			], {}),
 			
 			": ",
 			
 			MDElement.new(:link,[	
-				"Wikipedia"],
-				{:ref_id=>"wikipedia"})],
-			{:want_my_paragraph=>false}),
+				"Wikipedia"
+			], {:ref_id=>"wikipedia"})
+		], {:want_my_paragraph=>false}),
 		
 		MDElement.new(:li_span,[	
 			MDElement.new(:link,[	
-				"Mutopia"],
-				{:ref_id=>"mutopia"}),
+				"Mutopia"
+			], {:ref_id=>"mutopia"}),
 			
 			" for sheet music; ",
 			
 			MDElement.new(:link,[	
-				"the Gutenberg Project"],
-				{:ref_id=>"gutenberg"}),
+				"the Gutenberg Project"
+			], {:ref_id=>"gutenberg"}),
 			
 			" for books; ",
 			
 			MDElement.new(:link,[	
-				"LiberLiber"],
-				{:ref_id=>"liberliber"}),
+				"LiberLiber"
+			], {:ref_id=>"liberliber"}),
 			
-			" for books in italian."],
-			{:want_my_paragraph=>false}),
+			" for books in italian."
+		], {:want_my_paragraph=>false}),
 		
 		MDElement.new(:li_span,[	
 			MDElement.new(:emphasis,[	
-				"Blogs"],
-				{}),
+				"Blogs"
+			], {}),
 			
 			": ",
 			
 			MDElement.new(:link,[	
-				"Bloglines"],
-				{:ref_id=>"bloglines"})],
-			{:want_my_paragraph=>false}),
+				"Bloglines"
+			], {:ref_id=>"bloglines"})
+		], {:want_my_paragraph=>false}),
 		
 		MDElement.new(:li_span,[	
 			MDElement.new(:emphasis,[	
-				"Sharing photos"],
-				{}),
+				"Sharing photos"
+			], {}),
 			
 			": ",
 			
 			MDElement.new(:link,[	
-				"flickr"],
-				{:ref_id=>"flickr"}),
+				"flickr"
+			], {:ref_id=>"flickr"}),
 			
-			" exposes an API you can use."],
-			{:want_my_paragraph=>false})],
-		{})],
-	{:subject=>"Software not painful to use", :archive=>false, :inmenu=>true, :date=>"Nov 20 2006", :order=>"-9.5", :subject_short=>"painless software", :topic=>"/misc/coolsw"})
+			" exposes an API you can use."
+		], {:want_my_paragraph=>false})
+	], {})
+], {:subject=>"Software not painful to use", :archive=>false, :inmenu=>true, :date=>"Nov 20 2006", :order=>"-9.5", :subject_short=>"painless software", :topic=>"/misc/coolsw"})
 ***EOF***
 
 Failed tests:   [] 
@@ -933,416 +932,415 @@ GeneralOperating System : Mac OS X: heaven, after the purgatory of Linux and the
 ***EOF***
 MDElement.new(:document,[	
 	MDElement.new(:header,[	
-		"General"],
-		{:id=>"general", :level=>3}),
+		"General"
+	], {:id=>"general", :level=>3}),
 	
 	MDElement.new(:ul,[	
 		MDElement.new(:li_span,[	
 			MDElement.new(:emphasis,[	
-				"Operating System"],
-				{}),
+				"Operating System"
+			], {}),
 			
 			" : ",
 			
 			MDElement.new(:link,[	
-				"Mac OS X"],
-				{:ref_id=>"switch"}),
+				"Mac OS X"
+			], {:ref_id=>"switch"}),
 			
-			": heaven, after the purgatory of Linux and the hell of Windows."],
-			{:want_my_paragraph=>false}),
+			": heaven, after the purgatory of Linux and the hell of Windows."
+		], {:want_my_paragraph=>false}),
 		
 		MDElement.new(:li_span,[	
 			MDElement.new(:emphasis,[	
-				"Browser"],
-				{}),
+				"Browser"
+			], {}),
 			
 			": ",
 			
 			MDElement.new(:link,[	
-				"Firefox"],
-				{:ref_id=>"firefox"}),
+				"Firefox"
+			], {:ref_id=>"firefox"}),
 			
 			". On a Mac, ",
 			
 			MDElement.new(:link,[	
-				"Camino"],
-				{:ref_id=>"camino"}),
+				"Camino"
+			], {:ref_id=>"camino"}),
 			
-			"."],
-			{:want_my_paragraph=>false}),
+			"."
+		], {:want_my_paragraph=>false}),
 		
 		MDElement.new(:li_span,[	
 			MDElement.new(:emphasis,[	
-				"Email"],
-				{}),
+				"Email"
+			], {}),
 			
 			": ",
 			
 			MDElement.new(:link,[	
-				"GMail"],
-				{:ref_id=>"gmail"}),
+				"GMail"
+			], {:ref_id=>"gmail"}),
 			
-			", \"search, don't sort\" really works."],
-			{:want_my_paragraph=>false}),
+			", \"search, don't sort\" really works."
+		], {:want_my_paragraph=>false}),
 		
 		MDElement.new(:li_span,[	
 			MDElement.new(:emphasis,[	
-				"Text Editor"],
-				{}),
+				"Text Editor"
+			], {}),
 			
 			": ",
 			
 			MDElement.new(:link,[	
-				"TextMate"],
-				{:ref_id=>"textmate"}),
+				"TextMate"
+			], {:ref_id=>"textmate"}),
 			
 			", you have to buy it, but it's worth every penny. There are rumours that it's been converting (recovering) Emacs users (addicts). Unfortunately, it's Mac only. An alternative is ",
 			
 			MDElement.new(:link,[	
-				"jedit"],
-				{:ref_id=>"jedit"}),
+				"jedit"
+			], {:ref_id=>"jedit"}),
 			
-			" (GPL, Java)."],
-			{:want_my_paragraph=>false})],
-		{}),
+			" (GPL, Java)."
+		], {:want_my_paragraph=>false})
+	], {}),
 	
 	MDElement.new(:header,[	
-		"Development"],
-		{:id=>"development", :level=>3}),
+		"Development"
+	], {:id=>"development", :level=>3}),
 	
 	MDElement.new(:ul,[	
 		MDElement.new(:li,[	
 			MDElement.new(:paragraph,[	
 				MDElement.new(:emphasis,[	
-					"Build system"],
-					{}),
+					"Build system"
+				], {}),
 				
 				": ",
 				
 				MDElement.new(:link,[	
-					"cmake"],
-					{:ref_id=>"cmake"}),
+					"cmake"
+				], {:ref_id=>"cmake"}),
 				
 				", throw the ",
 				
 				MDElement.new(:link,[	
-					"autotools"],
-					{:ref_id=>"autotools"}),
+					"autotools"
+				], {:ref_id=>"autotools"}),
 				
-				" away."],
-				{})],
-			{:want_my_paragraph=>false}),
+				" away."
+			], {})
+		], {:want_my_paragraph=>false}),
 		
 		MDElement.new(:li,[	
 			MDElement.new(:paragraph,[	
 				MDElement.new(:emphasis,[	
-					"Source code control system"],
-					{}),
+					"Source code control system"
+				], {}),
 				
 				": ditch CVS for ",
 				
 				MDElement.new(:link,[	
-					"subversion"],
-					{:ref_id=>"subversion"}),
+					"subversion"
+				], {:ref_id=>"subversion"}),
 				
-				"."],
-				{})],
-			{:want_my_paragraph=>false}),
+				"."
+			], {})
+		], {:want_my_paragraph=>false}),
 		
 		MDElement.new(:li,[	
 			MDElement.new(:paragraph,[	
 				MDElement.new(:emphasis,[	
-					"Project management"],
-					{}),
+					"Project management"
+				], {}),
 				
 				": ",
 				
 				MDElement.new(:link,[	
-					"Trac"],
-					{:ref_id=>"trac"}),
+					"Trac"
+				], {:ref_id=>"trac"}),
 				
-				" tracks everything."],
-				{})],
-			{:want_my_paragraph=>false}),
+				" tracks everything."
+			], {})
+		], {:want_my_paragraph=>false}),
 		
 		MDElement.new(:li,[	
 			MDElement.new(:paragraph,[	
 				MDElement.new(:emphasis,[	
-					"Scripting language"],
-					{}),
+					"Scripting language"
+				], {}),
 				
 				": ",
 				
 				MDElement.new(:link,[	
-					"Ruby"],
-					{:ref_id=>"ruby"}),
+					"Ruby"
+				], {:ref_id=>"ruby"}),
 				
 				" is Japanese pragmatism (and has a ",
 				
 				MDElement.new(:link,[	
-					"poignant"],
-					{:ref_id=>"poignant"}),
+					"poignant"
+				], {:ref_id=>"poignant"}),
 				
-				" guide). Python, you say? Python is too academic and snob:"],
-				{}),
+				" guide). Python, you say? Python is too academic and snob:"
+			], {}),
 			
-			MDElement.new(:code,[],
-				{:raw_code=>"$ python       \nPython 2.4.1 (\\#1, Jun  4 2005, 00:54:33) \nType \"help\", \"copyright\", \"credits\" or \"license\" for more information.\n>>> exit\n'Use Ctrl-D (i.e. EOF) to exit.'\n>>> quit\n'Use Ctrl-D (i.e. EOF) to exit.'"})],
-			{:want_my_paragraph=>true}),
+			MDElement.new(:code,[],{:raw_code=>"$ python       \nPython 2.4.1 (\\#1, Jun  4 2005, 00:54:33) \nType \"help\", \"copyright\", \"credits\" or \"license\" for more information.\n>>> exit\n'Use Ctrl-D (i.e. EOF) to exit.'\n>>> quit\n'Use Ctrl-D (i.e. EOF) to exit.'"})
+		], {:want_my_paragraph=>true}),
 		
 		MDElement.new(:li,[	
 			MDElement.new(:paragraph,[	
 				MDElement.new(:emphasis,[	
-					"Java IDE"],
-					{}),
+					"Java IDE"
+				], {}),
 				
 				": ",
 				
 				MDElement.new(:link,[	
-					"JBuilder"],
-					{:ref_id=>"jbuilder"}),
+					"JBuilder"
+				], {:ref_id=>"jbuilder"}),
 				
 				" is great software and has a free version (IMHO better than Eclipse). Java is not a pain anymore since it gained ",
 				
 				MDElement.new(:link,[	
-					"generics"],
-					{:ref_id=>"java-generics"}),
+					"generics"
+				], {:ref_id=>"java-generics"}),
 				
-				" and got opensourced."],
-				{})],
-			{:want_my_paragraph=>false}),
+				" and got opensourced."
+			], {})
+		], {:want_my_paragraph=>false}),
 		
 		MDElement.new(:li,[	
 			MDElement.new(:paragraph,[	
 				MDElement.new(:emphasis,[	
-					"Mark-up language"],
-					{}),
+					"Mark-up language"
+				], {}),
 				
 				": HTML is so 2001, why don't you take at look at ",
 				
 				MDElement.new(:link,[	
-					"Markdown"],
-					{:ref_id=>"markdown"}),
+					"Markdown"
+				], {:ref_id=>"markdown"}),
 				
 				"? ",
 				
 				MDElement.new(:link,[	
-					"Look at the source of this page"],
-					{:ref_id=>"dummy_0"}),
+					"Look at the source of this page"
+				], {:ref_id=>"dummy_0"}),
 				
-				"."],
-				{})],
-			{:want_my_paragraph=>false}),
+				"."
+			], {})
+		], {:want_my_paragraph=>false}),
 		
 		MDElement.new(:li,[	
 			MDElement.new(:paragraph,[	
 				MDElement.new(:emphasis,[	
-					"C++ libraries"],
-					{}),
+					"C++ libraries"
+				], {}),
 				
 				": * ",
 				
 				MDElement.new(:link,[	
-					"QT"],
-					{:ref_id=>"qt"}),
+					"QT"
+				], {:ref_id=>"qt"}),
 				
 				" for GUIs. * ",
 				
 				MDElement.new(:link,[	
-					"GSL"],
-					{:ref_id=>"gsl"}),
+					"GSL"
+				], {:ref_id=>"gsl"}),
 				
 				" for math. * ",
 				
 				MDElement.new(:link,[	
-					"Magick++"],
-					{:ref_id=>"magick"}),
+					"Magick++"
+				], {:ref_id=>"magick"}),
 				
 				" for manipulating images. * ",
 				
 				MDElement.new(:link,[	
-					"Cairo"],
-					{:ref_id=>"cairo"}),
+					"Cairo"
+				], {:ref_id=>"cairo"}),
 				
 				" for creating PDFs. * ",
 				
 				MDElement.new(:link,[	
-					"Boost"],
-					{:ref_id=>"boost"}),
+					"Boost"
+				], {:ref_id=>"boost"}),
 				
-				" for just about everything else."],
-				{})],
-			{:want_my_paragraph=>false})],
-		{}),
+				" for just about everything else."
+			], {})
+		], {:want_my_paragraph=>false})
+	], {}),
 	
 	MDElement.new(:header,[	
-		"Research"],
-		{:id=>"research", :level=>3}),
+		"Research"
+	], {:id=>"research", :level=>3}),
 	
 	MDElement.new(:ul,[	
 		MDElement.new(:li_span,[	
 			MDElement.new(:emphasis,[	
-				"Writing papers"],
-				{}),
+				"Writing papers"
+			], {}),
 			
 			": ",
 			
 			MDElement.new(:link,[	
-				"LaTeX"],
-				{:ref_id=>"latex"})],
-			{:want_my_paragraph=>false}),
+				"LaTeX"
+			], {:ref_id=>"latex"})
+		], {:want_my_paragraph=>false}),
 		
 		MDElement.new(:li_span,[	
 			MDElement.new(:emphasis,[	
-				"Writing papers & enjoying the process"],
-				{}),
+				"Writing papers & enjoying the process"
+			], {}),
 			
 			": ",
 			
 			MDElement.new(:link,[	
-				"LyX"],
-				{:ref_id=>"lyx"})],
-			{:want_my_paragraph=>false}),
+				"LyX"
+			], {:ref_id=>"lyx"})
+		], {:want_my_paragraph=>false}),
 		
 		MDElement.new(:li_span,[	
 			MDElement.new(:emphasis,[	
-				"Handsome figures in your papers"],
-				{}),
+				"Handsome figures in your papers"
+			], {}),
 			
 			": ",
 			
 			MDElement.new(:link,[	
-				"xfig"],
-				{:ref_id=>"xfig"}),
+				"xfig"
+			], {:ref_id=>"xfig"}),
 			
 			" or, better, ",
 			
 			MDElement.new(:link,[	
-				"jfig"],
-				{:ref_id=>"jfig"}),
+				"jfig"
+			], {:ref_id=>"jfig"}),
 			
-			"."],
-			{:want_my_paragraph=>false}),
+			"."
+		], {:want_my_paragraph=>false}),
 		
 		MDElement.new(:li_span,[	
 			MDElement.new(:emphasis,[	
-				"The occasional presentation with many graphical content"],
-				{}),
+				"The occasional presentation with many graphical content"
+			], {}),
 			
 			": ",
 			
 			MDElement.new(:link,[	
-				"OpenOffice Impress"],
-				{:ref_id=>"impress"}),
+				"OpenOffice Impress"
+			], {:ref_id=>"impress"}),
 			
 			" (using the ",
 			
 			MDElement.new(:link,[	
-				"OOOlatex plugin"],
-				{:ref_id=>"ooolatex"}),
+				"OOOlatex plugin"
+			], {:ref_id=>"ooolatex"}),
 			
 			"); the alternative is PowerPoint with the ",
 			
 			MDElement.new(:link,[	
-				"TexPoint"],
-				{:ref_id=>"texpoint"}),
+				"TexPoint"
+			], {:ref_id=>"texpoint"}),
 			
-			" plugin."],
-			{:want_my_paragraph=>false}),
+			" plugin."
+		], {:want_my_paragraph=>false}),
 		
 		MDElement.new(:li_span,[	
 			MDElement.new(:emphasis,[	
-				"Managing BibTeX"],
-				{}),
+				"Managing BibTeX"
+			], {}),
 			
 			": ",
 			
 			MDElement.new(:link,[	
-				"jabref"],
-				{:ref_id=>"jabref"}),
+				"jabref"
+			], {:ref_id=>"jabref"}),
 			
-			": multi-platform, for all your bibtex needs."],
-			{:want_my_paragraph=>false}),
+			": multi-platform, for all your bibtex needs."
+		], {:want_my_paragraph=>false}),
 		
 		MDElement.new(:li_span,[	
 			MDElement.new(:emphasis,[	
-				"IEEExplore and BibTeX"],
-				{}),
+				"IEEExplore and BibTeX"
+			], {}),
 			
 			": convert citations using ",
 			
 			MDElement.new(:link,[	
-				"BibConverter"],
-				{:ref_id=>"bibconverter"}),
+				"BibConverter"
+			], {:ref_id=>"bibconverter"}),
 			
-			"."],
-			{:want_my_paragraph=>false})],
-		{}),
+			"."
+		], {:want_my_paragraph=>false})
+	], {}),
 	
 	MDElement.new(:header,[	
-		"Cool websites"],
-		{:id=>"cool_websites", :level=>3}),
+		"Cool websites"
+	], {:id=>"cool_websites", :level=>3}),
 	
 	MDElement.new(:ul,[	
 		MDElement.new(:li_span,[	
 			MDElement.new(:emphasis,[	
-				"Best site in the wwworld"],
-				{}),
+				"Best site in the wwworld"
+			], {}),
 			
 			": ",
 			
 			MDElement.new(:link,[	
-				"Wikipedia"],
-				{:ref_id=>"wikipedia"})],
-			{:want_my_paragraph=>false}),
+				"Wikipedia"
+			], {:ref_id=>"wikipedia"})
+		], {:want_my_paragraph=>false}),
 		
 		MDElement.new(:li_span,[	
 			MDElement.new(:link,[	
-				"Mutopia"],
-				{:ref_id=>"mutopia"}),
+				"Mutopia"
+			], {:ref_id=>"mutopia"}),
 			
 			" for sheet music; ",
 			
 			MDElement.new(:link,[	
-				"the Gutenberg Project"],
-				{:ref_id=>"gutenberg"}),
+				"the Gutenberg Project"
+			], {:ref_id=>"gutenberg"}),
 			
 			" for books; ",
 			
 			MDElement.new(:link,[	
-				"LiberLiber"],
-				{:ref_id=>"liberliber"}),
+				"LiberLiber"
+			], {:ref_id=>"liberliber"}),
 			
-			" for books in italian."],
-			{:want_my_paragraph=>false}),
+			" for books in italian."
+		], {:want_my_paragraph=>false}),
 		
 		MDElement.new(:li_span,[	
 			MDElement.new(:emphasis,[	
-				"Blogs"],
-				{}),
+				"Blogs"
+			], {}),
 			
 			": ",
 			
 			MDElement.new(:link,[	
-				"Bloglines"],
-				{:ref_id=>"bloglines"})],
-			{:want_my_paragraph=>false}),
+				"Bloglines"
+			], {:ref_id=>"bloglines"})
+		], {:want_my_paragraph=>false}),
 		
 		MDElement.new(:li_span,[	
 			MDElement.new(:emphasis,[	
-				"Sharing photos"],
-				{}),
+				"Sharing photos"
+			], {}),
 			
 			": ",
 			
 			MDElement.new(:link,[	
-				"flickr"],
-				{:ref_id=>"flickr"}),
+				"flickr"
+			], {:ref_id=>"flickr"}),
 			
-			" exposes an API you can use."],
-			{:want_my_paragraph=>false})],
-		{})],
-	{:subject=>"Software not painful to use", :archive=>false, :inmenu=>true, :date=>"Nov 20 2006", :order=>"-9.5", :subject_short=>"painless software", :topic=>"/misc/coolsw"})
+			" exposes an API you can use."
+		], {:want_my_paragraph=>false})
+	], {})
+], {:subject=>"Software not painful to use", :archive=>false, :inmenu=>true, :date=>"Nov 20 2006", :order=>"-9.5", :subject_short=>"painless software", :topic=>"/misc/coolsw"})
 ***EOF***
 <p>Subject: Software not painful to use
 Subject_short: painless software

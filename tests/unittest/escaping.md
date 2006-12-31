@@ -50,69 +50,65 @@ Hello: ! ! ` { } [ ] ( ) # . ! * * *Ora, emphasis, bold, * <- due asterischi-> *
 ***EOF***
 MDElement.new(:document,[	
 	MDElement.new(:paragraph,[	
-		"Hello: ! ! ` { } [ ] ( ) # . ! * * *"],
-		{}),
+		"Hello: ! ! ` { } [ ] ( ) # . ! * * *"
+	], {}),
 	
 	MDElement.new(:paragraph,[	
 		"Ora, ",
 		
 		MDElement.new(:emphasis,[	
-			"emphasis"],
-			{}),
+			"emphasis"
+		], {}),
 		
 		", ",
 		
 		MDElement.new(:strong,[	
-			"bold"],
-			{}),
+			"bold"
+		], {}),
 		
 		", * <- due asterischi-> * , un underscore-> _ , ",
 		
 		MDElement.new(:emphasis,[	
-			"emphasis"],
-			{}),
+			"emphasis"
+		], {}),
 		
 		", incre",
 		
 		MDElement.new(:emphasis,[	
-			"dible"],
-			{}),
+			"dible"
+		], {}),
 		
-		"e!"],
-		{}),
+		"e!"
+	], {}),
 	
 	MDElement.new(:paragraph,[	
 		"This is ",
 		
-		MDElement.new(:inline_code,[],
-			{:raw_code=>"Code with an escape:  -> \\` <- "}),
+		MDElement.new(:inline_code,[],{:raw_code=>"Code with an escape:  -> \\` <- "}),
 		
-		" (after)"],
-		{}),
+		" (after)"
+	], {}),
 	
 	MDElement.new(:paragraph,[	
 		"This is ",
 		
-		MDElement.new(:inline_code,[],
-			{:raw_code=>"Code with a special: -> ` <- "}),
+		MDElement.new(:inline_code,[],{:raw_code=>"Code with a special: -> ` <- "}),
 		
-		"(after)"],
-		{}),
+		"(after)"
+	], {}),
 	
 	MDElement.new(:paragraph,[	
-		MDElement.new(:inline_code,[],
-			{:raw_code=>"Start "}),
+		MDElement.new(:inline_code,[],{:raw_code=>"Start "}),
 		
-		" of paragraph"],
-		{}),
+		" of paragraph"
+	], {}),
 	
 	MDElement.new(:paragraph,[	
 		"End of ",
 		
-		MDElement.new(:inline_code,[],
-			{:raw_code=>"paragraph "})],
-		{})],
-	{})
+		MDElement.new(:inline_code,[],{:raw_code=>"paragraph "})
+	], {})
+], {})
 ***EOF***
 
 Failed tests:   [:to_html] 
@@ -159,69 +155,65 @@ Hello: ! ! ` { } [ ] ( ) # . ! * * *Ora, emphasis, bold, * <- due asterischi-> *
 ***EOF***
 MDElement.new(:document,[	
 	MDElement.new(:paragraph,[	
-		"Hello: ! ! ` { } [ ] ( ) # . ! * * *"],
-		{}),
+		"Hello: ! ! ` { } [ ] ( ) # . ! * * *"
+	], {}),
 	
 	MDElement.new(:paragraph,[	
 		"Ora, ",
 		
 		MDElement.new(:emphasis,[	
-			"emphasis"],
-			{}),
+			"emphasis"
+		], {}),
 		
 		", ",
 		
 		MDElement.new(:strong,[	
-			"bold"],
-			{}),
+			"bold"
+		], {}),
 		
 		", * <- due asterischi-> * , un underscore-> _ , ",
 		
 		MDElement.new(:emphasis,[	
-			"emphasis"],
-			{}),
+			"emphasis"
+		], {}),
 		
 		", incre",
 		
 		MDElement.new(:emphasis,[	
-			"dible"],
-			{}),
+			"dible"
+		], {}),
 		
-		"e!"],
-		{}),
+		"e!"
+	], {}),
 	
 	MDElement.new(:paragraph,[	
 		"This is ",
 		
-		MDElement.new(:inline_code,[],
-			{:raw_code=>"Code with an escape:  -> \\` <- "}),
+		MDElement.new(:inline_code,[],{:raw_code=>"Code with an escape:  -> \\` <- "}),
 		
-		" (after)"],
-		{}),
+		" (after)"
+	], {}),
 	
 	MDElement.new(:paragraph,[	
 		"This is ",
 		
-		MDElement.new(:inline_code,[],
-			{:raw_code=>"Code with a special: -> ` <- "}),
+		MDElement.new(:inline_code,[],{:raw_code=>"Code with a special: -> ` <- "}),
 		
-		"(after)"],
-		{}),
+		"(after)"
+	], {}),
 	
 	MDElement.new(:paragraph,[	
-		MDElement.new(:inline_code,[],
-			{:raw_code=>"Start "}),
+		MDElement.new(:inline_code,[],{:raw_code=>"Start "}),
 		
-		" of paragraph"],
-		{}),
+		" of paragraph"
+	], {}),
 	
 	MDElement.new(:paragraph,[	
 		"End of ",
 		
-		MDElement.new(:inline_code,[],
-			{:raw_code=>"paragraph "})],
-		{})],
-	{})
+		MDElement.new(:inline_code,[],{:raw_code=>"paragraph "})
+	], {})
+], {})
 ***EOF***
 <p>Hello: ! ! ` { } [ ] ( ) # . ! * * *</p>
 

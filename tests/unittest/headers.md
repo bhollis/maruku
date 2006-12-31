@@ -35,9 +35,9 @@ MDElement.new(:document,[
 		"A title with ",
 		
 		MDElement.new(:emphasis,[	
-			"emphasis"],
-			{})],
-		{:section=>_(1)>	  : A title with emphasis (id: 'a_title_with_emphasis')
+			"emphasis"
+		], {})
+	], {:section=>_(1)>	  : A title with emphasis (id: 'a_title_with_emphasis')
 	__(2)>	 1 : A title with emphasis (id: 'a_title_with_emphasis')
 	, :id=>"a_title_with_emphasis", :level=>1}),
 	
@@ -45,19 +45,19 @@ MDElement.new(:document,[
 		"A title with ",
 		
 		MDElement.new(:emphasis,[	
-			"emphasis"],
-			{})],
-		{:section=>_(2)>	 1 : A title with emphasis (id: 'a_title_with_emphasis')
+			"emphasis"
+		], {})
+	], {:section=>_(2)>	 1 : A title with emphasis (id: 'a_title_with_emphasis')
 	, :id=>"a_title_with_emphasis", :level=>2}),
 	
 	MDElement.new(:header,[	
 		"A title with ",
 		
 		MDElement.new(:emphasis,[	
-			"emphasis"],
-			{})],
-		{:id=>"a_title_with_emphasis", :level=>4})],
-	{:title=>"A title with emphasis"})
+			"emphasis"
+		], {})
+	], {:id=>"a_title_with_emphasis", :level=>4})
+], {:title=>"A title with emphasis"})
 ***EOF***
 
 Failed tests:   [] 
@@ -91,9 +91,9 @@ MDElement.new(:document,[
 		"A title with ",
 		
 		MDElement.new(:emphasis,[	
-			"emphasis"],
-			{})],
-		{:section=>_(1)>	  : A title with emphasis (id: 'a_title_with_emphasis')
+			"emphasis"
+		], {})
+	], {:section=>_(1)>	  : A title with emphasis (id: 'a_title_with_emphasis')
 	__(2)>	 1 : A title with emphasis (id: 'a_title_with_emphasis')
 	, :id=>"a_title_with_emphasis", :level=>1}),
 	
@@ -101,19 +101,19 @@ MDElement.new(:document,[
 		"A title with ",
 		
 		MDElement.new(:emphasis,[	
-			"emphasis"],
-			{})],
-		{:section=>_(2)>	 1 : A title with emphasis (id: 'a_title_with_emphasis')
+			"emphasis"
+		], {})
+	], {:section=>_(2)>	 1 : A title with emphasis (id: 'a_title_with_emphasis')
 	, :id=>"a_title_with_emphasis", :level=>2}),
 	
 	MDElement.new(:header,[	
 		"A title with ",
 		
 		MDElement.new(:emphasis,[	
-			"emphasis"],
-			{})],
-		{:id=>"a_title_with_emphasis", :level=>4})],
-	{:title=>"A title with emphasis"})
+			"emphasis"
+		], {})
+	], {:id=>"a_title_with_emphasis", :level=>4})
+], {:title=>"A title with emphasis"})
 ***EOF***
 <h1>A title with <em>emphasis</em></h1>
 

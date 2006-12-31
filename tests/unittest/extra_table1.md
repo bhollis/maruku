@@ -205,139 +205,132 @@ First HeaderSecond HeaderContent CellContent CellContent CellContent CellItemVal
 MDElement.new(:document,[	
 	MDElement.new(:table,[	
 		MDElement.new(:head_cell,[	
-			"First Header"],
-			{}),
+			"First Header"
+		], {}),
 		
 		MDElement.new(:head_cell,[	
-			"Second Header"],
-			{}),
+			"Second Header"
+		], {}),
 		
 		MDElement.new(:cell,[	
-			"Content Cell"],
-			{}),
+			"Content Cell"
+		], {}),
 		
 		MDElement.new(:cell,[	
-			"Content Cell"],
-			{}),
+			"Content Cell"
+		], {}),
 		
 		MDElement.new(:cell,[	
-			"Content Cell"],
-			{}),
+			"Content Cell"
+		], {}),
 		
 		MDElement.new(:cell,[	
-			"Content Cell"],
-			{})],
-		{:align=>[:left, :left]}),
+			"Content Cell"
+		], {})
+	], {:align=>[:left, :left]}),
 	
-	MDElement.new(:hrule,[],
-		{}),
-	
-	MDElement.new(:table,[	
-		MDElement.new(:head_cell,[	
-			"Item"],
-			{}),
-		
-		MDElement.new(:head_cell,[	
-			"Value"],
-			{}),
-		
-		MDElement.new(:cell,[	
-			"Computer"],
-			{}),
-		
-		MDElement.new(:cell,[	
-			"$1600"],
-			{}),
-		
-		MDElement.new(:cell,[	
-			"Phone"],
-			{}),
-		
-		MDElement.new(:cell,[	
-			"$12"],
-			{}),
-		
-		MDElement.new(:cell,[	
-			"Pipe"],
-			{}),
-		
-		MDElement.new(:cell,[	
-			"$1"],
-			{})],
-		{:align=>[:left, :right]}),
-	
-	MDElement.new(:hrule,[],
-		{}),
+	MDElement.new(:hrule,[],{}),
 	
 	MDElement.new(:table,[	
 		MDElement.new(:head_cell,[	
-			"Function name"],
-			{}),
+			"Item"
+		], {}),
 		
 		MDElement.new(:head_cell,[	
-			"Description"],
-			{}),
+			"Value"
+		], {}),
 		
 		MDElement.new(:cell,[	
-			MDElement.new(:inline_code,[],
-				{:raw_code=>"help()"})],
-			{}),
+			"Computer"
+		], {}),
 		
 		MDElement.new(:cell,[	
-			"Display the help window."],
-			{}),
+			"$1600"
+		], {}),
 		
 		MDElement.new(:cell,[	
-			MDElement.new(:inline_code,[],
-				{:raw_code=>"destroy()"})],
-			{}),
+			"Phone"
+		], {}),
+		
+		MDElement.new(:cell,[	
+			"$12"
+		], {}),
+		
+		MDElement.new(:cell,[	
+			"Pipe"
+		], {}),
+		
+		MDElement.new(:cell,[	
+			"$1"
+		], {})
+	], {:align=>[:left, :right]}),
+	
+	MDElement.new(:hrule,[],{}),
+	
+	MDElement.new(:table,[	
+		MDElement.new(:head_cell,[	
+			"Function name"
+		], {}),
+		
+		MDElement.new(:head_cell,[	
+			"Description"
+		], {}),
+		
+		MDElement.new(:cell,[	
+			MDElement.new(:inline_code,[],{:raw_code=>"help()"})
+		], {}),
+		
+		MDElement.new(:cell,[	
+			"Display the help window."
+		], {}),
+		
+		MDElement.new(:cell,[	
+			MDElement.new(:inline_code,[],{:raw_code=>"destroy()"})
+		], {}),
 		
 		MDElement.new(:cell,[	
 			MDElement.new(:strong,[	
-				"Destroy your computer!"],
-				{})],
-			{})],
-		{:align=>[:left, :left]}),
+				"Destroy your computer!"
+			], {})
+		], {})
+	], {:align=>[:left, :left]}),
 	
-	MDElement.new(:hrule,[],
-		{}),
-	
-	MDElement.new(:table,[	
-		MDElement.new(:head_cell,[	
-			"Very long long head"],
-			{}),
-		
-		MDElement.new(:cell,[	
-			"left"],
-			{})],
-		{:align=>[:left]}),
-	
-	MDElement.new(:hrule,[],
-		{}),
+	MDElement.new(:hrule,[],{}),
 	
 	MDElement.new(:table,[	
 		MDElement.new(:head_cell,[	
-			"Very long long head"],
-			{}),
+			"Very long long head"
+		], {}),
 		
 		MDElement.new(:cell,[	
-			"right"],
-			{})],
-		{:align=>[:right]}),
+			"left"
+		], {})
+	], {:align=>[:left]}),
 	
-	MDElement.new(:hrule,[],
-		{}),
+	MDElement.new(:hrule,[],{}),
 	
 	MDElement.new(:table,[	
 		MDElement.new(:head_cell,[	
-			"Very long long head"],
-			{}),
+			"Very long long head"
+		], {}),
 		
 		MDElement.new(:cell,[	
-			"center"],
-			{})],
-		{:align=>[:center]})],
-	{:css=>"style.css"})
+			"right"
+		], {})
+	], {:align=>[:right]}),
+	
+	MDElement.new(:hrule,[],{}),
+	
+	MDElement.new(:table,[	
+		MDElement.new(:head_cell,[	
+			"Very long long head"
+		], {}),
+		
+		MDElement.new(:cell,[	
+			"center"
+		], {})
+	], {:align=>[:center]})
+], {:css=>"style.css"})
 ***EOF***
 
 Failed tests:   [:to_html] 
@@ -513,139 +506,132 @@ First HeaderSecond HeaderContent CellContent CellContent CellContent CellItemVal
 MDElement.new(:document,[	
 	MDElement.new(:table,[	
 		MDElement.new(:head_cell,[	
-			"First Header"],
-			{}),
+			"First Header"
+		], {}),
 		
 		MDElement.new(:head_cell,[	
-			"Second Header"],
-			{}),
+			"Second Header"
+		], {}),
 		
 		MDElement.new(:cell,[	
-			"Content Cell"],
-			{}),
+			"Content Cell"
+		], {}),
 		
 		MDElement.new(:cell,[	
-			"Content Cell"],
-			{}),
+			"Content Cell"
+		], {}),
 		
 		MDElement.new(:cell,[	
-			"Content Cell"],
-			{}),
+			"Content Cell"
+		], {}),
 		
 		MDElement.new(:cell,[	
-			"Content Cell"],
-			{})],
-		{:align=>[:left, :left]}),
+			"Content Cell"
+		], {})
+	], {:align=>[:left, :left]}),
 	
-	MDElement.new(:hrule,[],
-		{}),
-	
-	MDElement.new(:table,[	
-		MDElement.new(:head_cell,[	
-			"Item"],
-			{}),
-		
-		MDElement.new(:head_cell,[	
-			"Value"],
-			{}),
-		
-		MDElement.new(:cell,[	
-			"Computer"],
-			{}),
-		
-		MDElement.new(:cell,[	
-			"$1600"],
-			{}),
-		
-		MDElement.new(:cell,[	
-			"Phone"],
-			{}),
-		
-		MDElement.new(:cell,[	
-			"$12"],
-			{}),
-		
-		MDElement.new(:cell,[	
-			"Pipe"],
-			{}),
-		
-		MDElement.new(:cell,[	
-			"$1"],
-			{})],
-		{:align=>[:left, :right]}),
-	
-	MDElement.new(:hrule,[],
-		{}),
+	MDElement.new(:hrule,[],{}),
 	
 	MDElement.new(:table,[	
 		MDElement.new(:head_cell,[	
-			"Function name"],
-			{}),
+			"Item"
+		], {}),
 		
 		MDElement.new(:head_cell,[	
-			"Description"],
-			{}),
+			"Value"
+		], {}),
 		
 		MDElement.new(:cell,[	
-			MDElement.new(:inline_code,[],
-				{:raw_code=>"help()"})],
-			{}),
+			"Computer"
+		], {}),
 		
 		MDElement.new(:cell,[	
-			"Display the help window."],
-			{}),
+			"$1600"
+		], {}),
 		
 		MDElement.new(:cell,[	
-			MDElement.new(:inline_code,[],
-				{:raw_code=>"destroy()"})],
-			{}),
+			"Phone"
+		], {}),
+		
+		MDElement.new(:cell,[	
+			"$12"
+		], {}),
+		
+		MDElement.new(:cell,[	
+			"Pipe"
+		], {}),
+		
+		MDElement.new(:cell,[	
+			"$1"
+		], {})
+	], {:align=>[:left, :right]}),
+	
+	MDElement.new(:hrule,[],{}),
+	
+	MDElement.new(:table,[	
+		MDElement.new(:head_cell,[	
+			"Function name"
+		], {}),
+		
+		MDElement.new(:head_cell,[	
+			"Description"
+		], {}),
+		
+		MDElement.new(:cell,[	
+			MDElement.new(:inline_code,[],{:raw_code=>"help()"})
+		], {}),
+		
+		MDElement.new(:cell,[	
+			"Display the help window."
+		], {}),
+		
+		MDElement.new(:cell,[	
+			MDElement.new(:inline_code,[],{:raw_code=>"destroy()"})
+		], {}),
 		
 		MDElement.new(:cell,[	
 			MDElement.new(:strong,[	
-				"Destroy your computer!"],
-				{})],
-			{})],
-		{:align=>[:left, :left]}),
+				"Destroy your computer!"
+			], {})
+		], {})
+	], {:align=>[:left, :left]}),
 	
-	MDElement.new(:hrule,[],
-		{}),
-	
-	MDElement.new(:table,[	
-		MDElement.new(:head_cell,[	
-			"Very long long head"],
-			{}),
-		
-		MDElement.new(:cell,[	
-			"left"],
-			{})],
-		{:align=>[:left]}),
-	
-	MDElement.new(:hrule,[],
-		{}),
+	MDElement.new(:hrule,[],{}),
 	
 	MDElement.new(:table,[	
 		MDElement.new(:head_cell,[	
-			"Very long long head"],
-			{}),
+			"Very long long head"
+		], {}),
 		
 		MDElement.new(:cell,[	
-			"right"],
-			{})],
-		{:align=>[:right]}),
+			"left"
+		], {})
+	], {:align=>[:left]}),
 	
-	MDElement.new(:hrule,[],
-		{}),
+	MDElement.new(:hrule,[],{}),
 	
 	MDElement.new(:table,[	
 		MDElement.new(:head_cell,[	
-			"Very long long head"],
-			{}),
+			"Very long long head"
+		], {}),
 		
 		MDElement.new(:cell,[	
-			"center"],
-			{})],
-		{:align=>[:center]})],
-	{:css=>"style.css"})
+			"right"
+		], {})
+	], {:align=>[:right]}),
+	
+	MDElement.new(:hrule,[],{}),
+	
+	MDElement.new(:table,[	
+		MDElement.new(:head_cell,[	
+			"Very long long head"
+		], {}),
+		
+		MDElement.new(:cell,[	
+			"center"
+		], {})
+	], {:align=>[:center]})
+], {:css=>"style.css"})
 ***EOF***
 <p>CSS: style.css</p>
 

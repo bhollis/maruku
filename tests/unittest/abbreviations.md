@@ -32,28 +32,28 @@ MDElement.new(:document,[
 		"The ",
 		
 		MDElement.new(:abbreviation,[	
-			"HTML"],
-			{:title=>"Hyper Text Markup Language"}),
+			"HTML"
+		], {:title=>"Hyper Text Markup Language"}),
 		
 		" specification is maintained by the ",
 		
 		MDElement.new(:abbreviation,[	
-			"W3C"],
-			{:title=>"World Wide Web Consortium"}),
+			"W3C"
+		], {:title=>"World Wide Web Consortium"}),
 		
-		"."],
-		{}),
+		"."
+	], {}),
 	
 	MDElement.new(:paragraph,[	
 		"Operation ",
 		
 		MDElement.new(:abbreviation,[	
-			"Tigra Genesis"],
-			{}),
+			"Tigra Genesis"
+		], {}),
 		
-		" is going well."],
-		{})],
-	{})
+		" is going well."
+	], {})
+], {})
 ***EOF***
 
 Failed tests:   [] 
@@ -84,28 +84,28 @@ MDElement.new(:document,[
 		"The ",
 		
 		MDElement.new(:abbreviation,[	
-			"HTML"],
-			{:title=>"Hyper Text Markup Language"}),
+			"HTML"
+		], {:title=>"Hyper Text Markup Language"}),
 		
 		" specification is maintained by the ",
 		
 		MDElement.new(:abbreviation,[	
-			"W3C"],
-			{:title=>"World Wide Web Consortium"}),
+			"W3C"
+		], {:title=>"World Wide Web Consortium"}),
 		
-		"."],
-		{}),
+		"."
+	], {}),
 	
 	MDElement.new(:paragraph,[	
 		"Operation ",
 		
 		MDElement.new(:abbreviation,[	
-			"Tigra Genesis"],
-			{}),
+			"Tigra Genesis"
+		], {}),
 		
-		" is going well."],
-		{})],
-	{})
+		" is going well."
+	], {})
+], {})
 ***EOF***
 <p>The HTML specification is maintained by the W3C.</p>
 

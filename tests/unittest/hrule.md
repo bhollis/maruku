@@ -34,21 +34,16 @@
 
 ***EOF***
 MDElement.new(:document,[	
-	MDElement.new(:hrule,[],
-		{}),
+	MDElement.new(:hrule,[],{}),
 	
-	MDElement.new(:hrule,[],
-		{}),
+	MDElement.new(:hrule,[],{}),
 	
-	MDElement.new(:hrule,[],
-		{}),
+	MDElement.new(:hrule,[],{}),
 	
-	MDElement.new(:hrule,[],
-		{}),
+	MDElement.new(:hrule,[],{}),
 	
-	MDElement.new(:hrule,[],
-		{})],
-	{})
+	MDElement.new(:hrule,[],{})
+], {})
 ***EOF***
 
 Failed tests:   [] 
@@ -81,21 +76,16 @@ And the following are the actual outputs for methods:
 
 ***EOF***
 MDElement.new(:document,[	
-	MDElement.new(:hrule,[],
-		{}),
+	MDElement.new(:hrule,[],{}),
 	
-	MDElement.new(:hrule,[],
-		{}),
+	MDElement.new(:hrule,[],{}),
 	
-	MDElement.new(:hrule,[],
-		{}),
+	MDElement.new(:hrule,[],{}),
 	
-	MDElement.new(:hrule,[],
-		{}),
+	MDElement.new(:hrule,[],{}),
 	
-	MDElement.new(:hrule,[],
-		{})],
-	{})
+	MDElement.new(:hrule,[],{})
+], {})
 ***EOF***
 <hr />
 

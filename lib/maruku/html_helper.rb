@@ -1,7 +1,9 @@
 
 class Maruku
 
-# this class helps me read and sanitize HTML blocks
+# This class helps me read and sanitize HTML blocks
+
+# I tried to do this with REXML, but wasn't able to. (suggestions?)
 
 	class HTMLHelper
 		Tag = %r{^<(/)?(\w+)\s*([^>]*)>}m

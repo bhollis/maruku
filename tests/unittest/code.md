@@ -29,12 +29,11 @@ Here is an example of AppleScript:
 ***EOF***
 MDElement.new(:document,[	
 	MDElement.new(:paragraph,[	
-		"Here is an example of AppleScript:"],
-		{}),
+		"Here is an example of AppleScript:"
+	], {}),
 	
-	MDElement.new(:code,[],
-		{:raw_code=>"tell application \"Foo\"\n    beep\nend tell\n\ttab"})],
-	{})
+	MDElement.new(:code,[],{:raw_code=>"tell application \"Foo\"\n    beep\nend tell\n\ttab"})
+], {})
 ***EOF***
 
 Failed tests:   [] 
@@ -66,12 +65,11 @@ Here is an example of AppleScript:
 ***EOF***
 MDElement.new(:document,[	
 	MDElement.new(:paragraph,[	
-		"Here is an example of AppleScript:"],
-		{}),
+		"Here is an example of AppleScript:"
+	], {}),
 	
-	MDElement.new(:code,[],
-		{:raw_code=>"tell application \"Foo\"\n    beep\nend tell\n\ttab"})],
-	{})
+	MDElement.new(:code,[],{:raw_code=>"tell application \"Foo\"\n    beep\nend tell\n\ttab"})
+], {})
 ***EOF***
 <p>Here is an example of AppleScript:</p>
 

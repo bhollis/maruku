@@ -77,50 +77,12 @@ class Maruku
 					con.push_char src.shift_char
 				end
 			when ?[
-				# we read the string and see what happens
-				src.ignore_char # opening bracket
-				children = read_span(src, EscapedCharInText, [?]])
-				src.ignore_char # closing bracket
-				
-#				puts "Children : #{children.inspect}"
-				
-				# ignore space
-				if src.cur_char == SPACE and 
-					(src.next_char == ?[ or src.next_char == ?( )
-					src.shift_char
-				end
-			
-				case src.cur_char
-					when ?(
-						src.ignore_char # opening (
-#						puts "link: Before consuming: #{src.cur_chars(10).inspect}"
-						src.consume_whitespace
-#						puts "link: I want to read a url from: #{src.cur_chars(10).inspect}"
-						url = read_url(src, [SPACE,?\t,?)])
-						if not url
-							error "Could not read url from #{src.cur_chars(10).inspect}"
-						end
-						src.consume_whitespace
-						title = nil
-						if src.cur_char != ?) # we have a title
-							#puts "link: I want to read a quote from: #{src.cur_chars(10).inspect}"
-							title = read_quoted(src)
-							if not title
-								error 'Must quote title'
-							end
-						end
-						src.consume_whitespace
-						closing = src.shift_char # closing )
-						if closing != ?)
-							error 'Unclosed link'
-						end
-						con.push_element md_imlink(children,url, title)
-#						puts "link: The future is : #{src.cur_chars(10).inspect}"
-					when ?[ # link ref
-						ref_id = read_ref_id(src)
-						con.push_element md_link(children, ref_id)
-					else # no stuff
-						con.push_elements children
+					read_link(src, con)
+			when ?!
+				if src.next_char == ?[
+					read_image(src, con)
+				else
+					con.push_char src.shift_char
 				end
 			when ?*
 				if not src.next_char
@@ -169,7 +131,7 @@ class Maruku
 		# urls must start with a w
 		c = src.cur_char
 		s = ""<<c
-		if not s =~ /\w/
+		if not s =~ /[\w\/\#]/
 			return nil
 		end
 		read_simple(src, [], break_on)
@@ -246,10 +208,13 @@ class Maruku
 	
 	SPACE = ?\ # = 32
 	
-	R_REF_ID = Regexp.compile(/([^\]]*)\]/)
+	R_REF_ID = Regexp.compile(/([^\]\s]*)\s*\]/)
+	
+	# Reads a bracketed id "[refid]". Consumes also both brackets.
 	def read_ref_id(src)
 		src.ignore_char
-		if m = src.read_regexp(	R_REF_ID) 
+		src.consume_whitespace
+		if m = src.read_regexp(R_REF_ID) 
 			m[1]
 		else
 			error "Could not read ref_id"
@@ -339,7 +304,83 @@ class Maruku
 		# con.found_object create_md_element(:server, server)
 	end
 	
-	
+	def read_link(src, con)
+		# we read the string and see what happens
+		src.ignore_char # opening bracket
+		children = read_span(src, EscapedCharInText, [?]])
+		src.ignore_char # closing bracket
+
+		# ignore space
+		if src.cur_char == SPACE and 
+			(src.next_char == ?[ or src.next_char == ?( )
+			src.shift_char
+		end
+		case src.cur_char
+		when ?(
+			src.ignore_char # opening (
+			src.consume_whitespace
+			url = read_url(src, [SPACE,?\t,?)])
+			if not url
+				error "Could not read url from #{src.cur_chars(10).inspect}"
+			end
+			src.consume_whitespace
+			title = nil
+			if src.cur_char != ?) # we have a title
+				title = read_quoted(src)
+				error 'Must quote title' if not title
+			end
+			src.consume_whitespace
+			closing = src.shift_char # closing )
+			if closing != ?)
+				error 'Unclosed link'
+			end
+			con.push_element md_im_link(children,url, title)
+		when ?[ # link ref
+			ref_id = read_ref_id(src)
+			con.push_element md_link(children, ref_id)
+		else # no stuff
+			con.push_elements children
+		end
+	end # read link
+
+	def read_image(src, con)
+		src.ignore_chars(2) # opening "!["
+		alt_text = read_span(src, EscapedCharInText, [?]])
+		src.ignore_char # closing bracket
+		# ignore space
+		if src.cur_char == SPACE and 
+			(src.next_char == ?[ or src.next_char == ?( )
+			src.ignore_char
+		end
+		case src.cur_char
+		when ?(
+			src.ignore_char # opening (
+			src.consume_whitespace
+			url = read_url(src, [SPACE,?\t,?)])
+			if not url
+				error "Could not read url from #{src.cur_chars(10).inspect}"
+			end
+			src.consume_whitespace
+			title = nil
+			if src.cur_char != ?) # we have a title
+				title = read_quoted(src)
+				error 'Must quote title' if not title
+			end
+			src.consume_whitespace
+			closing = src.shift_char # closing )
+			if closing != ?)
+				error ("Unclosed link: '"<<closing<<"'")+
+					" Read url=#{url.inspect} title=#{title.inspect}"
+			end
+			con.push_element md_im_image(alt_text, url, title)
+		when ?[ # link ref
+			ref_id = read_ref_id(src)
+			con.push_element md_image(alt_text, ref_id)
+		else # no stuff
+			con.push_elements children
+		end
+	end # read link
+
 end
 
 

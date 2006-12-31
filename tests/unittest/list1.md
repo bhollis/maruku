@@ -35,17 +35,17 @@ MDElement.new(:document,[
 	MDElement.new(:ul,[	
 		MDElement.new(:li,[	
 			MDElement.new(:paragraph,[	
-				"A list item with a blockquote:"],
-				{}),
+				"A list item with a blockquote:"
+			], {}),
 			
 			MDElement.new(:quote,[	
 				MDElement.new(:paragraph,[	
-					"This is a blockquote inside a list item."],
-					{})],
-				{})],
-			{:want_my_paragraph=>true})],
-		{})],
-	{})
+					"This is a blockquote inside a list item."
+				], {})
+			], {})
+		], {:want_my_paragraph=>true})
+	], {})
+], {})
 ***EOF***
 
 Failed tests:   [] 
@@ -85,17 +85,17 @@ MDElement.new(:document,[
 	MDElement.new(:ul,[	
 		MDElement.new(:li,[	
 			MDElement.new(:paragraph,[	
-				"A list item with a blockquote:"],
-				{}),
+				"A list item with a blockquote:"
+			], {}),
 			
 			MDElement.new(:quote,[	
 				MDElement.new(:paragraph,[	
-					"This is a blockquote inside a list item."],
-					{})],
-				{})],
-			{:want_my_paragraph=>true})],
-		{})],
-	{})
+					"This is a blockquote inside a list item."
+				], {})
+			], {})
+		], {:want_my_paragraph=>true})
+	], {})
+], {})
 ***EOF***
 <ul>
 <li><p>A list item with a blockquote:</p>

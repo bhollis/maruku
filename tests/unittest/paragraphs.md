@@ -36,26 +36,25 @@ Paragraph 1Paragraph 2Paragraph 3 Paragraph 4 Paragraph Br->Paragraph 5Escaping:
 ***EOF***
 MDElement.new(:document,[	
 	MDElement.new(:paragraph,[	
-		"Paragraph 1"],
-		{}),
+		"Paragraph 1"
+	], {}),
 	
 	MDElement.new(:paragraph,[	
-		"Paragraph 2"],
-		{}),
+		"Paragraph 2"
+	], {}),
 	
 	MDElement.new(:paragraph,[	
 		"Paragraph 3 Paragraph 4 Paragraph Br->",
 		
-		MDElement.new(:linebreak,[],
-			{}),
+		MDElement.new(:linebreak,[],{}),
 		
-		"Paragraph 5"],
-		{}),
+		"Paragraph 5"
+	], {}),
 	
 	MDElement.new(:paragraph,[	
-		"Escaping: & { } [ ] !"],
-		{})],
-	{})
+		"Escaping: & { } [ ] !"
+	], {})
+], {})
 ***EOF***
 
 Failed tests:   [] 
@@ -87,26 +86,25 @@ Paragraph 1Paragraph 2Paragraph 3 Paragraph 4 Paragraph Br->Paragraph 5Escaping:
 ***EOF***
 MDElement.new(:document,[	
 	MDElement.new(:paragraph,[	
-		"Paragraph 1"],
-		{}),
+		"Paragraph 1"
+	], {}),
 	
 	MDElement.new(:paragraph,[	
-		"Paragraph 2"],
-		{}),
+		"Paragraph 2"
+	], {}),
 	
 	MDElement.new(:paragraph,[	
 		"Paragraph 3 Paragraph 4 Paragraph Br->",
 		
-		MDElement.new(:linebreak,[],
-			{}),
+		MDElement.new(:linebreak,[],{}),
 		
-		"Paragraph 5"],
-		{}),
+		"Paragraph 5"
+	], {}),
 	
 	MDElement.new(:paragraph,[	
-		"Escaping: & { } [ ] !"],
-		{})],
-	{})
+		"Escaping: & { } [ ] !"
+	], {})
+], {})
 ***EOF***
 <p>Paragraph 1</p>
 

@@ -304,394 +304,385 @@ MDElement.new(:document,[
 	MDElement.new(:definition_list,[	
 		MDElement.new(:definition,[	
 			MDElement.new(:definition_term,[	
-				"Apple"],
-				{}),
+				"Apple"
+			], {}),
 			
 			MDElement.new(:definition_data,[	
-				"Pomaceous fruit of plants of the genus Malus in the family Rosaceae."],
-				{})],
-			{:definitions=>[MDElement.new(:definition_data,[	
-			"Pomaceous fruit of plants of the genus Malus in the family Rosaceae."],
-			{})], :want_my_paragraph=>false, :terms=>[MDElement.new(:definition_term,[	
-			"Apple"],
-			{})]}),
+				"Pomaceous fruit of plants of the genus Malus in the family Rosaceae."
+			], {})
+		], {:definitions=>[MDElement.new(:definition_data,[	
+			"Pomaceous fruit of plants of the genus Malus in the family Rosaceae."
+		], {})], :want_my_paragraph=>false, :terms=>[MDElement.new(:definition_term,[	
+			"Apple"
+		], {})]}),
 		
 		MDElement.new(:definition,[	
 			MDElement.new(:definition_term,[	
-				"Orange"],
-				{}),
+				"Orange"
+			], {}),
 			
 			MDElement.new(:definition_data,[	
-				"The fruit of an evergreen tree of the genus Citrus."],
-				{})],
-			{:definitions=>[MDElement.new(:definition_data,[	
-			"The fruit of an evergreen tree of the genus Citrus."],
-			{})], :want_my_paragraph=>false, :terms=>[MDElement.new(:definition_term,[	
-			"Orange"],
-			{})]})],
-		{}),
+				"The fruit of an evergreen tree of the genus Citrus."
+			], {})
+		], {:definitions=>[MDElement.new(:definition_data,[	
+			"The fruit of an evergreen tree of the genus Citrus."
+		], {})], :want_my_paragraph=>false, :terms=>[MDElement.new(:definition_term,[	
+			"Orange"
+		], {})]})
+	], {}),
 	
-	MDElement.new(:hrule,[],
-		{}),
+	MDElement.new(:hrule,[],{}),
 	
 	MDElement.new(:definition_list,[	
 		MDElement.new(:definition,[	
 			MDElement.new(:definition_term,[	
-				"Apple"],
-				{}),
+				"Apple"
+			], {}),
 			
 			MDElement.new(:definition_data,[	
-				"Pomaceous fruit of plants of the genus Malus in the family Rosaceae"],
-				{})],
-			{:definitions=>[MDElement.new(:definition_data,[	
-			"Pomaceous fruit of plants of the genus Malus in the family Rosaceae"],
-			{})], :want_my_paragraph=>false, :terms=>[MDElement.new(:definition_term,[	
-			"Apple"],
-			{})]}),
+				"Pomaceous fruit of plants of the genus Malus in the family Rosaceae"
+			], {})
+		], {:definitions=>[MDElement.new(:definition_data,[	
+			"Pomaceous fruit of plants of the genus Malus in the family Rosaceae"
+		], {})], :want_my_paragraph=>false, :terms=>[MDElement.new(:definition_term,[	
+			"Apple"
+		], {})]}),
 		
 		MDElement.new(:definition,[	
 			MDElement.new(:definition_term,[	
-				"Orange"],
-				{}),
+				"Orange"
+			], {}),
 			
 			MDElement.new(:definition_data,[	
-				"The fruit of an evergreen tree of the genus Citrus."],
-				{})],
-			{:definitions=>[MDElement.new(:definition_data,[	
-			"The fruit of an evergreen tree of the genus Citrus."],
-			{})], :want_my_paragraph=>false, :terms=>[MDElement.new(:definition_term,[	
-			"Orange"],
-			{})]})],
-		{}),
+				"The fruit of an evergreen tree of the genus Citrus."
+			], {})
+		], {:definitions=>[MDElement.new(:definition_data,[	
+			"The fruit of an evergreen tree of the genus Citrus."
+		], {})], :want_my_paragraph=>false, :terms=>[MDElement.new(:definition_term,[	
+			"Orange"
+		], {})]})
+	], {}),
 	
-	MDElement.new(:hrule,[],
-		{}),
+	MDElement.new(:hrule,[],{}),
 	
 	MDElement.new(:definition_list,[	
 		MDElement.new(:definition,[	
 			MDElement.new(:definition_term,[	
-				"Apple"],
-				{}),
+				"Apple"
+			], {}),
 			
 			MDElement.new(:definition_data,[	
-				"Pomaceous fruit of plants of the genus Malus in the family Rosaceae."],
-				{}),
+				"Pomaceous fruit of plants of the genus Malus in the family Rosaceae."
+			], {}),
 			
 			MDElement.new(:definition_data,[	
-				"An american computer company."],
-				{})],
-			{:definitions=>[MDElement.new(:definition_data,[	
-			"Pomaceous fruit of plants of the genus Malus in the family Rosaceae."],
-			{}), MDElement.new(:definition_data,[	
-			"An american computer company."],
-			{})], :want_my_paragraph=>false, :terms=>[MDElement.new(:definition_term,[	
-			"Apple"],
-			{})]}),
+				"An american computer company."
+			], {})
+		], {:definitions=>[MDElement.new(:definition_data,[	
+			"Pomaceous fruit of plants of the genus Malus in the family Rosaceae."
+		], {}), MDElement.new(:definition_data,[	
+			"An american computer company."
+		], {})], :want_my_paragraph=>false, :terms=>[MDElement.new(:definition_term,[	
+			"Apple"
+		], {})]}),
 		
 		MDElement.new(:definition,[	
 			MDElement.new(:definition_term,[	
-				"Orange"],
-				{}),
+				"Orange"
+			], {}),
 			
 			MDElement.new(:definition_data,[	
-				"The fruit of an evergreen tree of the genus Citrus."],
-				{})],
-			{:definitions=>[MDElement.new(:definition_data,[	
-			"The fruit of an evergreen tree of the genus Citrus."],
-			{})], :want_my_paragraph=>false, :terms=>[MDElement.new(:definition_term,[	
-			"Orange"],
-			{})]})],
-		{}),
+				"The fruit of an evergreen tree of the genus Citrus."
+			], {})
+		], {:definitions=>[MDElement.new(:definition_data,[	
+			"The fruit of an evergreen tree of the genus Citrus."
+		], {})], :want_my_paragraph=>false, :terms=>[MDElement.new(:definition_term,[	
+			"Orange"
+		], {})]})
+	], {}),
 	
-	MDElement.new(:hrule,[],
-		{}),
+	MDElement.new(:hrule,[],{}),
 	
 	MDElement.new(:definition_list,[	
 		MDElement.new(:definition,[	
 			MDElement.new(:definition_term,[	
-				"Term 1"],
-				{}),
+				"Term 1"
+			], {}),
 			
 			MDElement.new(:definition_term,[	
-				"Term 2"],
-				{}),
+				"Term 2"
+			], {}),
 			
 			MDElement.new(:definition_data,[	
-				"Definition a"],
-				{})],
-			{:definitions=>[MDElement.new(:definition_data,[	
-			"Definition a"],
-			{})], :want_my_paragraph=>false, :terms=>[MDElement.new(:definition_term,[	
-			"Term 1"],
-			{}), MDElement.new(:definition_term,[	
-			"Term 2"],
-			{})]}),
+				"Definition a"
+			], {})
+		], {:definitions=>[MDElement.new(:definition_data,[	
+			"Definition a"
+		], {})], :want_my_paragraph=>false, :terms=>[MDElement.new(:definition_term,[	
+			"Term 1"
+		], {}), MDElement.new(:definition_term,[	
+			"Term 2"
+		], {})]}),
 		
 		MDElement.new(:definition,[	
 			MDElement.new(:definition_term,[	
-				"Term 3"],
-				{}),
+				"Term 3"
+			], {}),
 			
 			MDElement.new(:definition_data,[	
-				"Definition b"],
-				{})],
-			{:definitions=>[MDElement.new(:definition_data,[	
-			"Definition b"],
-			{})], :want_my_paragraph=>false, :terms=>[MDElement.new(:definition_term,[	
-			"Term 3"],
-			{})]})],
-		{}),
+				"Definition b"
+			], {})
+		], {:definitions=>[MDElement.new(:definition_data,[	
+			"Definition b"
+		], {})], :want_my_paragraph=>false, :terms=>[MDElement.new(:definition_term,[	
+			"Term 3"
+		], {})]})
+	], {}),
 	
-	MDElement.new(:hrule,[],
-		{}),
+	MDElement.new(:hrule,[],{}),
 	
 	MDElement.new(:definition_list,[	
 		MDElement.new(:definition,[	
 			MDElement.new(:definition_term,[	
-				"Term 1"],
-				{}),
+				"Term 1"
+			], {}),
 			
 			MDElement.new(:definition_term,[	
-				"Term 2"],
-				{}),
+				"Term 2"
+			], {}),
 			
 			MDElement.new(:definition_term,[	
-				"Term 2a"],
-				{}),
+				"Term 2a"
+			], {}),
 			
 			MDElement.new(:definition_term,[	
-				"Term 2b"],
-				{}),
+				"Term 2b"
+			], {}),
 			
 			MDElement.new(:definition_data,[	
-				"Definition a"],
-				{})],
-			{:definitions=>[MDElement.new(:definition_data,[	
-			"Definition a"],
-			{})], :want_my_paragraph=>false, :terms=>[MDElement.new(:definition_term,[	
-			"Term 1"],
-			{}), MDElement.new(:definition_term,[	
-			"Term 2"],
-			{}), MDElement.new(:definition_term,[	
-			"Term 2a"],
-			{}), MDElement.new(:definition_term,[	
-			"Term 2b"],
-			{})]}),
+				"Definition a"
+			], {})
+		], {:definitions=>[MDElement.new(:definition_data,[	
+			"Definition a"
+		], {})], :want_my_paragraph=>false, :terms=>[MDElement.new(:definition_term,[	
+			"Term 1"
+		], {}), MDElement.new(:definition_term,[	
+			"Term 2"
+		], {}), MDElement.new(:definition_term,[	
+			"Term 2a"
+		], {}), MDElement.new(:definition_term,[	
+			"Term 2b"
+		], {})]}),
 		
 		MDElement.new(:definition,[	
 			MDElement.new(:definition_term,[	
-				"Term 3"],
-				{}),
+				"Term 3"
+			], {}),
 			
 			MDElement.new(:definition_data,[	
-				"Definition b"],
-				{})],
-			{:definitions=>[MDElement.new(:definition_data,[	
-			"Definition b"],
-			{})], :want_my_paragraph=>false, :terms=>[MDElement.new(:definition_term,[	
-			"Term 3"],
-			{})]})],
-		{}),
+				"Definition b"
+			], {})
+		], {:definitions=>[MDElement.new(:definition_data,[	
+			"Definition b"
+		], {})], :want_my_paragraph=>false, :terms=>[MDElement.new(:definition_term,[	
+			"Term 3"
+		], {})]})
+	], {}),
 	
-	MDElement.new(:hrule,[],
-		{}),
+	MDElement.new(:hrule,[],{}),
 	
 	MDElement.new(:definition_list,[	
 		MDElement.new(:definition,[	
 			MDElement.new(:definition_term,[	
-				"Apple"],
-				{}),
+				"Apple"
+			], {}),
 			
 			MDElement.new(:definition_data,[	
 				MDElement.new(:paragraph,[	
-					"Pomaceous fruit of plants of the genus Malus in the family Rosaceae."],
-					{})],
-				{})],
-			{:definitions=>[MDElement.new(:definition_data,[	
+					"Pomaceous fruit of plants of the genus Malus in the family Rosaceae."
+				], {})
+			], {})
+		], {:definitions=>[MDElement.new(:definition_data,[	
 			MDElement.new(:paragraph,[	
-				"Pomaceous fruit of plants of the genus Malus in the family Rosaceae."],
-				{})],
-			{})], :want_my_paragraph=>true, :terms=>[MDElement.new(:definition_term,[	
-			"Apple"],
-			{})]}),
+				"Pomaceous fruit of plants of the genus Malus in the family Rosaceae."
+			], {})
+		], {})], :want_my_paragraph=>true, :terms=>[MDElement.new(:definition_term,[	
+			"Apple"
+		], {})]}),
 		
 		MDElement.new(:definition,[	
 			MDElement.new(:definition_term,[	
-				"Orange"],
-				{}),
+				"Orange"
+			], {}),
 			
 			MDElement.new(:definition_data,[	
 				MDElement.new(:paragraph,[	
-					"The fruit of an evergreen tree of the genus Citrus."],
-					{})],
-				{})],
-			{:definitions=>[MDElement.new(:definition_data,[	
+					"The fruit of an evergreen tree of the genus Citrus."
+				], {})
+			], {})
+		], {:definitions=>[MDElement.new(:definition_data,[	
 			MDElement.new(:paragraph,[	
-				"The fruit of an evergreen tree of the genus Citrus."],
-				{})],
-			{})], :want_my_paragraph=>true, :terms=>[MDElement.new(:definition_term,[	
-			"Orange"],
-			{})]})],
-		{}),
+				"The fruit of an evergreen tree of the genus Citrus."
+			], {})
+		], {})], :want_my_paragraph=>true, :terms=>[MDElement.new(:definition_term,[	
+			"Orange"
+		], {})]})
+	], {}),
 	
-	MDElement.new(:hrule,[],
-		{}),
+	MDElement.new(:hrule,[],{}),
 	
 	MDElement.new(:definition_list,[	
 		MDElement.new(:definition,[	
 			MDElement.new(:definition_term,[	
-				"Term 1"],
-				{}),
+				"Term 1"
+			], {}),
 			
 			MDElement.new(:definition_data,[	
 				MDElement.new(:paragraph,[	
-					"This is a definition with two paragraphs. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aliquam hendrerit mi posuere lectus."],
-					{}),
+					"This is a definition with two paragraphs. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aliquam hendrerit mi posuere lectus."
+				], {}),
 				
 				MDElement.new(:paragraph,[	
-					"Vestibulum enim wisi, viverra nec, fringilla in, laoreet vitae, risus."],
-					{})],
-				{}),
+					"Vestibulum enim wisi, viverra nec, fringilla in, laoreet vitae, risus."
+				], {})
+			], {}),
 			
 			MDElement.new(:definition_data,[	
 				MDElement.new(:paragraph,[	
-					"Second definition for term 1, also wrapped in a paragraph because of the blank line preceding it."],
-					{})],
-				{})],
-			{:definitions=>[MDElement.new(:definition_data,[	
+					"Second definition for term 1, also wrapped in a paragraph because of the blank line preceding it."
+				], {})
+			], {})
+		], {:definitions=>[MDElement.new(:definition_data,[	
 			MDElement.new(:paragraph,[	
-				"This is a definition with two paragraphs. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aliquam hendrerit mi posuere lectus."],
-				{}),
+				"This is a definition with two paragraphs. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aliquam hendrerit mi posuere lectus."
+			], {}),
 			
 			MDElement.new(:paragraph,[	
-				"Vestibulum enim wisi, viverra nec, fringilla in, laoreet vitae, risus."],
-				{})],
-			{}), MDElement.new(:definition_data,[	
+				"Vestibulum enim wisi, viverra nec, fringilla in, laoreet vitae, risus."
+			], {})
+		], {}), MDElement.new(:definition_data,[	
 			MDElement.new(:paragraph,[	
-				"Second definition for term 1, also wrapped in a paragraph because of the blank line preceding it."],
-				{})],
-			{})], :want_my_paragraph=>true, :terms=>[MDElement.new(:definition_term,[	
-			"Term 1"],
-			{})]}),
+				"Second definition for term 1, also wrapped in a paragraph because of the blank line preceding it."
+			], {})
+		], {})], :want_my_paragraph=>true, :terms=>[MDElement.new(:definition_term,[	
+			"Term 1"
+		], {})]}),
 		
 		MDElement.new(:definition,[	
 			MDElement.new(:definition_term,[	
-				"Term 2"],
-				{}),
+				"Term 2"
+			], {}),
 			
 			MDElement.new(:definition_data,[	
 				MDElement.new(:paragraph,[	
-					"This definition has a code block, a blockquote and a list."],
-					{}),
+					"This definition has a code block, a blockquote and a list."
+				], {}),
 				
-				MDElement.new(:code,[],
-					{:raw_code=>"code block.\n"}),
+				MDElement.new(:code,[],{:raw_code=>"code block.\n"}),
 				
 				MDElement.new(:quote,[	
 					MDElement.new(:paragraph,[	
-						"block quote on two lines."],
-						{})],
-					{}),
+						"block quote on two lines."
+					], {})
+				], {}),
 				
 				MDElement.new(:ol,[	
 					MDElement.new(:li_span,[	
-						"first list item"],
-						{:want_my_paragraph=>false}),
+						"first list item"
+					], {:want_my_paragraph=>false}),
 					
 					MDElement.new(:li_span,[	
-						"second list item"],
-						{:want_my_paragraph=>false})],
-					{})],
-				{})],
-			{:definitions=>[MDElement.new(:definition_data,[	
+						"second list item"
+					], {:want_my_paragraph=>false})
+				], {})
+			], {})
+		], {:definitions=>[MDElement.new(:definition_data,[	
 			MDElement.new(:paragraph,[	
-				"This definition has a code block, a blockquote and a list."],
-				{}),
+				"This definition has a code block, a blockquote and a list."
+			], {}),
 			
-			MDElement.new(:code,[],
-				{:raw_code=>"code block.\n"}),
+			MDElement.new(:code,[],{:raw_code=>"code block.\n"}),
 			
 			MDElement.new(:quote,[	
 				MDElement.new(:paragraph,[	
-					"block quote on two lines."],
-					{})],
-				{}),
+					"block quote on two lines."
+				], {})
+			], {}),
 			
 			MDElement.new(:ol,[	
 				MDElement.new(:li_span,[	
-					"first list item"],
-					{:want_my_paragraph=>false}),
+					"first list item"
+				], {:want_my_paragraph=>false}),
 				
 				MDElement.new(:li_span,[	
-					"second list item"],
-					{:want_my_paragraph=>false})],
-				{})],
-			{})], :want_my_paragraph=>true, :terms=>[MDElement.new(:definition_term,[	
-			"Term 2"],
-			{})]})],
-		{}),
+					"second list item"
+				], {:want_my_paragraph=>false})
+			], {})
+		], {})], :want_my_paragraph=>true, :terms=>[MDElement.new(:definition_term,[	
+			"Term 2"
+		], {})]})
+	], {}),
 	
-	MDElement.new(:hrule,[],
-		{}),
+	MDElement.new(:hrule,[],{}),
 	
 	MDElement.new(:definition_list,[	
 		MDElement.new(:definition,[	
 			MDElement.new(:definition_term,[	
-				"Term 1"],
-				{}),
+				"Term 1"
+			], {}),
 			
 			MDElement.new(:definition_term,[	
-				"Term 2"],
-				{}),
+				"Term 2"
+			], {}),
 			
 			MDElement.new(:definition_term,[	
-				"Term 2a"],
-				{}),
+				"Term 2a"
+			], {}),
 			
 			MDElement.new(:definition_term,[	
-				"Term 2b"],
-				{}),
+				"Term 2b"
+			], {}),
 			
 			MDElement.new(:definition_data,[	
-				"Definition a"],
-				{})],
-			{:definitions=>[MDElement.new(:definition_data,[	
-			"Definition a"],
-			{})], :want_my_paragraph=>false, :terms=>[MDElement.new(:definition_term,[	
-			"Term 1"],
-			{}), MDElement.new(:definition_term,[	
-			"Term 2"],
-			{}), MDElement.new(:definition_term,[	
-			"Term 2a"],
-			{}), MDElement.new(:definition_term,[	
-			"Term 2b"],
-			{})]})],
-		{}),
+				"Definition a"
+			], {})
+		], {:definitions=>[MDElement.new(:definition_data,[	
+			"Definition a"
+		], {})], :want_my_paragraph=>false, :terms=>[MDElement.new(:definition_term,[	
+			"Term 1"
+		], {}), MDElement.new(:definition_term,[	
+			"Term 2"
+		], {}), MDElement.new(:definition_term,[	
+			"Term 2a"
+		], {}), MDElement.new(:definition_term,[	
+			"Term 2b"
+		], {})]})
+	], {}),
 	
 	MDElement.new(:paragraph,[	
-		"This is a paragraph"],
-		{}),
+		"This is a paragraph"
+	], {}),
 	
 	MDElement.new(:definition_list,[	
 		MDElement.new(:definition,[	
 			MDElement.new(:definition_term,[	
-				"This is a term"],
-				{}),
+				"This is a term"
+			], {}),
 			
 			MDElement.new(:definition_data,[	
 				MDElement.new(:paragraph,[	
-					"definition"],
-					{})],
-				{})],
-			{:definitions=>[MDElement.new(:definition_data,[	
+					"definition"
+				], {})
+			], {})
+		], {:definitions=>[MDElement.new(:definition_data,[	
 			MDElement.new(:paragraph,[	
-				"definition"],
-				{})],
-			{})], :want_my_paragraph=>true, :terms=>[MDElement.new(:definition_term,[	
-			"This is a term"],
-			{})]})],
-		{})],
-	{:css=>"style.css"})
+				"definition"
+			], {})
+		], {})], :want_my_paragraph=>true, :terms=>[MDElement.new(:definition_term,[	
+			"This is a term"
+		], {})]})
+	], {})
+], {:css=>"style.css"})
 ***EOF***
 
 Failed tests:   [] 
@@ -904,394 +895,385 @@ MDElement.new(:document,[
 	MDElement.new(:definition_list,[	
 		MDElement.new(:definition,[	
 			MDElement.new(:definition_term,[	
-				"Apple"],
-				{}),
+				"Apple"
+			], {}),
 			
 			MDElement.new(:definition_data,[	
-				"Pomaceous fruit of plants of the genus Malus in the family Rosaceae."],
-				{})],
-			{:definitions=>[MDElement.new(:definition_data,[	
-			"Pomaceous fruit of plants of the genus Malus in the family Rosaceae."],
-			{})], :want_my_paragraph=>false, :terms=>[MDElement.new(:definition_term,[	
-			"Apple"],
-			{})]}),
+				"Pomaceous fruit of plants of the genus Malus in the family Rosaceae."
+			], {})
+		], {:definitions=>[MDElement.new(:definition_data,[	
+			"Pomaceous fruit of plants of the genus Malus in the family Rosaceae."
+		], {})], :want_my_paragraph=>false, :terms=>[MDElement.new(:definition_term,[	
+			"Apple"
+		], {})]}),
 		
 		MDElement.new(:definition,[	
 			MDElement.new(:definition_term,[	
-				"Orange"],
-				{}),
+				"Orange"
+			], {}),
 			
 			MDElement.new(:definition_data,[	
-				"The fruit of an evergreen tree of the genus Citrus."],
-				{})],
-			{:definitions=>[MDElement.new(:definition_data,[	
-			"The fruit of an evergreen tree of the genus Citrus."],
-			{})], :want_my_paragraph=>false, :terms=>[MDElement.new(:definition_term,[	
-			"Orange"],
-			{})]})],
-		{}),
+				"The fruit of an evergreen tree of the genus Citrus."
+			], {})
+		], {:definitions=>[MDElement.new(:definition_data,[	
+			"The fruit of an evergreen tree of the genus Citrus."
+		], {})], :want_my_paragraph=>false, :terms=>[MDElement.new(:definition_term,[	
+			"Orange"
+		], {})]})
+	], {}),
 	
-	MDElement.new(:hrule,[],
-		{}),
+	MDElement.new(:hrule,[],{}),
 	
 	MDElement.new(:definition_list,[	
 		MDElement.new(:definition,[	
 			MDElement.new(:definition_term,[	
-				"Apple"],
-				{}),
+				"Apple"
+			], {}),
 			
 			MDElement.new(:definition_data,[	
-				"Pomaceous fruit of plants of the genus Malus in the family Rosaceae"],
-				{})],
-			{:definitions=>[MDElement.new(:definition_data,[	
-			"Pomaceous fruit of plants of the genus Malus in the family Rosaceae"],
-			{})], :want_my_paragraph=>false, :terms=>[MDElement.new(:definition_term,[	
-			"Apple"],
-			{})]}),
+				"Pomaceous fruit of plants of the genus Malus in the family Rosaceae"
+			], {})
+		], {:definitions=>[MDElement.new(:definition_data,[	
+			"Pomaceous fruit of plants of the genus Malus in the family Rosaceae"
+		], {})], :want_my_paragraph=>false, :terms=>[MDElement.new(:definition_term,[	
+			"Apple"
+		], {})]}),
 		
 		MDElement.new(:definition,[	
 			MDElement.new(:definition_term,[	
-				"Orange"],
-				{}),
+				"Orange"
+			], {}),
 			
 			MDElement.new(:definition_data,[	
-				"The fruit of an evergreen tree of the genus Citrus."],
-				{})],
-			{:definitions=>[MDElement.new(:definition_data,[	
-			"The fruit of an evergreen tree of the genus Citrus."],
-			{})], :want_my_paragraph=>false, :terms=>[MDElement.new(:definition_term,[	
-			"Orange"],
-			{})]})],
-		{}),
+				"The fruit of an evergreen tree of the genus Citrus."
+			], {})
+		], {:definitions=>[MDElement.new(:definition_data,[	
+			"The fruit of an evergreen tree of the genus Citrus."
+		], {})], :want_my_paragraph=>false, :terms=>[MDElement.new(:definition_term,[	
+			"Orange"
+		], {})]})
+	], {}),
 	
-	MDElement.new(:hrule,[],
-		{}),
+	MDElement.new(:hrule,[],{}),
 	
 	MDElement.new(:definition_list,[	
 		MDElement.new(:definition,[	
 			MDElement.new(:definition_term,[	
-				"Apple"],
-				{}),
+				"Apple"
+			], {}),
 			
 			MDElement.new(:definition_data,[	
-				"Pomaceous fruit of plants of the genus Malus in the family Rosaceae."],
-				{}),
+				"Pomaceous fruit of plants of the genus Malus in the family Rosaceae."
+			], {}),
 			
 			MDElement.new(:definition_data,[	
-				"An american computer company."],
-				{})],
-			{:definitions=>[MDElement.new(:definition_data,[	
-			"Pomaceous fruit of plants of the genus Malus in the family Rosaceae."],
-			{}), MDElement.new(:definition_data,[	
-			"An american computer company."],
-			{})], :want_my_paragraph=>false, :terms=>[MDElement.new(:definition_term,[	
-			"Apple"],
-			{})]}),
+				"An american computer company."
+			], {})
+		], {:definitions=>[MDElement.new(:definition_data,[	
+			"Pomaceous fruit of plants of the genus Malus in the family Rosaceae."
+		], {}), MDElement.new(:definition_data,[	
+			"An american computer company."
+		], {})], :want_my_paragraph=>false, :terms=>[MDElement.new(:definition_term,[	
+			"Apple"
+		], {})]}),
 		
 		MDElement.new(:definition,[	
 			MDElement.new(:definition_term,[	
-				"Orange"],
-				{}),
+				"Orange"
+			], {}),
 			
 			MDElement.new(:definition_data,[	
-				"The fruit of an evergreen tree of the genus Citrus."],
-				{})],
-			{:definitions=>[MDElement.new(:definition_data,[	
-			"The fruit of an evergreen tree of the genus Citrus."],
-			{})], :want_my_paragraph=>false, :terms=>[MDElement.new(:definition_term,[	
-			"Orange"],
-			{})]})],
-		{}),
+				"The fruit of an evergreen tree of the genus Citrus."
+			], {})
+		], {:definitions=>[MDElement.new(:definition_data,[	
+			"The fruit of an evergreen tree of the genus Citrus."
+		], {})], :want_my_paragraph=>false, :terms=>[MDElement.new(:definition_term,[	
+			"Orange"
+		], {})]})
+	], {}),
 	
-	MDElement.new(:hrule,[],
-		{}),
+	MDElement.new(:hrule,[],{}),
 	
 	MDElement.new(:definition_list,[	
 		MDElement.new(:definition,[	
 			MDElement.new(:definition_term,[	
-				"Term 1"],
-				{}),
+				"Term 1"
+			], {}),
 			
 			MDElement.new(:definition_term,[	
-				"Term 2"],
-				{}),
+				"Term 2"
+			], {}),
 			
 			MDElement.new(:definition_data,[	
-				"Definition a"],
-				{})],
-			{:definitions=>[MDElement.new(:definition_data,[	
-			"Definition a"],
-			{})], :want_my_paragraph=>false, :terms=>[MDElement.new(:definition_term,[	
-			"Term 1"],
-			{}), MDElement.new(:definition_term,[	
-			"Term 2"],
-			{})]}),
+				"Definition a"
+			], {})
+		], {:definitions=>[MDElement.new(:definition_data,[	
+			"Definition a"
+		], {})], :want_my_paragraph=>false, :terms=>[MDElement.new(:definition_term,[	
+			"Term 1"
+		], {}), MDElement.new(:definition_term,[	
+			"Term 2"
+		], {})]}),
 		
 		MDElement.new(:definition,[	
 			MDElement.new(:definition_term,[	
-				"Term 3"],
-				{}),
+				"Term 3"
+			], {}),
 			
 			MDElement.new(:definition_data,[	
-				"Definition b"],
-				{})],
-			{:definitions=>[MDElement.new(:definition_data,[	
-			"Definition b"],
-			{})], :want_my_paragraph=>false, :terms=>[MDElement.new(:definition_term,[	
-			"Term 3"],
-			{})]})],
-		{}),
+				"Definition b"
+			], {})
+		], {:definitions=>[MDElement.new(:definition_data,[	
+			"Definition b"
+		], {})], :want_my_paragraph=>false, :terms=>[MDElement.new(:definition_term,[	
+			"Term 3"
+		], {})]})
+	], {}),
 	
-	MDElement.new(:hrule,[],
-		{}),
+	MDElement.new(:hrule,[],{}),
 	
 	MDElement.new(:definition_list,[	
 		MDElement.new(:definition,[	
 			MDElement.new(:definition_term,[	
-				"Term 1"],
-				{}),
+				"Term 1"
+			], {}),
 			
 			MDElement.new(:definition_term,[	
-				"Term 2"],
-				{}),
+				"Term 2"
+			], {}),
 			
 			MDElement.new(:definition_term,[	
-				"Term 2a"],
-				{}),
+				"Term 2a"
+			], {}),
 			
 			MDElement.new(:definition_term,[	
-				"Term 2b"],
-				{}),
+				"Term 2b"
+			], {}),
 			
 			MDElement.new(:definition_data,[	
-				"Definition a"],
-				{})],
-			{:definitions=>[MDElement.new(:definition_data,[	
-			"Definition a"],
-			{})], :want_my_paragraph=>false, :terms=>[MDElement.new(:definition_term,[	
-			"Term 1"],
-			{}), MDElement.new(:definition_term,[	
-			"Term 2"],
-			{}), MDElement.new(:definition_term,[	
-			"Term 2a"],
-			{}), MDElement.new(:definition_term,[	
-			"Term 2b"],
-			{})]}),
+				"Definition a"
+			], {})
+		], {:definitions=>[MDElement.new(:definition_data,[	
+			"Definition a"
+		], {})], :want_my_paragraph=>false, :terms=>[MDElement.new(:definition_term,[	
+			"Term 1"
+		], {}), MDElement.new(:definition_term,[	
+			"Term 2"
+		], {}), MDElement.new(:definition_term,[	
+			"Term 2a"
+		], {}), MDElement.new(:definition_term,[	
+			"Term 2b"
+		], {})]}),
 		
 		MDElement.new(:definition,[	
 			MDElement.new(:definition_term,[	
-				"Term 3"],
-				{}),
+				"Term 3"
+			], {}),
 			
 			MDElement.new(:definition_data,[	
-				"Definition b"],
-				{})],
-			{:definitions=>[MDElement.new(:definition_data,[	
-			"Definition b"],
-			{})], :want_my_paragraph=>false, :terms=>[MDElement.new(:definition_term,[	
-			"Term 3"],
-			{})]})],
-		{}),
+				"Definition b"
+			], {})
+		], {:definitions=>[MDElement.new(:definition_data,[	
+			"Definition b"
+		], {})], :want_my_paragraph=>false, :terms=>[MDElement.new(:definition_term,[	
+			"Term 3"
+		], {})]})
+	], {}),
 	
-	MDElement.new(:hrule,[],
-		{}),
+	MDElement.new(:hrule,[],{}),
 	
 	MDElement.new(:definition_list,[	
 		MDElement.new(:definition,[	
 			MDElement.new(:definition_term,[	
-				"Apple"],
-				{}),
+				"Apple"
+			], {}),
 			
 			MDElement.new(:definition_data,[	
 				MDElement.new(:paragraph,[	
-					"Pomaceous fruit of plants of the genus Malus in the family Rosaceae."],
-					{})],
-				{})],
-			{:definitions=>[MDElement.new(:definition_data,[	
+					"Pomaceous fruit of plants of the genus Malus in the family Rosaceae."
+				], {})
+			], {})
+		], {:definitions=>[MDElement.new(:definition_data,[	
 			MDElement.new(:paragraph,[	
-				"Pomaceous fruit of plants of the genus Malus in the family Rosaceae."],
-				{})],
-			{})], :want_my_paragraph=>true, :terms=>[MDElement.new(:definition_term,[	
-			"Apple"],
-			{})]}),
+				"Pomaceous fruit of plants of the genus Malus in the family Rosaceae."
+			], {})
+		], {})], :want_my_paragraph=>true, :terms=>[MDElement.new(:definition_term,[	
+			"Apple"
+		], {})]}),
 		
 		MDElement.new(:definition,[	
 			MDElement.new(:definition_term,[	
-				"Orange"],
-				{}),
+				"Orange"
+			], {}),
 			
 			MDElement.new(:definition_data,[	
 				MDElement.new(:paragraph,[	
-					"The fruit of an evergreen tree of the genus Citrus."],
-					{})],
-				{})],
-			{:definitions=>[MDElement.new(:definition_data,[	
+					"The fruit of an evergreen tree of the genus Citrus."
+				], {})
+			], {})
+		], {:definitions=>[MDElement.new(:definition_data,[	
 			MDElement.new(:paragraph,[	
-				"The fruit of an evergreen tree of the genus Citrus."],
-				{})],
-			{})], :want_my_paragraph=>true, :terms=>[MDElement.new(:definition_term,[	
-			"Orange"],
-			{})]})],
-		{}),
+				"The fruit of an evergreen tree of the genus Citrus."
+			], {})
+		], {})], :want_my_paragraph=>true, :terms=>[MDElement.new(:definition_term,[	
+			"Orange"
+		], {})]})
+	], {}),
 	
-	MDElement.new(:hrule,[],
-		{}),
+	MDElement.new(:hrule,[],{}),
 	
 	MDElement.new(:definition_list,[	
 		MDElement.new(:definition,[	
 			MDElement.new(:definition_term,[	
-				"Term 1"],
-				{}),
+				"Term 1"
+			], {}),
 			
 			MDElement.new(:definition_data,[	
 				MDElement.new(:paragraph,[	
-					"This is a definition with two paragraphs. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aliquam hendrerit mi posuere lectus."],
-					{}),
+					"This is a definition with two paragraphs. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aliquam hendrerit mi posuere lectus."
+				], {}),
 				
 				MDElement.new(:paragraph,[	
-					"Vestibulum enim wisi, viverra nec, fringilla in, laoreet vitae, risus."],
-					{})],
-				{}),
+					"Vestibulum enim wisi, viverra nec, fringilla in, laoreet vitae, risus."
+				], {})
+			], {}),
 			
 			MDElement.new(:definition_data,[	
 				MDElement.new(:paragraph,[	
-					"Second definition for term 1, also wrapped in a paragraph because of the blank line preceding it."],
-					{})],
-				{})],
-			{:definitions=>[MDElement.new(:definition_data,[	
+					"Second definition for term 1, also wrapped in a paragraph because of the blank line preceding it."
+				], {})
+			], {})
+		], {:definitions=>[MDElement.new(:definition_data,[	
 			MDElement.new(:paragraph,[	
-				"This is a definition with two paragraphs. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aliquam hendrerit mi posuere lectus."],
-				{}),
+				"This is a definition with two paragraphs. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aliquam hendrerit mi posuere lectus."
+			], {}),
 			
 			MDElement.new(:paragraph,[	
-				"Vestibulum enim wisi, viverra nec, fringilla in, laoreet vitae, risus."],
-				{})],
-			{}), MDElement.new(:definition_data,[	
+				"Vestibulum enim wisi, viverra nec, fringilla in, laoreet vitae, risus."
+			], {})
+		], {}), MDElement.new(:definition_data,[	
 			MDElement.new(:paragraph,[	
-				"Second definition for term 1, also wrapped in a paragraph because of the blank line preceding it."],
-				{})],
-			{})], :want_my_paragraph=>true, :terms=>[MDElement.new(:definition_term,[	
-			"Term 1"],
-			{})]}),
+				"Second definition for term 1, also wrapped in a paragraph because of the blank line preceding it."
+			], {})
+		], {})], :want_my_paragraph=>true, :terms=>[MDElement.new(:definition_term,[	
+			"Term 1"
+		], {})]}),
 		
 		MDElement.new(:definition,[	
 			MDElement.new(:definition_term,[	
-				"Term 2"],
-				{}),
+				"Term 2"
+			], {}),
 			
 			MDElement.new(:definition_data,[	
 				MDElement.new(:paragraph,[	
-					"This definition has a code block, a blockquote and a list."],
-					{}),
+					"This definition has a code block, a blockquote and a list."
+				], {}),
 				
-				MDElement.new(:code,[],
-					{:raw_code=>"code block.\n"}),
+				MDElement.new(:code,[],{:raw_code=>"code block.\n"}),
 				
 				MDElement.new(:quote,[	
 					MDElement.new(:paragraph,[	
-						"block quote on two lines."],
-						{})],
-					{}),
+						"block quote on two lines."
+					], {})
+				], {}),
 				
 				MDElement.new(:ol,[	
 					MDElement.new(:li_span,[	
-						"first list item"],
-						{:want_my_paragraph=>false}),
+						"first list item"
+					], {:want_my_paragraph=>false}),
 					
 					MDElement.new(:li_span,[	
-						"second list item"],
-						{:want_my_paragraph=>false})],
-					{})],
-				{})],
-			{:definitions=>[MDElement.new(:definition_data,[	
+						"second list item"
+					], {:want_my_paragraph=>false})
+				], {})
+			], {})
+		], {:definitions=>[MDElement.new(:definition_data,[	
 			MDElement.new(:paragraph,[	
-				"This definition has a code block, a blockquote and a list."],
-				{}),
+				"This definition has a code block, a blockquote and a list."
+			], {}),
 			
-			MDElement.new(:code,[],
-				{:raw_code=>"code block.\n"}),
+			MDElement.new(:code,[],{:raw_code=>"code block.\n"}),
 			
 			MDElement.new(:quote,[	
 				MDElement.new(:paragraph,[	
-					"block quote on two lines."],
-					{})],
-				{}),
+					"block quote on two lines."
+				], {})
+			], {}),
 			
 			MDElement.new(:ol,[	
 				MDElement.new(:li_span,[	
-					"first list item"],
-					{:want_my_paragraph=>false}),
+					"first list item"
+				], {:want_my_paragraph=>false}),
 				
 				MDElement.new(:li_span,[	
-					"second list item"],
-					{:want_my_paragraph=>false})],
-				{})],
-			{})], :want_my_paragraph=>true, :terms=>[MDElement.new(:definition_term,[	
-			"Term 2"],
-			{})]})],
-		{}),
+					"second list item"
+				], {:want_my_paragraph=>false})
+			], {})
+		], {})], :want_my_paragraph=>true, :terms=>[MDElement.new(:definition_term,[	
+			"Term 2"
+		], {})]})
+	], {}),
 	
-	MDElement.new(:hrule,[],
-		{}),
+	MDElement.new(:hrule,[],{}),
 	
 	MDElement.new(:definition_list,[	
 		MDElement.new(:definition,[	
 			MDElement.new(:definition_term,[	
-				"Term 1"],
-				{}),
+				"Term 1"
+			], {}),
 			
 			MDElement.new(:definition_term,[	
-				"Term 2"],
-				{}),
+				"Term 2"
+			], {}),
 			
 			MDElement.new(:definition_term,[	
-				"Term 2a"],
-				{}),
+				"Term 2a"
+			], {}),
 			
 			MDElement.new(:definition_term,[	
-				"Term 2b"],
-				{}),
+				"Term 2b"
+			], {}),
 			
 			MDElement.new(:definition_data,[	
-				"Definition a"],
-				{})],
-			{:definitions=>[MDElement.new(:definition_data,[	
-			"Definition a"],
-			{})], :want_my_paragraph=>false, :terms=>[MDElement.new(:definition_term,[	
-			"Term 1"],
-			{}), MDElement.new(:definition_term,[	
-			"Term 2"],
-			{}), MDElement.new(:definition_term,[	
-			"Term 2a"],
-			{}), MDElement.new(:definition_term,[	
-			"Term 2b"],
-			{})]})],
-		{}),
+				"Definition a"
+			], {})
+		], {:definitions=>[MDElement.new(:definition_data,[	
+			"Definition a"
+		], {})], :want_my_paragraph=>false, :terms=>[MDElement.new(:definition_term,[	
+			"Term 1"
+		], {}), MDElement.new(:definition_term,[	
+			"Term 2"
+		], {}), MDElement.new(:definition_term,[	
+			"Term 2a"
+		], {}), MDElement.new(:definition_term,[	
+			"Term 2b"
+		], {})]})
+	], {}),
 	
 	MDElement.new(:paragraph,[	
-		"This is a paragraph"],
-		{}),
+		"This is a paragraph"
+	], {}),
 	
 	MDElement.new(:definition_list,[	
 		MDElement.new(:definition,[	
 			MDElement.new(:definition_term,[	
-				"This is a term"],
-				{}),
+				"This is a term"
+			], {}),
 			
 			MDElement.new(:definition_data,[	
 				MDElement.new(:paragraph,[	
-					"definition"],
-					{})],
-				{})],
-			{:definitions=>[MDElement.new(:definition_data,[	
+					"definition"
+				], {})
+			], {})
+		], {:definitions=>[MDElement.new(:definition_data,[	
 			MDElement.new(:paragraph,[	
-				"definition"],
-				{})],
-			{})], :want_my_paragraph=>true, :terms=>[MDElement.new(:definition_term,[	
-			"This is a term"],
-			{})]})],
-		{})],
-	{:css=>"style.css"})
+				"definition"
+			], {})
+		], {})], :want_my_paragraph=>true, :terms=>[MDElement.new(:definition_term,[	
+			"This is a term"
+		], {})]})
+	], {})
+], {:css=>"style.css"})
 ***EOF***
 <p>CSS: style.css</p>
 

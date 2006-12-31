@@ -57,19 +57,17 @@ This is ruby code:This is ruby code:
 ***EOF***
 MDElement.new(:document,[	
 	MDElement.new(:paragraph,[	
-		"This is ruby code:"],
-		{}),
+		"This is ruby code:"
+	], {}),
 	
-	MDElement.new(:code,[],
-		{:raw_code=>"require 'maruku'\n\nputs Maruku.new($stdin).to_html\n"}),
+	MDElement.new(:code,[],{:raw_code=>"require 'maruku'\n\nputs Maruku.new($stdin).to_html\n"}),
 	
 	MDElement.new(:paragraph,[	
-		"This is ruby code:"],
-		{}),
+		"This is ruby code:"
+	], {}),
 	
-	MDElement.new(:code,[],
-		{:raw_code=>"require 'maruku'\n\nputs Maruku.new($stdin).to_html", :lang=>"ruby", :html_use_syntax=>true})],
-	{})
+	MDElement.new(:code,[],{:raw_code=>"require 'maruku'\n\nputs Maruku.new($stdin).to_html", :lang=>"ruby", :html_use_syntax=>true})
+], {})
 ***EOF***
 
 Failed tests:   [] 
@@ -123,19 +121,17 @@ This is ruby code:This is ruby code:
 ***EOF***
 MDElement.new(:document,[	
 	MDElement.new(:paragraph,[	
-		"This is ruby code:"],
-		{}),
+		"This is ruby code:"
+	], {}),
 	
-	MDElement.new(:code,[],
-		{:raw_code=>"require 'maruku'\n\nputs Maruku.new($stdin).to_html\n"}),
+	MDElement.new(:code,[],{:raw_code=>"require 'maruku'\n\nputs Maruku.new($stdin).to_html\n"}),
 	
 	MDElement.new(:paragraph,[	
-		"This is ruby code:"],
-		{}),
+		"This is ruby code:"
+	], {}),
 	
-	MDElement.new(:code,[],
-		{:raw_code=>"require 'maruku'\n\nputs Maruku.new($stdin).to_html", :lang=>"ruby", :html_use_syntax=>true})],
-	{})
+	MDElement.new(:code,[],{:raw_code=>"require 'maruku'\n\nputs Maruku.new($stdin).to_html", :lang=>"ruby", :html_use_syntax=>true})
+], {})
 ***EOF***
 <p>This is ruby code:</p>
 

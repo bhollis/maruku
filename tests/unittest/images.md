@@ -53,38 +53,33 @@ MDElement.new(:document,[
 	MDElement.new(:paragraph,[	
 		"This page does not uilizes ",
 		
-		MDElement.new(:image,[],
-			{:ref_id=>"dummy_0"})],
-		{}),
+		MDElement.new(:image,[],{:ref_id=>"dummy_0"})
+	], {}),
 	
 	MDElement.new(:paragraph,[	
 		"Please mouseover to see the title: ",
 		
-		MDElement.new(:image,[],
-			{:ref_id=>"dummy_1"})],
-		{}),
+		MDElement.new(:image,[],{:ref_id=>"dummy_1"})
+	], {}),
 	
 	MDElement.new(:paragraph,[	
 		"Please mouseover to see the title: ",
 		
-		MDElement.new(:image,[],
-			{:ref_id=>"dummy_2"})],
-		{}),
+		MDElement.new(:image,[],{:ref_id=>"dummy_2"})
+	], {}),
 	
 	MDElement.new(:paragraph,[	
 		"I'll say it one more time: this page does not use ",
 		
-		MDElement.new(:image,[],
-			{:ref_id=>"css"})],
-		{}),
+		MDElement.new(:image,[],{:ref_id=>"css"})
+	], {}),
 	
 	MDElement.new(:paragraph,[	
 		"This is double size: ",
 		
-		MDElement.new(:image,[],
-			{:ref_id=>"css2"})],
-		{})],
-	{})
+		MDElement.new(:image,[],{:ref_id=>"css2"})
+	], {})
+], {})
 ***EOF***
 
 Failed tests:   [] 
@@ -125,38 +120,33 @@ MDElement.new(:document,[
 	MDElement.new(:paragraph,[	
 		"This page does not uilizes ",
 		
-		MDElement.new(:image,[],
-			{:ref_id=>"dummy_0"})],
-		{}),
+		MDElement.new(:image,[],{:ref_id=>"dummy_0"})
+	], {}),
 	
 	MDElement.new(:paragraph,[	
 		"Please mouseover to see the title: ",
 		
-		MDElement.new(:image,[],
-			{:ref_id=>"dummy_1"})],
-		{}),
+		MDElement.new(:image,[],{:ref_id=>"dummy_1"})
+	], {}),
 	
 	MDElement.new(:paragraph,[	
 		"Please mouseover to see the title: ",
 		
-		MDElement.new(:image,[],
-			{:ref_id=>"dummy_2"})],
-		{}),
+		MDElement.new(:image,[],{:ref_id=>"dummy_2"})
+	], {}),
 	
 	MDElement.new(:paragraph,[	
 		"I'll say it one more time: this page does not use ",
 		
-		MDElement.new(:image,[],
-			{:ref_id=>"css"})],
-		{}),
+		MDElement.new(:image,[],{:ref_id=>"css"})
+	], {}),
 	
 	MDElement.new(:paragraph,[	
 		"This is double size: ",
 		
-		MDElement.new(:image,[],
-			{:ref_id=>"css2"})],
-		{})],
-	{})
+		MDElement.new(:image,[],{:ref_id=>"css2"})
+	], {})
+], {})
 ***EOF***
 <p>This page does not uilizes <img src="http://jigsaw.w3.org/css-validator/images/vcss" alt="Cascading Style Sheets" title="" /></p>
 

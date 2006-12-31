@@ -19,12 +19,11 @@ MDElement.new(:document,[
 	MDElement.new(:paragraph,[	
 		"This is an email address: ",
 		
-		MDElement.new(:email_address,[],
-			{:email=>"andrea@invalid.it"}),
+		MDElement.new(:email_address,[],{:email=>"andrea@invalid.it"}),
 		
-		" "],
-		{})],
-	{})
+		" "
+	], {})
+], {})
 ***EOF***
 
 Failed tests:   [] 
@@ -49,16 +48,15 @@ MDElement.new(:document,[
 	MDElement.new(:paragraph,[	
 		"This is an email address: ",
 		
-		MDElement.new(:email_address,[],
-			{:email=>"andrea@invalid.it"}),
+		MDElement.new(:email_address,[],{:email=>"andrea@invalid.it"}),
 		
-		" "],
-		{})],
-	{})
+		" "
+	], {})
+], {})
 ***EOF***
-<p>This is an email address: <a href="&#109;&#97;&#105;&#x6C;&#116;&#111;:&#x61;nd&#x72;&#101;&#97;&#64;&#105;&#x6E;&#x76;&#x61;&#x6C;&#x69;&#100;&#46;&#105;&#x74;">&#x61;nd&#x72;&#101;&#97;&#64;&#105;&#x6E;&#x76;&#x61;&#x6C;&#x69;&#100;&#46;&#105;&#x74;</a></p>
+<p>This is an email address: <a href="&#x6D;&#x61;i&#x6C;&#x74;&#x6F;:&#x61;&#x6E;d&#x72;&#101;&#x61;&#64;&#x69;n&#x76;&#x61;&#108;&#105;&#x64;&#46;&#x69;&#116;">&#x61;&#x6E;d&#x72;&#101;&#x61;&#64;&#x69;n&#x76;&#x61;&#108;&#105;&#x64;&#46;&#x69;&#116;</a></p>
 
 ***EOF***
-<p>This is an email address: <a href='&amp;#109;&amp;#97;&amp;#105;&amp;#x6C;&amp;#116;&amp;#111;:&amp;#x61;nd&amp;#x72;&amp;#101;&amp;#97;&amp;#64;&amp;#105;&amp;#x6E;&amp;#x76;&amp;#x61;&amp;#x6C;&amp;#x69;&amp;#100;&amp;#46;&amp;#105;&amp;#x74;'>&#x61;nd&#x72;&#101;&#97;&#64;&#105;&#x6E;&#x76;&#x61;&#x6C;&#x69;&#100;&#46;&#105;&#x74;</a
+<p>This is an email address: <a href='&amp;#x6D;&amp;#x61;i&amp;#x6C;&amp;#x74;&amp;#x6F;:&amp;#x61;&amp;#x6E;d&amp;#x72;&amp;#101;&amp;#x61;&amp;#64;&amp;#x69;n&amp;#x76;&amp;#x61;&amp;#108;&amp;#105;&amp;#x64;&amp;#46;&amp;#x69;&amp;#116;'>&#x61;&#x6E;d&#x72;&#101;&#x61;&#64;&#x69;n&#x76;&#x61;&#108;&#105;&#x64;&#46;&#x69;&#116;</a
     ></p
   >

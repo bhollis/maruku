@@ -14,9 +14,9 @@ Paragraph
 ***EOF***
 MDElement.new(:document,[	
 	MDElement.new(:paragraph,[	
-		"Paragraph"],
-		{})],
-	{})
+		"Paragraph"
+	], {})
+], {})
 ***EOF***
 
 Failed tests:   [] 
@@ -38,9 +38,9 @@ Paragraph
 ***EOF***
 MDElement.new(:document,[	
 	MDElement.new(:paragraph,[	
-		"Paragraph"],
-		{})],
-	{})
+		"Paragraph"
+	], {})
+], {})
 ***EOF***
 <p>Paragraph</p>
 

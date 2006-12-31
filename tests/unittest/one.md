@@ -13,9 +13,9 @@ One line
 ***EOF***
 MDElement.new(:document,[	
 	MDElement.new(:paragraph,[	
-		"One line"],
-		{})],
-	{})
+		"One line"
+	], {})
+], {})
 ***EOF***
 
 Failed tests:   [] 
@@ -37,9 +37,9 @@ One line
 ***EOF***
 MDElement.new(:document,[	
 	MDElement.new(:paragraph,[	
-		"One line"],
-		{})],
-	{})
+		"One line"
+	], {})
+], {})
 ***EOF***
 <p>One line</p>
 

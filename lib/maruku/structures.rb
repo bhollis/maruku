@@ -64,8 +64,8 @@ class MDElement
 	
 	def initialize(node_type_=:unset, children_=[], meta_={} )
 		super(); 
-		raise 'neh?' if not children_
-		raise 'neh?' if not meta_
+		raise 'children is nil' if not children_
+		raise 'meta is nil' if not meta_
 		
 		@children = children_
 		@node_type = node_type_

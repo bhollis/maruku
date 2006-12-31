@@ -21,9 +21,8 @@
 
 ***EOF***
 MDElement.new(:document,[	
-	MDElement.new(:code,[],
-		{:raw_code=>"       $ python       \n\n"})],
-	{})
+	MDElement.new(:code,[],{:raw_code=>"       $ python       \n\n"})
+], {})
 ***EOF***
 
 Failed tests:   [] 
@@ -49,9 +48,8 @@ And the following are the actual outputs for methods:
 
 ***EOF***
 MDElement.new(:document,[	
-	MDElement.new(:code,[],
-		{:raw_code=>"       $ python       \n\n"})],
-	{})
+	MDElement.new(:code,[],{:raw_code=>"       $ python       \n\n"})
+], {})
 ***EOF***
 <p>$ python       </p>
 

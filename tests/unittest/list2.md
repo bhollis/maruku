@@ -31,15 +31,15 @@ MDElement.new(:document,[
 	MDElement.new(:ul,[	
 		MDElement.new(:li,[	
 			MDElement.new(:paragraph,[	
-				"This is a list item with two paragraphs."],
-				{}),
+				"This is a list item with two paragraphs."
+			], {}),
 			
 			MDElement.new(:paragraph,[	
-				"This is the second paragraph in the list item. You're only required to indent the first line. Lorem ipsum dolo sit amet, consectetuer adipiscing elit"],
-				{})],
-			{:want_my_paragraph=>true})],
-		{})],
-	{})
+				"This is the second paragraph in the list item. You're only required to indent the first line. Lorem ipsum dolo sit amet, consectetuer adipiscing elit"
+			], {})
+		], {:want_my_paragraph=>true})
+	], {})
+], {})
 ***EOF***
 
 Failed tests:   [] 
@@ -74,15 +74,15 @@ MDElement.new(:document,[
 	MDElement.new(:ul,[	
 		MDElement.new(:li,[	
 			MDElement.new(:paragraph,[	
-				"This is a list item with two paragraphs."],
-				{}),
+				"This is a list item with two paragraphs."
+			], {}),
 			
 			MDElement.new(:paragraph,[	
-				"This is the second paragraph in the list item. You're only required to indent the first line. Lorem ipsum dolo sit amet, consectetuer adipiscing elit"],
-				{})],
-			{:want_my_paragraph=>true})],
-		{})],
-	{})
+				"This is the second paragraph in the list item. You're only required to indent the first line. Lorem ipsum dolo sit amet, consectetuer adipiscing elit"
+			], {})
+		], {:want_my_paragraph=>true})
+	], {})
+], {})
 ***EOF***
 <ul>
 <li><p>This is a list item with two paragraphs.</p>

@@ -138,18 +138,18 @@ class Maruku
 			
 			# links of the form [text](url)
 			["\\[a](b)",  ["[a](b)"], 'Links'],
-			["[a](url)",  [md_imlink(['a'],'url')], 'url'],
+			["[a](url)",  [md_im_link(['a'],'url')], 'url'],
 			["[a]( url )" ],
 			["[a] (	url )" ],
 			["[a] (	url)" ],
 			
-			["[a](ur:/l/ 'Title')",  [md_imlink(['a'],'ur:/l/','Title')],
+			["[a](ur:/l/ 'Title')",  [md_im_link(['a'],'ur:/l/','Title')],
 			 	'url and title'],
 			["[a] (	ur:/l/ \"Title\")" ],
 			["[a] (	ur:/l/ \"Title\")" ],
 			["[a]( ur:/l/ Title)", :throw, "Must quote title" ],
 
-			["[a](url 'Tit\\\"l\\\\e')", [md_imlink(['a'],'url','Tit"l\\e')],
+			["[a](url 'Tit\\\"l\\\\e')", [md_im_link(['a'],'url','Tit"l\\e')],
 			 	'url and title escaped'],
 			["[a] (	url \"Tit\\\"l\\\\e\")" ],
 			["[a] (	url	\"Tit\\\"l\\\\e\"  )" ],
@@ -163,6 +163,29 @@ class Maruku
 
 			["[a](url \'Title\")", :throw, "Mixing is bad" ],
 			["[a](url \"Title\')"],
+			
+			["[a](/url)", [md_im_link(['a'],'/url')], 'Funny chars in url'],
+			["[a](#url)", [md_im_link(['a'],'#url')]],
+			
+			# Images
+			["\\![a](url)",  ['!', md_im_link(['a'],'url') ], 'Escaping images'],
+			
+			["![a](url)",  [md_im_image(['a'],'url')], 'Image no title'],
+			["![a]( url )" ],
+			["![a] (	url )" ],
+			["![a] (	url)" ],
+
+			["![a](url 'ti\"tle')",  [md_im_image(['a'],'url','ti"tle')], 'Image with title'],
+			['![a]( url "ti\\"tle")' ],
+
+			["![a](url", :throw, 'Invalid images'],
+			["![a( url )" ],
+			["![a] ('url )" ],
+
+			["![a][imref]",  [md_image(['a'],'imref')], 'Image with ref'],
+			["![a][ imref]"],
+			["![a][ imref ]"],
+			["![a][\timref\t]"],
 			
 					
 			["a<!-- -->b", ['a',md_html('<!-- -->'),'b'], 

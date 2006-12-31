@@ -100,52 +100,43 @@ MDElement.new(:document,[
 	MDElement.new(:paragraph,[	
 		"Input: ",
 		
-		MDElement.new(:raw_html,[],
-			{:raw_html=>"<em>Emphasis</em> Result: <em>Emphasis</em>"})],
-		{}),
+		MDElement.new(:raw_html,[],{:raw_html=>"<em>Emphasis</em> Result: <em>Emphasis</em>"})
+	], {}),
 	
 	MDElement.new(:paragraph,[	
 		"Input: ",
 		
-		MDElement.new(:raw_html,[],
-			{:raw_html=>"<img src=\"http://jigsaw.w3.org/css-validator/images/vcss\"/>", :parsed_html=><UNDEFINED> ... </>}),
+		MDElement.new(:raw_html,[],{:raw_html=>"<img src=\"http://jigsaw.w3.org/css-validator/images/vcss\"/>", :parsed_html=><UNDEFINED> ... </>}),
 		
 		" Result on span: ",
 		
-		MDElement.new(:raw_html,[],
-			{:raw_html=>"<img src=\"http://jigsaw.w3.org/css-validator/images/vcss\"/>", :parsed_html=><UNDEFINED> ... </>})],
-		{}),
+		MDElement.new(:raw_html,[],{:raw_html=>"<img src=\"http://jigsaw.w3.org/css-validator/images/vcss\"/>", :parsed_html=><UNDEFINED> ... </>})
+	], {}),
 	
 	MDElement.new(:paragraph,[	
-		"Result alone:"],
-		{}),
+		"Result alone:"
+	], {}),
 	
-	MDElement.new(:raw_html,[],
-		{:raw_html=>"<img  src=\"http://jigsaw.w3.org/css-validator/images/vcss\" />", :parsed_html=><UNDEFINED> ... </>}),
-	
-	MDElement.new(:paragraph,[	
-		"Without closing:"],
-		{}),
-	
-	MDElement.new(:raw_html,[],
-		{:raw_html=>"<img  src=\"http://jigsaw.w3.org/css-validator/images/vcss\" />", :parsed_html=><UNDEFINED> ... </>}),
-	
-	MDElement.new(:raw_html,[],
-		{:raw_html=>"<div markdown=\"1\">\n\tThis is *true* markdown text (paragraph)\n\n\t<p markdown=\"1\">\n\t\tThis is *true* markdown text (no paragraph)\n\t</p>\n</div>", :parsed_html=><UNDEFINED> ... </>}),
-	
-	MDElement.new(:raw_html,[],
-		{:raw_html=>"<table>\n<tr>\n<td markdown=\"1\">This is *true* markdown text. (no par)</td>\n<td markdown=\"block\">This is *true* markdown text. (par)</td>\n</tr>\n</table>", :parsed_html=><UNDEFINED> ... </>}),
+	MDElement.new(:raw_html,[],{:raw_html=>"<img  src=\"http://jigsaw.w3.org/css-validator/images/vcss\" />", :parsed_html=><UNDEFINED> ... </>}),
 	
 	MDElement.new(:paragraph,[	
-		"The following is invalid HTML, and will generate an error:"],
-		{}),
+		"Without closing:"
+	], {}),
 	
-	MDElement.new(:raw_html,[],
-		{:raw_html=>"<table>\n<td markdown=\"1\">This is *true* markdown text. (no par)</td>\n<td markdown=\"block\">This is *true* markdown text. (par)</td>\n</tr>"}),
+	MDElement.new(:raw_html,[],{:raw_html=>"<img  src=\"http://jigsaw.w3.org/css-validator/images/vcss\" />", :parsed_html=><UNDEFINED> ... </>}),
 	
-	MDElement.new(:raw_html,[],
-		{:raw_html=>"</table>"})],
-	{:css=>"style.css"})
+	MDElement.new(:raw_html,[],{:raw_html=>"<div markdown=\"1\">\n\tThis is *true* markdown text (paragraph)\n\n\t<p markdown=\"1\">\n\t\tThis is *true* markdown text (no paragraph)\n\t</p>\n</div>", :parsed_html=><UNDEFINED> ... </>}),
+	
+	MDElement.new(:raw_html,[],{:raw_html=>"<table>\n<tr>\n<td markdown=\"1\">This is *true* markdown text. (no par)</td>\n<td markdown=\"block\">This is *true* markdown text. (par)</td>\n</tr>\n</table>", :parsed_html=><UNDEFINED> ... </>}),
+	
+	MDElement.new(:paragraph,[	
+		"The following is invalid HTML, and will generate an error:"
+	], {}),
+	
+	MDElement.new(:raw_html,[],{:raw_html=>"<table>\n<td markdown=\"1\">This is *true* markdown text. (no par)</td>\n<td markdown=\"block\">This is *true* markdown text. (par)</td>\n</tr>"}),
+	
+	MDElement.new(:raw_html,[],{:raw_html=>"</table>"})
+], {:css=>"style.css"})
 ***EOF***
 
 Failed tests:   [:to_html] 
@@ -214,52 +205,43 @@ MDElement.new(:document,[
 	MDElement.new(:paragraph,[	
 		"Input: ",
 		
-		MDElement.new(:raw_html,[],
-			{:raw_html=>"<em>Emphasis</em> Result: <em>Emphasis</em>"})],
-		{}),
+		MDElement.new(:raw_html,[],{:raw_html=>"<em>Emphasis</em> Result: <em>Emphasis</em>"})
+	], {}),
 	
 	MDElement.new(:paragraph,[	
 		"Input: ",
 		
-		MDElement.new(:raw_html,[],
-			{:raw_html=>"<img src=\"http://jigsaw.w3.org/css-validator/images/vcss\"/>", :parsed_html=><UNDEFINED> ... </>}),
+		MDElement.new(:raw_html,[],{:raw_html=>"<img src=\"http://jigsaw.w3.org/css-validator/images/vcss\"/>", :parsed_html=><UNDEFINED> ... </>}),
 		
 		" Result on span: ",
 		
-		MDElement.new(:raw_html,[],
-			{:raw_html=>"<img src=\"http://jigsaw.w3.org/css-validator/images/vcss\"/>", :parsed_html=><UNDEFINED> ... </>})],
-		{}),
+		MDElement.new(:raw_html,[],{:raw_html=>"<img src=\"http://jigsaw.w3.org/css-validator/images/vcss\"/>", :parsed_html=><UNDEFINED> ... </>})
+	], {}),
 	
 	MDElement.new(:paragraph,[	
-		"Result alone:"],
-		{}),
+		"Result alone:"
+	], {}),
 	
-	MDElement.new(:raw_html,[],
-		{:raw_html=>"<img  src=\"http://jigsaw.w3.org/css-validator/images/vcss\" />", :parsed_html=><UNDEFINED> ... </>}),
-	
-	MDElement.new(:paragraph,[	
-		"Without closing:"],
-		{}),
-	
-	MDElement.new(:raw_html,[],
-		{:raw_html=>"<img  src=\"http://jigsaw.w3.org/css-validator/images/vcss\" />", :parsed_html=><UNDEFINED> ... </>}),
-	
-	MDElement.new(:raw_html,[],
-		{:raw_html=>"<div markdown=\"1\">\n\tThis is *true* markdown text (paragraph)\n\n\t<p markdown=\"1\">\n\t\tThis is *true* markdown text (no paragraph)\n\t</p>\n</div>", :parsed_html=><UNDEFINED> ... </>}),
-	
-	MDElement.new(:raw_html,[],
-		{:raw_html=>"<table>\n<tr>\n<td markdown=\"1\">This is *true* markdown text. (no par)</td>\n<td markdown=\"block\">This is *true* markdown text. (par)</td>\n</tr>\n</table>", :parsed_html=><UNDEFINED> ... </>}),
+	MDElement.new(:raw_html,[],{:raw_html=>"<img  src=\"http://jigsaw.w3.org/css-validator/images/vcss\" />", :parsed_html=><UNDEFINED> ... </>}),
 	
 	MDElement.new(:paragraph,[	
-		"The following is invalid HTML, and will generate an error:"],
-		{}),
+		"Without closing:"
+	], {}),
 	
-	MDElement.new(:raw_html,[],
-		{:raw_html=>"<table>\n<td markdown=\"1\">This is *true* markdown text. (no par)</td>\n<td markdown=\"block\">This is *true* markdown text. (par)</td>\n</tr>"}),
+	MDElement.new(:raw_html,[],{:raw_html=>"<img  src=\"http://jigsaw.w3.org/css-validator/images/vcss\" />", :parsed_html=><UNDEFINED> ... </>}),
 	
-	MDElement.new(:raw_html,[],
-		{:raw_html=>"</table>"})],
-	{:css=>"style.css"})
+	MDElement.new(:raw_html,[],{:raw_html=>"<div markdown=\"1\">\n\tThis is *true* markdown text (paragraph)\n\n\t<p markdown=\"1\">\n\t\tThis is *true* markdown text (no paragraph)\n\t</p>\n</div>", :parsed_html=><UNDEFINED> ... </>}),
+	
+	MDElement.new(:raw_html,[],{:raw_html=>"<table>\n<tr>\n<td markdown=\"1\">This is *true* markdown text. (no par)</td>\n<td markdown=\"block\">This is *true* markdown text. (par)</td>\n</tr>\n</table>", :parsed_html=><UNDEFINED> ... </>}),
+	
+	MDElement.new(:paragraph,[	
+		"The following is invalid HTML, and will generate an error:"
+	], {}),
+	
+	MDElement.new(:raw_html,[],{:raw_html=>"<table>\n<td markdown=\"1\">This is *true* markdown text. (no par)</td>\n<td markdown=\"block\">This is *true* markdown text. (par)</td>\n</tr>"}),
+	
+	MDElement.new(:raw_html,[],{:raw_html=>"</table>"})
+], {:css=>"style.css"})
 ***EOF***
 <p>CSS: style.css</p>
 

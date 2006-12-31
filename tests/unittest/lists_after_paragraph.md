@@ -117,101 +117,95 @@ Paragraph, list with no space: * ciaoParagraph, list with 1 space: * ciaoParagra
 ***EOF***
 MDElement.new(:document,[	
 	MDElement.new(:paragraph,[	
-		"Paragraph, list with no space: * ciao"],
-		{}),
+		"Paragraph, list with no space: * ciao"
+	], {}),
 	
 	MDElement.new(:paragraph,[	
-		"Paragraph, list with 1 space: * ciao"],
-		{}),
+		"Paragraph, list with 1 space: * ciao"
+	], {}),
 	
 	MDElement.new(:paragraph,[	
-		"Paragraph, list with 3 space: * ciao"],
-		{}),
+		"Paragraph, list with 3 space: * ciao"
+	], {}),
 	
 	MDElement.new(:paragraph,[	
-		"Paragraph, list with 4 spaces: * ciao"],
-		{}),
+		"Paragraph, list with 4 spaces: * ciao"
+	], {}),
 	
 	MDElement.new(:paragraph,[	
-		"Paragraph, list with 1 tab: * ciao"],
-		{}),
+		"Paragraph, list with 1 tab: * ciao"
+	], {}),
 	
 	MDElement.new(:paragraph,[	
-		"Paragraph (1 space after), list with no space: * ciao"],
-		{}),
+		"Paragraph (1 space after), list with no space: * ciao"
+	], {}),
 	
 	MDElement.new(:paragraph,[	
 		"Paragraph (2 spaces after), list with no space:",
 		
-		MDElement.new(:linebreak,[],
-			{}),
+		MDElement.new(:linebreak,[],{}),
 		
-		"* ciao"],
-		{}),
+		"* ciao"
+	], {}),
 	
 	MDElement.new(:paragraph,[	
 		"Paragraph (3 spaces after), list with no space:",
 		
-		MDElement.new(:linebreak,[],
-			{}),
+		MDElement.new(:linebreak,[],{}),
 		
-		"* ciao"],
-		{}),
+		"* ciao"
+	], {}),
 	
 	MDElement.new(:paragraph,[	
-		"Paragraph with block quote:"],
-		{}),
+		"Paragraph with block quote:"
+	], {}),
 	
 	MDElement.new(:quote,[	
 		MDElement.new(:paragraph,[	
-			"Quoted"],
-			{})],
-		{}),
+			"Quoted"
+		], {})
+	], {}),
 	
 	MDElement.new(:paragraph,[	
-		"Paragraph with header:"],
-		{}),
+		"Paragraph with header:"
+	], {}),
 	
 	MDElement.new(:header,[	
-		"header"],
-		{:id=>"header", :level=>3}),
+		"header"
+	], {:id=>"header", :level=>3}),
 	
 	MDElement.new(:paragraph,[	
-		"Paragraph with header on two lines:"],
-		{}),
+		"Paragraph with header on two lines:"
+	], {}),
 	
 	MDElement.new(:header,[	
-		"header"],
-		{:id=>"header", :level=>2}),
+		"header"
+	], {:id=>"header", :level=>2}),
 	
 	MDElement.new(:paragraph,[	
-		"Paragraph with html after"],
-		{}),
+		"Paragraph with html after"
+	], {}),
 	
-	MDElement.new(:raw_html,[],
-		{:raw_html=>"<div></div>", :parsed_html=><UNDEFINED> ... </>}),
-	
-	MDElement.new(:paragraph,[	
-		"Paragraph with html after, indented: ",
-		
-		MDElement.new(:raw_html,[],
-			{:raw_html=>"<em>Emphasis</em>", :parsed_html=><UNDEFINED> ... </>})],
-		{}),
+	MDElement.new(:raw_html,[],{:raw_html=>"<div></div>", :parsed_html=><UNDEFINED> ... </>}),
 	
 	MDElement.new(:paragraph,[	
 		"Paragraph with html after, indented: ",
 		
-		MDElement.new(:raw_html,[],
-			{:raw_html=>"<em>Emphasis</em> *tralla* <em>Emph</em>"})],
-		{}),
+		MDElement.new(:raw_html,[],{:raw_html=>"<em>Emphasis</em>", :parsed_html=><UNDEFINED> ... </>})
+	], {}),
 	
 	MDElement.new(:paragraph,[	
 		"Paragraph with html after, indented: ",
 		
-		MDElement.new(:raw_html,[],
-			{:raw_html=>"<em>Emphasis *tralla* Emph</em>", :parsed_html=><UNDEFINED> ... </>})],
-		{})],
-	{})
+		MDElement.new(:raw_html,[],{:raw_html=>"<em>Emphasis</em> *tralla* <em>Emph</em>"})
+	], {}),
+	
+	MDElement.new(:paragraph,[	
+		"Paragraph with html after, indented: ",
+		
+		MDElement.new(:raw_html,[],{:raw_html=>"<em>Emphasis *tralla* Emph</em>", :parsed_html=><UNDEFINED> ... </>})
+	], {})
+], {})
 ***EOF***
 
 Failed tests:   [:to_html, :to_latex, :to_s, :to_s] 
@@ -302,101 +296,95 @@ Paragraph, list with no space: * ciaoParagraph, list with 1 space: * ciaoParagra
 ***EOF***
 MDElement.new(:document,[	
 	MDElement.new(:paragraph,[	
-		"Paragraph, list with no space: * ciao"],
-		{}),
+		"Paragraph, list with no space: * ciao"
+	], {}),
 	
 	MDElement.new(:paragraph,[	
-		"Paragraph, list with 1 space: * ciao"],
-		{}),
+		"Paragraph, list with 1 space: * ciao"
+	], {}),
 	
 	MDElement.new(:paragraph,[	
-		"Paragraph, list with 3 space: * ciao"],
-		{}),
+		"Paragraph, list with 3 space: * ciao"
+	], {}),
 	
 	MDElement.new(:paragraph,[	
-		"Paragraph, list with 4 spaces: * ciao"],
-		{}),
+		"Paragraph, list with 4 spaces: * ciao"
+	], {}),
 	
 	MDElement.new(:paragraph,[	
-		"Paragraph, list with 1 tab: * ciao"],
-		{}),
+		"Paragraph, list with 1 tab: * ciao"
+	], {}),
 	
 	MDElement.new(:paragraph,[	
-		"Paragraph (1 space after), list with no space: * ciao"],
-		{}),
+		"Paragraph (1 space after), list with no space: * ciao"
+	], {}),
 	
 	MDElement.new(:paragraph,[	
 		"Paragraph (2 spaces after), list with no space:",
 		
-		MDElement.new(:linebreak,[],
-			{}),
+		MDElement.new(:linebreak,[],{}),
 		
-		"* ciao"],
-		{}),
+		"* ciao"
+	], {}),
 	
 	MDElement.new(:paragraph,[	
 		"Paragraph (3 spaces after), list with no space:",
 		
-		MDElement.new(:linebreak,[],
-			{}),
+		MDElement.new(:linebreak,[],{}),
 		
-		"* ciao"],
-		{}),
+		"* ciao"
+	], {}),
 	
 	MDElement.new(:paragraph,[	
-		"Paragraph with block quote:"],
-		{}),
+		"Paragraph with block quote:"
+	], {}),
 	
 	MDElement.new(:quote,[	
 		MDElement.new(:paragraph,[	
-			"Quoted"],
-			{})],
-		{}),
+			"Quoted"
+		], {})
+	], {}),
 	
 	MDElement.new(:paragraph,[	
-		"Paragraph with header:"],
-		{}),
+		"Paragraph with header:"
+	], {}),
 	
 	MDElement.new(:header,[	
-		"header"],
-		{:id=>"header", :level=>3}),
+		"header"
+	], {:id=>"header", :level=>3}),
 	
 	MDElement.new(:paragraph,[	
-		"Paragraph with header on two lines:"],
-		{}),
+		"Paragraph with header on two lines:"
+	], {}),
 	
 	MDElement.new(:header,[	
-		"header"],
-		{:id=>"header", :level=>2}),
+		"header"
+	], {:id=>"header", :level=>2}),
 	
 	MDElement.new(:paragraph,[	
-		"Paragraph with html after"],
-		{}),
+		"Paragraph with html after"
+	], {}),
 	
-	MDElement.new(:raw_html,[],
-		{:raw_html=>"<div></div>", :parsed_html=><UNDEFINED> ... </>}),
-	
-	MDElement.new(:paragraph,[	
-		"Paragraph with html after, indented: ",
-		
-		MDElement.new(:raw_html,[],
-			{:raw_html=>"<em>Emphasis</em>", :parsed_html=><UNDEFINED> ... </>})],
-		{}),
+	MDElement.new(:raw_html,[],{:raw_html=>"<div></div>", :parsed_html=><UNDEFINED> ... </>}),
 	
 	MDElement.new(:paragraph,[	
 		"Paragraph with html after, indented: ",
 		
-		MDElement.new(:raw_html,[],
-			{:raw_html=>"<em>Emphasis</em> *tralla* <em>Emph</em>"})],
-		{}),
+		MDElement.new(:raw_html,[],{:raw_html=>"<em>Emphasis</em>", :parsed_html=><UNDEFINED> ... </>})
+	], {}),
 	
 	MDElement.new(:paragraph,[	
 		"Paragraph with html after, indented: ",
 		
-		MDElement.new(:raw_html,[],
-			{:raw_html=>"<em>Emphasis *tralla* Emph</em>", :parsed_html=><UNDEFINED> ... </>})],
-		{})],
-	{})
+		MDElement.new(:raw_html,[],{:raw_html=>"<em>Emphasis</em> *tralla* <em>Emph</em>"})
+	], {}),
+	
+	MDElement.new(:paragraph,[	
+		"Paragraph with html after, indented: ",
+		
+		MDElement.new(:raw_html,[],{:raw_html=>"<em>Emphasis *tralla* Emph</em>", :parsed_html=><UNDEFINED> ... </>})
+	], {})
+], {})
 ***EOF***
 <p>Paragraph, list with no space:
 * ciao</p>

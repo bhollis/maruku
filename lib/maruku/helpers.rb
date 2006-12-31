@@ -20,8 +20,16 @@ module Helpers
 		md_el(:link, children, {:ref_id=>ref_id})
 	end
 	
-	def md_imlink(children, url, title=nil)
+	def md_im_link(children, url, title=nil)
 		md_el(:link, children, {:url=>url,:title=>title})
+	end
+	
+	def md_image(children, ref_id)
+		md_el(:image, children, {:ref_id=>ref_id})
+	end
+	
+	def md_im_image(children, url, title=nil)
+		md_el(:image, children, {:url=>url,:title=>title})
 	end
 
 	def md_em(children)

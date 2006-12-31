@@ -98,93 +98,81 @@ Maruku translates HTML entities to the equivalent in LaTeX:EntityResultabEntity-
 ***EOF***
 MDElement.new(:document,[	
 	MDElement.new(:paragraph,[	
-		"Maruku translates HTML entities to the equivalent in LaTeX:"],
-		{}),
+		"Maruku translates HTML entities to the equivalent in LaTeX:"
+	], {}),
 	
 	MDElement.new(:table,[	
 		MDElement.new(:head_cell,[	
-			"Entity"],
-			{}),
+			"Entity"
+		], {}),
 		
 		MDElement.new(:head_cell,[	
-			"Result"],
-			{}),
+			"Result"
+		], {}),
 		
 		MDElement.new(:cell,[	
-			MDElement.new(:inline_code,[],
-				{:raw_code=>"&copy;"})],
-			{}),
+			MDElement.new(:inline_code,[],{:raw_code=>"&copy;"})
+		], {}),
 		
 		MDElement.new(:cell,[	
-			MDElement.new(:entity,[],
-				{:entity_name=>"copy"})],
-			{}),
+			MDElement.new(:entity,[],{:entity_name=>"copy"})
+		], {}),
 		
 		MDElement.new(:cell,[	
-			MDElement.new(:inline_code,[],
-				{:raw_code=>"&pound;"})],
-			{}),
+			MDElement.new(:inline_code,[],{:raw_code=>"&pound;"})
+		], {}),
 		
 		MDElement.new(:cell,[	
-			MDElement.new(:entity,[],
-				{:entity_name=>"pound"})],
-			{}),
+			MDElement.new(:entity,[],{:entity_name=>"pound"})
+		], {}),
 		
 		MDElement.new(:cell,[	
-			MDElement.new(:inline_code,[],
-				{:raw_code=>"a&nbsp;b"})],
-			{}),
+			MDElement.new(:inline_code,[],{:raw_code=>"a&nbsp;b"})
+		], {}),
 		
 		MDElement.new(:cell,[	
 			"a",
 			
-			MDElement.new(:entity,[],
-				{:entity_name=>"nbsp"}),
+			MDElement.new(:entity,[],{:entity_name=>"nbsp"}),
 			
-			"b"],
-			{}),
+			"b"
+		], {}),
 		
 		MDElement.new(:cell,[	
-			MDElement.new(:inline_code,[],
-				{:raw_code=>"&lambda;"})],
-			{}),
+			MDElement.new(:inline_code,[],{:raw_code=>"&lambda;"})
+		], {}),
 		
 		MDElement.new(:cell,[	
-			MDElement.new(:entity,[],
-				{:entity_name=>"lambda"})],
-			{}),
+			MDElement.new(:entity,[],{:entity_name=>"lambda"})
+		], {}),
 		
 		MDElement.new(:cell,[	
-			MDElement.new(:inline_code,[],
-				{:raw_code=>"&mdash;"})],
-			{}),
+			MDElement.new(:inline_code,[],{:raw_code=>"&mdash;"})
+		], {}),
 		
 		MDElement.new(:cell,[	
-			MDElement.new(:entity,[],
-				{:entity_name=>"mdash"})],
-			{})],
-		{:align=>[:left, :left]}),
+			MDElement.new(:entity,[],{:entity_name=>"mdash"})
+		], {})
+	], {:align=>[:left, :left]}),
 	
 	MDElement.new(:paragraph,[	
-		"Entity-substitution does not happen in code blocks or inline code."],
-		{}),
+		"Entity-substitution does not happen in code blocks or inline code."
+	], {}),
 	
 	MDElement.new(:paragraph,[	
-		"The following should not be translated:"],
-		{}),
+		"The following should not be translated:"
+	], {}),
 	
-	MDElement.new(:code,[],
-		{:raw_code=>"&copy;\n"}),
+	MDElement.new(:code,[],{:raw_code=>"&copy;\n"}),
 	
 	MDElement.new(:paragraph,[	
 		"It should read just like this: ",
 		
-		MDElement.new(:inline_code,[],
-			{:raw_code=>"&copy;"}),
+		MDElement.new(:inline_code,[],{:raw_code=>"&copy;"}),
 		
-		"."],
-		{})],
-	{})
+		"."
+	], {})
+], {})
 ***EOF***
 
 Failed tests:   [:to_html] 
@@ -273,93 +261,81 @@ Maruku translates HTML entities to the equivalent in LaTeX:EntityResultabEntity-
 ***EOF***
 MDElement.new(:document,[	
 	MDElement.new(:paragraph,[	
-		"Maruku translates HTML entities to the equivalent in LaTeX:"],
-		{}),
+		"Maruku translates HTML entities to the equivalent in LaTeX:"
+	], {}),
 	
 	MDElement.new(:table,[	
 		MDElement.new(:head_cell,[	
-			"Entity"],
-			{}),
+			"Entity"
+		], {}),
 		
 		MDElement.new(:head_cell,[	
-			"Result"],
-			{}),
+			"Result"
+		], {}),
 		
 		MDElement.new(:cell,[	
-			MDElement.new(:inline_code,[],
-				{:raw_code=>"&copy;"})],
-			{}),
+			MDElement.new(:inline_code,[],{:raw_code=>"&copy;"})
+		], {}),
 		
 		MDElement.new(:cell,[	
-			MDElement.new(:entity,[],
-				{:entity_name=>"copy"})],
-			{}),
+			MDElement.new(:entity,[],{:entity_name=>"copy"})
+		], {}),
 		
 		MDElement.new(:cell,[	
-			MDElement.new(:inline_code,[],
-				{:raw_code=>"&pound;"})],
-			{}),
+			MDElement.new(:inline_code,[],{:raw_code=>"&pound;"})
+		], {}),
 		
 		MDElement.new(:cell,[	
-			MDElement.new(:entity,[],
-				{:entity_name=>"pound"})],
-			{}),
+			MDElement.new(:entity,[],{:entity_name=>"pound"})
+		], {}),
 		
 		MDElement.new(:cell,[	
-			MDElement.new(:inline_code,[],
-				{:raw_code=>"a&nbsp;b"})],
-			{}),
+			MDElement.new(:inline_code,[],{:raw_code=>"a&nbsp;b"})
+		], {}),
 		
 		MDElement.new(:cell,[	
 			"a",
 			
-			MDElement.new(:entity,[],
-				{:entity_name=>"nbsp"}),
+			MDElement.new(:entity,[],{:entity_name=>"nbsp"}),
 			
-			"b"],
-			{}),
+			"b"
+		], {}),
 		
 		MDElement.new(:cell,[	
-			MDElement.new(:inline_code,[],
-				{:raw_code=>"&lambda;"})],
-			{}),
+			MDElement.new(:inline_code,[],{:raw_code=>"&lambda;"})
+		], {}),
 		
 		MDElement.new(:cell,[	
-			MDElement.new(:entity,[],
-				{:entity_name=>"lambda"})],
-			{}),
+			MDElement.new(:entity,[],{:entity_name=>"lambda"})
+		], {}),
 		
 		MDElement.new(:cell,[	
-			MDElement.new(:inline_code,[],
-				{:raw_code=>"&mdash;"})],
-			{}),
+			MDElement.new(:inline_code,[],{:raw_code=>"&mdash;"})
+		], {}),
 		
 		MDElement.new(:cell,[	
-			MDElement.new(:entity,[],
-				{:entity_name=>"mdash"})],
-			{})],
-		{:align=>[:left, :left]}),
+			MDElement.new(:entity,[],{:entity_name=>"mdash"})
+		], {})
+	], {:align=>[:left, :left]}),
 	
 	MDElement.new(:paragraph,[	
-		"Entity-substitution does not happen in code blocks or inline code."],
-		{}),
+		"Entity-substitution does not happen in code blocks or inline code."
+	], {}),
 	
 	MDElement.new(:paragraph,[	
-		"The following should not be translated:"],
-		{}),
+		"The following should not be translated:"
+	], {}),
 	
-	MDElement.new(:code,[],
-		{:raw_code=>"&copy;\n"}),
+	MDElement.new(:code,[],{:raw_code=>"&copy;\n"}),
 	
 	MDElement.new(:paragraph,[	
 		"It should read just like this: ",
 		
-		MDElement.new(:inline_code,[],
-			{:raw_code=>"&copy;"}),
+		MDElement.new(:inline_code,[],{:raw_code=>"&copy;"}),
 		
-		"."],
-		{})],
-	{})
+		"."
+	], {})
+], {})
 ***EOF***
 <p>Maruku translates HTML entities to the equivalent in LaTeX:</p>
 
