@@ -6,27 +6,38 @@ class Maruku
 	
 	EscapedCharInText = 
 		Set.new [?\\,?`,?*,?_,?{,?},?[,?],?(,?),?#,?.,?!,?|,?:,?+,?-,?>]
+
+	EscapedCharInQuotes = 
+		Set.new [?\\,?`,?*,?_,?{,?},?[,?],?(,?),?#,?.,?!,?|,?:,?+,?-,?>,?',?"]
 	
 	EscapedCharInInlineCode = [?\\,?`]
 
 	def parse_span_better(string)
 		if not string.kind_of? String then 
-			raise "Passed #{string.class}." end
+			error "Passed #{string.class}." end
 
 		st = (string + "")
 		st.freeze
 		src = CharSource.new(st)
 		read_span(src, EscapedCharInText, [nil])
 	end
-	
-	def read_span(src, escaped, exit_on)
+		
+	# This is the main loop for reading span elements
+	#
+	# It's long, but not *complex* or difficult to understand.
+	#
+	#
+	def read_span(src, escaped, exit_on_chars, exit_on_strings=nil)
 		con = SpanContext.new
 		c = d = nil
 		while true
 			c = src.cur_char
-			break if exit_on && exit_on.include?(c)
-
-			if src.cur_chars(3) == "  \n"
+			break if exit_on_chars && exit_on_chars.include?(c)
+			if exit_on_strings
+				break if exit_on_strings.any? {|x| src.next_chars_are x}
+			end
+			
+			if src.next_chars_are "  \n"
 				src.ignore_chars(3)
 				con.push_element  create_md_element(:linebreak)
 				next
@@ -44,8 +55,8 @@ class Maruku
 			when ?<
 				case d = src.next_char
 					when ?!; 
-						if src.cur_chars(4) == '<!--'
-							read_html_comment(src, con)
+						if src.next_chars_are '<!--'
+							read_inline_html(src, con)
 						else 
 							con.push_char src.shift_char
 						end
@@ -78,21 +89,159 @@ class Maruku
 					(src.next_char == ?[ or src.next_char == ?( )
 					src.shift_char
 				end
-				
+			
 				case src.cur_char
 					when ?(
+						src.ignore_char # opening (
+#						puts "link: Before consuming: #{src.cur_chars(10).inspect}"
+						src.consume_whitespace
+#						puts "link: I want to read a url from: #{src.cur_chars(10).inspect}"
+						url = read_url(src, [SPACE,?\t,?)])
+						if not url
+							error "Could not read url from #{src.cur_chars(10).inspect}"
+						end
+						src.consume_whitespace
+						title = nil
+						if src.cur_char != ?) # we have a title
+							#puts "link: I want to read a quote from: #{src.cur_chars(10).inspect}"
+							title = read_quoted(src)
+							if not title
+								error 'Must quote title'
+							end
+						end
+						src.consume_whitespace
+						closing = src.shift_char # closing )
+						if closing != ?)
+							error 'Unclosed link'
+						end
+						con.push_element md_imlink(children,url, title)
+#						puts "link: The future is : #{src.cur_chars(10).inspect}"
 					when ?[ # link ref
 						ref_id = read_ref_id(src)
-						con.push_element md_link(ref_id, children)
+						con.push_element md_link(children, ref_id)
 					else # no stuff
 						con.push_elements children
 				end
+			when ?*
+				if not src.next_char
+					error "Opening * as last char"
+				else
+					follows = src.cur_chars(4)
+					if follows =~ /^\*\*\*[^\s\*]/
+						con.push_element read_emstrong(src,'***')
+					elsif follows  =~ /^\*\*[^\s\*]/
+						con.push_element read_strong(src,'**')
+					elsif follows =~ /^\*[^\s\*]/
+						con.push_element read_em(src,'*')
+					else # * is just a normal char
+						con.push_char src.shift_char
+					end
+				end
+			when ?_
+				if not src.next_char
+					error "Opening _ as last char"
+				else
+					follows = src.cur_chars(4)
+					if  follows =~ /^\_\_\_[^\s\_]/
+						con.push_element read_emstrong(src,'___')
+					elsif follows  =~ /^\_\_[^\s\_]/
+						con.push_element read_strong(src,'__')
+					elsif follows =~ /^\_[^\s\_]/
+						con.push_element read_em(src,'_')
+					else # _ is just a normal char
+						con.push_char src.shift_char
+					end
+				end
+			when nil
+				error ("Unclosed span (waiting for %s"+
+				 "#{exit_on_strings.inspect})") % [
+						exit_on_chars ? "#{exit_on_chars.inspect} or" : ""]
 			else # normal text
 				con.push_char src.shift_char
 			end # end case
 		end # end while true
 		con.push_string_if_present 
 		con.elements
+	end
+
+	
+	def read_url(src, break_on)
+		# urls must start with a w
+		c = src.cur_char
+		s = ""<<c
+		if not s =~ /\w/
+			return nil
+		end
+		read_simple(src, [], break_on)
+	end
+	
+	# Tries to read a quoted value. If stream does not
+	# start with ' or ", returns nil.
+	def read_quoted(src)
+		case src.cur_char
+			when ?', ?"
+				quote_char = src.shift_char # opening quote
+				string = read_simple(src, EscapedCharInQuotes, [quote_char])
+				src.ignore_char # closing quote
+				return string
+			else 
+#				puts "Asked to read quote from: #{src.cur_chars(10).inspect}"
+				return nil
+		end
+	end
+	
+	# Reads a simple string (no formatting) until one of break_on_chars, 
+	# while escaping the escaped
+	def read_simple(src, escaped, exit_on_chars) 
+		text = ""
+		while true
+#			puts "Reading simple #{text.inspect}"
+			c = src.cur_char
+			if exit_on_chars && exit_on_chars.include?(c)
+#				puts ("  breaking on "<<c)+" contained in "+exit_on_chars.inspect
+				break
+			end
+			case c
+			when nil
+				s= "String finished while reading (break on #{exit_on_chars.inspect})"+
+				" already read: #{text.inspect}"
+#				puts s
+				error s
+			when ?\\
+				d = src.next_char
+				if escaped.include? d
+					src.ignore_chars(2)
+					text << d
+				else
+					text << src.shift_char
+				end
+			else 
+				text << src.shift_char
+			end
+		end
+#		puts "Read simple #{text.inspect}"
+		text
+	end
+	
+	def read_em(src, delim)
+		src.ignore_char
+		children = read_span(src, EscapedCharInText, nil, [delim])
+		src.ignore_char
+		md_em(children)
+	end
+	
+	def read_strong(src, delim)
+		src.ignore_chars(2)
+		children = read_span(src, EscapedCharInText, nil, [delim])
+		src.ignore_chars(2)
+		md_strong(children)
+	end
+
+	def read_emstrong(src, delim)
+		src.ignore_chars(3)
+		children = read_span(src, EscapedCharInText, nil, [delim])
+		src.ignore_chars(3)
+		md_emstrong(children)
 	end
 	
 	SPACE = ?\ # = 32
@@ -120,7 +269,7 @@ class Maruku
 			
 			h.eat_this start
 			if not h.is_finished?
-				raise "Malformed HTML: #{rest.inspect}"
+				error "Malformed HTML: #{start.inspect}\n #{h.inspect}"
 			end
 			
 			consumed = start.size - h.rest.size 
@@ -128,7 +277,7 @@ class Maruku
 				con.push_element md_html(h.stuff_you_read)
 				src.ignore_chars(consumed)
 			else
-				puts "HTML helper did not work on #{rest.inspect}"
+				puts "HTML helper did not work on #{start.inspect}"
 				con.push_char src.shift_char
 			end
 		rescue Exception => e
@@ -188,10 +337,6 @@ class Maruku
 		# end
 		# server = match[1]
 		# con.found_object create_md_element(:server, server)
-	end
-	
-	def error(s)
-		raise s
 	end
 	
 	
@@ -280,6 +425,11 @@ class CharSource
 		@buffer[@buffer_index, @buffer.size-@buffer_index]
 	end
 	
+	def next_chars_are(string)
+		r2 = /^.{#{@buffer_index}}#{Regexp.escape string}/xm
+		@buffer =~ r2
+	end
+	
 	def read_regexp(r)
 		r2 = /^.{#{@buffer_index}}#{r}/
 		m = r2.match @buffer
@@ -291,6 +441,17 @@ class CharSource
 		m
 	end
 	
+	def consume_whitespace
+		while c = cur_char 
+			if (c == 32 || c == ?\t)
+#				puts "ignoring #{c}"
+				ignore_char
+			else
+#				puts "#{c} is not ws: "<<c
+				break
+			end
+		end
+	end
 end
 
 

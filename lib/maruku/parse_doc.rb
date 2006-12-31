@@ -100,5 +100,10 @@ class Maruku
 			end
 		end
 	end
+	
+	def error(s)
+		raise RuntimeError, s, caller
+	end
+	
 
 end

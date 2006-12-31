@@ -82,13 +82,13 @@ class Maruku
 				
 #				puts inspect
 #				puts "Read: #{@tag_stack.inspect}"
-				break if @tag_stack.empty? and things_read>0	
+				break if is_finished? and things_read>0	
 			end
 		end
 
 
 		def error(s)
-			raise "Error: #{s} "+ inspect
+			raise RuntimeError, "Error: #{s} "+ inspect, caller
 		end
 
 		def inspect; "HTML READER\n comment=#{@inside_comment} "+

@@ -50,21 +50,24 @@ class MDElement
 	# XXX List not complete
 	# Allowed: :document, :paragraph, :ul, :ol, :li, 
 	# :li_span, :strong, :emphasis, :link, :email
-	attr_accessor :node_type
+	attr_reader :node_type
 	# Children are either Strings or MDElement
-	attr_accessor :children
+	attr_reader :children
 	# Hash for metadata
 	# contains :id for :link1
 	# :li :want_my_paragraph
 	#  :header: :level
 	# code, inline_code: :raw_code
-	attr_accessor :meta
+	attr_reader :meta
 	# reference of containing document (document has list of ref)
 	attr_accessor :doc
 	
 	def initialize(node_type_=:unset, children_=[], meta_={} )
 		super(); 
-		@children = children_ 
+		raise 'neh?' if not children_
+		raise 'neh?' if not meta_
+		
+		@children = children_
 		@node_type = node_type_
 		@meta = meta_
 	end
@@ -76,13 +79,22 @@ class MDElement
 		(self.children == o.children)
 		ok
 	end
+	
 	def inspect
-		(@children.empty? ?
-		"MDElement.new(:%s,[%s],%s)" :
-		"MDElement.new(:%s,[%s\n], %s)") %
+		begin
+		(@children.size<=1 ?
+		"md_el(:%s,[%s]%s)" :
+		"md_el(:%s,[\n%s\n]%s)") %
 		[@node_type,
-			add_tabs(@children.map{|x| "\n"+x.inspect}.join(",\n"),1),
-			@meta.inspect]
+			add_tabs(@children.map{|x| x.inspect}.join(",\n"),1),
+			if @meta.size>0 then ', '+@meta.inspect else '' end]
+		rescue
+			puts "@node_type: #{@node_type.inspect}"
+			puts "@children: #{@children.inspect}"
+			puts "@meta: #{@meta.inspect}"
+			"ERROR"
+			raise 'null'
+		end
 	end
 	
 	def add_tabs(s,n=1)

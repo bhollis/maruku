@@ -9,11 +9,7 @@ module Helpers
 	end
 	
 	def md_el(node_type, children=[], meta={})
-		e = MDElement.new
-		e.node_type = node_type
-		e.children = children
-		e.meta = meta
-		e
+		MDElement.new(node_type, children, meta)
 	end
 	
 	def md_html(html)

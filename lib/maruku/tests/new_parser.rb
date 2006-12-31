@@ -35,7 +35,7 @@ class Maruku
 			["\n",     [' '],      'Compress newlines 6'],
 			["\n\n\n", [' '],      'Compress newlines 7'],
 			
-			[:throw, :throw, "Should throw on :throw"],
+			[nil, :throw, "Should throw on nil input"],
 			
 			# Code blocks
 			["`" ,   :throw,  'Unclosed single ticks'],
@@ -67,10 +67,6 @@ class Maruku
 			["<em>e</em><em>f</em>a", 
 				[md_html('<em>e</em>'),md_html('<em>f</em>'),'a'], 
 				'Inline HTML 4'],
-			
-			["a <b", :throw, 'Bad HTML 1'],
-			["<b",   :throw, 'Bad HTML 2'],
-			["<b!",  :throw, 'Bad HTML 3'],
 			
 			# emphasis
 			["**", :throw, 'Unclosed double **'],
@@ -147,18 +143,18 @@ class Maruku
 			["[a] (	url )" ],
 			["[a] (	url)" ],
 			
-			["[a](ur:/l/ Title)",  [md_imlink(['a'],'ur:/l/','Title')],
+			["[a](ur:/l/ 'Title')",  [md_imlink(['a'],'ur:/l/','Title')],
 			 	'url and title'],
-			["[a]( url Title)" ],
-			["[a] (	url \"Title\")" ],
-			["[a] (	url \"Title\")" ],
+			["[a] (	ur:/l/ \"Title\")" ],
+			["[a] (	ur:/l/ \"Title\")" ],
+			["[a]( ur:/l/ Title)", :throw, "Must quote title" ],
 
-			["[a](ur:/l/ Tit\\\"l\\\\e)", [md_imlink(['a'],'ur:/l/','Tit"l\\e')],
+			["[a](url 'Tit\\\"l\\\\e')", [md_imlink(['a'],'url','Tit"l\\e')],
 			 	'url and title escaped'],
-			["[a]( url Tit\\\"l\\\\e)" ],
-			["[a] (	url \"Tit\\\"l\\\\le\")" ],
-			["[a] (	url	\"Tit\\\"l\\\\le\"  )" ],
-
+			["[a] (	url \"Tit\\\"l\\\\e\")" ],
+			["[a] (	url	\"Tit\\\"l\\\\e\"  )" ],
+			['[a] (	url	"Tit\\"l\\\\e"  )' ],
+		
 			["[a](\"Title\")", :throw, "No url specified" ],
 			["[a]()"],
 			["[a](url \"Title)", :throw, "Unclosed quotes" ],
@@ -169,10 +165,19 @@ class Maruku
 			["[a](url \"Title\')"],
 			
 					
+			["a<!-- -->b", ['a',md_html('<!-- -->'),'b'], 
+				'HTML Comment'],
+
+			["a<!--", :throw, 'Bad HTML Comment'],
+			["a<!-- ", :throw, 'Bad HTML Comment'],
+
+			["a <b", :throw, 'Bad HTML 1'],
+			["<b",   :throw, 'Bad HTML 2'],
+			["<b!",  :throw, 'Bad HTML 3'],
+			
 			["#{Maruku8}", [Maruku8], "Reading UTF-8"],
 			["#{AccIta1}", [AccIta8], "Converting ISO-8859-1 to UTF-8", 
 				{:encoding => 'iso-8859-1'}],
-			
 		]
 
 			count = 1; last_comment=""; last_expected=:throw
@@ -199,11 +204,12 @@ class Maruku
 						#output = m.parse_lines_as_span(lines)
 					rescue Exception => e
 						if not expected == :throw
+							ex = e.inspect+ "\n"+ e.backtrace.join("\n")
 							s = comment+"\nInput:\n  #{input.inspect}" +
 							    "\nExpected:\n  #{expected.inspect}" +
-								"\nOutput:\n  #{output.inspect}\n#{e.inspect}"
+								"\nOutput:\n  #{output.inspect}\n#{ex}"
 							print_status(comment,'CRASHED :-(',s)
-							raise e if @verbose 
+							raise e if @break_on_first_error 
 						else
 							print_status(comment,'OK')
 						end
@@ -224,6 +230,7 @@ class Maruku
 							s = comment+"\nInput:\n  #{input.inspect}" +
 								"\nOutput:\n  #{output.inspect}"
 							print_status(comment, 'FAILED (no throw)', s)
+							break if break_on_first_error
 						end
 					end
 					
