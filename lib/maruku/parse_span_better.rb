@@ -95,9 +95,9 @@ class Maruku
 		con.elements
 	end
 	
-	SPACE = ?\
+	SPACE = ?\ # = 32
 	
-	R_REF_ID = Regexp.compile(/^([^\]]*)\]/)
+	R_REF_ID = Regexp.compile(/([^\]]*)\]/)
 	def read_ref_id(src)
 		src.ignore_char
 		if m = src.read_regexp(	R_REF_ID) 
@@ -281,12 +281,12 @@ class CharSource
 	end
 	
 	def read_regexp(r)
-		buf = current_remaining_buffer
-		m = r.match buf
+		r2 = /^.{#{@buffer_index}}#{r}/
+		m = r2.match @buffer
 		if m
 			ignore_chars m.to_s.size
 		else
-#			puts "Could not read regexp #{r.inspect} from #{buf.inspect}"
+#			puts "Could not read regexp #{r2.inspect} from #{buf.inspect}"
 		end
 		m
 	end

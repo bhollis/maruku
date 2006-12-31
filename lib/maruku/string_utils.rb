@@ -20,7 +20,7 @@
 class Maruku
 	
 	# Split a string into lines, and chomps the newline
-	def split_lines(s)
+	def Maruku.split_lines(s)
 		a = []
 		s.each_line do |l| 
 			l = l.chomp
