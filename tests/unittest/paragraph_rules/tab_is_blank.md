@@ -9,37 +9,27 @@ Paragraph2
 *** Output of inspect ***
 md_el(:document,[md_par(["Paragraph1"]), md_par(["Paragraph2"])] )
 *** Output of to_html ***
-<p>Paragraph1 Paragraph2</p
+<p>Paragraph1</p
+    ><p>Paragraph2</p
   >
 *** Output of to_latex ***
-Paragraph1  Paragraph2
+Paragraph1
+
+Paragraph2
 
 
 *** Output of to_s ***
-Paragraph1  Paragraph2
+Paragraph1Paragraph2
 *** Output of to_md ***
-Paragraph1  Paragraph2
+Paragraph1Paragraph2
 *** EOF ***
 
 
 
-
-Failed tests:   [:inspect] 
-
-*** Output of inspect ***
------| WARNING | -----
-md_el(:document,[md_par(["Paragraph1  Paragraph2"])] )
-*** Output of to_html ***
-<p>Paragraph1 Paragraph2</p
-  >
-*** Output of to_latex ***
-Paragraph1  Paragraph2
+	OK!
 
 
-*** Output of to_s ***
-Paragraph1  Paragraph2
-*** Output of to_md ***
-Paragraph1  Paragraph2
+
 *** Output of Markdown.pl ***
 <p>Paragraph1</p>
 

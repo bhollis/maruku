@@ -221,8 +221,10 @@ class Maruku
 	def read_paragraph
 		lines = []
 		while cur_line 
-			break if [:quote,:header3,:empty,:raw_html].include?(
+			break if [:quote,:header3,:empty,:raw_html,:ref_definition].include?(
 				cur_line_node_type)
+			break if cur_line.strip.size == 0
+			
 			break if [:header1,:header2].include? next_line_node_type
 			
 			lines << shift_line
