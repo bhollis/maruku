@@ -1,3 +1,5 @@
+Write a comment abouth the test here.
+*** Markdown input: ***
 Paragraph, list with no space:
 * ciao
 
@@ -43,7 +45,7 @@ Paragraph with html after, indented: <em>Emphasis</em> *tralla* <em>Emph</em>
 
 Paragraph with html after, indented: <em>Emphasis *tralla* Emph</em>
 
-***EOF***
+*** Output of to_html ***
 <p>Paragraph, list with no space: * ciao</p
     ><p>Paragraph, list with 1 space: * ciao</p
     ><p>Paragraph, list with 3 space: * ciao</p
@@ -71,7 +73,7 @@ Paragraph with html after, indented: <em>Emphasis *tralla* Emph</em>
     ><p>Paragraph with html after, indented: <em>Emphasis *tralla* Emph</em
     ></p
   >
-***EOF***
+*** Output of to_latex ***
 Paragraph, list with no space: * ciao
 
 Paragraph, list with 1 space: * ciao
@@ -110,11 +112,11 @@ Paragraph with html after, indented: {\bf Raw HTML removed in latex version }
 Paragraph with html after, indented: {\bf Raw HTML removed in latex version }
 
 
-***EOF***
+*** Output of to_s ***
 Paragraph, list with no space: * ciaoParagraph, list with 1 space: * ciaoParagraph, list with 3 space: * ciaoParagraph, list with 4 spaces: * ciaoParagraph, list with 1 tab: * ciaoParagraph (1 space after), list with no space: * ciaoParagraph (2 spaces after), list with no space:* ciaoParagraph (3 spaces after), list with no space:* ciaoParagraph with block quote:QuotedParagraph with header:headerParagraph with header on two lines: header ------Paragraph with html afterParagraph with html after, indented: Paragraph with html after, indented: Paragraph with html after, indented: 
-***EOF***
+*** Output of to_s ***
 Paragraph, list with no space: * ciaoParagraph, list with 1 space: * ciaoParagraph, list with 3 space: * ciaoParagraph, list with 4 spaces: * ciaoParagraph, list with 1 tab: * ciaoParagraph (1 space after), list with no space: * ciaoParagraph (2 spaces after), list with no space:* ciaoParagraph (3 spaces after), list with no space:* ciaoParagraph with block quote:QuotedParagraph with header:headerParagraph with header on two lines: header ------Paragraph with html afterParagraph with html after, indented: Paragraph with html after, indented: Paragraph with html after, indented: 
-***EOF***
+*** Output of inspect ***
 MDElement.new(:document,[	
 	MDElement.new(:paragraph,[	
 		"Paragraph, list with no space: * ciao"
@@ -206,14 +208,17 @@ MDElement.new(:document,[
 		MDElement.new(:raw_html,[],{:raw_html=>"<em>Emphasis *tralla* Emph</em>", :parsed_html=><UNDEFINED> ... </>})
 	], {})
 ], {})
-***EOF***
+*** EOF ***
 
-Failed tests:   [:to_html, :to_latex, :to_s, :to_s] 
+
+
+
+Failed tests:   [:to_html, :to_latex, :to_s, :to_s, :inspect] 
 And the following are the actual outputs for methods:
    [:to_html, :to_latex, :to_s, :to_s, :inspect]:
 
 
-***EOF***
+*** Output of to_html ***
 -----| WARNING | -----
 <p>Paragraph, list with no space: * ciao</p
     ><p>Paragraph, list with 1 space: * ciao</p
@@ -243,7 +248,7 @@ And the following are the actual outputs for methods:
     ><p>Paragraph with html after, indented: <em>Emphasis *tralla* Emph</em
     ></p
   >
-***EOF***
+*** Output of to_latex ***
 -----| WARNING | -----
 Paragraph, list with no space: * ciao
 
@@ -285,107 +290,55 @@ Paragraph with html after, indented: {\bf Raw HTML removed in latex version }
 Paragraph with html after, indented: {\bf Raw HTML removed in latex version }
 
 
-***EOF***
+*** Output of to_s ***
 -----| WARNING | -----
 -----| WARNING | -----
 Paragraph, list with no space: * ciaoParagraph, list with 1 space: * ciaoParagraph, list with 3 space: * ciaoParagraph, list with 4 spaces: * ciaoParagraph, list with 1 tab: * ciaoParagraph (1 space after), list with no space: * ciaoParagraph (2 spaces after), list with no space:* ciaoParagraph (3 spaces after), list with no space:* ciaoParagraph with block quote:QuotedParagraph with header:headerParagraph with header on two lines:headerParagraph with html afterParagraph with html after, indented: Paragraph with html after, indented: Paragraph with html after, indented: 
-***EOF***
+*** Output of to_s ***
 -----| WARNING | -----
 -----| WARNING | -----
 Paragraph, list with no space: * ciaoParagraph, list with 1 space: * ciaoParagraph, list with 3 space: * ciaoParagraph, list with 4 spaces: * ciaoParagraph, list with 1 tab: * ciaoParagraph (1 space after), list with no space: * ciaoParagraph (2 spaces after), list with no space:* ciaoParagraph (3 spaces after), list with no space:* ciaoParagraph with block quote:QuotedParagraph with header:headerParagraph with header on two lines:headerParagraph with html afterParagraph with html after, indented: Paragraph with html after, indented: Paragraph with html after, indented: 
-***EOF***
-MDElement.new(:document,[	
-	MDElement.new(:paragraph,[	
-		"Paragraph, list with no space: * ciao"
-	], {}),
-	
-	MDElement.new(:paragraph,[	
-		"Paragraph, list with 1 space: * ciao"
-	], {}),
-	
-	MDElement.new(:paragraph,[	
-		"Paragraph, list with 3 space: * ciao"
-	], {}),
-	
-	MDElement.new(:paragraph,[	
-		"Paragraph, list with 4 spaces: * ciao"
-	], {}),
-	
-	MDElement.new(:paragraph,[	
-		"Paragraph, list with 1 tab: * ciao"
-	], {}),
-	
-	MDElement.new(:paragraph,[	
-		"Paragraph (1 space after), list with no space: * ciao"
-	], {}),
-	
-	MDElement.new(:paragraph,[	
+*** Output of inspect ***
+-----| WARNING | -----
+md_el(:document,[
+	md_el(:paragraph,[	"Paragraph, list with no space: * ciao"]),
+	md_el(:paragraph,[	"Paragraph, list with 1 space: * ciao"]),
+	md_el(:paragraph,[	"Paragraph, list with 3 space: * ciao"]),
+	md_el(:paragraph,[	"Paragraph, list with 4 spaces: * ciao"]),
+	md_el(:paragraph,[	"Paragraph, list with 1 tab: * ciao"]),
+	md_el(:paragraph,[	"Paragraph (1 space after), list with no space: * ciao"]),
+	md_el(:paragraph,[
 		"Paragraph (2 spaces after), list with no space:",
-		
-		MDElement.new(:linebreak,[],{}),
-		
+		md_el(:linebreak,[]),
 		"* ciao"
-	], {}),
-	
-	MDElement.new(:paragraph,[	
+	]),
+	md_el(:paragraph,[
 		"Paragraph (3 spaces after), list with no space:",
-		
-		MDElement.new(:linebreak,[],{}),
-		
+		md_el(:linebreak,[]),
 		"* ciao"
-	], {}),
-	
-	MDElement.new(:paragraph,[	
-		"Paragraph with block quote:"
-	], {}),
-	
-	MDElement.new(:quote,[	
-		MDElement.new(:paragraph,[	
-			"Quoted"
-		], {})
-	], {}),
-	
-	MDElement.new(:paragraph,[	
-		"Paragraph with header:"
-	], {}),
-	
-	MDElement.new(:header,[	
-		"header"
-	], {:id=>"header", :level=>3}),
-	
-	MDElement.new(:paragraph,[	
-		"Paragraph with header on two lines:"
-	], {}),
-	
-	MDElement.new(:header,[	
-		"header"
-	], {:id=>"header", :level=>2}),
-	
-	MDElement.new(:paragraph,[	
-		"Paragraph with html after"
-	], {}),
-	
-	MDElement.new(:raw_html,[],{:raw_html=>"<div></div>", :parsed_html=><UNDEFINED> ... </>}),
-	
-	MDElement.new(:paragraph,[	
+	]),
+	md_el(:paragraph,[	"Paragraph with block quote:"]),
+	md_el(:quote,[	md_el(:paragraph,[	"Quoted"])]),
+	md_el(:paragraph,[	"Paragraph with header:"]),
+	md_el(:header,[	"header"], {:level=>3, :id=>"header"}),
+	md_el(:paragraph,[	"Paragraph with header on two lines:"]),
+	md_el(:header,[	"header"], {:level=>2, :id=>"header"}),
+	md_el(:paragraph,[	"Paragraph with html after"]),
+	md_el(:raw_html,[], {:raw_html=>"<div></div>", :parsed_html=><UNDEFINED> ... </>}),
+	md_el(:paragraph,[
 		"Paragraph with html after, indented: ",
-		
-		MDElement.new(:raw_html,[],{:raw_html=>"<em>Emphasis</em>", :parsed_html=><UNDEFINED> ... </>})
-	], {}),
-	
-	MDElement.new(:paragraph,[	
+		md_el(:raw_html,[], {:raw_html=>"<em>Emphasis</em>", :parsed_html=><UNDEFINED> ... </>})
+	]),
+	md_el(:paragraph,[
 		"Paragraph with html after, indented: ",
-		
-		MDElement.new(:raw_html,[],{:raw_html=>"<em>Emphasis</em> *tralla* <em>Emph</em>"})
-	], {}),
-	
-	MDElement.new(:paragraph,[	
+		md_el(:raw_html,[], {:raw_html=>"<em>Emphasis</em> *tralla* <em>Emph</em>"})
+	]),
+	md_el(:paragraph,[
 		"Paragraph with html after, indented: ",
-		
-		MDElement.new(:raw_html,[],{:raw_html=>"<em>Emphasis *tralla* Emph</em>", :parsed_html=><UNDEFINED> ... </>})
-	], {})
-], {})
-***EOF***
+		md_el(:raw_html,[], {:raw_html=>"<em>Emphasis *tralla* Emph</em>", :parsed_html=><UNDEFINED> ... </>})
+	])
+])
+*** Output of Markdown.pl ***
 <p>Paragraph, list with no space:
 * ciao</p>
 
@@ -435,7 +388,7 @@ MDElement.new(:document,[
 
 <p>Paragraph with html after, indented: <em>Emphasis <em>tralla</em> Emph</em></p>
 
-***EOF***
+*** Output of Markdown.pl (parsed) ***
 <p>Paragraph, list with no space:
 * ciao</p
     ><p>Paragraph, list with 1 space:

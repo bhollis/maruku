@@ -1,3 +1,5 @@
+Write a comment abouth the test here.
+*** Markdown input: ***
 Maruku translates HTML entities to the equivalent in LaTeX:
 
 Entity      | Result
@@ -18,7 +20,7 @@ The following should not be translated:
 It should read just like this: `&copy;`.
 
 
-***EOF***
+*** Output of to_html ***
 <p>Maruku translates HTML entities to the equivalent in LaTeX:</p
     ><table
       ><thead
@@ -69,7 +71,7 @@ It should read just like this: `&copy;`.
     ><p>It should read just like this: <tt>&amp;copy;</tt
       >.</p
   >
-***EOF***
+*** Output of to_latex ***
 Maruku translates HTML entities to the equivalent in \LaTeX\xspace :
 
 \begin{tabular}{l|l}
@@ -91,11 +93,11 @@ The following should not be translated:
 It should read just like this: \colorbox[rgb]{0.94,0.94,0.88}{\tt \char38\char99\char111\char112\char121\char59}.
 
 
-***EOF***
+*** Output of to_s ***
 Maruku translates HTML entities to the equivalent in LaTeX:EntityResultabEntity-substitution does not happen in code blocks or inline code.The following should not be translated:It should read just like this: .
-***EOF***
+*** Output of to_s ***
 Maruku translates HTML entities to the equivalent in LaTeX:EntityResultabEntity-substitution does not happen in code blocks or inline code.The following should not be translated:It should read just like this: .
-***EOF***
+*** Output of inspect ***
 MDElement.new(:document,[	
 	MDElement.new(:paragraph,[	
 		"Maruku translates HTML entities to the equivalent in LaTeX:"
@@ -173,14 +175,17 @@ MDElement.new(:document,[
 		"."
 	], {})
 ], {})
-***EOF***
+*** EOF ***
 
-Failed tests:   [:to_html] 
+
+
+
+Failed tests:   [:to_html, :inspect] 
 And the following are the actual outputs for methods:
    [:to_html, :to_latex, :to_s, :to_s, :inspect]:
 
 
-***EOF***
+*** Output of to_html ***
 -----| WARNING | -----
 <p>Maruku translates HTML entities to the equivalent in LaTeX:</p
     ><table
@@ -232,7 +237,7 @@ And the following are the actual outputs for methods:
     ><p>It should read just like this: <code>&amp;copy;</code
       >.</p
   >
-***EOF***
+*** Output of to_latex ***
 Maruku translates HTML entities to the equivalent in \LaTeX\xspace :
 
 \begin{tabular}{l|l}
@@ -254,89 +259,42 @@ The following should not be translated:
 It should read just like this: \colorbox[rgb]{0.94,0.94,0.88}{\tt \char38\char99\char111\char112\char121\char59}.
 
 
-***EOF***
+*** Output of to_s ***
 Maruku translates HTML entities to the equivalent in LaTeX:EntityResultabEntity-substitution does not happen in code blocks or inline code.The following should not be translated:It should read just like this: .
-***EOF***
+*** Output of to_s ***
 Maruku translates HTML entities to the equivalent in LaTeX:EntityResultabEntity-substitution does not happen in code blocks or inline code.The following should not be translated:It should read just like this: .
-***EOF***
-MDElement.new(:document,[	
-	MDElement.new(:paragraph,[	
-		"Maruku translates HTML entities to the equivalent in LaTeX:"
-	], {}),
-	
-	MDElement.new(:table,[	
-		MDElement.new(:head_cell,[	
-			"Entity"
-		], {}),
-		
-		MDElement.new(:head_cell,[	
-			"Result"
-		], {}),
-		
-		MDElement.new(:cell,[	
-			MDElement.new(:inline_code,[],{:raw_code=>"&copy;"})
-		], {}),
-		
-		MDElement.new(:cell,[	
-			MDElement.new(:entity,[],{:entity_name=>"copy"})
-		], {}),
-		
-		MDElement.new(:cell,[	
-			MDElement.new(:inline_code,[],{:raw_code=>"&pound;"})
-		], {}),
-		
-		MDElement.new(:cell,[	
-			MDElement.new(:entity,[],{:entity_name=>"pound"})
-		], {}),
-		
-		MDElement.new(:cell,[	
-			MDElement.new(:inline_code,[],{:raw_code=>"a&nbsp;b"})
-		], {}),
-		
-		MDElement.new(:cell,[	
+*** Output of inspect ***
+-----| WARNING | -----
+md_el(:document,[
+	md_el(:paragraph,[	"Maruku translates HTML entities to the equivalent in LaTeX:"]),
+	md_el(:table,[
+		md_el(:head_cell,[	"Entity"]),
+		md_el(:head_cell,[	"Result"]),
+		md_el(:cell,[	md_el(:inline_code,[], {:raw_code=>"&copy;"})]),
+		md_el(:cell,[	md_el(:entity,[], {:entity_name=>"copy"})]),
+		md_el(:cell,[	md_el(:inline_code,[], {:raw_code=>"&pound;"})]),
+		md_el(:cell,[	md_el(:entity,[], {:entity_name=>"pound"})]),
+		md_el(:cell,[	md_el(:inline_code,[], {:raw_code=>"a&nbsp;b"})]),
+		md_el(:cell,[
 			"a",
-			
-			MDElement.new(:entity,[],{:entity_name=>"nbsp"}),
-			
+			md_el(:entity,[], {:entity_name=>"nbsp"}),
 			"b"
-		], {}),
-		
-		MDElement.new(:cell,[	
-			MDElement.new(:inline_code,[],{:raw_code=>"&lambda;"})
-		], {}),
-		
-		MDElement.new(:cell,[	
-			MDElement.new(:entity,[],{:entity_name=>"lambda"})
-		], {}),
-		
-		MDElement.new(:cell,[	
-			MDElement.new(:inline_code,[],{:raw_code=>"&mdash;"})
-		], {}),
-		
-		MDElement.new(:cell,[	
-			MDElement.new(:entity,[],{:entity_name=>"mdash"})
-		], {})
+		]),
+		md_el(:cell,[	md_el(:inline_code,[], {:raw_code=>"&lambda;"})]),
+		md_el(:cell,[	md_el(:entity,[], {:entity_name=>"lambda"})]),
+		md_el(:cell,[	md_el(:inline_code,[], {:raw_code=>"&mdash;"})]),
+		md_el(:cell,[	md_el(:entity,[], {:entity_name=>"mdash"})])
 	], {:align=>[:left, :left]}),
-	
-	MDElement.new(:paragraph,[	
-		"Entity-substitution does not happen in code blocks or inline code."
-	], {}),
-	
-	MDElement.new(:paragraph,[	
-		"The following should not be translated:"
-	], {}),
-	
-	MDElement.new(:code,[],{:raw_code=>"&copy;\n"}),
-	
-	MDElement.new(:paragraph,[	
+	md_el(:paragraph,[	"Entity-substitution does not happen in code blocks or inline code."]),
+	md_el(:paragraph,[	"The following should not be translated:"]),
+	md_el(:code,[], {:raw_code=>"&copy;\n"}),
+	md_el(:paragraph,[
 		"It should read just like this: ",
-		
-		MDElement.new(:inline_code,[],{:raw_code=>"&copy;"}),
-		
+		md_el(:inline_code,[], {:raw_code=>"&copy;"}),
 		"."
-	], {})
-], {})
-***EOF***
+	])
+])
+*** Output of Markdown.pl ***
 <p>Maruku translates HTML entities to the equivalent in LaTeX:</p>
 
 <p>Entity      | Result
@@ -356,7 +314,7 @@ MDElement.new(:document,[
 
 <p>It should read just like this: <code>&amp;copy;</code>.</p>
 
-***EOF***
+*** Output of Markdown.pl (parsed) ***
 <p>Maruku translates HTML entities to the equivalent in LaTeX:</p
     ><p>Entity | Result
 ------------|----------

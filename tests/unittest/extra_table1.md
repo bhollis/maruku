@@ -1,3 +1,5 @@
+Write a comment abouth the test here.
+*** Markdown input: ***
 CSS: style.css
 
 First Header  | Second Header
@@ -38,7 +40,7 @@ Content Cell  | Content Cell
 | Very long long head  | 
 | :------------------: | 
 | center               |
-***EOF***
+*** Output of to_html ***
 <table
       ><thead
         ><tr
@@ -145,7 +147,7 @@ Content Cell  | Content Cell
       ></tbody
     ></table
   >
-***EOF***
+*** Output of to_latex ***
 \begin{tabular}{l|l}
 First Header&Second Header\\
 \hline 
@@ -197,11 +199,11 @@ center\\
 \end{tabular}
 
 
-***EOF***
+*** Output of to_s ***
 First HeaderSecond HeaderContent CellContent CellContent CellContent CellItemValueComputer$1600Phone$12Pipe$1Function nameDescriptionDisplay the help window.Destroy your computer!Very long long headleftVery long long headrightVery long long headcenter
-***EOF***
+*** Output of to_s ***
 First HeaderSecond HeaderContent CellContent CellContent CellContent CellItemValueComputer$1600Phone$12Pipe$1Function nameDescriptionDisplay the help window.Destroy your computer!Very long long headleftVery long long headrightVery long long headcenter
-***EOF***
+*** Output of inspect ***
 MDElement.new(:document,[	
 	MDElement.new(:table,[	
 		MDElement.new(:head_cell,[	
@@ -331,14 +333,17 @@ MDElement.new(:document,[
 		], {})
 	], {:align=>[:center]})
 ], {:css=>"style.css"})
-***EOF***
+*** EOF ***
 
-Failed tests:   [:to_html] 
+
+
+
+Failed tests:   [:to_html, :inspect] 
 And the following are the actual outputs for methods:
    [:to_html, :to_latex, :to_s, :to_s, :inspect]:
 
 
-***EOF***
+*** Output of to_html ***
 -----| WARNING | -----
 <table
       ><thead
@@ -446,7 +451,7 @@ And the following are the actual outputs for methods:
       ></tbody
     ></table
   >
-***EOF***
+*** Output of to_latex ***
 \begin{tabular}{l|l}
 First Header&Second Header\\
 \hline 
@@ -498,141 +503,58 @@ center\\
 \end{tabular}
 
 
-***EOF***
+*** Output of to_s ***
 First HeaderSecond HeaderContent CellContent CellContent CellContent CellItemValueComputer$1600Phone$12Pipe$1Function nameDescriptionDisplay the help window.Destroy your computer!Very long long headleftVery long long headrightVery long long headcenter
-***EOF***
+*** Output of to_s ***
 First HeaderSecond HeaderContent CellContent CellContent CellContent CellItemValueComputer$1600Phone$12Pipe$1Function nameDescriptionDisplay the help window.Destroy your computer!Very long long headleftVery long long headrightVery long long headcenter
-***EOF***
-MDElement.new(:document,[	
-	MDElement.new(:table,[	
-		MDElement.new(:head_cell,[	
-			"First Header"
-		], {}),
-		
-		MDElement.new(:head_cell,[	
-			"Second Header"
-		], {}),
-		
-		MDElement.new(:cell,[	
-			"Content Cell"
-		], {}),
-		
-		MDElement.new(:cell,[	
-			"Content Cell"
-		], {}),
-		
-		MDElement.new(:cell,[	
-			"Content Cell"
-		], {}),
-		
-		MDElement.new(:cell,[	
-			"Content Cell"
-		], {})
+*** Output of inspect ***
+-----| WARNING | -----
+md_el(:document,[
+	md_el(:table,[
+		md_el(:head_cell,[	"First Header"]),
+		md_el(:head_cell,[	"Second Header"]),
+		md_el(:cell,[	"Content Cell"]),
+		md_el(:cell,[	"Content Cell"]),
+		md_el(:cell,[	"Content Cell"]),
+		md_el(:cell,[	"Content Cell"])
 	], {:align=>[:left, :left]}),
-	
-	MDElement.new(:hrule,[],{}),
-	
-	MDElement.new(:table,[	
-		MDElement.new(:head_cell,[	
-			"Item"
-		], {}),
-		
-		MDElement.new(:head_cell,[	
-			"Value"
-		], {}),
-		
-		MDElement.new(:cell,[	
-			"Computer"
-		], {}),
-		
-		MDElement.new(:cell,[	
-			"$1600"
-		], {}),
-		
-		MDElement.new(:cell,[	
-			"Phone"
-		], {}),
-		
-		MDElement.new(:cell,[	
-			"$12"
-		], {}),
-		
-		MDElement.new(:cell,[	
-			"Pipe"
-		], {}),
-		
-		MDElement.new(:cell,[	
-			"$1"
-		], {})
+	md_el(:hrule,[]),
+	md_el(:table,[
+		md_el(:head_cell,[	"Item"]),
+		md_el(:head_cell,[	"Value"]),
+		md_el(:cell,[	"Computer"]),
+		md_el(:cell,[	"$1600"]),
+		md_el(:cell,[	"Phone"]),
+		md_el(:cell,[	"$12"]),
+		md_el(:cell,[	"Pipe"]),
+		md_el(:cell,[	"$1"])
 	], {:align=>[:left, :right]}),
-	
-	MDElement.new(:hrule,[],{}),
-	
-	MDElement.new(:table,[	
-		MDElement.new(:head_cell,[	
-			"Function name"
-		], {}),
-		
-		MDElement.new(:head_cell,[	
-			"Description"
-		], {}),
-		
-		MDElement.new(:cell,[	
-			MDElement.new(:inline_code,[],{:raw_code=>"help()"})
-		], {}),
-		
-		MDElement.new(:cell,[	
-			"Display the help window."
-		], {}),
-		
-		MDElement.new(:cell,[	
-			MDElement.new(:inline_code,[],{:raw_code=>"destroy()"})
-		], {}),
-		
-		MDElement.new(:cell,[	
-			MDElement.new(:strong,[	
-				"Destroy your computer!"
-			], {})
-		], {})
+	md_el(:hrule,[]),
+	md_el(:table,[
+		md_el(:head_cell,[	"Function name"]),
+		md_el(:head_cell,[	"Description"]),
+		md_el(:cell,[	md_el(:inline_code,[], {:raw_code=>"help()"})]),
+		md_el(:cell,[	"Display the help window."]),
+		md_el(:cell,[	md_el(:inline_code,[], {:raw_code=>"destroy()"})]),
+		md_el(:cell,[	md_el(:strong,[	"Destroy your computer!"])])
 	], {:align=>[:left, :left]}),
-	
-	MDElement.new(:hrule,[],{}),
-	
-	MDElement.new(:table,[	
-		MDElement.new(:head_cell,[	
-			"Very long long head"
-		], {}),
-		
-		MDElement.new(:cell,[	
-			"left"
-		], {})
+	md_el(:hrule,[]),
+	md_el(:table,[
+		md_el(:head_cell,[	"Very long long head"]),
+		md_el(:cell,[	"left"])
 	], {:align=>[:left]}),
-	
-	MDElement.new(:hrule,[],{}),
-	
-	MDElement.new(:table,[	
-		MDElement.new(:head_cell,[	
-			"Very long long head"
-		], {}),
-		
-		MDElement.new(:cell,[	
-			"right"
-		], {})
+	md_el(:hrule,[]),
+	md_el(:table,[
+		md_el(:head_cell,[	"Very long long head"]),
+		md_el(:cell,[	"right"])
 	], {:align=>[:right]}),
-	
-	MDElement.new(:hrule,[],{}),
-	
-	MDElement.new(:table,[	
-		MDElement.new(:head_cell,[	
-			"Very long long head"
-		], {}),
-		
-		MDElement.new(:cell,[	
-			"center"
-		], {})
+	md_el(:hrule,[]),
+	md_el(:table,[
+		md_el(:head_cell,[	"Very long long head"]),
+		md_el(:cell,[	"center"])
 	], {:align=>[:center]})
 ], {:css=>"style.css"})
-***EOF***
+*** Output of Markdown.pl ***
 <p>CSS: style.css</p>
 
 <p>First Header  | Second Header
@@ -673,7 +595,7 @@ Content Cell  | Content Cell</p>
 | :------------------: | 
 | center               |</p>
 
-***EOF***
+*** Output of Markdown.pl (parsed) ***
 <p>CSS: style.css</p
     ><p>First Header | Second Header
 ------------- | -------------

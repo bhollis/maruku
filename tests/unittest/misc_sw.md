@@ -1,3 +1,5 @@
+Write a comment abouth the test here.
+*** Markdown input: ***
 Subject: Software not painful to use
 Subject_short: painless software
 Topic: /misc/coolsw
@@ -104,7 +106,7 @@ inMenu: true
 [java-generics]: http://java.sun.com/j2se/1.5.0/docs/guide/language/generics.html
 
 
-***EOF***
+*** Output of to_html ***
 <h3 id='general'>General</h3
     ><ul
       ><li
@@ -239,7 +241,7 @@ Type &quot;help&quot;, &quot;copyright&quot;, &quot;credits&quot; or &quot;licen
         > exposes an API you can use.</li
     ></ul
   >
-***EOF***
+*** Output of to_latex ***
 \hypertarget{general}{}\subsubsection*{{General}}\label{general}
 
 \begin{itemize}%
@@ -303,11 +305,11 @@ Type "help", "copyright", "credits" or "license" for more information.
 
 \end{itemize}
 
-***EOF***
+*** Output of to_s ***
 GeneralOperating System : Mac OS X: heaven, after the purgatory of Linux and the hell of Windows.Browser: Firefox. On a Mac, Camino.Email: GMail, "search, don't sort" really works.Text Editor: TextMate, you have to buy it, but it's worth every penny. There are rumours that it's been converting (recovering) Emacs users (addicts). Unfortunately, it's Mac only. An alternative is jedit (GPL, Java).DevelopmentBuild system: cmake, throw the autotools away.Source code control system: ditch CVS for subversion.Project management: Trac tracks everything.Scripting language: Ruby is Japanese pragmatism (and has a poignant guide). Python, you say? Python is too academic and snob:Java IDE: JBuilder is great software and has a free version (IMHO better than Eclipse). Java is not a pain anymore since it gained generics and got opensourced.Mark-up language: HTML is so 2001, why don't you take at look at Markdown? Look at the source of this page.C++ libraries: * QT for GUIs. * GSL for math. * Magick++ for manipulating images. * Cairo for creating PDFs. * Boost for just about everything else.ResearchWriting papers: LaTeXWriting papers & enjoying the process: LyXHandsome figures in your papers: xfig or, better, jfig.The occasional presentation with many graphical content: OpenOffice Impress (using the OOOlatex plugin); the alternative is PowerPoint with the TexPoint plugin.Managing BibTeX: jabref: multi-platform, for all your bibtex needs.IEEExplore and BibTeX: convert citations using BibConverter.Cool websitesBest site in the wwworld: WikipediaMutopia for sheet music; the Gutenberg Project for books; LiberLiber for books in italian.Blogs: BloglinesSharing photos: flickr exposes an API you can use.
-***EOF***
+*** Output of to_s ***
 GeneralOperating System : Mac OS X: heaven, after the purgatory of Linux and the hell of Windows.Browser: Firefox. On a Mac, Camino.Email: GMail, "search, don't sort" really works.Text Editor: TextMate, you have to buy it, but it's worth every penny. There are rumours that it's been converting (recovering) Emacs users (addicts). Unfortunately, it's Mac only. An alternative is jedit (GPL, Java).DevelopmentBuild system: cmake, throw the autotools away.Source code control system: ditch CVS for subversion.Project management: Trac tracks everything.Scripting language: Ruby is Japanese pragmatism (and has a poignant guide). Python, you say? Python is too academic and snob:Java IDE: JBuilder is great software and has a free version (IMHO better than Eclipse). Java is not a pain anymore since it gained generics and got opensourced.Mark-up language: HTML is so 2001, why don't you take at look at Markdown? Look at the source of this page.C++ libraries: * QT for GUIs. * GSL for math. * Magick++ for manipulating images. * Cairo for creating PDFs. * Boost for just about everything else.ResearchWriting papers: LaTeXWriting papers & enjoying the process: LyXHandsome figures in your papers: xfig or, better, jfig.The occasional presentation with many graphical content: OpenOffice Impress (using the OOOlatex plugin); the alternative is PowerPoint with the TexPoint plugin.Managing BibTeX: jabref: multi-platform, for all your bibtex needs.IEEExplore and BibTeX: convert citations using BibConverter.Cool websitesBest site in the wwworld: WikipediaMutopia for sheet music; the Gutenberg Project for books; LiberLiber for books in italian.Blogs: BloglinesSharing photos: flickr exposes an API you can use.
-***EOF***
+*** Output of inspect ***
 MDElement.new(:document,[	
 	MDElement.new(:header,[	
 		"General"
@@ -719,14 +721,17 @@ MDElement.new(:document,[
 		], {:want_my_paragraph=>false})
 	], {})
 ], {:subject=>"Software not painful to use", :archive=>false, :inmenu=>true, :date=>"Nov 20 2006", :order=>"-9.5", :subject_short=>"painless software", :topic=>"/misc/coolsw"})
-***EOF***
+*** EOF ***
 
-Failed tests:   [] 
+
+
+
+Failed tests:   [:inspect] 
 And the following are the actual outputs for methods:
    [:to_html, :to_latex, :to_s, :to_s, :inspect]:
 
 
-***EOF***
+*** Output of to_html ***
 <h3 id='general'>General</h3
     ><ul
       ><li
@@ -861,7 +866,7 @@ Type &quot;help&quot;, &quot;copyright&quot;, &quot;credits&quot; or &quot;licen
         > exposes an API you can use.</li
     ></ul
   >
-***EOF***
+*** Output of to_latex ***
 \hypertarget{general}{}\subsubsection*{{General}}\label{general}
 
 \begin{itemize}%
@@ -925,423 +930,180 @@ Type "help", "copyright", "credits" or "license" for more information.
 
 \end{itemize}
 
-***EOF***
+*** Output of to_s ***
 GeneralOperating System : Mac OS X: heaven, after the purgatory of Linux and the hell of Windows.Browser: Firefox. On a Mac, Camino.Email: GMail, "search, don't sort" really works.Text Editor: TextMate, you have to buy it, but it's worth every penny. There are rumours that it's been converting (recovering) Emacs users (addicts). Unfortunately, it's Mac only. An alternative is jedit (GPL, Java).DevelopmentBuild system: cmake, throw the autotools away.Source code control system: ditch CVS for subversion.Project management: Trac tracks everything.Scripting language: Ruby is Japanese pragmatism (and has a poignant guide). Python, you say? Python is too academic and snob:Java IDE: JBuilder is great software and has a free version (IMHO better than Eclipse). Java is not a pain anymore since it gained generics and got opensourced.Mark-up language: HTML is so 2001, why don't you take at look at Markdown? Look at the source of this page.C++ libraries: * QT for GUIs. * GSL for math. * Magick++ for manipulating images. * Cairo for creating PDFs. * Boost for just about everything else.ResearchWriting papers: LaTeXWriting papers & enjoying the process: LyXHandsome figures in your papers: xfig or, better, jfig.The occasional presentation with many graphical content: OpenOffice Impress (using the OOOlatex plugin); the alternative is PowerPoint with the TexPoint plugin.Managing BibTeX: jabref: multi-platform, for all your bibtex needs.IEEExplore and BibTeX: convert citations using BibConverter.Cool websitesBest site in the wwworld: WikipediaMutopia for sheet music; the Gutenberg Project for books; LiberLiber for books in italian.Blogs: BloglinesSharing photos: flickr exposes an API you can use.
-***EOF***
+*** Output of to_s ***
 GeneralOperating System : Mac OS X: heaven, after the purgatory of Linux and the hell of Windows.Browser: Firefox. On a Mac, Camino.Email: GMail, "search, don't sort" really works.Text Editor: TextMate, you have to buy it, but it's worth every penny. There are rumours that it's been converting (recovering) Emacs users (addicts). Unfortunately, it's Mac only. An alternative is jedit (GPL, Java).DevelopmentBuild system: cmake, throw the autotools away.Source code control system: ditch CVS for subversion.Project management: Trac tracks everything.Scripting language: Ruby is Japanese pragmatism (and has a poignant guide). Python, you say? Python is too academic and snob:Java IDE: JBuilder is great software and has a free version (IMHO better than Eclipse). Java is not a pain anymore since it gained generics and got opensourced.Mark-up language: HTML is so 2001, why don't you take at look at Markdown? Look at the source of this page.C++ libraries: * QT for GUIs. * GSL for math. * Magick++ for manipulating images. * Cairo for creating PDFs. * Boost for just about everything else.ResearchWriting papers: LaTeXWriting papers & enjoying the process: LyXHandsome figures in your papers: xfig or, better, jfig.The occasional presentation with many graphical content: OpenOffice Impress (using the OOOlatex plugin); the alternative is PowerPoint with the TexPoint plugin.Managing BibTeX: jabref: multi-platform, for all your bibtex needs.IEEExplore and BibTeX: convert citations using BibConverter.Cool websitesBest site in the wwworld: WikipediaMutopia for sheet music; the Gutenberg Project for books; LiberLiber for books in italian.Blogs: BloglinesSharing photos: flickr exposes an API you can use.
-***EOF***
-MDElement.new(:document,[	
-	MDElement.new(:header,[	
-		"General"
-	], {:id=>"general", :level=>3}),
-	
-	MDElement.new(:ul,[	
-		MDElement.new(:li_span,[	
-			MDElement.new(:emphasis,[	
-				"Operating System"
-			], {}),
-			
+*** Output of inspect ***
+-----| WARNING | -----
+md_el(:document,[
+	md_el(:header,[	"General"], {:level=>3, :id=>"general"}),
+	md_el(:ul,[
+		md_el(:li_span,[
+			md_el(:emphasis,[	"Operating System"]),
 			" : ",
-			
-			MDElement.new(:link,[	
-				"Mac OS X"
-			], {:ref_id=>"switch"}),
-			
+			md_el(:link,[	"Mac OS X"], {:ref_id=>"switch"}),
 			": heaven, after the purgatory of Linux and the hell of Windows."
 		], {:want_my_paragraph=>false}),
-		
-		MDElement.new(:li_span,[	
-			MDElement.new(:emphasis,[	
-				"Browser"
-			], {}),
-			
+		md_el(:li_span,[
+			md_el(:emphasis,[	"Browser"]),
 			": ",
-			
-			MDElement.new(:link,[	
-				"Firefox"
-			], {:ref_id=>"firefox"}),
-			
+			md_el(:link,[	"Firefox"], {:ref_id=>"firefox"}),
 			". On a Mac, ",
-			
-			MDElement.new(:link,[	
-				"Camino"
-			], {:ref_id=>"camino"}),
-			
+			md_el(:link,[	"Camino"], {:ref_id=>"camino"}),
 			"."
 		], {:want_my_paragraph=>false}),
-		
-		MDElement.new(:li_span,[	
-			MDElement.new(:emphasis,[	
-				"Email"
-			], {}),
-			
+		md_el(:li_span,[
+			md_el(:emphasis,[	"Email"]),
 			": ",
-			
-			MDElement.new(:link,[	
-				"GMail"
-			], {:ref_id=>"gmail"}),
-			
+			md_el(:link,[	"GMail"], {:ref_id=>"gmail"}),
 			", \"search, don't sort\" really works."
 		], {:want_my_paragraph=>false}),
-		
-		MDElement.new(:li_span,[	
-			MDElement.new(:emphasis,[	
-				"Text Editor"
-			], {}),
-			
+		md_el(:li_span,[
+			md_el(:emphasis,[	"Text Editor"]),
 			": ",
-			
-			MDElement.new(:link,[	
-				"TextMate"
-			], {:ref_id=>"textmate"}),
-			
+			md_el(:link,[	"TextMate"], {:ref_id=>"textmate"}),
 			", you have to buy it, but it's worth every penny. There are rumours that it's been converting (recovering) Emacs users (addicts). Unfortunately, it's Mac only. An alternative is ",
-			
-			MDElement.new(:link,[	
-				"jedit"
-			], {:ref_id=>"jedit"}),
-			
+			md_el(:link,[	"jedit"], {:ref_id=>"jedit"}),
 			" (GPL, Java)."
 		], {:want_my_paragraph=>false})
-	], {}),
-	
-	MDElement.new(:header,[	
-		"Development"
-	], {:id=>"development", :level=>3}),
-	
-	MDElement.new(:ul,[	
-		MDElement.new(:li,[	
-			MDElement.new(:paragraph,[	
-				MDElement.new(:emphasis,[	
-					"Build system"
-				], {}),
-				
+	]),
+	md_el(:header,[	"Development"], {:level=>3, :id=>"development"}),
+	md_el(:ul,[
+		md_el(:li,[	md_el(:paragraph,[
+				md_el(:emphasis,[	"Build system"]),
 				": ",
-				
-				MDElement.new(:link,[	
-					"cmake"
-				], {:ref_id=>"cmake"}),
-				
+				md_el(:link,[	"cmake"], {:ref_id=>"cmake"}),
 				", throw the ",
-				
-				MDElement.new(:link,[	
-					"autotools"
-				], {:ref_id=>"autotools"}),
-				
+				md_el(:link,[	"autotools"], {:ref_id=>"autotools"}),
 				" away."
-			], {})
-		], {:want_my_paragraph=>false}),
-		
-		MDElement.new(:li,[	
-			MDElement.new(:paragraph,[	
-				MDElement.new(:emphasis,[	
-					"Source code control system"
-				], {}),
-				
+			])], {:want_my_paragraph=>false}),
+		md_el(:li,[	md_el(:paragraph,[
+				md_el(:emphasis,[	"Source code control system"]),
 				": ditch CVS for ",
-				
-				MDElement.new(:link,[	
-					"subversion"
-				], {:ref_id=>"subversion"}),
-				
+				md_el(:link,[	"subversion"], {:ref_id=>"subversion"}),
 				"."
-			], {})
-		], {:want_my_paragraph=>false}),
-		
-		MDElement.new(:li,[	
-			MDElement.new(:paragraph,[	
-				MDElement.new(:emphasis,[	
-					"Project management"
-				], {}),
-				
+			])], {:want_my_paragraph=>false}),
+		md_el(:li,[	md_el(:paragraph,[
+				md_el(:emphasis,[	"Project management"]),
 				": ",
-				
-				MDElement.new(:link,[	
-					"Trac"
-				], {:ref_id=>"trac"}),
-				
+				md_el(:link,[	"Trac"], {:ref_id=>"trac"}),
 				" tracks everything."
-			], {})
-		], {:want_my_paragraph=>false}),
-		
-		MDElement.new(:li,[	
-			MDElement.new(:paragraph,[	
-				MDElement.new(:emphasis,[	
-					"Scripting language"
-				], {}),
-				
+			])], {:want_my_paragraph=>false}),
+		md_el(:li,[
+			md_el(:paragraph,[
+				md_el(:emphasis,[	"Scripting language"]),
 				": ",
-				
-				MDElement.new(:link,[	
-					"Ruby"
-				], {:ref_id=>"ruby"}),
-				
+				md_el(:link,[	"Ruby"], {:ref_id=>"ruby"}),
 				" is Japanese pragmatism (and has a ",
-				
-				MDElement.new(:link,[	
-					"poignant"
-				], {:ref_id=>"poignant"}),
-				
+				md_el(:link,[	"poignant"], {:ref_id=>"poignant"}),
 				" guide). Python, you say? Python is too academic and snob:"
-			], {}),
-			
-			MDElement.new(:code,[],{:raw_code=>"$ python       \nPython 2.4.1 (\\#1, Jun  4 2005, 00:54:33) \nType \"help\", \"copyright\", \"credits\" or \"license\" for more information.\n>>> exit\n'Use Ctrl-D (i.e. EOF) to exit.'\n>>> quit\n'Use Ctrl-D (i.e. EOF) to exit.'"})
+			]),
+			md_el(:code,[], {:raw_code=>"$ python       \nPython 2.4.1 (\\#1, Jun  4 2005, 00:54:33) \nType \"help\", \"copyright\", \"credits\" or \"license\" for more information.\n>>> exit\n'Use Ctrl-D (i.e. EOF) to exit.'\n>>> quit\n'Use Ctrl-D (i.e. EOF) to exit.'"})
 		], {:want_my_paragraph=>true}),
-		
-		MDElement.new(:li,[	
-			MDElement.new(:paragraph,[	
-				MDElement.new(:emphasis,[	
-					"Java IDE"
-				], {}),
-				
+		md_el(:li,[	md_el(:paragraph,[
+				md_el(:emphasis,[	"Java IDE"]),
 				": ",
-				
-				MDElement.new(:link,[	
-					"JBuilder"
-				], {:ref_id=>"jbuilder"}),
-				
+				md_el(:link,[	"JBuilder"], {:ref_id=>"jbuilder"}),
 				" is great software and has a free version (IMHO better than Eclipse). Java is not a pain anymore since it gained ",
-				
-				MDElement.new(:link,[	
-					"generics"
-				], {:ref_id=>"java-generics"}),
-				
+				md_el(:link,[	"generics"], {:ref_id=>"java-generics"}),
 				" and got opensourced."
-			], {})
-		], {:want_my_paragraph=>false}),
-		
-		MDElement.new(:li,[	
-			MDElement.new(:paragraph,[	
-				MDElement.new(:emphasis,[	
-					"Mark-up language"
-				], {}),
-				
+			])], {:want_my_paragraph=>false}),
+		md_el(:li,[	md_el(:paragraph,[
+				md_el(:emphasis,[	"Mark-up language"]),
 				": HTML is so 2001, why don't you take at look at ",
-				
-				MDElement.new(:link,[	
-					"Markdown"
-				], {:ref_id=>"markdown"}),
-				
+				md_el(:link,[	"Markdown"], {:ref_id=>"markdown"}),
 				"? ",
-				
-				MDElement.new(:link,[	
-					"Look at the source of this page"
-				], {:ref_id=>"dummy_0"}),
-				
+				md_el(:link,[	"Look at the source of this page"], {:ref_id=>"dummy_0"}),
 				"."
-			], {})
-		], {:want_my_paragraph=>false}),
-		
-		MDElement.new(:li,[	
-			MDElement.new(:paragraph,[	
-				MDElement.new(:emphasis,[	
-					"C++ libraries"
-				], {}),
-				
+			])], {:want_my_paragraph=>false}),
+		md_el(:li,[	md_el(:paragraph,[
+				md_el(:emphasis,[	"C++ libraries"]),
 				": * ",
-				
-				MDElement.new(:link,[	
-					"QT"
-				], {:ref_id=>"qt"}),
-				
+				md_el(:link,[	"QT"], {:ref_id=>"qt"}),
 				" for GUIs. * ",
-				
-				MDElement.new(:link,[	
-					"GSL"
-				], {:ref_id=>"gsl"}),
-				
+				md_el(:link,[	"GSL"], {:ref_id=>"gsl"}),
 				" for math. * ",
-				
-				MDElement.new(:link,[	
-					"Magick++"
-				], {:ref_id=>"magick"}),
-				
+				md_el(:link,[	"Magick++"], {:ref_id=>"magick"}),
 				" for manipulating images. * ",
-				
-				MDElement.new(:link,[	
-					"Cairo"
-				], {:ref_id=>"cairo"}),
-				
+				md_el(:link,[	"Cairo"], {:ref_id=>"cairo"}),
 				" for creating PDFs. * ",
-				
-				MDElement.new(:link,[	
-					"Boost"
-				], {:ref_id=>"boost"}),
-				
+				md_el(:link,[	"Boost"], {:ref_id=>"boost"}),
 				" for just about everything else."
-			], {})
-		], {:want_my_paragraph=>false})
-	], {}),
-	
-	MDElement.new(:header,[	
-		"Research"
-	], {:id=>"research", :level=>3}),
-	
-	MDElement.new(:ul,[	
-		MDElement.new(:li_span,[	
-			MDElement.new(:emphasis,[	
-				"Writing papers"
-			], {}),
-			
+			])], {:want_my_paragraph=>false})
+	]),
+	md_el(:header,[	"Research"], {:level=>3, :id=>"research"}),
+	md_el(:ul,[
+		md_el(:li_span,[
+			md_el(:emphasis,[	"Writing papers"]),
 			": ",
-			
-			MDElement.new(:link,[	
-				"LaTeX"
-			], {:ref_id=>"latex"})
+			md_el(:link,[	"LaTeX"], {:ref_id=>"latex"})
 		], {:want_my_paragraph=>false}),
-		
-		MDElement.new(:li_span,[	
-			MDElement.new(:emphasis,[	
-				"Writing papers & enjoying the process"
-			], {}),
-			
+		md_el(:li_span,[
+			md_el(:emphasis,[	"Writing papers & enjoying the process"]),
 			": ",
-			
-			MDElement.new(:link,[	
-				"LyX"
-			], {:ref_id=>"lyx"})
+			md_el(:link,[	"LyX"], {:ref_id=>"lyx"})
 		], {:want_my_paragraph=>false}),
-		
-		MDElement.new(:li_span,[	
-			MDElement.new(:emphasis,[	
-				"Handsome figures in your papers"
-			], {}),
-			
+		md_el(:li_span,[
+			md_el(:emphasis,[	"Handsome figures in your papers"]),
 			": ",
-			
-			MDElement.new(:link,[	
-				"xfig"
-			], {:ref_id=>"xfig"}),
-			
+			md_el(:link,[	"xfig"], {:ref_id=>"xfig"}),
 			" or, better, ",
-			
-			MDElement.new(:link,[	
-				"jfig"
-			], {:ref_id=>"jfig"}),
-			
+			md_el(:link,[	"jfig"], {:ref_id=>"jfig"}),
 			"."
 		], {:want_my_paragraph=>false}),
-		
-		MDElement.new(:li_span,[	
-			MDElement.new(:emphasis,[	
-				"The occasional presentation with many graphical content"
-			], {}),
-			
+		md_el(:li_span,[
+			md_el(:emphasis,[	"The occasional presentation with many graphical content"]),
 			": ",
-			
-			MDElement.new(:link,[	
-				"OpenOffice Impress"
-			], {:ref_id=>"impress"}),
-			
+			md_el(:link,[	"OpenOffice Impress"], {:ref_id=>"impress"}),
 			" (using the ",
-			
-			MDElement.new(:link,[	
-				"OOOlatex plugin"
-			], {:ref_id=>"ooolatex"}),
-			
+			md_el(:link,[	"OOOlatex plugin"], {:ref_id=>"ooolatex"}),
 			"); the alternative is PowerPoint with the ",
-			
-			MDElement.new(:link,[	
-				"TexPoint"
-			], {:ref_id=>"texpoint"}),
-			
+			md_el(:link,[	"TexPoint"], {:ref_id=>"texpoint"}),
 			" plugin."
 		], {:want_my_paragraph=>false}),
-		
-		MDElement.new(:li_span,[	
-			MDElement.new(:emphasis,[	
-				"Managing BibTeX"
-			], {}),
-			
+		md_el(:li_span,[
+			md_el(:emphasis,[	"Managing BibTeX"]),
 			": ",
-			
-			MDElement.new(:link,[	
-				"jabref"
-			], {:ref_id=>"jabref"}),
-			
+			md_el(:link,[	"jabref"], {:ref_id=>"jabref"}),
 			": multi-platform, for all your bibtex needs."
 		], {:want_my_paragraph=>false}),
-		
-		MDElement.new(:li_span,[	
-			MDElement.new(:emphasis,[	
-				"IEEExplore and BibTeX"
-			], {}),
-			
+		md_el(:li_span,[
+			md_el(:emphasis,[	"IEEExplore and BibTeX"]),
 			": convert citations using ",
-			
-			MDElement.new(:link,[	
-				"BibConverter"
-			], {:ref_id=>"bibconverter"}),
-			
+			md_el(:link,[	"BibConverter"], {:ref_id=>"bibconverter"}),
 			"."
 		], {:want_my_paragraph=>false})
-	], {}),
-	
-	MDElement.new(:header,[	
-		"Cool websites"
-	], {:id=>"cool_websites", :level=>3}),
-	
-	MDElement.new(:ul,[	
-		MDElement.new(:li_span,[	
-			MDElement.new(:emphasis,[	
-				"Best site in the wwworld"
-			], {}),
-			
+	]),
+	md_el(:header,[	"Cool websites"], {:level=>3, :id=>"cool_websites"}),
+	md_el(:ul,[
+		md_el(:li_span,[
+			md_el(:emphasis,[	"Best site in the wwworld"]),
 			": ",
-			
-			MDElement.new(:link,[	
-				"Wikipedia"
-			], {:ref_id=>"wikipedia"})
+			md_el(:link,[	"Wikipedia"], {:ref_id=>"wikipedia"})
 		], {:want_my_paragraph=>false}),
-		
-		MDElement.new(:li_span,[	
-			MDElement.new(:link,[	
-				"Mutopia"
-			], {:ref_id=>"mutopia"}),
-			
+		md_el(:li_span,[
+			md_el(:link,[	"Mutopia"], {:ref_id=>"mutopia"}),
 			" for sheet music; ",
-			
-			MDElement.new(:link,[	
-				"the Gutenberg Project"
-			], {:ref_id=>"gutenberg"}),
-			
+			md_el(:link,[	"the Gutenberg Project"], {:ref_id=>"gutenberg"}),
 			" for books; ",
-			
-			MDElement.new(:link,[	
-				"LiberLiber"
-			], {:ref_id=>"liberliber"}),
-			
+			md_el(:link,[	"LiberLiber"], {:ref_id=>"liberliber"}),
 			" for books in italian."
 		], {:want_my_paragraph=>false}),
-		
-		MDElement.new(:li_span,[	
-			MDElement.new(:emphasis,[	
-				"Blogs"
-			], {}),
-			
+		md_el(:li_span,[
+			md_el(:emphasis,[	"Blogs"]),
 			": ",
-			
-			MDElement.new(:link,[	
-				"Bloglines"
-			], {:ref_id=>"bloglines"})
+			md_el(:link,[	"Bloglines"], {:ref_id=>"bloglines"})
 		], {:want_my_paragraph=>false}),
-		
-		MDElement.new(:li_span,[	
-			MDElement.new(:emphasis,[	
-				"Sharing photos"
-			], {}),
-			
+		md_el(:li_span,[
+			md_el(:emphasis,[	"Sharing photos"]),
 			": ",
-			
-			MDElement.new(:link,[	
-				"flickr"
-			], {:ref_id=>"flickr"}),
-			
+			md_el(:link,[	"flickr"], {:ref_id=>"flickr"}),
 			" exposes an API you can use."
 		], {:want_my_paragraph=>false})
-	], {})
-], {:subject=>"Software not painful to use", :archive=>false, :inmenu=>true, :date=>"Nov 20 2006", :order=>"-9.5", :subject_short=>"painless software", :topic=>"/misc/coolsw"})
-***EOF***
+	])
+], {:topic=>"/misc/coolsw", :subject=>"Software not painful to use", :date=>"Nov 20 2006", :archive=>false, :inmenu=>true, :order=>"-9.5", :subject_short=>"painless software"})
+*** Output of Markdown.pl ***
 <p>Subject: Software not painful to use
 Subject_short: painless software
 Topic: /misc/coolsw
@@ -1421,7 +1183,7 @@ the alternative is PowerPoint with the <a href="http://texpoint.necula.org/">Tex
 <li><em>Sharing photos</em>: <a href="http://www.flickr.com/">flickr</a> exposes an API you can use.</li>
 </ul>
 
-***EOF***
+*** Output of Markdown.pl (parsed) ***
 <p>Subject: Software not painful to use
 Subject_short: painless software
 Topic: /misc/coolsw

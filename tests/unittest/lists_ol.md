@@ -1,3 +1,5 @@
+Write a comment abouth the test here.
+*** Markdown input: ***
 1.   Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
     Aliquam hendrerit mi posuere lectus. Vestibulum enim wisi,
     viverra nec, fringilla in, laoreet vitae, risus.
@@ -37,7 +39,7 @@ only required to indent the first line. Lorem ipsum dolor
 sit amet, consectetuer adipiscing elit.
 
 *   Another item in the same list.
-***EOF***
+*** Output of to_html ***
 <ol
       ><li>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aliquam hendrerit mi posuere lectus. Vestibulum enim wisi, viverra nec, fringilla in, laoreet vitae, risus.</li
       ><li>Donec sit amet nisl. Aliquam semper ipsum sit amet velit. Suspendisse id sem consectetuer libero luctus adipiscing.</li
@@ -71,7 +73,7 @@ sit amet, consectetuer adipiscing elit.
       ></li
     ></ul
   >
-***EOF***
+*** Output of to_latex ***
 \begin{enumerate}%
 \item Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aliquam hendrerit mi posuere lectus. Vestibulum enim wisi, viverra nec, fringilla in, laoreet vitae, risus.
 \item Donec sit amet nisl. Aliquam semper ipsum sit amet velit. Suspendisse id sem consectetuer libero luctus adipiscing.
@@ -113,11 +115,11 @@ This is the second paragraph in the list item. You're only required to indent th
 
 \end{itemize}
 
-***EOF***
+*** Output of to_s ***
 Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aliquam hendrerit mi posuere lectus. Vestibulum enim wisi, viverra nec, fringilla in, laoreet vitae, risus.Donec sit amet nisl. Aliquam semper ipsum sit amet velit. Suspendisse id sem consectetuer libero luctus adipiscing.Donec sit amet nisl. Aliquam semper ipsum sit amet velit. Suspendisse id sem consectetuer libero luctus adipiscingDonec sit amet nisl. Aliquam semper ipsum sit amet velit. Suspendisse id sem consectetuer libero luctus adipiscingDonec sit amet nisl. Aliquam semper ipsum sit amet velit. Suspendisse id sem consectetuer libero luctus adipiscing.AncoraThis is a list item with two paragraphs. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aliquam hendrerit mi posuere lectus.ATTENZIONE!UnoDue 1. tre 1. tre 1. treDueSuspendisse id sem consectetuer libero luctus adipiscing.AncoraThis is a list item with two paragraphs.This is the second paragraph in the list item. You're only required to indent the first line. Lorem ipsum dolo sit amet, consectetuer adipiscing elitAnother item in the same list.
-***EOF***
+*** Output of to_s ***
 Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aliquam hendrerit mi posuere lectus. Vestibulum enim wisi, viverra nec, fringilla in, laoreet vitae, risus.Donec sit amet nisl. Aliquam semper ipsum sit amet velit. Suspendisse id sem consectetuer libero luctus adipiscing.Donec sit amet nisl. Aliquam semper ipsum sit amet velit. Suspendisse id sem consectetuer libero luctus adipiscingDonec sit amet nisl. Aliquam semper ipsum sit amet velit. Suspendisse id sem consectetuer libero luctus adipiscingDonec sit amet nisl. Aliquam semper ipsum sit amet velit. Suspendisse id sem consectetuer libero luctus adipiscing.AncoraThis is a list item with two paragraphs. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aliquam hendrerit mi posuere lectus.ATTENZIONE!UnoDue 1. tre 1. tre 1. treDueSuspendisse id sem consectetuer libero luctus adipiscing.AncoraThis is a list item with two paragraphs.This is the second paragraph in the list item. You're only required to indent the first line. Lorem ipsum dolo sit amet, consectetuer adipiscing elitAnother item in the same list.
-***EOF***
+*** Output of inspect ***
 MDElement.new(:document,[	
 	MDElement.new(:ol,[	
 		MDElement.new(:li_span,[	
@@ -199,14 +201,17 @@ MDElement.new(:document,[
 		], {:want_my_paragraph=>false})
 	], {})
 ], {})
-***EOF***
+*** EOF ***
 
-Failed tests:   [] 
+
+
+
+Failed tests:   [:inspect] 
 And the following are the actual outputs for methods:
    [:to_html, :to_latex, :to_s, :to_s, :inspect]:
 
 
-***EOF***
+*** Output of to_html ***
 <ol
       ><li>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aliquam hendrerit mi posuere lectus. Vestibulum enim wisi, viverra nec, fringilla in, laoreet vitae, risus.</li
       ><li>Donec sit amet nisl. Aliquam semper ipsum sit amet velit. Suspendisse id sem consectetuer libero luctus adipiscing.</li
@@ -240,7 +245,7 @@ And the following are the actual outputs for methods:
       ></li
     ></ul
   >
-***EOF***
+*** Output of to_latex ***
 \begin{enumerate}%
 \item Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aliquam hendrerit mi posuere lectus. Vestibulum enim wisi, viverra nec, fringilla in, laoreet vitae, risus.
 \item Donec sit amet nisl. Aliquam semper ipsum sit amet velit. Suspendisse id sem consectetuer libero luctus adipiscing.
@@ -282,93 +287,43 @@ This is the second paragraph in the list item. You're only required to indent th
 
 \end{itemize}
 
-***EOF***
+*** Output of to_s ***
 Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aliquam hendrerit mi posuere lectus. Vestibulum enim wisi, viverra nec, fringilla in, laoreet vitae, risus.Donec sit amet nisl. Aliquam semper ipsum sit amet velit. Suspendisse id sem consectetuer libero luctus adipiscing.Donec sit amet nisl. Aliquam semper ipsum sit amet velit. Suspendisse id sem consectetuer libero luctus adipiscingDonec sit amet nisl. Aliquam semper ipsum sit amet velit. Suspendisse id sem consectetuer libero luctus adipiscingDonec sit amet nisl. Aliquam semper ipsum sit amet velit. Suspendisse id sem consectetuer libero luctus adipiscing.AncoraThis is a list item with two paragraphs. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aliquam hendrerit mi posuere lectus.ATTENZIONE!UnoDue 1. tre 1. tre 1. treDueSuspendisse id sem consectetuer libero luctus adipiscing.AncoraThis is a list item with two paragraphs.This is the second paragraph in the list item. You're only required to indent the first line. Lorem ipsum dolo sit amet, consectetuer adipiscing elitAnother item in the same list.
-***EOF***
+*** Output of to_s ***
 Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aliquam hendrerit mi posuere lectus. Vestibulum enim wisi, viverra nec, fringilla in, laoreet vitae, risus.Donec sit amet nisl. Aliquam semper ipsum sit amet velit. Suspendisse id sem consectetuer libero luctus adipiscing.Donec sit amet nisl. Aliquam semper ipsum sit amet velit. Suspendisse id sem consectetuer libero luctus adipiscingDonec sit amet nisl. Aliquam semper ipsum sit amet velit. Suspendisse id sem consectetuer libero luctus adipiscingDonec sit amet nisl. Aliquam semper ipsum sit amet velit. Suspendisse id sem consectetuer libero luctus adipiscing.AncoraThis is a list item with two paragraphs. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aliquam hendrerit mi posuere lectus.ATTENZIONE!UnoDue 1. tre 1. tre 1. treDueSuspendisse id sem consectetuer libero luctus adipiscing.AncoraThis is a list item with two paragraphs.This is the second paragraph in the list item. You're only required to indent the first line. Lorem ipsum dolo sit amet, consectetuer adipiscing elitAnother item in the same list.
-***EOF***
-MDElement.new(:document,[	
-	MDElement.new(:ol,[	
-		MDElement.new(:li_span,[	
-			"Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aliquam hendrerit mi posuere lectus. Vestibulum enim wisi, viverra nec, fringilla in, laoreet vitae, risus."
-		], {:want_my_paragraph=>false}),
-		
-		MDElement.new(:li_span,[	
-			"Donec sit amet nisl. Aliquam semper ipsum sit amet velit. Suspendisse id sem consectetuer libero luctus adipiscing."
-		], {:want_my_paragraph=>false}),
-		
-		MDElement.new(:li_span,[	
-			"Donec sit amet nisl. Aliquam semper ipsum sit amet velit. Suspendisse id sem consectetuer libero luctus adipiscing"
-		], {:want_my_paragraph=>false}),
-		
-		MDElement.new(:li_span,[	
-			"Donec sit amet nisl. Aliquam semper ipsum sit amet velit. Suspendisse id sem consectetuer libero luctus adipiscing"
-		], {:want_my_paragraph=>false}),
-		
-		MDElement.new(:li_span,[	
-			"Donec sit amet nisl. Aliquam semper ipsum sit amet velit. Suspendisse id sem consectetuer libero luctus adipiscing."
-		], {:want_my_paragraph=>false})
-	], {}),
-	
-	MDElement.new(:paragraph,[	
-		"Ancora"
-	], {}),
-	
-	MDElement.new(:ol,[	
-		MDElement.new(:li,[	
-			MDElement.new(:paragraph,[	
-				"This is a list item with two paragraphs. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aliquam hendrerit mi posuere lectus."
-			], {}),
-			
-			MDElement.new(:paragraph,[	
-				"ATTENZIONE!"
-			], {}),
-			
-			MDElement.new(:ul,[	
-				MDElement.new(:li_span,[	
-					"Uno"
-				], {:want_my_paragraph=>false}),
-				
-				MDElement.new(:li_span,[	
-					"Due 1. tre 1. tre 1. tre"
-				], {:want_my_paragraph=>false}),
-				
-				MDElement.new(:li_span,[	
-					"Due"
-				], {:want_my_paragraph=>false})
-			], {})
+*** Output of inspect ***
+-----| WARNING | -----
+md_el(:document,[
+	md_el(:ol,[
+		md_el(:li_span,[	"Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aliquam hendrerit mi posuere lectus. Vestibulum enim wisi, viverra nec, fringilla in, laoreet vitae, risus."], {:want_my_paragraph=>false}),
+		md_el(:li_span,[	"Donec sit amet nisl. Aliquam semper ipsum sit amet velit. Suspendisse id sem consectetuer libero luctus adipiscing."], {:want_my_paragraph=>false}),
+		md_el(:li_span,[	"Donec sit amet nisl. Aliquam semper ipsum sit amet velit. Suspendisse id sem consectetuer libero luctus adipiscing"], {:want_my_paragraph=>false}),
+		md_el(:li_span,[	"Donec sit amet nisl. Aliquam semper ipsum sit amet velit. Suspendisse id sem consectetuer libero luctus adipiscing"], {:want_my_paragraph=>false}),
+		md_el(:li_span,[	"Donec sit amet nisl. Aliquam semper ipsum sit amet velit. Suspendisse id sem consectetuer libero luctus adipiscing."], {:want_my_paragraph=>false})
+	]),
+	md_el(:paragraph,[	"Ancora"]),
+	md_el(:ol,[
+		md_el(:li,[
+			md_el(:paragraph,[	"This is a list item with two paragraphs. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aliquam hendrerit mi posuere lectus."]),
+			md_el(:paragraph,[	"ATTENZIONE!"]),
+			md_el(:ul,[
+				md_el(:li_span,[	"Uno"], {:want_my_paragraph=>false}),
+				md_el(:li_span,[	"Due 1. tre 1. tre 1. tre"], {:want_my_paragraph=>false}),
+				md_el(:li_span,[	"Due"], {:want_my_paragraph=>false})
+			])
 		], {:want_my_paragraph=>true}),
-		
-		MDElement.new(:li,[	
-			MDElement.new(:paragraph,[	
-				"Suspendisse id sem consectetuer libero luctus adipiscing."
-			], {})
-		], {:want_my_paragraph=>false})
-	], {}),
-	
-	MDElement.new(:paragraph,[	
-		"Ancora"
-	], {}),
-	
-	MDElement.new(:ul,[	
-		MDElement.new(:li,[	
-			MDElement.new(:paragraph,[	
-				"This is a list item with two paragraphs."
-			], {}),
-			
-			MDElement.new(:paragraph,[	
-				"This is the second paragraph in the list item. You're only required to indent the first line. Lorem ipsum dolo sit amet, consectetuer adipiscing elit"
-			], {})
+		md_el(:li,[	md_el(:paragraph,[	"Suspendisse id sem consectetuer libero luctus adipiscing."])], {:want_my_paragraph=>false})
+	]),
+	md_el(:paragraph,[	"Ancora"]),
+	md_el(:ul,[
+		md_el(:li,[
+			md_el(:paragraph,[	"This is a list item with two paragraphs."]),
+			md_el(:paragraph,[	"This is the second paragraph in the list item. You're only required to indent the first line. Lorem ipsum dolo sit amet, consectetuer adipiscing elit"])
 		], {:want_my_paragraph=>true}),
-		
-		MDElement.new(:li,[	
-			MDElement.new(:paragraph,[	
-				"Another item in the same list."
-			], {})
-		], {:want_my_paragraph=>false})
-	], {})
-], {})
-***EOF***
+		md_el(:li,[	md_el(:paragraph,[	"Another item in the same list."])], {:want_my_paragraph=>false})
+	])
+])
+*** Output of Markdown.pl ***
 <ol>
 <li>Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
 Aliquam hendrerit mi posuere lectus. Vestibulum enim wisi,
@@ -420,7 +375,7 @@ sit amet, consectetuer adipiscing elit.</p></li>
 <li><p>Another item in the same list.</p></li>
 </ul>
 
-***EOF***
+*** Output of Markdown.pl (parsed) ***
 <ol>
 <li>Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
 Aliquam hendrerit mi posuere lectus. Vestibulum enim wisi,

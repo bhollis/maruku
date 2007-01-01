@@ -1,3 +1,5 @@
+Write a comment abouth the test here.
+*** Markdown input: ***
 * * *
 
 ***
@@ -9,14 +11,14 @@
 ---------------------------------------
 
 
-***EOF***
+*** Output of to_html ***
 <hr
     /><hr
     /><hr
     /><hr
     /><hr
     />
-***EOF***
+*** Output of to_latex ***
 
 \vspace{.5em} \hrule \vspace{.5em}
 
@@ -28,11 +30,11 @@
 
 \vspace{.5em} \hrule \vspace{.5em}
 
-***EOF***
+*** Output of to_s ***
 
-***EOF***
+*** Output of to_s ***
 
-***EOF***
+*** Output of inspect ***
 MDElement.new(:document,[	
 	MDElement.new(:hrule,[],{}),
 	
@@ -44,21 +46,24 @@ MDElement.new(:document,[
 	
 	MDElement.new(:hrule,[],{})
 ], {})
-***EOF***
+*** EOF ***
 
-Failed tests:   [] 
+
+
+
+Failed tests:   [:inspect] 
 And the following are the actual outputs for methods:
    [:to_html, :to_latex, :to_s, :to_s, :inspect]:
 
 
-***EOF***
+*** Output of to_html ***
 <hr
     /><hr
     /><hr
     /><hr
     /><hr
     />
-***EOF***
+*** Output of to_latex ***
 
 \vspace{.5em} \hrule \vspace{.5em}
 
@@ -70,23 +75,20 @@ And the following are the actual outputs for methods:
 
 \vspace{.5em} \hrule \vspace{.5em}
 
-***EOF***
+*** Output of to_s ***
 
-***EOF***
+*** Output of to_s ***
 
-***EOF***
-MDElement.new(:document,[	
-	MDElement.new(:hrule,[],{}),
-	
-	MDElement.new(:hrule,[],{}),
-	
-	MDElement.new(:hrule,[],{}),
-	
-	MDElement.new(:hrule,[],{}),
-	
-	MDElement.new(:hrule,[],{})
-], {})
-***EOF***
+*** Output of inspect ***
+-----| WARNING | -----
+md_el(:document,[
+	md_el(:hrule,[]),
+	md_el(:hrule,[]),
+	md_el(:hrule,[]),
+	md_el(:hrule,[]),
+	md_el(:hrule,[])
+])
+*** Output of Markdown.pl ***
 <hr />
 
 <hr />
@@ -97,7 +99,7 @@ MDElement.new(:document,[
 
 <hr />
 
-***EOF***
+*** Output of Markdown.pl (parsed) ***
 <hr
     /><hr
     /><hr

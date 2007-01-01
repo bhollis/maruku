@@ -1,3 +1,5 @@
+Write a comment abouth the test here.
+*** Markdown input: ***
 
 Search on [Google][]
 
@@ -36,7 +38,7 @@ If all else fails, ask [Google](http://www.google.com)
 
 [Google Images]: 
  http://images.google.com  (Google images)
-***EOF***
+*** Output of to_html ***
 <p>Search on <a>Google</a
     ></p
     ><p>Search on <a>Google</a
@@ -62,7 +64,7 @@ If all else fails, ask [Google](http://www.google.com)
     ><p>If all else fails, ask <a href='http://www.google.com'>Google</a
       > [google]: http://www.google.com</p
   >
-***EOF***
+*** Output of to_latex ***
 Search on Google
 
 Search on Google
@@ -86,11 +88,11 @@ Search on \href{http://www.gogole.com}{http://www.gogole.com} or \href{http://He
 If all else fails, ask \href{http://www.google.com}{Google}  [google]: http://www.google.com
 
 
-***EOF***
+*** Output of to_s ***
 Search on GoogleSearch on GoogleSearch on GoogleSearch on GoogleSearch on Google imagesSearch on Google imagesInline: Google imagesInline with title: Google imagesInline with title: Google imagesSearch on  or  or ask  or you might ask bill@google.com.If all else fails, ask Google  [google]: http://www.google.com
-***EOF***
+*** Output of to_s ***
 Search on GoogleSearch on GoogleSearch on GoogleSearch on GoogleSearch on Google imagesSearch on Google imagesInline: Google imagesInline with title: Google imagesInline with title: Google imagesSearch on  or  or ask  or you might ask bill@google.com.If all else fails, ask Google  [google]: http://www.google.com
-***EOF***
+*** Output of inspect ***
 MDElement.new(:document,[	
 	MDElement.new(:paragraph,[	
 		"Search on ",
@@ -190,14 +192,17 @@ MDElement.new(:document,[
 		"  [google]: http://www.google.com"
 	], {})
 ], {})
-***EOF***
+*** EOF ***
 
-Failed tests:   [] 
+
+
+
+Failed tests:   [:inspect] 
 And the following are the actual outputs for methods:
    [:to_html, :to_latex, :to_s, :to_s, :inspect]:
 
 
-***EOF***
+*** Output of to_html ***
 <p>Search on <a>Google</a
     ></p
     ><p>Search on <a>Google</a
@@ -223,7 +228,7 @@ And the following are the actual outputs for methods:
     ><p>If all else fails, ask <a href='http://www.google.com'>Google</a
       > [google]: http://www.google.com</p
   >
-***EOF***
+*** Output of to_latex ***
 Search on Google
 
 Search on Google
@@ -247,111 +252,65 @@ Search on \href{http://www.gogole.com}{http://www.gogole.com} or \href{http://He
 If all else fails, ask \href{http://www.google.com}{Google}  [google]: http://www.google.com
 
 
-***EOF***
+*** Output of to_s ***
 Search on GoogleSearch on GoogleSearch on GoogleSearch on GoogleSearch on Google imagesSearch on Google imagesInline: Google imagesInline with title: Google imagesInline with title: Google imagesSearch on  or  or ask  or you might ask bill@google.com.If all else fails, ask Google  [google]: http://www.google.com
-***EOF***
+*** Output of to_s ***
 Search on GoogleSearch on GoogleSearch on GoogleSearch on GoogleSearch on Google imagesSearch on Google imagesInline: Google imagesInline with title: Google imagesInline with title: Google imagesSearch on  or  or ask  or you might ask bill@google.com.If all else fails, ask Google  [google]: http://www.google.com
-***EOF***
-MDElement.new(:document,[	
-	MDElement.new(:paragraph,[	
+*** Output of inspect ***
+-----| WARNING | -----
+md_el(:document,[
+	md_el(:paragraph,[
 		"Search on ",
-		
-		MDElement.new(:link,[	
-			"Google"
-		], {:ref_id=>"google"})
-	], {}),
-	
-	MDElement.new(:paragraph,[	
+		md_el(:link,[	"Google"], {:ref_id=>"google"})
+	]),
+	md_el(:paragraph,[
 		"Search on ",
-		
-		MDElement.new(:link,[	
-			"Google"
-		], {:ref_id=>"google"})
-	], {}),
-	
-	MDElement.new(:paragraph,[	
+		md_el(:link,[	"Google"], {:ref_id=>"google"})
+	]),
+	md_el(:paragraph,[
 		"Search on ",
-		
-		MDElement.new(:link,[	
-			"Google"
-		], {:ref_id=>"google"})
-	], {}),
-	
-	MDElement.new(:paragraph,[	
+		md_el(:link,[	"Google"], {:ref_id=>"google"})
+	]),
+	md_el(:paragraph,[
 		"Search on ",
-		
-		MDElement.new(:link,[	
-			"Google"
-		], {:ref_id=>"google"})
-	], {}),
-	
-	MDElement.new(:paragraph,[	
+		md_el(:link,[	"Google"], {:ref_id=>"google"})
+	]),
+	md_el(:paragraph,[
 		"Search on ",
-		
-		MDElement.new(:link,[	
-			"Google images"
-		], {:ref_id=>"google images"})
-	], {}),
-	
-	MDElement.new(:paragraph,[	
+		md_el(:link,[	"Google images"], {:ref_id=>"google images"})
+	]),
+	md_el(:paragraph,[
 		"Search on ",
-		
-		MDElement.new(:link,[	
-			"Google images"
-		], {:ref_id=>"google search"})
-	], {}),
-	
-	MDElement.new(:paragraph,[	
+		md_el(:link,[	"Google images"], {:ref_id=>"google search"})
+	]),
+	md_el(:paragraph,[
 		"Inline: ",
-		
-		MDElement.new(:link,[	
-			"Google images"
-		], {:ref_id=>"dummy_0"})
-	], {}),
-	
-	MDElement.new(:paragraph,[	
+		md_el(:link,[	"Google images"], {:ref_id=>"dummy_0"})
+	]),
+	md_el(:paragraph,[
 		"Inline with title: ",
-		
-		MDElement.new(:link,[	
-			"Google images"
-		], {:ref_id=>"dummy_1"})
-	], {}),
-	
-	MDElement.new(:paragraph,[	
+		md_el(:link,[	"Google images"], {:ref_id=>"dummy_1"})
+	]),
+	md_el(:paragraph,[
 		"Inline with title: ",
-		
-		MDElement.new(:link,[	
-			"Google images"
-		], {:ref_id=>"dummy_2"})
-	], {}),
-	
-	MDElement.new(:paragraph,[	
+		md_el(:link,[	"Google images"], {:ref_id=>"dummy_2"})
+	]),
+	md_el(:paragraph,[
 		"Search on ",
-		
-		MDElement.new(:immediate_link,[],{:url=>"http://www.gogole.com"}),
-		
+		md_el(:immediate_link,[], {:url=>"http://www.gogole.com"}),
 		" or ",
-		
-		MDElement.new(:immediate_link,[],{:url=>"http://Here.com"}),
-		
+		md_el(:immediate_link,[], {:url=>"http://Here.com"}),
 		" or ask ",
-		
-		MDElement.new(:immediate_link,[],{:url=>"mailto:bill@google.com"}),
-		
+		md_el(:immediate_link,[], {:url=>"mailto:bill@google.com"}),
 		" or you might ask bill@google.com."
-	], {}),
-	
-	MDElement.new(:paragraph,[	
+	]),
+	md_el(:paragraph,[
 		"If all else fails, ask ",
-		
-		MDElement.new(:link,[	
-			"Google"
-		], {:ref_id=>"dummy_3"}),
-		
+		md_el(:link,[	"Google"], {:ref_id=>"dummy_3"}),
 		"  [google]: http://www.google.com"
-	], {})
-], {})
-***EOF***
+	])
+])
+*** Output of Markdown.pl ***
 <p>Search on <a href="http://www.google.com">Google</a></p>
 
 <p>Search on <a href="http://www.google.com">Google</a></p>
@@ -370,14 +329,14 @@ MDElement.new(:document,[
 
 <p>Inline with title: <a href="http://google.com  "Title"">Google images</a></p>
 
-<p>Search on <a href="http://www.gogole.com">http://www.gogole.com</a> or <a href="http://Here.com">http://Here.com</a> or ask <a href="&#x6D;ai&#108;&#x74;o:&#98;&#105;&#108;&#x6C;&#64;&#103;&#111;&#x6F;&#x67;&#108;&#101;&#46;&#99;&#111;&#109;">&#98;&#105;&#108;&#x6C;&#64;&#103;&#111;&#x6F;&#x67;&#108;&#101;&#46;&#99;&#111;&#109;</a>
+<p>Search on <a href="http://www.gogole.com">http://www.gogole.com</a> or <a href="http://Here.com">http://Here.com</a> or ask <a href="&#x6D;&#97;&#105;&#108;&#116;&#x6F;:&#98;&#x69;&#x6C;&#108;&#64;&#x67;o&#x6F;&#x67;&#108;&#101;&#x2E;&#99;&#111;&#109;">&#98;&#x69;&#x6C;&#108;&#64;&#x67;o&#x6F;&#x67;&#108;&#101;&#x2E;&#99;&#111;&#109;</a>
 or you might ask bill@google.com.</p>
 
 <p>If all else fails, ask <a href="http://www.google.com">Google</a></p>
 
 <p>[google2]: http://www.google.com 'Single quotes'</p>
 
-***EOF***
+*** Output of Markdown.pl (parsed) ***
 Error: #<REXML::ParseException: #<REXML::ParseException: Missing end tag for 'p' (got "div")
 Line: 
 Position: 
@@ -387,12 +346,12 @@ Last 80 unconsumed characters:
 /Volumes/Alter/Ruby/local/lib/ruby/1.8/rexml/parsers/treeparser.rb:21:in `parse'
 /Volumes/Alter/Ruby/local/lib/ruby/1.8/rexml/document.rb:190:in `build'
 /Volumes/Alter/Ruby/local/lib/ruby/1.8/rexml/document.rb:45:in `initialize'
-../bin/marutest:89:in `new'
-../bin/marutest:89:in `run_test'
-../bin/marutest:153:in `marutest'
-../bin/marutest:151:in `each'
-../bin/marutest:151:in `marutest'
-../bin/marutest:212
+bin/marutest:99:in `new'
+bin/marutest:99:in `run_test'
+bin/marutest:163:in `marutest'
+bin/marutest:161:in `each'
+bin/marutest:161:in `marutest'
+bin/marutest:222
 ...
 Missing end tag for 'p' (got "div")
 Line: 

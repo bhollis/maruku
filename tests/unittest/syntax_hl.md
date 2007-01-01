@@ -1,3 +1,5 @@
+Write a comment abouth the test here.
+*** Markdown input: ***
 This is ruby code:
 
 	require 'maruku'
@@ -11,7 +13,7 @@ This is ruby code:
 	require 'maruku'
 	
 	puts Maruku.new($stdin).to_html
-***EOF***
+*** Output of to_html ***
 <p>This is ruby code:</p
     ><pre
       ><code>require &apos;maruku&apos;
@@ -37,7 +39,7 @@ puts Maruku.new($stdin).to_html
       ><span class='ident'>to_html</span
     ></pre
   >
-***EOF***
+*** Output of to_latex ***
 This is ruby code:
 
 \begin{verbatim}require 'maruku'
@@ -50,11 +52,11 @@ This is ruby code:
 
 puts Maruku.new($stdin).to_html\end{verbatim}
 
-***EOF***
+*** Output of to_s ***
 This is ruby code:This is ruby code:
-***EOF***
+*** Output of to_s ***
 This is ruby code:This is ruby code:
-***EOF***
+*** Output of inspect ***
 MDElement.new(:document,[	
 	MDElement.new(:paragraph,[	
 		"This is ruby code:"
@@ -68,14 +70,17 @@ MDElement.new(:document,[
 	
 	MDElement.new(:code,[],{:raw_code=>"require 'maruku'\n\nputs Maruku.new($stdin).to_html", :lang=>"ruby", :html_use_syntax=>true})
 ], {})
-***EOF***
+*** EOF ***
 
-Failed tests:   [] 
+
+
+
+Failed tests:   [:inspect] 
 And the following are the actual outputs for methods:
    [:to_html, :to_latex, :to_s, :to_s, :inspect]:
 
 
-***EOF***
+*** Output of to_html ***
 <p>This is ruby code:</p
     ><pre
       ><code>require &apos;maruku&apos;
@@ -101,7 +106,7 @@ puts Maruku.new($stdin).to_html
       ><span class='ident'>to_html</span
     ></pre
   >
-***EOF***
+*** Output of to_latex ***
 This is ruby code:
 
 \begin{verbatim}require 'maruku'
@@ -114,25 +119,19 @@ This is ruby code:
 
 puts Maruku.new($stdin).to_html\end{verbatim}
 
-***EOF***
+*** Output of to_s ***
 This is ruby code:This is ruby code:
-***EOF***
+*** Output of to_s ***
 This is ruby code:This is ruby code:
-***EOF***
-MDElement.new(:document,[	
-	MDElement.new(:paragraph,[	
-		"This is ruby code:"
-	], {}),
-	
-	MDElement.new(:code,[],{:raw_code=>"require 'maruku'\n\nputs Maruku.new($stdin).to_html\n"}),
-	
-	MDElement.new(:paragraph,[	
-		"This is ruby code:"
-	], {}),
-	
-	MDElement.new(:code,[],{:raw_code=>"require 'maruku'\n\nputs Maruku.new($stdin).to_html", :lang=>"ruby", :html_use_syntax=>true})
-], {})
-***EOF***
+*** Output of inspect ***
+-----| WARNING | -----
+md_el(:document,[
+	md_el(:paragraph,[	"This is ruby code:"]),
+	md_el(:code,[], {:raw_code=>"require 'maruku'\n\nputs Maruku.new($stdin).to_html\n"}),
+	md_el(:paragraph,[	"This is ruby code:"]),
+	md_el(:code,[], {:html_use_syntax=>true, :lang=>"ruby", :raw_code=>"require 'maruku'\n\nputs Maruku.new($stdin).to_html"})
+])
+*** Output of Markdown.pl ***
 <p>This is ruby code:</p>
 
 <pre><code>require 'maruku'
@@ -149,7 +148,7 @@ puts Maruku.new($stdin).to_html
 puts Maruku.new($stdin).to_html
 </code></pre>
 
-***EOF***
+*** Output of Markdown.pl (parsed) ***
 <p>This is ruby code:</p
     ><pre
       ><code>require 'maruku'

@@ -1,3 +1,5 @@
+Write a comment abouth the test here.
+*** Markdown input: ***
  Hello: ! \! \` \{ \} \[ \] \( \) \# \. \! * \* *
 
 
@@ -12,7 +14,7 @@ This is ``Code with a special: -> ` <- ``(after)
 `Start ` of paragraph
 
 End of `paragraph `
-***EOF***
+*** Output of to_html ***
 <p>Hello: ! ! ` { } [ ] ( ) # . ! * * *</p
     ><p>Ora, <em>emphasis</em
       >, <strong>bold</strong
@@ -29,7 +31,7 @@ End of `paragraph `
     ><p>End of <tt>paragraph </tt
     ></p
   >
-***EOF***
+*** Output of to_latex ***
 Hello: ! ! ` \{ \} [ ] ( ) \# . ! * * *
 
 Ora, {\em emphasis}, {\bf bold}, * {\tt \char60}- due asterischi-{\tt \char62} * , un underscore-{\tt \char62} \_ , {\em emphasis}, incre{\em dible}e!
@@ -43,11 +45,11 @@ This is \colorbox[rgb]{0.94,0.94,0.88}{\tt \char67\char111\char100\char101\char3
 End of \colorbox[rgb]{0.94,0.94,0.88}{\tt \char112\char97\char114\char97\char103\char114\char97\char112\char104\char32}
 
 
-***EOF***
+*** Output of to_s ***
 Hello: ! ! ` { } [ ] ( ) # . ! * * *Ora, emphasis, bold, * <- due asterischi-> * , un underscore-> _ , emphasis, incrediblee!This is  (after)This is (after) of paragraphEnd of 
-***EOF***
+*** Output of to_s ***
 Hello: ! ! ` { } [ ] ( ) # . ! * * *Ora, emphasis, bold, * <- due asterischi-> * , un underscore-> _ , emphasis, incrediblee!This is  (after)This is (after) of paragraphEnd of 
-***EOF***
+*** Output of inspect ***
 MDElement.new(:document,[	
 	MDElement.new(:paragraph,[	
 		"Hello: ! ! ` { } [ ] ( ) # . ! * * *"
@@ -109,14 +111,17 @@ MDElement.new(:document,[
 		MDElement.new(:inline_code,[],{:raw_code=>"paragraph "})
 	], {})
 ], {})
-***EOF***
+*** EOF ***
 
-Failed tests:   [:to_html] 
+
+
+
+Failed tests:   [:to_html, :inspect] 
 And the following are the actual outputs for methods:
    [:to_html, :to_latex, :to_s, :to_s, :inspect]:
 
 
-***EOF***
+*** Output of to_html ***
 -----| WARNING | -----
 <p>Hello: ! ! ` { } [ ] ( ) # . ! * * *</p
     ><p>Ora, <em>emphasis</em
@@ -134,7 +139,7 @@ And the following are the actual outputs for methods:
     ><p>End of <code>paragraph </code
     ></p
   >
-***EOF***
+*** Output of to_latex ***
 Hello: ! ! ` \{ \} [ ] ( ) \# . ! * * *
 
 Ora, {\em emphasis}, {\bf bold}, * {\tt \char60}- due asterischi-{\tt \char62} * , un underscore-{\tt \char62} \_ , {\em emphasis}, incre{\em dible}e!
@@ -148,73 +153,45 @@ This is \colorbox[rgb]{0.94,0.94,0.88}{\tt \char67\char111\char100\char101\char3
 End of \colorbox[rgb]{0.94,0.94,0.88}{\tt \char112\char97\char114\char97\char103\char114\char97\char112\char104\char32}
 
 
-***EOF***
+*** Output of to_s ***
 Hello: ! ! ` { } [ ] ( ) # . ! * * *Ora, emphasis, bold, * <- due asterischi-> * , un underscore-> _ , emphasis, incrediblee!This is  (after)This is (after) of paragraphEnd of 
-***EOF***
+*** Output of to_s ***
 Hello: ! ! ` { } [ ] ( ) # . ! * * *Ora, emphasis, bold, * <- due asterischi-> * , un underscore-> _ , emphasis, incrediblee!This is  (after)This is (after) of paragraphEnd of 
-***EOF***
-MDElement.new(:document,[	
-	MDElement.new(:paragraph,[	
-		"Hello: ! ! ` { } [ ] ( ) # . ! * * *"
-	], {}),
-	
-	MDElement.new(:paragraph,[	
+*** Output of inspect ***
+-----| WARNING | -----
+md_el(:document,[
+	md_el(:paragraph,[	"Hello: ! ! ` { } [ ] ( ) # . ! * * *"]),
+	md_el(:paragraph,[
 		"Ora, ",
-		
-		MDElement.new(:emphasis,[	
-			"emphasis"
-		], {}),
-		
+		md_el(:emphasis,[	"emphasis"]),
 		", ",
-		
-		MDElement.new(:strong,[	
-			"bold"
-		], {}),
-		
+		md_el(:strong,[	"bold"]),
 		", * <- due asterischi-> * , un underscore-> _ , ",
-		
-		MDElement.new(:emphasis,[	
-			"emphasis"
-		], {}),
-		
+		md_el(:emphasis,[	"emphasis"]),
 		", incre",
-		
-		MDElement.new(:emphasis,[	
-			"dible"
-		], {}),
-		
+		md_el(:emphasis,[	"dible"]),
 		"e!"
-	], {}),
-	
-	MDElement.new(:paragraph,[	
+	]),
+	md_el(:paragraph,[
 		"This is ",
-		
-		MDElement.new(:inline_code,[],{:raw_code=>"Code with an escape:  -> \\` <- "}),
-		
+		md_el(:inline_code,[], {:raw_code=>"Code with an escape:  -> \\` <- "}),
 		" (after)"
-	], {}),
-	
-	MDElement.new(:paragraph,[	
+	]),
+	md_el(:paragraph,[
 		"This is ",
-		
-		MDElement.new(:inline_code,[],{:raw_code=>"Code with a special: -> ` <- "}),
-		
+		md_el(:inline_code,[], {:raw_code=>"Code with a special: -> ` <- "}),
 		"(after)"
-	], {}),
-	
-	MDElement.new(:paragraph,[	
-		MDElement.new(:inline_code,[],{:raw_code=>"Start "}),
-		
+	]),
+	md_el(:paragraph,[
+		md_el(:inline_code,[], {:raw_code=>"Start "}),
 		" of paragraph"
-	], {}),
-	
-	MDElement.new(:paragraph,[	
+	]),
+	md_el(:paragraph,[
 		"End of ",
-		
-		MDElement.new(:inline_code,[],{:raw_code=>"paragraph "})
-	], {})
-], {})
-***EOF***
+		md_el(:inline_code,[], {:raw_code=>"paragraph "})
+	])
+])
+*** Output of Markdown.pl ***
 <p>Hello: ! ! ` { } [ ] ( ) # . ! * * *</p>
 
 <p>Ora, <em>emphasis</em>, <strong>bold</strong>, * &lt;- due asterischi-> * , un underscore-> _ , <em>emphasis</em>,
@@ -228,7 +205,7 @@ MDElement.new(:document,[
 
 <p>End of <code>paragraph</code></p>
 
-***EOF***
+*** Output of Markdown.pl (parsed) ***
 <p>Hello: ! ! ` { } [ ] ( ) # . ! * * *</p
     ><p>Ora, <em>emphasis</em
       >, <strong>bold</strong

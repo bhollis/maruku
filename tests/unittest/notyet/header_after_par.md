@@ -1,3 +1,5 @@
+Write a comment abouth the test here.
+*** Markdown input: ***
 Paragraph
 ### header ###
 
@@ -9,7 +11,7 @@ Paragraph
 header
 ======
 
-***EOF***
+*** Output of to_html ***
 <p>Paragraph</p
     ><h3 id='header'>header</h3
     ><p>Paragraph</p
@@ -17,7 +19,7 @@ header
     ><p>Paragraph</p
     ><h1 id='header'>header</h1
   >
-***EOF***
+*** Output of to_latex ***
 Paragraph
 
 \hypertarget{header}{}\subsubsection*{{header}}\label{header}
@@ -31,11 +33,11 @@ Paragraph
 \hypertarget{header}{}\section*{{header}}\label{header}
 
 
-***EOF***
+*** Output of to_s ***
 ParagraphheaderParagraphheaderParagraphheader
-***EOF***
+*** Output of to_s ***
 ParagraphheaderParagraphheaderParagraphheader
-***EOF***
+*** Output of inspect ***
 MDElement.new(:document,[	
 	MDElement.new(:paragraph,[	
 		"Paragraph"],
@@ -62,14 +64,17 @@ MDElement.new(:document,[
 		{:section=>_(1)>	  : header (id: 'header')
 	, :id=>"header", :level=>1})],
 	{:title=>"header"})
-***EOF***
+*** EOF ***
 
-Failed tests:   [] 
+
+
+
+Failed tests:   [:inspect] 
 And the following are the actual outputs for methods:
    [:to_html, :to_latex, :to_s, :to_s, :inspect]:
 
 
-***EOF***
+*** Output of to_html ***
 <p>Paragraph</p
     ><h3 id='header'>header</h3
     ><p>Paragraph</p
@@ -77,7 +82,7 @@ And the following are the actual outputs for methods:
     ><p>Paragraph</p
     ><h1 id='header'>header</h1
   >
-***EOF***
+*** Output of to_latex ***
 Paragraph
 
 \hypertarget{header}{}\subsubsection*{{header}}\label{header}
@@ -91,38 +96,22 @@ Paragraph
 \hypertarget{header}{}\section*{{header}}\label{header}
 
 
-***EOF***
+*** Output of to_s ***
 ParagraphheaderParagraphheaderParagraphheader
-***EOF***
+*** Output of to_s ***
 ParagraphheaderParagraphheaderParagraphheader
-***EOF***
-MDElement.new(:document,[	
-	MDElement.new(:paragraph,[	
-		"Paragraph"],
-		{}),
-	
-	MDElement.new(:header,[	
-		"header"],
-		{:id=>"header", :level=>3}),
-	
-	MDElement.new(:paragraph,[	
-		"Paragraph"],
-		{}),
-	
-	MDElement.new(:header,[	
-		"header"],
-		{:id=>"header", :level=>2}),
-	
-	MDElement.new(:paragraph,[	
-		"Paragraph"],
-		{}),
-	
-	MDElement.new(:header,[	
-		"header"],
-		{:section=>_(1)>	  : header (id: 'header')
-	, :id=>"header", :level=>1})],
-	{:title=>"header"})
-***EOF***
+*** Output of inspect ***
+-----| WARNING | -----
+md_el(:document,[
+	md_el(:paragraph,[	"Paragraph"]),
+	md_el(:header,[	"header"], {:level=>3, :id=>"header"}),
+	md_el(:paragraph,[	"Paragraph"]),
+	md_el(:header,[	"header"], {:level=>2, :id=>"header"}),
+	md_el(:paragraph,[	"Paragraph"]),
+	md_el(:header,[	"header"], {:section=>_(1)>	  : header (id: 'header')
+	, :level=>1, :id=>"header"})
+], {:title=>"header"})
+*** Output of Markdown.pl ***
 <p>Paragraph</p>
 
 <h3>header</h3>
@@ -135,7 +124,7 @@ MDElement.new(:document,[
 
 <h1>header</h1>
 
-***EOF***
+*** Output of Markdown.pl (parsed) ***
 <p>Paragraph</p
     ><h3>header</h3
     ><p>Paragraph</p

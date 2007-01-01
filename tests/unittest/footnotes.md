@@ -1,3 +1,5 @@
+Write a comment abouth the test here.
+*** Markdown input: ***
 That's some text with a footnote [^b] and another [^c] and another [^a].
 
 [^a]: And that's the footnote.
@@ -15,7 +17,7 @@ This is second sentence (same paragraph).
 
 
 This is not a footnote.
-***EOF***
+*** Output of to_html ***
 <p>That&apos;s some text with a footnote <sup id='fnref:1'
         ><a href='#fn:1' rel='footnote'>1</a
       ></sup
@@ -47,7 +49,7 @@ This is not a footnote.
       ></ol
     ></div
   >
-***EOF***
+*** Output of to_latex ***
 That's some text with a footnote \footnote{And that's the footnote. This is second sentence (same paragraph)}  and another \footnote{This is the very long one.
 
 That's the second paragraph.}  and another \footnote{And that's the footnote.
@@ -57,11 +59,11 @@ That's the second paragraph of the footnote.} .
 This is not a footnote.
 
 
-***EOF***
+*** Output of to_s ***
 That's some text with a footnote  and another  and another .This is not a footnote.
-***EOF***
+*** Output of to_s ***
 That's some text with a footnote  and another  and another .This is not a footnote.
-***EOF***
+*** Output of inspect ***
 MDElement.new(:document,[	
 	MDElement.new(:paragraph,[	
 		"That's some text with a footnote ",
@@ -83,14 +85,17 @@ MDElement.new(:document,[
 		"This is not a footnote."
 	], {})
 ], {})
-***EOF***
+*** EOF ***
 
-Failed tests:   [] 
+
+
+
+Failed tests:   [:inspect] 
 And the following are the actual outputs for methods:
    [:to_html, :to_latex, :to_s, :to_s, :inspect]:
 
 
-***EOF***
+*** Output of to_html ***
 <p>That&apos;s some text with a footnote <sup id='fnref:1'
         ><a href='#fn:1' rel='footnote'>1</a
       ></sup
@@ -122,7 +127,7 @@ And the following are the actual outputs for methods:
       ></ol
     ></div
   >
-***EOF***
+*** Output of to_latex ***
 That's some text with a footnote \footnote{And that's the footnote. This is second sentence (same paragraph)}  and another \footnote{This is the very long one.
 
 That's the second paragraph.}  and another \footnote{And that's the footnote.
@@ -132,33 +137,25 @@ That's the second paragraph of the footnote.} .
 This is not a footnote.
 
 
-***EOF***
+*** Output of to_s ***
 That's some text with a footnote  and another  and another .This is not a footnote.
-***EOF***
+*** Output of to_s ***
 That's some text with a footnote  and another  and another .This is not a footnote.
-***EOF***
-MDElement.new(:document,[	
-	MDElement.new(:paragraph,[	
+*** Output of inspect ***
+-----| WARNING | -----
+md_el(:document,[
+	md_el(:paragraph,[
 		"That's some text with a footnote ",
-		
-		MDElement.new(:footnote_reference,[],{:footnote_id=>"^b"}),
-		
+		md_el(:footnote_reference,[], {:footnote_id=>"^b"}),
 		" and another ",
-		
-		MDElement.new(:footnote_reference,[],{:footnote_id=>"^c"}),
-		
+		md_el(:footnote_reference,[], {:footnote_id=>"^c"}),
 		" and another ",
-		
-		MDElement.new(:footnote_reference,[],{:footnote_id=>"^a"}),
-		
+		md_el(:footnote_reference,[], {:footnote_id=>"^a"}),
 		"."
-	], {}),
-	
-	MDElement.new(:paragraph,[	
-		"This is not a footnote."
-	], {})
-], {})
-***EOF***
+	]),
+	md_el(:paragraph,[	"This is not a footnote."])
+])
+*** Output of Markdown.pl ***
 <p>That's some text with a footnote [^b] and another [^c] and another [^a].</p>
 
 <p>[^a]: And that's the footnote.</p>
@@ -177,7 +174,7 @@ This is second sentence (same paragraph).</p>
 
 <p>This is not a footnote.</p>
 
-***EOF***
+*** Output of Markdown.pl (parsed) ***
 <p>That's some text with a footnote [^b] and another [^c] and another [^a].</p
     ><p>[^a]: And that's the footnote.</p
     ><pre

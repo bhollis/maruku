@@ -1,3 +1,5 @@
+Write a comment abouth the test here.
+*** Markdown input: ***
 A title with *emphasis*
 =======================
 
@@ -9,7 +11,7 @@ A title with *emphasis*
 
 
 
-***EOF***
+*** Output of to_html ***
 <h1 id='a_title_with_emphasis'>A title with <em>emphasis</em
     ></h1
     ><h2 id='a_title_with_emphasis'>A title with <em>emphasis</em
@@ -17,7 +19,7 @@ A title with *emphasis*
     ><h4 id='a_title_with_emphasis'>A title with <em>emphasis</em
     ></h4
   >
-***EOF***
+*** Output of to_latex ***
 \hypertarget{a_title_with_emphasis}{}\section*{{A title with {\em emphasis}}}\label{a_title_with_emphasis}
 
 \hypertarget{a_title_with_emphasis}{}\subsection*{{A title with {\em emphasis}}}\label{a_title_with_emphasis}
@@ -25,11 +27,11 @@ A title with *emphasis*
 \hypertarget{a_title_with_emphasis}{}\paragraph*{{A title with {\em emphasis}}}\label{a_title_with_emphasis}
 
 
-***EOF***
+*** Output of to_s ***
 A title with emphasisA title with emphasisA title with emphasis
-***EOF***
+*** Output of to_s ***
 A title with emphasisA title with emphasisA title with emphasis
-***EOF***
+*** Output of inspect ***
 MDElement.new(:document,[	
 	MDElement.new(:header,[	
 		"A title with ",
@@ -58,14 +60,17 @@ MDElement.new(:document,[
 		], {})
 	], {:id=>"a_title_with_emphasis", :level=>4})
 ], {:title=>"A title with emphasis"})
-***EOF***
+*** EOF ***
 
-Failed tests:   [] 
+
+
+
+Failed tests:   [:inspect] 
 And the following are the actual outputs for methods:
    [:to_html, :to_latex, :to_s, :to_s, :inspect]:
 
 
-***EOF***
+*** Output of to_html ***
 <h1 id='a_title_with_emphasis'>A title with <em>emphasis</em
     ></h1
     ><h2 id='a_title_with_emphasis'>A title with <em>emphasis</em
@@ -73,7 +78,7 @@ And the following are the actual outputs for methods:
     ><h4 id='a_title_with_emphasis'>A title with <em>emphasis</em
     ></h4
   >
-***EOF***
+*** Output of to_latex ***
 \hypertarget{a_title_with_emphasis}{}\section*{{A title with {\em emphasis}}}\label{a_title_with_emphasis}
 
 \hypertarget{a_title_with_emphasis}{}\subsection*{{A title with {\em emphasis}}}\label{a_title_with_emphasis}
@@ -81,47 +86,37 @@ And the following are the actual outputs for methods:
 \hypertarget{a_title_with_emphasis}{}\paragraph*{{A title with {\em emphasis}}}\label{a_title_with_emphasis}
 
 
-***EOF***
+*** Output of to_s ***
 A title with emphasisA title with emphasisA title with emphasis
-***EOF***
+*** Output of to_s ***
 A title with emphasisA title with emphasisA title with emphasis
-***EOF***
-MDElement.new(:document,[	
-	MDElement.new(:header,[	
+*** Output of inspect ***
+-----| WARNING | -----
+md_el(:document,[
+	md_el(:header,[
 		"A title with ",
-		
-		MDElement.new(:emphasis,[	
-			"emphasis"
-		], {})
+		md_el(:emphasis,[	"emphasis"])
 	], {:section=>_(1)>	  : A title with emphasis (id: 'a_title_with_emphasis')
 	__(2)>	 1 : A title with emphasis (id: 'a_title_with_emphasis')
-	, :id=>"a_title_with_emphasis", :level=>1}),
-	
-	MDElement.new(:header,[	
+	, :level=>1, :id=>"a_title_with_emphasis"}),
+	md_el(:header,[
 		"A title with ",
-		
-		MDElement.new(:emphasis,[	
-			"emphasis"
-		], {})
+		md_el(:emphasis,[	"emphasis"])
 	], {:section=>_(2)>	 1 : A title with emphasis (id: 'a_title_with_emphasis')
-	, :id=>"a_title_with_emphasis", :level=>2}),
-	
-	MDElement.new(:header,[	
+	, :level=>2, :id=>"a_title_with_emphasis"}),
+	md_el(:header,[
 		"A title with ",
-		
-		MDElement.new(:emphasis,[	
-			"emphasis"
-		], {})
-	], {:id=>"a_title_with_emphasis", :level=>4})
+		md_el(:emphasis,[	"emphasis"])
+	], {:level=>4, :id=>"a_title_with_emphasis"})
 ], {:title=>"A title with emphasis"})
-***EOF***
+*** Output of Markdown.pl ***
 <h1>A title with <em>emphasis</em></h1>
 
 <h2>A title with <em>emphasis</em></h2>
 
 <h4>A title with <em>emphasis</em></h4>
 
-***EOF***
+*** Output of Markdown.pl (parsed) ***
 <h1>A title with <em>emphasis</em
     ></h1
     ><h2>A title with <em>emphasis</em

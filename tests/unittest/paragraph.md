@@ -1,49 +1,51 @@
+Write a comment abouth the test here.
+*** Markdown input: ***
 Paragraph
 
-***EOF***
+*** Output of to_html ***
 <p>Paragraph</p
   >
-***EOF***
+*** Output of to_latex ***
 Paragraph
 
 
-***EOF***
+*** Output of to_s ***
 Paragraph
-***EOF***
+*** Output of to_s ***
 Paragraph
-***EOF***
+*** Output of inspect ***
 MDElement.new(:document,[	
 	MDElement.new(:paragraph,[	
 		"Paragraph"
 	], {})
 ], {})
-***EOF***
+*** EOF ***
 
-Failed tests:   [] 
+
+
+
+Failed tests:   [:inspect] 
 And the following are the actual outputs for methods:
    [:to_html, :to_latex, :to_s, :to_s, :inspect]:
 
 
-***EOF***
+*** Output of to_html ***
 <p>Paragraph</p
   >
-***EOF***
+*** Output of to_latex ***
 Paragraph
 
 
-***EOF***
+*** Output of to_s ***
 Paragraph
-***EOF***
+*** Output of to_s ***
 Paragraph
-***EOF***
-MDElement.new(:document,[	
-	MDElement.new(:paragraph,[	
-		"Paragraph"
-	], {})
-], {})
-***EOF***
+*** Output of inspect ***
+-----| WARNING | -----
+md_el(:document,[	md_el(:paragraph,[	"Paragraph"])])
+*** Output of Markdown.pl ***
 <p>Paragraph</p>
 
-***EOF***
+*** Output of Markdown.pl (parsed) ***
 <p>Paragraph</p
   >
