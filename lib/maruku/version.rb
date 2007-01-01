@@ -20,4 +20,13 @@ class Maruku
 	Version = '0.2.13'
 	
 	MarukuURL = 'http://maruku.rubyforge.org/'
+	
+	# If true, use also PHP Markdown extra syntax
+	#
+	# Note: it is not guaranteed that if it's false
+	# then no special features will be used.
+	def markdown_extra?
+		true
+	end
+	
 end

@@ -160,7 +160,9 @@ Examples of PHP Markdown Extra syntax {#extra}
 
 
 * header ids
+
       ## Download ##     {#download}
+
   For example, [a link to the download](#download) header.
 
   Note that you can use also the new [meta-data syntax](#meta) for the same purpose:
@@ -460,6 +462,7 @@ TODO list
 
 
 * Export to HTML
+
   1. Add `-split` options to `maruku` that splits the document over multiple 
      pages. 
 
@@ -469,6 +472,7 @@ TODO list
   2. Include RubyPants
 
 * Export to PDF 
+
   * support for images
 
 * Export to Markdown (pretty-printing)
@@ -485,72 +489,6 @@ I would love to have an equivalent in Ruby.
 [Pandoc]: http://sophos.berkeley.edu/macfarlane/pandoc/
 [MultiMarkdown]: http://fletcher.freeshell.org/wiki/MultiMarkdown
 
-
-### A syntax for specifying meta-data for span-level elements ###
-
-Maybe something like this:
-  
-	This is a paragraph. Really, a normal paragraph. The second 
-	line of this  paragraph has the last element {with meta data}@   class: important_span
-	and the paragraph continues...
-
-So the idea is:
-
-* Only elements at the end of the line can have meta data.
-* Syntax is:
-  1. Opening brace `{`.
-  2. Any string that does not contain the sequence `}@`.
-  3. Closing brace and at-symbol `}@`.
-  4. Attributes specification like the block-level metadata.
-
-Or, we could allow metadata specified **after the text**.
-In the following, three fragments are marked as "special", 
-and, after their containing block-level elements, their 
-attributes are set:
-
-	Lorem ipsum dolor sit @{amet}, consectetuer adipiscing 
-	elit. Donec sit amet sapien vitae augue @{interdum hendrerit.}
-	Maecenas tempor ultrices nisl. @{Praesent laoreet tortor sit
-	amet est.} Praesent in nisl eu libero sodales bibendum.
-
-	@{1} id: amet
-	@{2} style: "font-style: bold"
-	@{3} class: warning
-
-We can be much liberal in the syntax. For example, instead of 
-numeric references to the part in the text, we could write:
-
-	Lorem ipsum dolor sit @{amet}, consectetuer adipiscing 
-	elit. Donec sit amet sapien vitae augue @{interdum hendrerit.}
-	Maecenas tempor ultrices nisl. @{Praesent laoreet tortor sit
-	amet est.} Praesent in nisl eu libero sodales bibendum.
-
-	@{amet} id: amet
-	@{interdum ...} style: "font-style: bold"
-	@{Praesent ...} class: warning
-
-with `...` acting as a wildcard, to match a long phrase (`{	Praesent laoreet tortor sit amet est.}`) without specifying the full text.
-
-I feel this is very readable and not intrusive. But then again,
-subjective tastes vary. Let me know of any comments and suggestions.
-I want to wait for feedback before implementing this.
-
-### A syntax for commenting parts of the document ###
-
-	This is a paragraph
-	% This is a comment
-
-Or `%` on a line by itself comments the following block:
-
-	% The following paragraph is ignored
-	
-	%
-	Lorem ipsum dolor sit amet, consectetuer adipiscing 
-	elit. Donec sit amet sapien vitae augue interdum hendrerit.
-	Maecenas tempor ultrices nisl. Praesent laoreet tortor sit
-	amet est. Praesent in nisl eu libero sodales bibendum.
-
-	This paragraph is not ignored.
 
 ### A syntax for adding math ###
 

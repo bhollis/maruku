@@ -12,7 +12,6 @@ class Maruku
 	EscapedCharInInlineCode = [?\\,?`]
 
 	def parse_lines_as_span(lines)
-		puts "new!"
 		parse_span_better lines.join("\n")
 	end
 
@@ -38,10 +37,10 @@ class Maruku
 			c = src.cur_char
 			break if exit_on_chars && exit_on_chars.include?(c)
 			if exit_on_strings
-				break if exit_on_strings.any? {|x| src.next_chars_are x}
+				break if exit_on_strings.any? {|x| src.cur_chars_are x}
 			end
 			
-			if src.next_chars_are "  \n"
+			if src.cur_chars_are "  \n"
 				src.ignore_chars(3)
 				con.push_element  create_md_element(:linebreak)
 				next
@@ -63,7 +62,7 @@ class Maruku
 				
 				case d = src.next_char
 					when ?!; 
-						if src.next_chars_are '<!--'
+						if src.cur_chars_are '<!--'
 							read_inline_html(src, con)
 						else 
 							con.push_char src.shift_char
@@ -78,10 +77,10 @@ class Maruku
 						elsif src.next_matches(/<\w+:/)
 							read_url_el(src, con)
 						elsif src.next_matches(/<\w/)
-							puts "This is HTML: #{src.cur_chars(20)}"
+#							puts "This is HTML: #{src.cur_chars(20)}"
 							read_inline_html(src, con)
 						else 
-							puts "This is NOT HTML: #{src.cur_chars(20)}"
+#							puts "This is NOT HTML: #{src.cur_chars(20)}"
 							con.push_char src.shift_char
 						end
 				end
@@ -94,7 +93,11 @@ class Maruku
 					con.push_char src.shift_char
 				end
 			when ?[
+				if markdown_extra? && src.next_char == ?^
+					read_footnote_ref(src,con)
+				else
 					read_link(src, con)
+				end
 			when ?!
 				if src.next_char == ?[
 					read_image(src, con)
@@ -103,7 +106,8 @@ class Maruku
 				end
 			when ?*
 				if not src.next_char
-					error "Opening * as last char"
+					error "Opening * as last char", src, con
+			#		con.push_char src.shift_char
 				else
 					follows = src.cur_chars(4)
 					if follows =~ /^\*\*\*[^\s\*]/
@@ -116,9 +120,15 @@ class Maruku
 						con.push_char src.shift_char
 					end
 				end
+			when ?&
+				if m = src.read_regexp(/&([\w\d]+);/)
+					con.push_element md_entity(m[1])
+				else
+					con.push_char src.shift_char
+				end
 			when ?_
 				if not src.next_char
-					error "Opening _ as last char"
+					error "Opening _ as last char", src, con
 				else
 					follows = src.cur_chars(4)
 					if  follows =~ /^\_\_\_[^\s\_]/
@@ -134,7 +144,7 @@ class Maruku
 			when nil
 				error ("Unclosed span (waiting for %s"+
 				 "#{exit_on_strings.inspect})") % [
-						exit_on_chars ? "#{exit_on_chars.inspect} or" : ""]
+						exit_on_chars ? "#{exit_on_chars.inspect} or" : ""], src,con
 			else # normal text
 				con.push_char src.shift_char
 			end # end case
@@ -162,7 +172,7 @@ class Maruku
 	
 	def read_url(src, break_on)
 		if [?',?"].include? src.cur_char 
-			return nil
+			error 'Invalid char for url', src
 		end
 		
 		url = read_simple(src, [], break_on)
@@ -180,7 +190,7 @@ class Maruku
 	
 	# Tries to read a quoted value. If stream does not
 	# start with ' or ", returns nil.
-	def read_quoted(src)
+	def read_quoted(src,con)
 		case src.cur_char
 			when ?', ?"
 				quote_char = src.shift_char # opening quote
@@ -208,8 +218,7 @@ class Maruku
 			when nil
 				s= "String finished while reading (break on #{exit_on_chars.inspect})"+
 				" already read: #{text.inspect}"
-#				puts s
-				error s
+				error s, src
 			when ?\\
 				d = src.next_char
 				if escaped.include? d
@@ -249,11 +258,12 @@ class Maruku
 	
 	SPACE = ?\ # = 32
 	
+#	R_REF_ID = Regexp.compile(/([^\]\s]*)(\s*\])/)
 	R_REF_ID = Regexp.compile(/([^\]\s]*)(\s*\])/)
 	
 	# Reads a bracketed id "[refid]". Consumes also both brackets.
-	def read_ref_id(src)
-		src.ignore_char
+	def read_ref_id(src, con)
+		src.ignore_char # [
 		src.consume_whitespace
 #		puts "Next: #{src.cur_chars(10).inspect}"
 		if m = src.read_regexp(R_REF_ID) 
@@ -261,8 +271,13 @@ class Maruku
 #			puts "Then: #{src.cur_chars(10).inspect}"
 			m[1]
 		else
-			error "Could not read ref_id"
+			error "Could not read ref_id", src, con
 		end
+	end
+	
+	def read_footnote_ref(src,con)
+		ref = read_ref_id(src,con)
+		con.push_element md_foot_ref(ref)
 	end
 	
 	def read_html_comment(con)	
@@ -278,7 +293,8 @@ class Maruku
 			
 			h.eat_this start
 			if not h.is_finished?
-				error "Malformed HTML: #{start.inspect}\n #{h.inspect}"
+				error "inline_html: Malformed:\n "+
+					"#{start.inspect}\n #{h.inspect}",src,con
 			end
 			
 			consumed = start.size - h.rest.size 
@@ -294,7 +310,7 @@ class Maruku
 			if false # we want to be good
 				con.push_char src.shift_char
 			else
-				raise e
+				error "Bad html: \n" + e.inspect,src,con
 			end
 		end
 	end
@@ -306,11 +322,14 @@ class Maruku
 			num_ticks += 1
 			src.ignore_char
 		end
+
 		
 		# ignore space
 		if num_ticks > 1 && src.cur_char == SPACE
 			src.ignore_char
 		end
+
+#		puts "Ticks: #{num_ticks } next: #{src.some} "
 
 		end_string = "`"*num_ticks
 		
@@ -318,21 +337,25 @@ class Maruku
 		while true
 			if not src.cur_char
 				error("Ticks not finished: read #{code.inspect}"+
-				      " and waiting for #{end_string.inspect} num=#{num_ticks}") 
+				      " and waiting for #{end_string.inspect} num=#{num_ticks}",
+						src,con)
 			end
 			
-			break if src.next_chars_are end_string
+			if src.cur_chars(num_ticks) ==end_string # bah
+#				puts "Breaking on #{src.some}  (end:#{end_string.inspect})"
+				src.ignore_chars num_ticks
+				break
+			end
 			
 			code << src.shift_char
 		end
-		src.ignore_chars num_ticks
 
 		# drop last space 
 		if num_ticks > 1 && code[-1] == SPACE
 			code = code[0,code.size-1]
 		end
 
-#		puts "Read `` code: #{code.inspect}"
+#		puts "Read `` code: #{code.inspect}; after: #{src.cur_chars(10).inspect} "
 		con.push_element md_code(code)
 	end
 
@@ -364,22 +387,23 @@ class Maruku
 			src.consume_whitespace
 			url = read_url(src, [SPACE,?\t,?)])
 			if not url
-				error "Could not read url from #{src.cur_chars(10).inspect}"
+				url = ''
+				#error "Could not read url from #{src.cur_chars(10).inspect}"
 			end
 			src.consume_whitespace
 			title = nil
 			if src.cur_char != ?) # we have a title
-				title = read_quoted(src)
-				error 'Must quote title' if not title
+				title = read_quoted(src,con)
+				error 'Must quote title',src,con if not title
 			end
 			src.consume_whitespace
 			closing = src.shift_char # closing )
 			if closing != ?)
-				error 'Unclosed link'
+				error 'Unclosed link',src,con
 			end
 			con.push_element md_im_link(children,url, title)
 		when ?[ # link ref
-			ref_id = read_ref_id(src)
+			ref_id = read_ref_id(src,con)
 			con.push_element md_link(children, ref_id)
 		else # no stuff
 			con.push_elements children
@@ -401,23 +425,24 @@ class Maruku
 			src.consume_whitespace
 			url = read_url(src, [SPACE,?\t,?)])
 			if not url
-				error "Could not read url from #{src.cur_chars(10).inspect}"
+				error "Could not read url from #{src.cur_chars(10).inspect}",
+					src,con
 			end
 			src.consume_whitespace
 			title = nil
 			if src.cur_char != ?) # we have a title
-				title = read_quoted(src)
-				error 'Must quote title' if not title
+				title = read_quoted(src,con)
+				error 'Must quote title',src,con if not title
 			end
 			src.consume_whitespace
 			closing = src.shift_char # closing )
 			if closing != ?)
 				error ("Unclosed link: '"<<closing<<"'")+
-					" Read url=#{url.inspect} title=#{title.inspect}"
+					" Read url=#{url.inspect} title=#{title.inspect}",src,con
 			end
 			con.push_element md_im_image(alt_text, url, title)
 		when ?[ # link ref
-			ref_id = read_ref_id(src)
+			ref_id = read_ref_id(src,con)
 			con.push_element md_image(alt_text, ref_id)
 		else # no stuff
 			con.push_elements children
@@ -470,6 +495,11 @@ class SpanContext
 		@cur_string << ?\  if last != ?\ 
 	end
 	
+	def describe
+		"Context: After reading %s, %s" %
+		[ @elements.inspect, @cur_string.inspect ]
+	end
+	
 end
 
 class CharSource
@@ -509,25 +539,28 @@ class CharSource
 		@buffer[@buffer_index, @buffer.size-@buffer_index]
 	end
 	
-	def next_chars_are(string)
-		r2 = /^.{#{@buffer_index}}#{Regexp.escape string}/xm
+	def cur_chars_are(string)
+		r2 = /^.{#{@buffer_index}}#{Regexp.escape string}/m
 		@buffer =~ r2
 	end
 
 	def next_matches(r)
-		r2 = /^.{#{@buffer_index}}#{r}/
+		r2 = /^.{#{@buffer_index}}#{r}/m
 		r2.match @buffer
 	end
 	
 	def read_regexp(r)
-		r2 = /^.{#{@buffer_index}}#{r}/
+		r2 = /^.{#{@buffer_index}}#{r}/m
 		m = r2.match @buffer
 		if m
 			consumed = m.to_s.size - @buffer_index
 #			puts "Consumed #{consumed} chars (entire is #{m.to_s.inspect})"
 			ignore_chars consumed
 		else
-#			puts "Could not read regexp #{r2.inspect} from #{buf.inspect}"
+#			puts "Could not read regexp #{r2.inspect} from buffer "+
+#			" index=#{@buffer_index}"
+#			puts "Cur chars = #{cur_chars(20).inspect}"
+#			puts "Matches? = #{cur_chars(20) =~ r}"
 		end
 		m
 	end
@@ -542,6 +575,16 @@ class CharSource
 				break
 			end
 		end
+	end
+	
+	def describe
+		"CharSource: At character #{@buffer_index} of block "+
+		" beginning with:\n    #{@buffer[0,50].inspect} ...\n"+
+		" before: \n     ... #{cur_chars(50).inspect} ... "
+	end
+	
+	def some
+		cur_chars(15).inspect
 	end
 end
 

@@ -68,6 +68,9 @@ class Maruku
 			["<em>e</em><em>f</em>a", 
 				[md_html('<em>e</em>'),md_html('<em>f</em>'),'a'], 
 				'Inline HTML 5'],
+				
+				["<img src='a' />", [md_html("<img src='a' />")], 'Attributes'],
+				["<img src='a'/>"],
 			
 			# emphasis
 			["**", :throw, 'Unclosed double **'],
@@ -156,9 +159,9 @@ class Maruku
 			["[a] (	url \"Tit\\\"l\\\\e\")" ],
 			["[a] (	url	\"Tit\\\"l\\\\e\"  )" ],
 			['[a] (	url	"Tit\\"l\\\\e"  )' ],
+			["[a]()", [md_im_link(['a'],'')], 'No URL is OK'],
 		
 			["[a](\"Title\")", :throw, "No url specified" ],
-			["[a]()"],
 			["[a](url \"Title)", :throw, "Unclosed quotes" ],
 			["[a](url \"Title\\\")", :throw],
 			["[a](url \"Title\" ", :throw],
@@ -208,6 +211,19 @@ class Maruku
 			["a <b", :throw, 'Bad HTML 1'],
 			["<b",   :throw, 'Bad HTML 2'],
 			["<b!",  :throw, 'Bad HTML 3'],
+			['`<div>`, `<table>`, `<pre>`, `<p>`',
+				[md_code('<div>'),', ',md_code('<table>'),', ',
+					md_code('<pre>'),', ',md_code('<p>')],
+					'Multiple HTLM tags'],
+					
+			["&andrea", ["&andrea"], 'Parsing of entities'],
+# no escaping is allowed
+#			["\\&andrea;", ["&andrea;"]],
+			["&&andrea;", ["&", md_entity('andrea')] ],
+			["&123;;&amp;",[md_entity('123'),';',md_entity('amp')]],
+			
+			["a\nThe [syntax page] [s] provides", 
+				['a The ', md_link(['syntax page'],'s'), ' provides'], 'Regression'],
 			
 			["#{Maruku8}", [Maruku8], "Reading UTF-8"],
 			["#{AccIta1}", [AccIta8], "Converting ISO-8859-1 to UTF-8", 

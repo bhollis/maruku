@@ -39,7 +39,8 @@ class Maruku
 		@children = parse_lines_as_markdown(lines)
 		
 		self.search_abbreviations
-		self.substitute_markdown_inside_raw_html
+		
+		markdown_extra? && self.substitute_markdown_inside_raw_html
 		
 		toc = create_toc
 
@@ -89,7 +90,7 @@ class Maruku
 						s = original_text.to_s.strip # XXX
 						el = create_md_element(:dummy,
 						 	parse_blocks ? parse_text_as_markdown(s) :
-						                  parse_lines_as_span(s) )
+						                  parse_lines_as_span([s]) )
 						el.children_to_html.each do |x|
 							e.insert_before(original_text, x)
 						end
@@ -101,7 +102,14 @@ class Maruku
 		end
 	end
 	
-	def error(s)
+	def error(s,src=nil,con=nil)
+		if src
+			s += "\n #{src.describe} \n"
+		end
+		if con
+			s += "\n #{con.describe} \n"
+		end
+			
 		raise RuntimeError, s, caller
 	end
 	

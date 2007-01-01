@@ -1,0 +1,37 @@
+#!/usr/bin/env ruby
+
+require 'maruku'
+
+require 'maruku/parse_span_better'
+
+#if File.basename($0) =~ /^maruku/
+	# If we are given filenames, convert each file 
+	if not ARGV.empty?
+		ARGV.each do |f|
+			puts "Opening #{f}"
+	
+			# read file content
+			input =  File.open(f,'r').read
+		
+			# create Maruku
+			doc = Maruku.new(input)
+			
+#			puts doc.inspect
+			# convert to a complete html document
+			html = doc.to_html_document({:indent=>1})
+	
+			# write to file
+			dir = File.dirname(f)
+			filename = File.basename(f, File.extname(f)) + ".html"
+
+			out_xml = File.join(dir, filename)	
+			File.open(out_xml,'w') do |f| f.puts html end
+		end
+	else
+		# else, act as a filter
+		data = $stdin.read
+		puts Maruku.new(data).to_html
+	end
+#eend
+
+

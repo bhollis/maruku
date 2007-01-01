@@ -1,6 +1,8 @@
 require 'maruku'
 require 'bluecloth'
 
+require 'maruku/parse_span_better'
+
 data = $stdin.read
 
 num = 10

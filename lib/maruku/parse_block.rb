@@ -427,29 +427,31 @@ class Maruku
 		
 #		puts "total= #{line}"
 		
-		if match = LinkRegex.match(line)
-			id = match[1]; url = match[2]; title = match[3]; 
-			id = id.strip.downcase
-			
-			hash = self.refs[id] = {:url=>url,:title=>title}
-			
-			stuff=match[4]
-			
-			if stuff
-				stuff.split.each do |couple|
-#					puts "found #{couple}"
-					k, v = couple.split('=')
-					v ||= ""
-					if v[0,1]=='"' then v = v[1, v.size-2] end
-#					puts "key:_#{k}_ value=_#{v}_"
-					hash[k.to_sym] = v
-				end
-			end
-#			puts hash.inspect
-			
-		else
-			raise "Link does not respect format: '#{line}'"
+		match = LinkRegex.match(line)
+		if not match
+			error "Link does not respect format: '#{line}'"
 		end
+		
+		id = match[1]; url = match[2]; title = match[3]; 
+		id = id.strip.downcase
+		
+		hash = self.refs[id] = {:url=>url,:title=>title}
+		
+		stuff=match[4]
+		
+		if stuff
+			stuff.split.each do |couple|
+#					puts "found #{couple}"
+				k, v = couple.split('=')
+				v ||= ""
+				if v[0,1]=='"' then v = v[1, v.size-2] end
+#					puts "key:_#{k}_ value=_#{v}_"
+				hash[k.to_sym] = v
+			end
+		end
+#			puts hash.inspect
+		
+
 	end
 	
 	def read_table

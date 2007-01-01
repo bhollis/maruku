@@ -359,9 +359,13 @@ class MDElement
 		a =  wrap_as_element 'a'
 		
 		if id = @meta[:ref_id]
+			# if empty, use text
+			if id.size == 0
+				id = children.to_s.downcase
+			end
 			ref = @doc.refs[id]
 			if not ref
-				$stderr.puts "Could not find id = #{id.inspect}"
+				$stderr.puts "Could not find id = #{id.inspect} for #{self.inspect}"
 			else
 				url = ref[:url]
 				title = ref[:title]
@@ -408,20 +412,28 @@ class MDElement
 
 	def to_html_image
 		a =  Element.new 'img'
-		id = @meta[:ref_id]
-		ref = @doc.refs[id]
-		if not ref
-			$stderr.puts "Could not find id = '#{id}'"
-		else
-			url = ref[:url]
-			a.attributes['src'] = url
-#			puts ref.inspect
-			[:title, :class, :style].each do |s| 
-				if ref[s] then
-					a.attributes[s.to_s] = ref[s]
+		if id = @meta[:ref_id]
+			ref = @doc.refs[id]
+			if not ref
+				$stderr.puts "Could not find id = #{id.inspect} for\n #{self.inspect}"
+			else
+				url = ref[:url]
+				a.attributes['src'] = url
+	#			puts ref.inspect
+				[:title, :class, :style].each do |s| 
+					if ref[s] then
+						a.attributes[s.to_s] = ref[s]
+					end
 				end
 			end
-			
+		else
+			url = @meta[:url]
+			title = @meta[:title] 
+			if not url
+				$stderr.puts "Image with no ID or url: #{self.inspect}"
+			end
+			a.attributes['src'] = url
+			a.attributes['title'] = title if title
 		end
 		a
 	end
@@ -437,7 +449,6 @@ class MDElement
 				div = Element.new 'div'
 #				div << Text.new(s)
 				return div
-
 			end
 			
 			return root

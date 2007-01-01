@@ -58,7 +58,13 @@ class Maruku
 						end
 					
 						if TO_SANITIZE.include? tag 
-							@already +=  '<%s%s />' % [tag, attributes]
+							attributes.strip!
+					#		puts "Attributes: #{attributes.inspect}"
+							if attributes.size > 0
+								@already +=  '<%s %s />' % [tag, attributes]
+							else
+								@already +=  '<%s />' % [tag]
+							end
 						elsif is_closing
 							@already += @m.to_s
 							if @tag_stack.last != tag

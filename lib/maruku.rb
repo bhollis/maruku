@@ -52,5 +52,8 @@ require 'maruku/to_latex'
 require 'maruku/to_latex_strings'
 require 'maruku/to_latex_entities'
 
+# Pretty print
+require 'maruku/to_markdown'
+
 # Exporting to text: strips all formatting (not complete)
 require 'maruku/to_s'

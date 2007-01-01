@@ -20,13 +20,17 @@
 class Maruku
 	
 	# Split a string into lines, and chomps the newline
-	def Maruku.split_lines(s)
+	def Maruku.split_lines_old(s)
 		a = []
 		s.each_line do |l| 
 			l = l.chomp
 			a << l 
 		end	
 		a
+	end
+
+	def Maruku.split_lines(s)
+		s.split("\n")
 	end
 	
 	# This parses email headers. Returns an hash. hash['data'] is the message.

@@ -321,7 +321,7 @@ class Maruku
 		begin
 			e.meta[:parsed_html] = Document.new(raw_html)
 		rescue 
-			$stderr.puts "Malformed HTML:\n#{raw_html}"
+			$stderr.puts "convert_raw_html_in_list Malformed HTML:\n#{raw_html}"
 		end
 		e
 	end

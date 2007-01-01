@@ -207,14 +207,29 @@ class MDElement
 	end
 	
 	def to_latex_link
-		id = @meta[:ref_id]
-		ref = @doc.refs[id]
-		if not ref
-			$stderr.puts "Could not find id = '#{id}'"
-			return children_to_latex
+		if id = @meta[:ref_id]
+			# if empty, use text
+			if id.size == 0
+				id = children.to_s.downcase
+			end
+			
+			ref = @doc.refs[id]
+			if not ref
+				$stderr.puts "Could not find id = '#{id}'"
+				return children_to_latex
+			else
+				url = ref[:url]
+				#title = ref[:title] || 'no title'
+
+				if url[0,1] == '#'
+					url = url[1,url.size]
+					return "\\hyperlink{#{url}}{#{children_to_latex}}"
+				else
+					return "\\href{#{url}}{#{children_to_latex}}"
+				end
+			end
 		else
-			url = ref[:url]
-			#title = ref[:title] || 'no title'
+			url = @meta[:url]
 
 			if url[0,1] == '#'
 				url = url[1,url.size]
