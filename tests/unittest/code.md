@@ -10,10 +10,8 @@ Here is an example of AppleScript:
     	tab
 
 *** Output of inspect ***
-md_el(:document,[
-	md_el(:paragraph,[	"Here is an example of AppleScript:"]),
-	md_el(:code,[], {:raw_code=>"tell application \"Foo\"\n    beep\nend tell\n\ttab"})
-])
+#<Maruku:0x1072a50 @refs={}, @node_type=:document, @toc=Master
+, @children=[#<MDElement:0x1070b24 @node_type=:paragraph, @doc=#<Maruku:0x1072a50 ...>, @children=["Here is an example of AppleScript:"], @meta={}>, #<MDElement:0x10709e4 @node_type=:code, @doc=#<Maruku:0x1072a50 ...>, @children=[], @meta={:raw_code=>"tell application \"Foo\"\n    beep\nend tell\n\ttab"}>], @doc=#<Maruku:0x1072a50 ...>, @abbreviations={}, @stack=[], @meta={}, @footnotes={}>
 *** Output of to_html ***
 <p>Here is an example of AppleScript:</p
     ><pre
@@ -39,38 +37,10 @@ Here is an example of AppleScript:
 
 
 
-
-Failed tests:   [] 
-And the following are the actual outputs for methods:
-   [:inspect, :to_html, :to_latex, :to_s, :to_md]:
+	OK!
 
 
-*** Output of inspect ***
-md_el(:document,[
-	md_el(:paragraph,[	"Here is an example of AppleScript:"]),
-	md_el(:code,[], {:raw_code=>"tell application \"Foo\"\n    beep\nend tell\n\ttab"})
-])
-*** Output of to_html ***
-<p>Here is an example of AppleScript:</p
-    ><pre
-      ><code>tell application &quot;Foo&quot;
-    beep
-end tell
-	tab</code
-    ></pre
-  >
-*** Output of to_latex ***
-Here is an example of AppleScript:
 
-\begin{verbatim}tell application "Foo"
-    beep
-end tell
-	tab\end{verbatim}
-
-*** Output of to_s ***
-Here is an example of AppleScript:
-*** Output of to_md ***
-Here is an example of AppleScript:
 *** Output of Markdown.pl ***
 <p>Here is an example of AppleScript:</p>
 

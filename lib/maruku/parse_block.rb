@@ -17,6 +17,8 @@
 #   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 class Maruku
+	include Helpers
+	
 	# Splits the string and calls parse_lines_as_markdown
 	def parse_text_as_markdown(text)
 		lines =  Maruku.split_lines(text)
@@ -74,7 +76,7 @@ class Maruku
 
 				# these do not produce output
 				when :footnote_text; read_footnote_text
-				when :ref;           read_ref
+				when :ref_definition;  output << read_ref_definition
 				when :abbreviation;  read_abbreviation
 				when :metadata;      just_read_metadata = read_metadata
 					
@@ -416,7 +418,7 @@ class Maruku
 	
 
 	
-	def read_ref
+	def read_ref_definition
 		line = shift_line
 		
 		# if link is incomplete, shift next line
@@ -451,7 +453,7 @@ class Maruku
 		end
 #			puts hash.inspect
 		
-
+		md_ref_def(id, url, meta={:title=>title})
 	end
 	
 	def read_table

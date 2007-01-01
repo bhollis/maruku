@@ -19,7 +19,7 @@
 
 
 # I did not want to have a class for each possible element. 
-# Instead I opted to have the class "MDElement"
+# Instead I opted to have only the class "MDElement"
 # that represents eveything in the document (paragraphs, headers, etc).
 #
 # You can tell what it is by the variable `node_type`. 
@@ -83,22 +83,14 @@ class MDElement
 	def inspect
 		i2 = inspect2
 		return i2 if i2
-		begin
-			"md_el(:%s,[%s]%s)" %
-			[
-				@node_type,
-				children_inspect, 
-				if @meta.size>0 then 
-					', '+@meta.inspect 
-				else '' end
-			]
-		rescue
-			puts "@node_type: #{@node_type.inspect}"
-			puts "@children: #{@children.inspect}"
-			puts "@meta: #{@meta.inspect}"
-			"ERROR"
-			raise 'null'
-		end
+		"md_el(:%s,%s %s)" %
+		[
+			@node_type,
+			children_inspect, 
+			if @meta.size>0 then 
+				', '+@meta.inspect 
+			else '' end
+		]
 	end
 	
 	def add_tabs(s,n=1)

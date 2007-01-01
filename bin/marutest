@@ -21,7 +21,6 @@ def run_test(filename, its_ok)
 
 	comment   = stuff.shift
 	params = stuff.shift
-#	comment += "\n*** Params ***\n{}"
 	markdown  = stuff.shift
 
 #	puts "comment: #{markdown.inspect}"	
@@ -46,11 +45,6 @@ def run_test(filename, its_ok)
 		end
 	end
 	
-	begin
-	#	d = eval(actual[:inspect])
-	rescue
-		puts "Cannot eval: #{actual[:inspect].inspect}"
-	end
 
 	expected = {}
 	if (stuff.size < TOTEST.size)
@@ -62,6 +56,17 @@ def run_test(filename, its_ok)
 			expected[symbol] = stuff[i]
 #			puts "symbol: #{symbol.inspect} = #{stuff[i].inspect}"
 		end
+	end
+
+	begin
+		m = Maruku.new
+		d = m.instance_eval(expected[:inspect])
+		puts "Eval: #{d.inspect}"
+		expected[:inspect] = d.inspect
+	rescue Exception => e
+		s = e.inspect + e.backtrace.join("\n")
+		raise "Cannot eval user-provided string:\n #{actual[:inspect].inspect}"+
+		"\n #{s}"
 	end
 
 	
@@ -94,7 +99,7 @@ def run_test(filename, its_ok)
 	
 	if not failed.empty? or not crashed.empty? 
 		
-		f.puts "\n\n\n\nFailed tests:   #{failed.inspect} \n"+
+		f.puts "\n\n\n\nFailed tests:   #{failed.inspect} \n" 
 	
 		TOTEST.each do |x|
 			f.write marker(x) 

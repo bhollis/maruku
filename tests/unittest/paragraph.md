@@ -5,7 +5,8 @@ Write a comment abouth the test here.
 Paragraph
 
 *** Output of inspect ***
-md_el(:document,[	md_el(:paragraph,[	"Paragraph"])])
+#<Maruku:0x105b788 @refs={}, @node_type=:document, @toc=Master
+, @children=[#<MDElement:0x1059de8 @node_type=:paragraph, @doc=#<Maruku:0x105b788 ...>, @children=["Paragraph"], @meta={}>], @doc=#<Maruku:0x105b788 ...>, @abbreviations={}, @stack=[], @meta={}, @footnotes={}>
 *** Output of to_html ***
 <p>Paragraph</p
   >
@@ -21,25 +22,10 @@ Paragraph
 
 
 
-
-Failed tests:   [] 
-And the following are the actual outputs for methods:
-   [:inspect, :to_html, :to_latex, :to_s, :to_md]:
+	OK!
 
 
-*** Output of inspect ***
-md_el(:document,[	md_el(:paragraph,[	"Paragraph"])])
-*** Output of to_html ***
-<p>Paragraph</p
-  >
-*** Output of to_latex ***
-Paragraph
 
-
-*** Output of to_s ***
-Paragraph
-*** Output of to_md ***
-Paragraph
 *** Output of Markdown.pl ***
 <p>Paragraph</p>
 

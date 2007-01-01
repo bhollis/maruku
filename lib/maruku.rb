@@ -18,6 +18,8 @@
 
 # Structures definition
 require 'maruku/structures'
+# Less typing
+require 'maruku/helpers'
 
 # Code for parsing whole Markdown documents
 require 'maruku/parse_doc'
@@ -34,8 +36,6 @@ require 'maruku/parse_span'
 # Ugly things kept in a closet
 require 'maruku/string_utils'
 
-# Less typing
-require 'maruku/helpers'
 
 # Code for creating a table of contents
 require 'maruku/toc'

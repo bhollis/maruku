@@ -16,12 +16,8 @@ This is ruby code:
 	
 	puts Maruku.new($stdin).to_html
 *** Output of inspect ***
-md_el(:document,[
-	md_el(:paragraph,[	"This is ruby code:"]),
-	md_el(:code,[], {:raw_code=>"require 'maruku'\n\nputs Maruku.new($stdin).to_html\n"}),
-	md_el(:paragraph,[	"This is ruby code:"]),
-	md_el(:code,[], {:html_use_syntax=>true, :lang=>"ruby", :raw_code=>"require 'maruku'\n\nputs Maruku.new($stdin).to_html"})
-])
+#<Maruku:0x1123918 @refs={}, @node_type=:document, @toc=Master
+, @children=[#<MDElement:0x111ebd4 @node_type=:paragraph, @doc=#<Maruku:0x1123918 ...>, @children=["This is ruby code:"], @meta={}>, #<MDElement:0x111eae4 @node_type=:code, @doc=#<Maruku:0x1123918 ...>, @children=[], @meta={:raw_code=>"require 'maruku'\n\nputs Maruku.new($stdin).to_html\n"}>, #<MDElement:0x111b0d8 @node_type=:paragraph, @doc=#<Maruku:0x1123918 ...>, @children=["This is ruby code:"], @meta={}>, #<MDElement:0x1119c38 @node_type=:code, @doc=#<Maruku:0x1123918 ...>, @children=[], @meta={:lang=>"ruby", :raw_code=>"require 'maruku'\n\nputs Maruku.new($stdin).to_html", :html_use_syntax=>true}>], @doc=#<Maruku:0x1123918 ...>, @abbreviations={}, @stack=[], @meta={}, @footnotes={}>
 *** Output of to_html ***
 <p>This is ruby code:</p
     ><pre
@@ -69,62 +65,10 @@ This is ruby code:This is ruby code:
 
 
 
-
-Failed tests:   [] 
-And the following are the actual outputs for methods:
-   [:inspect, :to_html, :to_latex, :to_s, :to_md]:
+	OK!
 
 
-*** Output of inspect ***
-md_el(:document,[
-	md_el(:paragraph,[	"This is ruby code:"]),
-	md_el(:code,[], {:raw_code=>"require 'maruku'\n\nputs Maruku.new($stdin).to_html\n"}),
-	md_el(:paragraph,[	"This is ruby code:"]),
-	md_el(:code,[], {:html_use_syntax=>true, :lang=>"ruby", :raw_code=>"require 'maruku'\n\nputs Maruku.new($stdin).to_html"})
-])
-*** Output of to_html ***
-<p>This is ruby code:</p
-    ><pre
-      ><code>require &apos;maruku&apos;
 
-puts Maruku.new($stdin).to_html
-</code
-    ></pre
-    ><p>This is ruby code:</p
-    ><pre class='ruby'
-      ><span class='ident'>require</span
-      > <span class='punct'>'</span
-      ><span class='string'>maruku</span
-      ><span class='punct'>'</span
-      >
-
-<span class='ident'>puts</span
-      > <span class='constant'>Maruku</span
-      ><span class='punct'>.</span
-      ><span class='ident'>new</span
-      ><span class='punct'>(</span
-      ><span class='global'>$stdin</span
-      ><span class='punct'>).</span
-      ><span class='ident'>to_html</span
-    ></pre
-  >
-*** Output of to_latex ***
-This is ruby code:
-
-\begin{verbatim}require 'maruku'
-
-puts Maruku.new($stdin).to_html
-\end{verbatim}
-This is ruby code:
-
-\begin{verbatim}require 'maruku'
-
-puts Maruku.new($stdin).to_html\end{verbatim}
-
-*** Output of to_s ***
-This is ruby code:This is ruby code:
-*** Output of to_md ***
-This is ruby code:This is ruby code:
 *** Output of Markdown.pl ***
 <p>This is ruby code:</p>
 

@@ -4,14 +4,18 @@
 
 module Helpers
 
-	def md_code(code)
-		md_el(:inline_code, [], {:raw_code => code})
-	end
-	
 	def md_el(node_type, children=[], meta={})
 		e=MDElement.new(node_type, children, meta)
 		e.doc = self
 		e
+	end
+
+	def md_code(code)
+		md_el(:inline_code, [], {:raw_code => code})
+	end
+
+	def md_par(children, meta={})
+		md_el(:paragraph, [], meta)
 	end
 	
 	def md_html(raw_html)
@@ -38,11 +42,6 @@ module Helpers
 		md_el(:link, children, {:url=>url,:title=>title})
 	end
 	
-	# [1]: http://url [properties]
-	def md_ref_def(ref_id, url, meta={})
-		meta[:url] = url
-		md_el(:ref_definition, [], meta)
-	end
 	
 	def md_image(children, ref_id)
 		md_el(:image, children, {:ref_id=>ref_id})
@@ -87,6 +86,14 @@ module Helpers
 	def md_par(children, meta={})
 		md_el(:paragraph, children, meta)
 	end
+
+	# [1]: http://url [properties]
+	def md_ref_def(ref_id, url, title=nil, meta={})
+		meta[:url] = url
+		meta[:ref_id] = ref_id
+		meta[:title] = title if title
+		md_el(:ref_definition, [], meta)
+	end
 end
 
 class MDElement	
@@ -105,8 +112,6 @@ class MDElement
 			"md_code(%s)" % @meta[:raw_code].inspect
 		when :raw_html
 			"md_html(%s)" % @meta[:raw_html].inspect
-		when :ref_definition # XXX properties
-			"md_ref_def(%s)" % @meta[:url].inspect
 		when :emphasis 
 			"md_em(%s)" % children_inspect
 		when :strong
@@ -133,6 +138,13 @@ class MDElement
 					(title=@meta[:title]) ? (", "+ title.inspect) : ""
 				]
 			end
+		when :ref_definition
+			"md_ref_def(%s, %s %s)" % 
+				[
+					@meta[:ref_id].inspect, 
+					@meta[:url].inspect,
+					@meta[:title] ? ","+@meta[:title].inspect : ""
+				]
 		else
 			nil
 		end
@@ -140,10 +152,11 @@ class MDElement
 	
 
 	def children_inspect
+		s = @children.map{|x| x.inspect}.join(", ")
 		if @children.empty?
 			"[]"
-		elsif @children.size == 1
-			"["+@children[0].inspect+"]"
+		elsif s.size < 70
+			"["+s+"]"
 		else
 			"[\n"+
 			add_tabs(@children.map{|x| x.inspect}.join(",\n"))+

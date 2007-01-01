@@ -188,7 +188,7 @@ class Maruku
 		# raw html is like PHP Markdown Extra: at most three spaces before
 		return :code     if number_of_leading_spaces(l)>=4
 		return :footnote_text      if l =~ FootnoteText
-		return :ref if l =~ LinkRegex or l=~ IncompleteLink
+		return :ref_definition if l =~ LinkRegex or l=~ IncompleteLink
 		return :abbreviation if l =~ Abbreviation
 		return :definition if l =~ Definition
 		# I had a bug with emails and urls at the beginning of the 

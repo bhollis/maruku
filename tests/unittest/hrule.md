@@ -14,13 +14,8 @@ Write a comment abouth the test here.
 
 
 *** Output of inspect ***
-md_el(:document,[
-	md_el(:hrule,[]),
-	md_el(:hrule,[]),
-	md_el(:hrule,[]),
-	md_el(:hrule,[]),
-	md_el(:hrule,[])
-])
+#<Maruku:0x1080cf4 @refs={}, @node_type=:document, @toc=Master
+, @children=[#<MDElement:0x1080a24 @node_type=:hrule, @doc=#<Maruku:0x1080cf4 ...>, @children=[], @meta={}>, #<MDElement:0x108095c @node_type=:hrule, @doc=#<Maruku:0x1080cf4 ...>, @children=[], @meta={}>, #<MDElement:0x1080894 @node_type=:hrule, @doc=#<Maruku:0x1080cf4 ...>, @children=[], @meta={}>, #<MDElement:0x10807cc @node_type=:hrule, @doc=#<Maruku:0x1080cf4 ...>, @children=[], @meta={}>, #<MDElement:0x1080704 @node_type=:hrule, @doc=#<Maruku:0x1080cf4 ...>, @children=[], @meta={}>], @doc=#<Maruku:0x1080cf4 ...>, @abbreviations={}, @stack=[], @meta={}, @footnotes={}>
 *** Output of to_html ***
 <hr
     /><hr
@@ -48,42 +43,9 @@ md_el(:document,[
 
 
 
-
-Failed tests:   [] 
-And the following are the actual outputs for methods:
-   [:inspect, :to_html, :to_latex, :to_s, :to_md]:
+	OK!
 
 
-*** Output of inspect ***
-md_el(:document,[
-	md_el(:hrule,[]),
-	md_el(:hrule,[]),
-	md_el(:hrule,[]),
-	md_el(:hrule,[]),
-	md_el(:hrule,[])
-])
-*** Output of to_html ***
-<hr
-    /><hr
-    /><hr
-    /><hr
-    /><hr
-    />
-*** Output of to_latex ***
-
-\vspace{.5em} \hrule \vspace{.5em}
-
-\vspace{.5em} \hrule \vspace{.5em}
-
-\vspace{.5em} \hrule \vspace{.5em}
-
-\vspace{.5em} \hrule \vspace{.5em}
-
-\vspace{.5em} \hrule \vspace{.5em}
-
-*** Output of to_s ***
-
-*** Output of to_md ***
 
 *** Output of Markdown.pl ***
 <hr />

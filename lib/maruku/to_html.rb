@@ -581,6 +581,9 @@ class MDElement
 		e
 	end
 	
+	def to_html_ref_definition; [] end
+	def to_latex_ref_definition; [] end
+	
 end
 
 

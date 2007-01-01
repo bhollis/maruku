@@ -13,16 +13,8 @@ Orange
 :   The fruit of an evergreen tree of the genus Citrus.
 
 *** Output of inspect ***
-md_el(:document,[	md_el(:definition_list,[
-		md_el(:definition,[
-			md_el(:definition_term,[	"Apple"]),
-			md_el(:definition_data,[	"Pomaceous fruit of plants of the genus Malus in the family Rosaceae."])
-		], {:definitions=>[md_el(:definition_data,[	"Pomaceous fruit of plants of the genus Malus in the family Rosaceae."])], :want_my_paragraph=>false, :terms=>[md_el(:definition_term,[	"Apple"])]}),
-		md_el(:definition,[
-			md_el(:definition_term,[	"Orange"]),
-			md_el(:definition_data,[	"The fruit of an evergreen tree of the genus Citrus."])
-		], {:definitions=>[md_el(:definition_data,[	"The fruit of an evergreen tree of the genus Citrus."])], :want_my_paragraph=>false, :terms=>[md_el(:definition_term,[	"Orange"])]})
-	])], {:css=>"style.css"})
+#<Maruku:0x110925c @refs={}, @node_type=:document, @toc=Master
+, @children=[#<MDElement:0x1103ce4 @node_type=:definition_list, @doc=#<Maruku:0x110925c ...>, @children=[#<MDElement:0x1103d34 @node_type=:definition, @doc=#<Maruku:0x110925c ...>, @children=[#<MDElement:0x1106bc4 @node_type=:definition_term, @doc=#<Maruku:0x110925c ...>, @children=["Apple"], @meta={}>, #<MDElement:0x1103dd4 @node_type=:definition_data, @doc=#<Maruku:0x110925c ...>, @children=["Pomaceous fruit of plants of the genus Malus in the family Rosaceae."], @meta={}>], @meta={:definitions=>[#<MDElement:0x1103dd4 @node_type=:definition_data, @doc=#<Maruku:0x110925c ...>, @children=["Pomaceous fruit of plants of the genus Malus in the family Rosaceae."], @meta={}>], :want_my_paragraph=>false, :terms=>[#<MDElement:0x1106bc4 @node_type=:definition_term, @doc=#<Maruku:0x110925c ...>, @children=["Apple"], @meta={}>]}>, #<MDElement:0x10ff39c @node_type=:definition, @doc=#<Maruku:0x110925c ...>, @children=[#<MDElement:0x11019a8 @node_type=:definition_term, @doc=#<Maruku:0x110925c ...>, @children=["Orange"], @meta={}>, #<MDElement:0x10ff3d8 @node_type=:definition_data, @doc=#<Maruku:0x110925c ...>, @children=["The fruit of an evergreen tree of the genus Citrus."], @meta={}>], @meta={:definitions=>[#<MDElement:0x10ff3d8 @node_type=:definition_data, @doc=#<Maruku:0x110925c ...>, @children=["The fruit of an evergreen tree of the genus Citrus."], @meta={}>], :want_my_paragraph=>false, :terms=>[#<MDElement:0x11019a8 @node_type=:definition_term, @doc=#<Maruku:0x110925c ...>, @children=["Orange"], @meta={}>]}>], @meta={}>], @doc=#<Maruku:0x110925c ...>, @abbreviations={}, @stack=[], @meta={:css=>"style.css"}, @footnotes={}>
 *** Output of to_html ***
 <dl
       ><dt>Apple</dt
@@ -47,43 +39,10 @@ ApplePomaceous fruit of plants of the genus Malus in the family Rosaceae.OrangeT
 
 
 
-
-Failed tests:   [] 
-And the following are the actual outputs for methods:
-   [:inspect, :to_html, :to_latex, :to_s, :to_md]:
+	OK!
 
 
-*** Output of inspect ***
-md_el(:document,[	md_el(:definition_list,[
-		md_el(:definition,[
-			md_el(:definition_term,[	"Apple"]),
-			md_el(:definition_data,[	"Pomaceous fruit of plants of the genus Malus in the family Rosaceae."])
-		], {:definitions=>[md_el(:definition_data,[	"Pomaceous fruit of plants of the genus Malus in the family Rosaceae."])], :want_my_paragraph=>false, :terms=>[md_el(:definition_term,[	"Apple"])]}),
-		md_el(:definition,[
-			md_el(:definition_term,[	"Orange"]),
-			md_el(:definition_data,[	"The fruit of an evergreen tree of the genus Citrus."])
-		], {:definitions=>[md_el(:definition_data,[	"The fruit of an evergreen tree of the genus Citrus."])], :want_my_paragraph=>false, :terms=>[md_el(:definition_term,[	"Orange"])]})
-	])], {:css=>"style.css"})
-*** Output of to_html ***
-<dl
-      ><dt>Apple</dt
-      ><dd>Pomaceous fruit of plants of the genus Malus in the family Rosaceae.</dd
-      ><dt>Orange</dt
-      ><dd>The fruit of an evergreen tree of the genus Citrus.</dd
-    ></dl
-  >
-*** Output of to_latex ***
-\begin{description}
 
-\item[Apple] Pomaceous fruit of plants of the genus Malus in the family Rosaceae. 
-
-\item[Orange] The fruit of an evergreen tree of the genus Citrus. 
-\end{description}
-
-*** Output of to_s ***
-ApplePomaceous fruit of plants of the genus Malus in the family Rosaceae.OrangeThe fruit of an evergreen tree of the genus Citrus.
-*** Output of to_md ***
-ApplePomaceous fruit of plants of the genus Malus in the family Rosaceae.OrangeThe fruit of an evergreen tree of the genus Citrus.
 *** Output of Markdown.pl ***
 <p>CSS: style.css</p>
 

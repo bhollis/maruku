@@ -17,16 +17,8 @@ Paragraph 5
 Escaping: & { } [ ] ! 
 
 *** Output of inspect ***
-md_el(:document,[
-	md_el(:paragraph,[	"Paragraph 1"]),
-	md_el(:paragraph,[	"Paragraph 2"]),
-	md_el(:paragraph,[
-		"Paragraph 3 Paragraph 4 Paragraph Br->",
-		md_el(:linebreak,[]),
-		"Paragraph 5"
-	]),
-	md_el(:paragraph,[	"Escaping: & { } [ ] !"])
-])
+#<Maruku:0x1050108 @refs={}, @node_type=:document, @toc=Master
+, @children=[#<MDElement:0x104e380 @node_type=:paragraph, @doc=#<Maruku:0x1050108 ...>, @children=["Paragraph 1"], @meta={}>, #<MDElement:0x104c9b8 @node_type=:paragraph, @doc=#<Maruku:0x1050108 ...>, @children=["Paragraph 2"], @meta={}>, #<MDElement:0x10492e0 @node_type=:paragraph, @doc=#<Maruku:0x1050108 ...>, @children=["Paragraph 3 Paragraph 4 Paragraph Br->", #<MDElement:0x104be3c @node_type=:linebreak, @doc=#<Maruku:0x1050108 ...>, @children=[], @meta={}>, "Paragraph 5"], @meta={}>, #<MDElement:0x1047904 @node_type=:paragraph, @doc=#<Maruku:0x1050108 ...>, @children=["Escaping: & { } [ ] !"], @meta={}>], @doc=#<Maruku:0x1050108 ...>, @abbreviations={}, @stack=[], @meta={}, @footnotes={}>
 *** Output of to_html ***
 <p>Paragraph 1</p
     ><p>Paragraph 2</p
@@ -52,44 +44,10 @@ Paragraph 1Paragraph 2Paragraph 3 Paragraph 4 Paragraph Br->Paragraph 5Escaping:
 
 
 
-
-Failed tests:   [] 
-And the following are the actual outputs for methods:
-   [:inspect, :to_html, :to_latex, :to_s, :to_md]:
+	OK!
 
 
-*** Output of inspect ***
-md_el(:document,[
-	md_el(:paragraph,[	"Paragraph 1"]),
-	md_el(:paragraph,[	"Paragraph 2"]),
-	md_el(:paragraph,[
-		"Paragraph 3 Paragraph 4 Paragraph Br->",
-		md_el(:linebreak,[]),
-		"Paragraph 5"
-	]),
-	md_el(:paragraph,[	"Escaping: & { } [ ] !"])
-])
-*** Output of to_html ***
-<p>Paragraph 1</p
-    ><p>Paragraph 2</p
-    ><p>Paragraph 3 Paragraph 4 Paragraph Br-&gt;<br
-      />Paragraph 5</p
-    ><p>Escaping: &amp; { } [ ] !</p
-  >
-*** Output of to_latex ***
-Paragraph 1
 
-Paragraph 2
-
-Paragraph 3 Paragraph 4 Paragraph Br-{\tt \char62}\linebreak Paragraph 5
-
-Escaping: \& \{ \} [ ] !
-
-
-*** Output of to_s ***
-Paragraph 1Paragraph 2Paragraph 3 Paragraph 4 Paragraph Br->Paragraph 5Escaping: & { } [ ] !
-*** Output of to_md ***
-Paragraph 1Paragraph 2Paragraph 3 Paragraph 4 Paragraph Br->Paragraph 5Escaping: & { } [ ] !
 *** Output of Markdown.pl ***
 <p>Paragraph 1</p>
 
