@@ -9,7 +9,7 @@ Search on [Google] [Google]
 
 Search on [Google images][]
 
-Search on [Google images][ 	GoOgle search ]
+Search on [Google images][ 	GoOgle_search ]
 
 Inline: [Google images](http://google.com)
 

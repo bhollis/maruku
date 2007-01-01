@@ -1,7 +1,11 @@
 Write a comment abouth the test here.
+*** Parameters: ***
+{}
 *** Markdown input: ***
 Paragraph
 
+*** Output of inspect ***
+md_el(:document,[	md_el(:paragraph,[	"Paragraph"])])
 *** Output of to_html ***
 <p>Paragraph</p
   >
@@ -11,24 +15,20 @@ Paragraph
 
 *** Output of to_s ***
 Paragraph
-*** Output of to_s ***
+*** Output of to_md ***
 Paragraph
-*** Output of inspect ***
-MDElement.new(:document,[	
-	MDElement.new(:paragraph,[	
-		"Paragraph"
-	], {})
-], {})
 *** EOF ***
 
 
 
 
-Failed tests:   [:inspect] 
+Failed tests:   [] 
 And the following are the actual outputs for methods:
-   [:to_html, :to_latex, :to_s, :to_s, :inspect]:
+   [:inspect, :to_html, :to_latex, :to_s, :to_md]:
 
 
+*** Output of inspect ***
+md_el(:document,[	md_el(:paragraph,[	"Paragraph"])])
 *** Output of to_html ***
 <p>Paragraph</p
   >
@@ -38,11 +38,8 @@ Paragraph
 
 *** Output of to_s ***
 Paragraph
-*** Output of to_s ***
+*** Output of to_md ***
 Paragraph
-*** Output of inspect ***
------| WARNING | -----
-md_el(:document,[	md_el(:paragraph,[	"Paragraph"])])
 *** Output of Markdown.pl ***
 <p>Paragraph</p>
 

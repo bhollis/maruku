@@ -1,4 +1,6 @@
 Write a comment abouth the test here.
+*** Parameters: ***
+{}
 *** Markdown input: ***
 CSS: style.css
 
@@ -43,114 +45,29 @@ The following is invalid HTML, and will generate an error:
 </table>
 
 
-*** Output of to_html ***
-<p>Input: <em>Emphasis</em> Result: <em>Emphasis</em></pre
-    ></p
-    ><p>Input: <img src='http://jigsaw.w3.org/css-validator/images/vcss'
-      /> Result on span: <img src='http://jigsaw.w3.org/css-validator/images/vcss'
-      /></p
-    ><p>Result alone:</p
-    ><img src='http://jigsaw.w3.org/css-validator/images/vcss'
-    /><p>Without closing:</p
-    ><img src='http://jigsaw.w3.org/css-validator/images/vcss'
-    /><div
-      ><p>This is <em>true</em
-        > markdown text (paragraph)</p
-      ><p>This is <em>true</em
-        > markdown text (no paragraph)</p
-    ></div
-    ><table>
-<tr>
-<td>This is <em>true</em
-          > markdown text. (no par)</td
-        >
-<td
-          ><p>This is <em>true</em
-            > markdown text. (par)</p
-        ></td
-        >
-</tr
-      >
-</table
-    ><p>The following is invalid HTML, and will generate an error:</p
-    ><pre class='markdown-html-error' style='border: solid 3px red; background-color: pink'>HTML parse error: 
-&lt;table&gt;
-&lt;td markdown=&quot;1&quot;&gt;This is *true* markdown text. (no par)&lt;/td&gt;
-&lt;td markdown=&quot;block&quot;&gt;This is *true* markdown text. (par)&lt;/td&gt;
-&lt;/tr&gt;</pre
-    ><pre class='markdown-html-error' style='border: solid 3px red; background-color: pink'>HTML parse error: 
-&lt;/table&gt;</pre
-  >
-*** Output of to_latex ***
-Input: {\bf Raw HTML removed in latex version }
-
-Input: {\bf Raw HTML removed in latex version } Result on span: {\bf Raw HTML removed in latex version }
-
-Result alone:
-
-{\bf Raw HTML removed in latex version }Without closing:
-
-{\bf Raw HTML removed in latex version }{\bf Raw HTML removed in latex version }{\bf Raw HTML removed in latex version }The following is invalid HTML, and will generate an error:
-
-{\bf Raw HTML removed in latex version }{\bf Raw HTML removed in latex version }
-*** Output of to_s ***
-Input: Input:  Result on span: Result alone:Without closing:The following is invalid HTML, and will generate an error:
-*** Output of to_s ***
-Input: Input:  Result on span: Result alone:Without closing:The following is invalid HTML, and will generate an error:
 *** Output of inspect ***
-MDElement.new(:document,[	
-	MDElement.new(:paragraph,[	
+md_el(:document,[
+	md_el(:paragraph,[
 		"Input: ",
-		
-		MDElement.new(:raw_html,[],{:raw_html=>"<em>Emphasis</em> Result: <em>Emphasis</em>"})
-	], {}),
-	
-	MDElement.new(:paragraph,[	
+		md_el(:raw_html,[], {:raw_html=>"<em>Emphasis</em> Result: <em>Emphasis</em>"})
+	]),
+	md_el(:paragraph,[
 		"Input: ",
-		
-		MDElement.new(:raw_html,[],{:raw_html=>"<img src=\"http://jigsaw.w3.org/css-validator/images/vcss\"/>", :parsed_html=><UNDEFINED> ... </>}),
-		
+		md_el(:raw_html,[], {:raw_html=>"<img src=\"http://jigsaw.w3.org/css-validator/images/vcss\"/>", :parsed_html=><UNDEFINED> ... </>}),
 		" Result on span: ",
-		
-		MDElement.new(:raw_html,[],{:raw_html=>"<img src=\"http://jigsaw.w3.org/css-validator/images/vcss\"/>", :parsed_html=><UNDEFINED> ... </>})
-	], {}),
-	
-	MDElement.new(:paragraph,[	
-		"Result alone:"
-	], {}),
-	
-	MDElement.new(:raw_html,[],{:raw_html=>"<img  src=\"http://jigsaw.w3.org/css-validator/images/vcss\" />", :parsed_html=><UNDEFINED> ... </>}),
-	
-	MDElement.new(:paragraph,[	
-		"Without closing:"
-	], {}),
-	
-	MDElement.new(:raw_html,[],{:raw_html=>"<img  src=\"http://jigsaw.w3.org/css-validator/images/vcss\" />", :parsed_html=><UNDEFINED> ... </>}),
-	
-	MDElement.new(:raw_html,[],{:raw_html=>"<div markdown=\"1\">\n\tThis is *true* markdown text (paragraph)\n\n\t<p markdown=\"1\">\n\t\tThis is *true* markdown text (no paragraph)\n\t</p>\n</div>", :parsed_html=><UNDEFINED> ... </>}),
-	
-	MDElement.new(:raw_html,[],{:raw_html=>"<table>\n<tr>\n<td markdown=\"1\">This is *true* markdown text. (no par)</td>\n<td markdown=\"block\">This is *true* markdown text. (par)</td>\n</tr>\n</table>", :parsed_html=><UNDEFINED> ... </>}),
-	
-	MDElement.new(:paragraph,[	
-		"The following is invalid HTML, and will generate an error:"
-	], {}),
-	
-	MDElement.new(:raw_html,[],{:raw_html=>"<table>\n<td markdown=\"1\">This is *true* markdown text. (no par)</td>\n<td markdown=\"block\">This is *true* markdown text. (par)</td>\n</tr>"}),
-	
-	MDElement.new(:raw_html,[],{:raw_html=>"</table>"})
+		md_el(:raw_html,[], {:raw_html=>"<img src=\"http://jigsaw.w3.org/css-validator/images/vcss\"/>", :parsed_html=><UNDEFINED> ... </>})
+	]),
+	md_el(:paragraph,[	"Result alone:"]),
+	md_el(:raw_html,[], {:raw_html=>"<img src=\"http://jigsaw.w3.org/css-validator/images/vcss\" />", :parsed_html=><UNDEFINED> ... </>}),
+	md_el(:paragraph,[	"Without closing:"]),
+	md_el(:raw_html,[], {:raw_html=>"<img src=\"http://jigsaw.w3.org/css-validator/images/vcss\" />", :parsed_html=><UNDEFINED> ... </>}),
+	md_el(:raw_html,[], {:raw_html=>"<div markdown=\"1\">\n\tThis is *true* markdown text (paragraph)\n\n\t<p markdown=\"1\">\n\t\tThis is *true* markdown text (no paragraph)\n\t</p>\n</div>", :parsed_html=><UNDEFINED> ... </>}),
+	md_el(:raw_html,[], {:raw_html=>"<table>\n<tr>\n<td markdown=\"1\">This is *true* markdown text. (no par)</td>\n<td markdown=\"block\">This is *true* markdown text. (par)</td>\n</tr>\n</table>", :parsed_html=><UNDEFINED> ... </>}),
+	md_el(:paragraph,[	"The following is invalid HTML, and will generate an error:"]),
+	md_el(:raw_html,[], {:raw_html=>"<table>\n<td markdown=\"1\">This is *true* markdown text. (no par)</td>\n<td markdown=\"block\">This is *true* markdown text. (par)</td>\n</tr>"}),
+	md_el(:raw_html,[], {:raw_html=>"</table>"})
 ], {:css=>"style.css"})
-*** EOF ***
-
-
-
-
-Failed tests:   [:to_html, :inspect] 
-And the following are the actual outputs for methods:
-   [:to_html, :to_latex, :to_s, :to_s, :inspect]:
-
-
 *** Output of to_html ***
------| WARNING | -----
 <p>Input: <pre class='markdown-html-error' style='border: solid 3px red; background-color: pink'>HTML parse error: 
 &lt;em&gt;Emphasis&lt;/em&gt; Result: &lt;em&gt;Emphasis&lt;/em&gt;</pre
     ></p
@@ -203,10 +120,19 @@ Result alone:
 {\bf Raw HTML removed in latex version }{\bf Raw HTML removed in latex version }
 *** Output of to_s ***
 Input: Input:  Result on span: Result alone:Without closing:The following is invalid HTML, and will generate an error:
-*** Output of to_s ***
+*** Output of to_md ***
 Input: Input:  Result on span: Result alone:Without closing:The following is invalid HTML, and will generate an error:
+*** EOF ***
+
+
+
+
+Failed tests:   [] 
+And the following are the actual outputs for methods:
+   [:inspect, :to_html, :to_latex, :to_s, :to_md]:
+
+
 *** Output of inspect ***
------| WARNING | -----
 md_el(:document,[
 	md_el(:paragraph,[
 		"Input: ",
@@ -228,6 +154,61 @@ md_el(:document,[
 	md_el(:raw_html,[], {:raw_html=>"<table>\n<td markdown=\"1\">This is *true* markdown text. (no par)</td>\n<td markdown=\"block\">This is *true* markdown text. (par)</td>\n</tr>"}),
 	md_el(:raw_html,[], {:raw_html=>"</table>"})
 ], {:css=>"style.css"})
+*** Output of to_html ***
+<p>Input: <pre class='markdown-html-error' style='border: solid 3px red; background-color: pink'>HTML parse error: 
+&lt;em&gt;Emphasis&lt;/em&gt; Result: &lt;em&gt;Emphasis&lt;/em&gt;</pre
+    ></p
+    ><p>Input: <img src='http://jigsaw.w3.org/css-validator/images/vcss'
+      /> Result on span: <img src='http://jigsaw.w3.org/css-validator/images/vcss'
+      /></p
+    ><p>Result alone:</p
+    ><img src='http://jigsaw.w3.org/css-validator/images/vcss'
+    /><p>Without closing:</p
+    ><img src='http://jigsaw.w3.org/css-validator/images/vcss'
+    /><div
+      ><p>This is <em>true</em
+        > markdown text (paragraph)</p
+      ><p>This is <em>true</em
+        > markdown text (no paragraph)</p
+    ></div
+    ><table>
+<tr>
+<td>This is <em>true</em
+          > markdown text. (no par)</td
+        >
+<td
+          ><p>This is <em>true</em
+            > markdown text. (par)</p
+        ></td
+        >
+</tr
+      >
+</table
+    ><p>The following is invalid HTML, and will generate an error:</p
+    ><pre class='markdown-html-error' style='border: solid 3px red; background-color: pink'>HTML parse error: 
+&lt;table&gt;
+&lt;td markdown=&quot;1&quot;&gt;This is *true* markdown text. (no par)&lt;/td&gt;
+&lt;td markdown=&quot;block&quot;&gt;This is *true* markdown text. (par)&lt;/td&gt;
+&lt;/tr&gt;</pre
+    ><pre class='markdown-html-error' style='border: solid 3px red; background-color: pink'>HTML parse error: 
+&lt;/table&gt;</pre
+  >
+*** Output of to_latex ***
+Input: {\bf Raw HTML removed in latex version }
+
+Input: {\bf Raw HTML removed in latex version } Result on span: {\bf Raw HTML removed in latex version }
+
+Result alone:
+
+{\bf Raw HTML removed in latex version }Without closing:
+
+{\bf Raw HTML removed in latex version }{\bf Raw HTML removed in latex version }{\bf Raw HTML removed in latex version }The following is invalid HTML, and will generate an error:
+
+{\bf Raw HTML removed in latex version }{\bf Raw HTML removed in latex version }
+*** Output of to_s ***
+Input: Input:  Result on span: Result alone:Without closing:The following is invalid HTML, and will generate an error:
+*** Output of to_md ***
+Input: Input:  Result on span: Result alone:Without closing:The following is invalid HTML, and will generate an error:
 *** Output of Markdown.pl ***
 <p>CSS: style.css</p>
 
@@ -280,12 +261,12 @@ Last 80 unconsumed characters:
 /Volumes/Alter/Ruby/local/lib/ruby/1.8/rexml/parsers/treeparser.rb:21:in `parse'
 /Volumes/Alter/Ruby/local/lib/ruby/1.8/rexml/document.rb:190:in `build'
 /Volumes/Alter/Ruby/local/lib/ruby/1.8/rexml/document.rb:45:in `initialize'
-bin/marutest:99:in `new'
-bin/marutest:99:in `run_test'
-bin/marutest:163:in `marutest'
-bin/marutest:161:in `each'
-bin/marutest:161:in `marutest'
-bin/marutest:222
+bin/marutest:112:in `new'
+bin/marutest:112:in `run_test'
+bin/marutest:176:in `marutest'
+bin/marutest:174:in `each'
+bin/marutest:174:in `marutest'
+bin/marutest:244
 ...
 Missing end tag for 'img' (got "p")
 Line: 

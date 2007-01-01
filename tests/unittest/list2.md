@@ -1,4 +1,6 @@
 Write a comment abouth the test here.
+*** Parameters: ***
+{}
 *** Markdown input: ***
 *   This is a list item with two paragraphs.
 
@@ -6,6 +8,11 @@ Write a comment abouth the test here.
 only required to indent the first line. Lorem ipsum dolor
 sit amet, consectetuer adipiscing elit.
 
+*** Output of inspect ***
+md_el(:document,[	md_el(:ul,[	md_el(:li,[
+			md_el(:paragraph,[	"This is a list item with two paragraphs."]),
+			md_el(:paragraph,[	"This is the second paragraph in the list item. You're only required to indent the first line. Lorem ipsum dolo sit amet, consectetuer adipiscing elit"])
+		], {:want_my_paragraph=>true})])])
 *** Output of to_html ***
 <ul
       ><li
@@ -26,32 +33,23 @@ This is the second paragraph in the list item. You're only required to indent th
 
 *** Output of to_s ***
 This is a list item with two paragraphs.This is the second paragraph in the list item. You're only required to indent the first line. Lorem ipsum dolo sit amet, consectetuer adipiscing elit
-*** Output of to_s ***
+*** Output of to_md ***
 This is a list item with two paragraphs.This is the second paragraph in the list item. You're only required to indent the first line. Lorem ipsum dolo sit amet, consectetuer adipiscing elit
-*** Output of inspect ***
-MDElement.new(:document,[	
-	MDElement.new(:ul,[	
-		MDElement.new(:li,[	
-			MDElement.new(:paragraph,[	
-				"This is a list item with two paragraphs."
-			], {}),
-			
-			MDElement.new(:paragraph,[	
-				"This is the second paragraph in the list item. You're only required to indent the first line. Lorem ipsum dolo sit amet, consectetuer adipiscing elit"
-			], {})
-		], {:want_my_paragraph=>true})
-	], {})
-], {})
 *** EOF ***
 
 
 
 
-Failed tests:   [:inspect] 
+Failed tests:   [] 
 And the following are the actual outputs for methods:
-   [:to_html, :to_latex, :to_s, :to_s, :inspect]:
+   [:inspect, :to_html, :to_latex, :to_s, :to_md]:
 
 
+*** Output of inspect ***
+md_el(:document,[	md_el(:ul,[	md_el(:li,[
+			md_el(:paragraph,[	"This is a list item with two paragraphs."]),
+			md_el(:paragraph,[	"This is the second paragraph in the list item. You're only required to indent the first line. Lorem ipsum dolo sit amet, consectetuer adipiscing elit"])
+		], {:want_my_paragraph=>true})])])
 *** Output of to_html ***
 <ul
       ><li
@@ -72,14 +70,8 @@ This is the second paragraph in the list item. You're only required to indent th
 
 *** Output of to_s ***
 This is a list item with two paragraphs.This is the second paragraph in the list item. You're only required to indent the first line. Lorem ipsum dolo sit amet, consectetuer adipiscing elit
-*** Output of to_s ***
+*** Output of to_md ***
 This is a list item with two paragraphs.This is the second paragraph in the list item. You're only required to indent the first line. Lorem ipsum dolo sit amet, consectetuer adipiscing elit
-*** Output of inspect ***
------| WARNING | -----
-md_el(:document,[	md_el(:ul,[	md_el(:li,[
-			md_el(:paragraph,[	"This is a list item with two paragraphs."]),
-			md_el(:paragraph,[	"This is the second paragraph in the list item. You're only required to indent the first line. Lorem ipsum dolo sit amet, consectetuer adipiscing elit"])
-		], {:want_my_paragraph=>true})])])
 *** Output of Markdown.pl ***
 <ul>
 <li><p>This is a list item with two paragraphs.</p>

@@ -1,4 +1,6 @@
 Comment
+*** Parameters: ***
+{}
 *** Markdown input: ***
 Here is an example of AppleScript:
 
@@ -7,6 +9,11 @@ Here is an example of AppleScript:
     end tell
     	tab
 
+*** Output of inspect ***
+md_el(:document,[
+	md_el(:paragraph,[	"Here is an example of AppleScript:"]),
+	md_el(:code,[], {:raw_code=>"tell application \"Foo\"\n    beep\nend tell\n\ttab"})
+])
 *** Output of to_html ***
 <p>Here is an example of AppleScript:</p
     ><pre
@@ -26,26 +33,23 @@ end tell
 
 *** Output of to_s ***
 Here is an example of AppleScript:
-*** Output of to_s ***
+*** Output of to_md ***
 Here is an example of AppleScript:
-*** Output of inspect ***
-MDElement.new(:document,[	
-	MDElement.new(:paragraph,[	
-		"Here is an example of AppleScript:"
-	], {}),
-	
-	MDElement.new(:code,[],{:raw_code=>"tell application \"Foo\"\n    beep\nend tell\n\ttab"})
-], {})
 *** EOF ***
 
 
 
 
-Failed tests:   [:inspect] 
+Failed tests:   [] 
 And the following are the actual outputs for methods:
-   [:to_html, :to_latex, :to_s, :to_s, :inspect]:
+   [:inspect, :to_html, :to_latex, :to_s, :to_md]:
 
 
+*** Output of inspect ***
+md_el(:document,[
+	md_el(:paragraph,[	"Here is an example of AppleScript:"]),
+	md_el(:code,[], {:raw_code=>"tell application \"Foo\"\n    beep\nend tell\n\ttab"})
+])
 *** Output of to_html ***
 <p>Here is an example of AppleScript:</p
     ><pre
@@ -65,14 +69,8 @@ end tell
 
 *** Output of to_s ***
 Here is an example of AppleScript:
-*** Output of to_s ***
+*** Output of to_md ***
 Here is an example of AppleScript:
-*** Output of inspect ***
------| WARNING | -----
-md_el(:document,[
-	md_el(:paragraph,[	"Here is an example of AppleScript:"]),
-	md_el(:code,[], {:raw_code=>"tell application \"Foo\"\n    beep\nend tell\n\ttab"})
-])
 *** Output of Markdown.pl ***
 <p>Here is an example of AppleScript:</p>
 
