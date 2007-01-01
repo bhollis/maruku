@@ -1,6 +1,6 @@
 Write a comment abouth the test here.
 *** Parameters: ***
-{}
+{:warn => true}
 *** Markdown input: ***
  Hello: ! \! \` \{ \} \[ \] \( \) \# \. \! * \* *
 

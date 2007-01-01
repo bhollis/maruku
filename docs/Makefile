@@ -1,9 +1,11 @@
 
-out=index.html maruku.pdf maruku.html markdown_syntax.pdf markdown_syntax.html 
-out+=markdown_extra2.pdf markdown_extra2.html
+out=index.html maruku.html  markdown_syntax.html 
+out+=markdown_extra2.html
+#out+=markdown_extra2.pdf 
+#out+=maruku.pdf maruku.pdf
 others=maruku.md style.css markdown_syntax.md markdown_extra2.md
 
-out+=proposal.pdf
+#out+=proposal.pdf
 out+=proposal.html
 others+=proposal.md
 

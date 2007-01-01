@@ -173,7 +173,7 @@ class Maruku
 					li.children.last << a
 					ol << li
 				else
-					$stderr.puts "Could not find footnote '#{fid}'"
+					maruku_error"Could not find footnote '#{fid}'"
 				end
 			end
 		div << ol
@@ -295,10 +295,12 @@ class MDElement
 				pre.attributes['class'] = lang
 				pre
 			rescue Object => e
-				$stderr.puts "Error while using the syntax library for code:\n#{source.inspect}"
-				$stderr.puts "Lang is #{lang} object is: "
-				$stderr.puts @meta.inspect
-				$stderr.puts "Exception: #{e.class}: #{e.message}\n\t#{e.backtrace.join("\n\t")}"
+				maruku_error"Error while using the syntax library for code:\n#{source.inspect}"+
+				 "Lang is #{lang} object is: "+
+				  @meta.inspect + 
+				"Exception: #{e.class}: #{e.message}\n\t#{e.backtrace.join("\n\t")}"
+				
+				tell_user("Using normal PRE because the syntax library did not work.")
 				to_html_code_using_pre(source)
 			end
 		else
@@ -365,7 +367,9 @@ class MDElement
 			end
 			ref = @doc.refs[id]
 			if not ref
-				$stderr.puts "Could not find id = #{id.inspect} for #{self.inspect}"
+				maruku_error"Could not find ref_id = #{id.inspect} for #{self.inspect}"
+				tell_user "Not creating a link for ref_id = #{id.inspect}."
+				return wrap_as_element('span')
 			else
 				url = ref[:url]
 				title = ref[:title]
@@ -379,7 +383,9 @@ class MDElement
 				a.attributes['href'] = url
 				a.attributes['title'] = title if title
 			else
-				$stderr.puts "Could not find url in #{self.inspect}"
+				maruku_error"Could not find url in #{self.inspect}"
+				tell_user "Not creating a link for ref_id = #{id.inspect}."
+				return wrap_as_element('span')
 			end
 		end
 		a
@@ -415,7 +421,10 @@ class MDElement
 		if id = @meta[:ref_id]
 			ref = @doc.refs[id]
 			if not ref
-				$stderr.puts "Could not find id = #{id.inspect} for\n #{self.inspect}"
+				maruku_error"Could not find id = #{id.inspect} for\n #{self.inspect}"
+				tell_user "Could not create image with ref_id = #{id.inspect};"+
+				 +" Using SPAN element as replacement."
+				return wrap_as_element('span')
 			else
 				url = ref[:url]
 				a.attributes['src'] = url
@@ -430,7 +439,10 @@ class MDElement
 			url = @meta[:url]
 			title = @meta[:title] 
 			if not url
-				$stderr.puts "Image with no ID or url: #{self.inspect}"
+				maruku_error"Image with no ID or url: #{self.inspect}"
+				tell_user "Could not create image with ref_id = #{id.inspect};"+
+				 +" Using SPAN element as replacement."
+				return wrap_as_element('span')
 			end
 			a.attributes['src'] = url
 			a.attributes['title'] = title if title
@@ -445,16 +457,17 @@ class MDElement
 			if root.nil?
 				s = "Bug in REXML: root() of Document is nil: \n#{rexml_doc.inspect}\n"+
 				"Raw HTML:\n#{raw_html.inspect}"
-#				$stderr.puts s
+				maruku_errors
+				tell_user 'The REXML version you have has a bug, omitting HTML'
 				div = Element.new 'div'
-#				div << Text.new(s)
+				#div << Text.new(s)
 				return div
 			end
 			
 			return root
 		else # invalid
 			# Creates red box with offending HTML
-			$stderr.puts "Malformed HTML: #{raw_html}"
+			tell_user 'Wrapping bad html in a PRE with class "markdown-html-error"'
 			pre = Element.new('pre')
 			pre.attributes['style'] = 'border: solid 3px red; background-color: pink'
 			pre.attributes['class'] = 'markdown-html-error'

@@ -31,11 +31,14 @@ require 'maruku/html_helper'
 require 'maruku/parse_block'
 
 # Code for parsing Markdown span-level elements
-require 'maruku/parse_span'
+require 'maruku/parse_span_better'
+
+require 'maruku/structures_iterators'
+
+require 'maruku/errors_management'
 
 # Ugly things kept in a closet
 require 'maruku/string_utils'
-
 
 # Code for creating a table of contents
 require 'maruku/toc'

@@ -105,32 +105,4 @@ class Maruku < MDElement
 	attr_accessor :refs
 	attr_accessor :footnotes
 	attr_accessor :abbreviations
-	# an instance of Section (see below)
-	attr_accessor :toc 
-end
-
-class MDElement
-	
-	# This represents a section in the TOC.
-	class Section
-		# a Fixnum, is == header_element.meta[:level]
-		attr_accessor :section_level 
-		
-		# An array of fixnum, like [1,2,5] for Section 1.2.5
-		attr_accessor :section_number 
-		
-		# reference to header (header has h.meta[:section] to self)
-		attr_accessor :header_element
-
-		# Array of immediate children of this element
-		attr_accessor :immediate_children
-		# Array of Section inside this section
-		attr_accessor :section_children
-		
-		
-		def initialize
-			@immediate_children = []
-			@section_children = []
-		end
-	end 
 end

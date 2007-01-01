@@ -84,7 +84,7 @@ class Maruku
 				else
 					node_type = cur_line_node_type
 					line = shift_line
-#					$stderr.puts "Ignoring line '#{line}' type = #{node_type}"
+					tell_user "Ignoring line '#{line}' type = #{node_type}"
 			end
 			
 			if current_metadata and output.last
@@ -201,21 +201,7 @@ class Maruku
 		
 		raw_html = h.stuff_you_read
 		
-		e = create_md_element(:raw_html)
-
-		begin
-			# remove newlines and whitespace at begin
-			# end end of string, or else REXML gets confused
-			raw_html = raw_html.gsub(/\A\s*</,'<').
-			                    gsub(/>[\s\n]*\Z/,'>')
-			e.meta[:parsed_html] = Document.new(raw_html)
-		rescue 
-			#$stderr.puts "Malformed block of HTML:\n#{raw_html}"
-			#puts h.inspect
-		end
-		
-		e.meta[:raw_html] = raw_html
-		e
+		md_html(raw_html)
 	end
 	
 	def read_paragraph
@@ -424,12 +410,15 @@ class Maruku
 		line = shift_line
 		
 		# if link is incomplete, shift next line
-		while cur_line && (cur_line_node_type != :ref) && 
+		if cur_line && (cur_line_node_type != :ref_definition) && 
 			([1,2,3].include? number_of_leading_spaces(cur_line) )
-			line += " "+ shift_line
+			t = cur_line_node_type
+			l = shift_line
+			puts "#{l.inspect} is #{t.inspect}"
+			line += " "+ l
 		end
 		
-#		puts "total= #{line}"
+		puts "total= #{line}"
 		
 		match = LinkRegex.match(line)
 		if not match
@@ -475,7 +464,8 @@ class Maruku
 		num_columns = align.size
 		
 		if head.size != num_columns
-			$stderr.puts "Head does not have #{num_columns} columns: \n#{head.inspect}"
+			error "Head does not have #{num_columns} columns: \n#{head.inspect}"
+			# XXX try to recover
 			return create_md_element(:linebreak)
 		end
 				
@@ -485,7 +475,8 @@ class Maruku
 			row = split_cells(shift_line).map{|s|
 				create_md_element(:cell, parse_lines_as_span([s]))}
 			if head.size != num_columns
-				$stderr.puts "Row does not have #{num_columns} columns: \n#{row.inspect}"
+				error  "Row does not have #{num_columns} columns: \n#{row.inspect}"
+				# XXX try to recover
 				return create_md_element(:linebreak)
 			end
 			rows << row

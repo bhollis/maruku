@@ -6,8 +6,9 @@ Write a comment abouth the test here.
 >
 >     Ciao
 *** Output of inspect ***
-#<Maruku:0x106295c @refs={}, @node_type=:document, @toc=Master
-, @children=[#<MDElement:0x10624e8 @node_type=:quote, @doc=#<Maruku:0x106295c ...>, @children=[#<MDElement:0x1060b70 @node_type=:paragraph, @doc=#<Maruku:0x106295c ...>, @children=["Code"], @meta={}>, #<MDElement:0x1060a30 @node_type=:code, @doc=#<Maruku:0x106295c ...>, @children=[], @meta={:raw_code=>"Ciao"}>], @meta={}>], @doc=#<Maruku:0x106295c ...>, @abbreviations={}, @stack=[], @meta={}, @footnotes={}>
+md_el(:document,[
+	md_el(:quote,[md_par(["Code"]), md_el(:code,[] , {:raw_code=>"Ciao"})] )
+] )
 *** Output of to_html ***
 <blockquote
       ><p>Code</p

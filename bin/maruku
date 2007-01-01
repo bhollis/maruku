@@ -12,9 +12,9 @@ if File.basename($0) =~ /^maruku/
 			input =  File.open(f,'r').read
 		
 			# create Maruku
-			doc = Maruku.new(input)
+			doc = Maruku.new(input, {:on_error=>:warning})
 			# convert to a complete html document
-			html = doc.to_html_document
+			html = doc.to_html_document( {:indent => 2})
 	
 			# write to file
 			dir = File.dirname(f)

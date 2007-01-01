@@ -17,13 +17,14 @@
 #   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 class Maruku
-	def initialize(s=nil)
+	def initialize(s=nil, meta={})
 		@node_type = :document
 		@doc       = self
 
 		@refs = {}
 		@footnotes = {}
 		@abbreviations = {}
+		@meta = meta
 		
 		parse_doc(s) if s 
 	end
@@ -32,14 +33,16 @@ class Maruku
 		# setup initial stack
 		@stack = []
 		
-		@meta = parse_email_headers(s)
-		data = @meta[:data]
-		@meta.delete :data
+		meta2 =  parse_email_headers(s)
+		data = meta2[:data]
+		meta2.delete :data
+		
+		@meta.merge! meta2
+		
 		lines = Maruku.split_lines(data)
 		@children = parse_lines_as_markdown(lines)
 		
-		self.search_abbreviations
-		
+		markdown_extra? && self.search_abbreviations
 		markdown_extra? && self.substitute_markdown_inside_raw_html
 		
 		toc = create_toc
@@ -59,13 +62,20 @@ class Maruku
 
 	def search_abbreviations
 		@abbreviations.each do |abbrev, title|
-#		puts "#{abbrev} => #{title}"
-			self.map_match(Regexp.new(Regexp.escape(abbrev))) {
-				e = create_md_element(:abbreviation)
-				e.children = [abbrev.dup]
-				e.meta[:title] = title.dup if title
-				e
-			}
+			reg = Regexp.new(Regexp.escape(abbrev))
+			self.replace_each_string do |s|
+				if m = reg.match(s)
+					
+					e = create_md_element(:abbreviation)
+					e.children = [abbrev.dup]
+					e.meta[:title] = title.dup if title
+					e
+					
+					[m.pre_match, e, m.post_match]
+				else
+					s
+				end
+			end
 		end
 	end
 	
@@ -100,17 +110,6 @@ class Maruku
 				end
 			end
 		end
-	end
-	
-	def error(s,src=nil,con=nil)
-		if src
-			s += "\n #{src.describe} \n"
-		end
-		if con
-			s += "\n #{con.describe} \n"
-		end
-			
-		raise RuntimeError, s, caller
 	end
 	
 

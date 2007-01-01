@@ -125,7 +125,7 @@ class Maruku
 			while s[i,1] =~ /\s/; i+=1 end
 			return i
 		else
-			$stderr.puts "Error: #{s} is not a list"
+			tell_user "BUG (my bad): '#{s}' is not a list"
 			0
 		end
 	end
@@ -168,15 +168,10 @@ class Maruku
 		s[i, s.size-1]
 	end
 
-
-	def debug(s)
-		$stderr.puts s
-	end
-
 	def dbg_describe_ary(a, prefix='')
 		i = 0 
 		a.each do |l|
-			$stderr.puts "#{prefix} (#{i+=1})##{l}#"
+			tell_user "#{prefix} (#{i+=1})##{l}#"
 		end
 	end
 
@@ -248,7 +243,7 @@ class Maruku
 	# This regex is taken from BlueCloth sources
 	# Link defs are in the form: ^[id]: \n? url "optional title"
 	LinkRegex = %r{
-		^[ ]*\[(.+)\]:		# id = $1
+		^[ ]*\[([^\]]+)\]:		# id = $1
 		  [ ]*
 		<?(\S+)>?				# url = $2
 		  [ ]*

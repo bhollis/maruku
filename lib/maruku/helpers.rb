@@ -27,9 +27,8 @@ module Helpers
 			                    gsub(/>[\s\n]*\Z/,'>')
 			e.meta[:parsed_html] = REXML::Document.new(raw_html)
 		rescue Exception => e
-			$stderr.puts "Malformed block of HTML:\n  #{raw_html.inspect}"
-			puts e.inspect
-			#puts h.inspect
+			tell_user "Malformed block of HTML:\n"+
+			"  #{raw_html.inspect}\n\n"+e.inspect
 		end
 		e
 	end

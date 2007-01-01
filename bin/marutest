@@ -2,6 +2,8 @@
 
 require 'maruku'
 
+require 'maruku/parse_span_better'
+
 #MARKER = "\n***EOF***\n"
 SPLIT = %r{\n\*\*\*[^\*]+\*\*\*\n}m
 
@@ -20,7 +22,13 @@ def run_test(filename, its_ok)
 	stuff = input.split(SPLIT)
 
 	comment   = stuff.shift
-	params = stuff.shift
+	params_s = stuff.shift
+	
+	params = eval(params_s)
+	if params == nil
+		raise "Null params? #{params_s.inspect}"
+	end
+	
 	markdown  = stuff.shift
 
 #	puts "comment: #{markdown.inspect}"	
@@ -31,8 +39,9 @@ def run_test(filename, its_ok)
 	crashed = []
 	actual = {}
 	
+	doc = Maruku.new(markdown, params)
+
 	for s in TOTEST
-		doc = Maruku.new(markdown)
 		begin
 			if s==:to_html
 				actual[s] = doc.to_html({:indent=>1})
@@ -58,15 +67,17 @@ def run_test(filename, its_ok)
 		end
 	end
 
-	begin
-		m = Maruku.new
-		d = m.instance_eval(expected[:inspect])
-		puts "Eval: #{d.inspect}"
-		expected[:inspect] = d.inspect
-	rescue Exception => e
-		s = e.inspect + e.backtrace.join("\n")
-		raise "Cannot eval user-provided string:\n #{actual[:inspect].inspect}"+
-		"\n #{s}"
+	if not its_ok.include? :inspect
+		begin
+			m = Maruku.new
+			d = m.instance_eval(expected[:inspect])
+	#		puts "Eval: #{d.inspect}"
+			expected[:inspect] = d.inspect
+		rescue Exception => e
+			s = e.inspect + e.backtrace.join("\n")
+			raise "Cannot eval user-provided string:\n #{actual[:inspect].inspect}"+
+			"\n #{s}"
+		end
 	end
 
 	
@@ -87,7 +98,7 @@ def run_test(filename, its_ok)
 	
 	f.write comment
 	f.write "\n*** Parameters: ***\n"
-	f.write params
+	f.write params.inspect
 	f.write "\n*** Markdown input: ***\n"
 	f.write markdown
 
@@ -181,7 +192,7 @@ def marutest
 	relaxed = {}
 	
 	args.each do |f|
-		$stdout.write "#{f}  "
+		$stdout.write "#{f}\n\t\t"
 		tf, tr, tcrashed = run_test(f, dont_worry)
 		
 		tf = tf + tcrashed

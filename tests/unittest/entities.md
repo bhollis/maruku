@@ -23,8 +23,27 @@ It should read just like this: `&copy;`.
 
 
 *** Output of inspect ***
-#<Maruku:0x1101624 @refs={}, @node_type=:document, @toc=Master
-, @children=[#<MDElement:0x10feb90 @node_type=:paragraph, @doc=#<Maruku:0x1101624 ...>, @children=["Maruku translates HTML entities to the equivalent in LaTeX:"], @meta={}>, #<MDElement:0x10e5ca8 @node_type=:table, @doc=#<Maruku:0x1101624 ...>, @children=[#<MDElement:0x10fc764 @node_type=:head_cell, @doc=#<Maruku:0x1101624 ...>, @children=["Entity"], @meta={}>, #<MDElement:0x10f9c94 @node_type=:head_cell, @doc=#<Maruku:0x1101624 ...>, @children=["Result"], @meta={}>, #<MDElement:0x10f79e4 @node_type=:cell, @doc=#<Maruku:0x1101624 ...>, @children=[#<MDElement:0x10f88e4 @node_type=:inline_code, @doc=#<Maruku:0x1101624 ...>, @children=[], @meta={:raw_code=>"&copy;"}>], @meta={}>, #<MDElement:0x10f5590 @node_type=:cell, @doc=#<Maruku:0x1101624 ...>, @children=[#<MDElement:0x10f5af4 @node_type=:entity, @doc=#<Maruku:0x1101624 ...>, @children=[], @meta={:entity_name=>"copy"}>], @meta={}>, #<MDElement:0x10f34fc @node_type=:cell, @doc=#<Maruku:0x1101624 ...>, @children=[#<MDElement:0x10f453c @node_type=:inline_code, @doc=#<Maruku:0x1101624 ...>, @children=[], @meta={:raw_code=>"&pound;"}>], @meta={}>, #<MDElement:0x10f1350 @node_type=:cell, @doc=#<Maruku:0x1101624 ...>, @children=[#<MDElement:0x10f1f44 @node_type=:entity, @doc=#<Maruku:0x1101624 ...>, @children=[], @meta={:entity_name=>"pound"}>], @meta={}>, #<MDElement:0x10ef5dc @node_type=:cell, @doc=#<Maruku:0x1101624 ...>, @children=[#<MDElement:0x10f04f0 @node_type=:inline_code, @doc=#<Maruku:0x1101624 ...>, @children=[], @meta={:raw_code=>"a&nbsp;b"}>], @meta={}>, #<MDElement:0x10ed7a0 @node_type=:cell, @doc=#<Maruku:0x1101624 ...>, @children=["a", #<MDElement:0x10edea8 @node_type=:entity, @doc=#<Maruku:0x1101624 ...>, @children=[], @meta={:entity_name=>"nbsp"}>, "b"], @meta={}>, #<MDElement:0x10eb928 @node_type=:cell, @doc=#<Maruku:0x1101624 ...>, @children=[#<MDElement:0x10ec990 @node_type=:inline_code, @doc=#<Maruku:0x1101624 ...>, @children=[], @meta={:raw_code=>"&lambda;"}>], @meta={}>, #<MDElement:0x10e9b50 @node_type=:cell, @doc=#<Maruku:0x1101624 ...>, @children=[#<MDElement:0x10ea0b4 @node_type=:entity, @doc=#<Maruku:0x1101624 ...>, @children=[], @meta={:entity_name=>"lambda"}>], @meta={}>, #<MDElement:0x10e7e90 @node_type=:cell, @doc=#<Maruku:0x1101624 ...>, @children=[#<MDElement:0x10e8cf0 @node_type=:inline_code, @doc=#<Maruku:0x1101624 ...>, @children=[], @meta={:raw_code=>"&mdash;"}>], @meta={}>, #<MDElement:0x10e5d0c @node_type=:cell, @doc=#<Maruku:0x1101624 ...>, @children=[#<MDElement:0x10e648c @node_type=:entity, @doc=#<Maruku:0x1101624 ...>, @children=[], @meta={:entity_name=>"mdash"}>], @meta={}>], @meta={:align=>[:left, :left]}>, #<MDElement:0x10e369c @node_type=:paragraph, @doc=#<Maruku:0x1101624 ...>, @children=["Entity-substitution does not happen in code blocks or inline code."], @meta={}>, #<MDElement:0x10dffd8 @node_type=:paragraph, @doc=#<Maruku:0x1101624 ...>, @children=["The following should not be translated:"], @meta={}>, #<MDElement:0x10dfefc @node_type=:code, @doc=#<Maruku:0x1101624 ...>, @children=[], @meta={:raw_code=>"&copy;\n"}>, #<MDElement:0x10dddf0 @node_type=:paragraph, @doc=#<Maruku:0x1101624 ...>, @children=["It should read just like this: ", #<MDElement:0x10defac @node_type=:inline_code, @doc=#<Maruku:0x1101624 ...>, @children=[], @meta={:raw_code=>"&copy;"}>, "."], @meta={}>], @doc=#<Maruku:0x1101624 ...>, @abbreviations={}, @stack=[], @meta={}, @footnotes={}>
+md_el(:document,[
+	md_par(["Maruku translates HTML entities to the equivalent in LaTeX:"]),
+	md_el(:table,[
+		md_el(:head_cell,["Entity"] ),
+		md_el(:head_cell,["Result"] ),
+		md_el(:cell,[md_code("&copy;")] ),
+		md_el(:cell,[md_entity("copy")] ),
+		md_el(:cell,[md_code("&pound;")] ),
+		md_el(:cell,[md_entity("pound")] ),
+		md_el(:cell,[md_code("a&nbsp;b")] ),
+		md_el(:cell,["a", md_entity("nbsp"), "b"] ),
+		md_el(:cell,[md_code("&lambda;")] ),
+		md_el(:cell,[md_entity("lambda")] ),
+		md_el(:cell,[md_code("&mdash;")] ),
+		md_el(:cell,[md_entity("mdash")] )
+	] , {:align=>[:left, :left]}),
+	md_par(["Entity-substitution does not happen in code blocks or inline code."]),
+	md_par(["The following should not be translated:"]),
+	md_el(:code,[] , {:raw_code=>"&copy;\n"}),
+	md_par(["It should read just like this: ", md_code("&copy;"), "."])
+] )
 *** Output of to_html ***
 <p>Maruku translates HTML entities to the equivalent in LaTeX:</p
     ><table

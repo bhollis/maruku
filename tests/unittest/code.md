@@ -10,8 +10,10 @@ Here is an example of AppleScript:
     	tab
 
 *** Output of inspect ***
-#<Maruku:0x1072a50 @refs={}, @node_type=:document, @toc=Master
-, @children=[#<MDElement:0x1070b24 @node_type=:paragraph, @doc=#<Maruku:0x1072a50 ...>, @children=["Here is an example of AppleScript:"], @meta={}>, #<MDElement:0x10709e4 @node_type=:code, @doc=#<Maruku:0x1072a50 ...>, @children=[], @meta={:raw_code=>"tell application \"Foo\"\n    beep\nend tell\n\ttab"}>], @doc=#<Maruku:0x1072a50 ...>, @abbreviations={}, @stack=[], @meta={}, @footnotes={}>
+md_el(:document,[
+	md_par(["Here is an example of AppleScript:"]),
+	md_el(:code,[] , {:raw_code=>"tell application \"Foo\"\n    beep\nend tell\n\ttab"})
+] )
 *** Output of to_html ***
 <p>Here is an example of AppleScript:</p
     ><pre
