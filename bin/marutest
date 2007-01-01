@@ -92,13 +92,17 @@ def run_test(filename, its_ok)
 	end
 	f.write "\n*** EOF ***\n"
 	
-	f.puts "\n\n\n\nFailed tests:   #{failed.inspect} \n"+
-	"And the following are the actual outputs for methods:\n"+
-	"   #{TOTEST.inspect}:\n\n"
+	if not failed.empty? or not crashed.empty? 
+		
+		f.puts "\n\n\n\nFailed tests:   #{failed.inspect} \n"+
 	
-	TOTEST.each do |x|
-		f.write marker(x) 
-		f.write actual[x]
+		TOTEST.each do |x|
+			f.write marker(x) 
+			f.write actual[x]
+		end
+
+	else
+		f.puts "\n\n\n\tOK!\n\n\n"
 	end
 
 	

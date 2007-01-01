@@ -81,13 +81,17 @@ class MDElement
 	end
 	
 	def inspect
+		i2 = inspect2
+		return i2 if i2
 		begin
-		(@children.size<=1 ?
-		"md_el(:%s,[%s]%s)" :
-		"md_el(:%s,[\n%s\n]%s)") %
-		[@node_type,
-			add_tabs(@children.map{|x| x.inspect}.join(",\n"),1),
-			if @meta.size>0 then ', '+@meta.inspect else '' end]
+			"md_el(:%s,[%s]%s)" %
+			[
+				@node_type,
+				children_inspect, 
+				if @meta.size>0 then 
+					', '+@meta.inspect 
+				else '' end
+			]
 		rescue
 			puts "@node_type: #{@node_type.inspect}"
 			puts "@children: #{@children.inspect}"

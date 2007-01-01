@@ -84,6 +84,72 @@ module Helpers
 		md_el(:footnote_reference, [], {:footnote_id=>ref_id})
 	end
 	
+	def md_par(children, meta={})
+		md_el(:paragraph, children, meta)
+	end
+end
+
+class MDElement	
+	# outputs abbreviated form 
+	def inspect2 
+		case @node_type
+		when :paragraph
+			"md_par(%s)" % children_inspect
+		when :footnote_reference
+			"md_foot_ref(%s)" % @meta[:footnote_id].inspect
+		when :entity
+			"md_entity(%s)" % @meta[:entity_name].inspect
+		when :email_address
+			"md_email(%s)" % @meta[:email].inspect
+		when :inline_code
+			"md_code(%s)" % @meta[:raw_code].inspect
+		when :raw_html
+			"md_html(%s)" % @meta[:raw_html].inspect
+		when :ref_definition # XXX properties
+			"md_ref_def(%s)" % @meta[:url].inspect
+		when :emphasis 
+			"md_em(%s)" % children_inspect
+		when :strong
+			"md_strong(%s)" % children_inspect
+		when :immediate_link
+			"md_url(%s)" % @meta[:url].inspect
+		when :image
+			if @meta[:ref_id]
+				"md_image(%s,%s)" % [
+					children_inspect, @meta[:ref_id].inspect]
+			else
+				"md_im_image(%s, %s %s)" % [
+					children_inspect, @meta[:url].inspect,
+					(title=@meta[:title]) ? (", "+ title.inspect) : ""
+				]
+			end
+		when :link
+			if @meta[:ref_id]
+				"md_link(%s,%s)" % [
+					children_inspect, @meta[:ref_id].inspect]
+			else
+				"md_im_link(%s, %s %s)" % [
+					children_inspect, @meta[:url].inspect,
+					(title=@meta[:title]) ? (", "+ title.inspect) : ""
+				]
+			end
+		else
+			nil
+		end
+	end
+	
+
+	def children_inspect
+		if @children.empty?
+			"[]"
+		elsif @children.size == 1
+			"["+@children[0].inspect+"]"
+		else
+			"[\n"+
+			add_tabs(@children.map{|x| x.inspect}.join(",\n"))+
+			"\n]"
+		end
+	end
 end
 
 
