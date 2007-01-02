@@ -6,6 +6,8 @@ class Maruku
 # I tried to do this with REXML, but wasn't able to. (suggestions?)
 
 	class HTMLHelper
+		include MarukuStrings
+		
 		Tag = %r{^<(/)?(\w+)\s*([^>]*)>}m
 		EverythingElse = %r{^[^<]+}m
 		CommentStart = %r{^<!--}x
@@ -100,10 +102,13 @@ class Maruku
 		end
 
 		def inspect; "HTML READER\n comment=#{@inside_comment} "+
-			"match=#{@m.to_s.inspect}"+
-			"\n * * * BEFORE * * *\n#{@already.inspect}"+
-			"\n * * * AFTER  * * *\n#{@rest.inspect}"+
-			"\n * * * TAGS stack * * *\n#{@tag_stack.inspect}"
+			"match=#{@m.to_s.inspect}\n"+
+			"Tag stack = #{@tag_stack.inspect} \n"+
+			"Before:\n"+
+			add_tabs(@already,1,'|')+"\n"+
+			"After:\n"+
+			add_tabs(@rest,1,'|')+"\n"
+			
 		end
 		
 		

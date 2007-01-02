@@ -195,7 +195,7 @@ class Maruku
 				h.eat_this "\n"+l
 			end
 		rescue Exception => e
-			puts e.inspect
+			tell_user e.inspect + e.backtrace.join("\n")
 #			puts h.inspect
 		end
 		
@@ -412,13 +412,10 @@ class Maruku
 		# if link is incomplete, shift next line
 		if cur_line && (cur_line_node_type != :ref_definition) && 
 			([1,2,3].include? number_of_leading_spaces(cur_line) )
-			t = cur_line_node_type
-			l = shift_line
-			puts "#{l.inspect} is #{t.inspect}"
-			line += " "+ l
+			line += " "+ shift_line
 		end
 		
-		puts "total= #{line}"
+#		puts "total= #{line}"
 		
 		match = LinkRegex.match(line)
 		if not match

@@ -8,8 +8,14 @@ Write a comment abouth the test here.
     > inside a list item.
 
 *** Output of inspect ***
-#<Maruku:0x105f720 @refs={}, @node_type=:document, @toc=Master
-, @children=[#<MDElement:0x105b1ac @node_type=:ul, @doc=#<Maruku:0x105f720 ...>, @children=[#<MDElement:0x105eb40 @node_type=:li, @doc=#<Maruku:0x105f720 ...>, @children=[#<MDElement:0x105d13c @node_type=:paragraph, @doc=#<Maruku:0x105f720 ...>, @children=["A list item with a blockquote:"], @meta={}>, #<MDElement:0x105cc78 @node_type=:quote, @doc=#<Maruku:0x105f720 ...>, @children=[#<MDElement:0x105b224 @node_type=:paragraph, @doc=#<Maruku:0x105f720 ...>, @children=["This is a blockquote inside a list item."], @meta={}>], @meta={}>], @meta={:want_my_paragraph=>true}>], @meta={}>], @doc=#<Maruku:0x105f720 ...>, @abbreviations={}, @stack=[], @meta={}, @footnotes={}>
+md_el(:document,[
+	md_el(:ul,[
+		md_el(:li,[
+			md_par(["A list item with a blockquote:"]),
+			 md_el(:quote,[md_par(["This is a blockquote inside a list item."])] )
+		] , {:want_my_paragraph=>true})
+	] )
+] )
 *** Output of to_html ***
 <ul
       ><li

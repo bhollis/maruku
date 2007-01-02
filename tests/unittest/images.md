@@ -25,8 +25,30 @@ This is double size: ![Cascading Style Sheets] [css2]
 
 
 *** Output of inspect ***
-#<Maruku:0x107befc @refs={"css"=>{:url=>"http://jigsaw.w3.org/css-validator/images/vcss", :title=>"Optional title attribute"}, "css2"=>{:class=>"external", :style=>"border:0;width:188px;height:131px", :url=>"http://jigsaw.w3.org/css-validator/images/vcss", :title=>"Optional title attribute"}, "dummy_0"=>{:url=>"http://jigsaw.w3.org/css-validator/images/vcss", :title=>nil}, "dummy_1"=>{:url=>"http://jigsaw.w3.org/css-validator/images/vcss", :title=>"Title ok!"}, "dummy_2"=>{:url=>"http://jigsaw.w3.org/css-validator/images/vcss", :title=>"Title ok!"}}, @node_type=:document, @toc=Master
-, @children=[#<MDElement:0x1079fa8 @node_type=:paragraph, @doc=#<Maruku:0x107befc ...>, @children=["This page does not uilizes ", #<MDElement:0x107a9e4 @node_type=:image, @doc=#<Maruku:0x107befc ...>, @children=[], @meta={:ref_id=>"dummy_0"}>], @meta={}>, #<MDElement:0x10782ac @node_type=:paragraph, @doc=#<Maruku:0x107befc ...>, @children=["Please mouseover to see the title: ", #<MDElement:0x1078ce8 @node_type=:image, @doc=#<Maruku:0x107befc ...>, @children=[], @meta={:ref_id=>"dummy_1"}>], @meta={}>, #<MDElement:0x1076650 @node_type=:paragraph, @doc=#<Maruku:0x107befc ...>, @children=["Please mouseover to see the title: ", #<MDElement:0x107708c @node_type=:image, @doc=#<Maruku:0x107befc ...>, @children=[], @meta={:ref_id=>"dummy_2"}>], @meta={}>, #<MDElement:0x1073f2c @node_type=:paragraph, @doc=#<Maruku:0x107befc ...>, @children=["I'll say it one more time: this page does not use ", #<MDElement:0x10754a8 @node_type=:image, @doc=#<Maruku:0x107befc ...>, @children=[], @meta={:ref_id=>"css"}>], @meta={}>, #<MDElement:0x1071f60 @node_type=:paragraph, @doc=#<Maruku:0x107befc ...>, @children=["This is double size: ", #<MDElement:0x1072adc @node_type=:image, @doc=#<Maruku:0x107befc ...>, @children=[], @meta={:ref_id=>"css2"}>], @meta={}>], @doc=#<Maruku:0x107befc ...>, @abbreviations={}, @stack=[], @meta={}, @footnotes={}>
+md_el(:document,[
+	md_par([
+		"This page does not uilizes ",
+		 md_im_image(["Cascading Style Sheets"], "http://jigsaw.w3.org/css-validator/images/vcss" )
+	]),
+	 md_par([
+		"Please mouseover to see the title: ",
+		 md_im_image(["Cascading Style Sheets"], "http://jigsaw.w3.org/css-validator/images/vcss" , "Title ok!")
+	]),
+	 md_par([
+		"Please mouseover to see the title: ",
+		 md_im_image(["Cascading Style Sheets"], "http://jigsaw.w3.org/css-validator/images/vcss" , "Title ok!")
+	]),
+	 md_par([
+		"I'll say it one more time: this page does not use ",
+		 md_image(["Cascading Style Sheets"],"css")
+	]),
+	 md_par([
+		"This is double size: ",
+		 md_image(["Cascading Style Sheets"],"css2")
+	]),
+	 md_ref_def("css", "http://jigsaw.w3.org/css-validator/images/vcss" ,{:title=>"Optional title attribute"}),
+	 md_ref_def("css2", "http://jigsaw.w3.org/css-validator/images/vcss" ,{:title=>"Optional title attribute"})
+] )
 *** Output of to_html ***
 <p>This page does not uilizes <img src='http://jigsaw.w3.org/css-validator/images/vcss'
       /></p
@@ -40,11 +62,11 @@ This is double size: ![Cascading Style Sheets] [css2]
       /></p
   >
 *** Output of to_latex ***
-This page does not uilizes {\bf Images not supported yet (\char104\char116\char116\char112\char58\char47\char47\char106\char105\char103\char115\char97\char119\char46\char119\char51\char46\char111\char114\char103\char47\char99\char115\char115\char45\char118\char97\char108\char105\char100\char97\char116\char111\char114\char47\char105\char109\char97\char103\char101\char115\char47\char118\char99\char115\char115)}
+This page does not uilizes 
 
-Please mouseover to see the title: {\bf Images not supported yet (\char104\char116\char116\char112\char58\char47\char47\char106\char105\char103\char115\char97\char119\char46\char119\char51\char46\char111\char114\char103\char47\char99\char115\char115\char45\char118\char97\char108\char105\char100\char97\char116\char111\char114\char47\char105\char109\char97\char103\char101\char115\char47\char118\char99\char115\char115)}
+Please mouseover to see the title: 
 
-Please mouseover to see the title: {\bf Images not supported yet (\char104\char116\char116\char112\char58\char47\char47\char106\char105\char103\char115\char97\char119\char46\char119\char51\char46\char111\char114\char103\char47\char99\char115\char115\char45\char118\char97\char108\char105\char100\char97\char116\char111\char114\char47\char105\char109\char97\char103\char101\char115\char47\char118\char99\char115\char115)}
+Please mouseover to see the title: 
 
 I'll say it one more time: this page does not use {\bf Images not supported yet (\char104\char116\char116\char112\char58\char47\char47\char106\char105\char103\char115\char97\char119\char46\char119\char51\char46\char111\char114\char103\char47\char99\char115\char115\char45\char118\char97\char108\char105\char100\char97\char116\char111\char114\char47\char105\char109\char97\char103\char101\char115\char47\char118\char99\char115\char115)}
 
@@ -52,9 +74,9 @@ This is double size: {\bf Images not supported yet (\char104\char116\char116\cha
 
 
 *** Output of to_s ***
-This page does not uilizes Please mouseover to see the title: Please mouseover to see the title: I'll say it one more time: this page does not use This is double size: 
+This page does not uilizes Cascading Style SheetsPlease mouseover to see the title: Cascading Style SheetsPlease mouseover to see the title: Cascading Style SheetsI'll say it one more time: this page does not use Cascading Style SheetsThis is double size: Cascading Style Sheets
 *** Output of to_md ***
-This page does not uilizes Please mouseover to see the title: Please mouseover to see the title: I'll say it one more time: this page does not use This is double size: 
+This page does not uilizes Cascading Style SheetsPlease mouseover to see the title: Cascading Style SheetsPlease mouseover to see the title: Cascading Style SheetsI'll say it one more time: this page does not use Cascading Style SheetsThis is double size: Cascading Style Sheets
 *** EOF ***
 
 

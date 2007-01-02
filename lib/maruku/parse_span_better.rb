@@ -104,10 +104,17 @@ class Maruku
 				else
 					con.push_char src.shift_char
 				end
+			when ?&
+				if m = src.read_regexp(/&([\w\d]+);/)
+					con.push_element md_entity(m[1])
+				else
+					con.push_char src.shift_char
+				end
 			when ?*
 				if not src.next_char
 					error "Opening * as last char", src, con
-			#		con.push_char src.shift_char
+					tell_user "Threating as literal"
+					con.push_char src.shift_char
 				else
 					follows = src.cur_chars(4)
 					if follows =~ /^\*\*\*[^\s\*]/
@@ -120,15 +127,11 @@ class Maruku
 						con.push_char src.shift_char
 					end
 				end
-			when ?&
-				if m = src.read_regexp(/&([\w\d]+);/)
-					con.push_element md_entity(m[1])
-				else
-					con.push_char src.shift_char
-				end
 			when ?_
 				if not src.next_char
 					error "Opening _ as last char", src, con
+					tell_user "Threating as literal"
+					con.push_char src.shift_char
 				else
 					follows = src.cur_chars(4)
 					if  follows =~ /^\_\_\_[^\s\_]/
@@ -141,10 +144,16 @@ class Maruku
 						con.push_char src.shift_char
 					end
 				end
+#			when ?e
+#				maruku_error "At: %c" % src.cur_char, src, con
 			when nil
 				error ("Unclosed span (waiting for %s"+
 				 "#{exit_on_strings.inspect})") % [
-						exit_on_chars ? "#{exit_on_chars.inspect} or" : ""], src,con
+						exit_on_chars ? "#{exit_on_chars.inspect} or" : ""],
+						src,con
+						
+				tell_user "I will boldly  go ahead."
+				break
 			else # normal text
 				con.push_char src.shift_char
 			end # end case
@@ -219,6 +228,8 @@ class Maruku
 				s= "String finished while reading (break on #{exit_on_chars.inspect})"+
 				" already read: #{text.inspect}"
 				error s, src
+				tell_user "I boldly continue"
+				break
 			when ?\\
 				d = src.next_char
 				if escaped.include? d
@@ -271,18 +282,13 @@ class Maruku
 #			puts "Then: #{src.cur_chars(10).inspect}"
 			m[1]
 		else
-			error "Could not read ref_id", src, con
+			nil
 		end
 	end
 	
 	def read_footnote_ref(src,con)
 		ref = read_ref_id(src,con)
 		con.push_element md_foot_ref(ref)
-	end
-	
-	def read_html_comment(con)	
-		puts "html_comment"
-		src.ignore_char # unimplemented
 	end
 	
 	def read_inline_html(src, con)
@@ -310,7 +316,9 @@ class Maruku
 			if false # we want to be good
 				con.push_char src.shift_char
 			else
-				error "Bad html: \n" + e.inspect,src,con
+				maruku_error "Bad html: \n" + 
+				add_tabs(e.inspect+e.backtrace.join("\n"),1,'>'),
+				src,con
 			end
 		end
 	end
@@ -339,6 +347,8 @@ class Maruku
 				error("Ticks not finished: read #{code.inspect}"+
 				      " and waiting for #{end_string.inspect} num=#{num_ticks}",
 						src,con)
+				tell_user "Read invalid code block: #{code.inspect}"
+				break
 			end
 			
 			if src.cur_chars(num_ticks) ==end_string # bah
@@ -387,24 +397,33 @@ class Maruku
 			src.consume_whitespace
 			url = read_url(src, [SPACE,?\t,?)])
 			if not url
-				url = ''
-				#error "Could not read url from #{src.cur_chars(10).inspect}"
+				url = '' # no url is ok
 			end
 			src.consume_whitespace
 			title = nil
 			if src.cur_char != ?) # we have a title
 				title = read_quoted(src,con)
-				error 'Must quote title',src,con if not title
 			end
 			src.consume_whitespace
 			closing = src.shift_char # closing )
 			if closing != ?)
 				error 'Unclosed link',src,con
+				tell_user "No closing ): I will not create"+
+				" the link for #{children.inspect}"
+				con.push_elements children
+				return
 			end
 			con.push_element md_im_link(children,url, title)
 		when ?[ # link ref
 			ref_id = read_ref_id(src,con)
-			con.push_element md_link(children, ref_id)
+			if ref_id
+				con.push_element md_link(children, ref_id)
+			else 
+				maruku_error "Could not read ref_id", src, con
+				tell_user "I will not create the link for #{children.inspect}"
+				con.push_elements children
+				return
+			end
 		else # no stuff
 			con.push_elements children
 		end
@@ -453,6 +472,8 @@ end
 
 
 class SpanContext 
+	include MarukuStrings
+	
 	# Read elements
 	attr_accessor :elements
 	def initialize
@@ -461,6 +482,9 @@ class SpanContext
 	end
 	
 	def push_element(e)
+		raise "Only MDElement and String, please. You pushed #{e.class}: #{e.inspect} " if
+		 not (e.kind_of?(String) or e.kind_of?(MDElement))
+		
 		push_string_if_present
 		@elements << e
 		nil
@@ -496,13 +520,20 @@ class SpanContext
 	end
 	
 	def describe
-		"Context: After reading %s, %s" %
-		[ @elements.inspect, @cur_string.inspect ]
+		lines = @elements.map{|x| x.inspect}.join("\n")
+		s = "Elements read in span: \n" +
+		add_tabs(lines,1, ' -')+"\n"
+		
+		if @cur_string.size > 0
+		s += "Current string: \n  #{@cur_string.inspect}\n" 
+		end
+		s
 	end
 	
 end
 
 class CharSource
+	include MarukuStrings
 	
 	def initialize(s)
 		@elements = []
@@ -578,9 +609,52 @@ class CharSource
 	end
 	
 	def describe
-		"CharSource: At character #{@buffer_index} of block "+
-		" beginning with:\n    #{@buffer[0,50].inspect} ...\n"+
-		" before: \n     ... #{cur_chars(50).inspect} ... "
+		
+		len = 75
+		num_before = [len/2, @buffer_index].min
+		num_after = [len/2, @buffer.size-@buffer_index].min
+		num_before_max = @buffer_index
+		num_after_max = @buffer.size-@buffer_index
+		
+#		puts "num #{num_before} #{num_after}"
+		num_before = [num_before_max, len-num_after].min
+		num_after  = [num_after_max, len-num_before].min
+#		puts "num #{num_before} #{num_after}"
+		
+		index_start = [@buffer_index - num_before, 0].max
+		index_end   = [@buffer_index + num_after, @buffer.size].min
+		
+		size = index_end- index_start
+		
+#		puts "- #{index_start} #{size}"
+
+		str = @buffer[index_start, size]
+		str.gsub!("\n",'N')
+		str.gsub!("\t",'T')
+		
+		if index_end == @buffer.size 
+			str += "EOF"
+		end
+			
+		pre_s = @buffer_index-index_start
+		pre_s = [pre_s, 0].max
+		pre_s2 = [len-pre_s,0].max
+#		puts "pre_S = #{pre_s}"
+		pre =" "*(pre_s) 
+		
+		"-"*len+"\n"+
+		str + "\n" +
+		"-"*pre_s + "|" + "-"*(pre_s2)+"\n"+
+#		pre + "|\n"+
+		pre + "+--- Byte #{@buffer_index}\n"+
+		
+		
+		"Shown bytes [#{index_start} to #{size}] of #{@buffer.size}:\n"+
+		add_tabs(@buffer,1,">")
+		
+#		"CharSource: At character #{@buffer_index} of block "+
+#		" beginning with:\n    #{@buffer[0,50].inspect} ...\n"+
+#		" before: \n     ... #{cur_chars(50).inspect} ... "
 	end
 	
 	def some

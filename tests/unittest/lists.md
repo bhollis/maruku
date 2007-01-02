@@ -35,8 +35,47 @@ sit amet, consectetuer adipiscing elit.
 
 *   Another item in the same list.
 *** Output of inspect ***
-#<Maruku:0x10b04cc @refs={}, @node_type=:document, @toc=Master
-, @children=[#<MDElement:0x10ad970 @node_type=:ul, @doc=#<Maruku:0x10b04cc ...>, @children=[#<MDElement:0x10af680 @node_type=:li_span, @doc=#<Maruku:0x10b04cc ...>, @children=["Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aliquam hendrerit mi posuere lectus. Vestibulum enim wisi, viverra nec, fringilla in, laoreet vitae, risus."], @meta={:want_my_paragraph=>false}>, #<MDElement:0x10ad1b4 @node_type=:li_span, @doc=#<Maruku:0x10b04cc ...>, @children=["Donec sit amet nisl. Aliquam semper ipsum sit amet velit. Suspendisse id sem consectetuer libero luctus adipiscing."], @meta={:want_my_paragraph=>false}>, #<MDElement:0x10aadc4 @node_type=:li_span, @doc=#<Maruku:0x10b04cc ...>, @children=["Donec sit amet nisl. Aliquam semper ipsum sit amet velit. Suspendisse id sem consectetuer libero luctus adipiscing"], @meta={:want_my_paragraph=>false}>, #<MDElement:0x10a88e4 @node_type=:li_span, @doc=#<Maruku:0x10b04cc ...>, @children=["Donec sit amet nisl. Aliquam semper ipsum sit amet velit. Suspendisse id sem consectetuer libero luctus adipiscing"], @meta={:want_my_paragraph=>false}>, #<MDElement:0x10a6274 @node_type=:li_span, @doc=#<Maruku:0x10b04cc ...>, @children=["Donec sit amet nisl. Aliquam semper ipsum sit amet velit. Suspendisse id sem consectetuer libero luctus adipiscing."], @meta={:want_my_paragraph=>false}>], @meta={}>, #<MDElement:0x10a2354 @node_type=:paragraph, @doc=#<Maruku:0x10b04cc ...>, @children=["Ancora"], @meta={}>, #<MDElement:0x109d584 @node_type=:ul, @doc=#<Maruku:0x10b04cc ...>, @children=[#<MDElement:0x10a13f0 @node_type=:li, @doc=#<Maruku:0x10b04cc ...>, @children=[#<MDElement:0x109f140 @node_type=:paragraph, @doc=#<Maruku:0x10b04cc ...>, @children=["This is a list item with two paragraphs. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aliquam hendrerit mi posuere lectus."], @meta={}>, #<MDElement:0x109d5fc @node_type=:paragraph, @doc=#<Maruku:0x10b04cc ...>, @children=["ATTENZIONE!"], @meta={}>], @meta={:want_my_paragraph=>true}>, #<MDElement:0x109d174 @node_type=:li, @doc=#<Maruku:0x10b04cc ...>, @children=[#<MDElement:0x109b5e0 @node_type=:paragraph, @doc=#<Maruku:0x10b04cc ...>, @children=["Suspendisse id sem consectetuer libero luctus adipiscing."], @meta={}>], @meta={:want_my_paragraph=>false}>], @meta={}>, #<MDElement:0x10998d0 @node_type=:paragraph, @doc=#<Maruku:0x10b04cc ...>, @children=["Ancora"], @meta={}>, #<MDElement:0x10951f4 @node_type=:ul, @doc=#<Maruku:0x10b04cc ...>, @children=[#<MDElement:0x1098f98 @node_type=:li, @doc=#<Maruku:0x10b04cc ...>, @children=[#<MDElement:0x10971ac @node_type=:paragraph, @doc=#<Maruku:0x10b04cc ...>, @children=["This is a list item with two paragraphs."], @meta={}>, #<MDElement:0x1095258 @node_type=:paragraph, @doc=#<Maruku:0x10b04cc ...>, @children=["This is the second paragraph in the list item. You're only required to indent the first line. Lorem ipsum dolo sit amet, consectetuer adipiscing elit"], @meta={}>], @meta={:want_my_paragraph=>true}>, #<MDElement:0x1094e84 @node_type=:li, @doc=#<Maruku:0x10b04cc ...>, @children=[#<MDElement:0x10935d4 @node_type=:paragraph, @doc=#<Maruku:0x10b04cc ...>, @children=["Another item in the same list."], @meta={}>], @meta={:want_my_paragraph=>false}>], @meta={}>], @doc=#<Maruku:0x10b04cc ...>, @abbreviations={}, @stack=[], @meta={}, @footnotes={}>
+md_el(:document,[
+	md_el(:ul,[
+		md_el(:li_span,[
+			"Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aliquam hendrerit mi posuere lectus. Vestibulum enim wisi, viverra nec, fringilla in, laoreet vitae, risus."
+		] , {:want_my_paragraph=>false}),
+		 md_el(:li_span,[
+			"Donec sit amet nisl. Aliquam semper ipsum sit amet velit. Suspendisse id sem consectetuer libero luctus adipiscing."
+		] , {:want_my_paragraph=>false}),
+		 md_el(:li_span,[
+			"Donec sit amet nisl. Aliquam semper ipsum sit amet velit. Suspendisse id sem consectetuer libero luctus adipiscing"
+		] , {:want_my_paragraph=>false}),
+		 md_el(:li_span,[
+			"Donec sit amet nisl. Aliquam semper ipsum sit amet velit. Suspendisse id sem consectetuer libero luctus adipiscing"
+		] , {:want_my_paragraph=>false}),
+		 md_el(:li_span,[
+			"Donec sit amet nisl. Aliquam semper ipsum sit amet velit. Suspendisse id sem consectetuer libero luctus adipiscing."
+		] , {:want_my_paragraph=>false})
+	] ),
+	 md_par(["Ancora"]),
+	 md_el(:ul,[
+		md_el(:li,[
+			md_par([
+				"This is a list item with two paragraphs. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aliquam hendrerit mi posuere lectus."
+			]),
+			 md_par(["ATTENZIONE!"])
+		] , {:want_my_paragraph=>true}),
+		 md_el(:li,[
+			md_par(["Suspendisse id sem consectetuer libero luctus adipiscing."])
+		] , {:want_my_paragraph=>false})
+	] ),
+	 md_par(["Ancora"]),
+	 md_el(:ul,[
+		md_el(:li,[
+			md_par(["This is a list item with two paragraphs."]),
+			 md_par([
+				"This is the second paragraph in the list item. You're only required to indent the first line. Lorem ipsum dolo sit amet, consectetuer adipiscing elit"
+			])
+		] , {:want_my_paragraph=>true}),
+		 md_el(:li,[md_par(["Another item in the same list."])] , {:want_my_paragraph=>false})
+	] )
+] )
 *** Output of to_html ***
 <ul
       ><li>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aliquam hendrerit mi posuere lectus. Vestibulum enim wisi, viverra nec, fringilla in, laoreet vitae, risus.</li

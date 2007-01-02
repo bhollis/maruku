@@ -3,19 +3,53 @@ LaTeX_use_listings: true
 html_use_syntax: true
 use_numbered_headers: true
 
-Syntax for meta-data 
-====================
+Proposal for adding a meta-syntax to Markdown
+=============================================
 
-This document describe a syntax that makes it possible to attach meta-data  to
-block-level elements (headers, paragraphs, code blocks, ...), 
-and to span-level elements (links, images, ...).
+This document describes a syntax for attaching meta-data to
+block-level elements (headers, paragraphs, code blocks,&hellip;), 
+and to span-level elements (links, images,&hellip;).
 
-
-Last update: December 29th, 2006.
+Last updated **January 2nd, 2007**: integrated topics 
+discussed in mailing list.
 
 *Table of contents:*
 > @toc
 > * Table of contents
+
+
+Overview
+--------
+
+This proposal describes two additions to the Markdown syntax:
+
+1. inline attribute lists (IAL)
+
+   	## Header ##       {key=val .class #id ref_id}
+
+2. attribute lists definitions (ALD)
+
+   	{ref_id}: key=val .class #id
+
+Every span-level or block-level element can be followed by an IAL:
+
+	### Header ###     {#header1 class=c1}
+	
+	Paragraph *with emphasis*{class=c1}
+	second line of paragraph
+	{class=c1}
+
+In this example, the three IALs refer to the header, the emphasis span, and the entire paragraph, respectively.
+
+IALs can reference ALDs. The result of the following example is the same as the previous one:
+
+	### Header ###  {#header1 c1}
+
+	Paragraph *with emphasis*{c1}
+	second line of paragraph
+	{c1}
+	
+	{c1}: class=c1
 
 Attribute lists
 ---------------
@@ -23,54 +57,42 @@ Attribute lists
 This is an example attribute list, which shows
 everything you can put inside:
 
-	{key1=val key2="long val" #myid .class1 .class2 tag1 tag2}
+	key1=val key2="long val" #myid .class1 .class2 ref1 ref2
 
-More in particular, an attribute list is a brace-enclosed, whitespace-separated list 
+More in particular, an attribute list is a   whitespace-separated list 
 of elements of 4 different kinds:
 
-1. key/value pairs
-2. [tags](#using_tags) (`tag1`,`tag2`)
+1. key/value pairs (quoted if necessary)
+2. [references to ALD](#using_tags) (`ref1`,`ref2`)
 3. [id specifiers](#class_id) (`#myid`)
 4. [class specifiers](#class_id) (`.myclass`) 
 
-The formal grammar is specified [below](#grammar).
-
 ### `id` and `class` are special ### {#class_id}
 
-You can attach every attribute you want to elements, but
-some are threated in a special way:
+For ID and classes there are special shortcuts:
 
-* `id`: you can only have one ID specified for an element.
-   ID must not conflict with one another.
+* `#myid` is a shortcut for `id=myid`
+* `.myclass` means "add `myclass` to the current `class` attribute".
 
-* `class`: class attributes are cumulative.
-  It is possible to attach more that one class attribute
-  to the same element (just like HTML). 
-
-  In this case, the values get merged. So these are equivalent:
+  So these are equivalent:
 
   	{.class1 .class2}
   	{class="class1 class2"}
 
 
-For ID and classes there are special shortcuts:
-
-* `#myid` is a shortcut for `id=myid`
-* `.myclass` is a shortcut for `class=myclass`
-
-Therefore the following attribute lists are equivalent:
+The following attribute lists are equivalent:
 
 	{#myid .class1 .class2} 
-	{id=myid class=class1 class=class2}
+	{id=myid class=class1 .class2}
 	{id=myid class="class1 class2"}
+	{id=myid class="will be overridden" class=class1 .class2}
 
-
-Where to put attribute lists
-----------------------------
+Where to put inline attribute lists
+----------------------------------
 
 ### For block-level elements ###
 
-For paragraphs and other block-level elements, attributes lists go
+For paragraphs and other block-level elements, IAL go
 **after** the element:
 
 	This is a paragraph.
@@ -81,7 +103,7 @@ For paragraphs and other block-level elements, attributes lists go
 	> Who said that?
 	{cite=google.com}
 
-Note: empty lines between the block and the attributes list are not tollerated.
+Note: empty lines between the block and the IAL are not tollerated.
 So this is not legal:
 
 	This is a paragraph.
@@ -110,7 +132,7 @@ For headers, you can put attribute lists on the same line:
 	Header     {#myid .myclass}
 	------
 
-or, as other block-level elements, on the line after:
+or, as like other block-level elements, on the line below:
 
 	### Header ###     
 	{#myid}
@@ -121,17 +143,16 @@ or, as other block-level elements, on the line after:
 
 ### For span-level elements ###
 
-For span-level elements, metadata goes immediately **after** in the paragraph
+For span-level elements, meta-data goes immediately **after** in the 
 flow.
-
 
 For example, in this:
 
-	This is a *chunky paragraph*{#id1}.
+	This is a *chunky paragraph*{#id1}
 	{#id2}
 	
 the ID of the `em` element is set to `id1`
-and the id of the paragraph is set to `id2`.
+and the ID of the paragraph is set to `id2`.
 
 This works also for links, like this:
 
@@ -145,184 +166,132 @@ is equivalent to:
 	
 	This is ![Alt text](url){title="fresh carrots"}
 
-Using "tags"    {#using_tags}
------------- 
+Using attributes lists definition    {#using_tags}
+---------------------------------
 
 In an attribute list, you can have: 
+
 1. `key=value` pairs,
 2. id attributes (`#myid`)
 3. class attributes (`.myclass`) 
 
-Everything else is interpreted as a "tag" [^tag].
-Tags let you tag an element and then specify
-the attributes later:
+Everything else is interpreted as a reference to 
+an ALD.
 
-	# Header #      {tag}
+	# Header #      {ref}
 
 	Blah blah blah.
 	
-	{tag}: #myhead .myclass lang=fr
+	{ref}: #myhead .myclass lang=fr
 
-Tags are not unique: more than one element can
-be assigned the same tag. 
+Of course, more than one IAL can reference the same ALD:
 
-	# Header 1 #      {tag}
+	# Header 1 #      {1}
 	...
-	# Header 2 #      {tag}
+	# Header 2 #      {1}
 
-	{tag}: .myclass lang=fr
-
-In this case, however, you should not assign
-the `id` attribute. So this is **not** valid:
-
-	# Header 1 #      {tag}
-	...
-	# Header 2 #      {tag}
-
-	{tag}: #myid .myclass lang=fr
+	{1}: .myclass lang=fr
 
 
-[^tag]: a better name for this?
+The rules           {#grammar}
+---------
 
-Of course, tags are valid for both block-level and span-level elements:
+### The issue of escaping ###
 
-	### My header ### {1}
-	This is a paragraph with an *emphasis*{2}
-	a and the paragraph goes on.
-	{3}
+1. No escaping in code blocks.
+
+   * ``` `\` ``` represents the one-character string `\`.
+
+2. Everywhere else, **all** characters **can** be escaped:
+
+   * `\|` is the literal `|`, `\n` is the literal `n`.
+   * `\ ` represents a non-breaking space.
+   *  `\` followed by a newline represents a linebreak.
+
+3. Quotes **must** be escaped inside quoted values:
+   
+   * Inside `"quoted values"`, you **must** escape `"`.
+   * Inside `'quoted values'`, you **must** escape `'`.
+
+   * Other examples:
+
+     `"bah 'bah' bah"` =  `"bah \'bah\' bah"` = `'bah \'bah\' bah'`
+     
+     `'bah "bah" bah'` =  `'bah \"bah\" bah'` = `"bah \"bah\" bah"`
+
+
+4. There is an exception for backward compatibility: 
+
+   	[text](url "title"with"quotes")
+
+
+### Syntax for attribute lists ####
+
+Consider the following attribute list:
+
+	{key=value ref key2="quoted value" }
 	
-	{1}: #header_id
-	{2}: #emph_id
-	{3}: #par_id
+In this string, `key`, `value`, and `ref` can be substituted by any
+string that does not contain whitespace, or the unescaped characters `}`,`=`,`'`,`"`.
 
+Inside a quoted value, you **may** use `}`,`=` unescaped but you **must**
+escape the other kind of quote.
 
-Additional examples and corner-cases
-------------------------------------
-
-### Code blocks ###
-
-Note that attributes for code blocks should not be indented
-by more than 3 spaces:
-
-@ code_show_spaces
-	    This is a code block.
-	    {#myid} <-- this is part of the block
-	   {#blockid}
-
-
-Formal grammar          {#grammar}
---------------        
-
-In this section we define the formal grammar AKA the big regexp.
-
-In the spirit of HTML:
-
-> Identifiers must begin with a letter (`[A-Za-z]`) and 
-> may be followed by any number of letters, digits (`[0-9]`), 
-> hyphens (`-`), underscores (`_`), colons (`:`), and periods (`.`).
-
-the same applies to class attributes and for the keys in key/value pairs. 
-Moreover, they are case-sensitive.
-
-So this is a valid attribute list:
-
-	{#my:_A123.veryspecialID .my:____:class }
-
-The regexp for identifiers is therefore
-
-	Identifier = [A-Za-z][A-Za-z0-9_\.\:\-]*
-
-(This is Ruby syntax; I am told it is similar to Perl's so I guess 
-it is generally understandable. If not, please tell me the equivalent 
-in your language.)
-
-Now: 
-* an id attribute is an `Identifier` preceded by `#`
-* a class attribute is an `Identifier` preceded by `.`
-* a `Tag` is an `Identifier`
-
-* A key/value pair is an Identifier, followed by a `=`, followed by
-  a value.
-
-  The value can be quoted (`key="Very long quote"`) or unquoted (`key=small_value`). 
-
-  * An unquoted value must not start with a double quote `"`, and may contain everything
-    except whitespace:
-
-    	UnquotedValue =  [^\s\"][^\s]*
-
-    Example:
-
-    	{key1=This=is"myValue_%&$&d9i key2=true}
-
-  * A quoted value is enclosed in double quotes and may contain every char.
-    In a quoted value, double quotes and backslashes can be escaped:
-
-    	{key1="\\\" backslash and quote also	a tab"}
-
-### Summary ###
-
-To summarize:
-
-	AttributeList =  \{ (ws [KeyValue|IdSpec|ClassSpec|Tag])*  ws \}    
-	Identifier    =  [A-Za-z][A-Za-z0-9_\.\:\-]*
-	Tag           =  Identifier 
-	IdSpec        =  #Identifier 
-	ClassSpec     =  .Identifier 
-	KeyValue      =  Key=[QuotedValue|UnquotedValue]
-	Key           =  Identifier
-	UnquotedValue =  [^\s\"][^\s]*
-	QuotedValue   =  \"[^\"]*\"            <---------- note: simplistic
-
-**Note**: I am not able to write the regexp for `QuotedValue` that takes into
-account also the escaping of the characters. Any regexp wizard out there?
 
 Things to discuss 
 -----------------
 
+* A syntax for creating `SPAN` elements in the paragraphs and setting their attributes.
+
+  This is my proposal:
+
+  	a long paragraph with [special words]{#myspan} that I want to
+  	highlight
+
+  should originate the following HTML:
+
+  	<p>a long paragraph with <span id="myspan">special words</span>
+  	   that I want to highlight</p>
+
+  ***Note: I changed the old `{special words}{#myspan}` with `[special words]{#myspan}` which is less ambiguous.***
+
+* > Another question: does it makes sense to define `<span>` within
+  > Markdown when you can't have `<b>` and `<i>`, or the more meaningful
+  > `<cite>`, `<q>`, `<dfn>`, and `<var>`? We have to draw the line somewhere,
+  > where should it be? Another good question for the list.
+
+  Any opinion?
+
+* **Default ALD for classes of elements.**  For example, an header of level 2 inherits automatically the attributes of `{header2}`, if it is defined.
+
+  	## Header ##
+  	
+  	Paragraph..
+  	
+  	## Second Header ## {.mah} 
+  	
+  	Paragraph..
+  	
+  	{header2}: .myclass
+  	{paragraph}: .withmargins
+
+In this example:
+
+* the first header has attributes `class=myclass`
+* the second header has attributes `class="myclass mah"`
+* the two paragraphs have attributes `class=withmargins`
+
+
+Design rationale
+----------------
+
 * Question: should we allow whitespace at the sides of `=` in key/value pairs?
 
-* Question: should `:` be a synonym for `=` in attributes list. 
+  > No, because it is difficult to parse.
 
-  Personally, I like this:
-  
-  	{key1: value  key2: "value2 with spaces" }
+* Question: should `:` be a synonym for `=` in attributes list?
 
-  much more than this:
-
-  	{key1=value  key2="value2 with spaces " }
-
+  > No, because ':' is used for XML namespaces (`xml:lang=en`)
  
- * A syntax for creating `SPAN` elements in the paragraphs and setting their
-   attributes.
 
-   This is my proposal:
- 
-   	a long paragraph with {special words}{#myspan} that I want to
-   	highlight
-
-   should originate the following HTML:
-
-   	<p>a long paragraph with <span id="myspan">special words</span>
-   	   that I want to highlight</p>
-
-   This is Michel's comment on this syntax:
-
-   > It looks quite good. One question is can it be amgibuous with braces
-   > used for the attributes themselves? I don't have an answer to that
-   > question; better ask this on the list.
-   
-   I don't think it is ambiguous, because it's the only case in which you have
-   the sequence `}{`:
-   
-   	{.*}{Attributes}
-
-   > Another question: does it makes sense to define `<span>` within
-   > Markdown when you can't have `<b>` and `<i>`, or the more meaningful
-   > `<cite>`, `<q>`, `<dfn>`, and `<var>`? We have to draw the line somewhere,
-   > where should it be? Another good question for the list.
-
-   
-
-* anything else?
 

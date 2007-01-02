@@ -168,7 +168,7 @@ class MDElement
 				s2 = Section.new
 				s2.section_level = level
 				s2.header_element = header
-				header.meta[:section] = s2
+				header.instance_variable_set :@section, s2
 				
 				stack.last.section_children.push s2
 				stack.push s2

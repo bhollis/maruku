@@ -14,7 +14,7 @@ PRE {
 	border: solid 1px #bdd;
 	padding: 4px;
 }
-
+CODE {background-color: #eff;}
 H1 STRONG { color: red;}
 
 TABLE.example TD,

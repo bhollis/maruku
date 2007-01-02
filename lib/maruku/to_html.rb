@@ -60,10 +60,10 @@ class Maruku
 		# containing code.
 		doc.write(xml,indent,transitive=true,ie_hack);
 		
-		encoding = ( (enc=@meta[:encoding]) ? 
-			"encoding='#{enc}'" : "")
+#		encoding = ( (enc=@meta[:encoding]) ? 
+#			"encoding='#{enc}'" : "")
 		
-		xhtml10strict  = "<?xml version='1.0' #{encoding}?>
+		xhtml10strict  = "<?xml version='1.0' encoding='utf-8'?>
 <!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Strict//EN'
 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'>\n"
 		xhtml10strict + xml
@@ -235,7 +235,7 @@ class MDElement
 	def section_number
 		return nil if not @doc.meta[:use_numbered_headers]
 		
-		if (s = @meta[:section]) and not s.section_number.empty?
+		if (s = @section) and not s.section_number.empty?
 			 s.section_number.join('.')+". "
 		else
 			nil
@@ -452,7 +452,7 @@ class MDElement
 
 	def to_html_raw_html
 		raw_html = @meta[:raw_html]
-		if rexml_doc = @meta[:parsed_html]
+		if rexml_doc = @parsed_html
 			root =  rexml_doc.root
 			if root.nil?
 				s = "Bug in REXML: root() of Document is nil: \n#{rexml_doc.inspect}\n"+

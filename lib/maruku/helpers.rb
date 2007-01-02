@@ -25,16 +25,19 @@ module Helpers
 			# end end of string, or else REXML gets confused
 			raw_html = raw_html.gsub(/\A\s*</,'<').
 			                    gsub(/>[\s\n]*\Z/,'>')
-			e.meta[:parsed_html] = REXML::Document.new(raw_html)
-		rescue Exception => e
+			e.instance_variable_set :@parsed_html,
+			 	REXML::Document.new(raw_html)
+		
+		rescue Exception => ex
 			tell_user "Malformed block of HTML:\n"+
-			"  #{raw_html.inspect}\n\n"+e.inspect
+			add_tabs(raw_html,1,'|')
+#			"  #{raw_html.inspect}\n\n"+ex.inspect
 		end
 		e
 	end
 		
 	def md_link(children, ref_id)
-		md_el(:link, children, {:ref_id=>ref_id})
+		md_el(:link, children, {:ref_id=>ref_id.downcase})
 	end
 	
 	def md_im_link(children, url, title=nil)
@@ -149,19 +152,6 @@ class MDElement
 		end
 	end
 	
-
-	def children_inspect
-		s = @children.map{|x| x.inspect}.join(", ")
-		if @children.empty?
-			"[]"
-		elsif s.size < 70
-			"["+s+"]"
-		else
-			"[\n"+
-			add_tabs(@children.map{|x| x.inspect}.join(",\n"))+
-			"\n]"
-		end
-	end
 end
 
 

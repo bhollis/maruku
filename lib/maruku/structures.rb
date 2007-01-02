@@ -80,24 +80,52 @@ class MDElement
 		ok
 	end
 	
-	def inspect
-		i2 = inspect2
-		return i2 if i2
+	def inspect(compact=true)
+		if compact
+			i2 = inspect2
+			return i2 if i2
+		end
+		
 		"md_el(:%s,%s %s)" %
 		[
 			@node_type,
-			children_inspect, 
+			children_inspect(compact), 
 			if @meta.size>0 then 
 				', '+@meta.inspect 
 			else '' end
 		]
 	end
-	
-	def add_tabs(s,n=1)
-		s.split("\n").map{|x| "\t"*n+x }.join("\n")
+
+	def children_inspect(compact=true)
+		s = @children.inspect_more(compact,', ')
+		if @children.empty?
+			"[]"
+		elsif s.size < 70
+			s
+		else
+			"[\n"+
+			add_tabs(@children.inspect_more(compact,",\n ",false))+
+			"\n]"
+		end
 	end
+	
 end
 
+class String
+	alias inspect_more inspect
+end
+
+class Array
+	def inspect_more(compact, join_string, add_brackets=true)
+		s  = map {|x| 
+			x.kind_of?(String) ? x.inspect : 
+			x.kind_of?(MDElement) ? x.inspect(compact) : 
+			(raise "WTF #{x.class} #{x.inspect}")
+		}.join(join_string)
+		
+		add_brackets ? "[#{s}]" : s
+	end
+end
 # The Maruku class represent the whole document 
 # and holds global data.
 

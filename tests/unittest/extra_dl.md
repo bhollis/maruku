@@ -1,6 +1,6 @@
 Write a comment abouth the test here.
 *** Parameters: ***
-{}
+{:css=>"style.css"}
 *** Markdown input: ***
 CSS: style.css
 
@@ -13,8 +13,22 @@ Orange
 :   The fruit of an evergreen tree of the genus Citrus.
 
 *** Output of inspect ***
-#<Maruku:0x110925c @refs={}, @node_type=:document, @toc=Master
-, @children=[#<MDElement:0x1103ce4 @node_type=:definition_list, @doc=#<Maruku:0x110925c ...>, @children=[#<MDElement:0x1103d34 @node_type=:definition, @doc=#<Maruku:0x110925c ...>, @children=[#<MDElement:0x1106bc4 @node_type=:definition_term, @doc=#<Maruku:0x110925c ...>, @children=["Apple"], @meta={}>, #<MDElement:0x1103dd4 @node_type=:definition_data, @doc=#<Maruku:0x110925c ...>, @children=["Pomaceous fruit of plants of the genus Malus in the family Rosaceae."], @meta={}>], @meta={:definitions=>[#<MDElement:0x1103dd4 @node_type=:definition_data, @doc=#<Maruku:0x110925c ...>, @children=["Pomaceous fruit of plants of the genus Malus in the family Rosaceae."], @meta={}>], :want_my_paragraph=>false, :terms=>[#<MDElement:0x1106bc4 @node_type=:definition_term, @doc=#<Maruku:0x110925c ...>, @children=["Apple"], @meta={}>]}>, #<MDElement:0x10ff39c @node_type=:definition, @doc=#<Maruku:0x110925c ...>, @children=[#<MDElement:0x11019a8 @node_type=:definition_term, @doc=#<Maruku:0x110925c ...>, @children=["Orange"], @meta={}>, #<MDElement:0x10ff3d8 @node_type=:definition_data, @doc=#<Maruku:0x110925c ...>, @children=["The fruit of an evergreen tree of the genus Citrus."], @meta={}>], @meta={:definitions=>[#<MDElement:0x10ff3d8 @node_type=:definition_data, @doc=#<Maruku:0x110925c ...>, @children=["The fruit of an evergreen tree of the genus Citrus."], @meta={}>], :want_my_paragraph=>false, :terms=>[#<MDElement:0x11019a8 @node_type=:definition_term, @doc=#<Maruku:0x110925c ...>, @children=["Orange"], @meta={}>]}>], @meta={}>], @doc=#<Maruku:0x110925c ...>, @abbreviations={}, @stack=[], @meta={:css=>"style.css"}, @footnotes={}>
+md_el(:document,[
+	md_el(:definition_list,[
+		md_el(:definition,[
+			md_el(:definition_term,["Apple"] ),
+			 md_el(:definition_data,[
+				"Pomaceous fruit of plants of the genus Malus in the family Rosaceae."
+			] )
+		] , {:definitions=>[md_el(:definition_data,[
+			"Pomaceous fruit of plants of the genus Malus in the family Rosaceae."
+		] )], :want_my_paragraph=>false, :terms=>[md_el(:definition_term,["Apple"] )]}),
+		 md_el(:definition,[
+			md_el(:definition_term,["Orange"] ),
+			 md_el(:definition_data,["The fruit of an evergreen tree of the genus Citrus."] )
+		] , {:definitions=>[md_el(:definition_data,["The fruit of an evergreen tree of the genus Citrus."] )], :want_my_paragraph=>false, :terms=>[md_el(:definition_term,["Orange"] )]})
+	] )
+] , {:css=>"style.css"})
 *** Output of to_html ***
 <dl
       ><dt>Apple</dt

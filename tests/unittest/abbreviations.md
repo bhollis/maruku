@@ -17,15 +17,15 @@ Operation Tigra Genesis is going well.
 md_el(:document,[
 	md_par([
 		"The ",
-		md_el(:abbreviation,["HTML"] , {:title=>"Hyper Text Markup Language"}),
-		" specification is maintained by the ",
-		md_el(:abbreviation,["W3C"] , {:title=>"World Wide Web Consortium"}),
-		"."
+		 md_el(:abbreviation,["HTML"] , {:title=>"Hyper Text Markup Language"}),
+		 " specification is maintained by the ",
+		 md_el(:abbreviation,["W3C"] , {:title=>"World Wide Web Consortium"}),
+		 "."
 	]),
-	md_par([
+	 md_par([
 		"Operation ",
-		md_el(:abbreviation,["Tigra Genesis"] ),
-		" is going well."
+		 md_el(:abbreviation,["Tigra Genesis"] ),
+		 " is going well."
 	])
 ] )
 *** Output of to_html ***

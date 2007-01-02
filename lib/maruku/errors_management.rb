@@ -15,7 +15,8 @@ class MarukuException < RuntimeError
 	
 end
 
-class MDElement
+
+module MarukuErrors
 	Default_on_error = :raise
 	
 	def maruku_error(s,src=nil,con=nil)
@@ -37,7 +38,15 @@ class MDElement
 	end
 
 	def tell_user(s)
-		(@error_stream || $stderr) << "\n" << s << "\n"
+		n = 75
+		(@error_stream || $stderr) <<
+		" "+"_"*n << "\n"<<
+		"| Maruku tells you (#{caller[0]})\n" << 
+		"+"+"-"*n +"\n"+
+		add_tabs(s,1,'| ') << "\n" <<
+		"+" << "-"*n << "\n" <<
+		add_tabs(caller.join("\n"),1,'!') << "\n" <<
+		"\\" << "_"*n << "\n"
 	end
 	
 	def set_error_stream(os)
@@ -47,17 +56,19 @@ class MDElement
 	def describe_error(s,src,con)
 		t = s
 		if src
-			t += "\n #{src.describe} \n"
+			t += "\n#{src.describe}\n"
 		end
 		if con
-			t += "\n #{con.describe} \n"
+			t += "\n#{con.describe}\n"
 		end
 		t
 	end
 	
 end
 
-
+class MDElement
+	include MarukuErrors
+end
 
 
 

@@ -12,7 +12,7 @@ Here is an example of AppleScript:
 *** Output of inspect ***
 md_el(:document,[
 	md_par(["Here is an example of AppleScript:"]),
-	md_el(:code,[] , {:raw_code=>"tell application \"Foo\"\n    beep\nend tell\n\ttab"})
+	 md_el(:code,[] , {:raw_code=>"tell application \"Foo\"\n    beep\nend tell\n\ttab"})
 ] )
 *** Output of to_html ***
 <p>Here is an example of AppleScript:</p

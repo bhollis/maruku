@@ -16,6 +16,14 @@
 #   along with Maruku; if not, write to the Free Software
 #   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
+module MarukuStrings
+	def add_tabs(s,n=1,char="\t")
+		s.split("\n").map{|x| char*n+x }.join("\n")
+	end
+end
+class MDElement
+	include MarukuStrings
+end
 
 class Maruku
 	

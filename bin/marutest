@@ -55,6 +55,15 @@ def run_test(filename, its_ok)
 	end
 	
 
+		begin
+			m = Maruku.new
+			d = m.instance_eval(actual[:inspect])
+		rescue Exception => e
+			s = e.inspect + e.backtrace.join("\n")
+			raise "Inspect is not correct:\n ========\n#{actual[:inspect]}"+
+			"============\n #{s}"
+		end
+
 	expected = {}
 	if (stuff.size < TOTEST.size)
 		$stdout.write " (first time!) "
@@ -75,7 +84,7 @@ def run_test(filename, its_ok)
 			expected[:inspect] = d.inspect
 		rescue Exception => e
 			s = e.inspect + e.backtrace.join("\n")
-			raise "Cannot eval user-provided string:\n #{actual[:inspect].inspect}"+
+			raise "Cannot eval user-provided string:\n #{expected[:inspect].to_s}"+
 			"\n #{s}"
 		end
 	end

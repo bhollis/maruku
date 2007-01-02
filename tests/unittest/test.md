@@ -8,8 +8,7 @@ Write a comment abouth the test here.
 
 
 *** Output of inspect ***
-#<Maruku:0x10cc780 @refs={}, @node_type=:document, @toc=Master
-, @children=[#<MDElement:0x10cb8e4 @node_type=:code, @doc=#<Maruku:0x10cc780 ...>, @children=[], @meta={:raw_code=>"       $ python       "}>], @doc=#<Maruku:0x10cc780 ...>, @abbreviations={}, @stack=[], @meta={}, @footnotes={}>
+md_el(:document,[md_el(:code,[] , {:raw_code=>"       $ python       "})] )
 *** Output of to_html ***
 <pre
       ><code>       $ python       </code

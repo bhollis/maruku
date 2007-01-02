@@ -14,11 +14,11 @@ Paragraph
 *** Output of inspect ***
 md_el(:document,[
 	md_par(["Paragraph"]),
-	md_ref_def("google1", "#" ,{:title=>nil}),
-	md_par(["Paragraph"]),
-	md_ref_def("google2", "#" ,{:title=>nil}),
-	md_par(["Paragraph"]),
-	md_ref_def("google3", "#" ,{:title=>nil})
+	 md_ref_def("google1", "#" ,{:title=>nil}),
+	 md_par(["Paragraph"]),
+	 md_ref_def("google2", "#" ,{:title=>nil}),
+	 md_par(["Paragraph"]),
+	 md_ref_def("google3", "#" ,{:title=>nil})
 ] )
 *** Output of to_html ***
 <p>Paragraph</p

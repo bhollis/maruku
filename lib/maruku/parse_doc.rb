@@ -16,6 +16,8 @@
 #   along with Maruku; if not, write to the Free Software
 #   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
+require 'iconv'
+
 class Maruku
 	def initialize(s=nil, meta={})
 		@node_type = :document
@@ -39,6 +41,18 @@ class Maruku
 		
 		@meta.merge! meta2
 		
+		enc = @meta[:encoding]
+		@meta.delete :encoding
+		if enc && enc.downcase != 'utf-8'
+			puts "Converting from #{enc} to UTF-8."
+			converted = Iconv.new('utf-8', enc).iconv(data)
+			
+			puts "Data: #{data.inspect}: #{data}"
+			puts "Conv: #{converted.inspect}: #{converted}"
+			
+			data = converted
+		end
+		
 		lines = Maruku.split_lines(data)
 		@children = parse_lines_as_markdown(lines)
 		
@@ -57,7 +71,7 @@ class Maruku
 		# save for later use
 		self.toc = toc
 		
-		#puts toc.inspect
+		puts self.inspect
 	end
 
 	def search_abbreviations

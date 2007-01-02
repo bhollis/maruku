@@ -5,8 +5,7 @@ Write a comment abouth the test here.
 Paragraph
 
 *** Output of inspect ***
-#<Maruku:0x105b788 @refs={}, @node_type=:document, @toc=Master
-, @children=[#<MDElement:0x1059de8 @node_type=:paragraph, @doc=#<Maruku:0x105b788 ...>, @children=["Paragraph"], @meta={}>], @doc=#<Maruku:0x105b788 ...>, @abbreviations={}, @stack=[], @meta={}, @footnotes={}>
+md_el(:document,[md_par(["Paragraph"])] )
 *** Output of to_html ***
 <p>Paragraph</p
   >

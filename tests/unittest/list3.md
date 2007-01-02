@@ -11,8 +11,18 @@ Write a comment abouth the test here.
 
         <code goes here>
 *** Output of inspect ***
-#<Maruku:0x10fb6d4 @refs={}, @node_type=:document, @toc=Master
-, @children=[#<MDElement:0x10f4a14 @node_type=:ul, @doc=#<Maruku:0x10fb6d4 ...>, @children=[#<MDElement:0x10f9898 @node_type=:li, @doc=#<Maruku:0x10fb6d4 ...>, @children=[#<MDElement:0x10f7660 @node_type=:paragraph, @doc=#<Maruku:0x10fb6d4 ...>, @children=["A list item with a blockquote:"], @meta={}>, #<MDElement:0x10f7368 @node_type=:quote, @doc=#<Maruku:0x10fb6d4 ...>, @children=[#<MDElement:0x10f4ca8 @node_type=:paragraph, @doc=#<Maruku:0x10fb6d4 ...>, @children=["This is a blockquote inside a list item."], @meta={}>], @meta={}>], @meta={:want_my_paragraph=>true}>, #<MDElement:0x10f412c @node_type=:li, @doc=#<Maruku:0x10fb6d4 ...>, @children=[#<MDElement:0x10f2160 @node_type=:paragraph, @doc=#<Maruku:0x10fb6d4 ...>, @children=["A list item with a code block:"], @meta={}>, #<MDElement:0x10f1fd0 @node_type=:code, @doc=#<Maruku:0x10fb6d4 ...>, @children=[], @meta={:raw_code=>"<code goes here>"}>], @meta={:want_my_paragraph=>true}>], @meta={}>], @doc=#<Maruku:0x10fb6d4 ...>, @abbreviations={}, @stack=[], @meta={}, @footnotes={}>
+md_el(:document,[
+	md_el(:ul,[
+		md_el(:li,[
+			md_par(["A list item with a blockquote:"]),
+			 md_el(:quote,[md_par(["This is a blockquote inside a list item."])] )
+		] , {:want_my_paragraph=>true}),
+		 md_el(:li,[
+			md_par(["A list item with a code block:"]),
+			 md_el(:code,[] , {:raw_code=>"<code goes here>"})
+		] , {:want_my_paragraph=>true})
+	] )
+] )
 *** Output of to_html ***
 <ul
       ><li

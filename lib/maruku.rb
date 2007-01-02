@@ -24,6 +24,9 @@ require 'maruku/helpers'
 # Code for parsing whole Markdown documents
 require 'maruku/parse_doc'
 
+# Ugly things kept in a closet
+require 'maruku/string_utils'
+
 # A class for reading and sanitizing inline HTML
 require 'maruku/html_helper'
 
@@ -37,8 +40,6 @@ require 'maruku/structures_iterators'
 
 require 'maruku/errors_management'
 
-# Ugly things kept in a closet
-require 'maruku/string_utils'
 
 # Code for creating a table of contents
 require 'maruku/toc'

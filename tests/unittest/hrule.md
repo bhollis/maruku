@@ -14,8 +14,13 @@ Write a comment abouth the test here.
 
 
 *** Output of inspect ***
-#<Maruku:0x1080cf4 @refs={}, @node_type=:document, @toc=Master
-, @children=[#<MDElement:0x1080a24 @node_type=:hrule, @doc=#<Maruku:0x1080cf4 ...>, @children=[], @meta={}>, #<MDElement:0x108095c @node_type=:hrule, @doc=#<Maruku:0x1080cf4 ...>, @children=[], @meta={}>, #<MDElement:0x1080894 @node_type=:hrule, @doc=#<Maruku:0x1080cf4 ...>, @children=[], @meta={}>, #<MDElement:0x10807cc @node_type=:hrule, @doc=#<Maruku:0x1080cf4 ...>, @children=[], @meta={}>, #<MDElement:0x1080704 @node_type=:hrule, @doc=#<Maruku:0x1080cf4 ...>, @children=[], @meta={}>], @doc=#<Maruku:0x1080cf4 ...>, @abbreviations={}, @stack=[], @meta={}, @footnotes={}>
+md_el(:document,[
+	md_el(:hrule,[] ),
+	 md_el(:hrule,[] ),
+	 md_el(:hrule,[] ),
+	 md_el(:hrule,[] ),
+	 md_el(:hrule,[] )
+] )
 *** Output of to_html ***
 <hr
     /><hr

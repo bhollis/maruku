@@ -5,7 +5,7 @@ out+=markdown_extra2.html
 #out+=maruku.pdf maruku.pdf
 others=maruku.md style.css markdown_syntax.md markdown_extra2.md
 
-#out+=proposal.pdf
+out+=proposal.pdf
 out+=proposal.html
 others+=proposal.md
 

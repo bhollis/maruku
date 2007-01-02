@@ -1,6 +1,6 @@
 Write a comment abouth the test here.
 *** Parameters: ***
-{}
+{:title=>"A title with emphasis"}
 *** Markdown input: ***
 A title with *emphasis*
 =======================
@@ -14,12 +14,11 @@ A title with *emphasis*
 
 
 *** Output of inspect ***
-#<Maruku:0x10a6968 @refs={}, @node_type=:document, @toc=_(1)>	  : A title with emphasis (id: 'a_title_with_emphasis')
-__(2)>	 1 : A title with emphasis (id: 'a_title_with_emphasis')
-, @children=[#<MDElement:0x10a65a8 @node_type=:header, @doc=#<Maruku:0x10a6968 ...>, @children=["A title with ", #<MDElement:0x10a4bb8 @node_type=:emphasis, @doc=#<Maruku:0x10a6968 ...>, @children=["emphasis"], @meta={}>], @meta={:id=>"a_title_with_emphasis", :level=>1, :section=>_(1)>	  : A title with emphasis (id: 'a_title_with_emphasis')
-__(2)>	 1 : A title with emphasis (id: 'a_title_with_emphasis')
-}>, #<MDElement:0x10a4690 @node_type=:header, @doc=#<Maruku:0x10a6968 ...>, @children=["A title with ", #<MDElement:0x10a2c8c @node_type=:emphasis, @doc=#<Maruku:0x10a6968 ...>, @children=["emphasis"], @meta={}>], @meta={:id=>"a_title_with_emphasis", :level=>2, :section=>_(2)>	 1 : A title with emphasis (id: 'a_title_with_emphasis')
-}>, #<MDElement:0x10a27a0 @node_type=:header, @doc=#<Maruku:0x10a6968 ...>, @children=["A title with ", #<MDElement:0x10a0a54 @node_type=:emphasis, @doc=#<Maruku:0x10a6968 ...>, @children=["emphasis"], @meta={}>], @meta={:id=>"a_title_with_emphasis", :level=>4}>], @doc=#<Maruku:0x10a6968 ...>, @abbreviations={}, @stack=[], @meta={:title=>"A title with emphasis"}, @footnotes={}>
+md_el(:document,[
+	md_el(:header,["A title with ", md_em(["emphasis"])] , {:id=>"a_title_with_emphasis", :level=>1}),
+	 md_el(:header,["A title with ", md_em(["emphasis"])] , {:id=>"a_title_with_emphasis", :level=>2}),
+	 md_el(:header,["A title with ", md_em(["emphasis"])] , {:id=>"a_title_with_emphasis", :level=>4})
+] , {:title=>"A title with emphasis"})
 *** Output of to_html ***
 <h1 id='a_title_with_emphasis'>A title with <em>emphasis</em
     ></h1

@@ -8,6 +8,7 @@ class Maruku
 
 	class TestNewParser
 		include Helpers
+		include MarukuErrors
 			
 		# 5 accented letters in italian, encoded as UTF-8
 		AccIta8 = "\303\240\303\250\303\254\303\262\303\271"
@@ -243,6 +244,7 @@ class Maruku
 					last_comment = t[2]; count=1
 				end
 			end
+			
 				
 			@verbose = verbose
 			m = Maruku.new
@@ -255,10 +257,9 @@ class Maruku
 					rescue Exception => e
 						if not expected == :throw
 							ex = e.inspect+ "\n"+ e.backtrace.join("\n")
-							s = comment+"\nInput:\n  #{input.inspect}" +
-							    "\nExpected:\n  #{expected.inspect}" +
-								"\nOutput:\n  #{output.inspect}\n#{ex}"
-							print_status(comment,'CRASHED :-(',s)
+							s = comment+describe_difference(input, expected, output)
+								
+							print_status(comment,'CRASHED :-(', ex+s)
 							raise e if @break_on_first_error 
 						else
 							print_status(comment,'OK')
@@ -267,9 +268,7 @@ class Maruku
 					
 					if not expected == :throw
 						if not (expected == output)
-							s = comment+"\nInput:\n  #{input.inspect}" +
-							    "\nExpected:\n  #{expected.inspect}" +
-								"\nOutput:\n  #{output.inspect}"
+							s = comment+describe_difference(input, expected, output)
 							print_status(comment, 'FAILED', s)
 							break if break_on_first_error
 						else
@@ -277,8 +276,8 @@ class Maruku
 						end
 					else # I expected a raise
 						if output
-							s = comment+"\nInput:\n  #{input.inspect}" +
-								"\nOutput:\n  #{output.inspect}"
+							s = comment+describe_difference(input, expected, output)
+							
 							print_status(comment, 'FAILED (no throw)', s)
 							break if break_on_first_error
 						end
@@ -296,6 +295,15 @@ class Maruku
 			if @verbose and verbose_text
 				puts verbose_text
 			end
+		end
+		
+		
+		def describe_difference(input, expected, output)
+			"\nInput:\n  #{input.inspect}" +
+			    "\nExpected:\n  #{expected.inspect}" +
+				"\nOutput:\n  #{output.inspect}\n"+
+				"\nExpected(more):\n  #{expected.inspect}" +
+				"\nOutput(more):\n    #{output.inspect}"
 		end
 		
 	end # class Test

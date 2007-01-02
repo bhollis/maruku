@@ -1,6 +1,6 @@
 Spaces can be put before. ID can be a number
 *** Parameters: ***
-
+{}
 *** Markdown input: ***
   [6]: http://ettext.taint.org/doc/
 *** Output of inspect ***

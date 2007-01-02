@@ -16,8 +16,12 @@ This is ruby code:
 	
 	puts Maruku.new($stdin).to_html
 *** Output of inspect ***
-#<Maruku:0x1123918 @refs={}, @node_type=:document, @toc=Master
-, @children=[#<MDElement:0x111ebd4 @node_type=:paragraph, @doc=#<Maruku:0x1123918 ...>, @children=["This is ruby code:"], @meta={}>, #<MDElement:0x111eae4 @node_type=:code, @doc=#<Maruku:0x1123918 ...>, @children=[], @meta={:raw_code=>"require 'maruku'\n\nputs Maruku.new($stdin).to_html\n"}>, #<MDElement:0x111b0d8 @node_type=:paragraph, @doc=#<Maruku:0x1123918 ...>, @children=["This is ruby code:"], @meta={}>, #<MDElement:0x1119c38 @node_type=:code, @doc=#<Maruku:0x1123918 ...>, @children=[], @meta={:lang=>"ruby", :raw_code=>"require 'maruku'\n\nputs Maruku.new($stdin).to_html", :html_use_syntax=>true}>], @doc=#<Maruku:0x1123918 ...>, @abbreviations={}, @stack=[], @meta={}, @footnotes={}>
+md_el(:document,[
+	md_par(["This is ruby code:"]),
+	 md_el(:code,[] , {:raw_code=>"require 'maruku'\n\nputs Maruku.new($stdin).to_html\n"}),
+	 md_par(["This is ruby code:"]),
+	 md_el(:code,[] , {:raw_code=>"require 'maruku'\n\nputs Maruku.new($stdin).to_html", :lang=>"ruby", :html_use_syntax=>true})
+] )
 *** Output of to_html ***
 <p>This is ruby code:</p
     ><pre
