@@ -115,7 +115,6 @@ class Maruku
 			# at the bottom. 
 			body << maruku_html_signature
 			
-		root << head
 		root << body
 		
 		doc
@@ -283,6 +282,10 @@ class MDElement
 		if use_syntax && lang
 			begin
 				convertor = Syntax::Convertors::HTML.for_syntax lang
+				
+				# eliminate trailing newlines otherwise Syntax crashes
+				source = source.gsub(/\n*\Z/,'')
+				
 				html = convertor.convert( source )
 			
 				show_spaces = get_setting(:code_show_spaces) 
@@ -457,7 +460,7 @@ class MDElement
 			if root.nil?
 				s = "Bug in REXML: root() of Document is nil: \n#{rexml_doc.inspect}\n"+
 				"Raw HTML:\n#{raw_html.inspect}"
-				maruku_errors
+				maruku_error s
 				tell_user 'The REXML version you have has a bug, omitting HTML'
 				div = Element.new 'div'
 				#div << Text.new(s)

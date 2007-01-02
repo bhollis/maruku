@@ -14,7 +14,7 @@ if File.basename($0) =~ /^maruku/
 			# create Maruku
 			doc = Maruku.new(input, {:on_error=>:warning})
 			# convert to a complete html document
-			html = doc.to_html_document( {:indent => 2})
+			html = doc.to_html_document( {:indent => -1})
 	
 			# write to file
 			dir = File.dirname(f)

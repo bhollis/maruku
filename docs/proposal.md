@@ -3,7 +3,7 @@ LaTeX_use_listings: true
 html_use_syntax: true
 use_numbered_headers: true
 
-Proposal for adding a meta-syntax to Markdown
+Proposal for adding a meta-data syntax to Markdown
 =============================================
 
 This document describes a syntax for attaching meta-data to

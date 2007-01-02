@@ -218,7 +218,7 @@ class Maruku
 #		dbg_describe_ary(lines, 'PAR')
 		children = parse_lines_as_span(lines)
 
-		create_md_element(:paragraph, children)
+		md_par(children)
 	end
 	
 	

@@ -44,7 +44,7 @@ class Maruku
 \\usepackage[margin=1in]{geometry}
 \\hypersetup{colorlinks=true}
 %\\usepackage{ucs}
-\\usepackage[utf8x]{inputenc}
+%\\usepackage[utf8x]{inputenc}
 \\begin{document} 
 #{body}
 \\end{document}

@@ -44,11 +44,11 @@ class Maruku
 		enc = @meta[:encoding]
 		@meta.delete :encoding
 		if enc && enc.downcase != 'utf-8'
-			puts "Converting from #{enc} to UTF-8."
+#			puts "Converting from #{enc} to UTF-8."
 			converted = Iconv.new('utf-8', enc).iconv(data)
 			
-			puts "Data: #{data.inspect}: #{data}"
-			puts "Conv: #{converted.inspect}: #{converted}"
+#			puts "Data: #{data.inspect}: #{data}"
+#			puts "Conv: #{converted.inspect}: #{converted}"
 			
 			data = converted
 		end
@@ -56,8 +56,10 @@ class Maruku
 		lines = Maruku.split_lines(data)
 		@children = parse_lines_as_markdown(lines)
 		
-		markdown_extra? && self.search_abbreviations
-		markdown_extra? && self.substitute_markdown_inside_raw_html
+		if true #markdown_extra? 
+			self.search_abbreviations
+			self.substitute_markdown_inside_raw_html
+		end
 		
 		toc = create_toc
 
@@ -71,7 +73,7 @@ class Maruku
 		# save for later use
 		self.toc = toc
 		
-		puts self.inspect
+#		puts self.inspect
 	end
 
 	def search_abbreviations
@@ -79,12 +81,9 @@ class Maruku
 			reg = Regexp.new(Regexp.escape(abbrev))
 			self.replace_each_string do |s|
 				if m = reg.match(s)
-					
 					e = create_md_element(:abbreviation)
 					e.children = [abbrev.dup]
 					e.meta[:title] = title.dup if title
-					e
-					
 					[m.pre_match, e, m.post_match]
 				else
 					s
@@ -97,7 +96,7 @@ class Maruku
 	# markdown=1 or markdown=block defined
 	def substitute_markdown_inside_raw_html
 		self.each_element(:raw_html) do |e|
-			doc = e.meta[:parsed_html]
+			doc = e.instance_variable_get :@parsed_html
 			if doc # valid html
 				# parse block-level markdown elements in these HTML tags
 				block_tags = ['div']

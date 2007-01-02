@@ -35,19 +35,27 @@ class Maruku
 		c = d = nil
 		while true
 			c = src.cur_char
-			break if exit_on_chars && exit_on_chars.include?(c)
-			if exit_on_strings
-				break if exit_on_strings.any? {|x| src.cur_chars_are x}
-			end
-			
-			if src.cur_chars_are "  \n"
-				src.ignore_chars(3)
-				con.push_element  create_md_element(:linebreak)
+
+			if c && ((c>=?a && c<=?z) || ((c>=?A && c<=?Z)))
+#				src.read_text_chars con.cur_string
+				con.cur_string << src.shift_char
 				next
 			end
+
+			break if exit_on_chars && exit_on_chars.include?(c)
+			break if exit_on_strings && exit_on_strings.any? {|x| src.cur_chars_are x}
 			
 			case c
-			when ?\n, ?\t, ?\ # it's space (32)
+			when ?\ # it's space (32)
+				if src.cur_chars_are "  \n"
+					src.ignore_chars(3)
+					con.push_element  create_md_element(:linebreak)
+					next
+				else
+					src.ignore_char
+					con.push_space 
+				end
+			when ?\n, ?\t 
 				src.ignore_char
 				con.push_space 
 			when ?`
@@ -144,8 +152,6 @@ class Maruku
 						con.push_char src.shift_char
 					end
 				end
-#			when ?e
-#				maruku_error "At: %c" % src.cur_char, src, con
 			when nil
 				error ("Unclosed span (waiting for %s"+
 				 "#{exit_on_strings.inspect})") % [
@@ -476,6 +482,8 @@ class SpanContext
 	
 	# Read elements
 	attr_accessor :elements
+	attr_accessor :cur_string
+	
 	def initialize
 		@elements = []
 		@cur_string = ""
@@ -605,6 +613,15 @@ class CharSource
 #				puts "#{c} is not ws: "<<c
 				break
 			end
+		end
+	end
+
+	def read_text_chars(out)
+		s = @buffer.size; c=nil
+		while @buffer_index < s && (c=@buffer[@buffer_index]) &&
+			 ((c>=?a && c<=?z) || (c>=?A && c<=?Z))
+				out << c
+				@buffer_index += 1
 		end
 	end
 	

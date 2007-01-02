@@ -13,7 +13,7 @@ end
 
 TOTEST = [:inspect,:to_html,:to_latex,:to_s,:to_md]
 
-def run_test(filename, its_ok)
+def run_test(filename, its_ok, verbose=true)
 	# read file content
 	input =  (f=File.open(filename,'r')).read; f.close
 	
@@ -51,6 +51,7 @@ def run_test(filename, its_ok)
 		rescue Exception => e
 			crashed << s
 			actual[s] = e.inspect+ "\n"+ e.backtrace.join("\n")
+			puts actual[s]
 		end
 	end
 	

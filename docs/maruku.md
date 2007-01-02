@@ -33,7 +33,6 @@ Maruku implements:
 * a new [meta-data syntax](#meta)
 
 * some ideas from [MultiMarkdown][]
-  * attributes in image links
 
 The [test directory][tests] is quite messy but it shows every capability.
 

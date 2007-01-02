@@ -17,7 +17,7 @@ end
 
 
 module MarukuErrors
-	Default_on_error = :raise
+	Default_on_error = :warning
 	
 	def maruku_error(s,src=nil,con=nil)
 		policy = @doc ? (@doc.meta[:on_error] || Default_on_error) : :raise

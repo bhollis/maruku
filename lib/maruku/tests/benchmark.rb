@@ -1,20 +1,26 @@
 require 'maruku'
 require 'bluecloth'
 
-require 'maruku/parse_span_better'
 
 data = $stdin.read
 
 num = 10
 
-stats = 
+methods = 
 [
 	
 	[BlueCloth, :to_html],
-	[Maruku,    :to_html],
-	[Maruku,    :to_latex]
+	[Maruku,    :class],
+#	[Maruku,    :to_html],
+#	[Maruku,    :to_latex]
 	
-].map do |c, method|
+]*2
+
+#methods = [[Maruku, :class]]
+#num = 10
+
+stats = 
+methods .map do |c, method|
 	puts "Computing for #{c}"
 
 	start = Time.now
