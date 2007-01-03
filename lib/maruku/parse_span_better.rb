@@ -36,8 +36,9 @@ class Maruku
 		while true
 			c = src.cur_char
 
+			# This is only an optimization which cuts 50% of the time used.
+			# (but you can't use a-zA-z in exit_on_chars)
 			if c && ((c>=?a && c<=?z) || ((c>=?A && c<=?Z)))
-#				src.read_text_chars con.cur_string
 				con.cur_string << src.shift_char
 				next
 			end
@@ -85,10 +86,10 @@ class Maruku
 						elsif src.next_matches(/<\w+:/)
 							read_url_el(src, con)
 						elsif src.next_matches(/<\w/)
-#							puts "This is HTML: #{src.cur_chars(20)}"
+							#puts "This is HTML: #{src.cur_chars(20)}"
 							read_inline_html(src, con)
 						else 
-#							puts "This is NOT HTML: #{src.cur_chars(20)}"
+							#puts "This is NOT HTML: #{src.cur_chars(20)}"
 							con.push_char src.shift_char
 						end
 				end
@@ -152,6 +153,14 @@ class Maruku
 						con.push_char src.shift_char
 					end
 				end
+			when ?{ # inline attribute list
+				if new_meta_data?
+					src.ignore_char # opening {
+				 	con.push_element md_ial(read_attribute_list(src, con, [?}]))
+					src.ignore_char # closing }
+				else # normal text
+					con.push_char src.shift_char
+				end
 			when nil
 				error ("Unclosed span (waiting for %s"+
 				 "#{exit_on_strings.inspect})") % [
@@ -191,6 +200,9 @@ class Maruku
 		end
 		
 		url = read_simple(src, [], break_on)
+		if not url # empty url
+			url = ""
+		end
 		
 		if url[0] == ?< && url[-1] == ?>
 			url = url[1, url.size-2]
@@ -203,9 +215,19 @@ class Maruku
 		url
 	end
 	
+	
+	def read_quoted_or_unquoted(src, con, escaped, exit_on_chars)
+		case src.cur_char
+		when ?', ?"
+			read_quoted(src, con)
+		else
+			read_simple(src, escaped, exit_on_chars)
+		end
+	end
+	
 	# Tries to read a quoted value. If stream does not
 	# start with ' or ", returns nil.
-	def read_quoted(src,con)
+	def read_quoted(src, con)
 		case src.cur_char
 			when ?', ?"
 				quote_char = src.shift_char # opening quote
@@ -219,7 +241,9 @@ class Maruku
 	end
 	
 	# Reads a simple string (no formatting) until one of break_on_chars, 
-	# while escaping the escaped
+	# while escaping the escaped.
+	# If the string is empty, it returns nil.
+	# Raises on error.
 	def read_simple(src, escaped, exit_on_chars) 
 		text = ""
 		while true
@@ -249,7 +273,7 @@ class Maruku
 			end
 		end
 #		puts "Read simple #{text.inspect}"
-		text
+		text.empty? ? nil : text
 	end
 	
 	def read_em(src, delim)

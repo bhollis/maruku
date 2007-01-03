@@ -29,4 +29,8 @@ class Maruku
 		true
 	end
 	
+	def new_meta_data?
+		true
+	end
+	
 end

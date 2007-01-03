@@ -35,6 +35,7 @@ require 'maruku/parse_block'
 
 # Code for parsing Markdown span-level elements
 require 'maruku/parse_span_better'
+require 'maruku/attributes'
 
 require 'maruku/structures_iterators'
 

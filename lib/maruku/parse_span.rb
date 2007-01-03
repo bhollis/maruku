@@ -17,6 +17,17 @@
 #   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 
+
+
+#  NOTE: this is the old span-level regexp-based parser.
+#
+#  The new parser is a real parser and is defined with functions in parse_span_better.rb
+#  The new parser is faster, handles syntax errors, but it's absolutely not readable.
+#
+#  Also, regexp parsers simply CANNOT handle inline HTML properly.
+
+
+
 # There are two black-magic methods `match_couple_of` and `map_match`,
 # defined at the end of the file, that make the function 
 # `parse_lines_as_span` so elegant.

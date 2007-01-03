@@ -211,7 +211,10 @@ class Maruku
 		return :hrule    if l =~ /^(\s*_\s*){3,1000}$/ # or underscores	
 		return :quote    if l =~ /^>/
 		return :metadata if l =~ /^@/
-		return :m2ref    if l =~ /^\s{0,3}\{[\w\d\s]+\}:/
+		if new_meta_data?
+			return :ald   if l =~ /^\s{0,3}\{[\w\d\s]+\}:/
+			return :ial   if l =~ /^\s{0,3}\{.*\}/
+		end
 		return :text
 	end
 	

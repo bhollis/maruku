@@ -42,8 +42,6 @@ class Maruku
 						output << read_table
 					elsif [:header1,:header2].include? next_line_node_type
 						output << read_header12
-					
-					
 					elsif eventually_comes_a_def_list
 					 	definition = read_definition
 						if output.last && output.last.node_type == :definition_list
@@ -51,7 +49,6 @@ class Maruku
 						else
 							output << create_md_element(:definition_list, [definition])
 						end
-					
 					else # Start of a paragraph
 						output << read_paragraph
 					end
@@ -99,6 +96,7 @@ class Maruku
 		@stack.pop
 		
 		# See for each list if we can omit the paragraphs and use li_span
+		# TODO: do this after
 		output.each do |c| 
 			# Remove paragraphs that we can get rid of
 			if [:ul,:ol].include? c.node_type 
@@ -142,10 +140,11 @@ class Maruku
 	def read_header12
 		e = create_md_element(:header)
 		line = shift_line.strip
-		if line =~ HeaderWithId 
+		if (not new_meda_data?) and markdown_extra? and line =~ HeaderWithId 
 			line = $1.strip
 			e.meta[:id] = $2
 		end
+		
 		e.children = parse_lines_as_span [ line ]
 
 		e.meta[:level] = cur_line_node_type == :header2 ? 2 : 1

@@ -1,15 +1,33 @@
+#   Copyright (C) 2006  Andrea Censi  <andrea (at) rubyforge.org>
+#
+# This file is part of Maruku.
+# 
+#   Maruku is free software; you can redistribute it and/or modify
+#   it under the terms of the GNU General Public License as published by
+#   the Free Software Foundation; either version 2 of the License, or
+#   (at your option) any later version.
+# 
+#   Maruku is distributed in the hope that it will be useful,
+#   but WITHOUT ANY WARRANTY; without even the implied warranty of
+#   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#   GNU General Public License for more details.
+# 
+#   You should have received a copy of the GNU General Public License
+#   along with Maruku; if not, write to the Free Software
+#   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 
-# Any method that detects formatting error calls the
-# error() method. 
-# if @meta[:on_error] == 
-#
-# - :warning   write on the standard err (or @error_stream if defined), 
-#              then do your best.
-# - :ignore    be shy and try to continue
-# - :raise     raises a MarukuException
-#
-# default is :raise
+
+#m  Any method that detects formatting error calls the
+#m  maruku_error() method. 
+#m  if @meta[:on_error] == 
+#m
+#m  - :warning   write on the standard err (or @error_stream if defined), 
+#m              then do your best.
+#m  - :ignore    be shy and try to continue
+#m  - :raise     raises a MarukuException
+#m
+#m  default is :raise
 
 class MarukuException < RuntimeError
 	
@@ -55,12 +73,8 @@ module MarukuErrors
 
 	def describe_error(s,src,con)
 		t = s
-		if src
-			t += "\n#{src.describe}\n"
-		end
-		if con
-			t += "\n#{con.describe}\n"
-		end
+		src && (t += "\n#{src.describe}\n")
+		con && (t += "\n#{con.describe}\n")
 		t
 	end
 	
