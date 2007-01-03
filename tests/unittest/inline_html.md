@@ -70,42 +70,47 @@ md_el(:document,[
 	 md_html("</table>")
 ] , {:css=>"style.css"})
 *** Output of to_html ***
-<p>Input: <em>Emphasis</em
-      > Result: <em>Emphasis</em
-    ></p
-    ><p>Input: <img src='http://jigsaw.w3.org/css-validator/images/vcss'
-      /> Result on span: <img src='http://jigsaw.w3.org/css-validator/images/vcss'
-      /></p
-    ><p>Result alone: </p
-    ><img src='http://jigsaw.w3.org/css-validator/images/vcss'
-    /><p>Without closing:</p
-    ><img src='http://jigsaw.w3.org/css-validator/images/vcss'
-    /><div markdown='1'>
-	This is *true* markdown text (paragraph)
 
-	<p markdown='1'>
-		This is *true* markdown text (no paragraph)
-	</p
-      >
-</div
-    ><table>
+<p>Input: <em>Emphasis</em> Result: <em>Emphasis</em></p>
+
+<p>Input: <img src='http://jigsaw.w3.org/css-validator/images/vcss' /> Result on span: <img src='http://jigsaw.w3.org/css-validator/images/vcss' /></p>
+
+<p>Result alone: </p>
+<img src='http://jigsaw.w3.org/css-validator/images/vcss' />
+<p>Without closing:</p>
+<img src='http://jigsaw.w3.org/css-validator/images/vcss' />
+<div>
+<p>This is <em>true</em> markdown text (paragraph)</p>
+
+<p>This is <em>true</em> markdown text (no paragraph)</p>
+</div>
+
+<table>
+
 <tr>
-<td markdown='1'>This is *true* markdown text. (no par)</td
-        >
-<td markdown='block'>This is *true* markdown text. (par)</td
-        >
-</tr
-      >
-</table
-    ><p>The following is invalid HTML, and will generate an error:</p
-    ><pre class='markdown-html-error' style='border: solid 3px red; background-color: pink'>HTML parse error: 
+
+<td>This is <em>true</em> markdown text. (no par)</td>
+
+
+<td>
+<p>This is <em>true</em> markdown text. (par)</p>
+</td>
+
+</tr>
+
+</table>
+
+<p>The following is invalid HTML, and will generate an error:</p>
+
+<pre class='markdown-html-error' style='border: solid 3px red; background-color: pink'>HTML parse error: 
 &lt;table&gt;
 &lt;td markdown=&quot;1&quot;&gt;This is *true* markdown text. (no par)&lt;/td&gt;
 &lt;td markdown=&quot;block&quot;&gt;This is *true* markdown text. (par)&lt;/td&gt;
-&lt;/tr&gt;</pre
-    ><pre class='markdown-html-error' style='border: solid 3px red; background-color: pink'>HTML parse error: 
-&lt;/table&gt;</pre
-  >
+&lt;/tr&gt;</pre>
+
+<pre class='markdown-html-error' style='border: solid 3px red; background-color: pink'>HTML parse error: 
+&lt;/table&gt;</pre>
+
 *** Output of to_latex ***
 Input: {\bf Raw HTML removed in latex version } Result: {\bf Raw HTML removed in latex version }
 
@@ -120,7 +125,7 @@ Result alone:
 {\bf Raw HTML removed in latex version }{\bf Raw HTML removed in latex version }
 *** Output of to_s ***
 Input:  Result: Input:  Result on span: Result alone: Without closing:The following is invalid HTML, and will generate an error:
-*** Output of to_md ***
+*** Output of to_s ***
 Input:  Result: Input:  Result on span: Result alone: Without closing:The following is invalid HTML, and will generate an error:
 *** EOF ***
 
@@ -173,27 +178,7 @@ Result on span: <img src="http://jigsaw.w3.org/css-validator/images/vcss"/></p>
 </table>
 
 *** Output of Markdown.pl (parsed) ***
-Error: #<REXML::ParseException: #<REXML::ParseException: Missing end tag for 'img' (got "p")
-Line: 
-Position: 
-Last 80 unconsumed characters:
-  <div markdown="1">     This is *true* markdown text (paragraph)      <p markdow>
-/Volumes/Alter/Ruby/local/lib/ruby/1.8/rexml/parsers/baseparser.rb:315:in `pull'
-/Volumes/Alter/Ruby/local/lib/ruby/1.8/rexml/parsers/treeparser.rb:21:in `parse'
-/Volumes/Alter/Ruby/local/lib/ruby/1.8/rexml/document.rb:190:in `build'
-/Volumes/Alter/Ruby/local/lib/ruby/1.8/rexml/document.rb:45:in `initialize'
-bin/marutest:141:in `new'
-bin/marutest:141:in `run_test'
-bin/marutest:205:in `marutest'
-bin/marutest:203:in `each'
-bin/marutest:203:in `marutest'
-bin/marutest:273
-...
-Missing end tag for 'img' (got "p")
-Line: 
-Position: 
-Last 80 unconsumed characters:
-  <div markdown="1">     This is *true* markdown text (paragraph)      <p markdow
+Error: #<REXML::ParseException: Missing end tag for 'img' (got "p")
 Line: 
 Position: 
 Last 80 unconsumed characters:

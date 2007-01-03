@@ -1,16 +1,19 @@
 
-out=index.html maruku.html  markdown_syntax.html 
-out+=markdown_extra2.html
-#out+=markdown_extra2.pdf 
-#out+=maruku.pdf maruku.pdf
-others=maruku.md style.css markdown_syntax.md markdown_extra2.md
+htmls=index.html maruku.html  markdown_syntax.html markdown_extra2.html
 
-out+=proposal.pdf
-out+=proposal.html
+pdfs=markdown_extra2.pdf maruku.pdf proposal.pdf
+
+others=maruku.md style.css markdown_syntax.md markdown_extra2.md proposal.md 
+
+pdfs+=proposal.pdf
+htmls+=proposal.html
 others+=proposal.md
 
+pdf: $(pdfs)
 
-all: $(out)
+html: $(htmls)
+
+all: pdf html 
 
 index.html: maruku.html
 	cp $< $@
@@ -22,12 +25,12 @@ index.html: maruku.html
 	ruby -I../lib ../bin/marutex $<
 
 clean: 
-	-rm -f $(out)
+	-rm -f $(htmls) $(pdfs)
 
 
-publish: $(out) $(others)
+publish: $(htmls) $(others) $(pdfs) 
 	scp $^ andrea@rubyforge.org:/var/www/gforge-projects/maruku/
 	
 publish_tests:
-	scp -r ../tests/*.md ../tests/*.html ../tests/*.pdf andrea@rubyforge.org:/var/www/gforge-projects/maruku/tests/
+	scp -r ../tests andrea@rubyforge.org:/var/www/gforge-projects/maruku/tests/
 	

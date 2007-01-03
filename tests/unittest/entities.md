@@ -47,56 +47,54 @@ md_el(:document,[
 	 md_par(["It should read just like this: ", md_code("&copy;"), "."])
 ] )
 *** Output of to_html ***
-<p>Maruku translates HTML entities to the equivalent in LaTeX:</p
-    ><table
-      ><thead
-        ><tr
-          ><th>Entity</th
-          ><th>Result</th
-        ></tr
-      ></thead
-      ><tbody
-        ><tr
-          ><td style='text-align: left;'
-            ><code>&amp;copy;</code
-          ></td
-          ><td style='text-align: left;'>&copy;</td
-        ></tr
-        ><tr
-          ><td style='text-align: left;'
-            ><code>&amp;pound;</code
-          ></td
-          ><td style='text-align: left;'>&pound;</td
-        ></tr
-        ><tr
-          ><td style='text-align: left;'
-            ><code>a&amp;nbsp;b</code
-          ></td
-          ><td style='text-align: left;'>a&nbsp;b</td
-        ></tr
-        ><tr
-          ><td style='text-align: left;'
-            ><code>&amp;lambda;</code
-          ></td
-          ><td style='text-align: left;'>&lambda;</td
-        ></tr
-        ><tr
-          ><td style='text-align: left;'
-            ><code>&amp;mdash;</code
-          ></td
-          ><td style='text-align: left;'>&mdash;</td
-        ></tr
-      ></tbody
-    ></table
-    ><p>Entity-substitution does not happen in code blocks or inline code.</p
-    ><p>The following should not be translated:</p
-    ><pre
-      ><code>&amp;copy;
-</code
-    ></pre
-    ><p>It should read just like this: <code>&amp;copy;</code
-      >.</p
-  >
+
+<p>Maruku translates HTML entities to the equivalent in LaTeX:</p>
+
+<table>
+<thead>
+<tr><th>Entity</th><th>Result</th></tr>
+</thead>
+<tbody>
+<tr>
+<td style='text-align: left;'><code>&amp;copy;</code></td>
+
+<td style='text-align: left;'>&copy;</td>
+</tr>
+
+<tr>
+<td style='text-align: left;'><code>&amp;pound;</code></td>
+
+<td style='text-align: left;'>&pound;</td>
+</tr>
+
+<tr>
+<td style='text-align: left;'><code>a&amp;nbsp;b</code></td>
+
+<td style='text-align: left;'>a&nbsp;b</td>
+</tr>
+
+<tr>
+<td style='text-align: left;'><code>&amp;lambda;</code></td>
+
+<td style='text-align: left;'>&lambda;</td>
+</tr>
+
+<tr>
+<td style='text-align: left;'><code>&amp;mdash;</code></td>
+
+<td style='text-align: left;'>&mdash;</td>
+</tr>
+</tbody></table>
+
+<p>Entity-substitution does not happen in code blocks or inline code.</p>
+
+<p>The following should not be translated:</p>
+
+<pre><code>&amp;copy;
+</code></pre>
+
+<p>It should read just like this: <code>&amp;copy;</code>.</p>
+
 *** Output of to_latex ***
 Maruku translates HTML entities to the equivalent in \LaTeX\xspace :
 
@@ -121,7 +119,7 @@ It should read just like this: \colorbox[rgb]{0.94,0.94,0.88}{\tt \char38\char99
 
 *** Output of to_s ***
 Maruku translates HTML entities to the equivalent in LaTeX:EntityResultabEntity-substitution does not happen in code blocks or inline code.The following should not be translated:It should read just like this: .
-*** Output of to_md ***
+*** Output of to_s ***
 Maruku translates HTML entities to the equivalent in LaTeX:EntityResultabEntity-substitution does not happen in code blocks or inline code.The following should not be translated:It should read just like this: .
 *** EOF ***
 
@@ -153,24 +151,24 @@ Maruku translates HTML entities to the equivalent in LaTeX:EntityResultabEntity-
 
 *** Output of Markdown.pl (parsed) ***
 <p>Maruku translates HTML entities to the equivalent in LaTeX:</p
-    ><p>Entity | Result
+   ><p>Entity      | Result
 ------------|----------
 <code>&amp;copy;</code
-      > | &copy;
+     >    |  &copy;
 <code>&amp;pound;</code
-      > | &pound;
+     >   |  &pound;
 <code>a&amp;nbsp;b</code
-      > | a&nbsp;b
+     >  |  a&nbsp;b
 <code>&amp;lambda;</code
-      > | &lambda;
+     >  |  &lambda;
 <code>&amp;mdash;</code
-      > | &mdash;</p
-    ><p>Entity-substitution does not happen in code blocks or inline code.</p
-    ><p>The following should not be translated:</p
-    ><pre
-      ><code>&amp;copy;
+     >   |  &mdash;</p
+   ><p>Entity-substitution does not happen in code blocks or inline code.</p
+   ><p>The following should not be translated:</p
+   ><pre
+     ><code>&amp;copy;
 </code
-    ></pre
-    ><p>It should read just like this: <code>&amp;copy;</code
-      >.</p
-  >
+   ></pre
+   ><p>It should read just like this: <code>&amp;copy;</code
+     >.</p
+ >

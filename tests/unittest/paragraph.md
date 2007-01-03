@@ -7,36 +7,24 @@ Paragraph
 *** Output of inspect ***
 md_el(:document,[md_par(["Paragraph"])] )
 *** Output of to_html ***
-<p>Paragraph</p
-  >
+
+<p>Paragraph</p>
+
 *** Output of to_latex ***
 Paragraph
 
 
 *** Output of to_s ***
 Paragraph
-*** Output of to_md ***
-
+*** Output of to_s ***
+Paragraph
 *** EOF ***
 
 
 
-
-Failed tests:   [:to_html] 
-
-*** Output of inspect ***
-md_el(:document,[md_par(["Paragraph"])] )
-*** Output of to_html ***
------| WARNING | -----
-<p>Paragraph</p
- >
-*** Output of to_latex ***
-Paragraph
+	OK!
 
 
-*** Output of to_s ***
-Paragraph
-*** Output of to_md ***
 
 *** Output of Markdown.pl ***
 <p>Paragraph</p>

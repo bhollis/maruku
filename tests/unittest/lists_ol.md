@@ -89,39 +89,55 @@ md_el(:document,[
 	] )
 ] )
 *** Output of to_html ***
-<ol
-      ><li>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aliquam hendrerit mi posuere lectus. Vestibulum enim wisi, viverra nec, fringilla in, laoreet vitae, risus.</li
-      ><li>Donec sit amet nisl. Aliquam semper ipsum sit amet velit. Suspendisse id sem consectetuer libero luctus adipiscing.</li
-      ><li>Donec sit amet nisl. Aliquam semper ipsum sit amet velit. Suspendisse id sem consectetuer libero luctus adipiscing</li
-      ><li>Donec sit amet nisl. Aliquam semper ipsum sit amet velit. Suspendisse id sem consectetuer libero luctus adipiscing</li
-      ><li>Donec sit amet nisl. Aliquam semper ipsum sit amet velit. Suspendisse id sem consectetuer libero luctus adipiscing.</li
-    ></ol
-    ><p>Ancora</p
-    ><ol
-      ><li
-        ><p>This is a list item with two paragraphs. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aliquam hendrerit mi posuere lectus.</p
-        ><p>ATTENZIONE!</p
-        ><ul
-          ><li>Uno</li
-          ><li>Due 1. tre 1. tre 1. tre</li
-          ><li>Due</li
-        ></ul
-      ></li
-      ><li
-        ><p>Suspendisse id sem consectetuer libero luctus adipiscing.</p
-      ></li
-    ></ol
-    ><p>Ancora</p
-    ><ul
-      ><li
-        ><p>This is a list item with two paragraphs.</p
-        ><p>This is the second paragraph in the list item. You&apos;re only required to indent the first line. Lorem ipsum dolo sit amet, consectetuer adipiscing elit</p
-      ></li
-      ><li
-        ><p>Another item in the same list.</p
-      ></li
-    ></ul
-  >
+
+<ol>
+<li>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aliquam hendrerit mi posuere lectus. Vestibulum enim wisi, viverra nec, fringilla in, laoreet vitae, risus.</li>
+
+<li>Donec sit amet nisl. Aliquam semper ipsum sit amet velit. Suspendisse id sem consectetuer libero luctus adipiscing.</li>
+
+<li>Donec sit amet nisl. Aliquam semper ipsum sit amet velit. Suspendisse id sem consectetuer libero luctus adipiscing</li>
+
+<li>Donec sit amet nisl. Aliquam semper ipsum sit amet velit. Suspendisse id sem consectetuer libero luctus adipiscing</li>
+
+<li>Donec sit amet nisl. Aliquam semper ipsum sit amet velit. Suspendisse id sem consectetuer libero luctus adipiscing.</li>
+</ol>
+
+<p>Ancora</p>
+
+<ol>
+<li>
+<p>This is a list item with two paragraphs. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aliquam hendrerit mi posuere lectus.</p>
+
+<p>ATTENZIONE!</p>
+
+<ul>
+<li>Uno</li>
+
+<li>Due 1. tre 1. tre 1. tre</li>
+
+<li>Due</li>
+</ul>
+</li>
+
+<li>
+<p>Suspendisse id sem consectetuer libero luctus adipiscing.</p>
+</li>
+</ol>
+
+<p>Ancora</p>
+
+<ul>
+<li>
+<p>This is a list item with two paragraphs.</p>
+
+<p>This is the second paragraph in the list item. You&apos;re only required to indent the first line. Lorem ipsum dolo sit amet, consectetuer adipiscing elit</p>
+</li>
+
+<li>
+<p>Another item in the same list.</p>
+</li>
+</ul>
+
 *** Output of to_latex ***
 \begin{enumerate}%
 \item Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aliquam hendrerit mi posuere lectus. Vestibulum enim wisi, viverra nec, fringilla in, laoreet vitae, risus.
@@ -166,7 +182,7 @@ This is the second paragraph in the list item. You're only required to indent th
 
 *** Output of to_s ***
 Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aliquam hendrerit mi posuere lectus. Vestibulum enim wisi, viverra nec, fringilla in, laoreet vitae, risus.Donec sit amet nisl. Aliquam semper ipsum sit amet velit. Suspendisse id sem consectetuer libero luctus adipiscing.Donec sit amet nisl. Aliquam semper ipsum sit amet velit. Suspendisse id sem consectetuer libero luctus adipiscingDonec sit amet nisl. Aliquam semper ipsum sit amet velit. Suspendisse id sem consectetuer libero luctus adipiscingDonec sit amet nisl. Aliquam semper ipsum sit amet velit. Suspendisse id sem consectetuer libero luctus adipiscing.AncoraThis is a list item with two paragraphs. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aliquam hendrerit mi posuere lectus.ATTENZIONE!UnoDue 1. tre 1. tre 1. treDueSuspendisse id sem consectetuer libero luctus adipiscing.AncoraThis is a list item with two paragraphs.This is the second paragraph in the list item. You're only required to indent the first line. Lorem ipsum dolo sit amet, consectetuer adipiscing elitAnother item in the same list.
-*** Output of to_md ***
+*** Output of to_s ***
 Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aliquam hendrerit mi posuere lectus. Vestibulum enim wisi, viverra nec, fringilla in, laoreet vitae, risus.Donec sit amet nisl. Aliquam semper ipsum sit amet velit. Suspendisse id sem consectetuer libero luctus adipiscing.Donec sit amet nisl. Aliquam semper ipsum sit amet velit. Suspendisse id sem consectetuer libero luctus adipiscingDonec sit amet nisl. Aliquam semper ipsum sit amet velit. Suspendisse id sem consectetuer libero luctus adipiscingDonec sit amet nisl. Aliquam semper ipsum sit amet velit. Suspendisse id sem consectetuer libero luctus adipiscing.AncoraThis is a list item with two paragraphs. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aliquam hendrerit mi posuere lectus.ATTENZIONE!UnoDue 1. tre 1. tre 1. treDueSuspendisse id sem consectetuer libero luctus adipiscing.AncoraThis is a list item with two paragraphs.This is the second paragraph in the list item. You're only required to indent the first line. Lorem ipsum dolo sit amet, consectetuer adipiscing elitAnother item in the same list.
 *** EOF ***
 
@@ -236,69 +252,72 @@ viverra nec, fringilla in, laoreet vitae, risus.
 <ol>
 <li>Donec sit amet nisl. Aliquam semper ipsum sit amet velit.
 Suspendisse id sem consectetuer libero luctus adipiscing.</li
-          >
+         >
 </ol
-      ></li
-      >
+     ></li
+     >
 <li>Donec sit amet nisl. Aliquam semper ipsum sit amet velit.
 Suspendisse id sem consectetuer libero luctus adipiscing.
 <ol>
 <li>Donec sit amet nisl. Aliquam semper ipsum sit amet velit.
 Suspendisse id sem consectetuer libero luctus adipiscing.</li
-          >
+         >
 <li>Donec sit amet nisl. Aliquam semper ipsum sit amet velit.
 Suspendisse id sem consectetuer libero luctus adipiscing.</li
-          >
+         >
 </ol
-      ></li
-      >
+     ></li
+     >
 </ol
-    ><p>Ancora</p
-    ><ol>
+   ><p>Ancora</p
+   ><ol>
 <li
-        ><p>This is a list item with two paragraphs. Lorem ipsum dolor
+       ><p>This is a list item with two paragraphs. Lorem ipsum dolor
 sit amet, consectetuer adipiscing elit. Aliquam hendrerit
 mi posuere lectus.</p
-        >
+       >
+
 <p>ATTENZIONE!</p
-        >
+       >
+
 <ul>
 <li>Uno</li
-          >
+         >
 <li>Due
 <ol>
 <li>tre</li
-              >
+             >
 <li>tre</li
-              >
+             >
 <li>tre</li
-              >
+             >
 </ol
-          ></li
-          >
+         ></li
+         >
 <li>Due</li
-          >
+         >
 </ul
-      ></li
-      >
+     ></li
+     >
 <li
-        ><p>Suspendisse id sem consectetuer libero luctus adipiscing.</p
-      ></li
-      >
+       ><p>Suspendisse id sem consectetuer libero luctus adipiscing.</p
+     ></li
+     >
 </ol
-    ><p>Ancora</p
-    ><ul>
+   ><p>Ancora</p
+   ><ul>
 <li
-        ><p>This is a list item with two paragraphs.</p
-        >
+       ><p>This is a list item with two paragraphs.</p
+       >
+
 <p>This is the second paragraph in the list item. You're
 only required to indent the first line. Lorem ipsum dolor
 sit amet, consectetuer adipiscing elit.</p
-      ></li
-      >
+     ></li
+     >
 <li
-        ><p>Another item in the same list.</p
-      ></li
-      >
+       ><p>Another item in the same list.</p
+     ></li
+     >
 </ul
-  >
+ >

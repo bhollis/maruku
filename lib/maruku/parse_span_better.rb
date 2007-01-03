@@ -318,14 +318,11 @@ class Maruku
 				con.push_char src.shift_char
 			end
 		rescue Exception => e
-#			puts e.inspect
-			if false # we want to be good
-				con.push_char src.shift_char
-			else
-				maruku_error "Bad html: \n" + 
+			maruku_error "Bad html: \n" + 
 				add_tabs(e.inspect+e.backtrace.join("\n"),1,'>'),
 				src,con
-			end
+			tell_user "I will try to continue after bad HTML."
+			con.push_char src.shift_char
 		end
 	end
 	

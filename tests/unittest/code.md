@@ -15,14 +15,14 @@ md_el(:document,[
 	 md_el(:code,[] , {:raw_code=>"tell application \"Foo\"\n    beep\nend tell\n\ttab"})
 ] )
 *** Output of to_html ***
-<p>Here is an example of AppleScript:</p
-    ><pre
-      ><code>tell application &quot;Foo&quot;
+
+<p>Here is an example of AppleScript:</p>
+
+<pre><code>tell application &quot;Foo&quot;
     beep
 end tell
-	tab</code
-    ></pre
-  >
+	tab</code></pre>
+
 *** Output of to_latex ***
 Here is an example of AppleScript:
 
@@ -33,7 +33,7 @@ end tell
 
 *** Output of to_s ***
 Here is an example of AppleScript:
-*** Output of to_md ***
+*** Output of to_s ***
 Here is an example of AppleScript:
 *** EOF ***
 
@@ -54,11 +54,11 @@ end tell
 
 *** Output of Markdown.pl (parsed) ***
 <p>Here is an example of AppleScript:</p
-    ><pre
-      ><code>tell application "Foo"
+   ><pre
+     ><code>tell application "Foo"
     beep
 end tell
     tab
 </code
-    ></pre
-  >
+   ></pre
+ >

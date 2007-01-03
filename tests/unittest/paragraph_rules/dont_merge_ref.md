@@ -21,10 +21,13 @@ md_el(:document,[
 	 md_ref_def("google3", "#" ,{:title=>nil})
 ] )
 *** Output of to_html ***
-<p>Paragraph</p
-    ><p>Paragraph</p
-    ><p>Paragraph</p
-  >
+
+<p>Paragraph</p>
+
+<p>Paragraph</p>
+
+<p>Paragraph</p>
+
 *** Output of to_latex ***
 Paragraph
 
@@ -35,7 +38,7 @@ Paragraph
 
 *** Output of to_s ***
 ParagraphParagraphParagraph
-*** Output of to_md ***
+*** Output of to_s ***
 ParagraphParagraphParagraph
 *** EOF ***
 
@@ -54,4 +57,4 @@ Paragraph</p>
 <p>Paragraph
 Paragraph
 Paragraph</p
-  >
+ >

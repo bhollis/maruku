@@ -29,12 +29,11 @@ md_el(:document,[
 	])
 ] )
 *** Output of to_html ***
-<p>The <abbr title='Hyper Text Markup Language'>HTML</abbr
-      > specification is maintained by the <abbr title='World Wide Web Consortium'>W3C</abbr
-      >.</p
-    ><p>Operation <abbr>Tigra Genesis</abbr
-      > is going well.</p
-  >
+
+<p>The <abbr title='Hyper Text Markup Language'>HTML</abbr> specification is maintained by the <abbr title='World Wide Web Consortium'>W3C</abbr>.</p>
+
+<p>Operation <abbr>Tigra Genesis</abbr> is going well.</p>
+
 *** Output of to_latex ***
 The HTML specification is maintained by the W3C.
 
@@ -43,7 +42,7 @@ Operation Tigra Genesis is going well.
 
 *** Output of to_s ***
 The HTML specification is maintained by the W3C.Operation Tigra Genesis is going well.
-*** Output of to_md ***
+*** Output of to_s ***
 The HTML specification is maintained by the W3C.Operation Tigra Genesis is going well.
 *** EOF ***
 
@@ -65,8 +64,8 @@ The HTML specification is maintained by the W3C.Operation Tigra Genesis is going
 
 *** Output of Markdown.pl (parsed) ***
 <p>The HTML specification is maintained by the W3C.</p
-    ><p>*[HTML]: Hyper Text Markup Language
-*[W3C]: World Wide Web Consortium</p
-    ><p>Operation Tigra Genesis is going well.</p
-    ><p>*[Tigra Genesis]:</p
-  >
+   ><p>*[HTML]: Hyper Text Markup Language
+*[W3C]:  World Wide Web Consortium</p
+   ><p>Operation Tigra Genesis is going well.</p
+   ><p>*[Tigra Genesis]:</p
+ >

@@ -20,13 +20,15 @@ md_el(:document,[
 	] )
 ] )
 *** Output of to_html ***
-<ul
-      ><li
-        ><p>This is a list item with two paragraphs.</p
-        ><p>This is the second paragraph in the list item. You&apos;re only required to indent the first line. Lorem ipsum dolo sit amet, consectetuer adipiscing elit</p
-      ></li
-    ></ul
-  >
+
+<ul>
+<li>
+<p>This is a list item with two paragraphs.</p>
+
+<p>This is the second paragraph in the list item. You&apos;re only required to indent the first line. Lorem ipsum dolo sit amet, consectetuer adipiscing elit</p>
+</li>
+</ul>
+
 *** Output of to_latex ***
 \begin{itemize}%
 \item This is a list item with two paragraphs.
@@ -39,7 +41,7 @@ This is the second paragraph in the list item. You're only required to indent th
 
 *** Output of to_s ***
 This is a list item with two paragraphs.This is the second paragraph in the list item. You're only required to indent the first line. Lorem ipsum dolo sit amet, consectetuer adipiscing elit
-*** Output of to_md ***
+*** Output of to_s ***
 This is a list item with two paragraphs.This is the second paragraph in the list item. You're only required to indent the first line. Lorem ipsum dolo sit amet, consectetuer adipiscing elit
 *** EOF ***
 
@@ -61,12 +63,13 @@ sit amet, consectetuer adipiscing elit.</p></li>
 *** Output of Markdown.pl (parsed) ***
 <ul>
 <li
-        ><p>This is a list item with two paragraphs.</p
-        >
+       ><p>This is a list item with two paragraphs.</p
+       >
+
 <p>This is the second paragraph in the list item. You're
 only required to indent the first line. Lorem ipsum dolor
 sit amet, consectetuer adipiscing elit.</p
-      ></li
-      >
+     ></li
+     >
 </ul
-  >
+ >

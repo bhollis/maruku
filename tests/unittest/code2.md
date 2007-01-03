@@ -10,13 +10,13 @@ md_el(:document,[
 	md_el(:quote,[md_par(["Code"]), md_el(:code,[] , {:raw_code=>"Ciao"})] )
 ] )
 *** Output of to_html ***
-<blockquote
-      ><p>Code</p
-      ><pre
-        ><code>Ciao</code
-      ></pre
-    ></blockquote
-  >
+
+<blockquote>
+<p>Code</p>
+
+<pre><code>Ciao</code></pre>
+</blockquote>
+
 *** Output of to_latex ***
 \begin{quote}%
 Code
@@ -27,7 +27,7 @@ Code
 
 *** Output of to_s ***
 Code
-*** Output of to_md ***
+*** Output of to_s ***
 Code
 *** EOF ***
 
@@ -47,12 +47,13 @@ Code
 
 *** Output of Markdown.pl (parsed) ***
 <blockquote>
- <p>Code</p
-      >
+  <p>Code</p
+     >
+
 <pre
-        ><code>Ciao
+       ><code>Ciao
 </code
-      ></pre
-      >
+     ></pre
+     >
 </blockquote
-  >
+ >

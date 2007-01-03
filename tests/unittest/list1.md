@@ -17,15 +17,17 @@ md_el(:document,[
 	] )
 ] )
 *** Output of to_html ***
-<ul
-      ><li
-        ><p>A list item with a blockquote:</p
-        ><blockquote
-          ><p>This is a blockquote inside a list item.</p
-        ></blockquote
-      ></li
-    ></ul
-  >
+
+<ul>
+<li>
+<p>A list item with a blockquote:</p>
+
+<blockquote>
+<p>This is a blockquote inside a list item.</p>
+</blockquote>
+</li>
+</ul>
+
 *** Output of to_latex ***
 \begin{itemize}%
 \item A list item with a blockquote:
@@ -41,7 +43,7 @@ This is a blockquote inside a list item.
 
 *** Output of to_s ***
 A list item with a blockquote:This is a blockquote inside a list item.
-*** Output of to_md ***
+*** Output of to_s ***
 A list item with a blockquote:This is a blockquote inside a list item.
 *** EOF ***
 
@@ -64,14 +66,15 @@ A list item with a blockquote:This is a blockquote inside a list item.
 *** Output of Markdown.pl (parsed) ***
 <ul>
 <li
-        ><p>A list item with a blockquote:</p
-        >
+       ><p>A list item with a blockquote:</p
+       >
+
 <blockquote>
- <p>This is a blockquote
- inside a list item.</p
-          >
+  <p>This is a blockquote
+  inside a list item.</p
+         >
 </blockquote
-      ></li
-      >
+     ></li
+     >
 </ul
-  >
+ >

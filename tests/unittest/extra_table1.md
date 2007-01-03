@@ -21,25 +21,25 @@ md_el(:document,[
 	] , {:align=>[:left, :left]})
 ] , {:css=>"style.css"})
 *** Output of to_html ***
-<table
-      ><thead
-        ><tr
-          ><th>First Header</th
-          ><th>Second Header</th
-        ></tr
-      ></thead
-      ><tbody
-        ><tr
-          ><td style='text-align: left;'>Content Cell</td
-          ><td style='text-align: left;'>Content Cell</td
-        ></tr
-        ><tr
-          ><td style='text-align: left;'>Content Cell</td
-          ><td style='text-align: left;'>Content Cell</td
-        ></tr
-      ></tbody
-    ></table
-  >
+
+<table>
+<thead>
+<tr><th>First Header</th><th>Second Header</th></tr>
+</thead>
+<tbody>
+<tr>
+<td style='text-align: left;'>Content Cell</td>
+
+<td style='text-align: left;'>Content Cell</td>
+</tr>
+
+<tr>
+<td style='text-align: left;'>Content Cell</td>
+
+<td style='text-align: left;'>Content Cell</td>
+</tr>
+</tbody></table>
+
 *** Output of to_latex ***
 \begin{tabular}{l|l}
 First Header&Second Header\\
@@ -51,7 +51,7 @@ Content Cell&Content Cell\\
 
 *** Output of to_s ***
 First HeaderSecond HeaderContent CellContent CellContent CellContent Cell
-*** Output of to_md ***
+*** Output of to_s ***
 First HeaderSecond HeaderContent CellContent CellContent CellContent Cell
 *** EOF ***
 
@@ -71,8 +71,8 @@ Content Cell  | Content Cell</p>
 
 *** Output of Markdown.pl (parsed) ***
 <p>CSS: style.css</p
-    ><p>First Header | Second Header
+   ><p>First Header  | Second Header
 ------------- | -------------
-Content Cell | Content Cell
-Content Cell | Content Cell</p
-  >
+Content Cell  | Content Cell
+Content Cell  | Content Cell</p
+ >

@@ -42,6 +42,10 @@ class Maruku
 				div << render_footnotes
 			end
 		
+		doc = Document.new(nil,{:respect_whitespace =>:all})
+		doc << div
+		add_whitespace(doc)
+		
 		# REXML Bug? if indent!=-1 whitespace is not respected for 'pre' elements
 		# containing code.
 		xml =""
@@ -83,11 +87,18 @@ class Maruku
 		
 		head = Element.new 'head', root
 		
+			#<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+			me = Element.new 'meta', head
+			me.attributes['http-equiv'] = 'Content-type'
+			me.attributes['content'] = 'text/html; charset=utf-8'	
+		
 			# Create title element
 			doc_title = @meta[:title] || @meta[:subject] || ""
-			title = Element.new 'title'
+			title = Element.new 'title', head
 				title << Text.new(doc_title)
-			head << title
+				
+			# Encoding
+			
 			
 			
 			css = @meta[:css]
@@ -117,7 +128,26 @@ class Maruku
 			
 		root << body
 		
+		add_whitespace(doc)
 		doc
+	end
+	
+	def add_whitespace(element)
+		blocks = ['p','pre','h1','h2','h3','h4','h5','h6',
+			'style','table','div','ul','ol','li','dl','dt',
+			'head','blockquote','tr','thead','td','dd','title',
+			'link','hr']
+			
+		element.get_elements( "//*" ).each do |e|
+			if blocks.include? e.name
+				e.parent.insert_before(e, Text.new("\n"))
+				e.parent.insert_after(e, Text.new("\n"))
+			end
+		end
+
+		element.get_elements( "//br" ).each do |e|
+			e.parent.insert_after(e, Text.new("\n"))
+		end
 	end
 	
 	# returns "st","nd","rd" or "th" as appropriate

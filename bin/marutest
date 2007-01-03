@@ -11,7 +11,7 @@ def marker(x)
 	"\n*** Output of #{x} ***\n"
 end
 
-TOTEST = [:inspect,:to_html,:to_latex,:to_s,:to_md]
+TOTEST = [:inspect,:to_html,:to_latex,:to_s,:to_s]
 
 def run_test(filename, its_ok, verbose=true)
 	# read file content
@@ -44,9 +44,10 @@ def run_test(filename, its_ok, verbose=true)
 	for s in TOTEST
 		begin
 			if s==:to_html
-				actual[s] = doc.to_html({:indent=>1})
+				actual[s] = doc.to_html
 			else
 				actual[s] = doc.send s
+				raise "Methods #{s} gave nil" if not actual[s]
 			end
 		rescue Exception => e
 			crashed << s

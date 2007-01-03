@@ -75,29 +75,27 @@ md_el(:document,[
 	 md_ref_def("google images", "http://images.google.com" ,{:title=>"Google images"})
 ] , {:on_error=>:warning})
 *** Output of to_html ***
-<p>Search on <a href='http://www.google.com'>Google</a
-    ></p
-    ><p>Search on <a href='http://www.google.com'>Google</a
-    ></p
-    ><p>Search on <a href='http://www.google.com'>Google</a
-    ></p
-    ><p>Search on <a href='http://www.google.com'>Google</a
-    ></p
-    ><p>Search on <a href='http://images.google.com' title='Google images'>Google images</a
-    ></p
-    ><p>Inline: <a href='http://google.com'>Google images</a
-    ></p
-    ><p>Inline with title: <a href='http://google.com' title='Title'>Google images</a
-    ></p
-    ><p>Inline with title: <a href='http://google.com' title='Title'>Google images</a
-    ></p
-    ><p>Search on <a href='http://www.gogole.com'>http://www.gogole.com</a
-      > or <a href='http://Here.com'>http://Here.com</a
-      > or ask <a href='mailto:bill@google.com'>&#098;&#105;&#108;&#108;&#064;&#103;&#111;&#111;&#103;&#108;&#101;&#046;&#099;&#111;&#109;</a
-      > or you might ask bill@google.com.</p
-    ><p>If all else fails, ask <a href='http://www.google.com'>Google</a
-    ></p
-  >
+
+<p>Search on <a href='http://www.google.com'>Google</a></p>
+
+<p>Search on <a href='http://www.google.com'>Google</a></p>
+
+<p>Search on <a href='http://www.google.com'>Google</a></p>
+
+<p>Search on <a href='http://www.google.com'>Google</a></p>
+
+<p>Search on <a href='http://images.google.com' title='Google images'>Google images</a></p>
+
+<p>Inline: <a href='http://google.com'>Google images</a></p>
+
+<p>Inline with title: <a href='http://google.com' title='Title'>Google images</a></p>
+
+<p>Inline with title: <a href='http://google.com' title='Title'>Google images</a></p>
+
+<p>Search on <a href='http://www.gogole.com'>http://www.gogole.com</a> or <a href='http://Here.com'>http://Here.com</a> or ask <a href='mailto:bill@google.com'>&#098;&#105;&#108;&#108;&#064;&#103;&#111;&#111;&#103;&#108;&#101;&#046;&#099;&#111;&#109;</a> or you might ask bill@google.com.</p>
+
+<p>If all else fails, ask <a href='http://www.google.com'>Google</a></p>
+
 *** Output of to_latex ***
 Search on \href{http://www.google.com}{Google}
 
@@ -122,7 +120,7 @@ If all else fails, ask \href{http://www.google.com}{Google}
 
 *** Output of to_s ***
 Search on GoogleSearch on GoogleSearch on GoogleSearch on GoogleSearch on Google imagesInline: Google imagesInline with title: Google imagesInline with title: Google imagesSearch on  or  or ask  or you might ask bill@google.com.If all else fails, ask Google
-*** Output of to_md ***
+*** Output of to_s ***
 Search on GoogleSearch on GoogleSearch on GoogleSearch on GoogleSearch on Google imagesInline: Google imagesInline with title: Google imagesInline with title: Google imagesSearch on  or  or ask  or you might ask bill@google.com.If all else fails, ask Google
 *** EOF ***
 
@@ -149,7 +147,7 @@ Search on GoogleSearch on GoogleSearch on GoogleSearch on GoogleSearch on Google
 
 <p>Inline with title: <a href="http://google.com  "Title"">Google images</a></p>
 
-<p>Search on <a href="http://www.gogole.com">http://www.gogole.com</a> or <a href="http://Here.com">http://Here.com</a> or ask <a href="&#x6D;&#x61;&#105;&#x6C;&#x74;&#111;:b&#105;&#108;&#x6C;&#64;&#x67;&#x6F;&#x6F;&#103;&#x6C;&#101;&#x2E;&#99;&#111;&#109;">b&#105;&#108;&#x6C;&#64;&#x67;&#x6F;&#x6F;&#103;&#x6C;&#101;&#x2E;&#99;&#111;&#109;</a>
+<p>Search on <a href="http://www.gogole.com">http://www.gogole.com</a> or <a href="http://Here.com">http://Here.com</a> or ask <a href="&#x6D;&#x61;&#105;&#108;t&#111;:&#x62;&#x69;&#108;&#x6C;&#64;&#x67;&#111;og&#108;&#101;&#46;&#x63;&#111;m">&#x62;&#x69;&#108;&#x6C;&#64;&#x67;&#111;og&#108;&#101;&#46;&#x63;&#111;m</a>
 or you might ask bill@google.com.</p>
 
 <p>If all else fails, ask <a href="http://www.google.com">Google</a></p>
@@ -157,27 +155,7 @@ or you might ask bill@google.com.</p>
 <p>[google2]: http://www.google.com 'Single quotes'</p>
 
 *** Output of Markdown.pl (parsed) ***
-Error: #<REXML::ParseException: #<REXML::ParseException: Missing end tag for 'p' (got "div")
-Line: 
-Position: 
-Last 80 unconsumed characters:
->
-/Volumes/Alter/Ruby/local/lib/ruby/1.8/rexml/parsers/baseparser.rb:315:in `pull'
-/Volumes/Alter/Ruby/local/lib/ruby/1.8/rexml/parsers/treeparser.rb:21:in `parse'
-/Volumes/Alter/Ruby/local/lib/ruby/1.8/rexml/document.rb:190:in `build'
-/Volumes/Alter/Ruby/local/lib/ruby/1.8/rexml/document.rb:45:in `initialize'
-bin/marutest:141:in `new'
-bin/marutest:141:in `run_test'
-bin/marutest:205:in `marutest'
-bin/marutest:203:in `each'
-bin/marutest:203:in `marutest'
-bin/marutest:273
-...
-Missing end tag for 'p' (got "div")
-Line: 
-Position: 
-Last 80 unconsumed characters:
-
+Error: #<REXML::ParseException: Missing end tag for 'p' (got "div")
 Line: 
 Position: 
 Last 80 unconsumed characters:

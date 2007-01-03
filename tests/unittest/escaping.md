@@ -18,12 +18,10 @@ md_el(:document,[
 	md_par([" Hello: ! ! ` { } [ ] ( ) # . ! * * *"]),
 	 md_par([
 		"Ora, ",
-		 md_em([]),
-		 "mphasis",
-		 md_em([", "]),
-		 md_em(["bold"]),
-		 md_em([", "]),
-		 " <- due asterischi-> * , un underscore-> _ , ",
+		 md_em(["emphasis"]),
+		 ", ",
+		 md_strong(["bold"]),
+		 ", * <- due asterischi-> * , un underscore-> _ , ",
 		 md_em(["emphasis"]),
 		 ", incre",
 		 md_em(["dible"]),
@@ -34,26 +32,21 @@ md_el(:document,[
 	 md_par(["End of ", md_code("paragraph ")])
 ] , {:on_error=>:warning})
 *** Output of to_html ***
-<p> Hello: ! ! ` { } [ ] ( ) # . ! * * *</p
-    ><p>Ora, <em
-      />mphasis<em>, </em
-      ><em>bold</em
-      ><em>, </em
-      > &lt;- due asterischi-&gt; * , un underscore-&gt; _ , <em>emphasis</em
-      >, incre<em>dible</em
-      >e!</p
-    ><p>This is <code>Code with a special: -&gt; ` &lt;-</code
-      >(after)</p
-    ><p
-      ><code>Start </code
-      > of paragraph</p
-    ><p>End of <code>paragraph </code
-    ></p
-  >
+
+<p> Hello: ! ! ` { } [ ] ( ) # . ! * * *</p>
+
+<p>Ora, <em>emphasis</em>, <strong>bold</strong>, * &lt;- due asterischi-&gt; * , un underscore-&gt; _ , <em>emphasis</em>, incre<em>dible</em>e!</p>
+
+<p>This is <code>Code with a special: -&gt; ` &lt;-</code>(after)</p>
+
+<p><code>Start </code> of paragraph</p>
+
+<p>End of <code>paragraph </code></p>
+
 *** Output of to_latex ***
  Hello: ! ! ` \{ \} [ ] ( ) \# . ! * * *
 
-Ora, {\em }mphasis{\em , }{\em bold}{\em , } {\tt \char60}- due asterischi-{\tt \char62} * , un underscore-{\tt \char62} \_ , {\em emphasis}, incre{\em dible}e!
+Ora, {\em emphasis}, {\bf bold}, * {\tt \char60}- due asterischi-{\tt \char62} * , un underscore-{\tt \char62} \_ , {\em emphasis}, incre{\em dible}e!
 
 This is \colorbox[rgb]{0.94,0.94,0.88}{\tt \char67\char111\char100\char101\char32\char119\char105\char116\char104\char32\char97\char32\char115\char112\char101\char99\char105\char97\char108\char58\char32\char45\char62\char32\char96\char32\char60\char45}(after)
 
@@ -63,9 +56,9 @@ End of \colorbox[rgb]{0.94,0.94,0.88}{\tt \char112\char97\char114\char97\char103
 
 
 *** Output of to_s ***
- Hello: ! ! ` { } [ ] ( ) # . ! * * *Ora, mphasis, bold,  <- due asterischi-> * , un underscore-> _ , emphasis, incrediblee!This is (after) of paragraphEnd of 
-*** Output of to_md ***
- Hello: ! ! ` { } [ ] ( ) # . ! * * *Ora, mphasis, bold,  <- due asterischi-> * , un underscore-> _ , emphasis, incrediblee!This is (after) of paragraphEnd of 
+ Hello: ! ! ` { } [ ] ( ) # . ! * * *Ora, emphasis, bold, * <- due asterischi-> * , un underscore-> _ , emphasis, incrediblee!This is (after) of paragraphEnd of 
+*** Output of to_s ***
+ Hello: ! ! ` { } [ ] ( ) # . ! * * *Ora, emphasis, bold, * <- due asterischi-> * , un underscore-> _ , emphasis, incrediblee!This is (after) of paragraphEnd of 
 *** EOF ***
 
 
@@ -88,17 +81,17 @@ End of \colorbox[rgb]{0.94,0.94,0.88}{\tt \char112\char97\char114\char97\char103
 
 *** Output of Markdown.pl (parsed) ***
 <p>Hello: ! ! ` { } [ ] ( ) # . ! * * *</p
-    ><p>Ora, <em>emphasis</em
-      >, <strong>bold</strong
-      >, * &lt;- due asterischi-> * , un underscore-> _ , <em>emphasis</em
-      >,
+   ><p>Ora, <em>emphasis</em
+     >, <strong>bold</strong
+     >, * &lt;- due asterischi-> * , un underscore-> _ , <em>emphasis</em
+     >,
  incre<em>dible</em
-      >e!</p
-    ><p>This is <code>Code with a special: -&gt; ` &lt;-</code
-      >(after)</p
-    ><p
-      ><code>Start</code
-      > of paragraph</p
-    ><p>End of <code>paragraph</code
-    ></p
-  >
+     >e!</p
+   ><p>This is <code>Code with a special: -&gt; ` &lt;-</code
+     >(after)</p
+   ><p
+     ><code>Start</code
+     > of paragraph</p
+   ><p>End of <code>paragraph</code
+   ></p
+ >

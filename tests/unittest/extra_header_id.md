@@ -33,16 +33,17 @@ md_el(:document,[
 	])
 ] , {:title=>"Header 1"})
 *** Output of to_html ***
-<h1 id='header1'>Header 1</h1
-    ><h2 id='header2'>Header 2</h2
-    ><h3 id='header3'>Header 3</h3
-    ><p>Then you can create links to different parts of the same document like this:</p
-    ><p
-      ><a href='#header1'>Link back to header 1</a
-      >, <a href='#header2'>Link back to header 2</a
-      >, <a href='#header3'>Link back to header 3</a
-    ></p
-  >
+
+<h1 id='header1'>Header 1</h1>
+
+<h2 id='header2'>Header 2</h2>
+
+<h3 id='header3'>Header 3</h3>
+
+<p>Then you can create links to different parts of the same document like this:</p>
+
+<p><a href='#header1'>Link back to header 1</a>, <a href='#header2'>Link back to header 2</a>, <a href='#header3'>Link back to header 3</a></p>
+
 *** Output of to_latex ***
 \hypertarget{header1}{}\section*{{Header 1}}\label{header1}
 
@@ -57,7 +58,7 @@ Then you can create links to different parts of the same document like this:
 
 *** Output of to_s ***
 Header 1Header 2Header 3Then you can create links to different parts of the same document like this:Link back to header 1, Link back to header 2, Link back to header 3
-*** Output of to_md ***
+*** Output of to_s ***
 Header 1Header 2Header 3Then you can create links to different parts of the same document like this:Link back to header 1, Link back to header 2, Link back to header 3
 *** EOF ***
 
@@ -81,15 +82,15 @@ Header 1Header 2Header 3Then you can create links to different parts of the same
 <a href="#header3">Link back to header 3</a></p>
 
 *** Output of Markdown.pl (parsed) ***
-<h1>Header 1 {#header1}</h1
-    ><h2>Header 2 {#header2}</h2
-    ><h3>Header 3 ### {#header3}</h3
-    ><p>Then you can create links to different parts of the same document like this:</p
-    ><p
-      ><a href='#header1'>Link back to header 1</a
-      >,
+<h1>Header 1            {#header1}</h1
+   ><h2>Header 2            {#header2}</h2
+   ><h3>Header 3 ###      {#header3}</h3
+   ><p>Then you can create links to different parts of the same document like this:</p
+   ><p
+     ><a href='#header1'>Link back to header 1</a
+     >,
 <a href='#header2'>Link back to header 2</a
-      >,
+     >,
 <a href='#header3'>Link back to header 3</a
-    ></p
-  >
+   ></p
+ >

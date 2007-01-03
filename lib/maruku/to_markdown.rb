@@ -53,7 +53,7 @@ class MDElement
 			if c.kind_of? String
 				c.to_md.mysplit
 			else
-				[c.to_md(context)].flatten
+				[c.to_md].flatten
 			end
 		
 	#			puts "Pieces: #{pieces.inspect}"
@@ -104,6 +104,7 @@ class Maruku
 	alias old_md to_md
 	def to_md(context={})
 		s = old_md(context)
-		puts s
+#		puts s
+		s
 	end	
 end

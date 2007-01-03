@@ -248,6 +248,8 @@ class Maruku
 				
 			@verbose = verbose
 			m = Maruku.new
+			m.meta[:on_error] = :raise
+			
 			good_cases.each do |input, expected, comment|
 					output = nil
 					begin
