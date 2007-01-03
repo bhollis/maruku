@@ -25,7 +25,7 @@ index.html: maruku.html
 	ruby -I../lib ../bin/marutex $<
 
 clean: 
-	-rm -f $(htmls) $(pdfs)
+	-rm -f $(htmls) $(pdfs) *.out *.aux *.tex *.toc
 
 
 publish: $(htmls) $(others) $(pdfs) 
