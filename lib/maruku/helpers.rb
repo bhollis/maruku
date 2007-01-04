@@ -18,25 +18,55 @@
 
 
 
-# A series of helper functions for creating elements
+# A series of helper functions for creating elements: they hide the 
+# particular internal representation.
+#
+# Please, always use these instead of creating MDElement.
+#
 
 module Helpers
 
-	def md_el(node_type, children=[], meta={})
-		e=MDElement.new(node_type, children, meta)
+	def md_el(node_type, children=[], meta={}, al=nil)
+		e = MDElement.new(node_type, children, meta, al)
 		e.doc = self
-		e
+		return e
 	end
 
-	def md_code(code)
-		md_el(:inline_code, [], {:raw_code => code})
-	end
-
-	def md_par(children, meta={})
-		md_el(:paragraph, [], meta)
+	def md_header(level, children, al=nil)
+		md_el(:header, children, {:level => level}, al)
 	end
 	
-	def md_html(raw_html)
+	# Inline code
+	def md_code(code, al=nil)
+		md_el(:inline_code, [], {:raw_code => code}, al)
+	end
+
+	# Code block
+	def md_codeblock(source, al=nil)
+		md_el(:code, [], {:raw_code => source}, al)
+	end
+
+	def md_quote(children, al=nil)
+		md_el(:quote, children, {}, al)
+	end
+
+	def md_li(children, want_my_par, al=nil)
+		md_el(:li, children, {:want_my_paragraph=>want_my_par}, al)
+	end
+
+	def md_footnote(footnote_id, children, al=nil)
+		md_el(:footnote, children, {:footnote_id=>footnote_id}, al)
+	end
+
+	def md_abbr_def(abbr, text, al=nil)
+		md_el(:abbr_def, [], {:abbr=>abbr, :text=>text}, al)
+	end
+
+	def md_abbr(abbr)
+		md_el(:abbr, [abbr])
+	end
+	
+	def md_html(raw_html, al=nil)
 		e = md_el(:raw_html, [], {:raw_html=>raw_html})
 		begin
 			# remove newlines and whitespace at begin
@@ -54,65 +84,72 @@ module Helpers
 		e
 	end
 		
-	def md_link(children, ref_id)
-		md_el(:link, children, {:ref_id=>ref_id.downcase})
+	def md_link(children, ref_id, al=nil)
+		md_el(:link, children, {:ref_id=>ref_id.downcase}, al)
 	end
 	
-	def md_im_link(children, url, title=nil)
-		md_el(:link, children, {:url=>url,:title=>title})
+	def md_im_link(children, url, title=nil, al=nil)
+		md_el(:link, children, {:url=>url,:title=>title}, al)
 	end
 	
-	
-	def md_image(children, ref_id)
-		md_el(:image, children, {:ref_id=>ref_id})
+	def md_image(children, ref_id, al=nil)
+		md_el(:image, children, {:ref_id=>ref_id}, al)
 	end
 	
-	def md_im_image(children, url, title=nil)
-		md_el(:image, children, {:url=>url,:title=>title})
+	def md_im_image(children, url, title=nil, al=nil)
+		md_el(:image, children, {:url=>url,:title=>title},al)
 	end
 
-	def md_em(children)
-		md_el(:emphasis, [children].flatten)
+	def md_em(children, al=nil)
+		md_el(:emphasis, [children].flatten, {}, al)
 	end
 
-	def md_strong(children)
-		md_el(:strong, [children].flatten)
+	def md_br()
+		md_el(:linebreak, [], {}, nil)
 	end
 
-	def md_emstrong(children)
-		md_strong(md_em(children))
+	def md_hrule()
+		md_el(:hrule, [], {}, nil)
+	end
+
+	def md_strong(children, al=nil)
+		md_el(:strong, [children].flatten, {}, al)
+	end
+
+	def md_emstrong(children, al=nil)
+		md_strong(md_em(children), al)
 	end
 
 	# <http://www.example.com/>
-	def md_url(url)
-		md_el(:immediate_link, [], {:url=>url})
+	def md_url(url, al=nil)
+		md_el(:immediate_link, [], {:url=>url}, al)
 	end
 	
 	# <andrea@rubyforge.org>
 	# <mailto:andrea@rubyforge.org>
-	def md_email(email)
-		md_el(:email_address, [], {:email=>email})
+	def md_email(email, al=nil)
+		md_el(:email_address, [], {:email=>email}, al)
 	end
 	
-	def md_entity(entity_name)
-		md_el(:entity, [], {:entity_name=>entity_name})
+	def md_entity(entity_name, al=nil)
+		md_el(:entity, [], {:entity_name=>entity_name}, al)
 	end
 	
 	# Markdown extra
-	def md_foot_ref(ref_id)
-		md_el(:footnote_reference, [], {:footnote_id=>ref_id})
+	def md_foot_ref(ref_id, al=nil)
+		md_el(:footnote_reference, [], {:footnote_id=>ref_id}, al)
 	end
 	
-	def md_par(children, meta={})
-		md_el(:paragraph, children, meta)
+	def md_par(children, al=nil)
+		md_el(:paragraph, children, meta={}, al)
 	end
 
 	# [1]: http://url [properties]
-	def md_ref_def(ref_id, url, title=nil, meta={})
+	def md_ref_def(ref_id, url, title=nil, meta={}, al=nil)
 		meta[:url] = url
 		meta[:ref_id] = ref_id
 		meta[:title] = title if title
-		md_el(:ref_definition, [], meta)
+		md_el(:ref_definition, [], meta, al)
 	end
 	
 	# inline attribute list
@@ -123,8 +160,9 @@ module Helpers
 end
 
 class MDElement	
-	# outputs abbreviated form 
+	# outputs abbreviated form  (this should be eval()uable to get the document)
 	def inspect2 
+		s = 
 		case @node_type
 		when :paragraph
 			"md_par(%s)" % children_inspect
@@ -146,12 +184,13 @@ class MDElement
 			"md_url(%s)" % @meta[:url].inspect
 		when :image
 			if @meta[:ref_id]
-				"md_image(%s,%s)" % [
+				"md_image(%s, %s)" % [
 					children_inspect, @meta[:ref_id].inspect]
 			else
-				"md_im_image(%s, %s %s)" % [
-					children_inspect, @meta[:url].inspect,
-					(title=@meta[:title]) ? (", "+ title.inspect) : ""
+				"md_im_image(%s, %s, %s)" % [
+					children_inspect, 
+					@meta[:url].inspect,
+					@meta[:title].inspect
 				]
 			end
 		when :link
@@ -159,23 +198,27 @@ class MDElement
 				"md_link(%s,%s)" % [
 					children_inspect, @meta[:ref_id].inspect]
 			else
-				"md_im_link(%s, %s %s)" % [
-					children_inspect, @meta[:url].inspect,
-					(title=@meta[:title]) ? (", "+ title.inspect) : ""
+				"md_im_link(%s, %s, %s)" % [
+					children_inspect, 
+					@meta[:url].inspect,
+					@meta[:title].inspect,
 				]
 			end
 		when :ref_definition
-			"md_ref_def(%s, %s %s)" % 
-				[
+			"md_ref_def(%s, %s, %s)" % [
 					@meta[:ref_id].inspect, 
 					@meta[:url].inspect,
-					@meta[:title] ? ","+@meta[:title].inspect : ""
+					@meta[:title]
 				]
 		when :ial
 			"md_ial(%s)" % @meta[:al].inspect
 		else
-			nil
+			return nil
 		end
+		if @al and not @al.empty? then 
+			s = s.chop + ", #{@al.inspect})"
+		end
+		s
 	end
 	
 end

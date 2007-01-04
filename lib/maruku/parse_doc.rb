@@ -81,8 +81,7 @@ class Maruku
 			reg = Regexp.new(Regexp.escape(abbrev))
 			self.replace_each_string do |s|
 				if m = reg.match(s)
-					e = create_md_element(:abbreviation)
-					e.children = [abbrev.dup]
+					e = md_abbr(abbrev.dup)
 					e.meta[:title] = title.dup if title
 					[m.pre_match, e, m.post_match]
 				else
@@ -111,7 +110,7 @@ class Maruku
 					e.texts.each do |original_text|
 #						puts "parse_blocks = #{parse_blocks} found = #{original_text} "
 						s = original_text.to_s.strip # XXX
-						el = create_md_element(:dummy,
+						el = md_el(:dummy,
 						 	parse_blocks ? parse_text_as_markdown(s) :
 						                  parse_lines_as_span([s]) )
 						el.children_to_html.each do |x|

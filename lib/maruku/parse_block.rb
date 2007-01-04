@@ -28,14 +28,24 @@ class Maruku
 	def parse_lines_as_markdown(lines)
 		@stack.push lines
 		output = []; current_metadata = just_read_metadata = nil
+		
 		# run state machine
 		while cur_line
-			
-#  Prints detected type
+#  Prints detected type (useful for debugging)
 #			puts "#{cur_line_node_type}|#{cur_line}"
 			case cur_line_node_type
 				when :empty; 
-					shift_line; 
+					shift_line
+				when :ial
+					shift_line =~ /\s*\{([^\}]*)\}\s*/ 
+					al = $1
+					al = read_attribute_list(CharSource.new(al), context=nil, break_on=[nil])
+					if not output.empty? 
+						output.last.al = al
+					else
+						maruku_error "An attribute list at beginning of context {#{al.to_md}}"
+						tell_user "I will ignore this AL: {#{al.to_md}}"
+					end
 				when :text
 					if cur_line =~ MightBeTableHeader and 
 						(next_line && next_line =~ TableSeparator)
@@ -47,7 +57,7 @@ class Maruku
 						if output.last && output.last.node_type == :definition_list
 							output.last.children << definition
 						else
-							output << create_md_element(:definition_list, [definition])
+							output << md_el(:definition_list, [definition])
 						end
 					else # Start of a paragraph
 						output << read_paragraph
@@ -55,7 +65,7 @@ class Maruku
 				when :header2, :hrule
 					# hrule
 					shift_line
-					output << create_md_element(:hrule)
+					output << md_hrule()
 				when :header3
 					output << read_header3
 				when :ulist, :olist
@@ -65,17 +75,18 @@ class Maruku
 					if output.last && output.last.node_type == list_type
 						output.last.children << li
 					else
-						output << create_md_element(list_type, [li])
+						output << md_el(list_type, [li])
 					end
 				when :quote;    output << read_quote
 				when :code;     e = read_code; output << e if e
 				when :raw_html; e = read_raw_html; output << e if e
 
-				# these do not produce output
-				when :footnote_text; read_footnote_text
+				when :footnote_text;   output << read_footnote_text
 				when :ref_definition;  output << read_ref_definition
-				when :abbreviation;  read_abbreviation
-				when :metadata;      just_read_metadata = read_metadata
+				when :abbreviation;    output << read_abbreviation
+
+				# these do not produce output
+				when :metadata;        just_read_metadata = read_metadata
 					
 				# warn if we forgot something
 				else
@@ -122,11 +133,6 @@ class Maruku
 		output
 	end
 		 
-	def create_md_element(node_type, children=[], meta = {})
-		e = MDElement.new(node_type, children, meta)
-		e.doc = self
-		e
-	end
 	
 	def top; @stack.last end
 	def cur_line_node_type; line_node_type top.first  end
@@ -138,55 +144,40 @@ class Maruku
 		
 	# reads a header (with ----- or ========)
 	def read_header12
-		e = create_md_element(:header)
 		line = shift_line.strip
-		if (not new_meda_data?) and markdown_extra? and line =~ HeaderWithId 
+		al = nil
+		# Check if there is an IAL
+		if new_meta_data? and line =~ /^(.*)\{(.*)\}\s*$/
 			line = $1.strip
-			e.meta[:id] = $2
+			ial = $2
+			al  = read_attribute_list(CharSource.new(ial), context=nil, break_on=[nil])
 		end
-		
-		e.children = parse_lines_as_span [ line ]
-
-		e.meta[:level] = cur_line_node_type == :header2 ? 2 : 1
+		text = parse_lines_as_span [ line ]
+		level = cur_line_node_type == :header2 ? 2 : 1;  
 		shift_line
-
-		# generate an id if one is not provided
-		e.meta[:id] = e.generate_id if not e.meta[:id]
-
-		e
+		return md_header(level, text, al)
 	end
 
-	# returns an hash
-	def parse_attributes(s)
-		{:id => s[1,s.size]}
-	end
-	# reads a header like '#### header ####'
-	
+	# reads a header like '#### header ####'	
 	def read_header3
-		e = create_md_element(:header)
 		line = shift_line.strip
-		if line =~ HeaderWithAttributes
+		al = nil
+		# Check if there is an IAL
+		if new_meta_data? and line =~ /^(.*)\{(.*)\}\s*$/
 			line = $1.strip
-			e.meta.merge! parse_attributes($2)
+			ial = $2
+			al  = read_attribute_list(CharSource.new(ial), context=nil, break_on=[nil])
 		end
-		
-		e.meta[:level] = num_leading_hashes(line)
-		e.children =  parse_lines_as_span [strip_hashes(line)] 
-		
-		# generate an id if one is not provided
-		e.meta[:id] = e.generate_id if not e.meta[:id]
-
-		e
+		level = num_leading_hashes(line)
+		text = parse_lines_as_span [strip_hashes(line)] 
+		return md_header(level, text, al)
 	end
 
 
 	def read_raw_html
-#		raw_html = ""
-		
 		h = HTMLHelper.new
 		begin 
-			l=shift_line
-			h.eat_this l
+			h.eat_this(l=shift_line)
 #			puts "\nBLOCK:\nhtml -> #{l.inspect}"
 			while cur_line and not h.is_finished? 
 				l=shift_line
@@ -197,16 +188,14 @@ class Maruku
 			tell_user e.inspect + e.backtrace.join("\n")
 #			puts h.inspect
 		end
-		
 		raw_html = h.stuff_you_read
-		
-		md_html(raw_html)
+		return md_html(raw_html)
 	end
 	
 	def read_paragraph
 		lines = []
 		while cur_line 
-			break if [:quote,:header3,:empty,:raw_html,:ref_definition].include?(
+			break if [:quote,:header3,:empty,:raw_html,:ref_definition,:ial].include?(
 				cur_line_node_type)
 			break if cur_line.strip.size == 0
 			
@@ -217,10 +206,8 @@ class Maruku
 #		dbg_describe_ary(lines, 'PAR')
 		children = parse_lines_as_span(lines)
 
-		md_par(children)
+		return md_par(children)
 	end
-	
-	
 	
 	# Reads one list item, either ordered or unordered.
 	def read_list_item
@@ -238,24 +225,31 @@ class Maruku
 			stripped = first[indentation, first.size-1]
 		lines.unshift stripped
 		
-		e = create_md_element(:li)
-		e.children = parse_lines_as_markdown(lines)
-		e.meta[:want_my_paragraph] = want_my_paragraph|| (e.children.size>1)
-		e
+		children = parse_lines_as_markdown(lines)
+		with_par = want_my_paragraph || (children.size>1)
+		
+		return md_li(children, with_par)
 	end
 
 	def read_abbreviation
-		shift_line =~ Abbreviation
-		abbrev = $1
+		if not (l=shift_line) =~ Abbreviation
+			maruku_error "Bug: it's Andrea's fault. Tell him.\n#{l.inspect}"
+		end
+		abbr = $1
 		description = $2
 		
-		@abbreviations[abbrev] = description
+		self.abbreviations[abbr] = description
+		
+		return md_abbr_def(abbr, description)
 	end
 	
 	def read_footnote_text
 		first = shift_line
 		
-		first =~ FootnoteText
+		if not first =~ FootnoteText 
+			maruku_error "Bug (it's Andrea's fault)"
+		end
+		
 		id = $1
 		text = $2
 
@@ -272,11 +266,12 @@ class Maruku
 		# add first line
 		if text && text.strip != "" then lines.unshift text end
 		
-		
 #		dbg_describe_ary(lines, 'FOOTNOTE')
 		children = parse_lines_as_markdown(lines)
-		@footnotes[id] = create_md_element(:footnote, children)
-
+		
+		e = md_footnote(id, children)
+		self.footnotes[id] = e
+		return e
 	end
 
 
@@ -342,13 +337,11 @@ class Maruku
 		end
 #		dbg_describe_ary(lines, 'QUOTE')
 
-		e = create_md_element(:quote)
-		e.children = parse_lines_as_markdown(lines)
-		e
+		children = parse_lines_as_markdown(lines)
+		return md_quote(children)
 	end
 
 	def read_code
-		e = create_md_element(:code)
 		# collect all indented lines
 		lines = []
 		while cur_line && ([:code, :empty].include? cur_line_node_type)
@@ -367,12 +360,10 @@ class Maruku
 		return nil if lines.empty?
 
 		source = lines.join("\n")
-		# ignore trailing lines 
-#		source = source.gsub(/\n+\Z/,'')
 		
 #		dbg_describe_ary(lines, 'CODE')
-		e.meta[:raw_code] = source
-		e
+
+		return md_codeblock(source)
 	end
 
 	# Reads a series of metadata lines with empty lines in between
@@ -402,9 +393,7 @@ class Maruku
 		end
 		hash 
 	end
-	
-
-	
+		
 	def read_ref_definition
 		line = shift_line
 		
@@ -440,7 +429,7 @@ class Maruku
 		end
 #			puts hash.inspect
 		
-		md_ref_def(id, url, meta={:title=>title})
+		return md_ref_def(id, url, meta={:title=>title})
 	end
 	
 	def read_table
@@ -449,8 +438,7 @@ class Maruku
 			s.strip.split('|').select{|x|x.strip.size>0}.map{|x|x.strip}
 		end
 		
-		head = split_cells(shift_line).map{|s|
-			create_md_element(:head_cell, parse_lines_as_span([s]))}
+		head = split_cells(shift_line).map{|s| md_el(:head_cell, parse_lines_as_span([s])) }
 			
 		separator=split_cells(shift_line)
 
@@ -460,25 +448,27 @@ class Maruku
 		num_columns = align.size
 		
 		if head.size != num_columns
-			error "Head does not have #{num_columns} columns: \n#{head.inspect}"
+			maruku_error "Table head does not have #{num_columns} columns: \n#{head.inspect}"
+			tell_user "I will ignore this table."
 			# XXX try to recover
-			return create_md_element(:linebreak)
+			return md_br()
 		end
 				
 		rows = []
 		
 		while cur_line && cur_line =~ /\|/
 			row = split_cells(shift_line).map{|s|
-				create_md_element(:cell, parse_lines_as_span([s]))}
+				md_el(:cell, parse_lines_as_span([s]))}
 			if head.size != num_columns
-				error  "Row does not have #{num_columns} columns: \n#{row.inspect}"
+				maruku_error  "Row does not have #{num_columns} columns: \n#{row.inspect}"
+				tell_user "I will ignore this table."
 				# XXX try to recover
-				return create_md_element(:linebreak)
+				return md_br()
 			end
 			rows << row
 		end
 
-		e = create_md_element(:table)
+		e = md_el(:table)
 		e.meta[:align] = align
 		e.children = (head+rows).flatten
 		e
@@ -515,7 +505,7 @@ class Maruku
 		# Read one or more terms
 		terms = []
 		while  cur_line &&  cur_line_node_type == :text
-			terms << create_md_element(:definition_term, parse_lines_as_span([shift_line]))
+			terms << md_el(:definition_term, parse_lines_as_span([shift_line]))
 		end
 #		dbg_describe_ary(terms, 'DT')
 
@@ -549,13 +539,12 @@ class Maruku
 #			dbg_describe_ary(lines, 'DD')
 			
 			children = parse_lines_as_markdown(lines)
-			definitions << create_md_element(:definition_data, children)
+			definitions << md_el(:definition_data, children)
 		end
 		
-		definition = create_md_element(:definition)
+		definition = md_el(:definition, terms+definitions)
 		definition.meta[:terms] = terms
 		definition.meta[:definitions] = definitions
-		definition.children = terms + definitions
 		definition.meta[:want_my_paragraph] = want_my_paragraph
 		definition
 	end

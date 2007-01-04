@@ -17,8 +17,8 @@ module MarukuTests
 		["a",      ["a"],      'Easy char'],
 		[" a",     ["a"],      'First space in the paragraph is ignored'],
 		["a\n \n", ["a"],      'Last spaces in the paragraphs are ignored'],
-		[' ',      [' '],      'One char => one string'],
-		['  ',     [' '],      'Two chars => one char'],
+		[' ',      [],      'One char => nothing'],
+		['  ',     [],      'Two chars => nothing'],
 		['a  b',   ['a b'],    'Spaces are compressed'],
 		['a  b',   ['a b'],    'Newlines are spaces'],
 		["a\nb",   ['a b'],    'Newlines are spaces'],
@@ -26,9 +26,9 @@ module MarukuTests
 		["a \nb",  ['a b'],    'Compress newlines 2'],
 		[" \nb",   ['b'],      'Compress newlines 3'],
 		["\nb",    ['b'],      'Compress newlines 4'],
-		["b\n",    ['b '],     'Compress newlines 5'],
-		["\n",     [' '],      'Compress newlines 6'],
-		["\n\n\n", [' '],      'Compress newlines 7'],
+		["b\n",    ['b'],     'Compress newlines 5'],
+		["\n",     [],      'Compress newlines 6'],
+		["\n\n\n", [],      'Compress newlines 7'],
 		
 		[nil, :throw, "Should throw on nil input"],
 		
@@ -43,7 +43,7 @@ module MarukuTests
 		
 		# Newlines 
 		["a  \n", ['a',md_el(:linebreak)], 'Two spaces give br.'],
-		["a \n",  ['a '], 'Newlines 2'],
+		["a \n",  ['a'], 'Newlines 2'],
 		["  \n",  [md_el(:linebreak)], 'Newlines 3'],
 		["  \n  \n",  [md_el(:linebreak),md_el(:linebreak)],'Newlines 3'],
 		["  \na  \n",  [md_el(:linebreak),'a',md_el(:linebreak)],'Newlines 3'],
@@ -70,14 +70,14 @@ module MarukuTests
 		# emphasis
 		["**", :throw, 'Unclosed double **'],
 		["\\*", ['*'], 'Escaping of *'],
-		["a *b* ", ['a ', md_em('b'),' '], 'Emphasis 1'],
+		["a *b* ", ['a ', md_em('b')], 'Emphasis 1'],
 		["a *b*", ['a ', md_em('b')], 'Emphasis 2'],
 		["a * b", ['a * b'], 'Emphasis 3'],
 		["a * b*", :throw, 'Unclosed emphasis'],
 		# same with underscore
 		["__", :throw, 'Unclosed double __'],
 		["\\_", ['_'], 'Escaping of _'],
-		["a _b_ ", ['a ', md_em('b'),' '], 'Emphasis 4'],
+		["a _b_ ", ['a ', md_em('b')], 'Emphasis 4'],
 		["a _b_", ['a ', md_em('b')], 'Emphasis 5'],
 		["a _ b", ['a _ b'], 'Emphasis 6'],
 		["a _ b_", :throw, 'Unclosed emphasis'],
@@ -87,7 +87,7 @@ module MarukuTests
 		# strong
 		["**a*", :throw, 'Unclosed double ** 2'],
 		["\\**a*", ['*', md_em('a')], 'Escaping of *'],
-		["a **b** ", ['a ', md_strong('b'),' '], 'Emphasis 1'],
+		["a **b** ", ['a ', md_strong('b')], 'Emphasis 1'],
 		["a **b**", ['a ', md_strong('b')], 'Emphasis 2'],
 		["a ** b", ['a ** b'], 'Emphasis 3'],
 		["a ** b**", :throw, 'Unclosed emphasis'],
@@ -95,7 +95,7 @@ module MarukuTests
 		# strong (with underscore)
 		["__a_", :throw, 'Unclosed double __ 2'],
 		["\\__a_", ['_', md_em('a')], 'Escaping of _'],
-		["a __b__ ", ['a ', md_strong('b'),' '], 'Emphasis 1'],
+		["a __b__ ", ['a ', md_strong('b')], 'Emphasis 1'],
 		["a __b__", ['a ', md_strong('b')], 'Emphasis 2'],
 		["a __ b", ['a __ b'], 'Emphasis 3'],
 		["a __ b__", :throw, 'Unclosed emphasis'],
@@ -103,7 +103,7 @@ module MarukuTests
 		# extra strong
 		["***a**", :throw, 'Unclosed triple *** '],
 		["\\***a**", ['*', md_strong('a')], 'Escaping of *'],
-		["a ***b*** ", ['a ', md_emstrong('b'),' '], 'Strong elements'],
+		["a ***b*** ", ['a ', md_emstrong('b')], 'Strong elements'],
 		["a ***b***", ['a ', md_emstrong('b')]],
 		["a *** b", ['a *** b']],
 		["a ** * b", ['a ** * b']],
@@ -112,7 +112,7 @@ module MarukuTests
 		# same with underscores
 		["___a__", :throw, 'Unclosed triple *** '],
 		["\\___a__", ['_', md_strong('a')], 'Escaping of *'],
-		["a ___b___ ", ['a ', md_emstrong('b'),' '], 'Strong elements'],
+		["a ___b___ ", ['a ', md_emstrong('b')], 'Strong elements'],
 		["a ___b___", ['a ', md_emstrong('b')]],
 		["a ___ b", ['a ___ b']],
 		["a __ _ b", ['a __ _ b']],

@@ -325,7 +325,7 @@ class MDElement
 	end
 	
 
-	def to_latex_abbreviation
+	def to_latex_abbr
 		children_to_latex
 	end
 
@@ -359,7 +359,8 @@ class MDElement
 			   "to_latex_#{c.node_type}" : "to_latex"
 			
 			if not c.respond_to?(method)
-				raise "Object does not answer to #{method}: #{c.class} #{c.inspect[0,100]}"
+		#		raise "Object does not answer to #{method}: #{c.class} #{c.inspect[0,100]}"
+				next
 			end
 			
 			h =  c.send(method)

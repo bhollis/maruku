@@ -18,6 +18,7 @@
 
 # Structures definition
 require 'maruku/structures'
+require 'maruku/structures_inspect'
 # Less typing
 require 'maruku/helpers'
 
@@ -34,13 +35,13 @@ require 'maruku/html_helper'
 require 'maruku/parse_block'
 
 # Code for parsing Markdown span-level elements
+require 'maruku/charsource'
 require 'maruku/parse_span_better'
 require 'maruku/attributes'
 
 require 'maruku/structures_iterators'
 
 require 'maruku/errors_management'
-
 
 # Code for creating a table of contents
 require 'maruku/toc'

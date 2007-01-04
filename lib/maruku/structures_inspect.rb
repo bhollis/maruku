@@ -17,45 +17,50 @@
 #   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 
-class String
-
-	# These are TeX's special characters
-	LATEX_ADD_SLASH = [ ?{, ?}, ?$, ?&, ?#, ?_, ?%]
-
-	# These, we transform to {\tt \char<ascii code>}
-	LATEX_TO_CHARCODE = [ ?^, ?~, ?>,?<]
-
-	def escape_to_latex(s)
-		s2 = ""
-		s.each_byte do |b|
-			if LATEX_TO_CHARCODE.include? b
-				s2 += "{\\tt \\char#{b}}" 
-			elsif LATEX_ADD_SLASH.include? b
-				s2 << ?\\ << b
-			elsif b == ?\\
-			# there is no backslash in cmr10 fonts
-				s2 += "$\\backslash$"
-			else
-				s2 << b
-			end
+class MDElement	
+	def inspect(compact=true)
+		if compact
+			i2 = inspect2
+			return i2 if i2
 		end
-		s2
+		
+		"md_el(:%s,%s,%s,%s)" %
+		[
+			self.node_type,
+			children_inspect(compact), 
+			self.meta.inspect,
+			self.al.inspect
+		]
 	end
-	
-	# escapes special characters
-	def to_latex
-		s = escape_to_latex(self)
-		OtherGoodies.each do |k, v|
-			s.gsub!(k, v)
+
+	def children_inspect(compact=true)
+		s = @children.inspect_more(compact,', ')
+		if @children.empty?
+			"[]"
+		elsif s.size < 70
+			s
+		else
+			"[\n"+
+			add_tabs(@children.inspect_more(compact,",\n",false))+
+			"\n]"
 		end
-		s
 	end
-	
-	# other things that are good on the eyes
-	OtherGoodies = {
-		/(\s)LaTeX/ => '\1\\LaTeX\\xspace ', # XXX not if already \LaTeX
-#		'HTML' => '\\textsc{html}\\xspace ',
-#		'PDF' => '\\textsc{pdf}\\xspace '
-	}
 	
 end
+
+class String
+	alias inspect_more inspect
+end
+
+class Array
+	def inspect_more(compact, join_string, add_brackets=true)
+		s  = map {|x| 
+			x.kind_of?(String) ? x.inspect : 
+			x.kind_of?(MDElement) ? x.inspect(compact) : 
+			(raise "WTF #{x.class} #{x.inspect}")
+		}.join(join_string)
+		
+		add_brackets ? "[#{s}]" : s
+	end
+end
+

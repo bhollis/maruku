@@ -509,7 +509,7 @@ class MDElement
 		end
 	end
 
-	def to_html_abbreviation
+	def to_html_abbr
 		abbr = Element.new 'abbr'
 		abbr << Text.new(children[0])
 		abbr.attributes['title'] = self.meta[:title] if self.meta[:title]
@@ -608,7 +608,8 @@ class MDElement
 			   "to_html_#{c.node_type}" : "to_html"
 			
 			if not c.respond_to?(method)
-				raise "Object does not answer to #{method}: #{c.class} #{c.inspect}"
+				#raise "Object does not answer to #{method}: #{c.class} #{c.inspect}"
+				next
 			end
 			
 			h =  c.send(method)

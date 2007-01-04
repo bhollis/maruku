@@ -18,6 +18,26 @@
 #
 
 
+
+class Module
+	def safe_attr_accessor(symbol, klass)
+		attr_reader symbol
+		code = <<-EOF
+		def #{symbol}=(val)  
+			if not val.kind_of? #{klass}
+				s = "Could not assign an object of type \#{val.class} to #{symbol}.\n"
+				s += "Tried to assign\n\#{val.inspect}\nto #{symbol} of object\n"
+				s += "\#{self.inspect}"
+				raise s
+			end
+			@#{symbol} = val
+		end
+		
+EOF
+		module_eval code
+  end
+end
+
 # I did not want to have a class for each possible element. 
 # Instead I opted to have only the class "MDElement"
 # that represents eveything in the document (paragraphs, headers, etc).
@@ -50,26 +70,30 @@ class MDElement
 	# XXX List not complete
 	# Allowed: :document, :paragraph, :ul, :ol, :li, 
 	# :li_span, :strong, :emphasis, :link, :email
-	attr_accessor :node_type
+	safe_attr_accessor :node_type, Symbol
+	
 	# Children are either Strings or MDElement
-	attr_accessor :children
+	safe_attr_accessor :children, Array
+	
 	# Hash for metadata
 	# contains :id for :link1
 	# :li :want_my_paragraph
 	#  :header: :level
 	# code, inline_code: :raw_code
-	attr_reader :meta
-	# reference of containing document (document has list of ref)
+	safe_attr_accessor :meta, Hash
+	
+	# An attribute list, may not be nil
+	safe_attr_accessor :al, Array #Maruku::AttributeList
+	
+	# Reference of the document (which is of class Maruku)
 	attr_accessor :doc
 	
-	def initialize(node_type_=:unset, children_=[], meta_={} )
+	def initialize(node_type=:unset, children=[], meta={}, al=AttributeList.new )
 		super(); 
-		raise 'children is nil' if not children_
-		raise 'meta is nil' if not meta_
-		
-		@children = children_
-		@node_type = node_type_
-		@meta = meta_
+		self.children = children
+		self.node_type = node_type
+		self.meta = meta
+		self.al = al || AttributeList.new
 	end
 	
 	def ==(o)
@@ -79,58 +103,19 @@ class MDElement
 		(self.children == o.children)
 		ok
 	end
-	
-	def inspect(compact=true)
-		if compact
-			i2 = inspect2
-			return i2 if i2
-		end
-		
-		"md_el(:%s,%s %s)" %
-		[
-			@node_type,
-			children_inspect(compact), 
-			if @meta.size>0 then 
-				', '+@meta.inspect 
-			else '' end
-		]
-	end
-
-	def children_inspect(compact=true)
-		s = @children.inspect_more(compact,', ')
-		if @children.empty?
-			"[]"
-		elsif s.size < 70
-			s
-		else
-			"[\n"+
-			add_tabs(@children.inspect_more(compact,",\n ",false))+
-			"\n]"
-		end
-	end
-	
 end
 
-class String
-	alias inspect_more inspect
-end
-
-class Array
-	def inspect_more(compact, join_string, add_brackets=true)
-		s  = map {|x| 
-			x.kind_of?(String) ? x.inspect : 
-			x.kind_of?(MDElement) ? x.inspect(compact) : 
-			(raise "WTF #{x.class} #{x.inspect}")
-		}.join(join_string)
-		
-		add_brackets ? "[#{s}]" : s
-	end
-end
 # The Maruku class represent the whole document 
 # and holds global data.
 
 class Maruku < MDElement
-	attr_accessor :refs
-	attr_accessor :footnotes
-	attr_accessor :abbreviations
+	safe_attr_accessor :refs, Hash
+	safe_attr_accessor :footnotes, Hash
+	safe_attr_accessor :abbreviations, Hash
+	
+	# Attribute lists definition
+	safe_attr_accessor :ald, Hash
+
 end
+
+
