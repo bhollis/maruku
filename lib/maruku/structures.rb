@@ -80,10 +80,15 @@ class MDElement
 	# :li :want_my_paragraph
 	#  :header: :level
 	# code, inline_code: :raw_code
-	safe_attr_accessor :meta, Hash
+
+
+#	safe_attr_accessor :meta, Hash
 	
 	# An attribute list, may not be nil
 	safe_attr_accessor :al, Array #Maruku::AttributeList
+
+	# These are the processed attributes
+	safe_attr_accessor :attributes, Hash
 	
 	# Reference of the document (which is of class Maruku)
 	attr_accessor :doc
@@ -92,14 +97,27 @@ class MDElement
 		super(); 
 		self.children = children
 		self.node_type = node_type
-		self.meta = meta
+		
+		@attributes = {}
+		
+		meta.each do |symbol, value|
+			self.instance_eval "
+			  def #{symbol}; @#{symbol}; end
+			  def #{symbol}=(val); @#{symbol}=val; end"
+			self.send "#{symbol}=", value
+		end
+		
 		self.al = al || AttributeList.new
+
+		self.meta_priv = meta
 	end
+	
+	attr_accessor :meta_priv
 	
 	def ==(o)
 		ok = o.kind_of?(MDElement) &&
 		(self.node_type == o.node_type) &&
-		(self.meta == o.meta) &&
+		(self.meta_priv == o.meta_priv) &&
 		(self.children == o.children)
 		ok
 	end
@@ -115,6 +133,22 @@ class Maruku < MDElement
 	
 	# Attribute lists definition
 	safe_attr_accessor :ald, Hash
+	
+	# The order in which footnotes are used. Contains the id.
+	safe_attr_accessor :footnotes_order, Array
+	
+	def initialize(s=nil, meta={})
+		super(:document)
+		@doc       = self
+
+		self.refs = {}
+		self.footnotes = {}
+		self.footnotes_order = []
+		self.abbreviations = {}
+		self.ald = {}
+		
+		parse_doc(s) if s 
+	end
 
 end
 

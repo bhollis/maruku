@@ -28,7 +28,7 @@ class Maruku
 	def to_latex_document
 		header = ""
 		
-		if @doc.meta[:latex_use_listings]
+		if @doc.attributes[:latex_use_listings]
 			header += "\\usepackage{listings}\n"
 		end
 
@@ -77,7 +77,7 @@ class MDElement
 	end
 
 	def get_setting(name, default=nil)
-		self.meta[name] || @doc.meta[name] || default
+		self.attributes[name] || @doc.attributes[name] || default
 	end
 	
 	# \color[named]{name} 	
@@ -97,10 +97,9 @@ class MDElement
 	end
 	
 	def to_latex_code;
-		raw_code = @meta[:raw_code] 
+		raw_code = self.raw_code
 		
-		if @doc.meta[:latex_use_listings]
-#			puts @meta.inspect
+		if @doc.attributes[:latex_use_listings]
 			s = "\\lstset{columns=fixed,frame=shadowbox}"
 
 			show_spaces = get_setting(:code_show_spaces) 
@@ -117,7 +116,7 @@ class MDElement
 			s+= "\\lstset{basicstyle=\\ttfamily\\footnotesize}\n" 
 			
 			
-			lang = self.meta[:lang] || @doc.meta[:code_lang] || '{}'
+			lang = self.attributes[:lang] || @doc.attributes[:code_lang] || '{}'
 			if lang
 				s += "\\lstset{language=#{lang}}\n"
 			end
@@ -135,14 +134,14 @@ class MDElement
 		4=>'paragraph'}
 
 	def to_latex_header
-		h = TexHeaders[@meta[:level]] || 'paragraph'
+		h = TexHeaders[self.level] || 'paragraph'
 		
 		title = children_to_latex
 		if number = section_number
 			title = number + title
 		end
 		
-		if id = @meta[:id]
+		if id = self.attributes[:id]
 			# drop '#' at the beginning
 			if id[0,1] == '#' then id = [1,id.size] end
 			%{\\hypertarget{%s}{}\\%s*{{%s}}\\label{%s}\n\n} % [ id, h, title, id ]
@@ -153,7 +152,7 @@ class MDElement
 	
 	
 	def to_latex_ul;       
-		if @meta[:toc]
+		if self.attributes[:toc]
 			@doc.toc.to_latex
 		else
 			wrap_as_environment('itemize')
@@ -171,7 +170,6 @@ class MDElement
 
 	def to_latex_strong;    wrap_as_span('\bf')           end
 	def to_latex_emphasis;  wrap_as_span('\em')               end
-#	def to_html_header;    wrap_as_element "h#{@meta[:level]}" end
 	
 	def wrap_as_span(c)
 		"{#{c} #{children_to_latex}}"
@@ -192,7 +190,7 @@ class MDElement
 	end
 	
 	def to_latex_inline_code; 
-		source = self.meta[:raw_code]
+		source = self.raw_code
 		
 		# Convert to printable latex chars 
 		s = latex_escape(source)
@@ -204,12 +202,12 @@ class MDElement
 	end
 
 	def to_latex_immediate_link
-		url = @meta[:url]
+		url = self.url
 		return "\\href{#{url}}{#{url.to_latex}}"
 	end
 	
 	def to_latex_link
-		if id = @meta[:ref_id]
+		if id = self.ref_id
 			# if empty, use text
 			if id.size == 0
 				id = children.to_s.downcase
@@ -231,7 +229,7 @@ class MDElement
 				end
 			end
 		else
-			url = @meta[:url]
+			url = self.url
 
 			if url[0,1] == '#'
 				url = url[1,url.size]
@@ -243,13 +241,13 @@ class MDElement
 	end
 	
 	def to_latex_email_address
-		email = @meta[:email]
+		email = self.email
 		"\\href{mailto:#{email}}{#{latex_escape(email)}}"
 	end
 	
 	
 	def to_latex_table
-		align = @meta[:align]
+		align = self.align
 		num_columns = align.size
 
 		head = @children.slice(0, num_columns)
@@ -287,7 +285,7 @@ class MDElement
 	
 	
 	def to_latex_footnote_reference
-		id = @meta[:footnote_id]
+		id = self.footnote_id
 		f = @doc.footnotes[id]
 		if f
 			"\\footnote{#{f.children_to_latex.strip}} "
@@ -309,8 +307,8 @@ class MDElement
 	end
 	
 	def to_latex_definition		
-		terms = @meta[:terms]
-		definitions = @meta[:definitions]
+		terms = self.terms
+		definitions = self.definitions
 		
 		s = ""
 		terms.each do |t|
@@ -330,7 +328,7 @@ class MDElement
 	end
 
 	def to_latex_image
-		id = @meta[:ref_id]
+		id = self.ref_id
 		ref = @doc.refs[id]
 		if not ref
 			$stderr.puts "Could not find id = '#{id}'"

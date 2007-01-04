@@ -86,8 +86,8 @@ class MDElement
 		def to_s
 			map do |k,v|
 				case k
-				when :id;    "." + v.quote_if_needed
-				when :class; "#" + v.quote_if_needed
+				when :id;    "#" + v.quote_if_needed
+				when :class; "." + v.quote_if_needed
 				when :ref;    v.quote_if_needed
 				else k.quote_if_needed + "=" + v.quote_if_needed
 				end

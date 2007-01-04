@@ -29,7 +29,7 @@ end
 class MDElement	
 	# This represents a section in the TOC.
 	class Section
-		# a Fixnum, is == header_element.meta[:level]
+		# a Fixnum, is == header_element.level
 		attr_accessor :section_level 
 		
 		# An array of fixnum, like [1,2,5] for Section 1.2.5
@@ -40,9 +40,9 @@ class MDElement
 
 		# Array of immediate children of this element
 		attr_accessor :immediate_children
+		
 		# Array of Section inside this section
 		attr_accessor :section_children
-		
 		
 		def initialize
 			@immediate_children = []
@@ -58,7 +58,8 @@ class MDElement
 			s = ""
 			if @header_element
 				s +=  "\_"*indent +  "(#{@section_level})>\t #{@section_number.join('.')} : "
-				s +=  @header_element.children_to_s + " (id: '#{@header_element.meta[:id]}')\n"
+				s +=  @header_element.children_to_s +
+				 " (id: '#{@header_element.attributes[:id]}')\n"
 			else
 				s += "Master\n"
 			end
@@ -98,7 +99,7 @@ class MDElement
 				end
 				a = c.header_element.wrap_as_element('a')
 					a.delete_attribute 'id'
-					a.attributes['href'] = "##{c.header_element.meta[:id]}"
+					a.attributes['href'] = "##{c.header_element.attributes[:id]}"
 				li << a
 				li << c.create_toc if c.section_children.size>0
 				ul << li
@@ -119,7 +120,7 @@ class MDElement
 				number = c.header_element.section_number
 				s += number if number
 					text = c.header_element.children_to_latex
-					id = c.header_element.meta[:id]
+					id = c.header_element.attributes[:id]
 				s += "\\hyperlink{#{id}}{#{text}}"
 				s += "\\dotfill \\pageref*{#{id}} \\linebreak\n"
 				s += c.to_latex_rec  if c.section_children.size>0
@@ -136,6 +137,10 @@ class MDElement
 	
 	
 	def create_toc
+		each_element(:header) do |h|
+			h.attributes[:id] ||= h.generate_id
+		end
+		
 		stack = []
 		
 		# the ancestor section
@@ -146,10 +151,9 @@ class MDElement
 	
 		i = 0;
 		while i < @children.size
-			
 			while i < @children.size 
 				if @children[i].node_type == :header
-					level = @children[i].meta[:level]
+					level = @children[i].level
 					break if level <= stack.last.section_level+1
 				end
 				
@@ -160,7 +164,7 @@ class MDElement
 			break if i>=@children.size
 			
 			header = @children[i]
-			level = header.meta[:level]
+			level = header.level
 			
 			if level > stack.last.section_level
 				# this level is inside

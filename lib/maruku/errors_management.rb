@@ -38,7 +38,7 @@ module MarukuErrors
 	Default_on_error = :warning
 	
 	def maruku_error(s,src=nil,con=nil)
-		policy = @doc ? (@doc.meta[:on_error] || Default_on_error) : :raise
+		policy = @doc ? (@doc.attributes[:on_error] || Default_on_error) : :raise
 		
 		case policy
 		when :ignore 
@@ -59,11 +59,11 @@ module MarukuErrors
 		n = 75
 		(@error_stream || $stderr) <<
 		" "+"_"*n << "\n"<<
-		"| Maruku tells you (#{caller[0]})\n" << 
+		"| Maruku tells you (#{caller[1]})\n" << 
 		"+"+"-"*n +"\n"+
 		add_tabs(s,1,'| ') << "\n" <<
 		"+" << "-"*n << "\n" <<
-		add_tabs(caller.join("\n"),1,'!') << "\n" <<
+		add_tabs(caller[1, 4].join("\n"),1,'!') << "\n" <<
 		"\\" << "_"*n << "\n"
 	end
 	

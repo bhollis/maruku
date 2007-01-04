@@ -203,6 +203,10 @@ module MarukuTests
 		["a<!--", :throw, 'Bad HTML Comment'],
 		["a<!-- ", :throw, 'Bad HTML Comment'],
 
+		["<? <?!--!`3  ?>", [md_server('<?!--!`3')], 'Server directive'],
+
+		["<? ", :throw, 'Bad Server directive'],
+
 		["a <b", :throw, 'Bad HTML 1'],
 		["<b",   :throw, 'Bad HTML 2'],
 		["<b!",  :throw, 'Bad HTML 3'],
@@ -244,7 +248,7 @@ module MarukuTests
 			
 		@verbose = verbose
 		m = Maruku.new
-		m.meta[:on_error] = :raise
+		m.attributes[:on_error] = :raise
 		
 		good_cases.each do |input, expected, comment|
 				output = nil

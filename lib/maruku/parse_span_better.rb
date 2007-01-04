@@ -76,10 +76,11 @@ class Maruku
 						else 
 							con.push_char src.shift_char
 						end
-					when ??; read_server_directive
+					when ?? 
+						read_server_directive(src, con) 
 					when ?\ , ?\t 
 						con.push_char src.shift_char
-					else;  
+					else
 						if src.next_matches(/<mailto:/) or
 						   src.next_matches(/<[\w\.]+\@/)
 							read_email_el(src, con)
@@ -156,8 +157,10 @@ class Maruku
 			when ?{ # inline attribute list
 				if new_meta_data?
 					src.ignore_char # opening {
-				 	con.push_element md_ial(read_attribute_list(src, con, [?}]))
+					ial = md_ial(al=read_attribute_list(src, con, [?}]))
 					src.ignore_char # closing }
+
+				 	con.push_element ial
 				else # normal text
 					con.push_char src.shift_char
 				end
@@ -186,7 +189,15 @@ class Maruku
 		end
 		# Apply each IAL to the element before
 		con.elements.each_with_index do |e, i| if is_ial(e) && i>= 1 then
-			con.elements[i-1].al = e.meta[:al]
+			before = con.elements[i-1]
+			if before.kind_of? MDElement
+				#puts "Assigning #{e.ial} to #{before}"
+				before.al = e.ial
+			else
+				maruku_error "This IAL: {#{e.ial.to_md}} seems to refer to a string:\n"+
+					before.inspect
+				tell_user "Ignoring"
+			end
 		end end
 
 		# Remove all IAL
@@ -205,6 +216,21 @@ class Maruku
 		end
 		
 		con.elements
+	end
+	
+	def read_server_directive(src, con) 
+		delim = "?>"
+		
+		src.ignore_chars delim.size
+		
+		code = 
+			read_simple(src, escaped=[], break_on_chars=[], 
+			break_on_strings=[delim])
+		
+		src.ignore_chars delim.size
+		
+		code = (code || "").strip
+		con.push_element md_server(code)
 	end
 
 	def read_url_el(src,con)
@@ -274,7 +300,7 @@ class Maruku
 	# while escaping the escaped.
 	# If the string is empty, it returns nil.
 	# Raises on error.
-	def read_simple(src, escaped, exit_on_chars) 
+	def read_simple(src, escaped, exit_on_chars, exit_on_strings=nil) 
 		text = ""
 		while true
 #			puts "Reading simple #{text.inspect}"
@@ -283,9 +309,14 @@ class Maruku
 #				puts ("  breaking on "<<c)+" contained in "+exit_on_chars.inspect
 				break
 			end
+			
+			break if exit_on_strings && 
+				exit_on_strings.any? {|x| src.cur_chars_are x}
+			
 			case c
 			when nil
-				s= "String finished while reading (break on #{exit_on_chars.inspect})"+
+				s= "String finished while reading (break on "+
+				"#{exit_on_chars.map{|x|""<<x}.inspect})"+
 				" already read: #{text.inspect}"
 				error s, src
 				tell_user "I boldly continue"
@@ -381,42 +412,26 @@ class Maruku
 	end
 	
 	def read_inline_code(src, con)
+		# Count the number of ticks
 		num_ticks = 0
-		
 		while src.cur_char == ?` 
 			num_ticks += 1
 			src.ignore_char
 		end
-
-		
-		# ignore space
-		if num_ticks > 1 && src.cur_char == SPACE
-			src.ignore_char
-		end
-
-#		puts "Ticks: #{num_ticks } next: #{src.some} "
-
+		# We will read until this string
 		end_string = "`"*num_ticks
-		
-		code = ''
-		while true
-			if not src.cur_char
-				error("Ticks not finished: read #{code.inspect}"+
-				      " and waiting for #{end_string.inspect} num=#{num_ticks}",
-						src,con)
-				tell_user "Read invalid code block: #{code.inspect}"
-				break
-			end
-			
-			if src.cur_chars(num_ticks) ==end_string # bah
-#				puts "Breaking on #{src.some}  (end:#{end_string.inspect})"
-				src.ignore_chars num_ticks
-				break
-			end
-			
-			code << src.shift_char
-		end
 
+		code = 
+			read_simple(src, escaped=[], break_on_chars=[], 
+				break_on_strings=[end_string])
+		
+		src.ignore_chars end_string.size
+		
+		# Ignore at most one space
+		if num_ticks > 1 && code[0] == SPACE
+			code = code[1, code.size-1]
+		end
+		
 		# drop last space 
 		if num_ticks > 1 && code[-1] == SPACE
 			code = code[0,code.size-1]
@@ -424,17 +439,6 @@ class Maruku
 
 #		puts "Read `` code: #{code.inspect}; after: #{src.cur_chars(10).inspect} "
 		con.push_element md_code(code)
-	end
-
-	
-	
-	def read_server_directive
-		# match = gimme(/^(.*)\?>/)
-		# if not match
-		# 	error "Server directive not closed"
-		# end
-		# server = match[1]
-		# con.found_object create_md_element(:server, server)
 	end
 	
 	def read_link(src, con)

@@ -4,7 +4,7 @@ class MDElement
 	include REXML
 	
 	def to_latex_entity 
-		entity_name = @meta[:entity_name]
+		entity_name = self.entity_name
 		
 		MDElement.init_tables
 		

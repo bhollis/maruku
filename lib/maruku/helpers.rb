@@ -62,8 +62,8 @@ module Helpers
 		md_el(:abbr_def, [], {:abbr=>abbr, :text=>text}, al)
 	end
 
-	def md_abbr(abbr)
-		md_el(:abbr, [abbr])
+	def md_abbr(abbr, title)
+		md_el(:abbr, [abbr], {:title=>title})
 	end
 	
 	def md_html(raw_html, al=nil)
@@ -73,6 +73,8 @@ module Helpers
 			# end end of string, or else REXML gets confused
 			raw_html = raw_html.gsub(/\A\s*</,'<').
 			                    gsub(/>[\s\n]*\Z/,'>')
+			
+			raw_html = "<marukuwrap>#{raw_html}</marukuwrap>"
 			e.instance_variable_set :@parsed_html,
 			 	REXML::Document.new(raw_html)
 		
@@ -89,7 +91,7 @@ module Helpers
 	end
 	
 	def md_im_link(children, url, title=nil, al=nil)
-		md_el(:link, children, {:url=>url,:title=>title}, al)
+		md_el(:im_link, children, {:url=>url,:title=>title}, al)
 	end
 	
 	def md_image(children, ref_id, al=nil)
@@ -97,7 +99,7 @@ module Helpers
 	end
 	
 	def md_im_image(children, url, title=nil, al=nil)
-		md_el(:image, children, {:url=>url,:title=>title},al)
+		md_el(:im_image, children, {:url=>url,:title=>title},al)
 	end
 
 	def md_em(children, al=nil)
@@ -154,8 +156,19 @@ module Helpers
 	
 	# inline attribute list
 	def md_ial(al)
-		al = Maruku::AttributeList.new(al) if al.kind_of? Array
-		md_el(:ial, [], {:al=>al})
+		al = Maruku::AttributeList.new(al) if 
+			not al.kind_of?Maruku::AttributeList
+		md_el(:ial, [], {:ial=>al})
+	end
+
+	# Attribute list definition
+	def md_ald(id, al)
+		md_el(:ald, [], {:ald_id=>id,:ald=>al})
+	end
+	
+	# Server directive <? code ?>
+	def md_server(code)
+		md_el(:server, [], {:code=>code})
 	end
 end
 
@@ -167,51 +180,47 @@ class MDElement
 		when :paragraph
 			"md_par(%s)" % children_inspect
 		when :footnote_reference
-			"md_foot_ref(%s)" % @meta[:footnote_id].inspect
+			"md_foot_ref(%s)" % self.footnote_id.inspect
 		when :entity
-			"md_entity(%s)" % @meta[:entity_name].inspect
+			"md_entity(%s)" % self.entity_name.inspect
 		when :email_address
-			"md_email(%s)" % @meta[:email].inspect
+			"md_email(%s)" % self.email.inspect
 		when :inline_code
-			"md_code(%s)" % @meta[:raw_code].inspect
+			"md_code(%s)" % self.raw_code.inspect
 		when :raw_html
-			"md_html(%s)" % @meta[:raw_html].inspect
+			"md_html(%s)" % self.raw_html.inspect
 		when :emphasis 
 			"md_em(%s)" % children_inspect
 		when :strong
 			"md_strong(%s)" % children_inspect
 		when :immediate_link
-			"md_url(%s)" % @meta[:url].inspect
+			"md_url(%s)" % self.url.inspect
 		when :image
-			if @meta[:ref_id]
-				"md_image(%s, %s)" % [
-					children_inspect, @meta[:ref_id].inspect]
-			else
-				"md_im_image(%s, %s, %s)" % [
-					children_inspect, 
-					@meta[:url].inspect,
-					@meta[:title].inspect
-				]
-			end
+			"md_image(%s, %s)" % [
+				children_inspect, 
+				self.ref_id.inspect]
+		when :im_image
+			"md_im_image(%s, %s, %s)" % [
+				children_inspect, 
+				self.url.inspect,
+				self.title.inspect]
 		when :link
-			if @meta[:ref_id]
 				"md_link(%s,%s)" % [
-					children_inspect, @meta[:ref_id].inspect]
-			else
+					children_inspect, self.ref_id.inspect]
+		when :im_link
 				"md_im_link(%s, %s, %s)" % [
 					children_inspect, 
-					@meta[:url].inspect,
-					@meta[:title].inspect,
+					self.url.inspect,
+					self.title.inspect,
 				]
-			end
 		when :ref_definition
 			"md_ref_def(%s, %s, %s)" % [
-					@meta[:ref_id].inspect, 
-					@meta[:url].inspect,
-					@meta[:title]
+					self.ref_id.inspect, 
+					self.url.inspect,
+					self.title.inspect
 				]
 		when :ial
-			"md_ial(%s)" % @meta[:al].inspect
+			"md_ial(%s)" % self.ial.inspect
 		else
 			return nil
 		end

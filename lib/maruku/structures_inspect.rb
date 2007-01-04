@@ -28,7 +28,7 @@ class MDElement
 		[
 			self.node_type,
 			children_inspect(compact), 
-			self.meta.inspect,
+			@meta_priv.inspect,
 			self.al.inspect
 		]
 	end

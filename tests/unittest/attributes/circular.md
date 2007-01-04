@@ -1,0 +1,51 @@
+
+*** Parameters: ***
+{}
+*** Markdown input: ***
+
+Paragraph
+{a}
+
+
+{a}: b
+{b}: a
+
+*** Output of inspect ***
+md_el(:document,[
+	md_par(["Paragraph"], [[:ref, "a"]]),
+	md_el(:ald,[],{:al=>[[:ref, "b"]], :ald_id=>"a"},[]),
+	md_el(:ald,[],{:al=>[[:ref, "a"]], :ald_id=>"b"},[])
+],{},[])
+*** Output of to_html ***
+
+<p>Paragraph</p>
+
+*** Output of to_latex ***
+Paragraph
+
+
+*** Output of to_s ***
+Paragraph
+*** Output of to_s ***
+Paragraph
+*** EOF ***
+
+
+
+	OK!
+
+
+
+*** Output of Markdown.pl ***
+<p>Paragraph
+{a}</p>
+
+<p>{a}: b
+{b}: a</p>
+
+*** Output of Markdown.pl (parsed) ***
+<p>Paragraph
+{a}</p
+    ><p>{a}: b
+{b}: a</p
+  >

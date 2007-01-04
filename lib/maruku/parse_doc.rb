@@ -19,30 +19,18 @@
 require 'iconv'
 
 class Maruku
-	def initialize(s=nil, meta={})
-		@node_type = :document
-		@doc       = self
-
-		@refs = {}
-		@footnotes = {}
-		@abbreviations = {}
-		@meta = meta
-		
-		parse_doc(s) if s 
-	end
 		
 	def parse_doc(s)
-		# setup initial stack
-		@stack = []
+		@stack = [] # this is a tmp fix
 		
 		meta2 =  parse_email_headers(s)
 		data = meta2[:data]
 		meta2.delete :data
 		
-		@meta.merge! meta2
+		self.attributes.merge! meta2
 		
-		enc = @meta[:encoding]
-		@meta.delete :encoding
+		enc = self.attributes[:encoding]
+		self.attributes.delete :encoding
 		if enc && enc.downcase != 'utf-8'
 #			puts "Converting from #{enc} to UTF-8."
 			converted = Iconv.new('utf-8', enc).iconv(data)
@@ -64,16 +52,62 @@ class Maruku
 		toc = create_toc
 
 		# use title if not set
-		if not self.meta[:title] and toc.header_element
+		if not self.attributes[:title] and toc.header_element
 			title = toc.header_element.to_s
-			self.meta[:title]  = title
+			self.attributes[:title]  = title
 #			puts "Set document title to #{title}"
 		end
 		
 		# save for later use
 		self.toc = toc
 		
+		# Now do the attributes magic
+		each_element do |e|
+			# default attribute list
+			if default = self.ald[e.node_type.to_s]
+				expand_attribute_list(default, e.attributes)
+			end
+			expand_attribute_list(e.al, e.attributes)
+#			puts "#{e.node_type}: #{e.attributes.inspect}"
+		end
+		
 #		puts self.inspect
+	end
+	
+	# Expands an attribute list in an Hash
+	def expand_attribute_list(al, result)
+		al.each do |k, v|
+			case k
+			when :class
+				if not result[:class]
+					result[:class] = v
+				else
+					result[:class] += " " + v
+				end
+			when :id; result[:id] = v
+			when :ref; 
+				if self.ald[v]
+					already = (result[:expanded_references] ||= [])
+					if not already.include?(v)
+						already.push v
+						expand_attribute_list(self.ald[v], result)
+					else
+						maruku_error "Circular reference: #{v} already seen\n"+
+							already.inspect
+					end
+				else
+					if not result[:unresolved_references]
+						result[:unresolved_references] = v
+					else
+						result[:unresolved_references] << " #{v}"
+					end
+					
+					result[v.to_sym] = true
+				end
+			else
+				result[k.to_sym]=v
+			end
+		end
 	end
 
 	def search_abbreviations
@@ -81,8 +115,7 @@ class Maruku
 			reg = Regexp.new(Regexp.escape(abbrev))
 			self.replace_each_string do |s|
 				if m = reg.match(s)
-					e = md_abbr(abbrev.dup)
-					e.meta[:title] = title.dup if title
+					e = md_abbr(abbrev.dup, title.dup)
 					[m.pre_match, e, m.post_match]
 				else
 					s

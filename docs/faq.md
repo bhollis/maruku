@@ -2,7 +2,7 @@ Frequently asked questions
 --------------------------
 
 
-* *Does Maruku supports internationalizations?*
+*	*Does Maruku supports internationalizations?*
 
 	Maruku workflow:
 	
@@ -25,8 +25,8 @@ Frequently asked questions
 	The HTML output is encoded in UTF-8, and
 	the `encoding` is set in the xml header:
 	
-	<?xml version='1.0' encoding='utf-8'?>
-	<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Strict//EN'
+		<?xml version='1.0' encoding='utf-8'?>
+		<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Strict//EN'
 	
 	 However, the LaTeX output does not work yet for arbitrary
 	 UTF-8 strings. I need help for this.

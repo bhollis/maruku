@@ -179,7 +179,7 @@ class Maruku
 	def dbg_describe_ary(a, prefix='')
 		i = 0 
 		a.each do |l|
-			tell_user "#{prefix} (#{i+=1})##{l}#"
+			puts "#{prefix} (#{i+=1})# #{l.inspect}"
 		end
 	end
 
@@ -212,11 +212,14 @@ class Maruku
 		return :quote    if l =~ /^>/
 		return :metadata if l =~ /^@/
 		if new_meta_data?
-			return :ald   if l =~ /^\s{0,3}\{[\w\d\s]+\}:/
+			return :ald   if l =~ AttributeDefinitionList
 			return :ial   if l =~ /^\s{0,3}\{.*\}/
 		end
 		return :text
 	end
+	
+	# $1 = id   $2 = attribute list
+	AttributeDefinitionList = /^\s{0,3}\{([\w\d\s]+)\}:\s*(.*)\s*$/
 	
 	# Example:
 	#     ^:blah blah

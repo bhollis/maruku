@@ -32,7 +32,7 @@ class Maruku
 		# run state machine
 		while cur_line
 #  Prints detected type (useful for debugging)
-#			puts "#{cur_line_node_type}|#{cur_line}"
+			#puts "#{cur_line_node_type}|#{cur_line}"
 			case cur_line_node_type
 				when :empty; 
 					shift_line
@@ -46,6 +46,8 @@ class Maruku
 						maruku_error "An attribute list at beginning of context {#{al.to_md}}"
 						tell_user "I will ignore this AL: {#{al.to_md}}"
 					end
+				when :ald
+					output << read_ald
 				when :text
 					if cur_line =~ MightBeTableHeader and 
 						(next_line && next_line =~ TableSeparator)
@@ -94,12 +96,13 @@ class Maruku
 					line = shift_line
 					tell_user "Ignoring line '#{line}' type = #{node_type}"
 			end
-			
-			if current_metadata and output.last
-				output.last.meta.merge! current_metadata
-				current_metadata = nil
+
+# FIXME			
+#			if current_metadata and output.last
+#				output.last.meta.merge! current_metadata
+#				current_metadata = nil
 #				puts "meta for #{output.last.node_type}\n #{output.last.meta.inspect}"
-			end
+#			end
 			current_metadata = just_read_metadata
 			just_read_metadata = nil
 		end
@@ -111,7 +114,7 @@ class Maruku
 		output.each do |c| 
 			# Remove paragraphs that we can get rid of
 			if [:ul,:ol].include? c.node_type 
-				if c.children.all? {|li| !li.meta[:want_my_paragraph]} then
+				if c.children.all? {|li| !li.want_my_paragraph} then
 					c.children.each do |d|
 						d.node_type = :li_span
 						d.children = d.children[0].children 
@@ -119,10 +122,9 @@ class Maruku
 				end
 			end 
 			if c.node_type == :definition_list
-				if c.children.all?{|defi| !defi.meta[:want_my_paragraph]} then
+				if c.children.all?{|defi| !defi.want_my_paragraph} then
 					c.children.each do |definition| 
-						dds = definition.meta[:definitions] 
-						dds.each do |dd|
+						definition.definitions.each do |dd|
 							dd.children = dd.children[0].children 
 						end
 					end
@@ -141,6 +143,18 @@ class Maruku
 	def next_line_node_type
 		(top.size >= 2) ? line_node_type(top[1]) : nil end
 	def shift_line; top.shift; end
+	
+	def read_ald
+		if (l=shift_line) =~ AttributeDefinitionList
+			id = $1;   al=$2;
+			al = read_attribute_list(CharSource.new(al), context=nil, break_on=[nil])
+			self.ald[id] = al;
+			return md_ald(id, al)
+		else
+			maruku_error "Bug Bug:\n#{l.inspect}"
+			return nil
+		end
+	end
 		
 	# reads a header (with ----- or ========)
 	def read_header12
@@ -195,7 +209,8 @@ class Maruku
 	def read_paragraph
 		lines = []
 		while cur_line 
-			break if [:quote,:header3,:empty,:raw_html,:ref_definition,:ial].include?(
+			# :olist does not break
+			break if [:ulist,:quote,:header3,:empty,:raw_html,:ref_definition,:ial].include?(
 				cur_line_node_type)
 			break if cur_line.strip.size == 0
 			
@@ -216,7 +231,7 @@ class Maruku
 
 		# Ugly things going on inside `read_indented_content`
 		indentation = spaces_before_first_char(first)
-		break_list = [:ulist, :olist]
+		break_list = [:ulist, :olist, :ial]
 		lines, want_my_paragraph = 
 			read_indented_content(indentation, break_list, item_type)
 
@@ -225,6 +240,8 @@ class Maruku
 			stripped = first[indentation, first.size-1]
 		lines.unshift stripped
 		
+		#dbg_describe_ary(lines, 'LIST ITEM ')
+
 		children = parse_lines_as_markdown(lines)
 		with_par = want_my_paragraph || (children.size>1)
 		
@@ -282,6 +299,7 @@ class Maruku
 		# collect all indented lines
 		saw_empty = false; saw_anything_after = false
 		while cur_line 
+			#puts "#{cur_line_node_type} #{cur_line.inspect}"
 			if cur_line_node_type == :empty
 				saw_empty = true
 				lines << shift_line
@@ -291,8 +309,8 @@ class Maruku
 			# after a white line
 			if saw_empty
 				# we expect things to be properly aligned
-				if number_of_leading_spaces(cur_line) < indentation
-#						debug "breaking for spaces: #{cur_line}"
+				if (ns=number_of_leading_spaces(cur_line)) < indentation
+					#puts "breaking for spaces, only #{ns}: #{cur_line}"
 					break
 				end
 				saw_anything_after = true
@@ -301,10 +319,11 @@ class Maruku
 #				break if cur_line_node_type != :text
 			end
 		
-#			debug "Accepted '#{cur_line}'"
 
 			stripped = strip_indent(shift_line, indentation)
 			lines << stripped
+
+			#puts "Accepted as #{stripped.inspect}"
 		
 			# You are only required to indent the first line of 
 			# a child paragraph.
@@ -468,10 +487,8 @@ class Maruku
 			rows << row
 		end
 
-		e = md_el(:table)
-		e.meta[:align] = align
-		e.children = (head+rows).flatten
-		e
+		children = (head+rows).flatten
+		return md_el(:table, children, {:align => align})
 	end
 	
 	# If current line is text, a definition list is coming
@@ -509,7 +526,7 @@ class Maruku
 		end
 #		dbg_describe_ary(terms, 'DT')
 
-		want_paragraph = false
+		want_my_paragraph = false
 
 		raise "Chunky Bacon!" if not cur_line
 
@@ -542,11 +559,10 @@ class Maruku
 			definitions << md_el(:definition_data, children)
 		end
 		
-		definition = md_el(:definition, terms+definitions)
-		definition.meta[:terms] = terms
-		definition.meta[:definitions] = definitions
-		definition.meta[:want_my_paragraph] = want_my_paragraph
-		definition
+		return md_el(:definition, terms+definitions, { 	
+			:terms => terms, 
+			:definitions => definitions, 
+			:want_my_paragraph => want_my_paragraph})
 	end
 end
 

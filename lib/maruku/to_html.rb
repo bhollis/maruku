@@ -16,13 +16,11 @@
 #   along with Maruku; if not, write to the Free Software
 #   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
-
 require 'rexml/document'
 
 require 'rubygems'
 require 'syntax'
 require 'syntax/convertors/html'
-
 
 class Maruku
 	include REXML
@@ -38,7 +36,7 @@ class Maruku
 			end
 
 			# render footnotes
-			if @doc.meta[:footnotes_used]
+			if @doc.footnotes_order.size > 0
 				div << render_footnotes
 			end
 		
@@ -63,10 +61,7 @@ class Maruku
 		# REXML Bug? if indent!=-1 whitespace is not respected for 'pre' elements
 		# containing code.
 		doc.write(xml,indent,transitive=true,ie_hack);
-		
-#		encoding = ( (enc=@meta[:encoding]) ? 
-#			"encoding='#{enc}'" : "")
-		
+				
 		xhtml10strict  = "<?xml version='1.0' encoding='utf-8'?>
 <!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Strict//EN'
 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'>\n"
@@ -81,7 +76,7 @@ class Maruku
 		root = Element.new('html', doc)
 		root.add_namespace('http://www.w3.org/1999/xhtml')
 		
-		lang = @meta[:lang] || 'en'
+		lang = self.attributes[:lang] || 'en'
 		root.attributes['lang'] = lang
 		root.attributes['xml:lang'] = lang
 		
@@ -93,7 +88,7 @@ class Maruku
 			me.attributes['content'] = 'text/html; charset=utf-8'	
 		
 			# Create title element
-			doc_title = @meta[:title] || @meta[:subject] || ""
+			doc_title = self.attributes[:title] || self.attributes[:subject] || ""
 			title = Element.new 'title', head
 				title << Text.new(doc_title)
 				
@@ -101,7 +96,7 @@ class Maruku
 			
 			
 			
-			css = @meta[:css]
+			css = self.attributes[:css]
 			if css
 				# <link type="text/css" rel="stylesheet" href="..." />
 				link = Element.new 'link'
@@ -118,7 +113,7 @@ class Maruku
 			end
 
 			# render footnotes
-			if @doc.meta[:footnotes_used]
+			if @doc.footnotes_order
 				body << render_footnotes
 			end
 			
@@ -189,17 +184,17 @@ class Maruku
 		div.attributes['class'] = 'footnotes'
 		div <<  Element.new('hr')
 			ol = Element.new 'ol'
-			@doc.meta[:footnotes_used].each_with_index do |fid, i| num = i+1
-				f = @footnotes[fid]
+			@doc.footnotes_order.each_with_index do |fid, i| num = i+1
+				f = self.footnotes[fid]
 				if f
-					li =  f.wrap_as_element('li')
+					li = f.wrap_as_element('li')
 					li.attributes['id'] = "fn:#{num}"
 					
 					a = Element.new 'a'
 						a.attributes['href'] = "#fnref:#{num}"
 						a.attributes['rev'] = 'footnote'
 						a<< Text.new('&#8617;', true, nil, true)
-					li.children.last << a
+					li.insert_after(li.children.last, a)
 					ol << li
 				else
 					maruku_error"Could not find footnote '#{fid}'"
@@ -229,21 +224,24 @@ class MDElement
 	def wrap_as_element(name)
 		m = create_html_element name
 			children_to_html.each do |e| m << e; end
+			
+			m << Comment.new( "{"+self.al.to_md+"}") if not self.al.empty?
+			m << Comment.new( self.attributes.inspect) if not self.attributes.empty?
 		m
 	end
 	
 	def create_html_element(name)
 		m = Element.new name
-			if @meta[:id] then m.attributes['id'] = @meta[:id].to_s end
-			if @meta[:style] then m.attributes['style'] = @meta[:style].to_s end
-			if @meta[:class] then m.attributes['class'] = @meta[:class].to_s end
+			if (v=self.attributes[:id]   ) then m.attributes['id'   ] = v.to_s end
+			if (v=self.attributes[:style]) then m.attributes['style'] = v.to_s end
+			if (v=self.attributes[:class]) then m.attributes['class'] = v.to_s end
 		m
 	end
 
 	def to_html_paragraph; wrap_as_element('p')                end
 	
 	def to_html_ul
-		if @meta[:toc]
+		if self.attributes[:toc]
 			# render toc
 			html_toc = @doc.toc.to_html
 			return html_toc
@@ -262,7 +260,7 @@ class MDElement
 
 	# nil if not applicable, else string
 	def section_number
-		return nil if not @doc.meta[:use_numbered_headers]
+		return nil if not @doc.attributes[:use_numbered_headers]
 		
 		if (s = @section) and not s.section_number.empty?
 			 s.section_number.join('.')+". "
@@ -285,7 +283,7 @@ class MDElement
 	end
 	
 	def to_html_header
-		element_name = "h#{@meta[:level]}" 
+		element_name = "h#{self.level}" 
 		h = wrap_as_element element_name
 		
 		if span = render_section_number
@@ -301,9 +299,9 @@ class MDElement
 	end
 		
 	def to_html_code; 
-		source = self.meta[:raw_code]	
+		source = self.raw_code
 
-		lang = self.meta[:lang] || @doc.meta[:code_lang] 
+		lang = self.attributes[:lang] || @doc.attributes[:code_lang] 
 
 		lang = 'xml' if lang=='html'
 		use_syntax = get_setting(:html_use_syntax)
@@ -329,9 +327,9 @@ class MDElement
 				pre
 			rescue Object => e
 				maruku_error"Error while using the syntax library for code:\n#{source.inspect}"+
-				 "Lang is #{lang} object is: "+
-				  @meta.inspect + 
-				"Exception: #{e.class}: #{e.message}\n\t#{e.backtrace.join("\n\t")}"
+				 "Lang is #{lang} object is: \n"+
+				  self.inspect + 
+				"\nException: #{e.class}: #{e.message}\n\t#{e.backtrace.join("\n\t")}"
 				
 				tell_user("Using normal PRE because the syntax library did not work.")
 				to_html_code_using_pre(source)
@@ -369,7 +367,7 @@ class MDElement
 
 	def to_html_inline_code; 
 		pre = Element.new 'code'
-			source = self.meta[:raw_code]
+			source = self.raw_code
 			pre << source2html(source) 
 			
 			color = get_setting(:code_background_color, DEFAULT_CODE_COLOR)
@@ -382,9 +380,8 @@ class MDElement
 
 	def to_html_immediate_link
 		a = Element.new 'a'
-		url = @meta[:url]
-		text = url
-		text = text.gsub(/^mailto:/,'') # don't show mailto
+		url = self.url
+		text = url.gsub(/^mailto:/,'') # don't show mailto
 		a << Text.new(text)
 		a.attributes['href'] = url
 		a
@@ -392,36 +389,38 @@ class MDElement
 	
 	def to_html_link
 		a =  wrap_as_element 'a'
-		
-		if id = @meta[:ref_id]
-			# if empty, use text
-			if id.size == 0
-				id = children.to_s.downcase
-			end
-			ref = @doc.refs[id]
-			if not ref
-				maruku_error"Could not find ref_id = #{id.inspect} for #{self.inspect}"
-				tell_user "Not creating a link for ref_id = #{id.inspect}."
-				return wrap_as_element('span')
-			else
-				url = ref[:url]
-				title = ref[:title]
-				a.attributes['href'] = url
-				a.attributes['title'] = title if title
-			end
-		else
-			url = @meta[:url]
-			title = @meta[:title]
-			if url
-				a.attributes['href'] = url
-				a.attributes['title'] = title if title
-			else
-				maruku_error"Could not find url in #{self.inspect}"
-				tell_user "Not creating a link for ref_id = #{id.inspect}."
-				return wrap_as_element('span')
-			end
+		id = self.ref_id
+		# if empty, use text
+		if id.size == 0
+			id = children.to_s.downcase
 		end
-		a
+		
+		if ref = @doc.refs[id]
+			url = ref[:url]
+			title = ref[:title]
+			a.attributes['href']=url if url
+			a.attributes['title']=title if title
+		else
+			maruku_error"Could not find ref_id = #{id.inspect} for #{self.inspect}"
+			tell_user "Not creating a link for ref_id = #{id.inspect}."
+			return wrap_as_element('span')
+		end
+		return a
+	end
+	
+	def to_html_im_link
+		a =  wrap_as_element 'a'
+		url = self.url
+		title = self.title
+		if url
+			a.attributes['href'] = url
+			a.attributes['title'] = title if title
+		else
+			maruku_error"Could not find url in #{self.inspect}"
+			tell_user "Not creating a link for ref_id = #{id.inspect}."
+			return wrap_as_element('span')
+		end
+		return a
 	end
 	
 ##### Email address
@@ -435,7 +434,7 @@ class MDElement
 	end
 	
 	def to_html_email_address
-		email = @meta[:email]
+		email = self.email
 		a = Element.new 'a'
 			#a.attributes['href'] = Text.new("mailto:"+obfuscate(email),false,nil,true)
 			#a.attributes.add Attribute.new('href',Text.new(
@@ -451,7 +450,7 @@ class MDElement
 
 	def to_html_image
 		a =  Element.new 'img'
-		if id = @meta[:ref_id]
+		if id = self.ref_id
 			ref = @doc.refs[id]
 			if not ref
 				maruku_error"Could not find id = #{id.inspect} for\n #{self.inspect}"
@@ -469,8 +468,8 @@ class MDElement
 				end
 			end
 		else
-			url = @meta[:url]
-			title = @meta[:title] 
+			url = self.url
+			title = self.title
 			if not url
 				maruku_error"Image with no ID or url: #{self.inspect}"
 				tell_user "Could not create image with ref_id = #{id.inspect};"+
@@ -484,7 +483,7 @@ class MDElement
 	end
 
 	def to_html_raw_html
-		raw_html = @meta[:raw_html]
+		raw_html = self.raw_html
 		if rexml_doc = @parsed_html
 			root =  rexml_doc.root
 			if root.nil?
@@ -497,7 +496,9 @@ class MDElement
 				return div
 			end
 			
-			return root
+			# copies the @children array (FIXME is it deep?)
+			elements =  root.to_a 
+			return elements
 		else # invalid
 			# Creates red box with offending HTML
 			tell_user 'Wrapping bad html in a PRE with class "markdown-html-error"'
@@ -512,15 +513,15 @@ class MDElement
 	def to_html_abbr
 		abbr = Element.new 'abbr'
 		abbr << Text.new(children[0])
-		abbr.attributes['title'] = self.meta[:title] if self.meta[:title]
+		abbr.attributes['title'] = self.title if self.title
 		abbr
 	end
 	
 	def to_html_footnote_reference
-		id = @meta[:footnote_id]
+		id = self.footnote_id
 		
 		# save the order of used footnotes
-		order = (@doc.meta[:footnotes_used] ||= [])
+		order = @doc.footnotes_order
 		
 		# take next number
 		order << id
@@ -548,7 +549,7 @@ class MDElement
 
 ## Table ###	
 	def to_html_table
-		align = @meta[:align]
+		align = self.align
 		num_columns = align.size
 
 		head = @children.slice(0, num_columns)
@@ -584,7 +585,7 @@ class MDElement
 	def to_html_cell; wrap_as_element('td') end
 	
 	def to_html_entity 
-		entity_name = @meta[:entity_name]
+		entity_name = self.entity_name
 		Text.new('&%s;' % [entity_name])
 	end
 end

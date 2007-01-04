@@ -26,7 +26,7 @@ if File.basename($0) =~ /^maruku/
 	else
 		# else, act as a filter
 		data = $stdin.read
-		puts Maruku.new(data).to_html
+		puts Maruku.new(data, {:on_error=>:warning}).to_html
 	end
 end
 
