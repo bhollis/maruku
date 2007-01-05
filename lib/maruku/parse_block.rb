@@ -252,12 +252,17 @@ class Maruku
 		if not (l=shift_line) =~ Abbreviation
 			maruku_error "Bug: it's Andrea's fault. Tell him.\n#{l.inspect}"
 		end
+		
 		abbr = $1
-		description = $2
+		desc = $2
 		
-		self.abbreviations[abbr] = description
+		if (not abbr) or (abbr.size==0)
+			maruku_error "Bad abbrev. abbr=#{abbr.inspect} desc=#{desc.inspect}"
+		end
 		
-		return md_abbr_def(abbr, description)
+		self.abbreviations[abbr] = desc
+		
+		return md_abbr_def(abbr, desc)
 	end
 	
 	def read_footnote_text

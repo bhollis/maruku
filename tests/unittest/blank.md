@@ -1,4 +1,4 @@
-Write a comment abouth the test here.
+Write a comment about the test here.
 *** Parameters: ***
 {}
 *** Markdown input: ***

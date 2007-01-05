@@ -111,11 +111,11 @@ class Maruku
 	end
 
 	def search_abbreviations
-		@abbreviations.each do |abbrev, title|
+		self.abbreviations.each do |abbrev, title|
 			reg = Regexp.new(Regexp.escape(abbrev))
 			self.replace_each_string do |s|
 				if m = reg.match(s)
-					e = md_abbr(abbrev.dup, title.dup)
+					e = md_abbr(abbrev.dup, title ? title.dup : nil)
 					[m.pre_match, e, m.post_match]
 				else
 					s

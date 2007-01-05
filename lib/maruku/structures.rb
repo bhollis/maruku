@@ -129,6 +129,8 @@ end
 class Maruku < MDElement
 	safe_attr_accessor :refs, Hash
 	safe_attr_accessor :footnotes, Hash
+	
+	# This is an hash. The key might be nil.
 	safe_attr_accessor :abbreviations, Hash
 	
 	# Attribute lists definition

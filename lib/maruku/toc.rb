@@ -16,15 +16,10 @@
 #   along with Maruku; if not, write to the Free Software
 #   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
-require 'rexml/document'
-
-
 class Maruku
 	# an instance of Section (see below)
 	attr_accessor :toc 
 end
-
-
 
 class MDElement	
 	# This represents a section in the TOC.

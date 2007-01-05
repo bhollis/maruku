@@ -11,7 +11,7 @@ def marker(x)
 	"\n*** Output of #{x} ***\n"
 end
 
-TOTEST = [:inspect,:to_html,:to_latex,:to_s,:to_s]
+TOTEST = [:inspect,:to_html,:to_latex,:to_md,:to_s]
 
 def run_test(filename, its_ok, verbose=true)
 	# read file content

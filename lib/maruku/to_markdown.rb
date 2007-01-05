@@ -13,7 +13,7 @@ end
 
 class MDElement
 	
-	DefaultLineLength = 50
+	DefaultLineLength = 40
 	
 	def to_md(context={})
 		children_to_md(context)
@@ -21,7 +21,7 @@ class MDElement
 	
 	def to_md_paragraph(context)
 		line_length = context[:line_length] || DefaultLineLength
-		wrap(@children, line_length)
+		wrap(@children, line_length)+"\n"
 	end
 	
 	def to_md_li_span(context)
@@ -30,6 +30,43 @@ class MDElement
 		s[0] = ?*
 		s + "\n"
 	end
+	
+	def to_md_abbr_def(context)
+		"*[#{self.abbr}]: #{self.text}\n"
+	end
+	
+	def to_md_ol(context)
+		len = (context[:line_length] || DefaultLineLength) - 2
+		md = ""
+		self.children.each_with_index do |li, i|
+			s = add_tabs(w=wrap(li.children, len-2), 1, '    ')+"\n"
+			s[0,4] = "#{i+1}.  "[0,4]
+			puts w.inspect
+			md += s
+		end
+		md + "\n"
+	end
+
+	def to_md_ul(context)
+		len = (context[:line_length] || DefaultLineLength) - 2
+		md = ""
+		self.children.each_with_index do |li, i|
+			w = wrap(li.children, len-2)
+			puts "W: "+ w.inspect
+			s = add_indent(w)
+			puts "S: " +s.inspect
+			s[0,1] = "-"
+			md += s
+		end
+		md + "\n"
+	end
+	
+	def add_indent(s,char="    ")
+		t = s.split("\n").map{|x| char+x }.join("\n")
+		s << ?\n if t[-1] == ?\n
+		s
+	end
+	
 end
 
 # Some utilities
@@ -40,7 +77,7 @@ class MDElement
 		array_to_md(@children, context)
 	end
 	
-	def wrap(array, line_length)
+	def wrap(array, line_length, context=nil)
 		out = ""
 		line = ""
 		array.each do |c|
@@ -53,7 +90,7 @@ class MDElement
 			if c.kind_of? String
 				c.to_md.mysplit
 			else
-				[c.to_md].flatten
+				[c.to_md(context)].flatten
 			end
 		
 	#			puts "Pieces: #{pieces.inspect}"
@@ -66,6 +103,7 @@ class MDElement
 			end
 		end
 		out << line.strip << "\n" if line.size > 0
+		out << ?\n if not out[-1] == ?\n
 		out
 	end
 

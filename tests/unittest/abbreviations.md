@@ -43,8 +43,15 @@ The HTML specification is maintained by the W3C.
 Operation Tigra Genesis is going well.
 
 
-*** Output of to_s ***
-The HTML specification is maintained by the W3C.Operation Tigra Genesis is going well.
+*** Output of to_md ***
+The HTMLspecification is maintained by the W3C.
+
+*[HTML]: Hyper Text Markup Language
+*[W3C]: World Wide Web Consortium
+Operation Tigra Genesisis going well.
+
+*[Tigra Genesis]: 
+
 *** Output of to_s ***
 The HTML specification is maintained by the W3C.Operation Tigra Genesis is going well.
 *** EOF ***
@@ -68,11 +75,11 @@ md_el(:document,[
 	md_el(:abbr_def,[],{:abbr=>"W3C", :text=>"World Wide Web Consortium"},[]),
 	md_par([
 		"Operation ",
-		md_el(:abbr,["Tigra Genesis"],{},[]),
+		md_el(:abbr,["Tigra Genesis"],{:title=>nil},[]),
 		" is going well."
 	]),
 	md_el(:abbr_def,[],{:abbr=>"Tigra Genesis", :text=>nil},[])
-],{},nil)
+],{},[])
 *** Output of to_html ***
 
 <p>The <abbr title='Hyper Text Markup Language'>HTML</abbr> specification is maintained by the <abbr title='World Wide Web Consortium'>W3C</abbr>.</p>
@@ -85,8 +92,15 @@ The HTML specification is maintained by the W3C.
 Operation Tigra Genesis is going well.
 
 
-*** Output of to_s ***
-The HTML specification is maintained by the W3C.Operation Tigra Genesis is going well.
+*** Output of to_md ***
+The HTMLspecification is maintained by the W3C.
+
+*[HTML]: Hyper Text Markup Language
+*[W3C]: World Wide Web Consortium
+Operation Tigra Genesisis going well.
+
+*[Tigra Genesis]: 
+
 *** Output of to_s ***
 The HTML specification is maintained by the W3C.Operation Tigra Genesis is going well.
 *** Output of Markdown.pl ***
