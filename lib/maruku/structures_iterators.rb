@@ -1,5 +1,5 @@
 
-
+module MaRuKu
 
 class MDElement
 	
@@ -37,4 +37,5 @@ class MDElement
 		@children = processed
 	end
 
+end
 end

@@ -11,7 +11,7 @@ class String
 end
 
 
-class MDElement
+module MaRuKu; module Out; module Markdown 
 	
 	DefaultLineLength = 40
 	
@@ -66,11 +66,6 @@ class MDElement
 		s << ?\n if t[-1] == ?\n
 		s
 	end
-	
-end
-
-# Some utilities
-class MDElement
 	
 	# Convert each child to html
 	def children_to_md(context)
@@ -136,13 +131,13 @@ class MDElement
 		e.join(join_char)
 	end
 	
-end
+end end end
 
-class Maruku
+module MaRuKu; class MDDocument
 	alias old_md to_md
 	def to_md(context={})
 		s = old_md(context)
 #		puts s
 		s
 	end	
-end
+end end

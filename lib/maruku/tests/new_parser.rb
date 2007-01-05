@@ -1,6 +1,6 @@
 require 'maruku'
 
-module MarukuTests
+module MaRuKu; module Tests
 	# 5 accented letters in italian, encoded as UTF-8
 	AccIta8 = "\303\240\303\250\303\254\303\262\303\271"
 
@@ -305,10 +305,10 @@ module MarukuTests
 		    "\nExpected:\n  #{expected.inspect}" +
 			"\nOutput:\n  #{output.inspect}\n"
 	end
-end
+end end
 
 class Maruku
-	include MarukuTests
+	include MaRuKu::Tests
 end
 
 verbose = ARGV.include? 'v'

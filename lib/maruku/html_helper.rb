@@ -16,15 +16,14 @@
 #   along with Maruku; if not, write to the Free Software
 #   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
-
-class Maruku
+module MaRuKu; module In; module Markdown; module SpanLevelParser
 
 # This class helps me read and sanitize HTML blocks
 
 # I tried to do this with REXML, but wasn't able to. (suggestions?)
 
 	class HTMLHelper
-		include MarukuStrings
+		include MaRuKu::Strings
 		
 		Tag = %r{^<(/)?(\w+)\s*([^>]*)>}m
 		EverythingElse = %r{^[^<]+}m
@@ -137,5 +136,6 @@ class Maruku
 		def is_finished?
 			not @inside_comment and @tag_stack.empty?
 		end
-	end
-end
+	end # html helper 
+
+end end end end

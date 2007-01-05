@@ -15,29 +15,32 @@
 #   You should have received a copy of the GNU General Public License
 #   along with Maruku; if not, write to the Free Software
 #   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+	
+module MaRuKu; module In; module Markdown; module BlockLevelParser
 
-class Maruku
 	include Helpers
+	include MaRuKu::Strings
+	include MaRuKu::SpanLevelParser
 	
 	# Splits the string and calls parse_lines_as_markdown
 	def parse_text_as_markdown(text)
-		lines =  Maruku.split_lines(text)
-		parse_lines_as_markdown(lines)
+		lines =  split_lines(text)
+		src = LineSource.new(lines)
+		return parse_blocks(src)
 	end
 	
-	def parse_lines_as_markdown(lines)
-		@stack.push lines
-		output = []; current_metadata = just_read_metadata = nil
+	def parse_blocks(src)
+		output = [];
 		
 		# run state machine
-		while cur_line
+		while src.cur_line
 #  Prints detected type (useful for debugging)
-			#puts "#{cur_line_node_type}|#{cur_line}"
-			case cur_line_node_type
+			#puts "#{src.cur_line.md_type}|#{src.cur_line}"
+			case src.cur_line.md_type
 				when :empty; 
-					shift_line
+					src.ignore_line
 				when :ial
-					shift_line =~ /\s*\{([^\}]*)\}\s*/ 
+					src.shift_line =~ /\s*\{([^\}]*)\}\s*/ 
 					al = $1
 					al = read_attribute_list(CharSource.new(al), context=nil, break_on=[nil])
 					if not output.empty? 
@@ -47,54 +50,55 @@ class Maruku
 						tell_user "I will ignore this AL: {#{al.to_md}}"
 					end
 				when :ald
-					output << read_ald
+					output << read_ald(src)
 				when :text
-					if cur_line =~ MightBeTableHeader and 
-						(next_line && next_line =~ TableSeparator)
-						output << read_table
-					elsif [:header1,:header2].include? next_line_node_type
-						output << read_header12
-					elsif eventually_comes_a_def_list
-					 	definition = read_definition
+					if src.cur_line =~ MightBeTableHeader and 
+						(src.next_line && src.next_line =~ TableSeparator)
+						output << read_table(src)
+					elsif [:header1,:header2].include? src.next_line.md_type
+						output << read_header12(src)
+					elsif eventually_comes_a_def_list(src)
+					 	definition = read_definition(src)
 						if output.last && output.last.node_type == :definition_list
 							output.last.children << definition
 						else
 							output << md_el(:definition_list, [definition])
 						end
 					else # Start of a paragraph
-						output << read_paragraph
+						output << read_paragraph(src)
 					end
 				when :header2, :hrule
 					# hrule
-					shift_line
+					src.shift_line
 					output << md_hrule()
 				when :header3
-					output << read_header3
+					output << read_header3(src)
 				when :ulist, :olist
-					list_type = cur_line_node_type == :ulist ? :ul : :ol
-					li = read_list_item
+					list_type = src.cur_line.md_type == :ulist ? :ul : :ol
+					li = read_list_item(src)
 					# append to current list if we have one
 					if output.last && output.last.node_type == list_type
 						output.last.children << li
 					else
 						output << md_el(list_type, [li])
 					end
-				when :quote;    output << read_quote
-				when :code;     e = read_code; output << e if e
-				when :raw_html; e = read_raw_html; output << e if e
+				when :quote;    output << read_quote(src)
+				when :code;     e = read_code(src); output << e if e
+				when :raw_html; e = read_raw_html(src); output << e if e
 
-				when :footnote_text;   output << read_footnote_text
-				when :ref_definition;  output << read_ref_definition
-				when :abbreviation;    output << read_abbreviation
+				when :footnote_text;   output << read_footnote_text(src)
+				when :ref_definition;  output << read_ref_definition(src)
+				when :abbreviation;    output << read_abbreviation(src)
 
-				# these do not produce output
-				when :metadata;        just_read_metadata = read_metadata
+#				# these do not produce output
+#				when :metadata;        just_read_metadata = read_metadata(src)
 					
 				# warn if we forgot something
 				else
-					node_type = cur_line_node_type
-					line = shift_line
-					tell_user "Ignoring line '#{line}' type = #{node_type}"
+					md_type = src.cur_line.md_type
+					line = src.cur_line
+					maruku_error "Ignoring line '#{line}' type = #{md_type}", src
+					src.shift_line
 			end
 
 # FIXME			
@@ -103,11 +107,9 @@ class Maruku
 #				current_metadata = nil
 #				puts "meta for #{output.last.node_type}\n #{output.last.meta.inspect}"
 #			end
-			current_metadata = just_read_metadata
-			just_read_metadata = nil
+#			current_metadata = just_read_metadata
+#			just_read_metadata = nil
 		end
-		# pop the stack
-		@stack.pop
 		
 		# See for each list if we can omit the paragraphs and use li_span
 		# TODO: do this after
@@ -136,16 +138,8 @@ class Maruku
 	end
 		 
 	
-	def top; @stack.last end
-	def cur_line_node_type; line_node_type top.first  end
-	def cur_line; top.empty? ? nil : top.first end
-	def next_line; top.empty? ? nil : top[1] end
-	def next_line_node_type
-		(top.size >= 2) ? line_node_type(top[1]) : nil end
-	def shift_line; top.shift; end
-	
-	def read_ald
-		if (l=shift_line) =~ AttributeDefinitionList
+	def read_ald(src)
+		if (l=src.shift_line) =~ AttributeDefinitionList
 			id = $1;   al=$2;
 			al = read_attribute_list(CharSource.new(al), context=nil, break_on=[nil])
 			self.ald[id] = al;
@@ -157,8 +151,8 @@ class Maruku
 	end
 		
 	# reads a header (with ----- or ========)
-	def read_header12
-		line = shift_line.strip
+	def read_header12(src)
+		line = src.shift_line.strip
 		al = nil
 		# Check if there is an IAL
 		if new_meta_data? and line =~ /^(.*)\{(.*)\}\s*$/
@@ -167,14 +161,14 @@ class Maruku
 			al  = read_attribute_list(CharSource.new(ial), context=nil, break_on=[nil])
 		end
 		text = parse_lines_as_span [ line ]
-		level = cur_line_node_type == :header2 ? 2 : 1;  
-		shift_line
+		level = src.cur_line.md_type == :header2 ? 2 : 1;  
+		src.shift_line
 		return md_header(level, text, al)
 	end
 
 	# reads a header like '#### header ####'	
-	def read_header3
-		line = shift_line.strip
+	def read_header3(src)
+		line = src.shift_line.strip
 		al = nil
 		# Check if there is an IAL
 		if new_meta_data? and line =~ /^(.*)\{(.*)\}\s*$/
@@ -188,35 +182,36 @@ class Maruku
 	end
 
 
-	def read_raw_html
+	def read_raw_html(src)
 		h = HTMLHelper.new
 		begin 
-			h.eat_this(l=shift_line)
+			h.eat_this(l=src.shift_line)
 #			puts "\nBLOCK:\nhtml -> #{l.inspect}"
-			while cur_line and not h.is_finished? 
-				l=shift_line
+			while src.cur_line and not h.is_finished? 
+				l=src.shift_line
 #				puts "html -> #{l.inspect}"
 				h.eat_this "\n"+l
 			end
 		rescue Exception => e
-			tell_user e.inspect + e.backtrace.join("\n")
-#			puts h.inspect
+			ex = e.inspect + e.backtrace.join("\n")
+			maruku_error "Bad block-level HTML:\n#{add_tabs(ex,1,'|')}\n", src
 		end
 		raw_html = h.stuff_you_read
 		return md_html(raw_html)
 	end
 	
-	def read_paragraph
+	def read_paragraph(src)
 		lines = []
-		while cur_line 
+		while src.cur_line 
 			# :olist does not break
-			break if [:ulist,:quote,:header3,:empty,:raw_html,:ref_definition,:ial].include?(
-				cur_line_node_type)
-			break if cur_line.strip.size == 0
+			break if [:ulist,:quote,:header3,:empty,
+				:raw_html,:ref_definition,:ial].include?(
+				src.cur_line.md_type)
+			break if src.cur_line.strip.size == 0
 			
-			break if [:header1,:header2].include? next_line_node_type
+			break if [:header1,:header2].include? src.next_line.md_type
 			
-			lines << shift_line
+			lines << src.shift_line
 		end
 #		dbg_describe_ary(lines, 'PAR')
 		children = parse_lines_as_span(lines)
@@ -225,15 +220,17 @@ class Maruku
 	end
 	
 	# Reads one list item, either ordered or unordered.
-	def read_list_item
-		item_type = cur_line_node_type
-		first = shift_line
+	def read_list_item(src)
+		parent_offset = src.cur_index
+		
+		item_type = src.cur_line.md_type
+		first = src.shift_line
 
 		# Ugly things going on inside `read_indented_content`
 		indentation = spaces_before_first_char(first)
 		break_list = [:ulist, :olist, :ial]
 		lines, want_my_paragraph = 
-			read_indented_content(indentation, break_list, item_type)
+			read_indented_content(src,indentation, break_list, item_type)
 
 		# add first line
 			# Strip first '*', '-', '+' from first line
@@ -242,14 +239,15 @@ class Maruku
 		
 		#dbg_describe_ary(lines, 'LIST ITEM ')
 
-		children = parse_lines_as_markdown(lines)
+		src2 = LineSource.new(lines, src, parent_offset)
+		children = parse_blocks(src2)
 		with_par = want_my_paragraph || (children.size>1)
 		
 		return md_li(children, with_par)
 	end
 
-	def read_abbreviation
-		if not (l=shift_line) =~ Abbreviation
+	def read_abbreviation(src)
+		if not (l=src.shift_line) =~ Abbreviation
 			maruku_error "Bug: it's Andrea's fault. Tell him.\n#{l.inspect}"
 		end
 		
@@ -265,8 +263,10 @@ class Maruku
 		return md_abbr_def(abbr, desc)
 	end
 	
-	def read_footnote_text
-		first = shift_line
+	def read_footnote_text(src)
+		parent_offset = src.cur_index
+			
+		first = src.shift_line
 		
 		if not first =~ FootnoteText 
 			maruku_error "Bug (it's Andrea's fault)"
@@ -283,13 +283,14 @@ class Maruku
 		break_list = [:footnote_text]
 		item_type = :footnote_text
 		lines, want_my_paragraph = 
-			read_indented_content(indentation, break_list, item_type)
+			read_indented_content(src,indentation, break_list, item_type)
 
 		# add first line
 		if text && text.strip != "" then lines.unshift text end
 		
 #		dbg_describe_ary(lines, 'FOOTNOTE')
-		children = parse_lines_as_markdown(lines)
+		src2 = LineSource.new(lines, src, parent_offset)
+		children = parse_blocks(src2)
 		
 		e = md_footnote(id, children)
 		self.footnotes[id] = e
@@ -299,53 +300,53 @@ class Maruku
 
 	# This is the only ugly function in the code base.
 	# It is used to read list items, descriptions, footnote text
-	def read_indented_content(indentation, break_list, item_type)
+	def read_indented_content(src, indentation, break_list, item_type)
 		lines =[]
 		# collect all indented lines
 		saw_empty = false; saw_anything_after = false
-		while cur_line 
-			#puts "#{cur_line_node_type} #{cur_line.inspect}"
-			if cur_line_node_type == :empty
+		while src.cur_line 
+			#puts "#{src.cur_line.md_type} #{src.cur_line.inspect}"
+			if src.cur_line.md_type == :empty
 				saw_empty = true
-				lines << shift_line
+				lines << src.shift_line
 				next
 			end
 		
 			# after a white line
 			if saw_empty
 				# we expect things to be properly aligned
-				if (ns=number_of_leading_spaces(cur_line)) < indentation
-					#puts "breaking for spaces, only #{ns}: #{cur_line}"
+				if (ns=number_of_leading_spaces(src.cur_line)) < indentation
+					#puts "breaking for spaces, only #{ns}: #{src.cur_line}"
 					break
 				end
 				saw_anything_after = true
 			else
-				break if break_list.include? cur_line_node_type
-#				break if cur_line_node_type != :text
+				break if break_list.include? src.cur_line.md_type
+#				break if src.cur_line.md_type != :text
 			end
 		
 
-			stripped = strip_indent(shift_line, indentation)
+			stripped = strip_indent(src.shift_line, indentation)
 			lines << stripped
 
 			#puts "Accepted as #{stripped.inspect}"
 		
 			# You are only required to indent the first line of 
 			# a child paragraph.
-			if line_node_type(stripped) == :text
-				while cur_line && (cur_line_node_type == :text)
-					lines << strip_indent(shift_line, indentation)
+			if stripped.md_type == :text
+				while src.cur_line && (src.cur_line.md_type == :text)
+					lines << strip_indent(src.shift_line, indentation)
 				end
 			end
 		end
 
 		want_my_paragraph = saw_anything_after || 
-			(saw_empty && (cur_line  && (cur_line_node_type == item_type))) 
+			(saw_empty && (src.cur_line  && (src.cur_line.md_type == item_type))) 
 	
 #		dbg_describe_ary(lines, 'LI')
 		# create a new context 
 	
-		while lines.last && (line_node_type(lines.last) == :empty)
+		while lines.last && (lines.last.md_type == :empty)
 			lines.pop
 		end
 		
@@ -353,26 +354,29 @@ class Maruku
 	end
 
 	
-	def read_quote
+	def read_quote(src)
+		parent_offset = src.cur_index
+			
 		lines = []
 		# collect all indented lines
-		while cur_line && line_node_type(cur_line) == :quote
-			lines << unquote(shift_line)
+		while src.cur_line && src.cur_line.md_type == :quote
+			lines << unquote(src.shift_line)
 		end
 #		dbg_describe_ary(lines, 'QUOTE')
 
-		children = parse_lines_as_markdown(lines)
+		src2 = LineSource.new(lines, src, parent_offset)
+		children = parse_blocks(src2)
 		return md_quote(children)
 	end
 
-	def read_code
+	def read_code(src)
 		# collect all indented lines
 		lines = []
-		while cur_line && ([:code, :empty].include? cur_line_node_type)
-			lines << strip_indent(shift_line, 4)
+		while src.cur_line && ([:code, :empty].include? src.cur_line.md_type)
+			lines << strip_indent(src.shift_line, 4)
 		end
 		
-		#while lines.last && (line_node_type(lines.last) == :empty )
+		#while lines.last && (lines.last.md_type == :empty )
 		while lines.last && lines.last.strip.size == 0
 			lines.pop 
 		end
@@ -391,40 +395,26 @@ class Maruku
 	end
 
 	# Reads a series of metadata lines with empty lines in between
-	def read_metadata
+	def read_metadata(src)
 		hash = {}
-		while cur_line 
-			case cur_line_node_type
-				when :empty;  shift_line
-				when :metadata; hash.merge! parse_metadata(shift_line)
+		while src.cur_line 
+			case src.cur_line.md_type
+				when :empty;  src.shift_line
+				when :metadata; hash.merge! parse_metadata(src.shift_line)
 				else break
 			end
 		end
 		hash
 	end
 	
-	# parse one metadata line
-	# TODO: read quote-delimited values
-	def parse_metadata(l)
-		hash = {}
-		# remove leading '@'
-		l = l[1, l.size].strip
-		l.split(';').each do |kv|
-			k, v = kv.split(':')
-			k, v = normalize_key_and_value(k, v)
-			
-			hash[k.to_sym] = v
-		end
-		hash 
-	end
 		
-	def read_ref_definition
-		line = shift_line
+	def read_ref_definition(src)
+		line = src.shift_line
 		
 		# if link is incomplete, shift next line
-		if cur_line && (cur_line_node_type != :ref_definition) && 
-			([1,2,3].include? number_of_leading_spaces(cur_line) )
-			line += " "+ shift_line
+		if src.cur_line && (src.cur_line.md_type != :ref_definition) && 
+			([1,2,3].include? number_of_leading_spaces(src.cur_line) )
+			line += " "+ src.shift_line
 		end
 		
 #		puts "total= #{line}"
@@ -456,15 +446,15 @@ class Maruku
 		return md_ref_def(id, url, meta={:title=>title})
 	end
 	
-	def read_table
+	def read_table(src)
 		
 		def split_cells(s)
 			s.strip.split('|').select{|x|x.strip.size>0}.map{|x|x.strip}
 		end
 		
-		head = split_cells(shift_line).map{|s| md_el(:head_cell, parse_lines_as_span([s])) }
+		head = split_cells(src.shift_line).map{|s| md_el(:head_cell, parse_lines_as_span([s])) }
 			
-		separator=split_cells(shift_line)
+		separator=split_cells(src.shift_line)
 
 		align = separator.map { |s|  s =~ Sep
 			if $1 and $2 then :center elsif $2 then :right else :left end }
@@ -480,8 +470,8 @@ class Maruku
 				
 		rows = []
 		
-		while cur_line && cur_line =~ /\|/
-			row = split_cells(shift_line).map{|s|
+		while src.cur_line && src.cur_line =~ /\|/
+			row = split_cells(src.shift_line).map{|s|
 				md_el(:cell, parse_lines_as_span([s]))}
 			if head.size != num_columns
 				maruku_error  "Row does not have #{num_columns} columns: \n#{row.inspect}"
@@ -499,68 +489,54 @@ class Maruku
 	# If current line is text, a definition list is coming
 	# if 1) text,empty,[text,empty]*,definition
 	
-	def eventually_comes_a_def_list
-		future = create_next_string 
+	def eventually_comes_a_def_list(src)
+		future = src.tell_me_the_future
 		ok = future =~ %r{^t+e?d}x
 #		puts "future: #{future} - #{ok}"
 		ok
 	end
 	
-	# Returns the type of next line as a string
-	# breaks at first :definition
-	def create_next_string
-		s = ""; num_e = 0;
-		for line in top
-			c = case line_node_type(line)
-				when :text; "t"
-				when :empty; num_e+=1; "e"
-				when :definition; "d"
-				else "o"
-			end
-			s += c
-			break if c == "d" or num_e>1
-		end
-		s	
-	end
 		
-	def read_definition
+	def read_definition(src)
 		# Read one or more terms
 		terms = []
-		while  cur_line &&  cur_line_node_type == :text
-			terms << md_el(:definition_term, parse_lines_as_span([shift_line]))
+		while  src.cur_line &&  src.cur_line.md_type == :text
+			terms << md_el(:definition_term, parse_lines_as_span([src.shift_line]))
 		end
 #		dbg_describe_ary(terms, 'DT')
 
 		want_my_paragraph = false
 
-		raise "Chunky Bacon!" if not cur_line
+		raise "Chunky Bacon!" if not src.cur_line
 
 		# one optional empty
-		if cur_line_node_type == :empty
+		if src.cur_line.md_type == :empty
 			want_my_paragraph = true
-			shift_line
+			src.shift_line
 		end
 		
-		raise "Chunky Bacon!" if cur_line_node_type != :definition
+		raise "Chunky Bacon!" if src.cur_line.md_type != :definition
 		
 		# Read one or more definitions
 		definitions = []
-		while cur_line && cur_line_node_type == :definition
-			first = shift_line
+		while src.cur_line && src.cur_line.md_type == :definition
+			parent_offset = src.cur_index
+				
+			first = src.shift_line
 			first =~ Definition
 			first = $1
 			
 			# I know, it's ugly!!!
 
 			lines, w_m_p = 
-				read_indented_content(4, [:definition], :definition)
+				read_indented_content(src,4, [:definition], :definition)
 			want_my_paragraph ||= w_m_p
 		
 			lines.unshift first
 			
 #			dbg_describe_ary(lines, 'DD')
-			
-			children = parse_lines_as_markdown(lines)
+			src2 = LineSource.new(lines, src, parent_offset)
+			children = parse_blocks(src2)
 			definitions << md_el(:definition_data, children)
 		end
 		
@@ -569,5 +545,7 @@ class Maruku
 			:definitions => definitions, 
 			:want_my_paragraph => want_my_paragraph})
 	end
+end # BlockLevelParser
+end # MaRuKu
 end
-
+end

@@ -17,6 +17,24 @@
 #   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 
+class String
+	alias inspect_more inspect
+end
+
+class Array
+	def inspect_more(compact, join_string, add_brackets=true)
+		s  = map {|x| 
+			x.kind_of?(String) ? x.inspect : 
+			x.kind_of?(MDElement) ? x.inspect(compact) : 
+			(raise "WTF #{x.class} #{x.inspect}")
+		}.join(join_string)
+		
+		add_brackets ? "[#{s}]" : s
+	end
+end
+
+
+module MaRuKu
 class MDElement	
 	def inspect(compact=true)
 		if compact
@@ -48,19 +66,5 @@ class MDElement
 	
 end
 
-class String
-	alias inspect_more inspect
-end
-
-class Array
-	def inspect_more(compact, join_string, add_brackets=true)
-		s  = map {|x| 
-			x.kind_of?(String) ? x.inspect : 
-			x.kind_of?(MDElement) ? x.inspect(compact) : 
-			(raise "WTF #{x.class} #{x.inspect}")
-		}.join(join_string)
-		
-		add_brackets ? "[#{s}]" : s
-	end
 end
 

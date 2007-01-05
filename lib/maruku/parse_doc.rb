@@ -18,10 +18,9 @@
 
 require 'iconv'
 
-class Maruku
+module MaRuKu; module In; module Markdown; module BlockLevelParser
 		
 	def parse_doc(s)
-		@stack = [] # this is a tmp fix
 		
 		meta2 =  parse_email_headers(s)
 		data = meta2[:data]
@@ -41,8 +40,7 @@ class Maruku
 			data = converted
 		end
 		
-		lines = Maruku.split_lines(data)
-		@children = parse_lines_as_markdown(lines)
+		@children = parse_text_as_markdown(data)
 		
 		if true #markdown_extra? 
 			self.search_abbreviations
@@ -157,5 +155,4 @@ class Maruku
 		end
 	end
 	
-
-end
+end end end end

@@ -16,28 +16,17 @@
 #   along with Maruku; if not, write to the Free Software
 #   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
-module MarukuStrings
+# Boring stuff with strings.
+module MaRuKu
+module Strings
+	
 	def add_tabs(s,n=1,char="\t")
 		s.split("\n").map{|x| char*n+x }.join("\n")
 	end
-end
-class MDElement
-	include MarukuStrings
-end
-
-class Maruku
 	
-	# Split a string into lines, and chomps the newline
-	def Maruku.split_lines_old(s)
-		a = []
-		s.each_line do |l| 
-			l = l.chomp
-			a << l 
-		end	
-		a
-	end
-
-	def Maruku.split_lines(s)
+	TabSize = 4;
+	
+	def split_lines(s)
 		s.split("\n")
 	end
 	
@@ -111,7 +100,7 @@ class Maruku
 	#     ' 1.  Hello' # => 5
 	
 	def spaces_before_first_char(s)
-		case line_node_type(s)
+		case s.md_type
 		when :ulist
 			i=0;
 			# skip whitespace if present
@@ -187,171 +176,5 @@ class Maruku
 		l =~ /  $/
 	end
 
-	def line_node_type(l)
-		# raw html is like PHP Markdown Extra: at most three spaces before
-		return :code     if number_of_leading_spaces(l)>=4
-		return :footnote_text      if l =~ FootnoteText
-		return :ref_definition if l =~ LinkRegex or l=~ IncompleteLink
-		return :abbreviation if l =~ Abbreviation
-		return :definition if l =~ Definition
-		# I had a bug with emails and urls at the beginning of the 
-		# line that were mistaken for raw_html
-		return :text if l=~EMailAddress or l=~ URL
-		return :raw_html if l =~ %r{^[ ]?[ ]?[ ]?</?\s*\w+}
-		return :raw_html if l =~ %r{[ ]{0,3}<\!\-\-}
-		return :ulist    if l =~ /^\s?([\*\-\+])\s+.*\w+/
-		return :olist    if l =~ /^\s?\d+\..*\w+/
-		return :empty    if l.strip.size == 0
-		return :header1  if l =~ /^(=)+/ 
-		return :header2  if l =~ /^([-\s])+$/ 
-		return :header3  if l =~ /^(#)+\s*\S+/ 
-		# at least three asterisks on a line, and only whitespace
-		return :hrule    if l =~ /^(\s*\*\s*){3,1000}$/ 
-		return :hrule    if l =~ /^(\s*-\s*){3,1000}$/ # or hyphens
-		return :hrule    if l =~ /^(\s*_\s*){3,1000}$/ # or underscores	
-		return :quote    if l =~ /^>/
-		return :metadata if l =~ /^@/
-		if new_meta_data?
-			return :ald   if l =~ AttributeDefinitionList
-			return :ial   if l =~ /^\s{0,3}\{.*\}/
-		end
-		return :text
-	end
-	
-	# $1 = id   $2 = attribute list
-	AttributeDefinitionList = /^\s{0,3}\{([\w\d\s]+)\}:\s*(.*)\s*$/
-	
-	# Example:
-	#     ^:blah blah
-	#     ^: blah blah
-	#     ^   : blah blah
-	Definition = %r{ 
-		^ # begin of line
-		[ ]{0,3} # up to 3 spaces
-		: # colon
-		\s* # whitespace
-		(\S.*) # the text    = $1
-		$ # end of line
-	}x
-	
-	# Example:
-	#     *[HTML]: Hyper Text Markup Language
-	Abbreviation = %r{
-		^  # begin of line
-		\* # one asterisk
-		\[ # opening bracket
-		([^\]]+) # any non-closing bracket:  id = $1
-		\] # closing bracket
-		:  # colon
-		\s* # whitespace
-		(\S.*\S)* #           definition=$2
-		\s* # strip this whitespace
-		$   # end of line
-	}x
-
-	FootnoteText = %r{
-		^\s*\[(\^.+)\]: # id = $1 (including '^')
-		\s*(\S.*)?$    # text = $2 (not obb.)
-	}x
-	
-	# This regex is taken from BlueCloth sources
-	# Link defs are in the form: ^[id]: \n? url "optional title"
-	LinkRegex = %r{
-		^[ ]*\[([^\]]+)\]:		# id = $1
-		  [ ]*
-		<?(\S+)>?				# url = $2
-		  [ ]*
-		(?:# Titles are delimited by "quotes" or (parens).
-			["(']
-			(.+?)			# title = $3
-			[")']			# Matching ) or "
-			\s*(.+)?   # stuff = $4
-		)?	# title is optional
-	  }x
-
-	IncompleteLink = %r{^\s*\[(.+)\]:\s*$}
-
-	HeaderWithId = /^(.*)\{\#([\w_-]+)\}\s*$/
-
-	HeaderWithAttributes = /^(.*)\{(.*)\}\s*$/
-
-	TabSize = 4;
-
-	# if contains a pipe, it could be a table header
-	MightBeTableHeader = %r{\|}
-	# -------------:
-	Sep = /\s*(\:)?\s*-+\s*(\:)?\s*/
-	# | -------------:| ------------------------------ |
-	TableSeparator = %r{^(\|?#{Sep}\|?)+\s*$}
-	
-	
-	EMailAddress = /<([^:]+@[^:]+)>/
-	URL = /^<http:/
 end
-
-class String
-	S = 230
-	MarkdownEscaped = 
-		[["\\",S+0], 
-		 ['`',S+1],
-		 ['*',S+2],
-		['_',S+3],['{',S+4],['}',S+5],['[',S+6],[']',S+7],
-		['(',S+8],[')',S+9],['#',S+10],['.',S+11],
-		['!',S+12],
-		# PHP Markdown extra
-		['|',S+13],[':',S+14], ["+",S+15], ["-",S+16], [">",S+17]]
-
-	MarkdownAdd = 200
-	
-	
-	def escape_md_special!
-		MarkdownEscaped.each do |c|
-			escape_sequence = "\\#{c[0]}"
-			#puts "Escaping -#{escape_sequence}-"
-			escaped ="0"; escaped[0]=c[1]
-			gsub!(escape_sequence, escaped)
-		end
-
-		# But if you surround an * or _ with spaces, 
-		# it’ll be treated as a literal asterisk or underscore.
-		escaped_ast = [S+2].pack('c')
-		gsub!(/(\s)\*(\s|$)/, '\1%s\2' % [escaped_ast] )
-		escaped_under =  [S+3].pack('c')
-		gsub!(/(\s)_(\s|$)/, '\1%s\2' % [escaped_under])
-		
-		self
-	end
-
-	def unescape_md_special!
-		for i in 0..size-1
-			for e in MarkdownEscaped
-				if self[i] == e[1]
-					self[i,1] = e[0]
-				end
-			end
-		end
-		self
-	end
-
-	# Resubstitute '\<char>' as this was a code block
-	def it_was_a_code_block
-		s = ""; tmp =" "
-		each_byte do |b|
-			tmp[0] = b
-			found = false
-			for e in MarkdownEscaped
-				if b == e[1]
-					s << '\\'
-					s << e[0]
-					found = true
-				end
-			end
-			s << tmp if not found
-		end
-		s
-	end
-	
-	def unescape_md_special; dup.unescape_md_special! end
-	def   escape_md_special; dup.  escape_md_special! end
-	
 end

@@ -1,6 +1,7 @@
 require 'rexml/document'
 
-class MDElement
+module MaRuKu; module Out; module Latex
+	
 	include REXML
 	
 	def to_latex_entity 
@@ -297,5 +298,5 @@ class MDElement
 	  <char num='255' name='yuml' convertTo='\\@DOUBLEQUOTy' />                  
 	</chars>"
 
-end
+end end end
 

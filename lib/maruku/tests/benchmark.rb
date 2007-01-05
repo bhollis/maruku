@@ -9,12 +9,11 @@ num = 10
 methods = 
 [
 	
+	[Maruku,    :to_html],
 	[BlueCloth, :to_html],
-	[Maruku,    :class],
-#	[Maruku,    :to_html],
-#	[Maruku,    :to_latex]
+	[Maruku,    :to_latex]
 	
-]*2
+]
 
 #methods = [[Maruku, :class]]
 #num = 10
@@ -26,7 +25,7 @@ methods .map do |c, method|
 	start = Time.now
 	doc = nil
 	for i in 1..num
-		puts "#{i}"
+		$stdout.write "#{i} "; $stdout.flush
 		doc = c.new(data)
 	end
 	stop = Time.now
@@ -34,11 +33,14 @@ methods .map do |c, method|
 
 	start = Time.now
 	for i in 1..num
-		puts "#{i}"
+		$stdout.write "#{i} "; $stdout.flush
 		s = doc.send method
 	end
 	stop = Time.now
 	rendering = (stop-start)/num
+
+	puts ("%s (%s): parsing %0.2f sec + rendering %0.2f sec "+
+	"= %0.2f sec ") % [c, method, parsing,rendering,parsing+rendering]
 
 	[c, method, parsing, rendering]
 end

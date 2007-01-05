@@ -29,12 +29,12 @@
 #m
 #m  default is :raise
 
-class MarukuException < RuntimeError
+module MaRuKu
 	
-end
-
-
-module MarukuErrors
+	class Exception < RuntimeError
+	end
+	
+module Errors
 	Default_on_error = :warning
 	
 	def maruku_error(s,src=nil,con=nil)
@@ -52,7 +52,7 @@ module MarukuErrors
 	alias error maruku_error
 
 	def raise_error(s)
-		raise MarukuException, s, caller
+		raise MaRuKu::Exception, s, caller
 	end
 
 	def tell_user(s)
@@ -78,12 +78,7 @@ module MarukuErrors
 		t
 	end
 	
-end
-
-class MDElement
-	include MarukuErrors
-end
-
-
+end # Errors
+end # MaRuKu
 
 

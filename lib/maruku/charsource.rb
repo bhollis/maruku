@@ -16,9 +16,10 @@
 #   along with Maruku; if not, write to the Free Software
 #   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
+module MaRuKu; module In; module Markdown; module SpanLevelParser
 
 class CharSource
-	include MarukuStrings
+	include MaRuKu::Strings
 	
 	def initialize(s)
 		@buffer = s
@@ -54,8 +55,13 @@ class CharSource
 	end
 	
 	def cur_chars_are(string)
-		r2 = /^.{#{@buffer_index}}#{Regexp.escape string}/m
-		@buffer =~ r2
+		# There is a bug here
+		if false
+			r2 = /^.{#{@buffer_index}}#{Regexp.escape string}/m
+			@buffer =~ r2
+		else
+			cur_chars(string.size) == string
+		end
 	end
 
 	def next_matches(r)
@@ -152,3 +158,5 @@ class CharSource
 		cur_chars(15).inspect
 	end
 end
+
+end end end end

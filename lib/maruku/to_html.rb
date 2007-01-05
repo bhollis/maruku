@@ -22,9 +22,28 @@ require 'rubygems'
 require 'syntax'
 require 'syntax/convertors/html'
 
-class Maruku
-	include REXML
 
+class String
+	# A string is rendered into HTML by creating
+	# a REXML::Text node. REXML takes care of all the encoding.
+	def to_html
+		REXML::Text.new(self)
+	end
+end
+
+
+class REXML::Element
+	# We only want to output the children in Maruku::to_html
+	 public :write_children 
+end
+
+
+
+# This module groups all functions related to HTML export.
+module MaRuKu; module Out; module HTML
+	include REXML
+	include MaRuKu::Defaults
+	
 	# Render as an HTML fragment (no head, just the content of BODY). (returns a string)
 	def to_html(context={})
 		indent = context[:indent] || -1
@@ -76,7 +95,7 @@ class Maruku
 		root = Element.new('html', doc)
 		root.add_namespace('http://www.w3.org/1999/xhtml')
 		
-		lang = self.attributes[:lang] || 'en'
+		lang = @attributes[:lang] || 'en'
 		root.attributes['lang'] = lang
 		root.attributes['xml:lang'] = lang
 		
@@ -88,7 +107,7 @@ class Maruku
 			me.attributes['content'] = 'text/html; charset=utf-8'	
 		
 			# Create title element
-			doc_title = self.attributes[:title] || self.attributes[:subject] || ""
+			doc_title = @attributes[:title] || @attributes[:subject] || ""
 			title = Element.new 'title', head
 				title << Text.new(doc_title)
 				
@@ -96,7 +115,7 @@ class Maruku
 			
 			
 			
-			css = self.attributes[:css]
+			css = @attributes[:css]
 			if css
 				# <link type="text/css" rel="stylesheet" href="..." />
 				link = Element.new 'link'
@@ -203,17 +222,7 @@ class Maruku
 		div << ol
 		div
 	end
-end
 
-class String
-	# A string is rendered into HTML by creating
-	# a REXML::Text node. REXML takes care of all the encoding.
-	def to_html
-		REXML::Text.new(self)
-	end
-end
-
-class MDElement
 
 	def to_html_hrule; Element.new 'hr' end
 	def to_html_linebreak; Element.new 'br' end
@@ -226,22 +235,22 @@ class MDElement
 			children_to_html.each do |e| m << e; end
 			
 			m << Comment.new( "{"+self.al.to_md+"}") if not self.al.empty?
-			m << Comment.new( self.attributes.inspect) if not self.attributes.empty?
+			m << Comment.new( @attributes.inspect) if not @attributes.empty?
 		m
 	end
 	
 	def create_html_element(name)
 		m = Element.new name
-			if (v=self.attributes[:id]   ) then m.attributes['id'   ] = v.to_s end
-			if (v=self.attributes[:style]) then m.attributes['style'] = v.to_s end
-			if (v=self.attributes[:class]) then m.attributes['class'] = v.to_s end
+			if (v=@attributes[:id]   ) then m.attributes['id'   ] = v.to_s end
+			if (v=@attributes[:style]) then m.attributes['style'] = v.to_s end
+			if (v=@attributes[:class]) then m.attributes['class'] = v.to_s end
 		m
 	end
 
 	def to_html_paragraph; wrap_as_element('p')                end
 	
 	def to_html_ul
-		if self.attributes[:toc]
+		if @attributes[:toc]
 			# render toc
 			html_toc = @doc.toc.to_html
 			return html_toc
@@ -262,8 +271,9 @@ class MDElement
 	def section_number
 		return nil if not @doc.attributes[:use_numbered_headers]
 		
-		if (s = @section) and not s.section_number.empty?
-			 s.section_number.join('.')+". "
+		n = @attributes[:section_number]
+		if n && (not n.empty?)
+			 n.join('.')+". "
 		else
 			nil
 		end
@@ -301,7 +311,7 @@ class MDElement
 	def to_html_code; 
 		source = self.raw_code
 
-		lang = self.attributes[:lang] || @doc.attributes[:code_lang] 
+		lang = @attributes[:lang] || @doc.attributes[:code_lang] 
 
 		lang = 'xml' if lang=='html'
 		use_syntax = get_setting(:html_use_syntax)
@@ -588,15 +598,7 @@ class MDElement
 		entity_name = self.entity_name
 		Text.new('&%s;' % [entity_name])
 	end
-end
 
-# We only want to output the children in Maruku::to_html
-class REXML::Element; public :write_children end
-
-# Some utilities
-class MDElement
-	include REXML
-	
 	# Convert each child to html
 	def children_to_html
 		array_to_html(@children)
@@ -607,19 +609,19 @@ class MDElement
 		array.each do |c|
 			method = c.kind_of?(MDElement) ? 
 			   "to_html_#{c.node_type}" : "to_html"
-			
+
 			if not c.respond_to?(method)
 				#raise "Object does not answer to #{method}: #{c.class} #{c.inspect}"
 				next
 			end
-			
+
 			h =  c.send(method)
-			
+
 			if h.nil?
 				raise "Nil html created by method  #{method}:\n#{h.inspect}\n"+
 				" for object #{c.inspect[0,300]}"
 			end
-			
+
 			if h.kind_of?Array
 				e = e + h #h.each do |hh| e << hh end
 			else
@@ -628,10 +630,10 @@ class MDElement
 		end
 		e
 	end
-	
+
 	def to_html_ref_definition; [] end
 	def to_latex_ref_definition; [] end
-	
-end
 
-
+end # HTML
+end # out
+end # MaRuKu

@@ -16,12 +16,13 @@
 #   along with Maruku; if not, write to the Free Software
 #   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
-class Maruku
+module MaRuKu
+	
+class MDDocument
 	# an instance of Section (see below)
 	attr_accessor :toc 
 end
 
-class MDElement	
 	# This represents a section in the TOC.
 	class Section
 		# a Fixnum, is == header_element.level
@@ -44,10 +45,7 @@ class MDElement
 			@section_children = []
 		end
 	end 
-end
 
-
-class MDElement
 	class Section
 		def inspect(indent=1)
 			s = ""
@@ -67,6 +65,7 @@ class MDElement
 		
 		# Numerate this section and its children
 		def numerate(a=[])
+			self.header_element.attributes[:section_number] = 
 			self.section_number = a
 			section_children.each_with_index do |c,i|
 				c.numerate(a.clone.push(i+1))
@@ -125,74 +124,71 @@ class MDElement
 		end
 		
 	end
-end
 
-
-class MDElement
+	class MDDocument
 	
-	
-	def create_toc
-		each_element(:header) do |h|
-			h.attributes[:id] ||= h.generate_id
-		end
+		def create_toc
+			each_element(:header) do |h|
+				h.attributes[:id] ||= h.generate_id
+			end
 		
-		stack = []
+			stack = []
 		
-		# the ancestor section
-		s = Section.new
-		s.section_level = 0
+			# the ancestor section
+			s = Section.new
+			s.section_level = 0
 
-		stack.push s
+			stack.push s
 	
-		i = 0;
-		while i < @children.size
-			while i < @children.size 
-				if @children[i].node_type == :header
-					level = @children[i].level
-					break if level <= stack.last.section_level+1
+			i = 0;
+			while i < @children.size
+				while i < @children.size 
+					if @children[i].node_type == :header
+						level = @children[i].level
+						break if level <= stack.last.section_level+1
+					end
+				
+					stack.last.immediate_children.push @children[i]
+					i += 1
 				end
+
+				break if i>=@children.size
+			
+				header = @children[i]
+				level = header.level
+			
+				if level > stack.last.section_level
+					# this level is inside
 				
-				stack.last.immediate_children.push @children[i]
-				i += 1
+					s2 = Section.new
+					s2.section_level = level
+					s2.header_element = header
+					header.instance_variable_set :@section, s2
+				
+					stack.last.section_children.push s2
+					stack.push s2
+				
+					i+=1
+				elsif level == stack.last.section_level
+					# this level is a sibling
+					stack.pop
+				else 
+					# this level is a parent
+					stack.pop
+				end
+			
 			end
 
-			break if i>=@children.size
-			
-			header = @children[i]
-			level = header.level
-			
-			if level > stack.last.section_level
-				# this level is inside
-				
-				s2 = Section.new
-				s2.section_level = level
-				s2.header_element = header
-				header.instance_variable_set :@section, s2
-				
-				stack.last.section_children.push s2
-				stack.push s2
-				
-				i+=1
-			elsif level == stack.last.section_level
-				# this level is a sibling
-				stack.pop
-			else 
-				# this level is a parent
-				stack.pop
+			# If there is only one big header, then assume
+			# it is the master
+			if s.section_children.size == 1
+				s = s.section_children.first
 			end
-			
-		end
-
-		# If there is only one big header, then assume
-		# it is the master
-		if s.section_children.size == 1
-			s = s.section_children.first
-		end
 		
-		# Assign section numbers
-		s.numerate
+			# Assign section numbers
+			s.numerate
 	
-		s
+			s
+		end
 	end
-	
 end

@@ -16,7 +16,7 @@
 #   along with Maruku; if not, write to the Free Software
 #   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
-class Maruku
+module MaRuKu
 	Version = '0.3.0'
 	
 	MarukuURL = 'http://maruku.rubyforge.org/'

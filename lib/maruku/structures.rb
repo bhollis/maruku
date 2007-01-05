@@ -20,7 +20,7 @@
 
 
 class Module
-	def safe_attr_accessor(symbol, klass)
+	def safe_attr_accessor2(symbol, klass)
 		attr_reader symbol
 		code = <<-EOF
 		def #{symbol}=(val)  
@@ -36,8 +36,13 @@ class Module
 EOF
 		module_eval code
   end
+
+	def safe_attr_accessor(symbol, klass)
+		attr_accessor symbol
+	end
 end
 
+module MaRuKu
 # I did not want to have a class for each possible element. 
 # Instead I opted to have only the class "MDElement"
 # that represents eveything in the document (paragraphs, headers, etc).
@@ -93,7 +98,8 @@ class MDElement
 	# Reference of the document (which is of class Maruku)
 	attr_accessor :doc
 	
-	def initialize(node_type=:unset, children=[], meta={}, al=AttributeList.new )
+	def initialize(node_type=:unset, children=[], meta={}, 
+			al=MaRuKu::AttributeList.new )
 		super(); 
 		self.children = children
 		self.node_type = node_type
@@ -123,10 +129,12 @@ class MDElement
 	end
 end
 
-# The Maruku class represent the whole document 
-# and holds global data.
+# This represents the whole document and holds global data.
 
-class Maruku < MDElement
+class MDDocument
+	include MaRuKu::SpanLevelParser
+	include MaRuKu::BlockLevelParser
+
 	safe_attr_accessor :refs, Hash
 	safe_attr_accessor :footnotes, Hash
 	
@@ -139,7 +147,7 @@ class Maruku < MDElement
 	# The order in which footnotes are used. Contains the id.
 	safe_attr_accessor :footnotes_order, Array
 	
-	def initialize(s=nil, meta={})
+	def initialize(s=nil)
 		super(:document)
 		@doc       = self
 
@@ -151,7 +159,8 @@ class Maruku < MDElement
 		
 		parse_doc(s) if s 
 	end
-
 end
 
+
+end # MaRuKu
 

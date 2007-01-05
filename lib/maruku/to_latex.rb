@@ -16,8 +16,9 @@
 #   along with Maruku; if not, write to the Free Software
 #   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
-
-class Maruku
+module MaRuKu
+	
+class MDDocument
 	
 	# Render as a LaTeX fragment 
 	def to_latex
@@ -61,13 +62,9 @@ Created by \\href{http://maruku.rubyforge.org}{Maruku} #{self.nice_date}.
 \\end{tiny}"
 	end
 
-end
+end end
 
-class MDElement
-	DEFAULT_CODE_COLOR = '#f0f0e0'
-end
-
-class MDElement
+module MaRuKu; module Out; module Latex
 	
 	def to_latex_hrule; "\n\\vspace{.5em} \\hrule \\vspace{.5em}\n" end
 	def to_latex_linebreak; "\\linebreak " end
@@ -339,12 +336,8 @@ class MDElement
 		end
 
 	end
-end
 
 
-# Some utilities
-class MDElement
-	
 	# Convert each child to html
 	def children_to_latex
 		array_to_latex(@children)
@@ -376,5 +369,4 @@ class MDElement
 		e.join(join_char)
 	end
 	
-end
-
+end end end # MaRuKu::Out::Latex

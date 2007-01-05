@@ -16,11 +16,62 @@
 #   along with Maruku; if not, write to the Free Software
 #   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
+# This module holds all the code
+module MaRuKu
+
+	module In
+		module Markdown
+			module SpanLevelParser; end
+			module BlockLevelParser; end
+		end
+		# more to come?
+	end
+
+	module Out
+		# Functions for exporting to MarkDown.
+		module Markdown; end
+		# Functions for exporting to HTML.
+		module HTML; end
+		# Functions for exporting to Latex
+		module Latex; end
+	end
+		
+	# These are strings utilities.
+	module Strings; end
+
+	module Helpers; end
+
+	module Errors; end
+		
+	class MDElement
+		include MaRuKu
+		include Out::ToMarkdown
+		include Out::HTML
+		include Out::Latex
+		include Strings
+		include Helpers
+		include Errors
+	end
+	
+	
+	class MDDocument < MDElement
+		include In::Markdown::SpanLevelParser
+		include In::Markdown::BlockLevelParser
+	end
+end
+
+# This is the public interface
+class Maruku < MaRuKu::MDDocument; end
+
+
+
 require 'rexml/document'
 
 # Structures definition
 require 'maruku/structures'
 require 'maruku/structures_inspect'
+
+require 'maruku/defaults'
 # Less typing
 require 'maruku/helpers'
 
@@ -29,6 +80,8 @@ require 'maruku/parse_doc'
 
 # Ugly things kept in a closet
 require 'maruku/string_utils'
+require 'maruku/linesource'
+require 'maruku/type_detection'
 
 # A class for reading and sanitizing inline HTML
 require 'maruku/html_helper'
@@ -65,3 +118,6 @@ require 'maruku/to_markdown'
 
 # Exporting to text: strips all formatting (not complete)
 require 'maruku/to_s'
+
+# class Maruku is the global interface
+require 'maruku/maruku'

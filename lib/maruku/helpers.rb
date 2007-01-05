@@ -24,6 +24,7 @@
 # Please, always use these instead of creating MDElement.
 #
 
+module MaRuKu
 module Helpers
 
 	def md_el(node_type, children=[], meta={}, al=nil)
@@ -171,6 +172,9 @@ module Helpers
 		md_el(:server, [], {:code=>code})
 	end
 end
+end
+
+module MaRuKu
 
 class MDElement	
 	# outputs abbreviated form  (this should be eval()uable to get the document)
@@ -232,7 +236,7 @@ class MDElement
 	
 end
 
-
+end
 
 
 

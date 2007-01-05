@@ -1,4 +1,6 @@
-class Maruku
+module MaRuKu
+module Defaults
+	DEFAULT_CODE_COLOR = '#ffaaff'
 	
 	DefaultAttributes = <<EOF
 
@@ -13,4 +15,5 @@ class Maruku
 
 EOF
 
+end
 end

@@ -1,7 +1,7 @@
 require 'set'
 
-class Maruku
-	include Helpers
+module MaRuKu; module In; module Markdown; module SpanLevelParser
+	include MaRuKu::Helpers
 	
 	EscapedCharInText = 
 		Set.new [?\\,?`,?*,?_,?{,?},?[,?],?(,?),?#,?.,?!,?|,?:,?+,?-,?>]
@@ -425,7 +425,8 @@ class Maruku
 			read_simple(src, escaped=[], break_on_chars=[], 
 				break_on_strings=[end_string])
 		
-		src.ignore_chars end_string.size
+#		puts "Now I expects #{num_ticks} ticks: #{src.cur_chars(10).inspect}"
+		src.ignore_chars num_ticks
 		
 		# Ignore at most one space
 		if num_ticks > 1 && code[0] == SPACE
@@ -529,72 +530,68 @@ class Maruku
 		end
 	end # read link
 
-end
 
-
-class SpanContext 
-	include MarukuStrings
+	class SpanContext 
+		include MaRuKu::Strings
 	
-	# Read elements
-	attr_accessor :elements
-	attr_accessor :cur_string
+		# Read elements
+		attr_accessor :elements
+		attr_accessor :cur_string
 	
-	def initialize
-		@elements = []
-		@cur_string = ""
-	end
-	
-	def push_element(e)
-		raise "Only MDElement and String, please. You pushed #{e.class}: #{e.inspect} " if
-		 not (e.kind_of?(String) or e.kind_of?(MDElement))
-		
-		push_string_if_present
-		@elements << e
-		nil
-	end
-
-	def push_elements(a)
-		for e in a 
-			if e.kind_of? String
-				e.each_byte do |b| push_char b end
-			else
-				push_element e
-			end
-		end
-	end
-	def push_string_if_present
-		if @cur_string.size > 0
-			@elements << @cur_string
+		def initialize
+			@elements = []
 			@cur_string = ""
 		end
-		nil
-	end
 	
-	def push_char(c)
-		@cur_string << c 
-		nil
-	end
-	
-	# push space into current string if
-	# there isn't one
-	def push_space
-		last = @cur_string[@cur_string.size-1]
-		@cur_string << ?\  if last != ?\ 
-	end
-	
-	def describe
-		lines = @elements.map{|x| x.inspect}.join("\n")
-		s = "Elements read in span: \n" +
-		add_tabs(lines,1, ' -')+"\n"
+		def push_element(e)
+			raise "Only MDElement and String, please. You pushed #{e.class}: #{e.inspect} " if
+			 not (e.kind_of?(String) or e.kind_of?(MDElement))
 		
-		if @cur_string.size > 0
-		s += "Current string: \n  #{@cur_string.inspect}\n" 
+			push_string_if_present
+			@elements << e
+			nil
 		end
-		s
-	end
+
+		def push_elements(a)
+			for e in a 
+				if e.kind_of? String
+					e.each_byte do |b| push_char b end
+				else
+					push_element e
+				end
+			end
+		end
+		def push_string_if_present
+			if @cur_string.size > 0
+				@elements << @cur_string
+				@cur_string = ""
+			end
+			nil
+		end
 	
-end
-
-
-
+		def push_char(c)
+			@cur_string << c 
+			nil
+		end
+	
+		# push space into current string if
+		# there isn't one
+		def push_space
+			last = @cur_string[@cur_string.size-1]
+			@cur_string << ?\  if last != ?\ 
+		end
+	
+		def describe
+			lines = @elements.map{|x| x.inspect}.join("\n")
+			s = "Elements read in span: \n" +
+			add_tabs(lines,1, ' -')+"\n"
+		
+			if @cur_string.size > 0
+			s += "Current string: \n  #{@cur_string.inspect}\n" 
+			end
+			s
+		end
+	end # SpanContext
+	
+end end end end # module MaRuKu; module In; module Markdown; module SpanLevelParser
 
