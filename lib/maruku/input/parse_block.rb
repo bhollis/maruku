@@ -20,7 +20,7 @@ module MaRuKu; module In; module Markdown; module BlockLevelParser
 
 	include Helpers
 	include MaRuKu::Strings
-	include MaRuKu::SpanLevelParser
+	include MaRuKu::In::Markdown::SpanLevelParser
 	
 	# Splits the string and calls parse_lines_as_markdown
 	def parse_text_as_markdown(text)

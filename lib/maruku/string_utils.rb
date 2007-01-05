@@ -17,8 +17,7 @@
 #   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 # Boring stuff with strings.
-module MaRuKu
-module Strings
+module MaRuKu; module Strings
 	
 	def add_tabs(s,n=1,char="\t")
 		s.split("\n").map{|x| char*n+x }.join("\n")

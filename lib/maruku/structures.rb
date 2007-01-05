@@ -132,9 +132,6 @@ end
 # This represents the whole document and holds global data.
 
 class MDDocument
-	include MaRuKu::SpanLevelParser
-	include MaRuKu::BlockLevelParser
-
 	safe_attr_accessor :refs, Hash
 	safe_attr_accessor :footnotes, Hash
 	

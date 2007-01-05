@@ -45,7 +45,7 @@ module MaRuKu
 		
 	class MDElement
 		include MaRuKu
-		include Out::ToMarkdown
+		include Out::Markdown
 		include Out::HTML
 		include Out::Latex
 		include Strings
@@ -76,22 +76,23 @@ require 'maruku/defaults'
 require 'maruku/helpers'
 
 # Code for parsing whole Markdown documents
-require 'maruku/parse_doc'
+require 'maruku/input/parse_doc'
 
 # Ugly things kept in a closet
 require 'maruku/string_utils'
-require 'maruku/linesource'
-require 'maruku/type_detection'
+require 'maruku/input/linesource'
+require 'maruku/input/type_detection'
 
 # A class for reading and sanitizing inline HTML
-require 'maruku/html_helper'
+require 'maruku/input/html_helper'
 
 # Code for parsing Markdown block-level elements
-require 'maruku/parse_block'
+require 'maruku/input/parse_block'
 
 # Code for parsing Markdown span-level elements
-require 'maruku/charsource'
-require 'maruku/parse_span_better'
+require 'maruku/input/charsource'
+require 'maruku/input/parse_span_better'
+
 require 'maruku/attributes'
 
 require 'maruku/structures_iterators'
@@ -106,18 +107,18 @@ require 'maruku/version'
 
 
 # Exporting to html
-require 'maruku/to_html'
+require 'maruku/output/to_html'
 
 # Exporting to latex
-require 'maruku/to_latex'
-require 'maruku/to_latex_strings'
-require 'maruku/to_latex_entities'
+require 'maruku/output/to_latex'
+require 'maruku/output/to_latex_strings'
+require 'maruku/output/to_latex_entities'
 
 # Pretty print
-require 'maruku/to_markdown'
+require 'maruku/output/to_markdown'
 
 # Exporting to text: strips all formatting (not complete)
-require 'maruku/to_s'
+require 'maruku/output/to_s'
 
 # class Maruku is the global interface
 require 'maruku/maruku'
