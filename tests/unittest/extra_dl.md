@@ -16,19 +16,19 @@ Orange
 md_el(:document,[
 	md_el(:definition_list,[
 		md_el(:definition,[
-			md_el(:definition_term,["Apple"] ),
-			 md_el(:definition_data,[
+			md_el(:definition_term,["Apple"],{},[]),
+			md_el(:definition_data,[
 				"Pomaceous fruit of plants of the genus Malus in the family Rosaceae."
-			] )
-		] , {:definitions=>[md_el(:definition_data,[
+			],{},[])
+		],{:definitions=>[md_el(:definition_data,[
 			"Pomaceous fruit of plants of the genus Malus in the family Rosaceae."
-		] )], :want_my_paragraph=>false, :terms=>[md_el(:definition_term,["Apple"] )]}),
-		 md_el(:definition,[
-			md_el(:definition_term,["Orange"] ),
-			 md_el(:definition_data,["The fruit of an evergreen tree of the genus Citrus."] )
-		] , {:definitions=>[md_el(:definition_data,["The fruit of an evergreen tree of the genus Citrus."] )], :want_my_paragraph=>false, :terms=>[md_el(:definition_term,["Orange"] )]})
-	] )
-] , {:css=>"style.css"})
+		],{},[])],:terms=>[md_el(:definition_term,["Apple"],{},[])],:want_my_paragraph=>false},[]),
+		md_el(:definition,[
+			md_el(:definition_term,["Orange"],{},[]),
+			md_el(:definition_data,["The fruit of an evergreen tree of the genus Citrus."],{},[])
+		],{:definitions=>[md_el(:definition_data,["The fruit of an evergreen tree of the genus Citrus."],{},[])],:terms=>[md_el(:definition_term,["Orange"],{},[])],:want_my_paragraph=>false},[])
+	],{},[])
+],{},[])
 *** Output of to_html ***
 
 <dl>
@@ -49,7 +49,7 @@ md_el(:document,[
 \item[Orange] The fruit of an evergreen tree of the genus Citrus. 
 \end{description}
 
-*** Output of to_s ***
+*** Output of to_md ***
 ApplePomaceous fruit of plants of the genus Malus in the family Rosaceae.OrangeThe fruit of an evergreen tree of the genus Citrus.
 *** Output of to_s ***
 ApplePomaceous fruit of plants of the genus Malus in the family Rosaceae.OrangeThe fruit of an evergreen tree of the genus Citrus.
@@ -73,9 +73,9 @@ ApplePomaceous fruit of plants of the genus Malus in the family Rosaceae.OrangeT
 
 *** Output of Markdown.pl (parsed) ***
 <p>CSS: style.css</p
-   ><p>Apple
-:   Pomaceous fruit of plants of the genus Malus in 
-    the family Rosaceae.</p
-   ><p>Orange
-:   The fruit of an evergreen tree of the genus Citrus.</p
- >
+    ><p>Apple
+: Pomaceous fruit of plants of the genus Malus in 
+ the family Rosaceae.</p
+    ><p>Orange
+: The fruit of an evergreen tree of the genus Citrus.</p
+  >

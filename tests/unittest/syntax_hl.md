@@ -10,18 +10,20 @@ This is ruby code:
 
 This is ruby code:
 
-@ lang: ruby; html_use_syntax
+
 
 	require 'maruku'
+{lang=ruby html_use_syntax}
 	
 	puts Maruku.new($stdin).to_html
 *** Output of inspect ***
 md_el(:document,[
 	md_par(["This is ruby code:"]),
-	 md_el(:code,[] , {:raw_code=>"require 'maruku'\n\nputs Maruku.new($stdin).to_html\n"}),
-	 md_par(["This is ruby code:"]),
-	 md_el(:code,[] , {:raw_code=>"require 'maruku'\n\nputs Maruku.new($stdin).to_html", :lang=>"ruby", :html_use_syntax=>true})
-] )
+	md_el(:code,[],{:raw_code=>"require 'maruku'\n\nputs Maruku.new($stdin).to_html\n"},[]),
+	md_par(["This is ruby code:"]),
+	md_el(:code,[],{:raw_code=>"require 'maruku'"},[["lang", "ruby"], [:ref, "html_use_syntax"]]),
+	md_el(:code,[],{:raw_code=>"puts Maruku.new($stdin).to_html"},[])
+],{},[])
 *** Output of to_html ***
 
 <p>This is ruby code:</p>
@@ -33,9 +35,9 @@ puts Maruku.new($stdin).to_html
 
 <p>This is ruby code:</p>
 
-<pre class='ruby'><span class='ident'>require</span> <span class='punct'>'</span><span class='string'>maruku</span><span class='punct'>'</span>
+<pre class='ruby'><span class='ident'>require</span> <span class='punct'>'</span><span class='string'>maruku</span><span class='punct'>'</span></pre>
 
-<span class='ident'>puts</span> <span class='constant'>Maruku</span><span class='punct'>.</span><span class='ident'>new</span><span class='punct'>(</span><span class='global'>$stdin</span><span class='punct'>).</span><span class='ident'>to_html</span></pre>
+<pre><code>puts Maruku.new($stdin).to_html</code></pre>
 
 *** Output of to_latex ***
 This is ruby code:
@@ -46,12 +48,15 @@ puts Maruku.new($stdin).to_html
 \end{verbatim}
 This is ruby code:
 
-\begin{verbatim}require 'maruku'
+\begin{verbatim}require 'maruku'\end{verbatim}
+\begin{verbatim}puts Maruku.new($stdin).to_html\end{verbatim}
 
-puts Maruku.new($stdin).to_html\end{verbatim}
+*** Output of to_md ***
+This is ruby code:
 
-*** Output of to_s ***
-This is ruby code:This is ruby code:
+This is ruby code:
+
+
 *** Output of to_s ***
 This is ruby code:This is ruby code:
 *** EOF ***
@@ -72,28 +77,31 @@ puts Maruku.new($stdin).to_html
 
 <p>This is ruby code:</p>
 
-<p>@ lang: ruby; html<em>use</em>syntax</p>
-
 <pre><code>require 'maruku'
+</code></pre>
 
-puts Maruku.new($stdin).to_html
+<p>{lang=ruby html<em>use</em>syntax}</p>
+
+<pre><code>puts Maruku.new($stdin).to_html
 </code></pre>
 
 *** Output of Markdown.pl (parsed) ***
 <p>This is ruby code:</p
-   ><pre
-     ><code>require 'maruku'
+    ><pre
+      ><code>require 'maruku'
 
 puts Maruku.new($stdin).to_html
 </code
-   ></pre
-   ><p>This is ruby code:</p
-   ><p>@ lang: ruby; html<em>use</em
-     >syntax</p
-   ><pre
-     ><code>require 'maruku'
-
-puts Maruku.new($stdin).to_html
+    ></pre
+    ><p>This is ruby code:</p
+    ><pre
+      ><code>require 'maruku'
 </code
-   ></pre
- >
+    ></pre
+    ><p>{lang=ruby html<em>use</em
+      >syntax}</p
+    ><pre
+      ><code>puts Maruku.new($stdin).to_html
+</code
+    ></pre
+  >

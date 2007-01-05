@@ -4,17 +4,18 @@ This shows how Maruku recovers from parsing errors
 *** Markdown input: ***
 Search on [Google images][ 	GoOgle search ]
 *** Output of inspect ***
-md_el(:document,[md_par(["Search on Google imagesGoOgle search ]"])] , {:on_error=>:warning})
+md_el(:document,[md_par(["Search on Google imagesGoOgle search ]"])],{},[])
 *** Output of to_html ***
-<p>Search on Google imagesGoOgle search ]</p
-  >
+
+<p>Search on Google imagesGoOgle search ]</p>
+
 *** Output of to_latex ***
 Search on Google imagesGoOgle search ]
 
 
-*** Output of to_s ***
-Search on Google imagesGoOgle search ]
 *** Output of to_md ***
+Search on Google imagesGoOgle search ]
+*** Output of to_s ***
 Search on Google imagesGoOgle search ]
 *** EOF ***
 

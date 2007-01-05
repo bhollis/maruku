@@ -485,7 +485,24 @@ module MaRuKu; module In; module Markdown; module SpanLevelParser
 			src.consume_whitespace
 			title = nil
 			if src.cur_char != ?) # we have a title
+				quote_char = src.cur_char
 				title = read_quoted(src,con)
+				
+				if not title
+					maruku_error 'Must quote title',src,con
+				else
+					# Tries to read a title with quotes: ![a](url "ti"tle")
+					# this is the most ugly thing in Markdown
+					if not src.next_matches(/\s*\)/)
+						# if there is not a closing par ), then read
+						# the rest and guess it's title with quotes
+						rest = read_simple(src, escaped=[], break_on_chars=[?)], 
+							break_on_strings=[])
+						# chop the closing char
+						rest.chop!
+						title << quote_char << rest
+					end
+				end
 			end
 			src.consume_whitespace
 			closing = src.shift_char # closing )
@@ -533,8 +550,23 @@ module MaRuKu; module In; module Markdown; module SpanLevelParser
 			src.consume_whitespace
 			title = nil
 			if src.cur_char != ?) # we have a title
+				quote_char = src.cur_char
 				title = read_quoted(src,con)
-				error 'Must quote title',src,con if not title
+				if not title
+					maruku_error 'Must quote title',src,con
+				else				
+					# Tries to read a title with quotes: ![a](url "ti"tle")
+					# this is the most ugly thing in Markdown
+					if not src.next_matches(/\s*\)/)
+						# if there is not a closing par ), then read
+						# the rest and guess it's title with quotes
+						rest = read_simple(src, escaped=[], break_on_chars=[?)], 
+							break_on_strings=[])
+						# chop the closing char
+						rest.chop!
+						title << quote_char << rest
+					end
+				end
 			end
 			src.consume_whitespace
 			closing = src.shift_char # closing )

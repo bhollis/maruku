@@ -89,14 +89,14 @@ module MaRuKu; module In; module Markdown; module SpanLevelParser
 							end
 						elsif is_closing
 							@already += @m.to_s
-							if @tag_stack.last != tag
-								error "Malformed: tag <#{tag}> "+
-								      "closes <#{@tag_stack.last}>"
-							end
 							if @tag_stack.empty?
 								error "Malformed: closing tag #{tag.inspect} "+
 								      "in empty list"
 							end 
+							if @tag_stack.last != tag
+								error "Malformed: tag <#{tag}> "+
+								      "closes <#{@tag_stack.last}>"
+							end
 							@tag_stack.pop
 						elsif not is_single
 							@tag_stack.push tag
@@ -118,7 +118,7 @@ module MaRuKu; module In; module Markdown; module SpanLevelParser
 
 
 		def error(s)
-			raise RuntimeError, "Error: #{s} "+ inspect, caller
+			raise Exception, "Error: #{s} \n"+ inspect, caller
 		end
 
 		def inspect; "HTML READER\n comment=#{@inside_comment} "+

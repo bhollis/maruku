@@ -4,7 +4,7 @@ Write a comment abouth the test here.
 *** Markdown input: ***
 One line
 *** Output of inspect ***
-md_el(:document,[md_par(["One line"])] )
+md_el(:document,[md_par(["One line"])],{},[])
 *** Output of to_html ***
 
 <p>One line</p>
@@ -13,8 +13,10 @@ md_el(:document,[md_par(["One line"])] )
 One line
 
 
-*** Output of to_s ***
+*** Output of to_md ***
 One line
+
+
 *** Output of to_s ***
 One line
 *** EOF ***
@@ -30,4 +32,4 @@ One line
 
 *** Output of Markdown.pl (parsed) ***
 <p>One line</p
- >
+  >

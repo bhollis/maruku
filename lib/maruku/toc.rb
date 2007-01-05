@@ -68,10 +68,12 @@ end
 		
 		# Numerate this section and its children
 		def numerate(a=[])
-			self.header_element.attributes[:section_number] = 
 			self.section_number = a
 			section_children.each_with_index do |c,i|
 				c.numerate(a.clone.push(i+1))
+			end
+			if h = self.header_element
+				h.attributes[:section_number] = self.section_number
 			end
 		end
 		

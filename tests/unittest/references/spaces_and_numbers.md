@@ -4,12 +4,12 @@ Spaces can be put before. ID can be a number
 *** Markdown input: ***
   [6]: http://ettext.taint.org/doc/
 *** Output of inspect ***
-md_el(:document,[md_ref_def("6", "http://ettext.taint.org/doc/" ,{:title=>nil})] )
+md_el(:document,[md_ref_def("6", "http://ettext.taint.org/doc/", {:title=>nil})],{},[])
 *** Output of to_html ***
 
 *** Output of to_latex ***
 
-*** Output of to_s ***
+*** Output of to_md ***
 
 *** Output of to_s ***
 

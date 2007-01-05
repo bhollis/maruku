@@ -8,7 +8,7 @@ Write a comment abouth the test here.
 
 
 *** Output of inspect ***
-md_el(:document,[md_el(:code,[] , {:raw_code=>"       $ python       "})] )
+md_el(:document,[md_el(:code,[],{:raw_code=>"       $ python       "},[])],{},[])
 *** Output of to_html ***
 
 <pre><code>       $ python       </code></pre>
@@ -16,7 +16,7 @@ md_el(:document,[md_el(:code,[] , {:raw_code=>"       $ python       "})] )
 *** Output of to_latex ***
 \begin{verbatim}       $ python       \end{verbatim}
 
-*** Output of to_s ***
+*** Output of to_md ***
 
 *** Output of to_s ***
 
@@ -32,5 +32,5 @@ md_el(:document,[md_el(:code,[] , {:raw_code=>"       $ python       "})] )
 <p>$ python       </p>
 
 *** Output of Markdown.pl (parsed) ***
-<p>$ python       </p
- >
+<p>$ python </p
+  >

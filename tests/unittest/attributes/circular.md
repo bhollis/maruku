@@ -13,8 +13,8 @@ Paragraph
 *** Output of inspect ***
 md_el(:document,[
 	md_par(["Paragraph"], [[:ref, "a"]]),
-	md_el(:ald,[],{:al=>[[:ref, "b"]], :ald_id=>"a"},[]),
-	md_el(:ald,[],{:al=>[[:ref, "a"]], :ald_id=>"b"},[])
+	md_el(:ald,[],{:ald_id=>"a",:ald=>[[:ref, "b"]]},[]),
+	md_el(:ald,[],{:ald_id=>"b",:ald=>[[:ref, "a"]]},[])
 ],{},[])
 *** Output of to_html ***
 
@@ -24,7 +24,7 @@ md_el(:document,[
 Paragraph
 
 
-*** Output of to_s ***
+*** Output of to_md ***
 Paragraph
 *** Output of to_s ***
 Paragraph

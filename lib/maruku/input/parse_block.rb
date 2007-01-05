@@ -207,9 +207,15 @@ module MaRuKu; module In; module Markdown; module BlockLevelParser
 		lines = []
 		while src.cur_line 
 			# :olist does not break
-			break if [:ulist,:quote,:header3,:empty,
-				:raw_html,:ref_definition,:ial].include?(
-				src.cur_line.md_type)
+			case t = src.cur_line.md_type
+				when :quote,:header3,:empty,:raw_html,:ref_definition,:ial
+					break
+				when :olist,:ulist
+					break if src.next_line.md_type == t
+				else
+					true
+			end
+			
 			break if src.cur_line.strip.size == 0
 			
 			break if [:header1,:header2].include? src.next_line.md_type

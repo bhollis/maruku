@@ -5,7 +5,7 @@ Write a comment abouth the test here.
 Paragraph
 
 *** Output of inspect ***
-md_el(:document,[md_par(["Paragraph"])] )
+md_el(:document,[md_par(["Paragraph"])],{},[])
 *** Output of to_html ***
 
 <p>Paragraph</p>
@@ -14,8 +14,10 @@ md_el(:document,[md_par(["Paragraph"])] )
 Paragraph
 
 
-*** Output of to_s ***
+*** Output of to_md ***
 Paragraph
+
+
 *** Output of to_s ***
 Paragraph
 *** EOF ***
@@ -31,4 +33,4 @@ Paragraph
 
 *** Output of Markdown.pl (parsed) ***
 <p>Paragraph</p
- >
+  >

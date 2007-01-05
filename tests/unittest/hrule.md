@@ -15,12 +15,12 @@ Write a comment abouth the test here.
 
 *** Output of inspect ***
 md_el(:document,[
-	md_el(:hrule,[] ),
-	 md_el(:hrule,[] ),
-	 md_el(:hrule,[] ),
-	 md_el(:hrule,[] ),
-	 md_el(:hrule,[] )
-] )
+	md_el(:hrule,[],{},[]),
+	md_el(:hrule,[],{},[]),
+	md_el(:hrule,[],{},[]),
+	md_el(:hrule,[],{},[]),
+	md_el(:hrule,[],{},[])
+],{},[])
 *** Output of to_html ***
 
 <hr />
@@ -45,7 +45,7 @@ md_el(:document,[
 
 \vspace{.5em} \hrule \vspace{.5em}
 
-*** Output of to_s ***
+*** Output of to_md ***
 
 *** Output of to_s ***
 
@@ -69,9 +69,9 @@ md_el(:document,[
 <hr />
 
 *** Output of Markdown.pl (parsed) ***
-<hr/
-   ><hr/
-   ><hr/
-   ><hr/
-   ><hr/
- >
+<hr
+    /><hr
+    /><hr
+    /><hr
+    /><hr
+    />

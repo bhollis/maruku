@@ -2,7 +2,6 @@
 
 require 'maruku'
 
-
 	# If we are given filenames, convert each file 
 	if not ARGV.empty?
 		ARGV.each do |f|

@@ -41,39 +41,39 @@ If all else fails, ask [Google](http://www.google.com)
 *** Output of inspect ***
 md_el(:document,[
 	md_par(["Search on ", md_link(["Google"],"")]),
-	 md_par(["Search on ", md_link(["Google"],"")]),
-	 md_par(["Search on ", md_link(["Google"],"google")]),
-	 md_par(["Search on ", md_link(["Google"],"google")]),
-	 md_par(["Search on ", md_link(["Google images"],"")]),
-	 md_par(["Inline: ", md_im_link(["Google images"], "http://google.com" )]),
-	 md_par([
+	md_par(["Search on ", md_link(["Google"],"")]),
+	md_par(["Search on ", md_link(["Google"],"google")]),
+	md_par(["Search on ", md_link(["Google"],"google")]),
+	md_par(["Search on ", md_link(["Google images"],"")]),
+	md_par(["Inline: ", md_im_link(["Google images"], "http://google.com", nil)]),
+	md_par([
 		"Inline with title: ",
-		 md_im_link(["Google images"], "http://google.com" , "Title")
+		md_im_link(["Google images"], "http://google.com", "Title")
 	]),
-	 md_par([
+	md_par([
 		"Inline with title: ",
-		 md_im_link(["Google images"], "http://google.com" , "Title")
+		md_im_link(["Google images"], "http://google.com", "Title")
 	]),
-	 md_par([
+	md_par([
 		"Search on ",
-		 md_url("http://www.gogole.com"),
-		 " or ",
-		 md_url("http://Here.com"),
-		 " or ask ",
-		 md_email("bill@google.com"),
-		 " or you might ask bill@google.com."
+		md_url("http://www.gogole.com"),
+		" or ",
+		md_url("http://Here.com"),
+		" or ask ",
+		md_email("bill@google.com"),
+		" or you might ask bill@google.com."
 	]),
-	 md_par([
+	md_par([
 		"If all else fails, ask ",
-		 md_im_link(["Google"], "http://www.google.com" )
+		md_im_link(["Google"], "http://www.google.com", nil)
 	]),
-	 md_ref_def("google", "http://www.google.com" ,{:title=>nil}),
-	 md_ref_def("google2", "http://www.google.com" ,{:title=>"Single quotes"}),
-	 md_ref_def("google3", "http://www.google.com" ,{:title=>"Double quotes"}),
-	 md_ref_def("google4", "http://www.google.com" ,{:title=>"Parenthesis"}),
-	 md_ref_def("google search", "http://www.google.com" ,{:title=>"Google search"}),
-	 md_ref_def("google images", "http://images.google.com" ,{:title=>"Google images"})
-] , {:on_error=>:warning})
+	md_ref_def("google", "http://www.google.com", {:title=>nil}),
+	md_ref_def("google2", "http://www.google.com", {:title=>"Single quotes"}),
+	md_ref_def("google3", "http://www.google.com", {:title=>"Double quotes"}),
+	md_ref_def("google4", "http://www.google.com", {:title=>"Parenthesis"}),
+	md_ref_def("google search", "http://www.google.com", {:title=>"Google search"}),
+	md_ref_def("google images", "http://images.google.com", {:title=>"Google images"})
+],{},[])
 *** Output of to_html ***
 
 <p>Search on <a href='http://www.google.com'>Google</a></p>
@@ -107,19 +107,40 @@ Search on \href{http://www.google.com}{Google}
 
 Search on \href{http://images.google.com}{Google images}
 
-Inline: \href{http://google.com}{Google images}
+Inline: 
 
-Inline with title: \href{http://google.com}{Google images}
+Inline with title: 
 
-Inline with title: \href{http://google.com}{Google images}
+Inline with title: 
 
 Search on \href{http://www.gogole.com}{http://www.gogole.com} or \href{http://Here.com}{http://Here.com} or ask \href{mailto:bill@google.com}{\char98\char105\char108\char108\char64\char103\char111\char111\char103\char108\char101\char46\char99\char111\char109} or you might ask bill@google.com.
 
-If all else fails, ask \href{http://www.google.com}{Google}
+If all else fails, ask 
 
 
-*** Output of to_s ***
-Search on GoogleSearch on GoogleSearch on GoogleSearch on GoogleSearch on Google imagesInline: Google imagesInline with title: Google imagesInline with title: Google imagesSearch on  or  or ask  or you might ask bill@google.com.If all else fails, ask Google
+*** Output of to_md ***
+Search on Google
+
+Search on Google
+
+Search on Google
+
+Search on Google
+
+Search on Google images
+
+Inline: Google images
+
+Inline with title: Google images
+
+Inline with title: Google images
+
+Search on or or ask or you might ask
+bill@google.com.
+
+If all else fails, ask Google
+
+
 *** Output of to_s ***
 Search on GoogleSearch on GoogleSearch on GoogleSearch on GoogleSearch on Google imagesInline: Google imagesInline with title: Google imagesInline with title: Google imagesSearch on  or  or ask  or you might ask bill@google.com.If all else fails, ask Google
 *** EOF ***
@@ -147,7 +168,7 @@ Search on GoogleSearch on GoogleSearch on GoogleSearch on GoogleSearch on Google
 
 <p>Inline with title: <a href="http://google.com  "Title"">Google images</a></p>
 
-<p>Search on <a href="http://www.gogole.com">http://www.gogole.com</a> or <a href="http://Here.com">http://Here.com</a> or ask <a href="&#x6D;&#x61;&#105;&#108;t&#111;:&#x62;&#x69;&#108;&#x6C;&#64;&#x67;&#111;og&#108;&#101;&#46;&#x63;&#111;m">&#x62;&#x69;&#108;&#x6C;&#64;&#x67;&#111;og&#108;&#101;&#46;&#x63;&#111;m</a>
+<p>Search on <a href="http://www.gogole.com">http://www.gogole.com</a> or <a href="http://Here.com">http://Here.com</a> or ask <a href="&#x6D;&#x61;i&#108;&#x74;&#111;:&#98;&#105;l&#108;&#64;&#x67;&#111;&#x6F;&#103;&#108;e&#46;&#99;&#111;&#109;">&#98;&#105;l&#108;&#64;&#x67;&#111;&#x6F;&#103;&#108;e&#46;&#99;&#111;&#109;</a>
 or you might ask bill@google.com.</p>
 
 <p>If all else fails, ask <a href="http://www.google.com">Google</a></p>
@@ -155,7 +176,27 @@ or you might ask bill@google.com.</p>
 <p>[google2]: http://www.google.com 'Single quotes'</p>
 
 *** Output of Markdown.pl (parsed) ***
-Error: #<REXML::ParseException: Missing end tag for 'p' (got "div")
+Error: #<REXML::ParseException: #<REXML::ParseException: Missing end tag for 'p' (got "div")
+Line: 
+Position: 
+Last 80 unconsumed characters:
+>
+/Volumes/Alter/Ruby/local/lib/ruby/1.8/rexml/parsers/baseparser.rb:315:in `pull'
+/Volumes/Alter/Ruby/local/lib/ruby/1.8/rexml/parsers/treeparser.rb:21:in `parse'
+/Volumes/Alter/Ruby/local/lib/ruby/1.8/rexml/document.rb:190:in `build'
+/Volumes/Alter/Ruby/local/lib/ruby/1.8/rexml/document.rb:45:in `initialize'
+bin/marutest:171:in `new'
+bin/marutest:171:in `run_test'
+bin/marutest:235:in `marutest'
+bin/marutest:233:in `each'
+bin/marutest:233:in `marutest'
+bin/marutest:303
+...
+Missing end tag for 'p' (got "div")
+Line: 
+Position: 
+Last 80 unconsumed characters:
+
 Line: 
 Position: 
 Last 80 unconsumed characters:

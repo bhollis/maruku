@@ -12,10 +12,10 @@ md_el(:document,[
 	md_el(:ul,[
 		md_el(:li,[
 			md_par(["A list item with a blockquote:"]),
-			 md_el(:quote,[md_par(["This is a blockquote inside a list item."])] )
-		] , {:want_my_paragraph=>true})
-	] )
-] )
+			md_el(:quote,[md_par(["This is a blockquote inside a list item."])],{},[])
+		],{:want_my_paragraph=>true},[])
+	],{},[])
+],{},[])
 *** Output of to_html ***
 
 <ul>
@@ -41,8 +41,12 @@ This is a blockquote inside a list item.
 
 \end{itemize}
 
-*** Output of to_s ***
-A list item with a blockquote:This is a blockquote inside a list item.
+*** Output of to_md ***
+- list item with a blockquote:
+This is a blockquote inside a list
+item.
+
+
 *** Output of to_s ***
 A list item with a blockquote:This is a blockquote inside a list item.
 *** EOF ***
@@ -66,15 +70,14 @@ A list item with a blockquote:This is a blockquote inside a list item.
 *** Output of Markdown.pl (parsed) ***
 <ul>
 <li
-       ><p>A list item with a blockquote:</p
-       >
-
+        ><p>A list item with a blockquote:</p
+        >
 <blockquote>
-  <p>This is a blockquote
-  inside a list item.</p
-         >
+ <p>This is a blockquote
+ inside a list item.</p
+          >
 </blockquote
-     ></li
-     >
+      ></li
+      >
 </ul
- >
+  >

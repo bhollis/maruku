@@ -12,8 +12,8 @@ Here is an example of AppleScript:
 *** Output of inspect ***
 md_el(:document,[
 	md_par(["Here is an example of AppleScript:"]),
-	 md_el(:code,[] , {:raw_code=>"tell application \"Foo\"\n    beep\nend tell\n\ttab"})
-] )
+	md_el(:code,[],{:raw_code=>"tell application \"Foo\"\n    beep\nend tell\n\ttab"},[])
+],{},[])
 *** Output of to_html ***
 
 <p>Here is an example of AppleScript:</p>
@@ -31,8 +31,10 @@ Here is an example of AppleScript:
 end tell
 	tab\end{verbatim}
 
-*** Output of to_s ***
+*** Output of to_md ***
 Here is an example of AppleScript:
+
+
 *** Output of to_s ***
 Here is an example of AppleScript:
 *** EOF ***
@@ -54,11 +56,11 @@ end tell
 
 *** Output of Markdown.pl (parsed) ***
 <p>Here is an example of AppleScript:</p
-   ><pre
-     ><code>tell application "Foo"
+    ><pre
+      ><code>tell application "Foo"
     beep
 end tell
     tab
 </code
-   ></pre
- >
+    ></pre
+  >

@@ -4,7 +4,7 @@ Simple test for emphasis.
 *** Markdown input: ***
 *Hello!* how are **you**?
 *** Output of inspect ***
-md_el(:document,[md_par([md_em(["Hello!"]), " how are ", md_strong(["you"]), "?"])] )
+md_el(:document,[md_par([md_em(["Hello!"]), " how are ", md_strong(["you"]), "?"])],{},[])
 *** Output of to_html ***
 
 <p><em>Hello!</em> how are <strong>you</strong>?</p>
@@ -13,8 +13,10 @@ md_el(:document,[md_par([md_em(["Hello!"]), " how are ", md_strong(["you"]), "?"
 {\em Hello!} how are {\bf you}?
 
 
-*** Output of to_s ***
-Hello! how are you?
+*** Output of to_md ***
+Hello!how are you?
+
+
 *** Output of to_s ***
 Hello! how are you?
 *** EOF ***
@@ -30,7 +32,7 @@ Hello! how are you?
 
 *** Output of Markdown.pl (parsed) ***
 <p
-     ><em>Hello!</em
-     > how are <strong>you</strong
-     >?</p
- >
+      ><em>Hello!</em
+      > how are <strong>you</strong
+      >?</p
+  >

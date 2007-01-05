@@ -22,14 +22,14 @@ This is not code
 *** Output of inspect ***
 md_el(:document,[
 	md_par(["This is code (4 spaces):"]),
-	 md_el(:code,[] , {:raw_code=>"Code"}),
-	 md_par(["This is not code"]),
-	 md_el(:code,[] , {:raw_code=>"Code\n"}),
-	 md_par(["This is code (1 tab):"]),
-	 md_el(:code,[] , {:raw_code=>"Code"}),
-	 md_par(["This is not code"]),
-	 md_el(:code,[] , {:raw_code=>"Code"})
-] )
+	md_el(:code,[],{:raw_code=>"Code"},[]),
+	md_par(["This is not code"]),
+	md_el(:code,[],{:raw_code=>"Code\n"},[]),
+	md_par(["This is code (1 tab):"]),
+	md_el(:code,[],{:raw_code=>"Code"},[]),
+	md_par(["This is not code"]),
+	md_el(:code,[],{:raw_code=>"Code"},[])
+],{},[])
 *** Output of to_html ***
 
 <p>This is code (4 spaces):</p>
@@ -64,8 +64,16 @@ This is not code
 
 \begin{verbatim}Code\end{verbatim}
 
-*** Output of to_s ***
-This is code (4 spaces):This is not codeThis is code (1 tab):This is not code
+*** Output of to_md ***
+This is code (4 spaces):
+
+This is not code
+
+This is code (1 tab):
+
+This is not code
+
+
 *** Output of to_s ***
 This is code (4 spaces):This is not codeThis is code (1 tab):This is not code
 *** EOF ***
@@ -99,23 +107,23 @@ This is code (4 spaces):This is not codeThis is code (1 tab):This is not code
 
 *** Output of Markdown.pl (parsed) ***
 <p>This is code (4 spaces):</p
-   ><pre
-     ><code>Code
+    ><pre
+      ><code>Code
 </code
-   ></pre
-   ><p>This is not code</p
-   ><pre
-     ><code>Code
+    ></pre
+    ><p>This is not code</p
+    ><pre
+      ><code>Code
 </code
-   ></pre
-   ><p>This is code (1 tab):</p
-   ><pre
-     ><code>Code
+    ></pre
+    ><p>This is code (1 tab):</p
+    ><pre
+      ><code>Code
 </code
-   ></pre
-   ><p>This is not code</p
-   ><pre
-     ><code>Code
+    ></pre
+    ><p>This is not code</p
+    ><pre
+      ><code>Code
 </code
-   ></pre
- >
+    ></pre
+  >

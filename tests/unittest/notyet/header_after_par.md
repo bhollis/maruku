@@ -16,12 +16,12 @@ header
 *** Output of inspect ***
 md_el(:document,[
 	md_par(["Paragraph"]),
-	 md_el(:header,["header"] , {:id=>"header", :level=>3}),
-	 md_par(["Paragraph"]),
-	 md_el(:header,["header"] , {:id=>"header", :level=>2}),
-	 md_par(["Paragraph"]),
-	 md_el(:header,["header"] , {:id=>"header", :level=>1})
-] , {:title=>"header"})
+	md_el(:header,["header"],{:level=>3},[]),
+	md_par(["Paragraph"]),
+	md_el(:header,["header"],{:level=>2},[]),
+	md_par(["Paragraph"]),
+	md_el(:header,["header"],{:level=>1},[])
+],{},[])
 *** Output of to_html ***
 
 <p>Paragraph</p>
@@ -50,8 +50,14 @@ Paragraph
 \hypertarget{header}{}\section*{{header}}\label{header}
 
 
-*** Output of to_s ***
-ParagraphheaderParagraphheaderParagraphheader
+*** Output of to_md ***
+Paragraph
+
+headerParagraph
+
+headerParagraph
+
+header
 *** Output of to_s ***
 ParagraphheaderParagraphheaderParagraphheader
 *** EOF ***
@@ -77,9 +83,9 @@ ParagraphheaderParagraphheaderParagraphheader
 
 *** Output of Markdown.pl (parsed) ***
 <p>Paragraph</p
-   ><h3>header</h3
-   ><p>Paragraph</p
-   ><h2>header</h2
-   ><p>Paragraph</p
-   ><h1>header</h1
- >
+    ><h3>header</h3
+    ><p>Paragraph</p
+    ><h2>header</h2
+    ><p>Paragraph</p
+    ><h1>header</h1
+  >

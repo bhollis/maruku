@@ -42,12 +42,12 @@ module MaRuKu; module Out; module Markdown
 	
 	def to_md_paragraph(context)
 		line_length = context[:line_length] || DefaultLineLength
-		wrap(@children, line_length)+"\n"
+		wrap(@children, line_length, context)+"\n"
 	end
 	
 	def to_md_li_span(context)
 		len = (context[:line_length] || DefaultLineLength) - 2
-		s = add_tabs(wrap(@children, len-2), 1, '  ')
+		s = add_tabs(wrap(@children, len-2, context), 1, '  ')
 		s[0] = ?*
 		s + "\n"
 	end
@@ -60,9 +60,9 @@ module MaRuKu; module Out; module Markdown
 		len = (context[:line_length] || DefaultLineLength) - 2
 		md = ""
 		self.children.each_with_index do |li, i|
-			s = add_tabs(w=wrap(li.children, len-2), 1, '    ')+"\n"
+			s = add_tabs(w=wrap(li.children, len-2, context), 1, '    ')+"\n"
 			s[0,4] = "#{i+1}.  "[0,4]
-			puts w.inspect
+#			puts w.inspect
 			md += s
 		end
 		md + "\n"
@@ -72,10 +72,10 @@ module MaRuKu; module Out; module Markdown
 		len = (context[:line_length] || DefaultLineLength) - 2
 		md = ""
 		self.children.each_with_index do |li, i|
-			w = wrap(li.children, len-2)
-			puts "W: "+ w.inspect
+			w = wrap(li.children, len-2, context)
+#			puts "W: "+ w.inspect
 			s = add_indent(w)
-			puts "S: " +s.inspect
+#			puts "S: " +s.inspect
 			s[0,1] = "-"
 			md += s
 		end
@@ -93,7 +93,7 @@ module MaRuKu; module Out; module Markdown
 		array_to_md(@children, context)
 	end
 	
-	def wrap(array, line_length, context=nil)
+	def wrap(array, line_length, context)
 		out = ""
 		line = ""
 		array.each do |c|
@@ -132,7 +132,7 @@ module MaRuKu; module Out; module Markdown
 			
 			if not c.respond_to?(method)
 				#raise "Object does not answer to #{method}: #{c.class} #{c.inspect[0,100]}"
-				tell_user "Using default for #{c.node_type}"
+#				tell_user "Using default for #{c.node_type}"
 				method = 'to_md'
 			end
 			

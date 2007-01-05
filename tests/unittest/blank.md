@@ -7,7 +7,7 @@ Linea 1
 
 Linea 2
 *** Output of inspect ***
-md_el(:document,[md_par(["Linea 1"]), md_par(["Linea 2"])] )
+md_el(:document,[md_par(["Linea 1"]), md_par(["Linea 2"])],{},[])
 *** Output of to_html ***
 
 <p>Linea 1</p>
@@ -20,8 +20,12 @@ Linea 1
 Linea 2
 
 
-*** Output of to_s ***
-Linea 1Linea 2
+*** Output of to_md ***
+Linea 1
+
+Linea 2
+
+
 *** Output of to_s ***
 Linea 1Linea 2
 *** EOF ***
@@ -39,5 +43,5 @@ Linea 1Linea 2
 
 *** Output of Markdown.pl (parsed) ***
 <p>Linea 1</p
-   ><p>Linea 2</p
- >
+    ><p>Linea 2</p
+  >

@@ -2,13 +2,28 @@
 
 require 'maruku'
 
-require 'maruku/parse_span_better'
-
 #MARKER = "\n***EOF***\n"
 SPLIT = %r{\n\*\*\*[^\*]+\*\*\*\n}m
 
 def marker(x)
 	"\n*** Output of #{x} ***\n"
+end
+
+def equals(a, b)
+	a = a.split("\n")
+	b = b.split("\n")
+	
+	for i in 0..([a.size-1,b.size-1].max)
+		la = a[i]
+		lb = b[i]
+		if la != lb
+			puts "\n"
+			puts "Line #{i}:\n#{la.inspect}\n"
+			puts "#{lb.inspect}\n"
+			return false
+		end
+	end
+	return true
 end
 
 TOTEST = [:inspect,:to_html,:to_latex,:to_md,:to_s]
@@ -17,6 +32,9 @@ def run_test(filename, its_ok, verbose=true)
 	# read file content
 	input =  (f=File.open(filename,'r')).read; f.close
 	
+	output_html = File.join(File.dirname(filename), 
+		File.basename(filename, File.extname(filename)) + ".html")	
+	
 	# split the input in sections
 	
 	stuff = input.split(SPLIT)
@@ -24,7 +42,7 @@ def run_test(filename, its_ok, verbose=true)
 	comment   = stuff.shift
 	params_s = stuff.shift
 	
-	params = eval(params_s)
+	params = eval(params_s||'{}')
 	if params == nil
 		raise "Null params? #{params_s.inspect}"
 	end
@@ -55,7 +73,10 @@ def run_test(filename, its_ok, verbose=true)
 			puts actual[s]
 		end
 	end
-	
+
+	File.open(output_html, 'w') do |f|
+		f.write actual[:to_html]
+	end
 
 		begin
 			m = Maruku.new
@@ -78,9 +99,11 @@ def run_test(filename, its_ok, verbose=true)
 		end
 	end
 
+	m = Maruku.new
+	
+	
 	if not its_ok.include? :inspect
 		begin
-			m = Maruku.new
 			d = m.instance_eval(expected[:inspect])
 	#		puts "Eval: #{d.inspect}"
 			expected[:inspect] = d.inspect
@@ -91,15 +114,20 @@ def run_test(filename, its_ok, verbose=true)
 		end
 	end
 
-	
+#	 m.instance_eval(actual[:inspect]) != m.instance_eval(expected[:inspect])	
+
+#	actual[:inspect] = m.instance_eval(actual[:inspect]) 
+#	expected[:inspect] =  m.instance_eval(expected[:inspect])
+
+
 	TOTEST.each do |x|
-		if actual[x] != expected[x]
+		if not equals(actual[x], expected[x])
 			if its_ok.include? x
 				expected[x] = actual[x]
 				$stdout.write " relax:#{x} "
 				relaxed << x
 			else
-				actual[x] = "-----| WARNING | -----\n" + actual[x]
+				actual[x] = "-----| WARNING | -----\n" + actual[x].to_s
 				failed << x
 			end
 		end

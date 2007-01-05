@@ -15,10 +15,10 @@ A title with *emphasis*
 
 *** Output of inspect ***
 md_el(:document,[
-	md_el(:header,["A title with ", md_em(["emphasis"])] , {:id=>"a_title_with_emphasis", :level=>1}),
-	 md_el(:header,["A title with ", md_em(["emphasis"])] , {:id=>"a_title_with_emphasis", :level=>2}),
-	 md_el(:header,["A title with ", md_em(["emphasis"])] , {:id=>"a_title_with_emphasis", :level=>4})
-] , {:title=>"A title with emphasis"})
+	md_el(:header,["A title with ", md_em(["emphasis"])],{:level=>1},[]),
+	md_el(:header,["A title with ", md_em(["emphasis"])],{:level=>2},[]),
+	md_el(:header,["A title with ", md_em(["emphasis"])],{:level=>4},[])
+],{},[])
 *** Output of to_html ***
 
 <h1 id='a_title_with_emphasis'>A title with <em>emphasis</em></h1>
@@ -35,7 +35,7 @@ md_el(:document,[
 \hypertarget{a_title_with_emphasis}{}\paragraph*{{A title with {\em emphasis}}}\label{a_title_with_emphasis}
 
 
-*** Output of to_s ***
+*** Output of to_md ***
 A title with emphasisA title with emphasisA title with emphasis
 *** Output of to_s ***
 A title with emphasisA title with emphasisA title with emphasis
@@ -56,9 +56,9 @@ A title with emphasisA title with emphasisA title with emphasis
 
 *** Output of Markdown.pl (parsed) ***
 <h1>A title with <em>emphasis</em
-   ></h1
-   ><h2>A title with <em>emphasis</em
-   ></h2
-   ><h4>A title with <em>emphasis</em
-   ></h4
- >
+    ></h1
+    ><h2>A title with <em>emphasis</em
+    ></h2
+    ><h4>A title with <em>emphasis</em
+    ></h4
+  >

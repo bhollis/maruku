@@ -245,6 +245,14 @@ module MaRuKu; module Tests
 		["a\nThe [syntax page] [s] provides", 
 			['a The ', md_link(['syntax page'],'s'), ' provides'], 'Regression'],
 		
+		['![a](url "ti"tle")', [md_im_image(['a'],'url','ti"tle')], 
+			"Image with quotes"],
+		['![a](url \'ti"tle\')' ],
+		
+		['[bar](/url/ "Title with "quotes" inside")', 
+			[md_im_link(["bar"],'/url/', 'Title with "quotes" inside')],
+			"Link with quotes"],
+		
 		["#{Maruku8}", [Maruku8], "Reading UTF-8"],
 		["#{AccIta1}", [AccIta8], "Converting ISO-8859-1 to UTF-8", 
 			{:encoding => 'iso-8859-1'}],

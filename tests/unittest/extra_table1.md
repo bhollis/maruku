@@ -12,14 +12,14 @@ Content Cell  | Content Cell
 *** Output of inspect ***
 md_el(:document,[
 	md_el(:table,[
-		md_el(:head_cell,["First Header"] ),
-		 md_el(:head_cell,["Second Header"] ),
-		 md_el(:cell,["Content Cell"] ),
-		 md_el(:cell,["Content Cell"] ),
-		 md_el(:cell,["Content Cell"] ),
-		 md_el(:cell,["Content Cell"] )
-	] , {:align=>[:left, :left]})
-] , {:css=>"style.css"})
+		md_el(:head_cell,["First Header"],{},[]),
+		md_el(:head_cell,["Second Header"],{},[]),
+		md_el(:cell,["Content Cell"],{},[]),
+		md_el(:cell,["Content Cell"],{},[]),
+		md_el(:cell,["Content Cell"],{},[]),
+		md_el(:cell,["Content Cell"],{},[])
+	],{:align=>[:left, :left]},[])
+],{},[])
 *** Output of to_html ***
 
 <table>
@@ -49,7 +49,7 @@ Content Cell&Content Cell\\
 \end{tabular}
 
 
-*** Output of to_s ***
+*** Output of to_md ***
 First HeaderSecond HeaderContent CellContent CellContent CellContent Cell
 *** Output of to_s ***
 First HeaderSecond HeaderContent CellContent CellContent CellContent Cell
@@ -71,8 +71,8 @@ Content Cell  | Content Cell</p>
 
 *** Output of Markdown.pl (parsed) ***
 <p>CSS: style.css</p
-   ><p>First Header  | Second Header
+    ><p>First Header | Second Header
 ------------- | -------------
-Content Cell  | Content Cell
-Content Cell  | Content Cell</p
- >
+Content Cell | Content Cell
+Content Cell | Content Cell</p
+  >

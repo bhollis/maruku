@@ -81,10 +81,9 @@ module Helpers
 			raw_html = "<marukuwrap>#{raw_html}</marukuwrap>"
 			e.instance_variable_set :@parsed_html,
 			 	REXML::Document.new(raw_html)
-		
-		rescue Exception => ex
-			tell_user "Malformed block of HTML:\n"+
-			add_tabs(raw_html,1,'|')
+		rescue 
+#			tell_user "Malformed block of HTML:\n"+
+#			add_tabs(raw_html,1,'|')
 #			"  #{raw_html.inspect}\n\n"+ex.inspect
 		end
 		e

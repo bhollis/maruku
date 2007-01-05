@@ -28,7 +28,7 @@ class Array
 	def inspect_more(compact, join_string, add_brackets=true)
 		s  = map {|x| 
 			x.kind_of?(String) ? x.inspect : 
-			x.kind_of?(MDElement) ? x.inspect(compact) : 
+			x.kind_of?(MaRuKu::MDElement) ? x.inspect(compact) : 
 			(raise "WTF #{x.class} #{x.inspect}")
 		}.join(join_string)
 		
@@ -36,6 +36,11 @@ class Array
 	end
 end
 
+class Hash
+	def inspect_ordered
+		"{"+map{|k,v| k.inspect + "=>"+v.inspect}.join(',')+"}"
+	end
+end
 
 module MaRuKu
 class MDElement	
@@ -49,7 +54,7 @@ class MDElement
 		[
 			self.node_type,
 			children_inspect(compact), 
-			@meta_priv.inspect,
+			@meta_priv.inspect_ordered,
 			self.al.inspect
 		]
 	end

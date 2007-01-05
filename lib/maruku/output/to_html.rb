@@ -237,8 +237,8 @@ module MaRuKu; module Out; module HTML
 		m = create_html_element name
 			children_to_html.each do |e| m << e; end
 			
-			m << Comment.new( "{"+self.al.to_md+"}") if not self.al.empty?
-			m << Comment.new( @attributes.inspect) if not @attributes.empty?
+#			m << Comment.new( "{"+self.al.to_md+"}") if not self.al.empty?
+#			m << Comment.new( @attributes.inspect) if not @attributes.empty?
 		m
 	end
 	
@@ -463,42 +463,43 @@ module MaRuKu; module Out; module HTML
 
 	def to_html_image
 		a =  Element.new 'img'
-		if id = self.ref_id
-			ref = @doc.refs[id]
-			if not ref
-				maruku_error"Could not find id = #{id.inspect} for\n #{self.inspect}"
-				tell_user "Could not create image with ref_id = #{id.inspect};"+
-				 +" Using SPAN element as replacement."
-				return wrap_as_element('span')
-			else
-				url = ref[:url]
-				a.attributes['src'] = url
-	#			puts ref.inspect
-				[:title, :class, :style].each do |s| 
-					if ref[s] then
-						a.attributes[s.to_s] = ref[s]
-					end
+		id = self.ref_id
+		if ref = @doc.refs[id]
+			url = ref[:url]
+			a.attributes['src'] = url
+			[:title, :class, :style].each do |s| 
+				if ref[s] then
+					a.attributes[s.to_s] = ref[s]
 				end
 			end
 		else
-			url = self.url
-			title = self.title
-			if not url
-				maruku_error"Image with no ID or url: #{self.inspect}"
-				tell_user "Could not create image with ref_id = #{id.inspect};"+
+			maruku_error"Could not find id = #{id.inspect} for\n #{self.inspect}"
+			tell_user "Could not create image with ref_id = #{id.inspect};"+
 				 +" Using SPAN element as replacement."
 				return wrap_as_element('span')
-			end
-			a.attributes['src'] = url
-			a.attributes['title'] = title if title
 		end
-		a
+		return a
+	end
+	
+	def to_html_im_image
+		a =  Element.new 'img'
+		url = self.url
+		title = self.title
+		if not url
+			maruku_error"Image with no url: #{self.inspect}"
+			tell_user "Could not create image with ref_id = #{id.inspect};"+
+			 +" Using SPAN element as replacement."
+			return wrap_as_element('span')
+		end
+		a.attributes['src'] = url
+		a.attributes['title'] = title if title
+		return a
 	end
 
 	def to_html_raw_html
 		raw_html = self.raw_html
 		if rexml_doc = @parsed_html
-			root =  rexml_doc.root
+			root = rexml_doc.root
 			if root.nil?
 				s = "Bug in REXML: root() of Document is nil: \n#{rexml_doc.inspect}\n"+
 				"Raw HTML:\n#{raw_html.inspect}"
@@ -514,7 +515,8 @@ module MaRuKu; module Out; module HTML
 			return elements
 		else # invalid
 			# Creates red box with offending HTML
-			tell_user 'Wrapping bad html in a PRE with class "markdown-html-error"'
+			tell_user "Wrapping bad html in a PRE with class 'markdown-html-error'\n"+
+				add_tabs(raw_html,1,'|')
 			pre = Element.new('pre')
 			pre.attributes['style'] = 'border: solid 3px red; background-color: pink'
 			pre.attributes['class'] = 'markdown-html-error'

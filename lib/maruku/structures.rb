@@ -73,19 +73,11 @@ module MaRuKu
 # from whichever MDElement in the hierarchy.
 
 class MDElement 
-	# XXX List not complete
-	# Allowed: :document, :paragraph, :ul, :ol, :li, 
-	# :li_span, :strong, :emphasis, :link, :email
+	# See helpers.rb for the list of allowed #node_type values
 	safe_attr_accessor :node_type, Symbol
 	
 	# Children are either Strings or MDElement
 	safe_attr_accessor :children, Array
-	
-	# Hash for metadata
-	# contains :id for :link1
-	# :li :want_my_paragraph
-	#  :header: :level
-	# code, inline_code: :raw_code
 
 
 #	safe_attr_accessor :meta, Hash
@@ -126,6 +118,10 @@ class MDElement
 		(self.node_type == o.node_type) &&
 		(self.meta_priv == o.meta_priv) &&
 		(self.children == o.children)
+		
+		if not ok
+#			puts "This:\n"+self.inspect+"\nis different from\n"+o.inspect+"\n\n"
+		end
 		ok
 	end
 end

@@ -7,8 +7,8 @@ Write a comment abouth the test here.
 >     Ciao
 *** Output of inspect ***
 md_el(:document,[
-	md_el(:quote,[md_par(["Code"]), md_el(:code,[] , {:raw_code=>"Ciao"})] )
-] )
+	md_el(:quote,[md_par(["Code"]), md_el(:code,[],{:raw_code=>"Ciao"},[])],{},[])
+],{},[])
 *** Output of to_html ***
 
 <blockquote>
@@ -25,8 +25,10 @@ Code
 
 \end{quote}
 
-*** Output of to_s ***
+*** Output of to_md ***
 Code
+
+
 *** Output of to_s ***
 Code
 *** EOF ***
@@ -47,13 +49,12 @@ Code
 
 *** Output of Markdown.pl (parsed) ***
 <blockquote>
-  <p>Code</p
-     >
-
+ <p>Code</p
+      >
 <pre
-       ><code>Ciao
+        ><code>Ciao
 </code
-     ></pre
-     >
+      ></pre
+      >
 </blockquote
- >
+  >
