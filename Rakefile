@@ -12,11 +12,11 @@ Rake::GemPackageTask.new($spec) do |pkg|
 end
 
 PKG_NAME = 'maruku'
-PKG_FILE_NAME = "#{PKG_NAME}-#{Maruku::Version}"
+PKG_FILE_NAME = "#{PKG_NAME}-#{MaRuKu::Version}"
 RUBY_FORGE_PROJECT = PKG_NAME
 RUBY_FORGE_USER = 'andrea'
 
-RELEASE_NAME  = Maruku::Version
+RELEASE_NAME  = MaRuKu::Version
 RUBY_FORGE_GROUPID = '2795'
 RUBY_FORGE_PACKAGEID = '3292'
 
@@ -37,6 +37,21 @@ task :release => [:gem, :package] do
 #		system("rubyforge add_file %s %s %s %s" %
 #		[RUBY_FORGE_GROUPID, RUBY_FORGE_PACKAGEID, RELEASE_NAME, file])
   end
+end
+
+require 'rake/rdoctask'
+
+Rake::RDocTask.new do |rdoc|
+     files = [#'README', 'LICENSE', 'COPYING', 
+			'lib/**/*.rb', 
+         'rdoc/*.rdoc'#, 'test/*.rb'
+			]
+     rdoc.rdoc_files.add(files)
+     rdoc.main = "rdoc/main.rdoc" # page to start on
+     rdoc.title = "Maruku Documentation"
+     rdoc.template = "jamis.rb"
+     rdoc.rdoc_dir = 'doc' # rdoc output folder
+     rdoc.options << '--line-numbers' << '--inline-source'
 end
 
 

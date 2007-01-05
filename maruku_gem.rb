@@ -3,7 +3,7 @@ require 'lib/maruku/version'
 
 $spec = Gem::Specification.new do |s|
   s.name = 'maruku'
-  s.version = Maruku::Version
+  s.version = MaRuKu::Version
   s.summary = "A Markdown interpreter in Ruby"
   s.description = %{Maruku is a Markdown interpreter in Ruby.
 	It features native export to HTML and PDF (via Latex). The
