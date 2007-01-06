@@ -136,7 +136,7 @@ module MaRuKu; module In; module Markdown; module SpanLevelParser
 					con.push_char src.shift_char
 				end
 			when ?&
-				if m = src.read_regexp(/&([\w\d]+);/)
+				if m = src.read_regexp(/\&([\w\d]+);/)
 					con.push_element md_entity(m[1])
 				else
 					con.push_char src.shift_char

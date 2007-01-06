@@ -64,7 +64,7 @@ module MaRuKu; module Out; module HTML
 		
 		doc = Document.new(nil,{:respect_whitespace =>:all})
 		doc << div
-		add_whitespace(doc)
+		#add_whitespace(doc)
 		
 		# REXML Bug? if indent!=-1 whitespace is not respected for 'pre' elements
 		# containing code.
@@ -135,7 +135,7 @@ module MaRuKu; module Out; module HTML
 			end
 
 			# render footnotes
-			if @doc.footnotes_order
+			if @doc.footnotes_order.size > 0
 				body << render_footnotes
 			end
 			
@@ -145,7 +145,7 @@ module MaRuKu; module Out; module HTML
 			
 		root << body
 		
-		add_whitespace(doc)
+	#	add_whitespace(doc)
 		doc
 	end
 	
@@ -250,7 +250,6 @@ module MaRuKu; module Out; module HTML
 		m
 	end
 
-	def to_html_paragraph; wrap_as_element('p')                end
 	
 	def to_html_ul
 		if @attributes[:toc]
@@ -258,15 +257,16 @@ module MaRuKu; module Out; module HTML
 			html_toc = @doc.toc.to_html
 			return html_toc
 		else
-			wrap_as_element('ul')               
+			add_ws  wrap_as_element('ul')               
 		end
 	end
 	
 	
-	def to_html_ol;        wrap_as_element('ol')               end
-	def to_html_li;        wrap_as_element('li')               end
-	def to_html_li_span;   wrap_as_element('li')               end
-	def to_html_quote;     wrap_as_element('blockquote')       end
+	def to_html_paragraph; add_ws wrap_as_element('p')                end
+	def to_html_ol;        add_ws wrap_as_element('ol')        end
+	def to_html_li;        add_ws wrap_as_element('li')        end
+	def to_html_li_span;   add_ws wrap_as_element('li')        end
+	def to_html_quote;     add_ws wrap_as_element('blockquote')  end
 	def to_html_strong;    wrap_as_element('strong')           end
 	def to_html_emphasis;  wrap_as_element('em')               end
 
@@ -302,7 +302,7 @@ module MaRuKu; module Out; module HTML
 		if span = render_section_number
 			h.insert_before(h.children.first, span)
 		end
-		h
+		add_ws h
 	end
 
 	def source2html(source)
@@ -436,6 +436,9 @@ module MaRuKu; module Out; module HTML
 		return a
 	end
 	
+	def add_ws(e)
+		[Text.new("\n"), e, Text.new("\n")]
+	end
 ##### Email address
 	
 	def obfuscate(s)

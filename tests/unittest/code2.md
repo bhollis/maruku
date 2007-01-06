@@ -13,9 +13,7 @@ md_el(:document,[
 
 <blockquote>
 <p>Code</p>
-
-<pre><code>Ciao</code></pre>
-</blockquote>
+<pre><code>Ciao</code></pre></blockquote>
 
 *** Output of to_latex ***
 \begin{quote}%

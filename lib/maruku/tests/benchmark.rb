@@ -27,12 +27,16 @@ data = $stdin.read
 
 num = 10
 
+if ARGV.size > 0 && ((n=ARGV[0].to_i) != 0)
+	num = n
+end
+	
 methods = 
 [
 	
 	[Maruku,    :to_html],
-	[BlueCloth, :to_html],
-	[Maruku,    :to_latex]
+#	[BlueCloth, :to_html],
+#	[Maruku,    :to_latex]
 	
 ]
 

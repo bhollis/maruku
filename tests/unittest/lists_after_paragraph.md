@@ -104,11 +104,9 @@ md_el(:document,[
 
 <p>Paragraph (1 space after), list with no space: * ciao</p>
 
-<p>Paragraph (2 spaces after), list with no space:<br />
-* ciao</p>
+<p>Paragraph (2 spaces after), list with no space:<br />* ciao</p>
 
-<p>Paragraph (3 spaces after), list with no space: <br />
-* ciao</p>
+<p>Paragraph (3 spaces after), list with no space: <br />* ciao</p>
 
 <p>Paragraph with block quote:</p>
 
@@ -125,9 +123,7 @@ md_el(:document,[
 <h2 id='header'>header</h2>
 
 <p>Paragraph with html after</p>
-
 <div />
-
 <p>Paragraph with html after, indented: <em>Emphasis</em></p>
 
 <p>Paragraph with html after, indented: <em>Emphasis</em> <em>tralla</em> <em>Emph</em></p>

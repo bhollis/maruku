@@ -239,6 +239,7 @@ module MaRuKu; module Tests
 		["&andrea", ["&andrea"], 'Parsing of entities'],
 # no escaping is allowed
 #			["\\&andrea;", ["&andrea;"]],
+		["l&andrea;", ["l", md_entity('andrea')] ],
 		["&&andrea;", ["&", md_entity('andrea')] ],
 		["&123;;&amp;",[md_entity('123'),';',md_entity('amp')]],
 		

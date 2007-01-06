@@ -27,18 +27,12 @@ md_el(:document,[
 *** Output of to_html ***
 
 <p>This is ruby code:</p>
-
 <pre><code>require &apos;maruku&apos;
 
 puts Maruku.new($stdin).to_html
 </code></pre>
-
 <p>This is ruby code:</p>
-
-<pre class='ruby'><span class='ident'>require</span> <span class='punct'>'</span><span class='string'>maruku</span><span class='punct'>'</span></pre>
-
-<pre><code>puts Maruku.new($stdin).to_html</code></pre>
-
+<pre class='ruby'><span class='ident'>require</span> <span class='punct'>'</span><span class='string'>maruku</span><span class='punct'>'</span></pre><pre><code>puts Maruku.new($stdin).to_html</code></pre>
 *** Output of to_latex ***
 This is ruby code:
 

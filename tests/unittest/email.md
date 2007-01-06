@@ -33,9 +33,9 @@ This is an email address:
 
 
 *** Output of Markdown.pl ***
-<p>This is an email address: <a href="&#109;&#x61;&#105;l&#x74;&#111;:&#x61;&#110;&#x64;&#114;&#x65;&#97;&#64;&#105;&#x6E;&#x76;&#x61;&#108;&#105;&#100;.&#x69;&#116;">&#x61;&#110;&#x64;&#114;&#x65;&#97;&#64;&#105;&#x6E;&#x76;&#x61;&#108;&#105;&#100;.&#x69;&#116;</a></p>
+<p>This is an email address: <a href="&#x6D;a&#x69;&#x6C;&#x74;&#x6F;:&#97;&#x6E;&#100;&#x72;&#x65;&#x61;&#64;&#x69;n&#x76;&#97;&#x6C;&#x69;&#x64;&#x2E;&#x69;t">&#97;&#x6E;&#100;&#x72;&#x65;&#x61;&#64;&#x69;n&#x76;&#97;&#x6C;&#x69;&#x64;&#x2E;&#x69;t</a></p>
 
 *** Output of Markdown.pl (parsed) ***
-<p>This is an email address: <a href='&amp;#109;&amp;#x61;&amp;#105;l&amp;#x74;&amp;#111;:&amp;#x61;&amp;#110;&amp;#x64;&amp;#114;&amp;#x65;&amp;#97;&amp;#64;&amp;#105;&amp;#x6E;&amp;#x76;&amp;#x61;&amp;#108;&amp;#105;&amp;#100;.&amp;#x69;&amp;#116;'>&#x61;&#110;&#x64;&#114;&#x65;&#97;&#64;&#105;&#x6E;&#x76;&#x61;&#108;&#105;&#100;.&#x69;&#116;</a
+<p>This is an email address: <a href='&amp;#x6D;a&amp;#x69;&amp;#x6C;&amp;#x74;&amp;#x6F;:&amp;#97;&amp;#x6E;&amp;#100;&amp;#x72;&amp;#x65;&amp;#x61;&amp;#64;&amp;#x69;n&amp;#x76;&amp;#97;&amp;#x6C;&amp;#x69;&amp;#x64;&amp;#x2E;&amp;#x69;t'>&#97;&#x6E;&#100;&#x72;&#x65;&#x61;&#64;&#x69;n&#x76;&#97;&#x6C;&#x69;&#x64;&#x2E;&#x69;t</a
     ></p
   >

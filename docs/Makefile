@@ -1,9 +1,9 @@
 
-htmls=index.html maruku.html  markdown_syntax.html markdown_extra2.html
+htmls=index.html maruku.html  markdown_syntax.html 
 
-pdfs=markdown_extra2.pdf maruku.pdf proposal.pdf
+pdfs= maruku.pdf proposal.pdf
 
-others=maruku.md style.css markdown_syntax.md markdown_extra2.md proposal.md 
+others=maruku.md style.css markdown_syntax.md  proposal.md 
 
 pdfs+=proposal.pdf
 htmls+=proposal.html

@@ -168,7 +168,7 @@ Search on GoogleSearch on GoogleSearch on GoogleSearch on GoogleSearch on Google
 
 <p>Inline with title: <a href="http://google.com  "Title"">Google images</a></p>
 
-<p>Search on <a href="http://www.gogole.com">http://www.gogole.com</a> or <a href="http://Here.com">http://Here.com</a> or ask <a href="&#x6D;&#x61;i&#108;&#x74;&#111;:&#98;&#105;l&#108;&#64;&#x67;&#111;&#x6F;&#103;&#108;e&#46;&#99;&#111;&#109;">&#98;&#105;l&#108;&#64;&#x67;&#111;&#x6F;&#103;&#108;e&#46;&#99;&#111;&#109;</a>
+<p>Search on <a href="http://www.gogole.com">http://www.gogole.com</a> or <a href="http://Here.com">http://Here.com</a> or ask <a href="&#109;&#x61;&#105;&#x6C;&#x74;o:&#98;&#x69;&#108;l&#64;&#x67;&#111;&#x6F;&#103;&#x6C;&#101;&#46;&#x63;&#111;m">&#98;&#x69;&#108;l&#64;&#x67;&#111;&#x6F;&#103;&#x6C;&#101;&#46;&#x63;&#111;m</a>
 or you might ask bill@google.com.</p>
 
 <p>If all else fails, ask <a href="http://www.google.com">Google</a></p>

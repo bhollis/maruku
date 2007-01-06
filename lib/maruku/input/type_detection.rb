@@ -35,7 +35,9 @@ module MaRuKu; module Strings
 	
 	def line_md_type(l)
 		# The order of evaluation is important (:text is a catch-all)
+		return :text   if l =~ /^[a-zA-Z]/
 		return :code             if number_of_leading_spaces(l)>=4
+		return :empty    if l =~ /^\s*$/
 		return :footnote_text    if l =~ FootnoteText
 		return :ref_definition   if l =~ LinkRegex or l=~ IncompleteLink
 		return :abbreviation     if l =~ Abbreviation
@@ -48,7 +50,6 @@ module MaRuKu; module Strings
 		return :raw_html if l =~ %r{[ ]{0,3}<\!\-\-}
 		return :ulist    if l =~ /^\s?([\*\-\+])\s+.*\w+/
 		return :olist    if l =~ /^\s?\d+\..*\w+/
-		return :empty    if l.strip.size == 0
 		return :header1  if l =~ /^(=)+/ 
 		return :header2  if l =~ /^([-\s])+$/ 
 		return :header3  if l =~ /^(#)+\s*\S+/ 
