@@ -35,8 +35,8 @@ methods =
 [
 	
 	[Maruku,    :to_html],
-#	[BlueCloth, :to_html],
-#	[Maruku,    :to_latex]
+	[BlueCloth, :to_html],
+	[Maruku,    :to_latex]
 	
 ]
 
@@ -70,8 +70,13 @@ methods .map do |c, method|
 	[c, method, parsing, rendering]
 end
 
-for c, method, parsing, rendering in stats
-	puts ("%s (%s): parsing %0.2f sec + rendering %0.2f sec "+
-	"= %0.2f sec ") % [c, method, parsing,rendering,parsing+rendering]
+puts "\n\n\n"
+stats.each do |x| x.push(x[2]+x[3]) end
+max = stats.map{|x|x[4]}.max
+stats.sort! { |x,y| x[4] <=> y[4] } . reverse!
+for c, method, parsing, rendering, tot in stats
+	puts ("%20s: parsing %0.2f sec + rendering %0.2f sec "+
+	"= %0.2f sec   (%0.2fx)") % 
+	["#{c} (#{method})", parsing,rendering,tot,max/tot]
 end
 

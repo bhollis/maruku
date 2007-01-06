@@ -94,8 +94,10 @@ module MaRuKu; module In; module Markdown; module BlockLevelParser
 				when :abbreviation;    output << read_abbreviation(src)
 
 #				# these do not produce output
-#				when :metadata;        just_read_metadata = read_metadata(src)
-					
+				when :metadata;        
+					maruku_error "Please use the new meta-data syntax: \n"+
+					"  http://maruku.rubyforge.org/proposal.html\n", src
+					src.ignore_line
 				# warn if we forgot something
 				else
 					md_type = src.cur_line.md_type

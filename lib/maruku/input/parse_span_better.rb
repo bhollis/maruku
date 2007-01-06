@@ -143,8 +143,8 @@ module MaRuKu; module In; module Markdown; module SpanLevelParser
 				end
 			when ?*
 				if not src.next_char
-					error "Opening * as last char", src, con
-					tell_user "Threating as literal"
+					maruku_error "Opening * as last char.", src, con
+					maruku_recover "Threating as literal"
 					con.push_char src.shift_char
 				else
 					follows = src.cur_chars(4)
@@ -160,8 +160,8 @@ module MaRuKu; module In; module Markdown; module SpanLevelParser
 				end
 			when ?_
 				if not src.next_char
-					error "Opening _ as last char", src, con
-					tell_user "Threating as literal"
+					maruku_error "Opening _ as last char", src, con
+					maruku_recover "Threating as literal", src, con
 					con.push_char src.shift_char
 				else
 					follows = src.cur_chars(4)
@@ -186,12 +186,11 @@ module MaRuKu; module In; module Markdown; module SpanLevelParser
 					con.push_char src.shift_char
 				end
 			when nil
-				error ("Unclosed span (waiting for %s"+
+				maruku_error ("Unclosed span (waiting for %s"+
 				 "#{exit_on_strings.inspect})") % [
 						exit_on_chars ? "#{exit_on_chars.inspect} or" : ""],
 						src,con
 						
-				tell_user "I will boldly  go ahead."
 				break
 			else # normal text
 				con.push_char src.shift_char
@@ -215,9 +214,10 @@ module MaRuKu; module In; module Markdown; module SpanLevelParser
 				#puts "Assigning #{e.ial} to #{before}"
 				before.al = e.ial
 			else
-				maruku_error "This IAL: {#{e.ial.to_md}} seems to refer to a string:\n"+
-					before.inspect
-				tell_user "Ignoring"
+				maruku_error "This IAL: {#{e.ial.to_md}} seems to"+
+					" refer to a string:\n"+
+					before.inspect, src, con
+				maruku_recover "Ignoring IAL: {#{e.ial.to_md}}", src, con
 			end
 		end end
 
@@ -339,8 +339,8 @@ module MaRuKu; module In; module Markdown; module SpanLevelParser
 				s= "String finished while reading (break on "+
 				"#{exit_on_chars.map{|x|""<<x}.inspect})"+
 				" already read: #{text.inspect}"
-				error s, src
-				tell_user "I boldly continue"
+				maruku_error s, src
+				maruku_recover "I boldly continue", src, con
 				break
 			when ?\\
 				d = src.next_char
@@ -427,7 +427,7 @@ module MaRuKu; module In; module Markdown; module SpanLevelParser
 			maruku_error "Bad html: \n" + 
 				add_tabs(e.inspect+e.backtrace.join("\n"),1,'>'),
 				src,con
-			tell_user "I will try to continue after bad HTML."
+			maruku_recover "I will try to continue after bad HTML.", src, con
 			con.push_char src.shift_char
 		end
 	end
@@ -507,9 +507,9 @@ module MaRuKu; module In; module Markdown; module SpanLevelParser
 			src.consume_whitespace
 			closing = src.shift_char # closing )
 			if closing != ?)
-				error 'Unclosed link',src,con
-				tell_user "No closing ): I will not create"+
-				" the link for #{children.inspect}"
+				maruku_error 'Unclosed link',src,con
+				maruku_recover "No closing ): I will not create"+
+				" the link for #{children.inspect}", src, con
 				con.push_elements children
 				return
 			end
@@ -520,7 +520,8 @@ module MaRuKu; module In; module Markdown; module SpanLevelParser
 				con.push_element md_link(children, ref_id)
 			else 
 				maruku_error "Could not read ref_id", src, con
-				tell_user "I will not create the link for #{children.inspect}"
+				maruku_recover "I will not create the link for "+
+					"#{children.inspect}", src, con
 				con.push_elements children
 				return
 			end

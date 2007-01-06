@@ -14,9 +14,9 @@ Last updated **January 2nd, 2007**: integrated topics
 discussed in mailing list.
 
 *Table of contents:*
-> @toc
-> * Table of contents
 
+> * Table of contents
+> {toc}
 
 Overview
 --------
@@ -113,7 +113,6 @@ So this is not legal:
 
 Attribute lists may be indented up to 3 spaces:
 
-@ code_show_spaces
 	Paragraph1
 	 {ok}
 	
@@ -122,6 +121,7 @@ Attribute lists may be indented up to 3 spaces:
 	
 	Paragraph2
 	   {ok}
+{code_show_spaces}
 
 ### For headers ###
 

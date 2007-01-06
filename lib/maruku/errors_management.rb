@@ -45,10 +45,14 @@ module Errors
 		case policy
 		when :ignore 
 		when :raise
-			raise_error describe_error(s,src,con)
+			raise_error create_frame(describe_error(s,src,con))
 		when :warning
-			tell_user describe_error(s,src,con)
+			tell_user create_frame(describe_error(s,src,con))
 		end
+	end
+	
+	def maruku_recover(s,src=nil,con=nil)
+		tell_user create_frame(describe_error(s,src,con))
 	end
 	
 	alias error maruku_error
@@ -58,19 +62,20 @@ module Errors
 	end
 
 	def tell_user(s)
+		error_stream = self.attributes[:error_stream] || $stderr
+		error_stream << s 
+	end
+	
+	def create_frame(s)
 		n = 75
-		(@error_stream || $stderr) <<
+		"\n" +
 		" "+"_"*n << "\n"<<
-		"| Maruku tells you (#{caller[1]})\n" << 
+		"| Maruku tells you:\n" << 
 		"+"+"-"*n +"\n"+
 		add_tabs(s,1,'| ') << "\n" <<
 		"+" << "-"*n << "\n" <<
-		add_tabs(caller[1, 4].join("\n"),1,'!') << "\n" <<
+		add_tabs(caller[0, 5].join("\n"),1,'!') << "\n" <<
 		"\\" << "_"*n << "\n"
-	end
-	
-	def set_error_stream(os)
-		@error_stream = os
 	end
 
 	def describe_error(s,src,con)
