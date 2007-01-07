@@ -13,8 +13,8 @@ Paragraph
 *** Output of inspect ***
 md_el(:document,[
 	md_par(["Paragraph"], [[:ref, "a"]]),
-	md_el(:ald,[],{:ald_id=>"a",:ald=>[[:ref, "b"]]},[]),
-	md_el(:ald,[],{:ald_id=>"b",:ald=>[[:ref, "a"]]},[])
+	md_el(:ald,[],{:ald=>[[:ref, "b"]],:ald_id=>"a"},[]),
+	md_el(:ald,[],{:ald=>[[:ref, "a"]],:ald_id=>"b"},[])
 ],{},[])
 *** Output of to_html ***
 
@@ -46,6 +46,6 @@ Paragraph
 *** Output of Markdown.pl (parsed) ***
 <p>Paragraph
 {a}</p
-    ><p>{a}: b
+   ><p>{a}: b
 {b}: a</p
-  >
+ >

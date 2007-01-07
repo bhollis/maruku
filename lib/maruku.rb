@@ -97,6 +97,7 @@ require 'maruku/input/parse_block'
 # Code for parsing Markdown span-level elements
 require 'maruku/input/charsource'
 require 'maruku/input/parse_span_better'
+require 'maruku/input/rubypants'
 
 require 'maruku/attributes'
 

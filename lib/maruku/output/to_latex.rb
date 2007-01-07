@@ -50,6 +50,7 @@ class MDDocument
 \\hypersetup{colorlinks=true}
 %\\usepackage{ucs}
 %\\usepackage[utf8x]{inputenc}
+\\usepackage{aeguill} % guillemots
 \\begin{document} 
 #{body}
 \\end{document}
@@ -75,6 +76,7 @@ module MaRuKu; module Out; module Latex
 	def to_latex_linebreak; "\\linebreak " end
 	
 	def to_latex_paragraph; 
+		#{}"\\noindent "+
 		children_to_latex+"\n\n"
 	end
 
@@ -297,7 +299,8 @@ module MaRuKu; module Out; module Latex
 	end
 	
 	def to_latex_raw_html
-		'{\bf Raw HTML removed in latex version }'
+		#'{\bf Raw HTML removed in latex version }'
+		""
 	end
 	
 	## Definition lists ###
@@ -371,6 +374,20 @@ module MaRuKu; module Out; module Latex
 				e << h
 			end
 		end
+#		puts "Before: #{e.inspect}"
+		e.each_index do |i|
+			if e[i] =~ /\\\w+\s*$/ # command
+#				puts "Found command: #{e[i].inspect}"
+#				puts "Next is #{e[i+1].inspect}"
+				if (s=e[i+1]) && s[0] == ?\ # space
+#					puts "SPACE for #{e[i+1].inspect}"
+					e[i]  = e[i] + "\\ "
+				end
+			else
+#				puts "Not command: #{e[i].inspect}"
+			end
+		end
+#		puts "After: #{e.inspect}"
 		e.join(join_char)
 	end
 	

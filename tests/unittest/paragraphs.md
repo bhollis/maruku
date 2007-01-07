@@ -70,10 +70,10 @@ Paragraph 5</p>
 
 *** Output of Markdown.pl (parsed) ***
 <p>Paragraph 1</p
-    ><p>Paragraph 2</p
-    ><p>Paragraph 3
+   ><p>Paragraph 2</p
+   ><p>Paragraph 3
 Paragraph 4
-Paragraph Br-> <br
-      />
+Paragraph Br-> <br/
+     >
 Paragraph 5</p
-  >
+ >

@@ -35,5 +35,5 @@ Japanese: マルク
 
 *** Output of Markdown.pl (parsed) ***
 <p>Italian: àèìòù.</p
-    ><p>Japanese: マルク</p
-  >
+   ><p>Japanese: マルク</p
+ >

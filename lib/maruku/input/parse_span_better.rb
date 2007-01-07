@@ -89,8 +89,13 @@ module MaRuKu; module In; module Markdown; module SpanLevelParser
 				# 3) url "<http:// ", "<ftp:// ..."
 				# 4) email "<andrea@... ", "<mailto:andrea@..."
 				# 5) on itself! "a < b	"
+				# 6) Start of <<guillemettes>>
 				
 				case d = src.next_char
+					when ?<;  # guillemettes
+						src.ignore_chars(2)
+						con.push_char ?<
+						con.push_char ?<
 					when ?!; 
 						if src.cur_chars_are '<!--'
 							read_inline_html(src, con)
@@ -98,7 +103,7 @@ module MaRuKu; module In; module Markdown; module SpanLevelParser
 							con.push_char src.shift_char
 						end
 					when ?? 
-						read_server_directive(src, con) 
+						read_xml_instr_span(src, con) 
 					when ?\ , ?\t 
 						con.push_char src.shift_char
 					else
@@ -117,7 +122,13 @@ module MaRuKu; module In; module Markdown; module SpanLevelParser
 				end
 			when ?\\
 				d = src.next_char
-				if escaped.include? d
+				if d == ?'
+					src.ignore_chars(2)
+					con.push_element md_entity('apos')
+				elsif d == ?"
+					src.ignore_chars(2)
+					con.push_element md_entity('quot')
+				elsif escaped.include? d
 					src.ignore_chars(2)
 					con.push_char d
 				else
@@ -236,13 +247,22 @@ module MaRuKu; module In; module Markdown; module SpanLevelParser
 			con.elements.pop if s.size == 0 
 		end
 		
-		con.elements
+		educated = educate(con.elements)
+
+		educated
 	end
 	
-	def read_server_directive(src, con) 
-		delim = "?>"
+	def read_xml_instr_span(src, con) 
+		src.ignore_chars(2) # starting <?
+
+		# read target <?target code... ?>
+		target = if m = src.read_regexp(/(\w+)/)
+			m[1]
+		else
+			''
+		end
 		
-		src.ignore_chars delim.size
+		delim = "?>"
 		
 		code = 
 			read_simple(src, escaped=[], break_on_chars=[], 
@@ -251,7 +271,7 @@ module MaRuKu; module In; module Markdown; module SpanLevelParser
 		src.ignore_chars delim.size
 		
 		code = (code || "").strip
-		con.push_element md_server(code)
+		con.push_element md_xml_instr(target, code)
 	end
 
 	def read_url_el(src,con)
@@ -340,7 +360,7 @@ module MaRuKu; module In; module Markdown; module SpanLevelParser
 				"#{exit_on_chars.map{|x|""<<x}.inspect})"+
 				" already read: #{text.inspect}"
 				maruku_error s, src
-				maruku_recover "I boldly continue", src, con
+				maruku_recover "I boldly continue", src
 				break
 			when ?\\
 				d = src.next_char

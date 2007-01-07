@@ -169,9 +169,9 @@ module Helpers
 		md_el(:ald, [], {:ald_id=>id,:ald=>al})
 	end
 	
-	# Server directive <? code ?>
-	def md_server(code)
-		md_el(:server, [], {:code=>code})
+	# Server directive <?target code... ?>
+	def md_xml_instr(target, code)
+		md_el(:xml_instr, [], {:target=>target, :code=>code})
 	end
 end
 end

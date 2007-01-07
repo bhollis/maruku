@@ -29,8 +29,12 @@ clean:
 
 
 publish: $(htmls) $(others) $(pdfs) 
-	scp $^ andrea@rubyforge.org:/var/www/gforge-projects/maruku/
+	rsync  $^ andrea@rubyforge.org:/var/www/gforge-projects/maruku/
 	
 publish_tests:
-	scp -r ../tests andrea@rubyforge.org:/var/www/gforge-projects/maruku/tests/
+#	scp -r ../tests andrea@rubyforge.org:/var/www/gforge-projects/maruku/tests/
+	rsync --recursive -v ../tests/unittest/  andrea@rubyforge.org:/var/www/gforge-projects/maruku/tests
 	
+publish_doc:
+	rsync --recursive -v ../doc/  andrea@rubyforge.org:/var/www/gforge-projects/maruku/rdoc
+

@@ -90,16 +90,16 @@ Lorem ipsum dolor amet. Lorem ipsum dolor amet. Lorem ipsum dolor amet</li>
 </ul>
 
 *** Output of Markdown.pl (parsed) ***
-<p>Lorem ipsum dolor amet. Lorem ipsum dolor amet. Lorem ipsum dolor amet. Lorem ipsum dolor amet. Lorem ipsum dolor amet. Lorem ipsum dolor amet. Lorem ipsum dolor amet. Break: <br
-      />
+<p>Lorem ipsum dolor amet. Lorem ipsum dolor amet. Lorem ipsum dolor amet. Lorem ipsum dolor amet. Lorem ipsum dolor amet. Lorem ipsum dolor amet. Lorem ipsum dolor amet. Break: <br/
+     >
 Lorem ipsum dolor amet. Lorem ipsum dolor amet. Lorem ipsum dolor amet. Lorem ipsum dolor amet. </p
-    ><ul>
+   ><ul>
 <li>Lorem ipsum dolor amet. Lorem ipsum dolor amet. Lorem ipsum dolor amet. Lorem ipsum dolor amet
-Lorem ipsum Break: <br
-        />
+Lorem ipsum Break: <br/
+       >
 Lorem ipsum dolor amet. Lorem ipsum dolor amet. Lorem ipsum dolor amet</li
-      >
+     >
 <li>Lorem ipsum dolor amet. Lorem ipsum dolor amet. Lorem ipsum dolor amet. Lorem ipsum dolor amet</li
-      >
+     >
 </ul
-  >
+ >

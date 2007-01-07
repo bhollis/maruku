@@ -27,7 +27,7 @@ md_el(:document,[
 		md_em(["emphasis"], [[:ref, "hello"], [:ref, "notfound"]]),
 		md_ial([[:ref, "hello"], [:ref, "notfound"]])
 	], [[:id, "par2"]]),
-	md_el(:ald,[],{:ald_id=>"hello",:ald=>[[:class, "chello"]]},[])
+	md_el(:ald,[],{:ald=>[[:class, "chello"]],:ald_id=>"hello"},[])
 ],{},[])
 *** Output of to_html ***
 
@@ -77,13 +77,13 @@ Header with attributesHeader with attributesHeader no attributesParagraph with e
 <p>{hello}: .chello</p>
 
 *** Output of Markdown.pl (parsed) ***
-<h2>Header with attributes {#header1} </h2
-    ><h3>Header with attributes ### {#header2}</h3
-    ><h3>Header no attributes</h3
-    ><p>{warn2}Paragraph with a.
+<h2>Header with attributes  {#header1}  </h2
+   ><h3>Header with attributes ###  {#header2}</h3
+   ><h3>Header no attributes</h3
+   ><p>{warn2}Paragraph with a.
 {#par1}</p
-    ><p>Paragraph with <em>emphasis</em
-      >{hello notfound}
- {#par2}</p
-    ><p>{hello}: .chello</p
-  >
+   ><p>Paragraph with <em>emphasis</em
+     >{hello notfound}
+   {#par2}</p
+   ><p>{hello}: .chello</p
+ >

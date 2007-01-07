@@ -20,13 +20,13 @@ md_el(:document,[
 			md_el(:definition_data,[
 				"Pomaceous fruit of plants of the genus Malus in the family Rosaceae."
 			],{},[])
-		],{:definitions=>[md_el(:definition_data,[
+		],{:want_my_paragraph=>false,:definitions=>[md_el(:definition_data,[
 			"Pomaceous fruit of plants of the genus Malus in the family Rosaceae."
-		],{},[])],:terms=>[md_el(:definition_term,["Apple"],{},[])],:want_my_paragraph=>false},[]),
+		],{},[])],:terms=>[md_el(:definition_term,["Apple"],{},[])]},[]),
 		md_el(:definition,[
 			md_el(:definition_term,["Orange"],{},[]),
 			md_el(:definition_data,["The fruit of an evergreen tree of the genus Citrus."],{},[])
-		],{:definitions=>[md_el(:definition_data,["The fruit of an evergreen tree of the genus Citrus."],{},[])],:terms=>[md_el(:definition_term,["Orange"],{},[])],:want_my_paragraph=>false},[])
+		],{:want_my_paragraph=>false,:definitions=>[md_el(:definition_data,["The fruit of an evergreen tree of the genus Citrus."],{},[])],:terms=>[md_el(:definition_term,["Orange"],{},[])]},[])
 	],{},[])
 ],{},[])
 *** Output of to_html ***
@@ -63,9 +63,9 @@ ApplePomaceous fruit of plants of the genus Malus in the family Rosaceae.OrangeT
 
 *** Output of Markdown.pl (parsed) ***
 <p>CSS: style.css</p
-    ><p>Apple
-: Pomaceous fruit of plants of the genus Malus in 
- the family Rosaceae.</p
-    ><p>Orange
-: The fruit of an evergreen tree of the genus Citrus.</p
-  >
+   ><p>Apple
+:   Pomaceous fruit of plants of the genus Malus in 
+    the family Rosaceae.</p
+   ><p>Orange
+:   The fruit of an evergreen tree of the genus Citrus.</p
+ >

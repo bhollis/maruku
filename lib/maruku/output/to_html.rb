@@ -604,7 +604,18 @@ module MaRuKu; module Out; module HTML
 	
 	def to_html_entity 
 		entity_name = self.entity_name
-		Text.new('&%s;' % [entity_name])
+		if entity_name.kind_of? Fixnum
+#			Entity.new(entity_name)
+			Text.new('&#%d;' % [entity_name],  false, nil, true)
+		else
+			Text.new('&%s;' % [entity_name])
+		end
+	end
+
+	def to_html_xml_instr
+		target = self.target || ''
+		code = self.code || ''
+		REXML::Instruction.new(target, code)
 	end
 
 	# Convert each child to html

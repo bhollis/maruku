@@ -21,7 +21,15 @@
 
 
 class String
-	alias inspect_more inspect
+	def inspect_more(a=nil,b=nil)
+		inspect
+	end
+end
+
+class Object
+	def inspect_more(a=nil,b=nil)
+		inspect
+	end
 end
 
 class Array
@@ -37,7 +45,7 @@ class Array
 end
 
 class Hash
-	def inspect_ordered
+	def inspect_ordered(a=nil,b=nil)
 		"{"+map{|k,v| k.inspect + "=>"+v.inspect}.join(',')+"}"
 	end
 end

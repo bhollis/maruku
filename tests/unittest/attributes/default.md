@@ -10,7 +10,7 @@ Paragraph2
 *** Output of inspect ***
 md_el(:document,[
 	md_par(["Paragraph2"], [[:id, "2"]]),
-	md_el(:ald,[],{:ald_id=>"paragraph",:ald=>[[:class, "maruku-par"]]},[])
+	md_el(:ald,[],{:ald=>[[:class, "maruku-par"]],:ald_id=>"paragraph"},[])
 ],{},[])
 *** Output of to_html ***
 
@@ -43,5 +43,5 @@ Paragraph2
 *** Output of Markdown.pl (parsed) ***
 <p>Paragraph2 
 {#2}</p
-    ><p>{paragraph}: .maruku-par</p
-  >
+   ><p>{paragraph}: .maruku-par</p
+ >

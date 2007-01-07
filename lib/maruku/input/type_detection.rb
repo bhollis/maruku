@@ -46,6 +46,7 @@ module MaRuKu; module Strings
 		# line that were mistaken for raw_html
 		return :text     if l=~EMailAddress or l=~ URL
 		# raw html is like PHP Markdown Extra: at most three spaces before
+		return :xml_instr if l =~ %r{^\s*<\?}
 		return :raw_html if l =~ %r{^[ ]?[ ]?[ ]?</?\s*\w+}
 		return :raw_html if l =~ %r{[ ]{0,3}<\!\-\-}
 		return :ulist    if l =~ /^\s?([\*\-\+])\s+.*\w+/

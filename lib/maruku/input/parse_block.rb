@@ -43,39 +43,38 @@ module MaRuKu; module In; module Markdown; module BlockLevelParser
 				when :empty; 
 					src.ignore_line
 				when :ial
-					src.shift_line =~ /\s*\{([^\}]*)\}\s*/ 
-					al = $1
-					al = read_attribute_list(CharSource.new(al), context=nil, break_on=[nil])
-					if not output.empty? 
-						output.last.al = al
+					m =  /\s*\{([^\}]*)\}\s*/.match src.shift_line
+					al = read_attribute_list(CharSource.new(m[1]), context=nil, break_on=[nil])
+					if last = output.last 
+						last.al = al
 					else
-						maruku_error "An attribute list at beginning of context {#{al.to_md}}"
-						tell_user "I will ignore this AL: {#{al.to_md}}"
+						maruku_error "An attribute list at beginning of context {#{al.to_md}}", src
+						maruku_recover "I will ignore this AL: {#{al.to_md}}", src
 					end
 				when :ald
-					output << read_ald(src)
+					output.push read_ald(src)
 				when :text
 					if src.cur_line =~ MightBeTableHeader and 
 						(src.next_line && src.next_line =~ TableSeparator)
-						output << read_table(src)
+						output.push read_table(src)
 					elsif [:header1,:header2].include? src.next_line.md_type
-						output << read_header12(src)
+						output.push read_header12(src)
 					elsif eventually_comes_a_def_list(src)
 					 	definition = read_definition(src)
 						if output.last && output.last.node_type == :definition_list
 							output.last.children << definition
 						else
-							output << md_el(:definition_list, [definition])
+							output.push md_el(:definition_list, [definition])
 						end
 					else # Start of a paragraph
-						output << read_paragraph(src)
+						output.push read_paragraph(src)
 					end
 				when :header2, :hrule
 					# hrule
 					src.shift_line
-					output << md_hrule()
+					output.push md_hrule()
 				when :header3
-					output << read_header3(src)
+					output.push read_header3(src)
 				when :ulist, :olist
 					list_type = src.cur_line.md_type == :ulist ? :ul : :ol
 					li = read_list_item(src)
@@ -83,37 +82,27 @@ module MaRuKu; module In; module Markdown; module BlockLevelParser
 					if output.last && output.last.node_type == list_type
 						output.last.children << li
 					else
-						output << md_el(list_type, [li])
+						output.push md_el(list_type, [li])
 					end
-				when :quote;    output << read_quote(src)
+				when :quote;    output.push read_quote(src)
 				when :code;     e = read_code(src); output << e if e
 				when :raw_html; e = read_raw_html(src); output << e if e
 
-				when :footnote_text;   output << read_footnote_text(src)
-				when :ref_definition;  output << read_ref_definition(src)
-				when :abbreviation;    output << read_abbreviation(src)
-
+				when :footnote_text;   output.push read_footnote_text(src)
+				when :ref_definition;  output.push read_ref_definition(src)
+				when :abbreviation;    output.push read_abbreviation(src)
+				when :xml_instr;       output.push read_xml_instruction(src)
 #				# these do not produce output
 				when :metadata;        
 					maruku_error "Please use the new meta-data syntax: \n"+
 					"  http://maruku.rubyforge.org/proposal.html\n", src
 					src.ignore_line
-				# warn if we forgot something
-				else
+				else # warn if we forgot something
 					md_type = src.cur_line.md_type
 					line = src.cur_line
 					maruku_error "Ignoring line '#{line}' type = #{md_type}", src
 					src.shift_line
 			end
-
-# FIXME			
-#			if current_metadata and output.last
-#				output.last.meta.merge! current_metadata
-#				current_metadata = nil
-#				puts "meta for #{output.last.node_type}\n #{output.last.meta.inspect}"
-#			end
-#			current_metadata = just_read_metadata
-#			just_read_metadata = nil
 		end
 		
 		# See for each list if we can omit the paragraphs and use li_span
@@ -186,7 +175,24 @@ module MaRuKu; module In; module Markdown; module BlockLevelParser
 		return md_header(level, text, al)
 	end
 
-
+	def read_xml_instruction(src)
+		m = /^\s*<\?((\w+)\s*)?(.*)$/.match src.shift_line
+		raise "BugBug" if not m
+		target = m[2] || ''
+		code = m[3]
+		until code =~ /\?>/
+			code += "\n"+src.shift_line
+		end
+		if not code =~ (/\?>\s*$/)
+			garbage = (/\?>(.*)$/.match(code))[1]
+			maruku_error "Trailing garbage on last line: #{garbage.inspect}:\n"+
+				add_tabs(code, 1, '|'), src
+		end
+		code.gsub!(/\?>\s*$/, '')
+		
+		return md_xml_instr(target, code)
+	end
+	
 	def read_raw_html(src)
 		h = HTMLHelper.new
 		begin 
@@ -210,7 +216,7 @@ module MaRuKu; module In; module Markdown; module BlockLevelParser
 		while src.cur_line 
 			# :olist does not break
 			case t = src.cur_line.md_type
-				when :quote,:header3,:empty,:raw_html,:ref_definition,:ial
+				when :quote,:header3,:empty,:raw_html,:ref_definition,:ial,:xml_instr
 					break
 				when :olist,:ulist
 					break if src.next_line.md_type == t

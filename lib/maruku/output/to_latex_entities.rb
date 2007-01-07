@@ -35,7 +35,7 @@ module MaRuKu; module Out; module Latex
 #			puts "#{entity_name} -> #{replace.inspect}"
 			return replace
 		else
-			$stderr.puts "Cannot translate #{entity_name}"
+			tell_user "Cannot translate entity #{entity_name.inspect} to LaTeX."
 			return entity_name
 		end
 	end
@@ -51,10 +51,14 @@ module MaRuKu; module Out; module Latex
 				num =  c.attributes['num']
 				name =  c.attributes['name']
 				convert =  c.attributes['convertTo']
+				if convert =~ /^\\/
+					convert += " "
+				end
+				convert.freeze
 				@@entity_to_latex["#{num}"] = convert
-				@@entity_to_latex["#{name}"] = convert
+				@@entity_to_latex["#{name}"] = convert 
 			end
-#			puts @@entity_to_latex.inspect
+			puts @@entity_to_latex['raquot'].inspect
 			$conversion_table_inited = true
 		end
 	end
@@ -196,7 +200,9 @@ module MaRuKu; module Out; module Latex
 	  <char num='9829' name='hearts' convertTo='$\\heartsuit$' />
 	  <char num='9830' name='diams' convertTo='$\\diamondsuit$' />                                     
 	  <char num='38' name='amp' convertTo='\\@AMP' />    
-	  <char num='34' name='quot' convertTo='@DOUBLEQUOT' />
+<!--	  <char num='34' name='quot' convertTo='\\@DOUBLEQUOT' />  XXX -->
+	<char num='34' name='quot' convertTo='\"' /> 
+	<char num='39' name='apos' convertTo=\"'\" /> 
 	  <char num='169' name='copy' convertTo='\\copyright' />
 
 	  <char num='60' name='lt' convertTo='$@LT$' />
@@ -212,9 +218,9 @@ module MaRuKu; module Out; module Latex
 	  <char num='8211' name='ndash' convertTo='--' />
 	  <char num='8212' name='mdash' convertTo='---' />
 	  <char num='8216' name='lsquo' convertTo='`' />
-	  <char num='8217' name='rsquo' convertTo='@QUOT' />
+	  <char num='8217' name='rsquo' convertTo=\"'\" /> <!-- XXXX -->
 	  <char num='8220' name='ldquo' convertTo='``' />
-	  <char num='8221' name='rdquo' convertTo='@QUOT@QUOT' />
+	  <char num='8221' name='rdquo' convertTo=\"''\" /> <!-- XXXX -->
 	  <char num='8224' name='dagger' convertTo='\\dag' />
 	  <char num='8225' name='Dagger' convertTo='\\ddag' />
 	  <char num='8240' name='permil' convertTo='\\permil' /> <!-- wasysym package -->

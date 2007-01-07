@@ -71,8 +71,11 @@ module MaRuKu; module In; module Markdown; module BlockLevelParser
 			expand_attribute_list(e.al, e.attributes)
 #			puts "#{e.node_type}: #{e.attributes.inspect}"
 		end
-		
+	
+		self.execute_code_blocks
+				
 #		puts self.inspect
+
 	end
 	
 	# Expands an attribute list in an Hash
@@ -111,6 +114,28 @@ module MaRuKu; module In; module Markdown; module BlockLevelParser
 		end
 	end
 
+	def execute_code_blocks
+		self.each_element(:xml_instr) do |e|
+			if e.target == 'maruku'
+				puts e.attributes.inspect
+				code = e.code
+				result = nil
+				begin
+					 e.instance_eval(code)
+				rescue Exception => e
+					maruku_error "Exception while executing this:\n"+
+						add_tabs(code, 1, ">")+
+						"\nThe error was:\n"+
+						add_tabs(e.inspect+"\n"+e.caller.join("\n"), 1, "|")
+					next
+				end
+				if result.kind_of?(String)
+					puts "Result is : #{result.inspect}"
+				end
+			end
+		end
+	end
+	
 	def search_abbreviations
 		self.abbreviations.each do |abbrev, title|
 			reg = Regexp.new(Regexp.escape(abbrev))

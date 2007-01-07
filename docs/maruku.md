@@ -1,5 +1,5 @@
 CSS: style.css
-LaTeX_use_listings: true
+LaTeX_use_listings: false
 html_use_syntax: true
 use_numbered_headers: true
 

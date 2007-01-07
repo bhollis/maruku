@@ -21,14 +21,15 @@
 
 
 class Module
-	def safe_attr_accessor2(symbol, klass)
+	def safe_attr_accessor1(symbol, klass)
 		attr_reader symbol
 		code = <<-EOF
 		def #{symbol}=(val)  
 			if not val.kind_of? #{klass}
-				s = "Could not assign an object of type \#{val.class} to #{symbol}.\n"
-				s += "Tried to assign\n\#{val.inspect}\nto #{symbol} of object\n"
-				s += "\#{self.inspect}"
+				s = "Could not assign an object of type \#{val.class} to #{symbol}.\n\n"
+				s += "Tried to assign object of class \#{val.class}:\n"+
+				     "\#{val.inspect}\n"+
+				     "to \#{self.class}::#{symbol} constrained to be of class #{klass}.\n\n"
 				raise s
 			end
 			@#{symbol} = val
@@ -38,9 +39,11 @@ EOF
 		module_eval code
   end
 
-	def safe_attr_accessor(symbol, klass)
+	def safe_attr_accessor2(symbol, klass)
 		attr_accessor symbol
 	end
+	
+	alias  safe_attr_accessor  safe_attr_accessor1
 end
 
 module MaRuKu
