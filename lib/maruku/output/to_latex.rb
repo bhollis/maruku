@@ -24,6 +24,13 @@ module MaRuKu
 class MDDocument
 
 	
+
+	def latex_require_package(p)
+		if not self.latex_required_packages.include? p
+			self.latex_required_packages.push p
+		end
+	end
+
 	# Render as a LaTeX fragment 
 	def to_latex
 		children_to_latex
@@ -33,16 +40,24 @@ class MDDocument
 	def to_latex_document
 		header = ""
 		
-		if @doc.attributes[:latex_use_listings]
-			header += "\\usepackage{listings}\n"
-		end
+
 
 		body = to_latex
 		
 		body += render_latex_signature
 
+		required = 
+		self.latex_required_packages.map {|p|
+			"\\usepackage{#{p}}\n"
+		}.join
+		
 "\\documentclass{article}
 #{header}
+
+#{required}
+%\\usepackage{amssymb,amsmath} % eth
+%\\usepackage{eurosym} % euro
+
 \\usepackage{hyperref}
 \\usepackage{xspace}
 \\usepackage[usenames,dvipsnames]{color}
@@ -50,7 +65,6 @@ class MDDocument
 \\hypersetup{colorlinks=true}
 %\\usepackage{ucs}
 %\\usepackage[utf8x]{inputenc}
-\\usepackage{aeguill} % guillemots
 \\begin{document} 
 #{body}
 \\end{document}
@@ -90,12 +104,14 @@ module MaRuKu; module Out; module Latex
 		if s =~ /^\#(\w\w)(\w\w)(\w\w)$/
 			r = $1.hex; g = $2.hex; b=$3.hex				
 			# convert from 0-255 to 0.0-1.0
-			r = r / 255.0 
-			g = g / 255.0 
-			b = b / 255.0 
-			
+			r = r / 255.0; g = g / 255.0; b = b / 255.0; 
 			"\\#{command}[rgb]{%0.2f,%0.2f,%0.2f}" % [r,g,b]
-		else
+		elsif s =~ /^\#(\w)(\w)(\w)$/
+			r = $1.hex; g = $2.hex; b=$3.hex				
+			# convert from 0-255 to 0.0-1.0
+			r = r / 15.0; g = g / 15.0; b = b / 15.0; 
+			"\\#{command}[rgb]{%0.2f,%0.2f,%0.2f}" % [r,g,b]
+		else	
 			"\\#{command}{#{s}}"
 		end
 	end
@@ -104,6 +120,8 @@ module MaRuKu; module Out; module Latex
 		raw_code = self.raw_code
 		
 		if @doc.attributes[:latex_use_listings]
+			@doc.latex_require_package('listings')
+				
 			s = "\\lstset{columns=fixed,frame=shadowbox}"
 
 			show_spaces = get_setting(:code_show_spaces) 

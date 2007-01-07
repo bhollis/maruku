@@ -224,7 +224,8 @@ module MaRuKu; module Tests
 		["a<!--", :throw, 'Bad HTML Comment'],
 		["a<!-- ", :throw, 'Bad HTML Comment'],
 
-		["<? <?!--!`3  ?>", [md_server('<?!--!`3')], 'Server directive'],
+		["<?xml <?!--!`3  ?>", [md_xml_instr('xml','<?!--!`3')], 'XML processing instruction'],
+		["<? <?!--!`3  ?>", [md_xml_instr('','<?!--!`3')] ],
 
 		["<? ", :throw, 'Bad Server directive'],
 

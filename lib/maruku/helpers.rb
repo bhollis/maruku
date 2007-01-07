@@ -32,7 +32,7 @@ module Helpers
 
 	def md_el(node_type, children=[], meta={}, al=nil)
 		e = MDElement.new(node_type, children, meta, al)
-		e.doc = self
+		e.doc = @doc
 		return e
 	end
 

@@ -227,7 +227,7 @@ module MaRuKu; module Out; module HTML
 	end
 
 
-	def to_html_hrule; Element.new 'hr' end
+	def to_html_hrule; create_html_element 'hr' end
 	def to_html_linebreak; Element.new 'br' end
 
 	# renders children as html and wraps into an element of given name

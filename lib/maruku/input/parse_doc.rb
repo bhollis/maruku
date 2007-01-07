@@ -128,6 +128,16 @@ module MaRuKu; module In; module Markdown; module BlockLevelParser
 						"\nThe error was:\n"+
 						add_tabs(e.inspect+"\n"+e.caller.join("\n"), 1, "|")
 					next
+				rescue RuntimeError => e
+					maruku_error "2: Exception while executing this:\n"+
+						add_tabs(code, 1, ">")+
+						"\nThe error was:\n"+
+						add_tabs(e.inspect, 1, "|")
+				rescue SyntaxError => e
+					maruku_error "2: Exception while executing this:\n"+
+						add_tabs(code, 1, ">")+
+						"\nThe error was:\n"+
+						add_tabs(e.inspect, 1, "|")
 				end
 				if result.kind_of?(String)
 					puts "Result is : #{result.inspect}"

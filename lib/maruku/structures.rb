@@ -26,10 +26,10 @@ class Module
 		code = <<-EOF
 		def #{symbol}=(val)  
 			if not val.kind_of? #{klass}
-				s = "Could not assign an object of type \#{val.class} to #{symbol}.\n\n"
+				s = "\nCould not assign an object of type \#{val.class} to #{symbol}.\n\n"
 				s += "Tried to assign object of class \#{val.class}:\n"+
 				     "\#{val.inspect}\n"+
-				     "to \#{self.class}::#{symbol} constrained to be of class #{klass}.\n\n"
+				     "to \#{self.class}::#{symbol} constrained to be of class #{klass}.\n"
 				raise s
 			end
 			@#{symbol} = val
@@ -144,6 +144,8 @@ class MDDocument
 	# The order in which footnotes are used. Contains the id.
 	safe_attr_accessor :footnotes_order, Array
 	
+	safe_attr_accessor :latex_required_packages, Array
+	
 	def initialize(s=nil)
 		super(:document)
 		@doc       = self
@@ -153,6 +155,7 @@ class MDDocument
 		self.footnotes_order = []
 		self.abbreviations = {}
 		self.ald = {}
+		self.latex_required_packages = []
 		
 		parse_doc(s) if s 
 	end

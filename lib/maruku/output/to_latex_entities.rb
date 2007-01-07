@@ -25,14 +25,22 @@ module MaRuKu; module Out; module Latex
 	
 	include REXML
 	
+	
 	def to_latex_entity 
 		entity_name = self.entity_name
+	
+		entity = ENTITY_TABLE[entity_name]
+		replace = entity.latex_string
 		
-		MDElement.init_tables
+		entity.latex_packages.each do |p|
+			@doc.latex_require_package p
+		end
 		
-		replace = @@entity_to_latex[entity_name]
+		if replace =~ /^\\/
+			replace = replace + " "
+		end
+		
  		if replace
-#			puts "#{entity_name} -> #{replace.inspect}"
 			return replace
 		else
 			tell_user "Cannot translate entity #{entity_name.inspect} to LaTeX."
@@ -40,28 +48,41 @@ module MaRuKu; module Out; module Latex
 		end
 	end
 	
+	class LatexEntity
+		safe_attr_accessor :html_num, Fixnum
+		safe_attr_accessor :html_entity, String
+		safe_attr_accessor :latex_string, String
+		safe_attr_accessor :latex_packages, Array
+	end
 	
 	# create hash @@entity_to_latex
-	def MDElement.init_tables
-		## why can't I use a class variable?
-		if not $conversion_table_inited
-			doc = Document.new XML_TABLE
-			@@entity_to_latex = {}
-			doc.elements.each("//char") do |c| 
-				num =  c.attributes['num']
-				name =  c.attributes['name']
-				convert =  c.attributes['convertTo']
-				if convert =~ /^\\/
-					convert += " "
-				end
-				convert.freeze
-				@@entity_to_latex["#{num}"] = convert
-				@@entity_to_latex["#{name}"] = convert 
-			end
-			puts @@entity_to_latex['raquot'].inspect
-			$conversion_table_inited = true
+	def Latex.init_entity_table
+		doc = Document.new XML_TABLE
+		doc.elements.each("//char") do |c| 
+			num =  c.attributes['num'].to_i
+			name =  c.attributes['name']
+			package =  c.attributes['package']
+			
+			convert =  c.attributes['convertTo']
+			convert.gsub!(/@DOUBLEQUOT/,'"')
+			convert.gsub!(/@QUOT/,"'")
+			convert.gsub!(/@GT/,">")
+			convert.gsub!(/@LT/,"<")
+			convert.gsub!(/@AMP/,"&")
+			convert.freeze
+			
+			e = LatexEntity.new
+			e.html_num = num
+			e.html_entity = name
+			e.latex_string = convert
+			e.latex_packages = package ? package.split : []
+			
+			ENTITY_TABLE[num] = e
+			ENTITY_TABLE[name] = e
 		end
 	end
+	
+	ENTITY_TABLE = {}
 
 # The following is a conversion chart for html elements, courtesy of 
 # text2html 
@@ -168,7 +189,7 @@ module MaRuKu; module Out; module Latex
 	  <char num='8745' name='cup' convertTo='$\\cup$' />
 	  <char num='8746' name='cap' convertTo='$\\cap$' />
 	  <char num='8747' name='int' convertTo='$\\int$' />
-	  <char num='8756' name='there4' convertTo='$\\therefore$' /> <!-- only AMS -->
+	  <char num='8756' name='there4' convertTo='$\\therefore$' package='amssymb' /> <!-- only AMS -->
 	  <char num='8764' name='sim' convertTo='$\\sim$' />
 	  <char num='8776' name='asymp' convertTo='$\\approx$' />
 	  <char num='8773' name='cong' convertTo='$\\cong$' />
@@ -179,9 +200,9 @@ module MaRuKu; module Out; module Latex
 	  <char num='8805' name='ge' convertTo='$\\geq$' />
 	  <char num='8834' name='sub' convertTo='$\\subset$' />
 	  <char num='8835' name='sup' convertTo='$\\supset$' />
-	  <char num='8838' name='sube' convertTo='$\\subseteq$' />
+<!--	  <char num='8838' name='sube' convertTo='$\\subseteq$' />-->
 	  <char num='8839' name='supe' convertTo='$\\supseteq$' />
-	  <char num='8836' name='nsub' convertTo='$\\nsubset$' /> <!-- only AMS -->
+<!--	  <char num='8836' name='nsub' convertTo='$\\nsubset$'  /> <!-- only AMS -->
 
 	  <char num='8853' name='oplus' convertTo='$\\oplus$' />
 	  <char num='8855' name='otimes' convertTo='$\\otimes$' />
@@ -194,7 +215,7 @@ module MaRuKu; module Out; module Latex
 	  <char num='9001' name='rang' convertTo='$\\rangle$' />
 
 	  <char num='9002' name='lang' convertTo='$\\langle$' />
-	  <char num='9674' name='loz' convertTo='$\\lozenge$' /> <!-- only AMS -->
+	  <char num='9674' name='loz' convertTo='$\\lozenge$' package='amssymb' /> <!-- only AMS -->
 	  <char num='9824' name='spades' convertTo='$\\spadesuit$' />
 	  <char num='9827' name='clubs' convertTo='$\\clubsuit$' />
 	  <char num='9829' name='hearts' convertTo='$\\heartsuit$' />
@@ -223,26 +244,27 @@ module MaRuKu; module Out; module Latex
 	  <char num='8221' name='rdquo' convertTo=\"''\" /> <!-- XXXX -->
 	  <char num='8224' name='dagger' convertTo='\\dag' />
 	  <char num='8225' name='Dagger' convertTo='\\ddag' />
-	  <char num='8240' name='permil' convertTo='\\permil' /> <!-- wasysym package -->
+	  <char num='8240' name='permil' convertTo='\\permil' package='wasysym' /> <!-- wasysym package -->
 
-	  <char num='8364' name='euro' convertTo='\\euro' /> <!-- eurosym package -->
-	  <char num='8249' name='lsaquo' convertTo='\\guilsinglleft' />
-	  <char num='8250' name='rsaquo' convertTo='\\guilsinglright' />
+	  <char num='8364' name='euro' convertTo='\\euro' package='eurosym' /> <!-- eurosym package -->
+	  <char num='8249' name='lsaquo' convertTo='\\guilsinglleft' package='aeguill'/>
+	  <char num='8250' name='rsaquo' convertTo='\\guilsinglright' package='aeguill' />
 <!--	  <char num='160' name='nbsp' convertTo='\\nolinebreak' />-->
 	  <char num='160' name='nbsp' convertTo='~' />
 	  <char num='161' name='iexcl' convertTo='\\textexclamdown' />
 	  <char num='163' name='pound' convertTo='\\pounds' />
-	  <char num='164' name='curren' convertTo='\\currency' /> <!-- wasysym package -->
-	  <char num='165' name='yen' convertTo='\\textyen' /> <!-- textcomp -->
+	  <char num='164' name='curren' convertTo='\\currency' package='wasysym' /> <!-- wasysym package -->
+	  <char num='165' name='yen' convertTo='\\textyen' package='textcomp'/> <!-- textcomp -->
 
 	  <char num='166' name='brvbar' convertTo='\\brokenvert' /> <!-- wasysym -->
 	  <char num='167' name='sect' convertTo='\\S' />
-	  <char num='171' name='laquo' convertTo='\\guillemotleft' />
-	  <char num='187' name='raquo' convertTo='\\guillemotright' />
+	  <char num='171' name='laquo' convertTo='\\guillemotleft' package='aeguill'/>
+	  <char num='187' name='raquo' convertTo='\\guillemotright' package='aeguill'/>
 	  <char num='174' name='reg' convertTo='\\textregistered' />
 	  <char num='170' name='ordf' convertTo='\\textordfeminine' />
 	  <char num='172' name='not' convertTo='$\\neg$' />
-	  <char num='176' name='deg' convertTo='$\\degree$' /> <!-- mathabx -->
+	<!--  <char num='176' name='deg' convertTo='$\\degree$' /> <!-- mathabx -->
+	  <char num='176' name='deg' convertTo='\\textdegree' package='textcomp'/>
 
 	  <char num='177' name='plusmn' convertTo='$\\pm$' />
 	  <char num='180' name='acute' convertTo='@QUOT' />
@@ -250,14 +272,14 @@ module MaRuKu; module Out; module Latex
 	  <char num='182' name='para' convertTo='\\P' />
 	  <char num='183' name='middot' convertTo='$\\cdot$' />
 	  <char num='186' name='ordm' convertTo='\\textordmasculine' />
-	  <char num='162' name='cent' convertTo='\\cent' /> <!-- wasysym -->
+	  <char num='162' name='cent' convertTo='\\cent' package='wasysym' /> 
 	  <char num='185' name='sup1' convertTo='$^1$' />
 
 	  <char num='178' name='sup2' convertTo='$^2$' />
 	  <char num='179' name='sup3' convertTo='$^3$' />
 	  <char num='189' name='frac12' convertTo='$\\frac{1}{2}$' />
 	  <char num='188' name='frac14' convertTo='$\\frac{1}{4}$' />
-	  <char num='190' name='frac34' convertTo='$\\frac{3}{4}' />
+	  <char num='190' name='frac34' convertTo='$\\frac{3}{4}$' />
 	  <char num='192' name='Agrave' convertTo='\\`A' />
 	  <char num='193' name='Aacute' convertTo='\\@QUOTA' />
 	  <char num='194' name='Acirc' convertTo='\\^A' />
@@ -266,7 +288,7 @@ module MaRuKu; module Out; module Latex
 	  <char num='196' name='Auml' convertTo='\\@DOUBLEQUOTA' />
 	  <char num='197' name='Aring' convertTo='\\AA' />
 	  <char num='198' name='AElig' convertTo='\\AE' />
-	  <char num='199' name='Ccedil' convertTo='\\cC' />
+	  <char num='199' name='Ccedil' convertTo='\\c{C}' />
 	  <char num='200' name='Egrave' convertTo='\\`E' />
 	  <char num='201' name='Eacute' convertTo='\\@QUOTE' />
 	  <char num='202' name='Ecirc' convertTo='\\^E' />
@@ -278,7 +300,7 @@ module MaRuKu; module Out; module Latex
 	  <char num='208' name='ETH' convertTo='$\\eth$' /> <!-- AMS -->
 	  <char num='209' name='Ntilde' convertTo='\\~N' />    
 	  <char num='210' name='Ograve' convertTo='\\`O' />
-	  <char num='211' name='Oacute' convertTo='\\@QUOTO' />
+	  <char num='211' name='Oacute' convertTo='\\@QUOT O' />
 	  <char num='212' name='Ocirc' convertTo='\\^O' />
 	  <char num='213' name='Otilde' convertTo='\\~O' />
 	  <char num='214' name='Ouml' convertTo='\\@DOUBLEQUOTO' />
@@ -289,7 +311,6 @@ module MaRuKu; module Out; module Latex
 	  <char num='219' name='Ucirc' convertTo='\\^U' />
 	  <char num='220' name='Uuml' convertTo='\\@DOUBLEQUOTU' />
 	  <char num='221' name='Yacute' convertTo='\\@QUOTY' />
-	  <char num='222' name='THORN' convertTo='\\Thorn' />    <!-- wasysym -->
 	  <char num='223' name='szlig' convertTo='\\ss' />
 	  <char num='224' name='agrave' convertTo='\\`a' />
 	  <char num='225' name='aacute' convertTo='\\@QUOTa' />
@@ -298,7 +319,7 @@ module MaRuKu; module Out; module Latex
 	  <char num='228' name='auml' convertTo='\\@DOUBLEQUOTa' />
 	  <char num='229' name='aring' convertTo='\\aa' />
 	  <char num='230' name='aelig' convertTo='\\ae' />
-	  <char num='231' name='ccedil' convertTo='\\cc' />
+	  <char num='231' name='ccedil' convertTo='\\c{c}' />
 	  <char num='232' name='egrave' convertTo='\\`e' />
 	  <char num='233' name='eacute' convertTo='\\@QUOTe' />
 	  <char num='234' name='ecirc' convertTo='\\^e' />
@@ -307,23 +328,28 @@ module MaRuKu; module Out; module Latex
 	  <char num='237' name='iacute' convertTo='\\@QUOTi' />
 	  <char num='238' name='icirc' convertTo='\\^i' />
 	  <char num='239' name='iuml' convertTo='\\@DOUBLEQUOTi' />
-	  <char num='240' name='eth' convertTo='$\\eth$' /> <!-- -->
+	  <char num='240' name='eth' convertTo='$\\eth$' package='amssymb'/> <!-- -->
 	  <char num='241' name='ntilde' convertTo='\\~n' />
 	  <char num='242' name='ograve' convertTo='\\`o' />
 	  <char num='243' name='oacute' convertTo='\\@QUOTo' />
 	  <char num='244' name='ocirc' convertTo='\\^o' />
 	  <char num='245' name='otilde' convertTo='\\~o' />
 	  <char num='246' name='ouml' convertTo='\\@DOUBLEQUOTo' />
-	  <char num='247' name='divide' convertTo='$\\divide$' />       
+<!--   <char num='247' name='divide' convertTo='$\\divide$' />       -->
 	  <char num='248' name='oslash' convertTo='\\o' /> 
 	  <char num='249' name='ugrave' convertTo='\\`u' />
 	  <char num='250' name='uacute' convertTo='\\@QUOTu' />
 	  <char num='251' name='ucirc' convertTo='\\^u' />
 	  <char num='252' name='uuml' convertTo='\\@DOUBLEQUOTu' />
 	  <char num='253' name='yacute' convertTo='\\@QUOTy' />
-	  <char num='254' name='thorn' convertTo='\\thorn' /> <!-- wasysym -->
+
 	  <char num='255' name='yuml' convertTo='\\@DOUBLEQUOTy' />                  
+
+		<char num='222' name='THORN' convertTo='\\Thorn' package='wasysym' /> 
+		<char num='254' name='thorn' convertTo='\\thorn' package='wasysym' />
 	</chars>"
+	
+	init_entity_table
 
 end end end
 

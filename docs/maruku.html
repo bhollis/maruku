@@ -154,11 +154,11 @@ Maruku (to_latex):   parsing 0.49 sec + rendering 0.25 sec = 0.73 sec</code></pr
 <p>The development site is <a href='http://rubyforge.org/projects/maruku/'>http://rubyforge.org/projects/maruku/</a>.</p>
 
 <p>Install with:</p>
-<pre class='shell' style='background-color: #efefff;'>$ gem install maruku</pre>
+<pre class='sh' style='background-color: #efefff;'>$ gem install maruku</pre>
 <p>Released files can also be seen at <a href='http://rubyforge.org/frs/?group_id=2795'>http://rubyforge.org/frs/?group_id=2795</a>.</p>
 
 <p>Anonymous access to the repository is possible with:</p>
-<pre class='shell' style='background-color: #efefff;'>$ svn checkout svn://rubyforge.org/var/svn/maruku</pre>
+<pre class='sh' style='background-color: #efefff;'>$ svn checkout svn://rubyforge.org/var/svn/maruku</pre>
 <p>If you want commit access to the repository, just create an account on Rubyforge and <a href='http://www.dis.uniroma1.it/~acensi/contact.html'>drop me a mail</a>.</p>
 
 <h3 id='bugs_report'><span class='maruku_section_number'>2.1. </span>Bugs report</h3>
@@ -184,11 +184,11 @@ Maruku (to_latex):   parsing 0.49 sec + rendering 0.25 sec = 0.73 sec</code></pr
 <ul>
 <li>
 <p><code>maruku</code> converts Markdown to HTML:</p>
-<pre class='shell' style='background-color: #efefff;'>$ maruku file.md  # creates file.html</pre></li>
+<pre class='sh' style='background-color: #efefff;'>$ maruku file.md  # creates file.html</pre></li>
 
 <li>
 <p><code>marutex</code> converts Markdown to LaTeX, then calls <code>pdflatex</code> to transform to PDF:</p>
-<pre class='shell' style='background-color: #efefff;'>$ marutex file.md  # creates file.tex and file.pdf</pre></li>
+<pre class='sh' style='background-color: #efefff;'>$ marutex file.md  # creates file.tex and file.pdf</pre></li>
 </ul>
 
 <h2 id='extra'><span class='maruku_section_number'>4. </span>Examples of PHP Markdown Extra syntax</h2>
@@ -196,15 +196,15 @@ Maruku (to_latex):   parsing 0.49 sec + rendering 0.25 sec = 0.73 sec</code></pr
 <ul>
 <li>
 <p>tables</p>
-<pre class='markdown' style='background-color: #ffefef;'>Col1 | Very very long head | Very very long head|
+<pre style='background-color: #ffefef;'><code>Col1 | Very very long head | Very very long head|
 -----|:-------------------:|-------------------:|
-cell | center-align        | right-align        |</pre><table><thead><tr><th>Col1</th><th>Very very long head</th><th>Very very long head</th></tr></thead><tbody><tr><td style='text-align: left;'>cell</td><td style='text-align: center;'>center-align</td><td style='text-align: right;'>right-align</td></tr></tbody></table></li>
+cell | center-align        | right-align        |</code></pre><table><thead><tr><th>Col1</th><th>Very very long head</th><th>Very very long head</th></tr></thead><tbody><tr><td style='text-align: left;'>cell</td><td style='text-align: center;'>center-align</td><td style='text-align: right;'>right-align</td></tr></tbody></table></li>
 
 <li>
 <p>footnotes <sup id='fnref:1'><a href='#fn:1' rel='footnote'>1</a></sup></p>
-<pre class='markdown' style='background-color: #ffefef;'>* footnotes [^foot]
+<pre style='background-color: #ffefef;'><code>* footnotes [^foot]
 
-[^foot]: I really was missing those.</pre></li>
+[^foot]: I really was missing those.</code></pre></li>
 </ul>
 
 <ul>
@@ -218,14 +218,14 @@ cell | center-align        | right-align        |</pre><table><thead><tr><th>Col
 
 <li>
 <p>header ids</p>
-<pre class='markdown' style='background-color: #ffefef;'>## Download ##     {#download}</pre>
+<pre style='background-color: #ffefef;'><code>## Download ##     {#download}</code></pre>
 <p>For example, <a href='#download'>a link to the download</a> header.</p>
 </li>
 
 <li>
 <p>definition lists</p>
-<pre class='markdown' style='background-color: #ffefef;'>Definition list
-: something very hard to parse</pre><dl><dt>Definition list</dt><dd>something very hard to parse</dd></dl></li>
+<pre style='background-color: #ffefef;'><code>Definition list
+: something very hard to parse</code></pre><dl><dt>Definition list</dt><dd>something very hard to parse</dd></dl></li>
 
 <li>
 <p>abbreviations or <abbr title='Simply an abbreviation'>ABB</abbr> for short.</p>
@@ -263,10 +263,11 @@ cell | center-align        | right-align        |</pre><table><thead><tr><th>Col
 <h3 id='metadata_for_the_document'><span class='maruku_section_number'>6.2. </span>Meta-data for the document</h3>
 
 <p>Meta-data for the document itself is specified through the use of email headers:</p>
-<pre class='markdown' style='background-color: #ffefef;'>Title: A simple document containing meta-headers
+<pre style='background-color: #ffefef;'><code>Title: A simple document containing meta-headers
 CSS: style.css
 
-Content of the document</pre>
+Content of the document
+</code></pre>
 <p>When creating the document through</p>
 <pre class='ruby' style='background-color: #efffef;'><span class='constant'>Maruku</span><span class='punct'>.</span><span class='ident'>new</span><span class='punct'>(</span><span class='ident'>s</span><span class='punct'>).</span><span class='ident'>to_html_document</span></pre>
 <p>the title and stylesheet are added as expected.</p>
@@ -316,11 +317,11 @@ Content of the document</pre>
 <h3 id='examples'><span class='maruku_section_number'>6.4. </span>Examples</h3>
 
 <p>An example of this is the following:</p>
-<pre class='markdown' style='background-color: #ffefef;'>	 One space
+<pre style='background-color: #ffefef;'><code>	 One space
 	  Two spaces
 		 	Tab, space, tab
 				Tab, tab, tab and all is green!
-{code_show_spaces code_background_color=#ffeedd}</pre>
+{code_show_spaces code_background_color=#ffeedd}</code></pre>
 <p>That will produce:</p>
 <pre style='background-color: #ffeedd;'><code>&not;One&not;space
 &not;&not;Two&not;spaces
@@ -368,4 +369,4 @@ $ \alpha = \beta + \gamma  $        (eq:1)
 
 This is a reference to equation: please see (eq:1)</code></pre><div class='footnotes'><hr /><ol><li id='fn:1'>
 <p>I really was missing those.</p>
-<a href='#fnref:1' rev='footnote'>&#8617;</a></li></ol></div><div class='maruku_signature'><hr /><span style='font-size: small; font-style: italic'>Created by <a href='http://maruku.rubyforge.org' title='Maruku: a Markdown interpreter'>Maruku</a> at 01:50 on Sunday, January 07th, 2007.</span></div></body></html>
+<a href='#fnref:1' rev='footnote'>&#8617;</a></li></ol></div><div class='maruku_signature'><hr /><span style='font-size: small; font-style: italic'>Created by <a href='http://maruku.rubyforge.org' title='Maruku: a Markdown interpreter'>Maruku</a> at 00:18 on Monday, January 08th, 2007.</span></div></body></html>

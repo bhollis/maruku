@@ -21,7 +21,7 @@
 
 module MaRuKu
 module Defaults
-	DEFAULT_CODE_COLOR = '#ffaaff'
+	DEFAULT_CODE_COLOR = '#fef'
 	
 	DefaultAttributes = <<EOF
 

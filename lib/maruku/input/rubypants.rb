@@ -148,8 +148,8 @@ module MaRuKu; module In; module Markdown; module SpanLevelParser
 		['. . .', :hellip         ],
 		["``",    :ldquo          ],
 		["''",    :rdquo          ],
-#		[/<<\s/,  [:laquo, :nbsp] ],
-#		[/\s>>/,  [:nbsp, :raquo] ],
+		[/<<\s/,  [:laquo, :nbsp] ],
+		[/\s>>/,  [:nbsp, :raquo] ],
 		[/<</,    :laquo          ],
 		[/>>/,    :raquo          ],
 		
