@@ -590,6 +590,12 @@ module MaRuKu; module Out; module HTML
 	
 	def to_html_entity 
 		entity_name = self.entity_name
+		
+		# Fix for Internet Explorer
+		if entity_name == 'apos'
+			entity_name = 39
+		end
+		
 		if entity_name.kind_of? Fixnum
 #			Entity.new(entity_name)
 			Text.new('&#%d;' % [entity_name],  false, nil, true)
