@@ -1,6 +1,6 @@
 Write a comment abouth the test here.
 *** Parameters: ***
-{:archive=>false, :date=>"Nov 20 2006", :inmenu=>true, :subject_short=>"painless software", :subject=>"Software not painful to use", :order=>"-9.5", :topic=>"/misc/coolsw"}
+{:subject_short=>"painless software", :order=>"-9.5", :date=>"Nov 20 2006", :subject=>"Software not painful to use", :topic=>"/misc/coolsw", :archive=>false, :inmenu=>true}
 *** Markdown input: ***
 Subject: Software not painful to use
 Subject_short: painless software
@@ -367,9 +367,9 @@ md_el(:document,[
 Python 2.4.1 (\#1, Jun  4 2005, 00:54:33) 
 Type &quot;help&quot;, &quot;copyright&quot;, &quot;credits&quot; or &quot;license&quot; for more information.
 &gt;&gt;&gt; exit
-&apos;Use Ctrl-D (i.e. EOF) to exit.&apos;
+&#39;Use Ctrl-D (i.e. EOF) to exit.&#39;
 &gt;&gt;&gt; quit
-&apos;Use Ctrl-D (i.e. EOF) to exit.&apos;</code></pre></li>
+&#39;Use Ctrl-D (i.e. EOF) to exit.&#39;</code></pre></li>
 
 <li>
 <p><em>Java IDE</em>: <a href='http://www.borland.com/us/products/jbuilder/index.html'>JBuilder</a> is great software and has a free version (IMHO better than Eclipse). Java is not a pain anymore since it gained <a href='http://java.sun.com/j2se/1.5.0/docs/guide/language/generics.html'>generics</a> and got opensourced.</p>

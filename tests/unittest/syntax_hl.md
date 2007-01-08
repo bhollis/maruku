@@ -27,7 +27,7 @@ md_el(:document,[
 *** Output of to_html ***
 
 <p>This is ruby code:</p>
-<pre><code>require &apos;maruku&apos;
+<pre><code>require &#39;maruku&#39;
 
 puts Maruku.new($stdin).to_html
 </code></pre>
