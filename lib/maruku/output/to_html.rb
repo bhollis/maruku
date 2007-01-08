@@ -322,12 +322,6 @@ module MaRuKu; module Out; module HTML
 				
 				html = convertor.convert( source )
 			
-				show_spaces = get_setting(:code_show_spaces) 
-				if show_spaces
-					s.gsub!(/\t/,'&raquo;'+'&nbsp;'*3)
-					s.gsub!(/ /,'&not;')
-				end
-			
 				pre = Document.new(html, {:respect_whitespace =>:all}).root
 				pre.attributes['class'] = lang
 				pre
@@ -358,6 +352,7 @@ module MaRuKu; module Out; module HTML
 		
 		s  = s.gsub(/&/,'&amp;')
 		s = Text.normalize(s)
+		s  = s.gsub(/\'/,'&#39;') # IE bug
 
 		show_spaces = get_setting(:code_show_spaces) 
 		if show_spaces

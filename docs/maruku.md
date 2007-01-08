@@ -46,7 +46,7 @@ is Japanese, and also the sillable "ru" appears in Maruku.
 [katakana]: http://en.wikipedia.org/wiki/Katakana
 
 [tests]: http://maruku.rubyforge.org/tests/
-[maruku]: <http://maruku.rubyforge.org/>
+[maruku]: http://maruku.rubyforge.org/
 [markdown_html]: http://maruku.rubyforge.org/markdown_syntax.html
 [markdown_pdf]: http://maruku.rubyforge.org/markdown_syntax.pdf
 [this_md]: http://maruku.rubyforge.org/maruku.md
