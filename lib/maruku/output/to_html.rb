@@ -352,7 +352,8 @@ module MaRuKu; module Out; module HTML
 		
 		s  = s.gsub(/&/,'&amp;')
 		s = Text.normalize(s)
-		s  = s.gsub(/\'/,'&#39;') # IE bug
+		s  = s.gsub(/\&apos;/,'&#39;') # IE bug
+		s  = s.gsub(/'/,'&#39;') # IE bug
 
 		show_spaces = get_setting(:code_show_spaces) 
 		if show_spaces
@@ -360,7 +361,7 @@ module MaRuKu; module Out; module HTML
 			s.gsub!(/ /,'&not;')
 		end
 
-		text = Text.new(s, true, nil, false )
+		text = Text.new(s, respect_ws=true, parent=nil, raw=true )
 		
 		code << text
 		pre

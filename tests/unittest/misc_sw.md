@@ -1,6 +1,6 @@
 Write a comment abouth the test here.
 *** Parameters: ***
-{:topic=>"/misc/coolsw", :date=>"Nov 20 2006", :archive=>false, :inmenu=>true, :subject=>"Software not painful to use", :order=>"-9.5", :subject_short=>"painless software"}
+{:archive=>false, :date=>"Nov 20 2006", :inmenu=>true, :subject_short=>"painless software", :subject=>"Software not painful to use", :order=>"-9.5", :topic=>"/misc/coolsw"}
 *** Markdown input: ***
 Subject: Software not painful to use
 Subject_short: painless software
