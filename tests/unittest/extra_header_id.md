@@ -53,7 +53,7 @@ md_el(:document,[
 
 Then you can create links to different parts of the same document like this:
 
-, , 
+\hyperlink{header1}{Link back to header 1}, \hyperlink{header2}{Link back to header 2}, \hyperlink{header3}{Link back to header 3}
 
 
 *** Output of to_md ***

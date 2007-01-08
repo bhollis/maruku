@@ -46,7 +46,8 @@ end
 
 class Hash
 	def inspect_ordered(a=nil,b=nil)
-		"{"+map{|k,v| k.inspect + "=>"+v.inspect}.join(',')+"}"
+		"{"+keys.map{|x|x.to_s}.sort.map{|x|x.to_sym}.
+		map{|k| k.inspect + "=>"+self[k].inspect}.join(',')+"}"
 	end
 end
 

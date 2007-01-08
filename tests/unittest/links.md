@@ -107,15 +107,15 @@ Search on \href{http://www.google.com}{Google}
 
 Search on \href{http://images.google.com}{Google images}
 
-Inline: 
+Inline: \href{http://google.com}{Google images}
 
-Inline with title: 
+Inline with title: \href{http://google.com}{Google images}
 
-Inline with title: 
+Inline with title: \href{http://google.com}{Google images}
 
-Search on \href{http://www.gogole.com}{http://www.gogole.com} or \href{http://Here.com}{http://Here.com} or ask \href{mailto:bill@google.com}{\char98\char105\char108\char108\char64\char103\char111\char111\char103\char108\char101\char46\char99\char111\char109} or you might ask bill@google.com.
+Search on  or  or ask \href{mailto:bill@google.com}{\char98\char105\char108\char108\char64\char103\char111\char111\char103\char108\char101\char46\char99\char111\char109} or you might ask bill@google.com.
 
-If all else fails, ask 
+If all else fails, ask \href{http://www.google.com}{Google}
 
 
 *** Output of to_md ***
@@ -168,7 +168,7 @@ Search on GoogleSearch on GoogleSearch on GoogleSearch on GoogleSearch on Google
 
 <p>Inline with title: <a href="http://google.com  "Title"">Google images</a></p>
 
-<p>Search on <a href="http://www.gogole.com">http://www.gogole.com</a> or <a href="http://Here.com">http://Here.com</a> or ask <a href="&#x6D;&#x61;&#105;&#108;&#x74;&#111;:&#x62;&#x69;&#x6C;&#x6C;&#64;&#103;&#111;&#x6F;&#x67;&#x6C;&#101;.&#99;&#x6F;&#x6D;">&#x62;&#x69;&#x6C;&#x6C;&#64;&#103;&#111;&#x6F;&#x67;&#x6C;&#101;.&#99;&#x6F;&#x6D;</a>
+<p>Search on <a href="http://www.gogole.com">http://www.gogole.com</a> or <a href="http://Here.com">http://Here.com</a> or ask <a href="&#109;&#97;&#x69;&#108;&#116;&#x6F;:&#x62;&#x69;&#x6C;&#x6C;&#64;&#103;&#111;&#x6F;&#x67;&#108;&#x65;&#46;&#x63;&#111;&#x6D;">&#x62;&#x69;&#x6C;&#x6C;&#64;&#103;&#111;&#x6F;&#x67;&#108;&#x65;&#46;&#x63;&#111;&#x6D;</a>
 or you might ask bill@google.com.</p>
 
 <p>If all else fails, ask <a href="http://www.google.com">Google</a></p>

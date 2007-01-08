@@ -48,11 +48,11 @@ Hello: ! ! ` \{ \} [ ] ( ) \# . ! * * *
 
 Ora, {\em emphasis}, {\bf bold}, * {\tt \char60}- due asterischi-{\tt \char62} * , un underscore-{\tt \char62} \_ , {\em emphasis}, incre{\em dible}e!
 
-This is \colorbox[rgb]{1.00,0.67,1.00}{\tt \char67\char111\char100\char101\char32\char119\char105\char116\char104\char32\char97\char32\char115\char112\char101\char99\char105\char97\char108\char58\char32\char45\char62\char32\char96\char32\char60\char45}(after)
+This is \colorbox[rgb]{1.00,0.93,1.00}{\tt \char67\char111\char100\char101\char32\char119\char105\char116\char104\char32\char97\char32\char115\char112\char101\char99\char105\char97\char108\char58\char32\char45\char62\char32\char96\char32\char60\char45}(after)
 
-\colorbox[rgb]{1.00,0.67,1.00}{\tt \char83\char116\char97\char114\char116\char32} of paragraph
+\colorbox[rgb]{1.00,0.93,1.00}{\tt \char83\char116\char97\char114\char116\char32} of paragraph
 
-End of \colorbox[rgb]{1.00,0.67,1.00}{\tt \char112\char97\char114\char97\char103\char114\char97\char112\char104\char32}
+End of \colorbox[rgb]{1.00,0.93,1.00}{\tt \char112\char97\char114\char97\char103\char114\char97\char112\char104\char32}
 
 
 *** Output of to_md ***

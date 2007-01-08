@@ -1,23 +1,52 @@
-css: style.css
 
-Release notes - version 0.3.0 (January 3rd, 2007)
--------------------------------------------------
+#### Changes in 0.4.1 aka "Typographer" ####
 
-Note: Maruku seems to be very robust, nevertheless it is still beta-level
-software. So if you want to use it in production environments, please 
-check back in a month or so, while we squash the remaining bugs.
+*	Implemented SmartyPants support:
 
-In the meantime, feel free to toy around, and please signal problems,
-request features, by [contacting me][contact] or using the [tracker][tracker]. 
-For issues about the Markdown syntax itself and improvements to it, 
-please write to the [Markdown-discuss mailing list][markdown-discuss].
+		'Twas a "test" to 'remember' -- in the '90s 
+		--- while I was <<ok>>. She was 6\"12\'.
+	> 'Twas a "test" to 'remember' -- in the '90s --- while I was <<ok>>.
+	> She was 6\"12\'.
 
-Have fun!
+	I adapted the code from RubyPants.
+	
+*	Server directives between `<? ?>` are properly preserved.
+*	Changes in LaTeX export:
 
-Changes in 0.3.0:
+	*	Now Japanese text rendering sort of works, using the following packages:
+
+			\usepackage[C40]{fontenc}
+			\usepackage[cjkjis]{ucs}
+			\usepackage[utf8x]{inputenc}
+		
+		Nevertheless, I could only get bitmap fonts working -- probably it's a problem
+		with my setup.
+
+		A quick test: 日本、中国、ひらがな、カタカナ。
+
+	*	Fixed bugs in rendering of immediate links.
+	*	External packages are `require`d only if needed.
+	*	More symbols supported.
+		See the symbol list 
+		[in HTML](http://maruku.rubyforge.org/entity_test.html) and
+		[in PDF](http://maruku.rubyforge.org/entity_test.pdf).
+
+
+#### Changes in 0.4 ####
+
+* First implementation of [the new meta-data syntax][meta].
+* General refactorization of the code and much cleaner error reporting.
+* Created [the RDOC documentation][rdoc].
+* The `add_whitespace` method took too much time -- it was O(n^2).
+* Added unit-tests for block-level elements.
+
+[rdoc]: http://maruku.rubyforge.org/rdoc/
+[meta]: http://maruku.rubyforge.org/proposal.html
+
+#### Changes in 0.3 ####
 
 *	A real parser is used instead of a regexp-based system, also for span-level 
-	elements..
+	elements.
 
 	Now Maruku is almost 2x faster than Bluecloth, while having more features.
 
@@ -76,9 +105,9 @@ Immediate TODO-list:
 
 *	Support for images in PDF.
 
+#### Changes in 0.2.13 ####
 
-[proposal]: http://maruku.rubyforge.org/
-[contact]: http://www.dis.uniroma1.it/~acensi/contact.html
-[markdown-discuss]: http://six.pairlist.net/mailman/listinfo/markdown-discuss
-[tracker]: http://rubyforge.org/tracker/?group_id=2795
-
+- better handling of inline HTML code.
+- Handle HTML comments.
+- Sanitizes HR and IMG tags if you don't close them.
+- documentation included in HTML format

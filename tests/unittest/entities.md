@@ -63,11 +63,11 @@ Maruku translates HTML entities to the equivalent in \LaTeX\xspace :
 \begin{tabular}{l|l}
 Entity&Result\\
 \hline 
-\colorbox[rgb]{1.00,0.67,1.00}{\tt \char38\char99\char111\char112\char121\char59}&\copyright\\
-\colorbox[rgb]{1.00,0.67,1.00}{\tt \char38\char112\char111\char117\char110\char100\char59}&\pounds\\
-\colorbox[rgb]{1.00,0.67,1.00}{\tt \char97\char38\char110\char98\char115\char112\char59\char98}&a~b\\
-\colorbox[rgb]{1.00,0.67,1.00}{\tt \char38\char108\char97\char109\char98\char100\char97\char59}&$\lambda$\\
-\colorbox[rgb]{1.00,0.67,1.00}{\tt \char38\char109\char100\char97\char115\char104\char59}&---\\
+\colorbox[rgb]{1.00,0.93,1.00}{\tt \char38\char99\char111\char112\char121\char59}&\copyright \\
+\colorbox[rgb]{1.00,0.93,1.00}{\tt \char38\char112\char111\char117\char110\char100\char59}&\pounds \\
+\colorbox[rgb]{1.00,0.93,1.00}{\tt \char97\char38\char110\char98\char115\char112\char59\char98}&a~b\\
+\colorbox[rgb]{1.00,0.93,1.00}{\tt \char38\char108\char97\char109\char98\char100\char97\char59}&$\lambda$\\
+\colorbox[rgb]{1.00,0.93,1.00}{\tt \char38\char109\char100\char97\char115\char104\char59}&---\\
 \end{tabular}
 
 Entity-substitution does not happen in code blocks or inline code.
@@ -76,7 +76,7 @@ The following should not be translated:
 
 \begin{verbatim}&copy;
 \end{verbatim}
-It should read just like this: \colorbox[rgb]{1.00,0.67,1.00}{\tt \char38\char99\char111\char112\char121\char59}.
+It should read just like this: \colorbox[rgb]{1.00,0.93,1.00}{\tt \char38\char99\char111\char112\char121\char59}.
 
 
 *** Output of to_md ***
@@ -97,81 +97,10 @@ Maruku translates HTML entities to the equivalent in LaTeX:EntityResultabEntity-
 
 
 
-
-Failed tests:   [:to_latex] 
-
-*** Output of inspect ***
-md_el(:document,[
-	md_par(["Maruku translates HTML entities to the equivalent in LaTeX:"]),
-	md_el(:table,[
-		md_el(:head_cell,["Entity"],{},[]),
-		md_el(:head_cell,["Result"],{},[]),
-		md_el(:cell,[md_code("&copy;")],{},[]),
-		md_el(:cell,[md_entity("copy")],{},[]),
-		md_el(:cell,[md_code("&pound;")],{},[]),
-		md_el(:cell,[md_entity("pound")],{},[]),
-		md_el(:cell,[md_code("a&nbsp;b")],{},[]),
-		md_el(:cell,["a", md_entity("nbsp"), "b"],{},[]),
-		md_el(:cell,[md_code("&lambda;")],{},[]),
-		md_el(:cell,[md_entity("lambda")],{},[]),
-		md_el(:cell,[md_code("&mdash;")],{},[]),
-		md_el(:cell,[md_entity("mdash")],{},[])
-	],{:align=>[:left, :left]},[]),
-	md_par([
-		"Entity-substitution does not happen in code blocks or inline code."
-	]),
-	md_par(["The following should not be translated:"]),
-	md_el(:code,[],{:raw_code=>"&copy;\n"},[]),
-	md_par(["It should read just like this: ", md_code("&copy;"), "."])
-],{},[])
-*** Output of to_html ***
-
-<p>Maruku translates HTML entities to the equivalent in LaTeX:</p>
-<table><thead><tr><th>Entity</th><th>Result</th></tr></thead><tbody><tr><td style='text-align: left;'><code>&amp;copy;</code></td><td style='text-align: left;'>&copy;</td></tr><tr><td style='text-align: left;'><code>&amp;pound;</code></td><td style='text-align: left;'>&pound;</td></tr><tr><td style='text-align: left;'><code>a&amp;nbsp;b</code></td><td style='text-align: left;'>a&nbsp;b</td></tr><tr><td style='text-align: left;'><code>&amp;lambda;</code></td><td style='text-align: left;'>&lambda;</td></tr><tr><td style='text-align: left;'><code>&amp;mdash;</code></td><td style='text-align: left;'>&mdash;</td></tr></tbody></table>
-<p>Entity-substitution does not happen in code blocks or inline code.</p>
-
-<p>The following should not be translated:</p>
-<pre><code>&amp;copy;
-</code></pre>
-<p>It should read just like this: <code>&amp;copy;</code>.</p>
-
-*** Output of to_latex ***
------| WARNING | -----
-Maruku translates HTML entities to the equivalent in \LaTeX\xspace :
-
-\begin{tabular}{l|l}
-Entity&Result\\
-\hline 
-\colorbox[rgb]{1.00,0.67,1.00}{\tt \char38\char99\char111\char112\char121\char59}&\copyright \\
-\colorbox[rgb]{1.00,0.67,1.00}{\tt \char38\char112\char111\char117\char110\char100\char59}&\pounds \\
-\colorbox[rgb]{1.00,0.67,1.00}{\tt \char97\char38\char110\char98\char115\char112\char59\char98}&a~b\\
-\colorbox[rgb]{1.00,0.67,1.00}{\tt \char38\char108\char97\char109\char98\char100\char97\char59}&$\lambda$\\
-\colorbox[rgb]{1.00,0.67,1.00}{\tt \char38\char109\char100\char97\char115\char104\char59}&---\\
-\end{tabular}
-
-Entity-substitution does not happen in code blocks or inline code.
-
-The following should not be translated:
-
-\begin{verbatim}&copy;
-\end{verbatim}
-It should read just like this: \colorbox[rgb]{1.00,0.67,1.00}{\tt \char38\char99\char111\char112\char121\char59}.
+	OK!
 
 
-*** Output of to_md ***
-Maruku translates HTML entities to the
-equivalent in LaTeX:
 
-EntityResultabEntity-substitution does not happen in
-code blocks or inline code.
-
-The following should not be translated:
-
-It should read just like this: .
-
-
-*** Output of to_s ***
-Maruku translates HTML entities to the equivalent in LaTeX:EntityResultabEntity-substitution does not happen in code blocks or inline code.The following should not be translated:It should read just like this: .
 *** Output of Markdown.pl ***
 <p>Maruku translates HTML entities to the equivalent in LaTeX:</p>
 

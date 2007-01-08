@@ -21,6 +21,7 @@
 
 require 'iconv'
 
+
 module MaRuKu; module In; module Markdown; module BlockLevelParser
 		
 	def parse_doc(s)
@@ -31,10 +32,20 @@ module MaRuKu; module In; module Markdown; module BlockLevelParser
 		
 		self.attributes.merge! meta2
 		
+=begin maruku_doc
+Attribute: encoding
+Scope:     document
+Summary:   Encoding for the document.
+
+If the `encoding` attribute is specified, then the content
+will be converted from the specified encoding to UTF-8.
+
+Conversion happens using the `iconv` library.
+=end
+
 		enc = self.attributes[:encoding]
 		self.attributes.delete :encoding
 		if enc && enc.downcase != 'utf-8'
-#			puts "Converting from #{enc} to UTF-8."
 			converted = Iconv.new('utf-8', enc).iconv(data)
 			
 #			puts "Data: #{data.inspect}: #{data}"
@@ -72,10 +83,18 @@ module MaRuKu; module In; module Markdown; module BlockLevelParser
 #			puts "#{e.node_type}: #{e.attributes.inspect}"
 		end
 	
-		self.execute_code_blocks
-				
-#		puts self.inspect
+=begin maruku_doc
+Attribute: exec
+Scope:     document
+Summary:   Enables execution of XML instructions.
 
+Disabled by default because of security concerns.
+=end
+
+		if Maruku::Globals[:unsafe_features]
+			self.execute_code_blocks
+			# TODO: remove executed code blocks
+		end
 	end
 	
 	# Expands an attribute list in an Hash

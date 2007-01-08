@@ -40,8 +40,6 @@ class REXML::Element
 	 public :write_children 
 end
 
-
-
 # This module groups all functions related to HTML export.
 module MaRuKu; module Out; module HTML
 	include REXML
@@ -64,7 +62,6 @@ module MaRuKu; module Out; module HTML
 		
 		doc = Document.new(nil,{:respect_whitespace =>:all})
 		doc << div
-		#add_whitespace(doc)
 		
 		# REXML Bug? if indent!=-1 whitespace is not respected for 'pre' elements
 		# containing code.
@@ -98,7 +95,7 @@ module MaRuKu; module Out; module HTML
 		root = Element.new('html', doc)
 		root.add_namespace('http://www.w3.org/1999/xhtml')
 		
-		lang = @attributes[:lang] || 'en'
+		lang = self.attributes[:lang] || 'en'
 		root.attributes['lang'] = lang
 		root.attributes['xml:lang'] = lang
 		
@@ -110,15 +107,12 @@ module MaRuKu; module Out; module HTML
 			me.attributes['content'] = 'text/html; charset=utf-8'	
 		
 			# Create title element
-			doc_title = @attributes[:title] || @attributes[:subject] || ""
+			doc_title = self.attributes[:title] || self.attributes[:subject] || ""
 			title = Element.new 'title', head
 				title << Text.new(doc_title)
 				
-			# Encoding
 			
-			
-			
-			css = @attributes[:css]
+			css = self.attributes[:css]
 			if css
 				# <link type="text/css" rel="stylesheet" href="..." />
 				link = Element.new 'link'
@@ -145,7 +139,6 @@ module MaRuKu; module Out; module HTML
 			
 		root << body
 		
-	#	add_whitespace(doc)
 		doc
 	end
 	
@@ -195,7 +188,7 @@ module MaRuKu; module Out; module HTML
 				span << Text.new('Created by ')
 				a = Element.new('a', span)
 					a.attributes['href'] = 'http://maruku.rubyforge.org'
-					a.attributes['title'] = 'Maruku: a Markdown interpreter'
+					a.attributes['title'] = 'Maruku: a Markdown interpreter for Ruby'
 					a << Text.new('Maruku')
 				span << Text.new(nice_date+".")
 		div
@@ -314,7 +307,7 @@ module MaRuKu; module Out; module HTML
 	def to_html_code; 
 		source = self.raw_code
 
-		lang = @attributes[:lang] || @doc.attributes[:code_lang] 
+		lang = self.attributes[:lang] || @doc.attributes[:code_lang] 
 
 		lang = 'xml' if lang=='html'
 		use_syntax = get_setting(:html_use_syntax)
@@ -411,8 +404,8 @@ module MaRuKu; module Out; module HTML
 		if ref = @doc.refs[id]
 			url = ref[:url]
 			title = ref[:title]
-			a.attributes['href']=url if url
-			a.attributes['title']=title if title
+			a.attributes['href'] = url if url
+			a.attributes['title'] = title if title
 		else
 			maruku_error"Could not find ref_id = #{id.inspect} for #{self.inspect}"
 			tell_user "Not creating a link for ref_id = #{id.inspect}."
@@ -422,18 +415,17 @@ module MaRuKu; module Out; module HTML
 	end
 	
 	def to_html_im_link
-		a =  wrap_as_element 'a'
-		url = self.url
-		title = self.title
-		if url
+		if url = self.url
+			title = self.title
+			a =  wrap_as_element 'a'
 			a.attributes['href'] = url
 			a.attributes['title'] = title if title
+			return a
 		else
 			maruku_error"Could not find url in #{self.inspect}"
 			tell_user "Not creating a link for ref_id = #{id.inspect}."
 			return wrap_as_element('span')
 		end
-		return a
 	end
 	
 	def add_ws(e)
@@ -471,9 +463,7 @@ module MaRuKu; module Out; module HTML
 			url = ref[:url]
 			a.attributes['src'] = url
 			[:title, :class, :style].each do |s| 
-				if ref[s] then
-					a.attributes[s.to_s] = ref[s]
-				end
+				a.attributes[s.to_s] = ref[s] if ref[s]
 			end
 		else
 			maruku_error"Could not find id = #{id.inspect} for\n #{self.inspect}"
@@ -485,17 +475,16 @@ module MaRuKu; module Out; module HTML
 	end
 	
 	def to_html_im_image
-		a =  Element.new 'img'
-		url = self.url
-		title = self.title
-		if not url
+		if not url = self.url
 			maruku_error"Image with no url: #{self.inspect}"
 			tell_user "Could not create image with ref_id = #{id.inspect};"+
 			 +" Using SPAN element as replacement."
 			return wrap_as_element('span')
 		end
-		a.attributes['src'] = url
-		a.attributes['title'] = title if title
+		title = self.title
+		a =  Element.new 'img'
+			a.attributes['src'] = url
+			a.attributes['title'] = title if title
 		return a
 	end
 
@@ -555,17 +544,14 @@ module MaRuKu; module Out; module HTML
 			
 		sup
 	end
+	
 ## Definition lists ###
-	def to_html_definition_list
-		wrap_as_element('dl')
-	end
-	def to_html_definition		
-		children_to_html
-	end
-	def to_html_definition_term; wrap_as_element('dt') end
-	def to_html_definition_data; wrap_as_element('dd') end	
+	def to_html_definition_list() add_ws wrap_as_element('dl') end
+	def to_html_definition() children_to_html end
+	def to_html_definition_term() add_ws wrap_as_element('dt') end
+	def to_html_definition_data() add_ws wrap_as_element('dd') end	
 
-## Table ###	
+	# FIXME: Ugly code
 	def to_html_table
 		align = self.align
 		num_columns = align.size
@@ -575,7 +561,7 @@ module MaRuKu; module Out; module HTML
 		i = num_columns
 		while i<@children.size
 			rows << @children.slice(i, num_columns)
-			i+=num_columns
+			i += num_columns
 		end
 		
 		table = create_html_element 'table'

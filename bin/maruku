@@ -1,33 +1,85 @@
 #!/usr/bin/env ruby
 
 require 'maruku'
+require 'optparse'
 
-if File.basename($0) =~ /^maruku/
-	# If we are given filenames, convert each file 
-	if not ARGV.empty?
-		ARGV.each do |f|
-			puts "Opening #{f}"
-	
-			# read file content
-			input =  File.open(f,'r').read
-		
-			# create Maruku
-			doc = Maruku.new(input, {:on_error=>:warning})
-			# convert to a complete html document
-			html = doc.to_html_document( {:indent => -1})
-	
-			# write to file
-			dir = File.dirname(f)
-			filename = File.basename(f, File.extname(f)) + ".html"
+export = :html
 
-			out_xml = File.join(dir, filename)	
-			File.open(out_xml,'w') do |f| f.puts html end
-		end
-	else
-		# else, act as a filter
-		data = $stdin.read
-		puts Maruku.new(data, {:on_error=>:warning}).to_html
+OptionParser.new do |opts|
+	opts.banner = "Usage: maruku [options] [file1.md [file2.md ..."
+
+	opts.on("-v", "--[no-]verbose", "Run verbosely") do |v|
+		MaRuKu::Globals[:verbose] = v end
+	opts.on("-u", "--[no-]unsafe", "Use unsafe features") do |v|
+		MaRuKu::Globals[:unsafe_features] = v end
+
+	
+
+	opts.on_tail("--pdf",  "Write PDF" ) do export = :pdf  end
+	opts.on_tail("--html", "Write HTML") do export = :html end
+	opts.on_tail("--tex",  "Write LaTeX" ) do export = :tex  end
+
+	opts.on_tail("--version", "Show version") do
+		puts OptionParser::Version.join('.')
+		exit
 	end
-end
 
+	opts.on_tail("-h", "--help", "Show this message") do
+		puts opts
+		exit
+	end
+
+end.parse!
+
+#p ARGV
+#p MaRuKu::Globals
+
+# If we are given filenames, convert each file 
+if not ARGV.empty?
+	ARGV.each do |f|
+
+		# read file content
+		input =  File.open(f,'r').read
+
+		$stderr.puts "Reading from #{f}"
+	
+		# create Maruku
+		doc = Maruku.new(input, {:on_error=>:warning})
+
+
+		out=""; prefix = "?"
+		case export
+		when :html 
+			prefix='html'
+			out = doc.to_html_document( {:indent => -1})
+		when :pdf, :tex
+			prefix='tex'
+			out = doc.to_latex_document
+		when :markdown
+			prefix='pretty_md'
+			out = doc.to_markdown
+		end
+			
+		# write to file
+		dir = File.dirname(f)
+		job = File.join(dir, File.basename(f, File.extname(f)))
+		filename = job + "." + prefix
+
+		$stderr.puts "Writing to #{filename}"
+		File.open(filename,'w') do |f| f.puts out end
+			
+		if export == :pdf
+			cmd = "pdflatex '#{job}' -interaction=nonstopmode "+
+			      "'-output-directory=#{dir}' "
+			# run twice for cross references
+			system cmd 
+			system cmd
+		end
+	end
+	
+else
+	# else, act as a filter
+	data = $stdin.read
+	puts Maruku.new(data, {:on_error=>:warning}).to_html
+end
 

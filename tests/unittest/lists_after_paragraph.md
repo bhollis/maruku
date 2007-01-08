@@ -164,11 +164,11 @@ Paragraph with header on two lines:
 
 Paragraph with html after
 
-{\bf Raw HTML removed in latex version }Paragraph with html after, indented: {\bf Raw HTML removed in latex version }
+Paragraph with html after, indented: 
 
-Paragraph with html after, indented: {\bf Raw HTML removed in latex version } {\em tralla} {\bf Raw HTML removed in latex version }
+Paragraph with html after, indented:  {\em tralla} 
 
-Paragraph with html after, indented: {\bf Raw HTML removed in latex version }
+Paragraph with html after, indented: 
 
 
 *** Output of to_md ***

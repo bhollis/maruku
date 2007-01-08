@@ -14,7 +14,7 @@ md_el(:document,[
 <p>Test <strong>bold</strong></p>
 </div><p>Test <strong>bold</strong></p>
 *** Output of to_latex ***
-{\bf Raw HTML removed in latex version }{\bf Raw HTML removed in latex version }
+
 *** Output of to_md ***
 
 *** Output of to_s ***

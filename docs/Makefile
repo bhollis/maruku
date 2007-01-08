@@ -9,20 +9,26 @@ pdfs+=proposal.pdf
 htmls+=proposal.html
 others+=proposal.md
 
+pdfs+=entity_test.pdf
+htmls+=entity_test.html
+
+all: pdf html 
+
 pdf: $(pdfs)
 
 html: $(htmls)
-
-all: pdf html 
 
 index.html: maruku.html
 	cp $< $@
 
 %.html: %.md
-	ruby -I../lib ../bin/maruku $<
+	ruby -I../lib ../bin/maruku --html -u $<
 
 %.pdf: %.md
-	ruby -I../lib ../bin/marutex $<
+	ruby -I../lib ../bin/maruku --pdf -u $<
+
+dist:
+	-rm *.out *.aux *.tex *.toc *.dvi *.log
 
 clean: 
 	-rm -f $(htmls) $(pdfs) *.out *.aux *.tex *.toc

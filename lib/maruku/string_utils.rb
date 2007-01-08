@@ -32,10 +32,21 @@ module MaRuKu; module Strings
 		s.split("\n")
 	end
 	
-	# This parses email headers. Returns an hash. hash['data'] is the message.
+	# This parses email headers. Returns an hash. 
+	#
+	# +hash['data']+ is the message.
+	#
+	# Keys are downcased, space becomes underscore, converted to symbols.
+	#
+	#     My key: true
+	#
+	# becomes:
+	#
+	#     {:my_key => true}
+	#
 	def parse_email_headers(s)
 		keys={}
-		match = (s =~ /((\w+: .*\n)+)\n/)
+		match = (s =~ /((\w[\w\s]+: .*\n)+)\n/)
 		if match != 0
 			keys[:data] = s
 		else
@@ -51,27 +62,18 @@ module MaRuKu; module Strings
 		end
 		keys
 	end
-	
-	# `.xyz` => class: xyz
-	# `#xyz` => id: xyz
+
+	# Keys are downcased, space becomes underscore, converted to symbols.
 	def normalize_key_and_value(k,v)
 		v = v ? v.strip : true # no value defaults to true
 		k = k.strip
 		
-		# `.xyz` => class: xyz
-		if k =~ /^\.([\w\d]+)/
-			return :class, $1
-		# `#xyz` => id: xyz
-		elsif k =~ /^\#([\w\d]+)/
-			return :id, $1
-		else
-			# check synonyms
-			v = true if ['yes','true'].include?(v.to_s.downcase)
-			v = false if ['no','false'].include?(v.to_s.downcase)
-		
-			k = k.downcase.gsub(' ','_')
-			return k, v
-		end
+		# check synonyms
+		v = true if ['yes','true'].include?(v.to_s.downcase)
+		v = false if ['no','false'].include?(v.to_s.downcase)
+	
+		k = k.downcase.gsub(' ','_')
+		return k, v
 	end
 	
 	# Returns the number of leading spaces, considering that

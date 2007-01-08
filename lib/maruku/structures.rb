@@ -47,6 +47,11 @@ EOF
 end
 
 module MaRuKu
+	
+Globals = {
+	:unsafe_features => false,
+}
+
 # I did not want to have a class for each possible element. 
 # Instead I opted to have only the class "MDElement"
 # that represents eveything in the document (paragraphs, headers, etc).
@@ -59,8 +64,8 @@ module MaRuKu
 # The @doc variable points to the document to which the MDElement
 # belongs (which is an instance of Maruku, subclass of MDElement).
 #
-# Meta data is specified the hash `meta`. Keys are symbols (downcased, with
-# spaces substituted by underscores)
+# Attributes are contained in the hash `attributes`. 
+# Keys are symbols (downcased, with spaces substituted by underscores)
 #
 # For example, if you write in the source document.
 # 
@@ -71,19 +76,16 @@ module MaRuKu
 #
 # You can access `value` by writing:
 #
-#     @doc.meta[:my_property] # => 'value'
+#     @doc.attributes[:my_property] # => 'value'
 #
 # from whichever MDElement in the hierarchy.
-
+#
 class MDElement 
 	# See helpers.rb for the list of allowed #node_type values
 	safe_attr_accessor :node_type, Symbol
 	
 	# Children are either Strings or MDElement
 	safe_attr_accessor :children, Array
-
-
-#	safe_attr_accessor :meta, Hash
 	
 	# An attribute list, may not be nil
 	safe_attr_accessor :al, Array #Maruku::AttributeList
@@ -132,6 +134,7 @@ end
 # This represents the whole document and holds global data.
 
 class MDDocument
+	
 	safe_attr_accessor :refs, Hash
 	safe_attr_accessor :footnotes, Hash
 	

@@ -22,14 +22,14 @@ md_el(:document,[
 		md_el(:abbr,["W3C"],{:title=>"World Wide Web Consortium"},[]),
 		"."
 	]),
-	md_el(:abbr_def,[],{:text=>"Hyper Text Markup Language",:abbr=>"HTML"},[]),
-	md_el(:abbr_def,[],{:text=>"World Wide Web Consortium",:abbr=>"W3C"},[]),
+	md_el(:abbr_def,[],{:abbr=>"HTML",:text=>"Hyper Text Markup Language"},[]),
+	md_el(:abbr_def,[],{:abbr=>"W3C",:text=>"World Wide Web Consortium"},[]),
 	md_par([
 		"Operation ",
 		md_el(:abbr,["Tigra Genesis"],{:title=>nil},[]),
 		" is going well."
 	]),
-	md_el(:abbr_def,[],{:text=>nil,:abbr=>"Tigra Genesis"},[])
+	md_el(:abbr_def,[],{:abbr=>"Tigra Genesis",:text=>nil},[])
 ],{},[])
 *** Output of to_html ***
 

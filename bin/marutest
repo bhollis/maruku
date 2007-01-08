@@ -9,6 +9,7 @@ def marker(x)
 	"\n*** Output of #{x} ***\n"
 end
 
+# a = expected   b = found 
 def equals(a, b)
 	a = a.split("\n")
 	b = b.split("\n")
@@ -18,8 +19,19 @@ def equals(a, b)
 		lb = b[i]
 		if la != lb
 			puts "\n"
-			puts "Line #{i}:\n#{la.inspect}\n"
-			puts "#{lb.inspect}\n"
+			
+			def write_lines(i, j, lines, prefix, i_star)
+				i = [i, 0].max
+				j = [j, lines.size-1].min
+				for a in i..j
+					l = lines[a].gsub(/\t/,'  ')
+					puts ("%s %3d" % [prefix, a]) + 
+						(a==i_star ? " -->" : "    ")+lines[a]
+				end
+			end
+			
+			write_lines(i-3, i+3, a, "expected", i )
+			write_lines(i-3, i+3, b, "   found", i )
 			return false
 		end
 	end
@@ -121,7 +133,7 @@ def run_test(filename, its_ok, verbose=true)
 
 
 	TOTEST.each do |x|
-		if not equals(actual[x], expected[x])
+		if not equals(expected[x], actual[x])
 			if its_ok.include? x
 				expected[x] = actual[x]
 				$stdout.write " relax:#{x} "

@@ -88,9 +88,7 @@ md_el(:document,[
 <p>Result alone:</p>
 <img src='http://jigsaw.w3.org/css-validator/images/vcss' />
 <p>Without closing:</p>
-<img src='http://jigsaw.w3.org/css-validator/images/vcss' /><div>
-<p>This is <em>true</em> markdown text (paragraph)</p>
-<p>This is <em>true</em> markdown text (no paragraph)</p><p>
+<img src='http://jigsaw.w3.org/css-validator/images/vcss' /><div><p>This is <em>true</em> markdown text (paragraph)</p><p>This is <em>true</em> markdown text (no paragraph)</p><p>
 <p>This is <em>true</em> markdown text (block paragraph)</p>
 </p></div><table>
 <tr>
@@ -112,21 +110,21 @@ Input:
 
 \begin{verbatim}<em>Emphasis</em>
 \end{verbatim}
-Result: {\bf Raw HTML removed in latex version }
+Result: 
 
 Input:
 
 \begin{verbatim}<img src="http://jigsaw.w3.org/css-validator/images/vcss"/>
 \end{verbatim}
-Result on span: {\bf Raw HTML removed in latex version }
+Result on span: 
 
 Result alone:
 
-{\bf Raw HTML removed in latex version }Without closing:
+Without closing:
 
-{\bf Raw HTML removed in latex version }{\bf Raw HTML removed in latex version }{\bf Raw HTML removed in latex version }The following is invalid HTML, and will generate an error:
+The following is invalid HTML, and will generate an error:
 
-{\bf Raw HTML removed in latex version }{\bf Raw HTML removed in latex version }
+
 *** Output of to_md ***
 Input:
 
@@ -150,102 +148,10 @@ Input:Result: Input:Result on span: Result alone:Without closing:The following i
 
 
 
-
-Failed tests:   [:to_html] 
-
-*** Output of inspect ***
-md_el(:document,[
-	md_par(["Input:"]),
-	md_el(:code,[],{:raw_code=>"<em>Emphasis</em>\n"},[]),
-	md_par(["Result: ", md_html("<em>Emphasis</em>")]),
-	md_par(["Input:"]),
-	md_el(:code,[],{:raw_code=>"<img src=\"http://jigsaw.w3.org/css-validator/images/vcss\"/>\n"},[]),
-	md_par([
-		"Result on span: ",
-		md_html("<img src=\"http://jigsaw.w3.org/css-validator/images/vcss\" />")
-	]),
-	md_par(["Result alone:"]),
-	md_html("<img src=\"http://jigsaw.w3.org/css-validator/images/vcss\" />"),
-	md_par(["Without closing:"]),
-	md_html("<img src=\"http://jigsaw.w3.org/css-validator/images/vcss\" />"),
-	md_html("<div markdown=\"1\">\n\tThis is *true* markdown text (paragraph)\n\n\t<p markdown=\"1\">\n\t\tThis is *true* markdown text (no paragraph)\n\t</p>\n\t<p markdown=\"block\">\n\t\tThis is *true* markdown text (block paragraph)\n\t</p>\n</div>"),
-	md_html("<table>\n<tr>\n<td markdown=\"1\">This is *true* markdown text. (no par)</td>\n<td markdown=\"block\">This is *true* markdown text. (par)</td>\n</tr>\n</table>"),
-	md_par(["The following is invalid HTML, and will generate an error:"]),
-	md_html("<table>\n<td markdown=\"1\">This is *true* markdown text. (no par)</td>\n<td markdown=\"block\">This is *true* markdown text. (par)</td>\n</tr>"),
-	md_html("</table>")
-],{},[])
-*** Output of to_html ***
------| WARNING | -----
-
-<p>Input:</p>
-<pre><code>&lt;em&gt;Emphasis&lt;/em&gt;
-</code></pre>
-<p>Result: <em>Emphasis</em></p>
-
-<p>Input:</p>
-<pre><code>&lt;img src=&quot;http://jigsaw.w3.org/css-validator/images/vcss&quot;/&gt;
-</code></pre>
-<p>Result on span: <img src='http://jigsaw.w3.org/css-validator/images/vcss' /></p>
-
-<p>Result alone:</p>
-<img src='http://jigsaw.w3.org/css-validator/images/vcss' />
-<p>Without closing:</p>
-<img src='http://jigsaw.w3.org/css-validator/images/vcss' /><div><p>This is <em>true</em> markdown text (paragraph)</p><p>This is <em>true</em> markdown text (no paragraph)</p><p>
-<p>This is <em>true</em> markdown text (block paragraph)</p>
-</p></div><table>
-<tr>
-<td>This is <em>true</em> markdown text. (no par)</td>
-<td>
-<p>This is <em>true</em> markdown text. (par)</p>
-</td>
-</tr>
-</table>
-<p>The following is invalid HTML, and will generate an error:</p>
-<pre class='markdown-html-error' style='border: solid 3px red; background-color: pink'>HTML parse error: 
-&lt;table&gt;
-&lt;td markdown=&quot;1&quot;&gt;This is *true* markdown text. (no par)&lt;/td&gt;
-&lt;td markdown=&quot;block&quot;&gt;This is *true* markdown text. (par)&lt;/td&gt;
-&lt;/tr&gt;</pre><pre class='markdown-html-error' style='border: solid 3px red; background-color: pink'>HTML parse error: 
-&lt;/table&gt;</pre>
-*** Output of to_latex ***
-Input:
-
-\begin{verbatim}<em>Emphasis</em>
-\end{verbatim}
-Result: {\bf Raw HTML removed in latex version }
-
-Input:
-
-\begin{verbatim}<img src="http://jigsaw.w3.org/css-validator/images/vcss"/>
-\end{verbatim}
-Result on span: {\bf Raw HTML removed in latex version }
-
-Result alone:
-
-{\bf Raw HTML removed in latex version }Without closing:
-
-{\bf Raw HTML removed in latex version }{\bf Raw HTML removed in latex version }{\bf Raw HTML removed in latex version }The following is invalid HTML, and will generate an error:
-
-{\bf Raw HTML removed in latex version }{\bf Raw HTML removed in latex version }
-*** Output of to_md ***
-Input:
-
-Result:
-
-Input:
-
-Result on span:
-
-Result alone:
-
-Without closing:
-
-The following is invalid HTML, and will
-generate an error:
+	OK!
 
 
-*** Output of to_s ***
-Input:Result: Input:Result on span: Result alone:Without closing:The following is invalid HTML, and will generate an error:
+
 *** Output of Markdown.pl ***
 <p>CSS: style.css</p>
 

@@ -1,8 +1,8 @@
 CSS: style.css
-LaTeX_use_listings: true
-html_use_syntax: true
-use_numbered_headers: true
-
+Use numbered headers: true
+HTML use syntax: true
+LaTeX use listings: true
+LaTeX CJK: true
 
 
 
@@ -82,6 +82,39 @@ For issues about the Markdown syntax itself and improvements to it,
 please write to the [Markdown-discuss mailing list][markdown-discuss].
 
 Have fun!
+
+#### Changes in 0.4.1 aka "Typographer" ####
+
+*	Implemented SmartyPants support:
+
+		'Twas a "test" to 'remember' -- in the '90s 
+		--- while I was <<ok>>. She was 6\"12\'.
+	> 'Twas a "test" to 'remember' -- in the '90s --- while I was <<ok>>.
+	> She was 6\"12\'.
+
+	I adapted the code from RubyPants.
+	
+*	Server directives between `<? ?>` are properly preserved.
+*	Changes in LaTeX export:
+
+	*	Now Japanese text rendering sort of works, using the following packages:
+
+			\usepackage[C40]{fontenc}
+			\usepackage[cjkjis]{ucs}
+			\usepackage[utf8x]{inputenc}
+		
+		Nevertheless, I could only get bitmap fonts working -- probably it's a problem
+		with my setup.
+
+		A quick test: 日本、中国、ひらがな、カタカナ。
+
+	*	Fixed bugs in rendering of immediate links.
+	*	External packages are `require`d only if needed.
+	*	More symbols supported.
+		See the symbol list 
+		[in HTML](http://maruku.rubyforge.org/entity_test.html) and
+		[in PDF](http://maruku.rubyforge.org/entity_test.pdf).
+
 
 #### Changes in 0.4 ####
 

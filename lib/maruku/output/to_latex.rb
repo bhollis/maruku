@@ -18,12 +18,18 @@
 #   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #++
 
-
 module MaRuKu
-	
+
 class MDDocument
 
-	
+	Latex_preamble_enc_cjk = 
+"\\usepackage[C40]{fontenc}
+\\usepackage[cjkjis]{ucs}
+\\usepackage[utf8x]{inputenc}"
+
+	Latex_preamble_enc_utf8 = 
+"\\usepackage{ucs}
+\\usepackage[utf8x]{inputenc}"
 
 	def latex_require_package(p)
 		if not self.latex_required_packages.include? p
@@ -38,10 +44,6 @@ class MDDocument
 
 	# Render as a complete LaTeX document 
 	def to_latex_document
-		header = ""
-		
-
-
 		body = to_latex
 		
 		body += render_latex_signature
@@ -51,20 +53,68 @@ class MDDocument
 			"\\usepackage{#{p}}\n"
 		}.join
 		
-"\\documentclass{article}
-#{header}
+=begin maruku_doc
+Attribute: latex_cjk
+Scope:     document
+Output:    latex
+Summary:   Support for CJK characters.
 
+If the `latex_cjk` attribute is specified, then appropriate headers
+are added to the LaTeX preamble to support Japanese fonts.
+You have to have these fonts installed -- and this can be a pain.
+
+If `latex_cjk` is specified, this is added to the preamble:
+
+<?mrk md_code_block(Maruku::MDDocument::Latex_preamble_enc_cjk) ?>
+
+while the default is to add this:
+
+<?mrk md_code_block(Maruku::MDDocument::Latex_preamble_enc_utf8) ?>
+
+=end
+		encoding = @doc.attributes[:latex_cjk] ? 
+			Latex_preamble_enc_cjk : Latex_preamble_enc_utf8
+
+=begin maruku_doc
+Attribute: latex_preamble
+Scope:     document
+Output:    latex
+Summary:   User-defined preamble.
+
+If the `latex_preamble` attribute is specified, then its value
+will be used as a custom preamble. 
+
+For example:
+
+	Title: My document
+	Latex preamble: preamble.tex
+
+will produce:
+
+	...
+	\input{preamble.tex}
+	...
+
+=end
+	user_preamble = (file = @doc.attributes[:latex_preamble]) ?
+		"\\input{#{file}}\n" : ""
+		
+"\\documentclass{article}
+
+% Packages required to support encoding
+#{encoding}
+
+% Packages required by code
 #{required}
-%\\usepackage{amssymb,amsmath} % eth
-%\\usepackage{eurosym} % euro
+
+#{user_preamble}
 
 \\usepackage{hyperref}
 \\usepackage{xspace}
 \\usepackage[usenames,dvipsnames]{color}
 \\usepackage[margin=1in]{geometry}
 \\hypersetup{colorlinks=true}
-%\\usepackage{ucs}
-%\\usepackage[utf8x]{inputenc}
+
 \\begin{document} 
 #{body}
 \\end{document}
@@ -89,26 +139,36 @@ module MaRuKu; module Out; module Latex
 	def to_latex_hrule; "\n\\vspace{.5em} \\hrule \\vspace{.5em}\n" end
 	def to_latex_linebreak; "\\linebreak " end
 	
-	def to_latex_paragraph; 
-		#{}"\\noindent "+
+	def to_latex_paragraph 
 		children_to_latex+"\n\n"
 	end
 
 	def get_setting(name, default=nil)
 		self.attributes[name] || @doc.attributes[name] || default
 	end
-	
+=begin maruku_doc
+Title: Input format for colors
+Output: latex, html
+Related: code_background_color
+
+Admissible formats:
+
+	green
+	#abc
+	#aabbcc
+=end
+
 	# \color[named]{name} 	
 	# \color[rgb]{1,0.2,0.3} 
 	def latex_color(s, command='color')
 		if s =~ /^\#(\w\w)(\w\w)(\w\w)$/
-			r = $1.hex; g = $2.hex; b=$3.hex				
+			r = $1.hex; g = $2.hex; b=$3.hex
 			# convert from 0-255 to 0.0-1.0
 			r = r / 255.0; g = g / 255.0; b = b / 255.0; 
 			"\\#{command}[rgb]{%0.2f,%0.2f,%0.2f}" % [r,g,b]
 		elsif s =~ /^\#(\w)(\w)(\w)$/
-			r = $1.hex; g = $2.hex; b=$3.hex				
-			# convert from 0-255 to 0.0-1.0
+			r = $1.hex; g = $2.hex; b=$3.hex
+			# convert from 0-15 to 0.0-1.0
 			r = r / 15.0; g = g / 15.0; b = b / 15.0; 
 			"\\#{command}[rgb]{%0.2f,%0.2f,%0.2f}" % [r,g,b]
 		else	
@@ -118,6 +178,39 @@ module MaRuKu; module Out; module Latex
 	
 	def to_latex_code;
 		raw_code = self.raw_code
+=begin maruku_doc
+Attribute: latex_use_listings
+Scope: document
+Output: latex
+Summary: Support for `listings` package.
+Related: code_show_spaces, code_background_color, lang, code_lang
+
+If the `latex_use_listings` attribute is specified, then 
+code block are rendered using the `listings` package.
+Otherwise, a standard `verbatim` environment is used.
+
+*	If the `lang` attribute for the code block has been specified,
+	it gets passed to the `listings` package using the `lstset` macro.
+	The default lang for code blocks is specified through 
+	the `code_lang` attribute.
+
+		\lstset{language=ruby}
+
+	Please refer to the documentation of the `listings` package for
+	supported languages.
+	
+	If a language is not supported, the `listings` package will emit
+	a warning during the compilation. Just press enter and nothing
+	wrong will happen.
+
+*	If the `code_show_spaces` is specified, than spaces and tabs will
+	be shown using the macro:
+	
+		\lstset{showspaces=true,showtabs=true}
+	
+*	The background color is given by `code_background_color`.
+
+=end
 		
 		if @doc.attributes[:latex_use_listings]
 			@doc.latex_require_package('listings')
@@ -223,35 +316,31 @@ module MaRuKu; module Out; module Latex
 		"#{colorspec}{\\tt #{s}}"
 	end
 
-	def to_latex_immediate_link
+	def to_latex_im_link
 		url = self.url
-		return "\\href{#{url}}{#{url.to_latex}}"
+
+		if url[0,1] == '#'
+			url = url[1,url.size]
+			return "\\hyperlink{#{url}}{#{children_to_latex}}"
+		else
+			return "\\href{#{url}}{#{children_to_latex}}"
+		end
 	end
 	
 	def to_latex_link
-		if id = self.ref_id
-			# if empty, use text
-			if id.size == 0
-				id = children.to_s.downcase
-			end
-			
-			ref = @doc.refs[id]
-			if not ref
-				$stderr.puts "Could not find id = '#{id}'"
-				return children_to_latex
-			else
-				url = ref[:url]
-				#title = ref[:title] || 'no title'
-
-				if url[0,1] == '#'
-					url = url[1,url.size]
-					return "\\hyperlink{#{url}}{#{children_to_latex}}"
-				else
-					return "\\href{#{url}}{#{children_to_latex}}"
-				end
-			end
+		id = self.ref_id
+		# if empty, use text
+		if id.size == 0
+			id = children.to_s.downcase
+		end
+		
+		ref = @doc.refs[id]
+		if not ref
+			$stderr.puts "Could not find id = '#{id}'"
+			return children_to_latex
 		else
-			url = self.url
+			url = ref[:url]
+			#title = ref[:title] || 'no title'
 
 			if url[0,1] == '#'
 				url = url[1,url.size]
@@ -260,6 +349,7 @@ module MaRuKu; module Out; module Latex
 				return "\\href{#{url}}{#{children_to_latex}}"
 			end
 		end
+		
 	end
 	
 	def to_latex_email_address
@@ -392,20 +482,16 @@ module MaRuKu; module Out; module Latex
 				e << h
 			end
 		end
-#		puts "Before: #{e.inspect}"
+		
+		# puts a space after commands if needed
 		e.each_index do |i|
 			if e[i] =~ /\\\w+\s*$/ # command
-#				puts "Found command: #{e[i].inspect}"
-#				puts "Next is #{e[i+1].inspect}"
 				if (s=e[i+1]) && s[0] == ?\ # space
-#					puts "SPACE for #{e[i+1].inspect}"
 					e[i]  = e[i] + "\\ "
 				end
-			else
-#				puts "Not command: #{e[i].inspect}"
 			end
 		end
-#		puts "After: #{e.inspect}"
+		
 		e.join(join_char)
 	end
 	

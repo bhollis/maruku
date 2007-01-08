@@ -54,6 +54,54 @@
 
 <p>Have fun!</p>
 
+<h4 id='changes_in_041_aka_typographer'>Changes in 0.4.1 aka &ldquo;Typographer&rdquo;</h4>
+
+<ul>
+<li>
+<p>Implemented SmartyPants support:</p>
+<pre><code>&apos;Twas a &quot;test&quot; to &apos;remember&apos; -- in the &apos;90s 
+--- while I was &lt;&lt;ok&gt;&gt;. She was 6\&quot;12\&apos;.</code></pre>
+<blockquote>
+<p>&lsquo;Twas a &ldquo;test&rdquo; to &lsquo;remember&rsquo; &ndash; in the &rsquo;90s &mdash; while I was &laquo;ok&raquo;. She was 6&quot;12&apos;.</p>
+</blockquote>
+
+<p>I adapted the code from RubyPants.</p>
+</li>
+
+<li>
+<p>Server directives between <code>&lt;? ?&gt;</code> are properly preserved.</p>
+</li>
+
+<li>
+<p>Changes in LaTeX export:</p>
+
+<ul>
+<li>
+<p>Now Japanese text rendering sort of works, using the following packages:</p>
+<pre><code>\usepackage[C40]{fontenc}
+\usepackage[cjkjis]{ucs}
+\usepackage[utf8x]{inputenc}
+</code></pre>
+<p>Nevertheless, I could only get bitmap fonts working &ndash; probably it&rsquo;s a problem with my setup.</p>
+
+<p>A quick test: 日本、中国、ひらがな、カタカナ。</p>
+</li>
+
+<li>
+<p>Fixed bugs in rendering of immediate links.</p>
+</li>
+
+<li>
+<p>External packages are <code>require</code>d only if needed.</p>
+</li>
+
+<li>
+<p>More symbols supported. See the symbol list <a href='http://maruku.rubyforge.org/entity_test.html'>in HTML</a> and <a href='http://maruku.rubyforge.org/entity_test.pdf'>in PDF</a>.</p>
+</li>
+</ul>
+</li>
+</ul>
+
 <h4 id='changes_in_04'>Changes in 0.4</h4>
 
 <ul>
@@ -225,7 +273,13 @@ cell | center-align        | right-align        |</code></pre><table><thead><tr>
 <li>
 <p>definition lists</p>
 <pre style='background-color: #ffefef;'><code>Definition list
-: something very hard to parse</code></pre><dl><dt>Definition list</dt><dd>something very hard to parse</dd></dl></li>
+: something very hard to parse</code></pre>
+<dl>
+<dt>Definition list</dt>
+
+<dd>something very hard to parse</dd>
+</dl>
+</li>
 
 <li>
 <p>abbreviations or <abbr title='Simply an abbreviation'>ABB</abbr> for short.</p>
@@ -275,29 +329,65 @@ Content of the document
 <p>Meta-data keys are assumed to be case-insensitive.</p>
 <hr />
 <h3 id='metalist'><span class='maruku_section_number'>6.3. </span>List of meta-data</h3>
-<dl><dt><strong><code>title</code>, <code>subject</code></strong></dt><dd>
+
+<dl>
+<dt><strong><code>title</code>, <code>subject</code></strong></dt>
+
+<dd>
 <p>(document) Sets the title of the document (HTML: used in the <code>TITLE</code> element).</p>
-</dd><dt><strong><code>use_numbered_headers</code></strong></dt><dd>
+</dd>
+
+<dt><strong><code>use_numbered_headers</code></strong></dt>
+
+<dd>
 <p>(document) If <code>true</code>, headers are numbered (just like this document). Default is <code>false</code>.</p>
-</dd><dt><strong><code>css</code></strong></dt><dd>
+</dd>
+
+<dt><strong><code>css</code></strong></dt>
+
+<dd>
 <p>(document, HTML) Url of stylesheet.</p>
-</dd><dt><strong><code>html_use_syntax</code></strong></dt><dd>
+</dd>
+
+<dt><strong><code>html_use_syntax</code></strong></dt>
+
+<dd>
 <p>(document, HTML) If set, use the <a href='http://syntax.rubyforge.org/'>Ruby <code>syntax</code> library</a> to add source highlighting.</p>
-</dd><dt><strong><code>latex_use_listings</code></strong></dt><dd>
+</dd>
+
+<dt><strong><code>latex_use_listings</code></strong></dt>
+
+<dd>
 <p>(document, LaTeX) If set, use the fancy <a href='http://www.ctan.org/tex-archive/macros/latex/contrib/listings/'><code>listings</code> package</a> for better displaying code blocks.</p>
 
 <p>If not set, use standard <code>verbatim</code> environment.</p>
-</dd><dt><strong><code>style</code>, <code>id</code>, <code>class</code></strong></dt><dd>
+</dd>
+
+<dt><strong><code>style</code>, <code>id</code>, <code>class</code></strong></dt>
+
+<dd>
 <p>(any block object, HTML) Standard CSS attributes are copied.</p>
-</dd><dt><strong><code>lang</code></strong></dt><dd>
+</dd>
+
+<dt><strong><code>lang</code></strong></dt>
+
+<dd>
 <p>(code blocks) Name of programming language (<code>ruby</code>) for syntax highlighting.</p>
 
 <p>Default for this is <code>code_lang</code> in document.</p>
 
 <p>Syntax highlighting is delegated to the <a href='http://syntax.rubyforge.org/'><code>syntax</code> library</a> for HTML output and to the <a href='http://www.ctan.org/tex-archive/macros/latex/contrib/listings/'><code>listings</code> package</a> for LaTeX output.</p>
-</dd><dt><strong><code>code_show_spaces</code></strong></dt><dd>
+</dd>
+
+<dt><strong><code>code_show_spaces</code></strong></dt>
+
+<dd>
 <p>Shows tabs and newlines (default is read in the document object).</p>
-</dd><dt><strong><code>code_background_color</code></strong></dt><dd>
+</dd>
+
+<dt><strong><code>code_background_color</code></strong></dt>
+
+<dd>
 <p>Background color for code blocks. (default is read in the document object).</p>
 
 <p>The format is either a named color (<code>green</code>, <code>red</code>) or a CSS color of the form <code>#ff00ff</code>.</p>
@@ -313,7 +403,9 @@ Content of the document
 <p>For example, for <code>#0000ff</code>, the macro is called as: <code>\color[rgb]{0,0,1}</code>.</p>
 </li>
 </ul>
-</dd></dl>
+</dd>
+</dl>
+
 <h3 id='examples'><span class='maruku_section_number'>6.4. </span>Examples</h3>
 
 <p>An example of this is the following:</p>
@@ -369,4 +461,4 @@ $ \alpha = \beta + \gamma  $        (eq:1)
 
 This is a reference to equation: please see (eq:1)</code></pre><div class='footnotes'><hr /><ol><li id='fn:1'>
 <p>I really was missing those.</p>
-<a href='#fnref:1' rev='footnote'>&#8617;</a></li></ol></div><div class='maruku_signature'><hr /><span style='font-size: small; font-style: italic'>Created by <a href='http://maruku.rubyforge.org' title='Maruku: a Markdown interpreter'>Maruku</a> at 00:18 on Monday, January 08th, 2007.</span></div></body></html>
+<a href='#fnref:1' rev='footnote'>&#8617;</a></li></ol></div><div class='maruku_signature'><hr /><span style='font-size: small; font-style: italic'>Created by <a href='http://maruku.rubyforge.org' title='Maruku: a Markdown interpreter for Ruby'>Maruku</a> at 23:18 on Monday, January 08th, 2007.</span></div></body></html>

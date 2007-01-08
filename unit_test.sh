@@ -1,2 +1,0 @@
-ruby -Ilib bin/marutest $*
-

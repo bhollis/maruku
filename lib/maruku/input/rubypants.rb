@@ -210,7 +210,16 @@ def educate(elements)
 	end
 	# strips empty strings
 	elements.delete_if {|x| x.kind_of?(String) && x.size == 0}
-	return elements
+	final = []
+	# join consecutive strings
+	elements.each do |x|
+		if x.kind_of?(String) && final.last.kind_of?(String)
+			final.last << x
+		else
+			final << x
+		end
+	end
+	return final
 end
 
 end end end end
