@@ -211,7 +211,6 @@ xhtml10strict_mathml =
 	def to_html_equation_ritex
 		tex = self.math
 		mathml = convert_to_mathml(tex)
-		#puts "mathml: #{mathml.inspect}"
 		return mathml || []
 	end
 	

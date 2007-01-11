@@ -1,6 +1,6 @@
 
 # run this as:
-# ruby -Ilib tests/math/use_itex.rb < private.txt 
+# ruby -I../../lib use_itex.rb < private.txt
 
 require 'maruku'
 
