@@ -10,24 +10,21 @@ Header with attributes	{#header1}
 
 ### Header no attributes ###
 
-{warn2}Paragraph with a.
+{:warn2}Paragraph with a.
 {#par1}
 
 Paragraph with *emphasis*{hello notfound}
    {#par2}
 
-{hello}: .chello
+{:hello: .chello}
 *** Output of inspect ***
 md_el(:document,[
 	md_el(:header,["Header with attributes"],{:level=>2},[[:id, "header1"]]),
 	md_el(:header,["Header with attributes"],{:level=>3},[[:id, "header2"]]),
-	md_el(:header,["Header no attributes"],{:level=>3},[[:id, "par1"]]),
-	md_par([
-		"Paragraph with ",
-		md_em(["emphasis"], [[:ref, "hello"], [:ref, "notfound"]]),
-		md_ial([[:ref, "hello"], [:ref, "notfound"]])
-	], [[:id, "par2"]]),
-	md_el(:ald,[],{:ald=>[[:class, "chello"]],:ald_id=>"hello"},[])
+	md_el(:header,["Header no attributes"],{:level=>3},[]),
+	md_par(["Paragraph with a."], [[:id, "par1"]]),
+	md_par(["Paragraph with ", md_em(["emphasis"])], [[:id, "par2"]]),
+	md_el(:ald,[],{:ald=>[[:class, "chello"]],:ald_id=>"o"},[])
 ],{},[])
 *** Output of to_html ***
 
@@ -35,24 +32,32 @@ md_el(:document,[
 
 <h3 id='header2'>Header with attributes</h3>
 
-<h3 id='par1'>Header no attributes</h3>
+<h3 id='header_no_attributes'>Header no attributes</h3>
 
-<p id='par2'>Paragraph with <em class='chello'>emphasis</em></p>
+<p id='par1'>Paragraph with a.</p>
+
+<p id='par2'>Paragraph with <em>emphasis</em></p>
 
 *** Output of to_latex ***
 \hypertarget{header1}{}\subsection*{{Header with attributes}}\label{header1}
 
 \hypertarget{header2}{}\subsubsection*{{Header with attributes}}\label{header2}
 
-\hypertarget{par1}{}\subsubsection*{{Header no attributes}}\label{par1}
+\hypertarget{header_no_attributes}{}\subsubsection*{{Header no attributes}}\label{header_no_attributes}
+
+Paragraph with a.
 
 Paragraph with {\em emphasis}
 
 
 *** Output of to_md ***
-Header with attributesHeader with attributesHeader no attributesParagraph with emphasis
+Header with attributesHeader with attributesHeader no attributesParagraph with a.
+
+Paragraph with emphasis
+
+
 *** Output of to_s ***
-Header with attributesHeader with attributesHeader no attributesParagraph with emphasis
+Header with attributesHeader with attributesHeader no attributesParagraph with a.Paragraph with emphasis
 *** EOF ***
 
 
@@ -68,22 +73,22 @@ Header with attributesHeader with attributesHeader no attributesParagraph with e
 
 <h3>Header no attributes</h3>
 
-<p>{warn2}Paragraph with a.
+<p>{:warn2}Paragraph with a.
 {#par1}</p>
 
 <p>Paragraph with <em>emphasis</em>{hello notfound}
    {#par2}</p>
 
-<p>{hello}: .chello</p>
+<p>{:hello: .chello}</p>
 
 *** Output of Markdown.pl (parsed) ***
 <h2>Header with attributes  {#header1}  </h2
    ><h3>Header with attributes ###  {#header2}</h3
    ><h3>Header no attributes</h3
-   ><p>{warn2}Paragraph with a.
+   ><p>{:warn2}Paragraph with a.
 {#par1}</p
    ><p>Paragraph with <em>emphasis</em
      >{hello notfound}
    {#par2}</p
-   ><p>{hello}: .chello</p
+   ><p>{:hello: .chello}</p
  >

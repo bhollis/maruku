@@ -30,6 +30,7 @@ class String
 end
 
 module MaRuKu; 
+	MagicChar = ':'
 	
 	class AttributeList < Array
 		
@@ -80,6 +81,9 @@ module MaRuKu; module In; module Markdown; module SpanLevelParser
 			[ "a =b", :throw, "No whitespace before `=`." ], 
 			[ "a= b", :throw, "No whitespace after `=`." ], 
 
+			[ "a b c", [[:ref, 'a'],[:ref, 'b'],[:ref, 'c']], "More than one ref" ], 
+			[ "hello notfound", [[:ref, 'hello'],[:ref, 'notfound']]], 
+
 			[ "'a'",  [[:ref, 'a']], "Quoted value." ], 
 			[ '"a"'   ], 
 
@@ -117,7 +121,7 @@ module MaRuKu; module In; module Markdown; module SpanLevelParser
 			@comment  = (comment  ||= (last=@comment) )
 			(comment == last && (comment += (@count+=1).to_s)) || @count = 1
 			expected = [md_ial(expected)] if expected.kind_of? Array
-			["{#{s}}", expected, "Attributes: #{comment}"]
+			["{#{MagicChar}#{s}}", expected, "Attributes: #{comment}"]
 		}
 	end
 	
@@ -180,6 +184,34 @@ module MaRuKu; module In; module Markdown; module SpanLevelParser
 			end # case
 		end # while true
 		al
+	end
+	
+	
+	def merge_ial(elements, src, con)	
+		# We need a helper
+		def is_ial(e); e.kind_of? MDElement and e.node_type == :ial end
+
+		# Apply each IAL to the element before
+		elements.each_with_index do |e, i| 
+		if is_ial(e) && i>= 1 then
+			before = elements[i-1]
+			after = elements[i+1]
+			if before.kind_of? MDElement
+				before.al = e.ial
+			elsif after.kind_of? MDElement
+				after.al = e.ial
+			else
+				maruku_error "I don't know who you are referring to:"+
+					" {#{e.ial.to_md}}", src, con
+				# xxx dire se c'è empty vicino
+				maruku_recover "Ignoring IAL: {#{e.ial.to_md}}", src, con
+			end
+		end 
+		end
+		
+		if not Globals[:debug_keep_ials]
+			elements.delete_if {|x| is_ial(x)} 
+		end
 	end
 		
 end end end end 

@@ -10,10 +10,8 @@ This is ruby code:
 
 This is ruby code:
 
-
-
 	require 'maruku'
-{lang=ruby html_use_syntax}
+{: lang=ruby html_use_syntax}
 	
 	puts Maruku.new($stdin).to_html
 *** Output of inspect ***
@@ -74,7 +72,7 @@ puts Maruku.new($stdin).to_html
 <pre><code>require 'maruku'
 </code></pre>
 
-<p>{lang=ruby html<em>use</em>syntax}</p>
+<p>{: lang=ruby html<em>use</em>syntax}</p>
 
 <pre><code>puts Maruku.new($stdin).to_html
 </code></pre>
@@ -92,7 +90,7 @@ puts Maruku.new($stdin).to_html
      ><code>require 'maruku'
 </code
    ></pre
-   ><p>{lang=ruby html<em>use</em
+   ><p>{: lang=ruby html<em>use</em
      >syntax}</p
    ><pre
      ><code>puts Maruku.new($stdin).to_html

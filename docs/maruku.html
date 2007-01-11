@@ -2,10 +2,18 @@
 <!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Strict//EN'
 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'>
 <html lang='en' xml:lang='en' xmlns='http://www.w3.org/1999/xhtml'><head><meta content='text/html; charset=utf-8' http-equiv='Content-type' /><title>Maruku: a Markdown-superset interpreter</title><link href='style.css' rel='stylesheet' type='text/css' /></head><body>
+<p><img src='logo.png' id='logo' /></p>
+
 <h1 id='maruku_a_markdownsuperset_interpreter'>Mar<strong>u</strong>k<strong>u</strong>: a Markdown-superset interpreter</h1>
 
 <p><a href='http://maruku.rubyforge.org/'>Maruku</a> is a Markdown interpreter written in <a href='http://www.ruby-lang.org'>Ruby</a>.</p>
 
+<blockquote id='news'>
+<p><a href='#release_notes'>Last release</a> is version 0.4.2 &ndash; 2007-01-12.</p>
+
+<p>Use this command to update:</p>
+<pre><code>$ gem update maruku</code></pre></blockquote>
+<hr />
 <p>Maruku allows you to write in an easy-to-read-and-write syntax, like this:</p>
 
 <blockquote>
@@ -53,6 +61,46 @@
 <p>In the meantime, feel free to toy around, and please signal problems, request features, by <a href='http://www.dis.uniroma1.it/~acensi/contact.html'>contacting me</a> or using the <a href='http://rubyforge.org/tracker/?group_id=2795'>tracker</a>. For issues about the Markdown syntax itself and improvements to it, please write to the <a href='http://six.pairlist.net/mailman/listinfo/markdown-discuss'>Markdown-discuss mailing list</a>.</p>
 
 <p>Have fun!</p>
+
+<h4 id='last'>Changes in 0.4.2</h4>
+
+<ul>
+<li>
+<p>Adapted syntax to the <a href='http://maruku.rubyforge.org/proposal.html'>new meta-data proposal</a>.</p>
+</li>
+
+<li>
+<p>Changes in LaTeX export:</p>
+
+<ul>
+<li>
+<p>Links to external URLs are blue by default.</p>
+</li>
+
+<li>
+<p>New attributes: <code>latex_preamble</code> to add a custom preamble, and <code>latex_cjk</code> to add packages for UTF-8 Japanese characters. (<strong>support for this is still shaky</strong>). Example:</p>
+<pre><code>Title: my document
+LaTeX CJK: true
+LaTeX preamble: preamble.tex
+
+Content</code></pre></li>
+</ul>
+</li>
+
+<li>
+<p>Bug fixes</p>
+
+<ul>
+<li>
+<p>Images were not given <code>id</code> or <code>class</code> attributes.</p>
+</li>
+
+<li>
+<p>Fixed bug in LaTeX export with handling of <code>&lt;</code>,<code>&gt;</code> enclosed URLs: <code>&lt;google.com&gt;</code>.</p>
+</li>
+</ul>
+</li>
+</ul>
 
 <h4 id='changes_in_041_aka_typographer'>Changes in 0.4.1 aka &ldquo;Typographer&rdquo;</h4>
 
@@ -202,11 +250,13 @@ Maruku (to_latex):   parsing 0.49 sec + rendering 0.25 sec = 0.73 sec</code></pr
 <p>The development site is <a href='http://rubyforge.org/projects/maruku/'>http://rubyforge.org/projects/maruku/</a>.</p>
 
 <p>Install with:</p>
-<pre class='sh' style='background-color: #efefff;'>$ gem install maruku</pre>
+<pre><code>$ gem install maruku
+</code></pre>
 <p>Released files can also be seen at <a href='http://rubyforge.org/frs/?group_id=2795'>http://rubyforge.org/frs/?group_id=2795</a>.</p>
 
 <p>Anonymous access to the repository is possible with:</p>
-<pre class='sh' style='background-color: #efefff;'>$ svn checkout svn://rubyforge.org/var/svn/maruku</pre>
+<pre><code>$ svn checkout svn://rubyforge.org/var/svn/maruku
+</code></pre>
 <p>If you want commit access to the repository, just create an account on Rubyforge and <a href='http://www.dis.uniroma1.it/~acensi/contact.html'>drop me a mail</a>.</p>
 
 <h3 id='bugs_report'><span class='maruku_section_number'>2.1. </span>Bugs report</h3>
@@ -216,15 +266,18 @@ Maruku (to_latex):   parsing 0.49 sec + rendering 0.25 sec = 0.73 sec</code></pr
 <h2 id='usage'><span class='maruku_section_number'>3. </span>Usage</h2>
 
 <p>This is the basic usage:</p>
-<pre class='ruby' style='background-color: #efffef;'><span class='ident'>require</span> <span class='punct'>'</span><span class='string'>rubygems</span><span class='punct'>'</span>
-<span class='ident'>require</span> <span class='punct'>'</span><span class='string'>maruku</span><span class='punct'>'</span>
+<pre><code>require &#39;rubygems&#39;
+require &#39;maruku&#39;
 
-<span class='ident'>doc</span> <span class='punct'>=</span> <span class='constant'>Maruku</span><span class='punct'>.</span><span class='ident'>new</span><span class='punct'>(</span><span class='ident'>markdown_string</span><span class='punct'>)</span>
-<span class='ident'>puts</span> <span class='ident'>doc</span><span class='punct'>.</span><span class='ident'>to_html</span></pre>
+doc = Maruku.new(markdown_string)
+puts doc.to_html
+</code></pre>
 <p>The method <code>to_html</code> outputs only an HTML fragment, while the method <code>to_html_document</code> outputs a complete XHTML 1.0 document:</p>
-<pre class='ruby' style='background-color: #efffef;'><span class='ident'>puts</span> <span class='ident'>doc</span><span class='punct'>.</span><span class='ident'>to_html_document</span></pre>
+<pre><code>puts doc.to_html_document
+</code></pre>
 <p>You can have the REXML document tree with:</p>
-<pre class='ruby' style='background-color: #efffef;'><span class='ident'>tree</span> <span class='punct'>=</span> <span class='ident'>doc</span><span class='punct'>.</span><span class='ident'>to_html_document_tree</span></pre>
+<pre><code>tree = doc.to_html_document_tree
+</code></pre>
 <h3 id='from_the_command_line'><span class='maruku_section_number'>3.1. </span>From the command line</h3>
 
 <p>There are two command-line programs installed: <code>maruku</code> and <code>marutex</code>.</p>
@@ -232,11 +285,11 @@ Maruku (to_latex):   parsing 0.49 sec + rendering 0.25 sec = 0.73 sec</code></pr
 <ul>
 <li>
 <p><code>maruku</code> converts Markdown to HTML:</p>
-<pre class='sh' style='background-color: #efefff;'>$ maruku file.md  # creates file.html</pre></li>
+<pre><code>$ maruku file.md  # creates file.html</code></pre></li>
 
 <li>
 <p><code>marutex</code> converts Markdown to LaTeX, then calls <code>pdflatex</code> to transform to PDF:</p>
-<pre class='sh' style='background-color: #efefff;'>$ marutex file.md  # creates file.tex and file.pdf</pre></li>
+<pre><code>$ marutex file.md  # creates file.tex and file.pdf</code></pre></li>
 </ul>
 
 <h2 id='extra'><span class='maruku_section_number'>4. </span>Examples of PHP Markdown Extra syntax</h2>
@@ -244,13 +297,13 @@ Maruku (to_latex):   parsing 0.49 sec + rendering 0.25 sec = 0.73 sec</code></pr
 <ul>
 <li>
 <p>tables</p>
-<pre style='background-color: #ffefef;'><code>Col1 | Very very long head | Very very long head|
+<pre><code>Col1 | Very very long head | Very very long head|
 -----|:-------------------:|-------------------:|
 cell | center-align        | right-align        |</code></pre><table><thead><tr><th>Col1</th><th>Very very long head</th><th>Very very long head</th></tr></thead><tbody><tr><td style='text-align: left;'>cell</td><td style='text-align: center;'>center-align</td><td style='text-align: right;'>right-align</td></tr></tbody></table></li>
 
 <li>
 <p>footnotes <sup id='fnref:1'><a href='#fn:1' rel='footnote'>1</a></sup></p>
-<pre style='background-color: #ffefef;'><code>* footnotes [^foot]
+<pre><code>* footnotes [^foot]
 
 [^foot]: I really was missing those.</code></pre></li>
 </ul>
@@ -266,13 +319,13 @@ cell | center-align        | right-align        |</code></pre><table><thead><tr>
 
 <li>
 <p>header ids</p>
-<pre style='background-color: #ffefef;'><code>## Download ##     {#download}</code></pre>
+<pre><code>## Download ##     {#download}</code></pre>
 <p>For example, <a href='#download'>a link to the download</a> header.</p>
 </li>
 
 <li>
 <p>definition lists</p>
-<pre style='background-color: #ffefef;'><code>Definition list
+<pre><code>Definition list
 : something very hard to parse</code></pre>
 <dl>
 <dt>Definition list</dt>
@@ -317,13 +370,14 @@ cell | center-align        | right-align        |</code></pre><table><thead><tr>
 <h3 id='metadata_for_the_document'><span class='maruku_section_number'>6.2. </span>Meta-data for the document</h3>
 
 <p>Meta-data for the document itself is specified through the use of email headers:</p>
-<pre style='background-color: #ffefef;'><code>Title: A simple document containing meta-headers
+<pre><code>Title: A simple document containing meta-headers
 CSS: style.css
 
 Content of the document
 </code></pre>
 <p>When creating the document through</p>
-<pre class='ruby' style='background-color: #efffef;'><span class='constant'>Maruku</span><span class='punct'>.</span><span class='ident'>new</span><span class='punct'>(</span><span class='ident'>s</span><span class='punct'>).</span><span class='ident'>to_html_document</span></pre>
+<pre><code>Maruku.new(s).to_html_document
+</code></pre>
 <p>the title and stylesheet are added as expected.</p>
 
 <p>Meta-data keys are assumed to be case-insensitive.</p>
@@ -409,11 +463,11 @@ Content of the document
 <h3 id='examples'><span class='maruku_section_number'>6.4. </span>Examples</h3>
 
 <p>An example of this is the following:</p>
-<pre style='background-color: #ffefef;'><code>	 One space
+<pre><code>	 One space
 	  Two spaces
 		 	Tab, space, tab
 				Tab, tab, tab and all is green!
-{code_show_spaces code_background_color=#ffeedd}</code></pre>
+{:code_show_spaces code_background_color=#ffeedd}</code></pre>
 <p>That will produce:</p>
 <pre style='background-color: #ffeedd;'><code>&not;One&not;space
 &not;&not;Two&not;spaces
@@ -421,7 +475,7 @@ Content of the document
 &raquo;&nbsp;&nbsp;&nbsp;&raquo;&nbsp;&nbsp;&nbsp;&raquo;&nbsp;&nbsp;&nbsp;Tab,&not;tab,&not;tab&not;and&not;all&not;is&not;green!</code></pre>
 <p>Or highlighting (support depends on languages):</p>
 <pre><code>	&lt;div style=&quot;text-align:center&quot;&gt;Div&lt;/div&gt;
-{lang=html}
+{:lang=html}
 </code></pre>
 <p>produces:</p>
 <pre class='xml'><span class='punct'>&lt;</span><span class='tag'>div</span> <span class='attribute'>style</span><span class='punct'>=&quot;</span><span class='string'>text-align:center</span><span class='punct'>&quot;&gt;</span>Div<span class='punct'>&lt;/</span><span class='tag'>div</span><span class='punct'>&gt;</span></pre><hr />
@@ -431,7 +485,7 @@ Content of the document
 
 <p>If you create a list, and then set the <code>toc</code> attribute, when rendering Maruku will create an auto-generated table of contents.</p>
 <pre><code>* This will become a table of contents (this text will be scraped).
-{toc}
+{:toc}
 </code></pre>
 <p>You can see an example of this at the beginning of this document.</p>
 
@@ -461,4 +515,4 @@ $ \alpha = \beta + \gamma  $        (eq:1)
 
 This is a reference to equation: please see (eq:1)</code></pre><div class='footnotes'><hr /><ol><li id='fn:1'>
 <p>I really was missing those.</p>
-<a href='#fnref:1' rev='footnote'>&#8617;</a></li></ol></div><div class='maruku_signature'><hr /><span style='font-size: small; font-style: italic'>Created by <a href='http://maruku.rubyforge.org' title='Maruku: a Markdown interpreter for Ruby'>Maruku</a> at 23:50 on Monday, January 08th, 2007.</span></div></body></html>
+<a href='#fnref:1' rev='footnote'>&#8617;</a></li></ol></div><div class='maruku_signature'><hr /><span style='font-size: small; font-style: italic'>Created by <a href='http://maruku.rubyforge.org' title='Maruku: a Markdown interpreter for Ruby'>Maruku</a> at 12:29 on Thursday, January 11st, 2007.</span></div></body></html>

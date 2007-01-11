@@ -41,9 +41,11 @@ CharSource = CharSourceManual     # faster! 58ms vs. 65ms
 class CharSourceManual
 	include MaRuKu::Strings
 	
-	def initialize(s)
+	def initialize(s, parent=nil)
+		raise "Passed #{s.class}" if not s.kind_of? String
 		@buffer = s
 		@buffer_index = 0
+		@parent = parent
 	end
 	
 	# Return current char as a FixNum (or nil).
@@ -140,7 +142,11 @@ class CharSourceManual
 	end
 	
 	def describe
-		describe_pos(@buffer, @buffer_index)
+		s = describe_pos(@buffer, @buffer_index)
+		if @parent
+			s += "\n\n" + @parent.describe
+		end
+		s
 	end
 	include SpanLevelParser
 end

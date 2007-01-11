@@ -5,6 +5,14 @@ BODY {
 	padding-left: 3em;
 }
 
+#news {
+	background-color: #fee;
+	border: solid 2px red;
+	padding: 0.3em;
+	margin: 0.3em;
+	width: 50%;
+}
+
 H1 { margin-left: -1em;}
 H2 { margin-left: -1em;}
 
@@ -24,6 +32,11 @@ TABLE.example TH {
 	padding: 4px;
 	
 }
+
+IMG#logo {
+	float: right;
+}
+
 /*pre SPAN { border: solid 1px black; }*/
 
 .ruby .normal {}

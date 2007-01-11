@@ -210,6 +210,7 @@ module MaRuKu; module Tests
 		["![a][ imref ]"],
 		["![a][\timref\t]"],
 		
+
 		['<http://example.com/?foo=1&bar=2>', 
 			[md_url('http://example.com/?foo=1&bar=2')], 'Immediate link'],
 			['a<http://example.com/?foo=1&bar=2>b', 
@@ -217,7 +218,8 @@ module MaRuKu; module Tests
 		['<andrea@censi.org>', 
 			[md_email('andrea@censi.org')], 'Email address'],
 		['<mailto:andrea@censi.org>'],
-				
+		["Developmen <http://rubyforge.org/projects/maruku/>",
+			 ["Developmen ", md_url("http://rubyforge.org/projects/maruku/")]],
 		["a<!-- -->b", ['a',md_html('<!-- -->'),'b'], 
 			'HTML Comment'],
 
@@ -258,6 +260,7 @@ module MaRuKu; module Tests
 		["#{Maruku8}", [Maruku8], "Reading UTF-8"],
 		["#{AccIta1}", [AccIta8], "Converting ISO-8859-1 to UTF-8", 
 			{:encoding => 'iso-8859-1'}],
+						
 	]
 
 		good_cases = unit_tests_for_attribute_lists + good_cases
@@ -276,10 +279,12 @@ module MaRuKu; module Tests
 			end
 		end
 		
+		
 			
 		@verbose = verbose
 		m = Maruku.new
 		m.attributes[:on_error] = :raise
+		Globals[:debug_keep_ials] = true
 		
 		good_cases.each do |input, expected, comment|
 				output = nil

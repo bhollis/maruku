@@ -20,9 +20,17 @@
 
 
 module MaRuKu
+	
+Globals = {
+	:unsafe_features => false,
+	
+	:debug_keep_ials => false
+}
+	
 module Defaults
 	DEFAULT_CODE_COLOR = '#fef'
 	
+	# unused
 	DefaultAttributes = <<EOF
 
 {header}:      .mrk-header

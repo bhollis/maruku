@@ -346,7 +346,7 @@ module MaRuKu; module Out; module HTML
 	end
 	
 	def to_html_code_using_pre(source)
-		pre = Element.new 'pre'
+		pre = create_html_element  'pre'
 		code = Element.new 'code', pre
 		s = source
 		
@@ -368,7 +368,7 @@ module MaRuKu; module Out; module HTML
 	end
 
 	def to_html_inline_code; 
-		pre = Element.new 'code'
+		pre =  create_html_element 'code'
 			source = self.raw_code
 			pre << source2html(source) 
 			
@@ -381,7 +381,7 @@ module MaRuKu; module Out; module HTML
 	end
 
 	def to_html_immediate_link
-		a = Element.new 'a'
+		a =  create_html_element 'a'
 		url = self.url
 		text = url.gsub(/^mailto:/,'') # don't show mailto
 		a << Text.new(text)
@@ -439,7 +439,7 @@ module MaRuKu; module Out; module HTML
 	
 	def to_html_email_address
 		email = self.email
-		a = Element.new 'a'
+		a = create_html_element 'a'
 			#a.attributes['href'] = Text.new("mailto:"+obfuscate(email),false,nil,true)
 			#a.attributes.add Attribute.new('href',Text.new(
 			#"mailto:"+obfuscate(email),false,nil,true))
@@ -453,7 +453,7 @@ module MaRuKu; module Out; module HTML
 ##### Images
 
 	def to_html_image
-		a =  Element.new 'img'
+		a =  create_html_element 'img'
 		id = self.ref_id
 		if ref = @doc.refs[id]
 			url = ref[:url]
@@ -478,7 +478,7 @@ module MaRuKu; module Out; module HTML
 			return wrap_as_element('span')
 		end
 		title = self.title
-		a =  Element.new 'img'
+		a =  create_html_element 'img'
 			a.attributes['src'] = url
 			a.attributes['title'] = title if title
 		return a

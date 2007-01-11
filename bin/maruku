@@ -18,6 +18,7 @@ OptionParser.new do |opts|
 	opts.on_tail("--pdf",  "Write PDF" ) do export = :pdf  end
 	opts.on_tail("--html", "Write HTML") do export = :html end
 	opts.on_tail("--tex",  "Write LaTeX" ) do export = :tex  end
+	opts.on_tail("--inspect",  "Shows the parsing result" ) do export = :inspect  end
 
 	opts.on_tail("--version", "Show version") do
 		puts OptionParser::Version.join('.')
@@ -34,52 +35,67 @@ end.parse!
 #p ARGV
 #p MaRuKu::Globals
 
+inputs =
 # If we are given filenames, convert each file 
 if not ARGV.empty?
-	ARGV.each do |f|
-
+	ARGV.map do |f|
 		# read file content
-		input =  File.open(f,'r').read
+		$stderr.puts "Reading from #{f}."
+		[f, File.open(f,'r').read]
+	end
+else
+	export = :html_frag if export == :html
+	export = :tex_frag if export == :tex
+	
+	$stderr.puts "Reading from standard input."
+	[[nil, $stdin.read]]
+end
 
-		$stderr.puts "Reading from #{f}"
+inputs.each do |f, input|
 	
 		# create Maruku
 		doc = Maruku.new(input, {:on_error=>:warning})
-
 
 		out=""; prefix = "?"
 		case export
 		when :html 
 			prefix='html'
 			out = doc.to_html_document( {:indent => -1})
+		when :html_frag 
+			prefix='html_frag'
+			out = doc.to_html( {:indent => -1})
 		when :pdf, :tex
 			prefix='tex'
 			out = doc.to_latex_document
+		when :tex_frag
+			prefix='html_frag'
+			out = doc.to_latex
+		when :inspect
+			prefix='.txt'
+			out = doc.inspect
 		when :markdown
 			prefix='pretty_md'
 			out = doc.to_markdown
 		end
 			
-		# write to file
-		dir = File.dirname(f)
-		job = File.join(dir, File.basename(f, File.extname(f)))
-		filename = job + "." + prefix
+		# write to file or stdout
+		if f
+			dir = File.dirname(f)
+			job = File.join(dir, File.basename(f, File.extname(f)))
+			filename = job + "." + prefix
 
-		$stderr.puts "Writing to #{filename}"
-		File.open(filename,'w') do |f| f.puts out end
+			$stderr.puts "Writing to #{filename}"
+			File.open(filename,'w') do |f| f.puts out end
 			
-		if export == :pdf
-			cmd = "pdflatex '#{job}' -interaction=nonstopmode "+
-			      "'-output-directory=#{dir}' "
-			# run twice for cross references
-			system cmd 
-			system cmd
+			if export == :pdf
+				cmd = "pdflatex '#{job}' -interaction=nonstopmode "+
+				      "'-output-directory=#{dir}' "
+				# run twice for cross references
+				system cmd 
+				system cmd
+			end
+		else # write to stdout
+			$stdout.write out
 		end
 	end
 	
-else
-	# else, act as a filter
-	data = $stdin.read
-	puts Maruku.new(data, {:on_error=>:warning}).to_html
-end
-

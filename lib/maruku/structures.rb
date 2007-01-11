@@ -48,10 +48,6 @@ end
 
 module MaRuKu
 	
-Globals = {
-	:unsafe_features => false,
-}
-
 # I did not want to have a class for each possible element. 
 # Instead I opted to have only the class "MDElement"
 # that represents eveything in the document (paragraphs, headers, etc).

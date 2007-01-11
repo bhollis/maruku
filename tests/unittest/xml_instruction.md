@@ -31,8 +31,7 @@ md_el(:document,[
 	]),
 	md_par([
 		"Inside: ",
-		md_el(:xml_instr,[],{:code=>"puts \"Inside: Hello\"",:target=>""},[[:ref, "exec"]]),
-		md_ial([[:ref, "exec"]]),
+		md_el(:xml_instr,[],{:code=>"puts \"Inside: Hello\"",:target=>""},[]),
 		" last"
 	])
 ],{},[])

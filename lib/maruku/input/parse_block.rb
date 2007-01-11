@@ -24,6 +24,15 @@ module MaRuKu; module In; module Markdown; module BlockLevelParser
 	include Helpers
 	include MaRuKu::Strings
 	include MaRuKu::In::Markdown::SpanLevelParser
+
+	class BlockContext < Array
+		def describe
+			n = 5
+			desc = size > n ? self[-n,n] : self
+			"Last #{n} elements: "+
+			desc.map{|x| "\n -" + x.inspect}.join
+		end
+	end
 	
 	# Splits the string and calls parse_lines_as_markdown
 	def parse_text_as_markdown(text)
@@ -32,25 +41,23 @@ module MaRuKu; module In; module Markdown; module BlockLevelParser
 		return parse_blocks(src)
 	end
 	
+	# Input is a LineSource
 	def parse_blocks(src)
-		output = [];
+		output = BlockContext.new
 		
 		# run state machine
 		while src.cur_line
 #  Prints detected type (useful for debugging)
-			#puts "#{src.cur_line.md_type}|#{src.cur_line}"
+#			puts "#{src.cur_line.md_type}|#{src.cur_line}"
 			case src.cur_line.md_type
 				when :empty; 
+					output.push :empty
 					src.ignore_line
 				when :ial
-					m =  /\s*\{([^\}]*)\}\s*/.match src.shift_line
-					al = read_attribute_list(CharSource.new(m[1]), context=nil, break_on=[nil])
-					if last = output.last 
-						last.al = al
-					else
-						maruku_error "An attribute list at beginning of context {#{al.to_md}}", src
-						maruku_recover "I will ignore this AL: {#{al.to_md}}", src
-					end
+					m =  InlineAttributeList.match src.shift_line
+					content = m[1] ||  "" 
+					src2 = CharSource.new(content, src)
+					interpret_extension(src2, output, [nil])
 				when :ald
 					output.push read_ald(src)
 				when :text
@@ -61,7 +68,8 @@ module MaRuKu; module In; module Markdown; module BlockLevelParser
 						output.push read_header12(src)
 					elsif eventually_comes_a_def_list(src)
 					 	definition = read_definition(src)
-						if output.last && output.last.node_type == :definition_list
+						if output.last.kind_of?(MDElement) && 
+							output.last.node_type == :definition_list then
 							output.last.children << definition
 						else
 							output.push md_el(:definition_list, [definition])
@@ -79,7 +87,8 @@ module MaRuKu; module In; module Markdown; module BlockLevelParser
 					list_type = src.cur_line.md_type == :ulist ? :ul : :ol
 					li = read_list_item(src)
 					# append to current list if we have one
-					if output.last && output.last.node_type == list_type
+					if output.last.kind_of?(MDElement) && 
+						output.last.node_type == list_type then
 						output.last.children << li
 					else
 						output.push md_el(list_type, [li])
@@ -91,7 +100,7 @@ module MaRuKu; module In; module Markdown; module BlockLevelParser
 				when :footnote_text;   output.push read_footnote_text(src)
 				when :ref_definition;  output.push read_ref_definition(src)
 				when :abbreviation;    output.push read_abbreviation(src)
-				when :xml_instr;       output.push read_xml_instruction(src)
+				when :xml_instr;       read_xml_instruction(src, output)
 #				# these do not produce output
 				when :metadata;        
 					maruku_error "Please use the new meta-data syntax: \n"+
@@ -104,7 +113,13 @@ module MaRuKu; module In; module Markdown; module BlockLevelParser
 					src.shift_line
 			end
 		end
+
+		merge_ial(output, src, output)
+		output.delete_if {|x| x.kind_of?(MDElement) &&
+			x.node_type == :ial}
 		
+		# get rid of empty line markers
+		output.delete_if {|x| x == :empty}
 		# See for each list if we can omit the paragraphs and use li_span
 		# TODO: do this after
 		output.each do |c| 
@@ -135,7 +150,7 @@ module MaRuKu; module In; module Markdown; module BlockLevelParser
 	def read_ald(src)
 		if (l=src.shift_line) =~ AttributeDefinitionList
 			id = $1;   al=$2;
-			al = read_attribute_list(CharSource.new(al), context=nil, break_on=[nil])
+			al = read_attribute_list(CharSource.new(al,src), context=nil, break_on=[nil])
 			self.ald[id] = al;
 			return md_ald(id, al)
 		else
@@ -152,7 +167,7 @@ module MaRuKu; module In; module Markdown; module BlockLevelParser
 		if new_meta_data? and line =~ /^(.*)\{(.*)\}\s*$/
 			line = $1.strip
 			ial = $2
-			al  = read_attribute_list(CharSource.new(ial), context=nil, break_on=[nil])
+			al  = read_attribute_list(CharSource.new(ial,src), context=nil, break_on=[nil])
 		end
 		text = parse_lines_as_span [ line ]
 		level = src.cur_line.md_type == :header2 ? 2 : 1;  
@@ -168,14 +183,14 @@ module MaRuKu; module In; module Markdown; module BlockLevelParser
 		if new_meta_data? and line =~ /^(.*)\{(.*)\}\s*$/
 			line = $1.strip
 			ial = $2
-			al  = read_attribute_list(CharSource.new(ial), context=nil, break_on=[nil])
+			al  = read_attribute_list(CharSource.new(ial,src), context=nil, break_on=[nil])
 		end
 		level = num_leading_hashes(line)
 		text = parse_lines_as_span [strip_hashes(line)] 
 		return md_header(level, text, al)
 	end
 
-	def read_xml_instruction(src)
+	def read_xml_instruction(src, output)
 		m = /^\s*<\?((\w+)\s*)?(.*)$/.match src.shift_line
 		raise "BugBug" if not m
 		target = m[2] || ''
@@ -190,7 +205,18 @@ module MaRuKu; module In; module Markdown; module BlockLevelParser
 		end
 		code.gsub!(/\?>\s*$/, '')
 		
-		return md_xml_instr(target, code)
+		if target == 'mrk' && MaRuKu::Globals[:unsafe_features]
+			result = safe_execute_code(self, code)	
+			if result
+				if result.kind_of? String
+					raise "Not expected"
+				else
+					output.push *result
+				end
+			end
+		else
+			output.push md_xml_instr(target, code)
+		end
 	end
 	
 	def read_raw_html(src)

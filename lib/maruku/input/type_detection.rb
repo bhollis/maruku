@@ -62,14 +62,15 @@ module MaRuKu; module Strings
 		return :metadata if l =~ /^@/
 #		if @@new_meta_data?
 			return :ald   if l =~ AttributeDefinitionList
-			return :ial   if l =~ /^\s{0,3}\{.*\}/
+			return :ial   if l =~ InlineAttributeList
 #		end
 		return :text # else, it's just text
 	end
 
 	# $1 = id   $2 = attribute list
 	AttributeDefinitionList = /^\s{0,3}\{([\w\d\s]+)\}:\s*(.*)\s*$/
-
+	# 
+	InlineAttributeList = /^\s{0,3}\{(.*)\}\s*$/
 	# Example:
 	#     ^:blah blah
 	#     ^: blah blah

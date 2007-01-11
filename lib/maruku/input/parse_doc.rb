@@ -84,8 +84,7 @@ Conversion happens using the `iconv` library.
 		end
 	
 =begin maruku_doc
-Attribute: exec
-Scope:     document
+Variable: Maruku::Globals[:unsafe_features]
 Summary:   Enables execution of XML instructions.
 
 Disabled by default because of security concerns.
@@ -115,8 +114,10 @@ Disabled by default because of security concerns.
 						already.push v
 						expand_attribute_list(self.ald[v], result)
 					else
-						maruku_error "Circular reference: #{v} already seen\n"+
-							already.inspect
+						already.push  v
+						maruku_error "Circular reference between labels.\n\n"+
+						"Label #{v.inspect} calls itself via recursion.\nThe recursion is "+
+							(already.map{|x| x.inspect}.join(' => ')) 
 					end
 				else
 					if not result[:unresolved_references]
@@ -133,31 +134,32 @@ Disabled by default because of security concerns.
 		end
 	end
 
+	def safe_execute_code(object, code)
+		begin
+			return object.instance_eval(code)
+		rescue Exception => e
+			maruku_error "Exception while executing this:\n"+
+				add_tabs(code, 1, ">")+
+				"\nThe error was:\n"+
+				add_tabs(e.inspect+"\n"+e.caller.join("\n"), 1, "|")
+		rescue RuntimeError => e
+			maruku_error "2: Exception while executing this:\n"+
+				add_tabs(code, 1, ">")+
+				"\nThe error was:\n"+
+				add_tabs(e.inspect, 1, "|")
+		rescue SyntaxError => e
+			maruku_error "2: Exception while executing this:\n"+
+				add_tabs(code, 1, ">")+
+				"\nThe error was:\n"+
+				add_tabs(e.inspect, 1, "|")
+		end
+		nil
+	end
+	
 	def execute_code_blocks
 		self.each_element(:xml_instr) do |e|
 			if e.target == 'maruku'
-				puts e.attributes.inspect
-				code = e.code
-				result = nil
-				begin
-					 e.instance_eval(code)
-				rescue Exception => e
-					maruku_error "Exception while executing this:\n"+
-						add_tabs(code, 1, ">")+
-						"\nThe error was:\n"+
-						add_tabs(e.inspect+"\n"+e.caller.join("\n"), 1, "|")
-					next
-				rescue RuntimeError => e
-					maruku_error "2: Exception while executing this:\n"+
-						add_tabs(code, 1, ">")+
-						"\nThe error was:\n"+
-						add_tabs(e.inspect, 1, "|")
-				rescue SyntaxError => e
-					maruku_error "2: Exception while executing this:\n"+
-						add_tabs(code, 1, ">")+
-						"\nThe error was:\n"+
-						add_tabs(e.inspect, 1, "|")
-				end
+				result = safe_execute_code(e, e.code)
 				if result.kind_of?(String)
 					puts "Result is : #{result.inspect}"
 				end

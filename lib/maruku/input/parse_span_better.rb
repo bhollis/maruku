@@ -186,54 +186,26 @@ module MaRuKu; module In; module Markdown; module SpanLevelParser
 						con.push_char src.shift_char
 					end
 				end
-			when ?{ # inline attribute list
-				if new_meta_data?
-					src.ignore_char # opening {
-					ial = md_ial(al=read_attribute_list(src, con, [?}]))
-					src.ignore_char # closing }
-
-				 	con.push_element ial
-				else # normal text
-					con.push_char src.shift_char
-				end
+			when ?{ # extension
+				src.ignore_char # {
+				interpret_extension(src, con, [?}])
+				src.ignore_char # }
+				
 			when nil
 				maruku_error ("Unclosed span (waiting for %s"+
 				 "#{exit_on_strings.inspect})") % [
 						exit_on_chars ? "#{exit_on_chars.inspect} or" : ""],
 						src,con
-						
 				break
 			else # normal text
 				con.push_char src.shift_char
 			end # end case
 		end # end while true
 		con.push_string_if_present 
-		
-		# Now we handle the IAL stuff
-			# We need a helper
-			def is_ial(e); e.kind_of? MDElement and e.node_type == :ial end
-		# A IAL at the beginning is strange and we ignore it
-		if false && is_ial(e=con.elements[0]) 
-			"Attribute list at the beginning of span {#{e.to_md}}"
-			tell_user "Ignoring {#{e.to_md}}"
-			con.elements.shift
-		end
-		# Apply each IAL to the element before
-		con.elements.each_with_index do |e, i| if is_ial(e) && i>= 1 then
-			before = con.elements[i-1]
-			if before.kind_of? MDElement
-				#puts "Assigning #{e.ial} to #{before}"
-				before.al = e.ial
-			else
-				maruku_error "This IAL: {#{e.ial.to_md}} seems to"+
-					" refer to a string:\n"+
-					before.inspect, src, con
-				maruku_recover "Ignoring IAL: {#{e.ial.to_md}}", src, con
-			end
-		end end
 
-		# Remove all IAL
-		# con.elements.delete_if { |e| is_ial(e) }
+		# Assign IAL to elements
+		merge_ial(con.elements, src, con)
+		
 		
 		# Remove leading space
 		if (s = con.elements.first).kind_of? String
@@ -251,7 +223,8 @@ module MaRuKu; module In; module Markdown; module SpanLevelParser
 
 		educated
 	end
-	
+
+
 	def read_xml_instr_span(src, con) 
 		src.ignore_chars(2) # starting <?
 
@@ -273,6 +246,46 @@ module MaRuKu; module In; module Markdown; module SpanLevelParser
 		code = (code || "").strip
 		con.push_element md_xml_instr(target, code)
 	end
+
+	# Start: cursor on character **after** '{'
+	# End: curson on '}' or EOF
+	def interpret_extension(src, con, break_on_chars)
+		case src.cur_char
+		when ?:
+			src.ignore_char # :
+			extension_meta(src, con, break_on_chars)
+		when ?#, ?.
+			extension_meta(src, con, break_on_chars)
+		else
+			stuff = read_simple(src, escaped=[?}], break_on_chars, [])
+			if stuff =~ /^(\w+\s|[^\w])/
+				extension_id = $1.strip
+				if false
+				else
+					maruku_recover "I don't know what to do with extension '#{extension_id}'\n"+
+						"I will threat this:\n\t{#{stuff}} \n as meta-data.\n", src, con
+					extension_meta(src, con, break_on_chars)
+				end
+			else 
+				maruku_recover "I will threat this:\n\t{#{stuff}} \n as meta-data.\n", src, con
+				extension_meta(src, con, break_on_chars)
+			end
+		end
+	end
+
+	def extension_meta(src, con, break_on_chars)
+		if m = src.read_regexp(/(\w)+\:/)
+			name = m[1]
+			content = m[2]
+			al = read_attribute_list(src, con, break_on_chars)
+			self.doc.ald[name] = al
+		 	con.push md_ald(name, al)
+		else
+			al = read_attribute_list(src, con, break_on_chars)
+			self.doc.ald[name] = al
+			con.push md_ial(al)
+		end
+	end	
 
 	def read_url_el(src,con)
 		src.ignore_char # leading <
@@ -340,14 +353,16 @@ module MaRuKu; module In; module Markdown; module SpanLevelParser
 	# Reads a simple string (no formatting) until one of break_on_chars, 
 	# while escaping the escaped.
 	# If the string is empty, it returns nil.
-	# Raises on error.
-	def read_simple(src, escaped, exit_on_chars, exit_on_strings=nil) 
+	# Raises on error if the string terminates unexpectedly.
+#	# If eat_delim is true, and if the delim is not the EOF, then the delim
+#	# gets eaten from the stream.
+	def read_simple(src, escaped, exit_on_chars, exit_on_strings=nil)
 		text = ""
 		while true
 #			puts "Reading simple #{text.inspect}"
 			c = src.cur_char
 			if exit_on_chars && exit_on_chars.include?(c)
-#				puts ("  breaking on "<<c)+" contained in "+exit_on_chars.inspect
+#				src.ignore_char if eat_delim
 				break
 			end
 			
@@ -625,7 +640,8 @@ module MaRuKu; module In; module Markdown; module SpanLevelParser
 			@elements << e
 			nil
 		end
-
+		alias push push_element
+		
 		def push_elements(a)
 			for e in a 
 				if e.kind_of? String

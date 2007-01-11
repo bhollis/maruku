@@ -65,11 +65,11 @@ You have to have these fonts installed -- and this can be a pain.
 
 If `latex_cjk` is specified, this is added to the preamble:
 
-<?mrk md_code_block(Maruku::MDDocument::Latex_preamble_enc_cjk) ?>
+<?mrk md_codeblock(Maruku::MDDocument::Latex_preamble_enc_cjk) ?>
 
 while the default is to add this:
 
-<?mrk md_code_block(Maruku::MDDocument::Latex_preamble_enc_utf8) ?>
+<?mrk md_codeblock(Maruku::MDDocument::Latex_preamble_enc_utf8) ?>
 
 =end
 		encoding = @doc.attributes[:latex_cjk] ? 
@@ -107,13 +107,14 @@ will produce:
 % Packages required by code
 #{required}
 
-#{user_preamble}
-
+% Packages always used
 \\usepackage{hyperref}
 \\usepackage{xspace}
 \\usepackage[usenames,dvipsnames]{color}
 \\usepackage[margin=1in]{geometry}
-\\hypersetup{colorlinks=true}
+\\hypersetup{colorlinks=true,urlcolor=blue}
+
+#{user_preamble}
 
 \\begin{document} 
 #{body}
@@ -314,6 +315,21 @@ Otherwise, a standard `verbatim` environment is used.
 		colorspec = latex_color(color, 'colorbox')
 
 		"#{colorspec}{\\tt #{s}}"
+	end
+
+	def to_latex_immediate_link
+		a =  create_html_element 'a'
+		url = self.url
+		text = url.gsub(/^mailto:/,'') # don't show mailto
+#			gsub('~','$\sim$')
+		text = latex_escape(text)
+		if url[0,1] == '#'
+			url = url[1,url.size]
+			return "\\hyperlink{#{url}}{#{text}}"
+		else
+
+			return "\\href{#{url}}{#{text}}"
+		end
 	end
 
 	def to_latex_im_link
