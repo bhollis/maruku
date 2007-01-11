@@ -32,17 +32,17 @@ module MaRuKu; module In; module Markdown; module SpanLevelParser
 	
 	EscapedCharInInlineCode = [?\\,?`]
 
-	def parse_lines_as_span(lines)
-		parse_span_better lines.join("\n")
+	def parse_lines_as_span(lines, parent=nil)
+		parse_span_better lines.join("\n"), parent
 	end
 
-	def parse_span_better(string)
+	def parse_span_better(string, parent=nil)
 		if not string.kind_of? String then 
 			error "Passed #{string.class}." end
 
 		st = (string + "")
 		st.freeze
-		src = CharSource.new(st)
+		src = CharSource.new(st, parent)
 		read_span(src, EscapedCharInText, [nil])
 	end
 		
@@ -190,7 +190,8 @@ module MaRuKu; module In; module Markdown; module SpanLevelParser
 				src.ignore_char # {
 				interpret_extension(src, con, [?}])
 				src.ignore_char # }
-				
+			when ?$
+				maybe_math(src, con)
 			when nil
 				maruku_error ("Unclosed span (waiting for %s"+
 				 "#{exit_on_strings.inspect})") % [
@@ -224,7 +225,19 @@ module MaRuKu; module In; module Markdown; module SpanLevelParser
 		educated
 	end
 
-
+	# cur_char =  $
+	def maybe_math(src, con)
+		# if next is a space, then ignore it
+		if m = src.read_regexp(/\$([^\s\$]([^\$]*[^\s\$])?)\$/)
+			math = m[1]
+	#		puts "Found math: #{math.inspect}"
+			con.push md_inline_math(math)
+		else
+	#		puts "This is NOT math:\n"+src.describe
+			con.push_char src.shift_char
+		end
+	end
+				
 	def read_xml_instr_span(src, con) 
 		src.ignore_chars(2) # starting <?
 

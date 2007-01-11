@@ -43,7 +43,6 @@ end
 # This module groups all functions related to HTML export.
 module MaRuKu; module Out; module HTML
 	include REXML
-	include MaRuKu::Defaults
 	
 	# Render as an HTML fragment (no head, just the content of BODY). (returns a string)
 	def to_html(context={})
@@ -81,10 +80,26 @@ module MaRuKu; module Out; module HTML
 		# containing code.
 		doc.write(xml,indent,transitive=true,ie_hack);
 				
-		xhtml10strict  = "<?xml version='1.0' encoding='utf-8'?>
+		xhtml10strict  = "
+<?xml version='1.0' encoding='utf-8'?>
 <!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Strict//EN'
 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'>\n"
-		xhtml10strict + xml
+		
+		xhtml10strict_mathml = '<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0//EN"
+               "http://www.w3.org/TR/MathML2/dtd/xhtml-math11-f.dtd" [
+  <!ENTITY mathml "http://www.w3.org/1998/Math/MathML">
+]>
+'
+
+xhtml10strict_mathml = 
+'<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC
+    "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN"
+    "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+'
+
+		xhtml10strict_mathml + xml
 	end
 	
 	# Render to a complete HTML document (returns a REXML document tree)
@@ -104,7 +119,8 @@ module MaRuKu; module Out; module HTML
 			#<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
 			me = Element.new 'meta', head
 			me.attributes['http-equiv'] = 'Content-type'
-			me.attributes['content'] = 'text/html; charset=utf-8'	
+#			me.attributes['content'] = 'text/html;charset=utf-8'	
+			me.attributes['content'] = 'text/html;charset=utf-8'	
 		
 			# Create title element
 			doc_title = self.attributes[:title] || self.attributes[:subject] || ""
@@ -135,12 +151,70 @@ module MaRuKu; module Out; module HTML
 			
 			# When we are rendering a whole document, we add a signature 
 			# at the bottom. 
-			body << maruku_html_signature
+			if get_setting(:maruku_signature)
+				body << maruku_html_signature 
+			end
 			
 		root << body
 		
 		doc
 	end
+	
+	def to_html_inline_math
+		s = get_setting(:html_math_engine)
+		method = "to_html_inline_math_#{s}".to_sym
+		if self.respond_to? method
+			self.send method
+		else 
+			puts "A method called #{method} should be defined."
+			return []
+		end
+	end
+
+	def to_html_equation
+		s = get_setting(:html_math_engine)
+		method = "to_html_equation_#{s}".to_sym
+		if self.respond_to? method
+			self.send method
+		else 
+			puts "A method called #{method} should be defined."
+			return []
+		end
+	end
+	
+	def convert_to_mathml(tex)
+		begin
+			require 'rubygems'
+			require 'ritex'
+			$ritex_parser ||= Ritex::Parser.new
+			
+			mathml =  $ritex_parser.parse(tex.strip)
+			doc = Document.new(mathml, {:respect_whitespace =>:all}).root
+			return doc
+		rescue LoadError => e
+			maruku_error "Could not load package 'ritex'.\n"+
+			"Please install it using:\n"+
+			"   $ gem install ritex\n\n"+e.inspect
+		rescue Racc::ParseError => e
+			maruku_error "Could not parse TeX: \n#{tex}"+
+				"\n\n #{e.inspect}"
+		end
+		nil
+	end
+	
+	def to_html_inline_math_ritex
+		tex = self.math
+		mathml = convert_to_mathml(tex)
+		return mathml || []
+	end
+	
+	def to_html_equation_ritex
+		tex = self.math
+		mathml = convert_to_mathml(tex)
+		#puts "mathml: #{mathml.inspect}"
+		return mathml || []
+	end
+	
 	
 	def add_whitespace(element)
 		blocks = ['p','pre','h1','h2','h3','h4','h5','h6',
@@ -162,12 +236,16 @@ module MaRuKu; module Out; module HTML
 	
 	# returns "st","nd","rd" or "th" as appropriate
 	def day_suffix(day)
-		case day%10
-			when 1; 'st'
-			when 2; 'nd'
-			when 3; 'rd'
-			else 'th'
-		end
+		s = {
+			1 => 'st',
+			2 => 'nd',
+			3 => 'rd',
+			21 => 'st',
+			22 => 'nd',
+			23 => 'rd',
+			31 => 'st'
+		}
+		return s[day] || 'th';
 	end
 
 	# formats a nice date
@@ -310,7 +388,7 @@ module MaRuKu; module Out; module HTML
 		lang = self.attributes[:lang] || @doc.attributes[:code_lang] 
 
 		lang = 'xml' if lang=='html'
-		use_syntax = get_setting(:html_use_syntax)
+		use_syntax = get_setting :html_use_syntax
 		
 		element = 
 		if use_syntax && lang
@@ -338,8 +416,8 @@ module MaRuKu; module Out; module HTML
 			to_html_code_using_pre(source)
 		end
 		
-		color = get_setting(:code_background_color,DEFAULT_CODE_COLOR)
-		if color != DEFAULT_CODE_COLOR
+		color = get_setting(:code_background_color)
+		if color != Globals[:code_background_color]
 			element.attributes['style'] = "background-color: #{color};"
 		end
 		element
@@ -355,8 +433,7 @@ module MaRuKu; module Out; module HTML
 		s  = s.gsub(/\&apos;/,'&#39;') # IE bug
 		s  = s.gsub(/'/,'&#39;') # IE bug
 
-		show_spaces = get_setting(:code_show_spaces) 
-		if show_spaces
+		if get_setting(:code_show_spaces) 
 			s.gsub!(/\t/,'&raquo;'+'&nbsp;'*3)
 			s.gsub!(/ /,'&not;')
 		end
@@ -372,8 +449,8 @@ module MaRuKu; module Out; module HTML
 			source = self.raw_code
 			pre << source2html(source) 
 			
-			color = get_setting(:code_background_color, DEFAULT_CODE_COLOR)
-			if color != DEFAULT_CODE_COLOR
+			color = get_setting(:code_background_color)
+			if color != Globals[:code_background_color]
 				pre.attributes['style'] = "background-color: #{color};"
 			end
 			

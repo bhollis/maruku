@@ -42,12 +42,15 @@ class MDDocument
 		children_to_latex
 	end
 
+	
 	# Render as a complete LaTeX document 
 	def to_latex_document
 		body = to_latex
 		
-		body += render_latex_signature
-
+		if get_setting(:maruku_signature)
+			body += render_latex_signature 
+		end
+		
 		required = 
 		self.latex_required_packages.map {|p|
 			"\\usepackage{#{p}}\n"
@@ -135,7 +138,6 @@ Created by \\href{http://maruku.rubyforge.org}{Maruku} #{self.nice_date}.
 end end
 
 module MaRuKu; module Out; module Latex
-	include Maruku::Defaults
 	
 	def to_latex_hrule; "\n\\vspace{.5em} \\hrule \\vspace{.5em}\n" end
 	def to_latex_linebreak; "\\linebreak " end
@@ -144,9 +146,7 @@ module MaRuKu; module Out; module Latex
 		children_to_latex+"\n\n"
 	end
 
-	def get_setting(name, default=nil)
-		self.attributes[name] || @doc.attributes[name] || default
-	end
+	
 =begin maruku_doc
 Title: Input format for colors
 Output: latex, html
@@ -175,6 +175,14 @@ Admissible formats:
 		else	
 			"\\#{command}{#{s}}"
 		end
+	end
+	
+	def to_latex_inline_math
+		"\\begin{math}#{self.math.strip}\\end{math}"
+	end
+
+	def to_latex_equation
+		"\\begin{equation}#{self.math.strip}\\end{equation}"
 	end
 	
 	def to_latex_code;
@@ -218,14 +226,13 @@ Otherwise, a standard `verbatim` environment is used.
 				
 			s = "\\lstset{columns=fixed,frame=shadowbox}"
 
-			show_spaces = get_setting(:code_show_spaces) 
-			if show_spaces
+			if get_setting(:code_show_spaces) 
 				s+= "\\lstset{showspaces=true,showtabs=true}\n"
 			else
 				s+= "\\lstset{showspaces=false,showtabs=false}\n"
 			end
 			
-			color = latex_color get_setting(:code_background_color,DEFAULT_CODE_COLOR)
+			color = latex_color get_setting(:code_background_color)
 			
 			s+= "\\lstset{backgroundcolor=#{color}}\n" 
 			
@@ -311,7 +318,7 @@ Otherwise, a standard `verbatim` environment is used.
 		# Convert to printable latex chars 
 		s = latex_escape(source)
 		
-		color = get_setting(:code_background_color,DEFAULT_CODE_COLOR)
+		color = get_setting(:code_background_color)
 		colorspec = latex_color(color, 'colorbox')
 
 		"#{colorspec}{\\tt #{s}}"

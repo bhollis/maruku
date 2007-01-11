@@ -45,8 +45,8 @@ Maruku implements:
 __Authors__: Maruku has been developed so far by [Andrea Censi][].
 Contributors are most welcome!
 
-__The name of the game__: Maruku is the [romaji][] translitteration of 
-the [katakana][] translitteration
+__The name of the game__: Maruku is the [romaji][] transliteration of 
+the [katakana][] transliteration
 of "Mark", the first word in Markdown. I chose this name because Ruby 
 is Japanese, and also the sillable "ru" appears in Maruku.
 

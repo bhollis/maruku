@@ -4,6 +4,7 @@ require 'maruku'
 require 'optparse'
 
 export = :html
+break_on_error = false;
 
 OptionParser.new do |opts|
 	opts.banner = "Usage: maruku [options] [file1.md [file2.md ..."
@@ -12,6 +13,9 @@ OptionParser.new do |opts|
 		MaRuKu::Globals[:verbose] = v end
 	opts.on("-u", "--[no-]unsafe", "Use unsafe features") do |v|
 		MaRuKu::Globals[:unsafe_features] = v end
+
+	opts.on("-b", "Break on error") do |v|
+		break_on_error = true end
 
 	
 
@@ -54,12 +58,14 @@ end
 inputs.each do |f, input|
 	
 		# create Maruku
-		doc = Maruku.new(input, {:on_error=>:warning})
+		params = {}
+		params[:on_error] = break_on_error ? :raise : :warning
+		doc = Maruku.new(input, params)
 
 		out=""; prefix = "?"
 		case export
 		when :html 
-			prefix='html'
+			prefix='xhtml'
 			out = doc.to_html_document( {:indent => -1})
 		when :html_frag 
 			prefix='html_frag'

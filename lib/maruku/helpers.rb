@@ -173,6 +173,15 @@ module Helpers
 	def md_xml_instr(target, code)
 		md_el(:xml_instr, [], {:target=>target, :code=>code})
 	end
+
+	def md_inline_math(math)
+		md_el(:inline_math, [], meta={:math=>math})
+	end
+
+	def md_equation(math)
+		md_el(:equation, [], meta={:math=>math})
+	end
+
 end
 end
 

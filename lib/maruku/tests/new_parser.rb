@@ -257,6 +257,10 @@ module MaRuKu; module Tests
 			[md_im_link(["bar"],'/url/', 'Title with "quotes" inside')],
 			"Link with quotes"],
 		
+		['$20,000 and $30,000', ['$20,000 and $30,000'], 'Math: spaces'],
+		['$20,000$', [md_inline_math('20,000')]],
+		['$ 20,000$', ['$ 20,000$']],
+		['$20,000 $ $20,000$', ['$20,000 $ ', md_inline_math('20,000')]],
 		["#{Maruku8}", [Maruku8], "Reading UTF-8"],
 		["#{AccIta1}", [AccIta8], "Converting ISO-8859-1 to UTF-8", 
 			{:encoding => 'iso-8859-1'}],

@@ -87,7 +87,7 @@ def run_test(filename, its_ok, verbose=true)
 	end
 
 	File.open(output_html, 'w') do |f|
-		f.write actual[:to_html]
+		f.write doc.to_html_document
 	end
 
 		begin

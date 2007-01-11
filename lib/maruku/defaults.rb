@@ -24,25 +24,29 @@ module MaRuKu
 Globals = {
 	:unsafe_features => false,
 	
-	:debug_keep_ials => false
+	:debug_keep_ials => false,
+	
+	:maruku_signature => true,
+	:code_background_color => '#fef',
+	:code_show_spaces => false,
+	:html_math_engine => 'ritex',
+	:html_use_syntax => false,
+	:on_error => :raise
 }
-	
-module Defaults
-	DEFAULT_CODE_COLOR = '#fef'
-	
-	# unused
-	DefaultAttributes = <<EOF
 
-{header}:      .mrk-header
-{paragraph}:   .mrk-par
-{strong}:      .mrk-strong 
-{emphasis}:    .mrk-em 
-{code}:        .mrk-code
-{code_block}:  .mrk-code_block
-
-{example}:  pre_filter=""
-
-EOF
-
+class MDElement
+	def get_setting(sym)
+		if self.attributes.has_key?(sym) then
+			return self.attributes[sym]
+		elsif self.doc.attributes.has_key?(sym) then
+			return self.doc.attributes[sym]
+		elsif MaRuKu::Globals.has_key?(sym)
+			return MaRuKu::Globals[sym]
+		else
+			$stderr.puts "Bug: no default for #{sym.inspect}"
+			nil
+		end
+	end
 end
+
 end

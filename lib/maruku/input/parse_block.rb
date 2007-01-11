@@ -101,6 +101,12 @@ module MaRuKu; module In; module Markdown; module BlockLevelParser
 				when :ref_definition;  output.push read_ref_definition(src)
 				when :abbreviation;    output.push read_abbreviation(src)
 				when :xml_instr;       read_xml_instruction(src, output)
+				when :equation
+					src.shift_line =~ Equation
+					output.push md_equation($1)
+				when :equation_start
+					read_equation(src, output)
+					
 #				# these do not produce output
 				when :metadata;        
 					maruku_error "Please use the new meta-data syntax: \n"+
@@ -145,7 +151,27 @@ module MaRuKu; module In; module Markdown; module BlockLevelParser
 		
 		output
 	end
-		 
+	
+	def read_equation(src,con)
+		src.shift_line
+		math = ""
+		while true
+			if not src.cur_line
+				maruku_error "Stream finished while reading equation\n\n"+
+				add_tabs(math,1,'$> '), src, con
+				break
+			end
+			
+			line = src.shift_line
+			if line =~ EquationEnd
+				math += $1 + "\n"
+				break
+			else
+				math += line + "\n"
+			end
+		end
+		con.push md_equation(math)
+	end	
 	
 	def read_ald(src)
 		if (l=src.shift_line) =~ AttributeDefinitionList
@@ -242,7 +268,8 @@ module MaRuKu; module In; module Markdown; module BlockLevelParser
 		while src.cur_line 
 			# :olist does not break
 			case t = src.cur_line.md_type
-				when :quote,:header3,:empty,:raw_html,:ref_definition,:ial,:xml_instr
+				when :equation_start,:equation_end,:equation,
+					:quote,:header3,:empty,:raw_html,:ref_definition,:ial,:xml_instr
 					break
 				when :olist,:ulist
 					break if src.next_line.md_type == t
@@ -257,7 +284,7 @@ module MaRuKu; module In; module Markdown; module BlockLevelParser
 			lines << src.shift_line
 		end
 #		dbg_describe_ary(lines, 'PAR')
-		children = parse_lines_as_span(lines)
+		children = parse_lines_as_span(lines, src)
 
 		return md_par(children)
 	end

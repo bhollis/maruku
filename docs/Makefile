@@ -3,7 +3,7 @@ htmls=index.html maruku.html  markdown_syntax.html
 
 pdfs= maruku.pdf proposal.pdf
 
-others=maruku.md style.css markdown_syntax.md  proposal.md 
+others=logo.png maruku.md style.css markdown_syntax.md  proposal.md 
 
 pdfs+=proposal.pdf
 htmls+=proposal.html

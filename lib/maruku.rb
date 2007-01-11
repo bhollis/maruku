@@ -44,11 +44,8 @@ module MaRuKu
 	module Helpers; end
 
 	module Errors; end
-	
-	module Defaults; end
 		
 	class MDElement
-		include Defaults
 		include MaRuKu
 		include Out::Markdown
 		include Out::HTML

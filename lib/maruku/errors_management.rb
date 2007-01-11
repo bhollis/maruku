@@ -37,10 +37,10 @@ module MaRuKu
 	end
 	
 module Errors
-	Default_on_error = :warning
 	
 	def maruku_error(s,src=nil,con=nil)
-		policy = @doc ? (@doc.attributes[:on_error] || Default_on_error) : :raise
+		policy = @doc ? (@doc.attributes[:on_error] || 
+			Defaults[:on_error]) : :raise
 		
 		case policy
 		when :ignore 
@@ -48,6 +48,8 @@ module Errors
 			raise_error create_frame(describe_error(s,src,con))
 		when :warning
 			tell_user create_frame(describe_error(s,src,con))
+		else
+			raise "BugBug: policy = #{policy.inspect}"
 		end
 	end
 	
