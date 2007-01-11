@@ -4,7 +4,7 @@
 
 require 'maruku'
 
-module MaRuKu MaRuKu; module Out; module HTML
+module MaRuKu; module Out; module HTML
 	
 	def to_html_inline_math_itex
 		puts "inline: " + self.math
