@@ -7,16 +7,19 @@ require 'maruku'
 module MaRuKu; module Out; module HTML
 	
 	def to_html_inline_math_itex
-		puts "inline: " + self.math
-		# return Element.new 'div'
-		# return []     on error
-		return Document.new('<div>PARSED BY ITEX</div>').root
+		# You can: either return a REXML::Element
+		#    return Element.new 'div'    
+		# or return an empty array on error
+		#    return []  
+		# or have a string parsed by REXML:
+		tex = self.math
+		tex.gsub!('&','&amp;')
+		mathml = "<code>#{tex}</code>"
+		return Document.new(mathml).root
 	end
 	
 	def to_html_equation_itex
-		puts "equation: " +  self.math
-		# return Element.new 'div'
-		return Document.new('<div>PARSED BY ITEX</div>').root
+		return to_html_inline_math_itex
 	end
 
 end end end
