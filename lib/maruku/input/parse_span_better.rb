@@ -67,7 +67,12 @@ module MaRuKu; module In; module Markdown; module SpanLevelParser
 			break if exit_on_chars && exit_on_chars.include?(c)
 			break if exit_on_strings && exit_on_strings.any? {|x| src.cur_chars_are x}
 			
-			case c
+			# check if there are extensions
+			if check_span_extensions(src, con)
+				next
+			end
+			
+			case c = src.cur_char	
 			when ?\ # it's space (32)
 				if src.cur_chars_are "  \n"
 					src.ignore_chars(3)
@@ -190,8 +195,6 @@ module MaRuKu; module In; module Markdown; module SpanLevelParser
 				src.ignore_char # {
 				interpret_extension(src, con, [?}])
 				src.ignore_char # }
-			when ?$
-				maybe_math(src, con)
 			when nil
 				maruku_error ("Unclosed span (waiting for %s"+
 				 "#{exit_on_strings.inspect})") % [
@@ -225,19 +228,7 @@ module MaRuKu; module In; module Markdown; module SpanLevelParser
 		educated
 	end
 
-	# cur_char =  $
-	def maybe_math(src, con)
-		# if next is a space, then ignore it
-		if m = src.read_regexp(/\$([^\s\$]([^\$]*[^\s\$])?)\$/)
-			math = m[1]
-	#		puts "Found math: #{math.inspect}"
-			con.push md_inline_math(math)
-		else
-	#		puts "This is NOT math:\n"+src.describe
-			con.push_char src.shift_char
-		end
-	end
-				
+
 	def read_xml_instr_span(src, con) 
 		src.ignore_chars(2) # starting <?
 

@@ -18,6 +18,8 @@
 #   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #++
 
+require 'rexml/document'
+
 # :include:MaRuKu.txt
 module MaRuKu
 
@@ -46,6 +48,7 @@ module MaRuKu
 	module Errors; end
 		
 	class MDElement
+		include REXML
 		include MaRuKu
 		include Out::Markdown
 		include Out::HTML
@@ -57,6 +60,7 @@ module MaRuKu
 	
 	
 	class MDDocument < MDElement
+		include In::Markdown
 		include In::Markdown::SpanLevelParser
 		include In::Markdown::BlockLevelParser
 	end
@@ -96,6 +100,8 @@ require 'maruku/input/charsource'
 require 'maruku/input/parse_span_better'
 require 'maruku/input/rubypants'
 
+require 'maruku/input/extensions'
+
 require 'maruku/attributes'
 
 require 'maruku/structures_iterators'
@@ -111,6 +117,7 @@ require 'maruku/version'
 
 # Exporting to html
 require 'maruku/output/to_html'
+require 'maruku/output/to_html_math'
 
 # Exporting to latex
 require 'maruku/output/to_latex'

@@ -38,6 +38,14 @@ class MDElement
 		title.gsub!(/ /,'_')
 		title.downcase!
 		title.gsub!(/[^\w_]/,'')
+		title.strip!
+		
+		if title.size == 0
+			$uid ||= 0
+			$uid += 1
+			title = "id#{$uid}"
+		end
+		
 		title
 	end
 end

@@ -17,6 +17,9 @@ OptionParser.new do |opts|
 	opts.on("-b", "Break on error") do |v|
 		break_on_error = true end
 
+	opts.on("-m", "--math-engine ENGINE", "Uses ENGINE to render MathML") do |s|
+		MaRuKu::Globals[:html_math_engine] = s
+	end
 	
 
 	opts.on_tail("--pdf",  "Write PDF" ) do export = :pdf  end

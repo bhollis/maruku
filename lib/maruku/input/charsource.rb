@@ -33,8 +33,8 @@ class CharSourceDebug; end
 
 # Choose!
 
-#CharSource = CharSourceStrscan
 CharSource = CharSourceManual     # faster! 58ms vs. 65ms
+#CharSource = CharSourceStrscan
 #CharSource = CharSourceDebug
 
 
