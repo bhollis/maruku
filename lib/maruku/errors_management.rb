@@ -39,8 +39,7 @@ module MaRuKu
 module Errors
 	
 	def maruku_error(s,src=nil,con=nil)
-		policy = @doc ? (@doc.attributes[:on_error] || 
-			Defaults[:on_error]) : :raise
+		policy = get_setting(:on_error)
 		
 		case policy
 		when :ignore 

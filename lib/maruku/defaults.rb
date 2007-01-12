@@ -31,14 +31,14 @@ Globals = {
 	:code_show_spaces => false,
 	:html_math_engine => 'ritex',
 	:html_use_syntax => false,
-	:on_error => :raise
+	:on_error => :warning
 }
 
 class MDElement
 	def get_setting(sym)
 		if self.attributes.has_key?(sym) then
 			return self.attributes[sym]
-		elsif self.doc.attributes.has_key?(sym) then
+		elsif self.doc && self.doc.attributes.has_key?(sym) then
 			return self.doc.attributes[sym]
 		elsif MaRuKu::Globals.has_key?(sym)
 			return MaRuKu::Globals[sym]

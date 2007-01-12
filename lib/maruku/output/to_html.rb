@@ -159,7 +159,44 @@ xhtml10strict_mathml =
 		
 		doc
 	end
-	
+
+=begin maruku_doc
+Attribute: html_math_engine
+Scope: document, element
+Output: html
+Summary: Select the rendering engine for math.
+Default: <?mrk Globals[:html_math_engine].to_s ?>
+
+Select the rendering engine for math.
+
+If you want to use your engine `foo`, then set:
+
+	HTML math engine: foo
+{:lang=markdown}
+
+and then implement two functions:
+
+	def to_html_inline_math_foo
+		# You can: either return a REXML::Element
+		#    return Element.new 'div'    
+		# or return an empty array on error
+		#    return []  
+		# or have a string parsed by REXML:
+		tex = self.math
+		tex.gsub!('&','&amp;')
+		mathml = "<code>#{tex}</code>"
+		return Document.new(mathml).root
+	end
+
+	def to_html_equation_foo
+		# same thing
+		...
+	end
+{:lang=ruby}
+
+=end
+
+
 	def to_html_inline_math
 		s = get_setting(:html_math_engine)
 		method = "to_html_inline_math_#{s}".to_sym
@@ -381,12 +418,26 @@ xhtml10strict_mathml =
 		Text.new(source, true, nil, false )
 	end
 		
+=begin maruku_doc
+Attribute: html_use_syntax
+Scope: document
+Output: html
+Summary: Enables the use of the `syntax` package.
+Related: lang, code_lang
+Default: <?mrk Globals[:html_use_syntax].to_s ?>
+
+If false, Maruku does not append a signature to the
+generated file.
+=end
+
 	def to_html_code; 
 		source = self.raw_code
 
 		lang = self.attributes[:lang] || @doc.attributes[:code_lang] 
 
 		lang = 'xml' if lang=='html'
+
+
 		use_syntax = get_setting :html_use_syntax
 		
 		element = 

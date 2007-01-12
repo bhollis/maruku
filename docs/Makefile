@@ -44,3 +44,7 @@ publish_tests:
 publish_doc:
 	rsync --recursive -v ../doc/  andrea@rubyforge.org:/var/www/gforge-projects/maruku/rdoc
 
+exd.html:
+	ruby -I../lib exd/exd.rb
+	
+	

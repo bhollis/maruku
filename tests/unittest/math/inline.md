@@ -96,7 +96,7 @@ Rules: you have to have one non-space character after the first  and one non-spa
 
 
 
-Failed tests:   [:to_html] 
+Failed tests:   [:to_html, :to_latex] 
 
 *** Output of inspect ***
 md_el(:document,[
@@ -143,15 +143,16 @@ md_el(:document,[
 <p>That&rsquo;s it, nothing else is supported.</p>
 
 *** Output of to_latex ***
+-----| WARNING | -----
 Rules: you have to have one non-space character after the first \colorbox[rgb]{1.00,0.93,1.00}{\tt \char36} and one non-space character before the last \colorbox[rgb]{1.00,0.93,1.00}{\tt \char36}.
 
-For example, these are not math: \$20,000 and \$30,000, nor these: \$20,000 \$, but this {\em is} math: .
+For example, these are not math: \$20,000 and \$30,000, nor these: \$20,000 \$, but this {\em is} math: \begin{math}20,000\end{math}.
 
 Stop talking about money -- here are some formulas:
 
 \begin{itemize}%
-\item 
-\item 
+\item \begin{math}\alpha\end{math}
+\item \begin{math}x^{n}+y^{n} \neq z^{n}\end{math}
 
 \end{itemize}
 That's it, nothing else is supported.

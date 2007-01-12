@@ -42,7 +42,17 @@ class MDDocument
 		children_to_latex
 	end
 
-	
+=begin maruku_doc
+Attribute: maruku_signature
+Scope: document
+Output: html, latex
+Summary: Enables Maruku's signature.
+Default: true
+
+If false, Maruku does not append a signature to the
+generated file.
+=end
+
 	# Render as a complete LaTeX document 
 	def to_latex_document
 		body = to_latex
