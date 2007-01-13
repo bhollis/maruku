@@ -30,7 +30,17 @@
 module MaRuKu
 module Helpers
 
+	# if the first is a md_ial, it is used as such
 	def md_el(node_type, children=[], meta={}, al=nil)
+		if  (e=children.first).kind_of?(MDElement) and 
+			e.node_type == :ial then
+			if al
+				al += e.ial
+			else
+				al = e.ial
+			end
+			children.shift
+		end 
 		e = MDElement.new(node_type, children, meta, al)
 		e.doc = @doc
 		return e

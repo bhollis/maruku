@@ -46,17 +46,17 @@ md_el(:document,[
 
 <p>Rules: you have to have one non-space character after the first <code>$</code> and one non-space character before the last <code>$</code>.</p>
 
-<p>For example, these are not math: $20,000 and $30,000, nor these: $20,000 $, but this <em>is</em> math: .</p>
+<p>For example, these are not math: $20,000 and $30,000, nor these: $20,000 $, but this <em>is</em> math: <math xmlns='http://www.w3.org/1998/Math/MathML'><mn>20</mn><mo>,</mo><mn>000</mn></math>.</p>
 
-<p>Stop talking about money &ndash; here are some formulas:</p>
+<p>Stop talking about money &#8211; here are some formulas:</p>
 
 <ul>
-<li />
+<li><math xmlns='http://www.w3.org/1998/Math/MathML'><mi>&alpha;</mi></math></li>
 
-<li />
+<li><math xmlns='http://www.w3.org/1998/Math/MathML'><msup><mi>x</mi><mrow><mi>n</mi></mrow></msup><mo>+</mo><msup><mi>y</mi><mrow><mi>n</mi></mrow></msup><mo>&ne;</mo><msup><mi>z</mi><mrow><mi>n</mi></mrow></msup></math></li>
 </ul>
 
-<p>That&rsquo;s it, nothing else is supported.</p>
+<p>That&#8217;s it, nothing else is supported.</p>
 
 *** Output of to_latex ***
 Rules: you have to have one non-space character after the first \colorbox[rgb]{1.00,0.93,1.00}{\tt \char36} and one non-space character before the last \colorbox[rgb]{1.00,0.93,1.00}{\tt \char36}.
@@ -96,7 +96,7 @@ Rules: you have to have one non-space character after the first  and one non-spa
 
 
 
-Failed tests:   [:to_html, :to_latex] 
+Failed tests:   [:to_latex] 
 
 *** Output of inspect ***
 md_el(:document,[
@@ -126,13 +126,12 @@ md_el(:document,[
 	md_par(["That", md_entity("rsquo"), "s it, nothing else is supported."])
 ],{},[])
 *** Output of to_html ***
------| WARNING | -----
 
 <p>Rules: you have to have one non-space character after the first <code>$</code> and one non-space character before the last <code>$</code>.</p>
 
 <p>For example, these are not math: $20,000 and $30,000, nor these: $20,000 $, but this <em>is</em> math: <math xmlns='http://www.w3.org/1998/Math/MathML'><mn>20</mn><mo>,</mo><mn>000</mn></math>.</p>
 
-<p>Stop talking about money &ndash; here are some formulas:</p>
+<p>Stop talking about money &#8211; here are some formulas:</p>
 
 <ul>
 <li><math xmlns='http://www.w3.org/1998/Math/MathML'><mi>&alpha;</mi></math></li>
@@ -140,19 +139,19 @@ md_el(:document,[
 <li><math xmlns='http://www.w3.org/1998/Math/MathML'><msup><mi>x</mi><mrow><mi>n</mi></mrow></msup><mo>+</mo><msup><mi>y</mi><mrow><mi>n</mi></mrow></msup><mo>&ne;</mo><msup><mi>z</mi><mrow><mi>n</mi></mrow></msup></math></li>
 </ul>
 
-<p>That&rsquo;s it, nothing else is supported.</p>
+<p>That&#8217;s it, nothing else is supported.</p>
 
 *** Output of to_latex ***
 -----| WARNING | -----
 Rules: you have to have one non-space character after the first \colorbox[rgb]{1.00,0.93,1.00}{\tt \char36} and one non-space character before the last \colorbox[rgb]{1.00,0.93,1.00}{\tt \char36}.
 
-For example, these are not math: \$20,000 and \$30,000, nor these: \$20,000 \$, but this {\em is} math: \begin{math}20,000\end{math}.
+For example, these are not math: \$20,000 and \$30,000, nor these: \$20,000 \$, but this {\em is} math: $20,000$.
 
 Stop talking about money -- here are some formulas:
 
 \begin{itemize}%
-\item \begin{math}\alpha\end{math}
-\item \begin{math}x^{n}+y^{n} \neq z^{n}\end{math}
+\item $\alpha$
+\item $x^{n}+y^{n} \neq z^{n}$
 
 \end{itemize}
 That's it, nothing else is supported.

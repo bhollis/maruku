@@ -3,6 +3,8 @@ List of symbols supported by Maruku
 ===================================
 
 <?maruku
+	MaRuKu::Out::Latex.need_entity_table
+
 	all = []
 	ENTITY_TABLE.each do |k, e|
 		if k.kind_of? String

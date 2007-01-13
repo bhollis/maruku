@@ -43,7 +43,7 @@ EOF
 		attr_accessor symbol
 	end
 	
-	alias  safe_attr_accessor  safe_attr_accessor1
+	alias  safe_attr_accessor  safe_attr_accessor2
 end
 
 module MaRuKu

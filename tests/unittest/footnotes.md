@@ -55,19 +55,19 @@ md_el(:document,[
 ],{},[])
 *** Output of to_html ***
 
-<p>That&rsquo;s some text with a footnote <sup id='fnref:1'><a href='#fn:1' rel='footnote'>1</a></sup> and another <sup id='fnref:2'><a href='#fn:2' rel='footnote'>2</a></sup> and another <sup id='fnref:3'><a href='#fn:3' rel='footnote'>3</a></sup>.</p>
+<p>That&#8217;s some text with a footnote <sup id='fnref:1'><a href='#fn:1' rel='footnote'>1</a></sup> and another <sup id='fnref:2'><a href='#fn:2' rel='footnote'>2</a></sup> and another <sup id='fnref:3'><a href='#fn:3' rel='footnote'>3</a></sup>.</p>
 
 <p>This is not a footnote.</p>
 <div class='footnotes'><hr /><ol><li id='fn:1'>
-<p>And that&rsquo;s the footnote. This is second sentence (same paragraph)</p>
+<p>And that&#8217;s the footnote. This is second sentence (same paragraph)</p>
 <a href='#fnref:1' rev='footnote'>&#8617;</a></li><li id='fn:2'>
 <p>This is the very long one.</p>
 
-<p>That&rsquo;s the second paragraph.</p>
+<p>That&#8217;s the second paragraph.</p>
 <a href='#fnref:2' rev='footnote'>&#8617;</a></li><li id='fn:3'>
-<p>And that&rsquo;s the footnote.</p>
+<p>And that&#8217;s the footnote.</p>
 
-<p>That&rsquo;s the second paragraph of the footnote.</p>
+<p>That&#8217;s the second paragraph of the footnote.</p>
 <a href='#fnref:3' rev='footnote'>&#8617;</a></li></ol></div>
 *** Output of to_latex ***
 That's some text with a footnote \footnote{And that's the footnote. This is second sentence (same paragraph)}  and another \footnote{This is the very long one.

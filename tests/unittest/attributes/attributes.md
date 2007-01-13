@@ -22,7 +22,7 @@ md_el(:document,[
 	md_el(:header,["Header with attributes"],{:level=>2},[[:id, "header1"]]),
 	md_el(:header,["Header with attributes"],{:level=>3},[[:id, "header2"]]),
 	md_el(:header,["Header no attributes"],{:level=>3},[]),
-	md_par(["Paragraph with a."], [[:id, "par1"]]),
+	md_par([md_ial([[:ref, "warn2"]]), "Paragraph with a."], [[:id, "par1"]]),
 	md_par(["Paragraph with ", md_em(["emphasis"])], [[:id, "par2"]]),
 	md_el(:ald,[],{:ald=>[[:class, "chello"]],:ald_id=>"o"},[])
 ],{},[])

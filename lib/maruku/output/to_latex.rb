@@ -188,11 +188,11 @@ Admissible formats:
 	end
 	
 	def to_latex_inline_math
-		"\\begin{math}#{self.math.strip}\\end{math}"
+		"$#{self.math.strip}$"
 	end
 
 	def to_latex_equation
-		"\\begin{equation}#{self.math.strip}\\end{equation}"
+		"\\begin{equation}\n#{self.math.strip}\n\\end{equation}\n"
 	end
 	
 	def to_latex_code;

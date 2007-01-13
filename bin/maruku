@@ -63,9 +63,13 @@ inputs.each do |f, input|
 		# create Maruku
 		params = {}
 		params[:on_error] = break_on_error ? :raise : :warning
+
+		t = Time.now
 		doc = Maruku.new(input, params)
+		$stderr.puts "Parsing in %.2f seconds." % (Time.now-t)
 
 		out=""; prefix = "?"
+		t = Time.now
 		case export
 		when :html 
 			prefix='xhtml'
@@ -86,6 +90,7 @@ inputs.each do |f, input|
 			prefix='pretty_md'
 			out = doc.to_markdown
 		end
+		$stderr.puts "Rendering in %.2f seconds." % (Time.now-t)
 			
 		# write to file or stdout
 		if f

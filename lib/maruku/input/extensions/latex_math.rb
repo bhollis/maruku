@@ -1,14 +1,20 @@
 
 
-	RegInlineMath = /\$([^\s\$]([^\$]*[^\s\$])?)\$/
+# At least one slash inside
+RegInlineMath1 = /\$([^\$]*[\\][^\$]*)\$/
+# No spaces around the delimiters
+RegInlineMath2 = /\$([^\s\$](?:[^\$]*[^\s\$])?)\$/
+
+RegInlineMath = Regexp::union(RegInlineMath1,RegInlineMath2)
+	
 	MaRuKu::In::Markdown::
 	register_span_extension(:chars => ?$, :regexp => RegInlineMath) do |doc, src, con|
 		if m = src.read_regexp(RegInlineMath)
-			math = m[1]
+			math = m.captures.compact.first
 			con.push doc.md_inline_math(math)
 			true
 		else
-			puts "not math: #{src.cur_chars 10}"
+			#puts "not math: #{src.cur_chars 10}"
 			false
 		end
 	end
@@ -29,7 +35,6 @@
 	RegEqref = /\\eqref\{(\w+)\}/
 	MaRuKu::In::Markdown::
 	register_span_extension(:chars => ?\\, :regexp => RegEqref) do |doc, src, con|
-		puts "invoked #{self}"
 		m = src.read_regexp(RegEqref)
 		eqid = m[1]
 	

@@ -153,8 +153,8 @@ module MaRuKu; module In; module Markdown; module BlockLevelParser
 	end
 	
 	def read_equation(src,con)
-		src.shift_line
-		math = ""
+		src.shift_line =~ EquationStart
+		math = $1
 		while true
 			if not src.cur_line
 				maruku_error "Stream finished while reading equation\n\n"+

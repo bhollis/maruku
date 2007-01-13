@@ -92,8 +92,34 @@ please write to the [Markdown-discuss mailing list][markdown-discuss].
 
 Have fun!
 
+#### Changes in the trunk (not released yet) ####     {#last}
 
-#### Changes in 0.4.2 ####     {#last}
+*	Export to MathML.
+*	HTML export:
+	*	Updated the XHTML DTD used.
+	
+		*	Currently using XHTML+MathML+SVG.
+		*	Content-type set to `application/xhtml+xml`	
+	
+	*	All entities are written as numeric entities.
+*	Disable the Maruku signature by setting `maruku signature: false`
+*	Meta data: the first IAL in a span environment now refers to the parent.
+	This makes it possible to set attributes for cells:
+	
+		Head           |  Head |
+		---------------+-------+--
+		{:r}  Hello    + ...
+		
+		{:r: scope='row'}
+		
+	The first cell will have the `scope` attribute set to `row`.
+	
+	
+*	Bugs fixed:
+	*	`markdown=1` did not propagate to children.
+	*	LaTeX: An exception was raised if an unknown entity was used.
+	
+#### Changes in 0.4.2 ####     
 
 *	Adapted syntax to the [new meta-data proposal][proposal].
 

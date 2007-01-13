@@ -10,7 +10,7 @@ Directives should be preserved.
 
 Targets <? noTarget?> <?php ?> <?xml ?> <?mrk ?>
 
-Inside: <? puts "Inside: Hello" ?>{exec} last
+Inside: <?mrk puts "Inside: Hello" ?> last
 
 
 *** Output of inspect ***
@@ -31,7 +31,7 @@ md_el(:document,[
 	]),
 	md_par([
 		"Inside: ",
-		md_el(:xml_instr,[],{:code=>"puts \"Inside: Hello\"",:target=>""},[]),
+		md_el(:xml_instr,[],{:code=>"puts \"Inside: Hello\"",:target=>"mrk"},[]),
 		" last"
 	])
 ],{},[])
@@ -39,7 +39,7 @@ md_el(:document,[
 <? noTarget?><?php ?><?xml ?><?mrk ?>
 <p>Targets <? noTarget?> <?php ?> <?xml ?> <?mrk ?></p>
 
-<p>Inside: <? puts "Inside: Hello"?> last</p>
+<p>Inside: <?mrk puts "Inside: Hello"?> last</p>
 
 *** Output of to_latex ***
 Targets    
@@ -71,11 +71,11 @@ Targets    Inside:  last
 
 <p>Targets <? noTarget?> <?php ?> <?xml ?> <?mrk ?></p>
 
-<p>Inside: <? puts "Inside: Hello" ?>{exec} last</p>
+<p>Inside: <?mrk puts "Inside: Hello" ?> last</p>
 
 *** Output of Markdown.pl (parsed) ***
 <p
      >     <? noTarget?>     <?php ?>     <?xml ?>     <?mrk ?></p
    ><p>Targets      <? noTarget?>     <?php ?>     <?xml ?>     <?mrk ?></p
-   ><p>Inside:      <? puts "Inside: Hello"?>{exec} last</p
+   ><p>Inside:      <?mrk puts "Inside: Hello"?> last</p
  >

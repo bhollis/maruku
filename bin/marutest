@@ -50,6 +50,11 @@ def run_test(filename, its_ok, verbose=true)
 	# split the input in sections
 	
 	stuff = input.split(SPLIT)
+	if stuff.size == 1
+		stuff[2] = stuff[0]
+		stuff[0] = "Write a comment here"
+		stuff[1] = "{} # params "
+	end
 
 	comment   = stuff.shift
 	params_s = stuff.shift

@@ -1,6 +1,6 @@
 Write a comment abouth the test here.
 *** Parameters: ***
-{:archive=>false, :date=>"Nov 20 2006", :inmenu=>true, :subject_short=>"painless software", :topic=>"/misc/coolsw", :order=>"-9.5", :subject=>"Software not painful to use"}
+{:topic=>"/misc/coolsw", :subject=>"Software not painful to use", :archive=>false, :date=>"Nov 20 2006", :inmenu=>true, :subject_short=>"painless software", :order=>"-9.5"}
 *** Markdown input: ***
 Subject: Software not painful to use
 Subject_short: painless software
@@ -341,9 +341,9 @@ md_el(:document,[
 
 <li><em>Browser</em>: <a href='http://getfirefox.com/'>Firefox</a>. On a Mac, <a href='http://www.caminobrowser.org/'>Camino</a>.</li>
 
-<li><em>Email</em>: <a href='http://gmail.com/'>GMail</a>, &ldquo;search, don&rsquo;t sort&rdquo; really works.</li>
+<li><em>Email</em>: <a href='http://gmail.com/'>GMail</a>, &#8220;search, don&#8217;t sort&#8221; really works.</li>
 
-<li><em>Text Editor</em>: <a href='http://www.apple.com/getamac/'>TextMate</a>, you have to buy it, but it&rsquo;s worth every penny. There are rumours that it&rsquo;s been converting (recovering) Emacs users (addicts). Unfortunately, it&rsquo;s Mac only. An alternative is <a href='http://www.jedit.org/'>jedit</a> (GPL, Java).</li>
+<li><em>Text Editor</em>: <a href='http://www.apple.com/getamac/'>TextMate</a>, you have to buy it, but it&#8217;s worth every penny. There are rumours that it&#8217;s been converting (recovering) Emacs users (addicts). Unfortunately, it&#8217;s Mac only. An alternative is <a href='http://www.jedit.org/'>jedit</a> (GPL, Java).</li>
 </ul>
 
 <h3 id='development'>Development</h3>
@@ -376,7 +376,7 @@ Type &quot;help&quot;, &quot;copyright&quot;, &quot;credits&quot; or &quot;licen
 </li>
 
 <li>
-<p><em>Mark-up language</em>: HTML is so 2001, why don&rsquo;t you take at look at <a href='http://en.wikipedia.org/wiki/Markdown'>Markdown</a>? <a href='data/misc_markdown.png'>Look at the source of this page</a>.</p>
+<p><em>Mark-up language</em>: HTML is so 2001, why don&#8217;t you take at look at <a href='http://en.wikipedia.org/wiki/Markdown'>Markdown</a>? <a href='data/misc_markdown.png'>Look at the source of this page</a>.</p>
 </li>
 
 <li>

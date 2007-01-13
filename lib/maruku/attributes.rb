@@ -210,7 +210,7 @@ module MaRuKu; module In; module Markdown; module SpanLevelParser
 		end
 		
 		if not Globals[:debug_keep_ials]
-			elements.delete_if {|x| is_ial(x)} 
+			elements.delete_if {|x| is_ial(x) unless x == elements.first} 
 		end
 	end
 		

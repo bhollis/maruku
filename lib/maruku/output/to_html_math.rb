@@ -61,9 +61,10 @@ module MaRuKu; module Out; module HTML
 	
 	def convert_to_mathml_ritex(tex)
 		begin
-			require 'rubygems'
-			require 'ritex'
-			$ritex_parser ||= Ritex::Parser.new
+			if not $ritex_parser
+				require 'ritex'
+			 	$ritex_parser = Ritex::Parser.new
+			end
 			
 			mathml =  $ritex_parser.parse(tex.strip)
 			doc = Document.new(mathml, {:respect_whitespace =>:all}).root
@@ -93,16 +94,17 @@ module MaRuKu; module Out; module HTML
 
 	def convert_to_mathml_itex2mml(tex, method)
 		begin
-	 		require 'itextomml'
-			$itex2mml_parser ||=  Itex2MML::Parser.new
+			if not $itex2mml_parser
+				require 'itextomml'
+				$itex2mml_parser =  Itex2MML::Parser.new
+			end
 			
 			mathml =  $itex2mml_parser.send(method, tex)
 			doc = Document.new(mathml, {:respect_whitespace =>:all}).root
 			return doc
 		rescue LoadError => e
-			maruku_error "Could not load package 'ritex'.\n"+
-			"Please install it using:\n"+
-			"   $ gem install ritex\n\n"+e.inspect
+			maruku_error "Could not load package 'itex2mml'.\n"+
+			"Please install it."
 		rescue Exception => e
 			maruku_error "Could not produce MathML TeX: \n#{tex}"+
 				"\n\n #{e.inspect}"

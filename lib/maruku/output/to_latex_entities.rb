@@ -25,11 +25,17 @@ module MaRuKu; module Out; module Latex
 	
 	include REXML
 	
-	
 	def to_latex_entity 
+		MaRuKu::Out::Latex.need_entity_table
+		
 		entity_name = self.entity_name
 	
 		entity = ENTITY_TABLE[entity_name]
+		if not entity
+			maruku_error "I don't know how to translate entity '#{entity_name}' "+
+			"to LaTeX."
+			return ""
+		end
 		replace = entity.latex_string
 		
 		entity.latex_packages.each do |p|
@@ -55,8 +61,14 @@ module MaRuKu; module Out; module Latex
 		safe_attr_accessor :latex_packages, Array
 	end
 	
+	def Latex.need_entity_table
+		Latex.init_entity_table if ENTITY_TABLE.empty?
+	end
+	
 	# create hash @@entity_to_latex
 	def Latex.init_entity_table
+		$stderr.write "Creating entity table.."
+		$stderr.flush
 		doc = Document.new XML_TABLE
 		doc.elements.each("//char") do |c| 
 			num =  c.attributes['num'].to_i
@@ -80,6 +92,7 @@ module MaRuKu; module Out; module Latex
 			ENTITY_TABLE[num] = e
 			ENTITY_TABLE[name] = e
 		end
+		$stderr.puts "..done."
 	end
 	
 	ENTITY_TABLE = {}
@@ -349,7 +362,6 @@ module MaRuKu; module Out; module Latex
 		<char num='254' name='thorn' convertTo='\\thorn' package='wasysym' />
 	</chars>"
 	
-	init_entity_table
 
 end end end
 

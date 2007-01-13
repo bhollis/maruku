@@ -69,14 +69,14 @@ md_el(:document,[
 ],{},[])
 *** Output of to_html ***
 <pre><code>&#39;Twas a &quot;test&quot; to &#39;remember&#39; in the &#39;90s.</code></pre>
-<p>&lsquo;Twas a &ldquo;test&rdquo; to &lsquo;remember&rsquo; in the &rsquo;90s.</p>
+<p>&#8216;Twas a &#8220;test&#8221; to &#8216;remember&#8217; in the &#8217;90s.</p>
 <pre><code>It was --- in a sense --- really... interesting.</code></pre>
-<p>It was &mdash; in a sense &mdash; really&hellip; interesting.</p>
+<p>It was &#8212; in a sense &#8212; really&#8230; interesting.</p>
 <pre><code>I -- too -- met &lt;&lt; some curly quotes &gt;&gt; there or &lt;&lt;here&gt;&gt;No space.</code></pre>
-<p>I &ndash; too &ndash; met &laquo;&nbsp;some curly quotes&nbsp;&raquo; there or &laquo;here&raquo;No space.</p>
+<p>I &#8211; too &#8211; met &#171;&#160;some curly quotes&#160;&#187; there or &#171;here&#187;No space.</p>
 <pre><code>She was 6\&quot;12\&#39;.</code></pre>
 <blockquote>
-<p>She was 6&quot;12&#39;.</p>
+<p>She was 6&#34;12&#39;.</p>
 </blockquote>
 
 *** Output of to_latex ***

@@ -84,7 +84,8 @@ Conversion happens using the `iconv` library.
 		end
 	
 =begin maruku_doc
-Variable: Maruku::Globals[:unsafe_features]
+Attribute: unsafe_features
+Scope:     global
 Summary:   Enables execution of XML instructions.
 
 Disabled by default because of security concerns.
@@ -181,6 +182,7 @@ Disabled by default because of security concerns.
 		end
 	end
 	
+	include REXML
 	# (PHP Markdown extra) Search for elements that have
 	# markdown=1 or markdown=block defined
 	def substitute_markdown_inside_raw_html
@@ -189,27 +191,33 @@ Disabled by default because of security concerns.
 			if doc # valid html
 				# parse block-level markdown elements in these HTML tags
 				block_tags = ['div']
+
 				# use xpath to find elements with 'markdown' attribute
-				doc.elements.to_a( "//*[attribute::markdown]" ).each do |e|
+				XPath.match(doc, "//*[attribute::markdown]" ).each do |e|
+#					puts "Found #{e}"
 					# should we parse block-level or span-level?
 					parse_blocks = (e.attributes['markdown'] == 'block') || 
 					               block_tags.include?(e.name)
 					# remove 'markdown' attribute
 					e.delete_attribute 'markdown'
 					# Select all text elements of e
-					e.texts.each do |original_text|
-#						puts "parse_blocks = #{parse_blocks} found = #{original_text} "
-						s = original_text.to_s.strip # XXX
-						el = md_el(:dummy,
-						 	parse_blocks ? parse_text_as_markdown(s) :
-						                  parse_lines_as_span([s]) )
-						el.children_to_html.each do |x|
-							e.insert_before(original_text, x)
+					XPath.match(e, "//text()" ).each { |original_text| 
+						s = original_text.value.strip
+						if s.size > 0
+							el = md_el(:dummy,
+							 	parse_blocks ? parse_text_as_markdown(s) :
+							                  parse_lines_as_span([s]) )
+							p = original_text.parent
+							el.children_to_html.each do |x|
+								p.insert_before(original_text, x)
+							end
+							p.delete(original_text)
+							
 						end
-						e.delete(original_text)
-					end
-					
+					}
+						
 				end
+				
 			end
 		end
 	end

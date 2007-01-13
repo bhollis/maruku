@@ -52,9 +52,9 @@ md_el(:document,[
 ],{},[])
 *** Output of to_html ***
 
-<p>filters &ndash; including <a href='http://docutils.sourceforge.net/mirror/setext.html'>Setext</a>, <a href='http://www.aaronsw.com/2002/atx/'>atx</a>, <a href='http://textism.com/tools/textile/'>Textile</a>, <a href='http://docutils.sourceforge.net/rst.html'>reStructuredText</a>, <a href='http://www.triptico.com/software/grutatxt.html'>Grutatext</a>, and <a href='http://ettext.taint.org/doc/'>EtText</a> &ndash; the single biggest source of inspiration for Markdown&rsquo;s syntax is the format of plain text email.</p>
+<p>filters &#8211; including <a href='http://docutils.sourceforge.net/mirror/setext.html'>Setext</a>, <a href='http://www.aaronsw.com/2002/atx/'>atx</a>, <a href='http://textism.com/tools/textile/'>Textile</a>, <a href='http://docutils.sourceforge.net/rst.html'>reStructuredText</a>, <a href='http://www.triptico.com/software/grutatxt.html'>Grutatext</a>, and <a href='http://ettext.taint.org/doc/'>EtText</a> &#8211; the single biggest source of inspiration for Markdown&#8217;s syntax is the format of plain text email.</p>
 
-<p>To this end, Markdown&rsquo;s syntax is comprised entirely of punctuation</p>
+<p>To this end, Markdown&#8217;s syntax is comprised entirely of punctuation</p>
 
 *** Output of to_latex ***
 filters -- including \href{http://docutils.sourceforge.net/mirror/setext.html}{Setext}, \href{http://www.aaronsw.com/2002/atx/}{atx}, \href{http://textism.com/tools/textile/}{Textile}, \href{http://docutils.sourceforge.net/rst.html}{reStructuredText}, \href{http://www.triptico.com/software/grutatxt.html}{Grutatext}, and \href{http://ettext.taint.org/doc/}{EtText} -- the single biggest source of inspiration for Markdown's syntax is the format of plain text email.

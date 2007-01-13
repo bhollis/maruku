@@ -247,8 +247,8 @@ xhtml10strict_mathml =
 	# renders children as html and wraps into an element of given name
 	# 
 	# Sets 'id' if meta is set
-	def wrap_as_element(name)
-		m = create_html_element name
+	def wrap_as_element(name, attributes_to_copy=[])
+		m = create_html_element(name, attributes_to_copy)
 			children_to_html.each do |e| m << e; end
 			
 #			m << Comment.new( "{"+self.al.to_md+"}") if not self.al.empty?
@@ -256,11 +256,12 @@ xhtml10strict_mathml =
 		m
 	end
 	
-	def create_html_element(name)
+	StandardAttributes = [:id, :style, :class]
+	def create_html_element(name, attributes_to_copy=[])
 		m = Element.new name
-			if (v=@attributes[:id]   ) then m.attributes['id'   ] = v.to_s end
-			if (v=@attributes[:style]) then m.attributes['style'] = v.to_s end
-			if (v=@attributes[:class]) then m.attributes['class'] = v.to_s end
+			(StandardAttributes+attributes_to_copy).each do |a|
+				if v = @attributes[a] then m.attributes[a.to_s] = v.to_s end
+			end
 		m
 	end
 
@@ -391,8 +392,11 @@ generated file.
 		s  = s.gsub(/'/,'&#39;') # IE bug
 
 		if get_setting(:code_show_spaces) 
-			s.gsub!(/\t/,'&raquo;'+'&nbsp;'*3)
-			s.gsub!(/ /,'&not;')
+			# 187 = raquo
+			# 160 = nbsp
+			# 172 = not
+			s.gsub!(/\t/,'&#187;'+'&#160;'*3)
+			s.gsub!(/ /,'&#172;')
 		end
 
 		text = Text.new(s, respect_ws=true, parent=nil, raw=true )
@@ -609,22 +613,29 @@ generated file.
 						tr<<x 
 					end
 						
-				tbody << tr
+				tbody << tr << Text.new("\n")
 			end
 			table << tbody
 		table
 	end
 	
 	def to_html_head_cell; wrap_as_element('th') end
-	def to_html_cell; wrap_as_element('td') end
+	def to_html_cell; wrap_as_element('td', [:scope]) end
 	
 	def to_html_entity 
+		MaRuKu::Out::Latex.need_entity_table
+      
 		entity_name = self.entity_name
+		
+		if (e = MaRuKu::Out::Latex::ENTITY_TABLE[entity_name]) && e.html_num
+			entity_name = e.html_num
+		end
 		
 		# Fix for Internet Explorer
 		if entity_name == 'apos'
 			entity_name = 39
 		end
+
 		
 		if entity_name.kind_of? Fixnum
 #			Entity.new(entity_name)
