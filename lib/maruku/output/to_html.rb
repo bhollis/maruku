@@ -130,14 +130,16 @@ xhtml11_mathml2_svg11 =
 				title << Text.new(doc_title)
 				
 			
-			css = self.attributes[:css]
-			if css
+			
+			if css_list = self.attributes[:css]
+				css_list.split.each do |css|
 				# <link type="text/css" rel="stylesheet" href="..." />
 				link = Element.new 'link'
 				link.attributes['type'] = 'text/css'
 				link.attributes['rel'] = 'stylesheet'
 				link.attributes['href'] = css
-				head << link
+				head << link << xml_newline
+				end
 			end
 		
 		root << xml_newline

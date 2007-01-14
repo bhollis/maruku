@@ -10,7 +10,7 @@ module MaRuKu; module Out; module Latex
 			l =  "\\label{#{self.label}}"
 			"\\begin{equation}\n#{self.math.strip}\n#{l}\\end{equation}\n"
 		else
-			"\\begin{equation*}\n#{self.math.strip}\n\\end{equation*}\n"
+			"\\begin{displaymath}\n#{self.math.strip}\n\\end{displaymath}\n"
 		end
 	end
 	

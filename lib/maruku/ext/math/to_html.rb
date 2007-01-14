@@ -41,7 +41,7 @@ module MaRuKu; module Out; module HTML
 		s = get_setting(:html_math_engine)
 		method = "to_html_inline_math_#{s}".to_sym
 		if self.respond_to? method
-			self.send method
+			self.send method ||  to_html_equation_none
 		else 
 			puts "A method called #{method} should be defined."
 			return []
@@ -61,7 +61,7 @@ module MaRuKu; module Out; module HTML
 		s = get_setting(:html_math_engine)
 		method = "to_html_equation_#{s}".to_sym
 		if self.respond_to? method
-			mathml = self.send method
+			mathml = self.send(method) || to_html_equation_none
 			div = create_html_element 'div'
 			add_class_to(div, 'maruku-equation')
 				if self.label # then numerate

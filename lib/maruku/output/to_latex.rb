@@ -294,8 +294,12 @@ Otherwise, a standard `verbatim` environment is used.
 		"\\item #{children_to_latex}\n"
 	end
 
-	def to_latex_strong;    wrap_as_span('\bf')           end
-	def to_latex_emphasis;  wrap_as_span('\em')               end
+	def to_latex_strong
+		"\\textbf{#{children_to_latex}}"
+ 	end
+	def to_latex_emphasis
+		"\\emph{#{children_to_latex}}"
+	end
 	
 	def wrap_as_span(c)
 		"{#{c} #{children_to_latex}}"

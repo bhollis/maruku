@@ -12,6 +12,11 @@ others+=proposal.md
 pdfs+=entity_test.pdf
 htmls+=entity_test.html
 
+pdfs+=math.pdf
+htmls+=math.xhtml
+others+=math.md
+
+
 all: pdf html 
 
 pdf: $(pdfs)
@@ -24,8 +29,11 @@ index.html: maruku.html
 %.html: %.md
 	ruby -I../lib ../bin/maruku --html -u $<
 
+%.xhtml: %.md
+	ruby -I../lib ../bin/maruku -m itex2mml --html -u $<
+
 %.pdf: %.md
-	ruby -I../lib ../bin/maruku --pdf -u $<
+	ruby -I../lib ../bin/maruku -m none --pdf -u $<
 
 dist:
 	-rm *.out *.aux *.tex *.toc *.dvi *.log

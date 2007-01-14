@@ -25,11 +25,11 @@ module MaRuKu; module Out; module HTML
 	end
 	
 	def to_html_inline_math_itex2mml
-		convert_to_mathml_itex2mml(self.math, :inline_filter) || []
+		convert_to_mathml_itex2mml(self.math, :inline_filter) 
 	end
 	
 	def to_html_equation_itex2mml
-		convert_to_mathml_itex2mml(self.math, :block_filter) || []
+		convert_to_mathml_itex2mml(self.math, :block_filter)
 	end
 
 end end end

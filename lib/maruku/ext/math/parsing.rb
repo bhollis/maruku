@@ -28,10 +28,10 @@ end
 		end
 	end
 	
-	EquationStart = /^\s{0,3}(?:\\\[|\$\$)(.*)$/
+	EquationStart = /^[ ]{0,3}(?:\\\[|\$\$)(.*)$/
 	
 	EqLabel = /(?:\((\w+)\))/
-	OneLineEquation = /^\s{0,3}(?:\\\[|\$\$)(.*)(?:\\\]|\$\$)\s*#{EqLabel}?\s*$/
+	OneLineEquation = /^[ ]{0,3}(?:\\\[|\$\$)(.*)(?:\\\]|\$\$)\s*#{EqLabel}?\s*$/
 	EquationEnd = /^(.*)(?:\\\]|\$\$)\s*#{EqLabel}?\s*$/
 
 	MaRuKu::In::Markdown::
