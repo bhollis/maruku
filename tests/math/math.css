@@ -19,7 +19,7 @@ div.maruku-equation div.maruku-eq-tex {
 	float: left;
 	margin-top: -3em;
 	padding: .5em;
-	border: dashed 1px lightgray;
+	border: dashed 1px pink;
 }
 
 div.maruku-equation  div.maruku-eq-tex:hover {

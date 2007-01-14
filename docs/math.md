@@ -44,9 +44,9 @@ LaTeX notation. Equations can span multiple lines.
 
 Some random AMSTeX symbols:
 
-	$$ \beth \Subset \bigtriangleup \smallsmile \bumpeq \ggg \pitchfork $$ 
+	$$ \beth \Subset \bigtriangleup \bumpeq \ggg \pitchfork $$ 
 
-$$ \beth \Subset \bigtriangleup \smallsmile \bumpeq \ggg \pitchfork $$ 
+$$ \beth \Subset \bigtriangleup \bumpeq \ggg \pitchfork $$ 
 
 
 ## Cross references ## {#cross}

@@ -3,7 +3,7 @@ htmls=index.html maruku.html  markdown_syntax.html
 
 pdfs= maruku.pdf proposal.pdf
 
-others=logo.png maruku.md style.css markdown_syntax.md  proposal.md 
+others=logo.png maruku.md style.css math.css markdown_syntax.md  proposal.md 
 
 pdfs+=proposal.pdf
 htmls+=proposal.html
@@ -39,7 +39,7 @@ dist:
 	-rm *.out *.aux *.tex *.toc *.dvi *.log
 
 clean: 
-	-rm -f $(htmls) $(pdfs) *.out *.aux *.tex *.toc
+	-rm -f $(htmls) $(pdfs) *.out *.aux *.toc
 
 
 publish: $(htmls) $(others) $(pdfs) 

@@ -17,9 +17,9 @@ div.maruku-equation span.maruku-eq-number {
 div.maruku-equation div.maruku-eq-tex {
 	font-size: 70%;
 	float: left;
-	margin-top: -3em;
+	margin-top: -1em;
 	padding: .5em;
-	border: dashed 1px lightgray;
+	border: dashed 1px #faa;
 }
 
 div.maruku-equation  div.maruku-eq-tex:hover {

@@ -138,7 +138,8 @@ xhtml11_mathml2_svg11 =
 				link.attributes['type'] = 'text/css'
 				link.attributes['rel'] = 'stylesheet'
 				link.attributes['href'] = css
-				head << link << xml_newline
+				head << link 
+				head << xml_newline
 				end
 			end
 		
