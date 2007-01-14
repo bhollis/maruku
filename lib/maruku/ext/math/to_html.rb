@@ -74,10 +74,12 @@ module MaRuKu; module Out; module HTML
 				end
 				div << mathml
 				
-				source = to_html_equation_none
-				add_class_to(source, 'maruku-eq-tex')
-				source.attributes['style'] = 'display: non'
-				div << source
+				source_div = Element.new 'div'
+					add_class_to(source_div, 'maruku-eq-tex')
+					code = to_html_equation_none	
+					code.attributes['style'] = 'display: none'
+				source_div << code
+				div << source_div
 			div
 		else 
 			puts "A method called #{method} should be defined."
