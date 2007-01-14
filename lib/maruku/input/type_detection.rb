@@ -64,12 +64,10 @@ module MaRuKu; module Strings
 			return :ald   if l =~ AttributeDefinitionList
 			return :ial   if l =~ InlineAttributeList
 #		end
-		return :equation_start if l =~ EquationStart
 #		return :equation_end if l =~ EquationEnd
 		return :text # else, it's just text
 	end
 
-	EquationStart = /^\s{0,3}(?:\\\[|\$\$)(.*)$/
 		
 	# $1 = id   $2 = attribute list
 	AttributeDefinitionList = /^\s{0,3}\{([\w\d\s]+)\}:\s*(.*)\s*$/

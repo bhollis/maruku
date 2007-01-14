@@ -6,17 +6,18 @@ module MaRuKu
 end
 
 
-# At least one slash inside
-#RegInlineMath1 = /\$([^\$]*[\\][^\$]*)\$/
-# No spaces around the delimiters
-#RegInlineMath2 = /\$([^\s\$](?:[^\$]*[^\s\$])?)\$/
-#RegInlineMath = Regexp::union(RegInlineMath1,RegInlineMath2)
+	# At least one slash inside
+	#RegInlineMath1 = /\$([^\$]*[\\][^\$]*)\$/
+	# No spaces around the delimiters
+	#RegInlineMath2 = /\$([^\s\$](?:[^\$]*[^\s\$])?)\$/
+	#RegInlineMath = Regexp::union(RegInlineMath1,RegInlineMath2)
 
-# Everything goes; takes care of escaping the "\$" inside the expression
-RegInlineMath = /\${1}((?:[^\$]|\\\$)+)\$/
+	# Everything goes; takes care of escaping the "\$" inside the expression
+	RegInlineMath = /\${1}((?:[^\$]|\\\$)+)\$/
 	
 	MaRuKu::In::Markdown::
-	register_span_extension(:chars => ?$, :regexp => RegInlineMath) do |doc, src, con|
+	register_span_extension(:chars => ?$, :regexp => RegInlineMath) do 
+		|doc, src, con|
 		if m = src.read_regexp(RegInlineMath)
 			math = m.captures.compact.first
 			con.push doc.md_inline_math(math)
@@ -27,83 +28,55 @@ RegInlineMath = /\${1}((?:[^\$]|\\\$)+)\$/
 		end
 	end
 	
-#	Equation = /^\s{0,3}(?:\\\[|\$\$)(.*)(?:\\\]|\$\$)\s*(\(\w+\))?\s*$/
 	EquationStart = /^\s{0,3}(?:\\\[|\$\$)(.*)$/
 	
+	EqLabel = /(?:\((\w+)\))/
+	OneLineEquation = /^\s{0,3}(?:\\\[|\$\$)(.*)(?:\\\]|\$\$)\s*#{EqLabel}?\s*$/
+	EquationEnd = /^(.*)(?:\\\]|\$\$)\s*#{EqLabel}?\s*$/
+
 	MaRuKu::In::Markdown::
 	register_block_extension(:regexp  => EquationStart) do |doc, src, con|
-		
-		# todo ...
-		
-		false
-	end
-	
-	# This adds support for \eqref
-	RegEqref = /\\eqref\{(\w+)\}/
-	MaRuKu::In::Markdown::
-	register_span_extension(:chars => ?\\, :regexp => RegEqref) do |doc, src, con|
-		m = src.read_regexp(RegEqref)
-		eqid = m[1]
-	
-		r = doc.md_el(:eqref, [], meta={:eqid=>eqid})
-		con.push r
-	 	true 
-	end
-
-	# This adds support for (eq:id)
-	RegEqPar = /\(eq:(\w+)\)/
-	MaRuKu::In::Markdown::
-	register_span_extension(:chars => ?(, :regexp => RegEqPar) do |doc, src, con|
-		m = src.read_regexp(RegEqPar)
-		eqid = m[1]
-		r = doc.md_el(:eqref, [], meta={:eqid=>eqid})
-		con.push r
-	 	true 
-	end
-
-	module MaRuKu; class MDElement
-		def to_html_eqref
-			if eq = self.doc.eqid2eq[self.eqid]
-				num = eq.num
-				a = Element.new 'a'
-				a.attributes['class'] = 'maruku-eqref'
-				a.attributes['href'] = "#eq:#{self.eqid}"
-				a << Text.new("(#{num})")
-				a
-			else
-				maruku_error "Cannot find equation #{self.eqid.inspect}"
-				Text.new "(#{self.eqid})"
+		puts "Equation :#{self}"
+		first = src.shift_line
+		if first =~ OneLineEquation
+			math = $1
+			label = $2 
+			con.push doc.md_equation($1, $2)
+		else
+			first =~ EquationStart
+			math = $1
+			label = nil
+			while true
+				if not src.cur_line
+					maruku_error "Stream finished while reading equation\n\n"+
+					add_tabs(math,1,'$> '), src, con
+					break
+				end
+				line = src.shift_line
+				if line =~ EquationEnd
+					math += $1 + "\n"
+					label = $2 if $2
+					break
+				else
+					math += line + "\n"
+				end
 			end
+			con.push doc.md_equation(math, label)
 		end
-
-		def to_latex_eqref
-			"\\eqref{#{self.eqid}}"
-		end
+		true
+	end
 		
-	end end
+		
+	# This adds support for \eqref
+	RegEqrefLatex = /\\eqref\{(\w+)\}/
+	RegEqPar = /\(eq:(\w+)\)/
+	RegEqref = Regexp::union(RegEqrefLatex, RegEqPar)
 	
-	
-	module MaRuKu; module Out; module HTML
-
-		def to_html_inline_math_none
-			# You can: either return a REXML::Element
-			#    return Element.new 'div'    
-			# or return an empty array on error
-			#    return []  
-			# or have a string parsed by REXML:
-			tex = self.math
-			tex.gsub!('&','&amp;')
-			mathml = "<code>#{tex}</code>"
-			return Document.new(mathml).root
-		end
-
-		def to_html_equation_none
-			return to_html_inline_math_none
-		end
-
-	end end end
-	
-
-
-
-
+	MaRuKu::In::Markdown::
+	register_span_extension(:chars => [?\\, ?(], :regexp => RegEqref) do 
+		|doc, src, con|
+		eqid = src.read_regexp(RegEqref).captures.compact.first
+		r = doc.md_el(:eqref, [], meta={:eqid=>eqid})
+		con.push r
+	 	true 
+	end

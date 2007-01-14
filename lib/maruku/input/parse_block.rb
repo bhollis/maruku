@@ -47,8 +47,11 @@ module MaRuKu; module In; module Markdown; module BlockLevelParser
 		
 		# run state machine
 		while src.cur_line
+			
+			next if check_block_extensions(src, output, src.cur_line)
+			
 #  Prints detected type (useful for debugging)
-#			puts "#{src.cur_line.md_type}|#{src.cur_line}"
+			puts "#{src.cur_line.md_type}|#{src.cur_line}"
 			case src.cur_line.md_type
 				when :empty; 
 					output.push :empty
@@ -101,10 +104,6 @@ module MaRuKu; module In; module Markdown; module BlockLevelParser
 				when :ref_definition;  output.push read_ref_definition(src)
 				when :abbreviation;    output.push read_abbreviation(src)
 				when :xml_instr;       read_xml_instruction(src, output)
-				when :equation_start
-					read_equation(src, output)
-					
-#				# these do not produce output
 				when :metadata;        
 					maruku_error "Please use the new meta-data syntax: \n"+
 					"  http://maruku.rubyforge.org/proposal.html\n", src
@@ -149,41 +148,7 @@ module MaRuKu; module In; module Markdown; module BlockLevelParser
 		output
 	end
 	
-	EqLabel = /(?:\((\w+)\))/
-	OneLineEquation = /^\s{0,3}(?:\\\[|\$\$)(.*)(?:\\\]|\$\$)\s*#{EqLabel}?\s*$/
-	EquationEnd = /^(.*)(?:\\\]|\$\$)\s*#{EqLabel}?\s*$/
 	
-	def read_equation(src,con)
-		first = src.shift_line
-		
-		if first =~ OneLineEquation
-			math = $1
-			label = $2 
-			con.push md_equation($1, $2)
-			return
-		end
-		
-		first =~ EquationStart
-		math = $1
-		label = nil
-		while true
-			if not src.cur_line
-				maruku_error "Stream finished while reading equation\n\n"+
-				add_tabs(math,1,'$> '), src, con
-				break
-			end
-			
-			line = src.shift_line
-			if line =~ EquationEnd
-				math += $1 + "\n"
-				label = $2 if $2
-				break
-			else
-				math += line + "\n"
-			end
-		end
-		con.push md_equation(math, label)
-	end	
 	
 	def read_ald(src)
 		if (l=src.shift_line) =~ AttributeDefinitionList
@@ -280,18 +245,14 @@ module MaRuKu; module In; module Markdown; module BlockLevelParser
 		while src.cur_line 
 			# :olist does not break
 			case t = src.cur_line.md_type
-				when :equation_start,:equation_end,:equation,
-					:quote,:header3,:empty,:raw_html,:ref_definition,:ial,:xml_instr
+				when :quote,:header3,:empty,:raw_html,:ref_definition,:ial,:xml_instr
 					break
 				when :olist,:ulist
 					break if src.next_line.md_type == t
-				else
-					true
 			end
-			
-			break if src.cur_line.strip.size == 0
-			
+			break if src.cur_line.strip.size == 0			
 			break if [:header1,:header2].include? src.next_line.md_type
+			break if any_matching_block_extension?(src.cur_line)
 			
 			lines << src.shift_line
 		end

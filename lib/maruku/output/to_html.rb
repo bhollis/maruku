@@ -85,21 +85,21 @@ module MaRuKu; module Out; module HTML
 <!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Strict//EN'
 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'>\n"
 		
-		xhtml10strict_mathml = '<?xml version="1.0" encoding="utf-8"?>
+		xhtml11strict_mathml2 = '<?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0//EN"
                "http://www.w3.org/TR/MathML2/dtd/xhtml-math11-f.dtd" [
   <!ENTITY mathml "http://www.w3.org/1998/Math/MathML">
 ]>
 '
 
-xhtml10strict_mathml = 
+xhtml11_mathml2_svg11 = 
 '<?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE html PUBLIC
     "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN"
     "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
 '
 
-		xhtml10strict_mathml + xml
+		xhtml11_mathml2_svg11 + xml
 	end
 	
 	def xml_newline() Text.new("\n") end
@@ -163,24 +163,6 @@ xhtml10strict_mathml =
 		
 		doc
 	end
-
-	def add_whitespace(element)
-		blocks = ['p','pre','h1','h2','h3','h4','h5','h6',
-			'style','table','div','ul','ol','li','dl','dt',
-			'head','blockquote','tr','thead','td','dd','title',
-			'link','hr']
-			
-		element.get_elements( "//*" ).each do |e|
-			if blocks.include? e.name
-				e.parent.insert_before(e, Text.new("\n"))
-				e.parent.insert_after(e, Text.new("\n"))
-			end
-		end
-
-		element.get_elements( "//br" ).each do |e|
-			e.parent.insert_after(e, Text.new("\n"))
-		end
-	end
 	
 	# returns "st","nd","rd" or "th" as appropriate
 	def day_suffix(day)
@@ -214,7 +196,7 @@ xhtml10strict_mathml =
 				span << Text.new('Created by ')
 				a = Element.new('a', span)
 					a.attributes['href'] = 'http://maruku.rubyforge.org'
-					a.attributes['title'] = 'Maruku: a Markdown interpreter for Ruby'
+					a.attributes['title'] = 'Maruku: a Markdown-superset interpreter for Ruby'
 					a << Text.new('Maruku')
 				span << Text.new(nice_date+".")
 		div

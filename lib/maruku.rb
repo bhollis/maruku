@@ -117,7 +117,6 @@ require 'maruku/version'
 
 # Exporting to html
 require 'maruku/output/to_html'
-require 'maruku/output/to_html_math'
 
 # Exporting to latex
 require 'maruku/output/to_latex'

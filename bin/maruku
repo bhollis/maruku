@@ -22,7 +22,6 @@ OptionParser.new do |opts|
 		using_mathml = true
 		MaRuKu::Globals[:html_math_engine] = s
 	end
-	
 
 	opts.on_tail("--pdf",  "Write PDF" ) do export = :pdf  end
 	opts.on_tail("--html", "Write HTML") do export = :html end
@@ -41,6 +40,11 @@ OptionParser.new do |opts|
 	end
 
 end.parse!
+
+
+if using_mathml
+	require 'maruku/ext/math'
+end
 
 #p ARGV
 #p MaRuKu::Globals
