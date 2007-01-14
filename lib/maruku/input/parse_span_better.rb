@@ -513,6 +513,7 @@ module MaRuKu; module In; module Markdown; module SpanLevelParser
 			(src.next_char == ?[ or src.next_char == ?( )
 			src.shift_char
 		end
+		
 		case src.cur_char
 		when ?(
 			src.ignore_char # opening (
@@ -564,8 +565,8 @@ module MaRuKu; module In; module Markdown; module SpanLevelParser
 				con.push_elements children
 				return
 			end
-		else # no stuff
-			con.push_elements children
+		else # empty [link]
+			con.push_element md_link(children, "")
 		end
 	end # read link
 

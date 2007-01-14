@@ -29,7 +29,7 @@ Globals = {
 	:maruku_signature => true,
 	:code_background_color => '#fef',
 	:code_show_spaces => false,
-	:html_math_engine => 'ritex',
+	:html_math_engine => 'none', #ritex, itex2mml
 	:html_use_syntax => false,
 	:on_error => :warning
 }

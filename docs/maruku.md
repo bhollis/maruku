@@ -9,7 +9,7 @@ LaTeX CJK: true
 Mar**u**k**u**: a Markdown-superset interpreter 
 ===============================================
 
-[Maruku][] is a Markdown interpreter written in [Ruby][].
+[Maruku] is a Markdown interpreter written in [Ruby].
 
 > [Last release](#release_notes) is version 0.4.2 -- 2007-01-12.
 >
@@ -37,16 +37,16 @@ Maruku implements:
 * the original [Markdown syntax][markdown_html] 
   ([HTML][markdown_html] or [PDF][markdown_pdf]), translated by Maruku).
 
-* all the improvements in [PHP Markdown Extra][]. 
+* all the improvements in [PHP Markdown Extra]. 
 
 * a new [meta-data syntax][meta]
 
 
-__Authors__: Maruku has been developed so far by [Andrea Censi][].
+__Authors__: Maruku has been developed so far by [Andrea Censi].
 Contributors are most welcome!
 
-__The name of the game__: Maruku is the [romaji][] transliteration of 
-the [katakana][] transliteration
+__The name of the game__: Maruku is the [romaji] transliteration of 
+the [katakana] transliteration
 of "Mark", the first word in Markdown. I chose this name because Ruby 
 is Japanese, and also the sillable "ru" appears in Maruku.
 
@@ -92,33 +92,83 @@ please write to the [Markdown-discuss mailing list][markdown-discuss].
 
 Have fun!
 
-#### Changes in the trunk (not released yet) ####     {#last}
+#### Changes in the development version (not released yet) ####     {#last}
 
-*	Export to MathML.
-*	HTML export:
-	*	Updated the XHTML DTD used.
+[Charles Distler]: http://golem.ph.utexas.edu/~distler
+[itex2MML]:  http://golem.ph.utexas.edu/~distler/blog/itex2MML.html
+[math]: http://rubyforge.maruku.org/math.html
+<!--	This is the [math syntax specification][math]. -->
+
+*	Support for LaTeX-style formula input, and export to MathML. 
+
+	[Charles Distler] is integrating Maruku into Instiki (a Ruby On Rails-based wiki software), as to have a Ruby wiki with proper math support. You know, these physicists like all those funny symbols.
+
+	*	To have the MathML export, it is needed to install one of:
 	
-		*	Currently using XHTML+MathML+SVG.
+		* 	[RiTeX]   (`gem install ritex`) 
+		* 	[itex2MML] supports much more complex formulas than Ritex.
+		* 	PNG for old browser is not here yet. The plan is to use
+			BlahTeX.
+
+*	Syntax changes:
+
+	* Compatibility with newest Markdown.pl: `[text]` as a synonim of `[text][]`.
+
+	*	Meta data: the first IAL in a span environment now refers to the parent.
+		This makes it possible to set attributes for cells:
+
+			Head           |  Head |
+			---------------+-------+--
+			{:r}  Hello    + ...
+
+			{:r: scope='row'}
+
+		The first cell will have the `scope` attribute set to `row`.
+
+*	Maruku HTML export:
+
+	*	By the way -- did I mention it? -- **Maruku HTML has always been
+		proper validating XHTML strict** (if a page does not validate,
+		please report it as a bug).
+
+		Of course, this only matters when using `maruku` as a standalone
+		program.
+		
+		*	I have updated the XHTML DTD used to support MathML: 
+			currently using XHTML+MathML+SVG.
 		*	Content-type set to `application/xhtml+xml`	
+		*	All entities are written as numeric entities.
+
+*	New settings:
 	
-	*	All entities are written as numeric entities.
-*	Disable the Maruku signature by setting `maruku signature: false`
-*	Meta data: the first IAL in a span environment now refers to the parent.
-	This makes it possible to set attributes for cells:
-	
-		Head           |  Head |
-		---------------+-------+--
-		{:r}  Hello    + ...
-		
-		{:r: scope='row'}
-		
-	The first cell will have the `scope` attribute set to `row`.
-	
+	*	Disable the Maruku signature by setting `maruku signature: false`
 	
 *	Bugs fixed:
+
 	*	`markdown=1` did not propagate to children.
 	*	LaTeX: An exception was raised if an unknown entity was used.
+
+*	Command line options for the `maruku` command:
+
+		Usage: maruku [options] [file1.md [file2.md ...
+		    -v, --[no-]verbose               Run verbosely
+		    -u, --[no-]unsafe                Use unsafe features
+		    -b                               Break on error
+		    -m, --math-engine ENGINE         Uses ENGINE to render MathML
+		        --pdf                        Write PDF
+		        --html                       Write HTML
+		        --tex                        Write LaTeX
+		        --inspect                    Shows the parsing result
+		        --version                    Show version
+		    -h, --help                       Show this message
+
+*	Other things:
 	
+	*	Created the embryo of an extension system. Please don't use it
+		yet, as probably the API is bound to change.
+
+	*	There are a couple of hidden features...
+
 #### Changes in 0.4.2 ####     
 
 *	Adapted syntax to the [new meta-data proposal][proposal].
@@ -388,7 +438,7 @@ Examples of PHP Markdown Extra syntax {#extra}
 Maruku and Bluecloth          {#maruku-and-bluecloth}
 --------------------
 
-The other Ruby implementation of Markdown is [Bluecloth][]. 
+The other Ruby implementation of Markdown is [Bluecloth]. 
 
 Maruku is much different in philosophy from Bluecloth: the biggest 
 difference is that *parsing* is separated from *rendering*.
@@ -397,15 +447,21 @@ document is created. Instead, Bluecloth mantains the document in
 memory as a String at all times, and does a series of `gsub` 
 to transform to HTML.
 
-The in-memory representation makes it very easy to export
-to various formats (at the moment HTML and LaTeX/PDF; 
-the next is pretty-printed Markdown).
+Maruku is usually faster than Bluecloth. Bluecloth is faster 
+for very small documents. Bluecloth sometimes chokes on very big
+documents (it is reported that the blame should be on Ruby's regexp 
+implementation).
 
-Other improvements over Bluecloth:
+This is the canonical benchmark (the Markdown specification), 
+executed with Ruby 1.8.5 on a Powerbook 1.5GhZ:
 
-* the HTML output is provided also as a `REXML` document tree.
+	BlueCloth (to_html): parsing 0.01 sec + rendering 1.87 sec = 1.88 sec   (1.00x)
+	   Maruku (to_html): parsing 0.66 sec + rendering 0.43 sec = 1.09 sec   (1.73x)
+	  Maruku (to_latex): parsing 0.67 sec + rendering 0.23 sec = 0.90 sec   (2.10x)
 
-* PHP Markdown Syntax support.
+Please note that Maruku has a lot more features and therefore is 
+looking for much more patterns in the file.
+
 
 [ruby]: http://www.ruby-lang.org
 [bluecloth]: http://www.deveiate.org/projects/BlueCloth
@@ -575,7 +631,7 @@ Entity      | Result
 Future developments                              {#future}
 -------------------
 
-I think that [Pandoc][] and [MultiMarkdown][] are very cool projects.
+I think that [Pandoc] and [MultiMarkdown] are very cool projects.
 However, they are written in Haskell and Perl, respectively. 
 I would love to have an equivalent in Ruby.
 

@@ -495,7 +495,9 @@ generated file.
 		id = self.ref_id
 		if ref = @doc.refs[id]
 			url = ref[:url]
-			a.attributes['src'] = url
+			title = ref[:title]
+			a.attributes['src'] = url.to_s
+			a.attributes['alt'] = title.to_s
 			[:title, :class, :style].each do |s| 
 				a.attributes[s.to_s] = ref[s] if ref[s]
 			end
@@ -518,7 +520,7 @@ generated file.
 		title = self.title
 		a =  create_html_element 'img'
 			a.attributes['src'] = url
-			a.attributes['title'] = title if title
+			a.attributes['alt'] = title.to_s
 		return a
 	end
 
@@ -620,7 +622,13 @@ generated file.
 	end
 	
 	def to_html_head_cell; wrap_as_element('th') end
-	def to_html_cell; wrap_as_element('td', [:scope]) end
+	def to_html_cell
+		if @attributes[:scope]
+			wrap_as_element('th', [:scope])
+		else
+			wrap_as_element('td')
+		end
+ 	end
 	
 	def to_html_entity 
 		MaRuKu::Out::Latex.need_entity_table

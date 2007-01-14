@@ -4,7 +4,8 @@ require 'maruku'
 require 'optparse'
 
 export = :html
-break_on_error = false;
+break_on_error = false
+using_mathml = false
 
 OptionParser.new do |opts|
 	opts.banner = "Usage: maruku [options] [file1.md [file2.md ..."
@@ -24,6 +25,7 @@ OptionParser.new do |opts|
 
 	opts.on_tail("--pdf",  "Write PDF" ) do export = :pdf  end
 	opts.on_tail("--html", "Write HTML") do export = :html end
+	opts.on_tail("--html-frag", "Write the contents of the BODY.") do export = :html_frag end
 	opts.on_tail("--tex",  "Write LaTeX" ) do export = :tex  end
 	opts.on_tail("--inspect",  "Shows the parsing result" ) do export = :inspect  end
 
@@ -72,7 +74,7 @@ inputs.each do |f, input|
 		t = Time.now
 		case export
 		when :html 
-			prefix='xhtml'
+			prefix = using_mathml ? 'xhtml' : 'html'
 			out = doc.to_html_document( {:indent => -1})
 		when :html_frag 
 			prefix='html_frag'

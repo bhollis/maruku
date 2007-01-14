@@ -1,5 +1,5 @@
 
-BODY {
+body {
 	font-family: Georgia;
 	max-width: 40em;
 	padding-left: 3em;
@@ -13,27 +13,28 @@ BODY {
 	width: 50%;
 }
 
-H1 { margin-left: -1em;}
-H2 { margin-left: -1em;}
+h1 { margin-left: -1em;}
+h2 { margin-left: -1em;}
 
-PRE {
+pre {
 	margin-left: 2em;
 	background-color: #eff;
 	border: solid 1px #bdd;
 	padding: 4px;
 }
-CODE {background-color: #eff;}
-H1 STRONG { color: red;}
 
-TABLE.example TD,
-TABLE.example TR,
-TABLE.example TH {
+code {background-color: #eff;}
+h1 strong { color: red;}
+
+table.example TD,
+table.example TR,
+table.example TH {
 	border: solid 1px #555;
 	padding: 4px;
 	
 }
 
-IMG#logo {
+img#logo {
 	float: right;
 }
 
