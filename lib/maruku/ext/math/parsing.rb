@@ -36,7 +36,7 @@ end
 
 	MaRuKu::In::Markdown::
 	register_block_extension(:regexp  => EquationStart) do |doc, src, con|
-		puts "Equation :#{self}"
+#		puts "Equation :#{self}"
 		first = src.shift_line
 		if first =~ OneLineEquation
 			math = $1

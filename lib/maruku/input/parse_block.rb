@@ -51,7 +51,7 @@ module MaRuKu; module In; module Markdown; module BlockLevelParser
 			next if check_block_extensions(src, output, src.cur_line)
 			
 #  Prints detected type (useful for debugging)
-			puts "#{src.cur_line.md_type}|#{src.cur_line}"
+#			puts "#{src.cur_line.md_type}|#{src.cur_line}"
 			case src.cur_line.md_type
 				when :empty; 
 					output.push :empty

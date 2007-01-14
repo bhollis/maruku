@@ -64,7 +64,6 @@ module MaRuKu; module Out; module HTML
 			mathml = self.send method
 			div = create_html_element 'div'
 			add_class_to(div, 'maruku-equation')
-			
 				if self.label # then numerate
 					span = Element.new 'span'
 					span.attributes['class'] = 'maruku-eq-number'
@@ -74,6 +73,11 @@ module MaRuKu; module Out; module HTML
 					div.attributes['id'] = "eq:#{self.label}"
 				end
 				div << mathml
+				
+				source = to_html_equation_none
+				add_class_to(source, 'maruku-eq-tex')
+				source.attributes['style'] = 'display: non'
+				div << source
 			div
 		else 
 			puts "A method called #{method} should be defined."
