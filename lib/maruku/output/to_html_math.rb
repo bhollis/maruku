@@ -48,17 +48,44 @@ module MaRuKu; module Out; module HTML
 		end
 	end
 
+	def add_class_to(el, cl)
+		el.attributes['class'] = 
+		if already = el.attributes['class']
+			already + " " + cl
+		else
+			cl
+		end
+	end
+	
 	def to_html_equation
 		s = get_setting(:html_math_engine)
 		method = "to_html_equation_#{s}".to_sym
 		if self.respond_to? method
-			self.send method
+			mathml = self.send method
+			div = create_html_element 'div'
+			add_class_to(div, 'maruku-equation')
+			
+				if self.label # then numerate
+					span = Element.new 'span'
+					span.attributes['class'] = 'maruku-eq-number'
+					num = self.num
+					span << Text.new("(#{num})")
+					div << span
+					div.attributes['id'] = "eq:#{self.label}"
+				end
+				div << mathml
+			div
 		else 
 			puts "A method called #{method} should be defined."
 			return []
 		end
 	end
 	
+	
+end end end
+
+
+module MaRuKu; module Out; module HTML
 	def convert_to_mathml_ritex(tex)
 		begin
 			if not $ritex_parser
@@ -91,6 +118,9 @@ module MaRuKu; module Out; module HTML
 		mathml = convert_to_mathml_ritex(tex)
 		return mathml || []
 	end
+end end end
+
+module MaRuKu; module Out; module HTML
 
 	def convert_to_mathml_itex2mml(tex, method)
 		begin
@@ -105,7 +135,10 @@ module MaRuKu; module Out; module HTML
 		rescue LoadError => e
 			maruku_error "Could not load package 'itex2mml'.\n"+
 			"Please install it."
-		rescue Exception => e
+		rescue REXML::ParseException => e
+			maruku_error "Invalid MathML TeX: \n#{add_tabs(tex,1,'tex>')}"+
+				"\n\n #{e.inspect}"
+		rescue 
 			maruku_error "Could not produce MathML TeX: \n#{tex}"+
 				"\n\n #{e.inspect}"
 		end

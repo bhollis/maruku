@@ -1,3 +1,11 @@
+module MaRuKu
+	class MDDocument
+		# Hash equation id (String) to equation element (MDElement)
+		attr_accessor :eqid2eq
+	end
+end
+
+
 # At least one slash inside
 #RegInlineMath1 = /\$([^\$]*[\\][^\$]*)\$/
 # No spaces around the delimiters
@@ -31,7 +39,6 @@ RegInlineMath = /\${1}((?:[^\$]|\\\$)+)\$/
 	end
 	
 	# This adds support for \eqref
-	
 	RegEqref = /\\eqref\{(\w+)\}/
 	MaRuKu::In::Markdown::
 	register_span_extension(:chars => ?\\, :regexp => RegEqref) do |doc, src, con|
@@ -43,9 +50,34 @@ RegInlineMath = /\${1}((?:[^\$]|\\\$)+)\$/
 	 	true 
 	end
 
+	# This adds support for (eq:id)
+	RegEqPar = /\(eq:(\w+)\)/
+	MaRuKu::In::Markdown::
+	register_span_extension(:chars => ?(, :regexp => RegEqPar) do |doc, src, con|
+		m = src.read_regexp(RegEqPar)
+		eqid = m[1]
+		r = doc.md_el(:eqref, [], meta={:eqid=>eqid})
+		con.push r
+	 	true 
+	end
+
 	module MaRuKu; class MDElement
 		def to_html_eqref
-			Text.new 'eqref'
+			if eq = self.doc.eqid2eq[self.eqid]
+				num = eq.num
+				a = Element.new 'a'
+				a.attributes['class'] = 'maruku-eqref'
+				a.attributes['href'] = "#eq:#{self.eqid}"
+				a << Text.new("(#{num})")
+				a
+			else
+				maruku_error "Cannot find equation #{self.eqid.inspect}"
+				Text.new "(#{self.eqid})"
+			end
+		end
+
+		def to_latex_eqref
+			"\\eqref{#{self.eqid}}"
 		end
 		
 	end end

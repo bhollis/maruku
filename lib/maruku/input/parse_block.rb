@@ -101,9 +101,6 @@ module MaRuKu; module In; module Markdown; module BlockLevelParser
 				when :ref_definition;  output.push read_ref_definition(src)
 				when :abbreviation;    output.push read_abbreviation(src)
 				when :xml_instr;       read_xml_instruction(src, output)
-				when :equation
-					src.shift_line =~ Equation
-					output.push md_equation($1)
 				when :equation_start
 					read_equation(src, output)
 					
@@ -152,9 +149,23 @@ module MaRuKu; module In; module Markdown; module BlockLevelParser
 		output
 	end
 	
+	EqLabel = /(?:\((\w+)\))/
+	OneLineEquation = /^\s{0,3}(?:\\\[|\$\$)(.*)(?:\\\]|\$\$)\s*#{EqLabel}?\s*$/
+	EquationEnd = /^(.*)(?:\\\]|\$\$)\s*#{EqLabel}?\s*$/
+	
 	def read_equation(src,con)
-		src.shift_line =~ EquationStart
+		first = src.shift_line
+		
+		if first =~ OneLineEquation
+			math = $1
+			label = $2 
+			con.push md_equation($1, $2)
+			return
+		end
+		
+		first =~ EquationStart
 		math = $1
+		label = nil
 		while true
 			if not src.cur_line
 				maruku_error "Stream finished while reading equation\n\n"+
@@ -165,12 +176,13 @@ module MaRuKu; module In; module Markdown; module BlockLevelParser
 			line = src.shift_line
 			if line =~ EquationEnd
 				math += $1 + "\n"
+				label = $2 if $2
 				break
 			else
 				math += line + "\n"
 			end
 		end
-		con.push md_equation(math)
+		con.push md_equation(math, label)
 	end	
 	
 	def read_ald(src)

@@ -19,6 +19,7 @@ OptionParser.new do |opts|
 		break_on_error = true end
 
 	opts.on("-m", "--math-engine ENGINE", "Uses ENGINE to render MathML") do |s|
+		using_mathml = true
 		MaRuKu::Globals[:html_math_engine] = s
 	end
 	

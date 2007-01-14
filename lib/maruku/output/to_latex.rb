@@ -192,7 +192,12 @@ Admissible formats:
 	end
 
 	def to_latex_equation
-		"\\begin{equation}\n#{self.math.strip}\n\\end{equation}\n"
+		if self.label
+			l =  "\\label{#{self.label}}"
+			"\\begin{equation}\n#{self.math.strip}\n#{l}\\end{equation}\n"
+		else
+			"\\begin{equation*}\n#{self.math.strip}\n\\end{equation*}\n"
+		end
 	end
 	
 	def to_latex_code;

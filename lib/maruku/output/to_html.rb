@@ -102,6 +102,8 @@ xhtml10strict_mathml =
 		xhtml10strict_mathml + xml
 	end
 	
+	def xml_newline() Text.new("\n") end
+		
 	# Render to a complete HTML document (returns a REXML document tree)
 	def to_html_document_tree
 		doc = Document.new(nil,{:respect_whitespace =>:all})
@@ -109,10 +111,11 @@ xhtml10strict_mathml =
 		
 		root = Element.new('html', doc)
 		root.add_namespace('http://www.w3.org/1999/xhtml')
-		
+		root.add_namespace('svg', "http://www.w3.org/2000/svg" )
 		lang = self.attributes[:lang] || 'en'
 		root.attributes['xml:lang'] = lang
 		
+		root << xml_newline
 		head = Element.new 'head', root
 		
 			#<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
@@ -136,7 +139,9 @@ xhtml10strict_mathml =
 				link.attributes['href'] = css
 				head << link
 			end
-			
+		
+		root << xml_newline
+		
 		body = Element.new 'body'
 		
 			children_to_html.each do |e|
