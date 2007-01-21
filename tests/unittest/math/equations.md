@@ -45,10 +45,51 @@ x = y
 
 
 
-	OK!
+
+Failed tests:   [:inspect, :to_html, :to_latex, :to_md, :to_s] 
+
+*** Output of inspect ***
+-----| WARNING | -----
+md_el(:document,[
+	md_par(["$$ x = y $$"]),
+	md_el(:header,["$$ x"],{:level=>1},[]),
+	md_par(["$$ x = y $$"]),
+	md_par(["$$ x = y $$"])
+],{},[])
+*** Output of to_html ***
+-----| WARNING | -----
+
+<p>$$ x = y $$</p>
+
+<h1 id='_x'>$$ x</h1>
+
+<p>$$ x = y $$</p>
+
+<p>$$ x = y $$</p>
+
+*** Output of to_latex ***
+-----| WARNING | -----
+\$\$ x = y \$\$
+
+\hypertarget{_x}{}\section*{{\$\$ x}}\label{_x}
+
+\$\$ x = y \$\$
+
+\$\$ x = y \$\$
 
 
+*** Output of to_md ***
+-----| WARNING | -----
+$$ x = y $$
 
+$$ x$$ x = y $$
+
+$$ x = y $$
+
+
+*** Output of to_s ***
+-----| WARNING | -----
+$$ x = y $$$$ x$$ x = y $$$$ x = y $$
 *** Output of Markdown.pl ***
 <p>$$ x = y $$</p>
 

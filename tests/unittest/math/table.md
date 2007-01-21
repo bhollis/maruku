@@ -27,9 +27,24 @@ md_el(:document,[
 
 
 
-	OK!
 
+Failed tests:   [:to_html] 
 
+*** Output of inspect ***
+md_el(:document,[
+	md_html("<table markdown='1'>\n\tThis equation: $ \\alpha $ costed 10$ to make or $10$$.\n\t<thead>\n\t\t<td>$\\beta$</td>\n\t</thead>\n</table>")
+],{},[])
+*** Output of to_html ***
+-----| WARNING | -----
+<table>This equation: $ \alpha $ costed 10$ to make or $10$$.<thead>
+		<td />
+	</thead>
+</table>
+*** Output of to_latex ***
+
+*** Output of to_md ***
+
+*** Output of to_s ***
 
 *** Output of Markdown.pl ***
 <table markdown='1'>

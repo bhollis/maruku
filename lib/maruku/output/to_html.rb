@@ -21,9 +21,6 @@
 
 require 'rexml/document'
 
-require 'rubygems'
-require 'syntax'
-require 'syntax/convertors/html'
 
 
 class String
@@ -341,6 +338,12 @@ generated file.
 		element = 
 		if use_syntax && lang
 			begin
+				if not $syntax_loaded
+					require 'rubygems'
+					require 'syntax'
+					require 'syntax/convertors/html'
+					$syntax_loaded = true
+				end
 				convertor = Syntax::Convertors::HTML.for_syntax lang
 				
 				# eliminate trailing newlines otherwise Syntax crashes
@@ -351,6 +354,10 @@ generated file.
 				pre = Document.new(html, {:respect_whitespace =>:all}).root
 				pre.attributes['class'] = lang
 				pre
+			rescue LoadError => e
+				maruku_error "Could not load package 'syntax'.\n"+
+					"Please install it, for example using 'gem install syntax'."
+				to_html_code_using_pre(source)	
 			rescue Object => e
 				maruku_error"Error while using the syntax library for code:\n#{source.inspect}"+
 				 "Lang is #{lang} object is: \n"+

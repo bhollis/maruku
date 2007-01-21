@@ -92,11 +92,22 @@ Enabling the extension
 
 ### On the command line 
 
-...
+Use the `-m` option to choose the kind of output. Possible choices are:
+
+*	`-m itex2mml` 
+*	`-m ritex`
+*	`-m blahtex`
+
+*	`-mi blahtex`
+
 
 ### With embedded Maruku
 
-...
+First, you have to enable the math extension.
+
+	require 'maruku'          # loads maruku
+	require 'maruku/ext/math' # loads the math extension
+	
 
 ### MathML output 
 
@@ -104,7 +115,10 @@ Enabling the extension
 
 ### PNG output ###
 
-...
+Other parameters of interests are:
+
+*	`Globals[:math_png_dir]`
+*	`Globals[:math_png_dir_url]`
 
 
 Advanced topics

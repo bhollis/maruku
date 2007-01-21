@@ -59,6 +59,7 @@ module MaRuKu; module In; module Markdown; module BlockLevelParser
 				when :ial
 					m =  InlineAttributeList.match src.shift_line
 					content = m[1] ||  "" 
+					puts "Content: #{content.inspect}"
 					src2 = CharSource.new(content, src)
 					interpret_extension(src2, output, [nil])
 				when :ald
