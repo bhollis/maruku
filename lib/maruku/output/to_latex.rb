@@ -372,11 +372,6 @@ Otherwise, a standard `verbatim` environment is used.
 	
 	def to_latex_link
 		id = self.ref_id
-		# if empty, use text
-		if id.size == 0
-			id = children.to_s.downcase
-		end
-		
 		ref = @doc.refs[id]
 		if not ref
 			$stderr.puts "Could not find id = '#{id}'"

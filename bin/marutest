@@ -154,7 +154,7 @@ def run_test(filename, its_ok, verbose=true)
 	
 	f.write comment
 	f.write "\n*** Parameters: ***\n"
-	f.write params.inspect
+	f.write params_s
 	f.write "\n*** Markdown input: ***\n"
 	f.write markdown
 
@@ -316,6 +316,11 @@ def marutest
 	num_failed
 end
 
+
+if ARGV.empty?
+	puts "marutest is a tool for running Maruku's unittest."
+	exit
+end
 
 marutest
 

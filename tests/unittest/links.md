@@ -40,124 +40,11 @@ If all else fails, ask [Google](http://www.google.com)
  http://images.google.com  (Google images)
 *** Output of inspect ***
 md_el(:document,[
-	md_par(["Search on ", md_link(["Google"],"")]),
-	md_par(["Search on ", md_link(["Google"],"")]),
 	md_par(["Search on ", md_link(["Google"],"google")]),
 	md_par(["Search on ", md_link(["Google"],"google")]),
-	md_par(["Search on ", md_link(["Google images"],"")]),
-	md_par(["Inline: ", md_im_link(["Google images"], "http://google.com", nil)]),
-	md_par([
-		"Inline with title: ",
-		md_im_link(["Google images"], "http://google.com", "Title")
-	]),
-	md_par([
-		"Inline with title: ",
-		md_im_link(["Google images"], "http://google.com", "Title")
-	]),
-	md_par([
-		"Search on ",
-		md_url("http://www.gogole.com"),
-		" or ",
-		md_url("http://Here.com"),
-		" or ask ",
-		md_email("bill@google.com"),
-		" or you might ask bill@google.com."
-	]),
-	md_par([
-		"If all else fails, ask ",
-		md_im_link(["Google"], "http://www.google.com", nil)
-	]),
-	md_ref_def("google", "http://www.google.com", {:title=>nil}),
-	md_ref_def("google2", "http://www.google.com", {:title=>"Single quotes"}),
-	md_ref_def("google3", "http://www.google.com", {:title=>"Double quotes"}),
-	md_ref_def("google4", "http://www.google.com", {:title=>"Parenthesis"}),
-	md_ref_def("google search", "http://www.google.com", {:title=>"Google search"}),
-	md_ref_def("google images", "http://images.google.com", {:title=>"Google images"})
-],{},[])
-*** Output of to_html ***
-
-<p>Search on <a href='http://www.google.com'>Google</a></p>
-
-<p>Search on <a href='http://www.google.com'>Google</a></p>
-
-<p>Search on <a href='http://www.google.com'>Google</a></p>
-
-<p>Search on <a href='http://www.google.com'>Google</a></p>
-
-<p>Search on <a href='http://images.google.com' title='Google images'>Google images</a></p>
-
-<p>Inline: <a href='http://google.com'>Google images</a></p>
-
-<p>Inline with title: <a href='http://google.com' title='Title'>Google images</a></p>
-
-<p>Inline with title: <a href='http://google.com' title='Title'>Google images</a></p>
-
-<p>Search on <a href='http://www.gogole.com'>http://www.gogole.com</a> or <a href='http://Here.com'>http://Here.com</a> or ask <a href='mailto:bill@google.com'>&#098;&#105;&#108;&#108;&#064;&#103;&#111;&#111;&#103;&#108;&#101;&#046;&#099;&#111;&#109;</a> or you might ask bill@google.com.</p>
-
-<p>If all else fails, ask <a href='http://www.google.com'>Google</a></p>
-
-*** Output of to_latex ***
-Search on \href{http://www.google.com}{Google}
-
-Search on \href{http://www.google.com}{Google}
-
-Search on \href{http://www.google.com}{Google}
-
-Search on \href{http://www.google.com}{Google}
-
-Search on \href{http://images.google.com}{Google images}
-
-Inline: \href{http://google.com}{Google images}
-
-Inline with title: \href{http://google.com}{Google images}
-
-Inline with title: \href{http://google.com}{Google images}
-
-Search on \href{http://www.gogole.com}{\char104\char116\char116\char112\char58\char47\char47\char119\char119\char119\char46\char103\char111\char103\char111\char108\char101\char46\char99\char111\char109} or \href{http://Here.com}{\char104\char116\char116\char112\char58\char47\char47\char72\char101\char114\char101\char46\char99\char111\char109} or ask \href{mailto:bill@google.com}{\char98\char105\char108\char108\char64\char103\char111\char111\char103\char108\char101\char46\char99\char111\char109} or you might ask bill@google.com.
-
-If all else fails, ask \href{http://www.google.com}{Google}
-
-
-*** Output of to_md ***
-Search on Google
-
-Search on Google
-
-Search on Google
-
-Search on Google
-
-Search on Google images
-
-Inline: Google images
-
-Inline with title: Google images
-
-Inline with title: Google images
-
-Search on or or ask or you might ask
-bill@google.com.
-
-If all else fails, ask Google
-
-
-*** Output of to_s ***
-Search on GoogleSearch on GoogleSearch on GoogleSearch on GoogleSearch on Google imagesInline: Google imagesInline with title: Google imagesInline with title: Google imagesSearch on  or  or ask  or you might ask bill@google.com.If all else fails, ask Google
-*** EOF ***
-
-
-
-
-Failed tests:   [:inspect, :to_latex] 
-
-*** Output of inspect ***
------| WARNING | -----
-md_el(:document,[
-	md_par(["Search on ", md_link(["Google"],"")]),
-	md_par(["Search on ", md_link(["Google"],"")]),
 	md_par(["Search on ", md_link(["Google"],"google")]),
 	md_par(["Search on ", md_link(["Google"],"google")]),
-	md_par(["Search on ", md_link(["Google images"],"")]),
+	md_par(["Search on ", md_link(["Google images"],"google_images")]),
 	md_par(["Inline: ", md_im_link(["Google images"], "http://google.com", nil)]),
 	md_par([
 		"Inline with title: ",
@@ -210,7 +97,6 @@ md_el(:document,[
 <p>If all else fails, ask <a href='http://www.google.com'>Google</a></p>
 
 *** Output of to_latex ***
------| WARNING | -----
 Search on \href{http://www.google.com}{Google}
 
 Search on \href{http://www.google.com}{Google}
@@ -219,7 +105,7 @@ Search on \href{http://www.google.com}{Google}
 
 Search on \href{http://www.google.com}{Google}
 
-Search on Google images
+Search on \href{http://images.google.com}{Google images}
 
 Inline: \href{http://google.com}{Google images}
 
@@ -257,6 +143,14 @@ If all else fails, ask Google
 
 *** Output of to_s ***
 Search on GoogleSearch on GoogleSearch on GoogleSearch on GoogleSearch on Google imagesInline: Google imagesInline with title: Google imagesInline with title: Google imagesSearch on  or  or ask  or you might ask bill@google.com.If all else fails, ask Google
+*** EOF ***
+
+
+
+	OK!
+
+
+
 *** Output of Markdown.pl ***
 <p>Search on <a href="http://www.google.com">Google</a></p>
 
@@ -274,7 +168,7 @@ Search on GoogleSearch on GoogleSearch on GoogleSearch on GoogleSearch on Google
 
 <p>Inline with title: <a href="http://google.com  "Title"">Google images</a></p>
 
-<p>Search on <a href="http://www.gogole.com">http://www.gogole.com</a> or <a href="http://Here.com">http://Here.com</a> or ask <a href="&#x6D;&#97;&#x69;&#x6C;&#116;&#111;:b&#x69;&#108;&#108;&#64;&#x67;&#111;&#111;&#103;&#x6C;&#101;&#46;&#99;&#x6F;&#x6D;">b&#x69;&#108;&#108;&#64;&#x67;&#111;&#111;&#103;&#x6C;&#101;&#46;&#99;&#x6F;&#x6D;</a>
+<p>Search on <a href="http://www.gogole.com">http://www.gogole.com</a> or <a href="http://Here.com">http://Here.com</a> or ask <a href="&#109;&#97;&#x69;&#x6C;&#116;&#x6F;:&#x62;&#x69;&#x6C;&#x6C;&#64;&#103;o&#x6F;&#x67;&#x6C;&#x65;&#x2E;&#x63;&#111;&#x6D;">&#x62;&#x69;&#x6C;&#x6C;&#64;&#103;o&#x6F;&#x67;&#x6C;&#x65;&#x2E;&#x63;&#111;&#x6D;</a>
 or you might ask bill@google.com.</p>
 
 <p>If all else fails, ask <a href="http://www.google.com">Google</a></p>

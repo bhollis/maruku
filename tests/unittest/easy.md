@@ -10,7 +10,7 @@ md_el(:document,[md_par([md_em(["Hello!"]), " how are ", md_strong(["you"]), "?"
 <p><em>Hello!</em> how are <strong>you</strong>?</p>
 
 *** Output of to_latex ***
-{\em Hello!} how are {\bf you}?
+\emph{Hello!} how are \textbf{you}?
 
 
 *** Output of to_md ***
@@ -23,26 +23,10 @@ Hello! how are you?
 
 
 
-
-Failed tests:   [:to_latex] 
-
-*** Output of inspect ***
-md_el(:document,[md_par([md_em(["Hello!"]), " how are ", md_strong(["you"]), "?"])],{},[])
-*** Output of to_html ***
-
-<p><em>Hello!</em> how are <strong>you</strong>?</p>
-
-*** Output of to_latex ***
------| WARNING | -----
-\emph{Hello!} how are \textbf{you}?
+	OK!
 
 
-*** Output of to_md ***
-Hello!how are you?
 
-
-*** Output of to_s ***
-Hello! how are you?
 *** Output of Markdown.pl ***
 <p><em>Hello!</em> how are <strong>you</strong>?</p>
 

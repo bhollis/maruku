@@ -427,11 +427,6 @@ generated file.
 	def to_html_link
 		a =  wrap_as_element 'a'
 		id = self.ref_id
-		# if empty, use text
-		if id.size == 0
-			id = children.to_s.downcase.gsub(' ','_')
-			
-		end
 		
 		if ref = @doc.refs[id]
 			url = ref[:url]

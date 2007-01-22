@@ -37,5 +37,15 @@ Paragraph
 
 
 *** Output of Markdown.pl ***
+<p>Paragraph
+{:a}</p>
+
+<p>{:a: b}
+{:b: a}</p>
 
 *** Output of Markdown.pl (parsed) ***
+<p>Paragraph
+{:a}</p
+   ><p>{:a: b}
+{:b: a}</p
+ >
