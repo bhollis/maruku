@@ -39,7 +39,7 @@ Maruku implements:
 
 * all the improvements in [PHP Markdown Extra]. 
 
-* a new [meta-data syntax][meta]
+* a new [meta-data syntax][meta_data_proposal]
 
 
 __Authors__: Maruku has been developed so far by [Andrea Censi].
@@ -62,6 +62,25 @@ is Japanese, and also the sillable "ru" appears in Maruku.
 [this_html]: http://maruku.rubyforge.org/maruku.html
 [this_pdf]: http://maruku.rubyforge.org/maruku.pdf
 [Andrea Censi]: http://www.dis.uniroma1.it/~acensi/
+
+[contact]: http://www.dis.uniroma1.it/~acensi/contact.html
+[gem]: http://rubygems.rubyforge.org/
+[tracker]: http://rubyforge.org/tracker/?group_id=2795
+
+
+[ruby]: http://www.ruby-lang.org
+[bluecloth]: http://www.deveiate.org/projects/BlueCloth
+[Markdown syntax]: http://daringfireball.net/projects/markdown/syntax
+[PHP Markdown Extra]: http://www.michelf.com/projects/php-markdown/extra/
+[math syntax]: http://maruku.rubyforge.org/math.xhtml
+[blahtex]: http://www.blahtex.org
+[ritex]: http://ritex.rubyforge.org
+[itex2mml]: http://golem.ph.utexas.edu/~distler/code/itexToMML/
+[syntax]: http://syntax.rubyforge.org/
+
+[listings]: http://www.ctan.org/tex-archive/macros/latex/contrib/listings/
+[meta_data_proposal]: http://maruku.rubyforge.org/proposal.html
+[markdown-discuss]: http://six.pairlist.net/mailman/listinfo/markdown-discuss
 
 * * *
 
@@ -92,219 +111,6 @@ please write to the [Markdown-discuss mailing list][markdown-discuss].
 
 Have fun!
 
-#### Changes in the development version (not released yet) ####     {#last}
-
-[Charles Distler]: http://golem.ph.utexas.edu/~distler
-[itex2MML]:  http://golem.ph.utexas.edu/~distler/blog/itex2MML.html
-[math]: http://rubyforge.maruku.org/math.html
-<!--	This is the [math syntax specification][math]. -->
-
-*	Support for LaTeX-style formula input, and export to MathML. 
-
-	[Charles Distler] is integrating Maruku into Instiki (a Ruby On Rails-based wiki software), as to have a Ruby wiki with proper math support. You know, these physicists like all those funny symbols.
-
-	*	To have the MathML export, it is needed to install one of:
-	
-		* 	[RiTeX]   (`gem install ritex`) 
-		* 	[itex2MML] supports much more complex formulas than Ritex.
-		* 	PNG for old browser is not here yet. The plan is to use
-			BlahTeX.
-
-*	Syntax changes:
-
-	* Compatibility with newest Markdown.pl: `[text]` as a synonim of `[text][]`.
-
-	*	Meta data: the first IAL in a span environment now refers to the parent.
-		This makes it possible to set attributes for cells:
-
-			Head           |  Head |
-			---------------+-------+--
-			{:r}  Hello    + ...
-
-			{:r: scope='row'}
-
-		The first cell will have the `scope` attribute set to `row`.
-
-*	Maruku HTML export:
-
-	*	By the way -- did I mention it? -- **Maruku HTML has always been
-		proper validating XHTML strict** (if a page does not validate,
-		please report it as a bug).
-
-		Of course, this only matters when using `maruku` as a standalone
-		program.
-		
-		*	I have updated the XHTML DTD used to support MathML: 
-			currently using XHTML+MathML+SVG.
-		*	Content-type set to `application/xhtml+xml`	
-		*	All entities are written as numeric entities.
-
-*	New settings:
-	
-	*	Disable the Maruku signature by setting `maruku signature: false`
-	
-*	Bugs fixed:
-
-	*	`markdown=1` did not propagate to children.
-	*	LaTeX: An exception was raised if an unknown entity was used.
-
-*	Command line options for the `maruku` command:
-
-		Usage: maruku [options] [file1.md [file2.md ...
-		    -v, --[no-]verbose               Run verbosely
-		    -u, --[no-]unsafe                Use unsafe features
-		    -b                               Break on error
-		    -m, --math-engine ENGINE         Uses ENGINE to render MathML
-		        --pdf                        Write PDF
-		        --html                       Write HTML
-		        --tex                        Write LaTeX
-		        --inspect                    Shows the parsing result
-		        --version                    Show version
-		    -h, --help                       Show this message
-
-*	Other things:
-	
-	*	Created the embryo of an extension system. Please don't use it
-		yet, as probably the API is bound to change.
-
-	*	There are a couple of hidden features...
-
-#### Changes in 0.4.2 ####     
-
-*	Adapted syntax to the [new meta-data proposal][proposal].
-
-*	Changes in LaTeX export: 
-
-	*	Links to external URLs are blue by default.
-
-	*	New attributes: `latex_preamble` to add a custom preamble,
-		and `latex_cjk` to add packages for UTF-8 Japanese characters.
-		(**support for this is still shaky**). Example:
-	
-			Title: my document
-			LaTeX CJK: true
-			LaTeX preamble: preamble.tex
-		
-			Content
-
-*	Bug fixes
-
-	+ Images were not given `id` or `class` attributes.
-
-	+ Fixed bug in LaTeX export with handling of `<`,`>` enclosed URLs: `<google.com>`.
-
-#### Changes in 0.4.1 aka "Typographer" ####
-
-*	Implemented SmartyPants support:
-
-		'Twas a "test" to 'remember' -- in the '90s 
-		--- while I was <<ok>>. She was 6\"12\'.
-	> 'Twas a "test" to 'remember' -- in the '90s --- while I was <<ok>>.
-	> She was 6\"12\'.
-
-	I adapted the code from RubyPants.
-	
-*	Server directives between `<? ?>` are properly preserved.
-*	Changes in LaTeX export:
-
-	*	Now Japanese text rendering sort of works, using the following packages:
-
-			\usepackage[C40]{fontenc}
-			\usepackage[cjkjis]{ucs}
-			\usepackage[utf8x]{inputenc}
-		
-		Nevertheless, I could only get bitmap fonts working -- probably it's a problem
-		with my setup.
-
-		A quick test: 日本、中国、ひらがな、カタカナ。
-
-	*	Fixed bugs in rendering of immediate links.
-	*	External packages are `require`d only if needed.
-	*	More symbols supported.
-		See the symbol list 
-		[in HTML](http://maruku.rubyforge.org/entity_test.html) and
-		[in PDF](http://maruku.rubyforge.org/entity_test.pdf).
-
-
-#### Changes in 0.4 ####
-
-* First implementation of [the new meta-data syntax][meta].
-* General refactorization of the code and much cleaner error reporting.
-* Created [the RDOC documentation][rdoc].
-* The `add_whitespace` method took too much time -- it was O(n^2).
-* Added unit-tests for block-level elements.
-
-[rdoc]: http://maruku.rubyforge.org/rdoc/
-[meta]: http://maruku.rubyforge.org/proposal.html
-
-#### Changes in 0.3 ####
-
-*	A real parser is used instead of a regexp-based system, also for span-level 
-	elements.
-
-	Now Maruku is almost 2x faster than Bluecloth, while having more features.
-
-	Here are some benchmarks:
-	
-		BlueCloth (to_html): parsing 0.00 sec + rendering 1.54 sec = 1.55 sec 
-		Maruku (to_html):    parsing 0.47 sec + rendering 0.38 sec = 0.85 sec 
-		Maruku (to_latex):   parsing 0.49 sec + rendering 0.25 sec = 0.73 sec
-		
-	This is the result of running `lib/maruku/tests/benchmark.rb` on the Markdown 
-	specification.
-
-*	Prettier HTML output by adding whitespace.
- 
-*	Added a full suite of unit-tests for the span-level parser.
-
-*	Error management: Having a real parser, Maruku warns you about syntax issues.
-	
-	The default action is to warn and try to continue. If you do this:
-
-		Maruku.new(string, {:on_error => :raise})
-
-	then syntax errors will cause an exception to be raised (you can catch this
-	and retry).
-
-*	Fixed a series of bugs in handling inline HTML code.
-
-Immediate TODO-list:
-
-*	UTF-8 input/output works OK for HTML, however I am having pain trying to export
-	to LaTeX. I want at least Japanese characters support, so if you know how to 
-	do this you are very welcome to give me an hand.
-	
-	For example: in the HTML version, you should see accented characters in this
-	parenthesis: 
-	
-	> (àèìòù)
-	
-	and Japanese text in these other parentheses: 
-	
-	> (カタカナで 私の 名前は アンドレア チェンシ です).
-	>
-	> (日本のガルは 大好き、でも、日本語は難しですから、そうぞ 英語話すガルを おしえてください).
-	
-	In the LaTeX version, these do not appear. I know how to do LaTeX with 
-	ISO-8859-1 encoding (European characters), but I'm struggling with half-baked 
-	solutions for UTF-8 encoded documents.
-
-*	Implement the [new meta-data proposal][proposal].
-
-*	Exporting to Markdown (pretty printing).
-
-*	Exporting to HTML splitting in multiple files.
-
-*	RubyPants.
-
-*	Support for images in PDF.
-
-
-[proposal]: http://maruku.rubyforge.org/proposal.html
-[contact]: http://www.dis.uniroma1.it/~acensi/contact.html
-[markdown-discuss]: http://six.pairlist.net/mailman/listinfo/markdown-discuss
-[tracker]: http://rubyforge.org/tracker/?group_id=2795
-
 Download       {#download}
 --------
 
@@ -320,23 +126,21 @@ Released files can also be seen at <http://rubyforge.org/frs/?group_id=2795>.
 
 Anonymous access to the repository is possible with:
 
-	$ svn checkout svn://rubyforge.org/var/svn/maruku
+	$ svn checkout svn://rubyforge.org/var/svn/maruku/trunk
 
   {:shell}
 
-If you want commit access to the repository, just create an account on Rubyforge and [drop me a mail][drop].
-
-[drop]: http://www.dis.uniroma1.it/~acensi/contact.html
-[gem]: http://rubygems.rubyforge.org/
+If you want commit access to the repository, just create an account on Rubyforge and [drop me a mail][contact].
 
 ### Bugs report ###
 
-Use the [tracker][tracker] or [drop me an email][drop].
+Use the [tracker][tracker] or [drop me an email][contact].
 
-[tracker]: http://rubyforge.org/tracker/?group_id=2795
 
 Usage
 --------
+
+### Embedded Maruku ###
 
 This is the basic usage:
 
@@ -362,19 +166,236 @@ You can have the REXML document tree with:
 
 ### From the command line ###
 
-There are two command-line programs installed: `maruku` and `marutex`.
+There is one command-line program installed: `maruku`.
 
-*	`maruku` converts Markdown to HTML:
+Without arguments, it converts  Markdown to HTML:
 
-		$ maruku file.md  # creates file.html
-	{:shell}
+	$ maruku file.md  # creates file.html
+{:shell}
 
-* 	`marutex` converts Markdown to LaTeX, then calls `pdflatex` to 
-	transform to PDF:
+With the `--pdf` arguments, it converts Markdown to LaTeX, then calls `pdflatex` to 
+transform to PDF:
 
-		$ marutex file.md  # creates file.tex and file.pdf
-	{:shell}
+	$ maruku --pdf file.md  # creates file.tex and file.pdf
+{:shell}
 
+
+Maruku and Bluecloth          {#maruku-and-bluecloth}
+--------------------
+
+The other Ruby implementation of Markdown is [Bluecloth]. 
+
+Maruku is much different in philosophy from Bluecloth: the biggest 
+difference is that *parsing* is separated from *rendering*.
+In Maruku, an in-memory representation of the Markdown
+document is created. Instead, Bluecloth mantains the document in
+memory as a String at all times, and does a series of `gsub` 
+to transform to HTML.
+
+Maruku is usually faster than Bluecloth. Bluecloth is faster 
+for very small documents. Bluecloth sometimes chokes on very big
+documents (it is reported that the blame should be on Ruby's regexp 
+implementation).
+
+This is the canonical benchmark (the Markdown specification), 
+executed with Ruby 1.8.5 on a Powerbook 1.5GhZ:
+
+	BlueCloth (to_html): parsing 0.01 sec + rendering 1.87 sec = 1.88 sec   (1.00x)
+	   Maruku (to_html): parsing 0.66 sec + rendering 0.43 sec = 1.09 sec   (1.73x)
+	  Maruku (to_latex): parsing 0.67 sec + rendering 0.23 sec = 0.90 sec   (2.10x)
+
+Please note that Maruku has a lot more features and therefore is 
+looking for much more patterns in the file.
+
+
+
+Maruku summary of features
+--------------------------
+
+*	Supported syntax
+	
+	*	[Basic Markdown][markdown_syntax]
+	*	[Markdown Extra](#extra)
+	*	[Meta-data syntax](#meta)
+	*	[LaTeX Math syntax][math_syntax] (not enabled by default)
+	*	An extension system for adding new syntax is available, 
+		but the API is bound to change in the future, 
+		so please don't use it.
+	
+*	Output
+
+	*	Misc
+		
+		*	[Automatic generation of the TOC](#toc-generation)
+		
+	*	XHTML
+	
+		*	Syntax highlighting via the [`syntax`][syntax] library.
+		*	Math: LaTeX to MathML using either one of [`ritex`][ritex], [`itex2mml`][itex2mml], 
+			[`blahtex`][blahtex].
+		*	Math: LaTeX to PNG using [`blahtex`][blahtex].
+	
+	*	LaTeX
+
+		*	[Translation of HTML entities to LaTeX](#entities)
+		*	Syntax highlighting via the [`listings`][listings] package.
+
+
+
+New meta-data syntax {#meta}
+--------------------
+
+Maruku implements a syntax that allows to attach "meta" information
+to objects.
+
+### Meta-data for block-level and span-level elements ###
+
+See [this proposal][meta_data_proposal].
+
+
+### Meta-data for the document ###
+
+Meta-data for the document itself is specified through the use
+of email headers:
+
+	Title: A simple document containing meta-headers
+	CSS: style.css
+	
+	Content of the document
+
+  {:markdown}
+
+When creating the document through 
+
+	Maruku.new(s).to_html_document
+
+  {:ruby}
+
+the title and stylesheet are added as expected.
+
+Meta-data keys are assumed to be case-insensitive.
+
+
+* * *
+
+
+### List of meta-data  ###    {#metalist}
+
+**`title`, `subject`**
+: (document) Sets the title of the document (HTML: used in the `TITLE` element).
+
+**`use_numbered_headers`**
+: (document) If `true`, headers are numbered (just like this document). Default is `false`.
+
+**`css`**
+: (document, HTML) Url of stylesheet.
+
+**`html_use_syntax`**
+: (document, HTML) If set, use the [Ruby `syntax` library][syntax] to add source highlighting.
+
+**`latex_use_listings`**
+: (document, LaTeX) If set, use the fancy [`listings` package][listings] for better displaying code blocks.
+     
+     If not set,  use standard `verbatim` environment.
+
+**`style`, `id`, `class`**
+: (any block object, HTML) Standard CSS attributes are copied.
+
+**`lang`**
+: (code blocks) Name of programming language (`ruby`) for syntax highlighting.
+
+      Default for this is `code_lang` in document.
+      
+      Syntax highlighting is delegated to the [`syntax` library][syntax] for
+      HTML output and to the [`listings` package][listings] for LaTeX output.
+
+
+**`code_show_spaces`**
+: Shows tabs and newlines (default is read in the document object).
+
+**`code_background_color`**
+: Background color for code blocks. (default is read in the document object).
+
+    The format is either a named color (`green`, `red`) or a CSS color
+    of the form `#ff00ff`. 
+
+    * for **HTML output**, the value is put straight in the `background-color` CSS 
+      property of the block.
+
+    * for **LaTeX output**, if it is a named color, it must be a color accepted
+      by the LaTeX `color` packages. If it is of the form `#ff00ff`, Maruku
+      defines a color using the `\color[rgb]{r,g,b}` macro. 
+
+      For example, for `#0000ff`, the macro is called as: `\color[rgb]{0,0,1}`.
+
+
+
+### Examples ###
+
+An example of this is the following:
+
+		 One space
+		  Two spaces
+			 	Tab, space, tab
+					Tab, tab, tab and all is green!
+	{:code_show_spaces code_background_color=#ffeedd}
+{:markdown}
+	
+That will produce:
+
+	 One space
+	  Two spaces
+		 	Tab, space, tab
+				Tab, tab, tab and all is green!
+{:code_show_spaces code_background_color=#ffeedd}
+
+
+Or highlighting (support depends on languages):
+
+		<div style="text-align:center">Div</div>
+	{:lang=html}
+
+produces:
+
+	<div style="text-align:center">Div</div>
+{:lang=html}
+
+
+
+* * *
+
+Miscellaneous Features      {#features}
+--------------
+
+### Automatic generation of the table of contents ###    {#toc-generation}
+
+If you create a list, and then set the `toc` attribute, when rendering
+Maruku will create an auto-generated table of contents.
+
+	* This will become a table of contents (this text will be scraped).
+	{:toc}
+
+You can see an example of this at the beginning of this document.
+
+### Use HTML entities ### {#entities}
+
+If you want to use HTML entities, go on! We will take care
+of the translation to LaTeX:
+
+Entity      | Result
+------------|----------
+`&copy;`    |  &copy;
+`&pound;`   |  &pound;
+`a&nbsp;b`  |  a&nbsp;b
+`&lambda;`  |  &lambda;
+`&mdash;`   |  &mdash;
+
+
+### This header contains *emphasis* **strong text** and `code` ####
+
+Note that this header contains formatting and it still works, also in the table of contents.
+
+And [This is a *link* with **all** ***sort*** of `weird stuff`](#features) in the text.
 
 Examples of PHP Markdown Extra syntax {#extra}
 -------------------------------------
@@ -435,201 +456,10 @@ Examples of PHP Markdown Extra syntax {#extra}
 
 
 
-Maruku and Bluecloth          {#maruku-and-bluecloth}
---------------------
-
-The other Ruby implementation of Markdown is [Bluecloth]. 
-
-Maruku is much different in philosophy from Bluecloth: the biggest 
-difference is that *parsing* is separated from *rendering*.
-In Maruku, an in-memory representation of the Markdown
-document is created. Instead, Bluecloth mantains the document in
-memory as a String at all times, and does a series of `gsub` 
-to transform to HTML.
-
-Maruku is usually faster than Bluecloth. Bluecloth is faster 
-for very small documents. Bluecloth sometimes chokes on very big
-documents (it is reported that the blame should be on Ruby's regexp 
-implementation).
-
-This is the canonical benchmark (the Markdown specification), 
-executed with Ruby 1.8.5 on a Powerbook 1.5GhZ:
-
-	BlueCloth (to_html): parsing 0.01 sec + rendering 1.87 sec = 1.88 sec   (1.00x)
-	   Maruku (to_html): parsing 0.66 sec + rendering 0.43 sec = 1.09 sec   (1.73x)
-	  Maruku (to_latex): parsing 0.67 sec + rendering 0.23 sec = 0.90 sec   (2.10x)
-
-Please note that Maruku has a lot more features and therefore is 
-looking for much more patterns in the file.
-
-
-[ruby]: http://www.ruby-lang.org
-[bluecloth]: http://www.deveiate.org/projects/BlueCloth
-[Markdown syntax]: http://daringfireball.net/projects/markdown/syntax
-[PHP Markdown Extra]: http://www.michelf.com/projects/php-markdown/extra/
-
-
-New meta-data syntax {#meta}
---------------------
-
-Maruku implements a syntax that allows to attach "meta" information
-to objects.
-
-### Meta-data for block-level and span-level elements ###
-
-See [this proposal][meta].
-
-### Meta-data for the document ###
-
-Meta-data for the document itself is specified through the use
-of email headers:
-
-	Title: A simple document containing meta-headers
-	CSS: style.css
 	
-	Content of the document
 
-  {:markdown}
-
-When creating the document through 
-
-	Maruku.new(s).to_html_document
-
-  {:ruby}
-
-the title and stylesheet are added as expected.
-
-Meta-data keys are assumed to be case-insensitive.
-
-
-* * *
-
-
-### List of meta-data  ###    {#metalist}
-
-[listings]: http://www.ctan.org/tex-archive/macros/latex/contrib/listings/
-
-**`title`, `subject`**
-: (document) Sets the title of the document (HTML: used in the `TITLE` element).
-
-**`use_numbered_headers`**
-: (document) If `true`, headers are numbered (just like this document). Default is `false`.
-
-**`css`**
-: (document, HTML) Url of stylesheet.
-
-**`html_use_syntax`**
-: (document, HTML) If set, use the [Ruby `syntax` library][syntax] to add source highlighting.
-
-**`latex_use_listings`**
-: (document, LaTeX) If set, use the fancy [`listings` package][listings] for better displaying code blocks.
-     
-     If not set,  use standard `verbatim` environment.
-
-**`style`, `id`, `class`**
-: (any block object, HTML) Standard CSS attributes are copied.
-
-**`lang`**
-: (code blocks) Name of programming language (`ruby`) for syntax highlighting.
-
-      Default for this is `code_lang` in document.
-      
-      Syntax highlighting is delegated to the [`syntax` library][syntax] for
-      HTML output and to the [`listings` package][listings] for LaTeX output.
-
-
-**`code_show_spaces`**
-: Shows tabs and newlines (default is read in the document object).
-
-**`code_background_color`**
-: Background color for code blocks. (default is read in the document object).
-
-    The format is either a named color (`green`, `red`) or a CSS color
-    of the form `#ff00ff`. 
-
-    * for **HTML output**, the value is put straight in the `background-color` CSS 
-      property of the block.
-
-    * for **LaTeX output**, if it is a named color, it must be a color accepted
-      by the LaTeX `color` packages. If it is of the form `#ff00ff`, Maruku
-      defines a color using the `\color[rgb]{r,g,b}` macro. 
-
-      For example, for `#0000ff`, the macro is called as: `\color[rgb]{0,0,1}`.
-
-[syntax]: http://syntax.rubyforge.org/
-
-
-### Examples ###
-
-An example of this is the following:
-
-		 One space
-		  Two spaces
-			 	Tab, space, tab
-					Tab, tab, tab and all is green!
-	{:code_show_spaces code_background_color=#ffeedd}
-{:markdown}
-	
-That will produce:
-
-	 One space
-	  Two spaces
-		 	Tab, space, tab
-				Tab, tab, tab and all is green!
-{:code_show_spaces code_background_color=#ffeedd}
-
-
-Or highlighting (support depends on languages):
-
-		<div style="text-align:center">Div</div>
-	{:lang=html}
-
-produces:
-
-	<div style="text-align:center">Div</div>
-{:lang=html}
-
-
-
-* * *
-
-Other Features      {#features}
---------------
-
-### Automatic generation of the table of contents ###
-
-If you create a list, and then set the `toc` attribute, when rendering
-Maruku will create an auto-generated table of contents.
-
-	* This will become a table of contents (this text will be scraped).
-	{:toc}
-
-You can see an example of this at the beginning of this document.
-
-### This header contains *emphasis* **strong text** and `code` ####
-
-Note that this header contains formatting and it still works, also in the table of contents.
-
-And [This is a *link* with **all** ***sort*** of `weird stuff`](#features) in the text.
-
-### Use HTML entities ###
-
-If you want to use HTML entities, go on! We will take care
-of the translation to LaTeX:
-
-Entity      | Result
-------------|----------
-`&copy;`    |  &copy;
-`&pound;`   |  &pound;
-`a&nbsp;b`  |  a&nbsp;b
-`&lambda;`  |  &lambda;
-`&mdash;`   |  &mdash;
-
-
-
-
+<!--
 Future developments                              {#future}
--------------------
 
 I think that [Pandoc] and [MultiMarkdown] are very cool projects.
 However, they are written in Haskell and Perl, respectively. 
@@ -638,18 +468,4 @@ I would love to have an equivalent in Ruby.
 [Pandoc]: http://sophos.berkeley.edu/macfarlane/pandoc/
 [MultiMarkdown]: http://fletcher.freeshell.org/wiki/MultiMarkdown
 
-
-### A syntax for adding math ###
-
-Something inspired from LaTeX should be familiar to all:
-
-	This is inline math: $\alpha$
-
-
-	This is an equation with label:
-
-	$ \alpha = \beta + \gamma  $        (eq:1)
-
-	This is a reference to equation: please see (eq:1)
-
-
+-->

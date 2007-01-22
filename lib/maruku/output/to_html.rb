@@ -429,7 +429,8 @@ generated file.
 		id = self.ref_id
 		# if empty, use text
 		if id.size == 0
-			id = children.to_s.downcase
+			id = children.to_s.downcase.gsub(' ','_')
+			
 		end
 		
 		if ref = @doc.refs[id]
@@ -438,7 +439,8 @@ generated file.
 			a.attributes['href'] = url if url
 			a.attributes['title'] = title if title
 		else
-			maruku_error"Could not find ref_id = #{id.inspect} for #{self.inspect}"
+			maruku_error "Could not find ref_id = #{id.inspect} for #{self.inspect}\n"+
+				"Available refs are #{@doc.refs.keys.inspect}"
 			tell_user "Not creating a link for ref_id = #{id.inspect}."
 			return wrap_as_element('span')
 		end

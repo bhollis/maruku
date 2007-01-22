@@ -1,3 +1,121 @@
+#### Changes in the development version (not released yet) ####     {#last}
+
+[Charles Distler]: http://golem.ph.utexas.edu/~distler
+[itex2MML]:  http://golem.ph.utexas.edu/~distler/blog/itex2MML.html
+[math]: http://rubyforge.maruku.org/math.html
+<!--	This is the [math syntax specification][math]. -->
+
+
+*	*Jan. 22*  With very minimal changes, Maruku now works in JRuby. 
+
+	Some benchmarks:
+
+	*	G4 1.5GhZ, Ruby 1.8.5:
+	
+			Maruku (to_html): parsing 0.65 sec + rendering 0.40 sec = 1.04 sec
+			Maruku (to_latex): parsing 0.70 sec + rendering 0.21 sec = 0.91 sec
+
+	*	G4 1.5GhZ, JRuby 1.9.2:
+
+			Maruku (to_html): parsing 4.77 sec + rendering 2.24 sec = 7.01 sec
+			Maruku (to_latex): parsing 4.04 sec + rendering 1.12 sec = 5.16 sec
+
+*	*Jan. 21*  Integration of Blahtex. PNG export of formula and alignment works
+	ok in Mozilla, Safari, Camino, Opera. IE7 is acting strangely.
+
+*	Support for LaTeX-style formula input, and export to MathML. 
+
+	[Charles Distler] is integrating Maruku into Instiki (a Ruby On Rails-based wiki software), as to have a Ruby wiki with proper math support. You know, these physicists like all those funny symbols.
+
+	*	To have the MathML export, it is needed to install one of:
+	
+		* 	[RiTeX]   (`gem install ritex`) 
+		* 	[itex2MML] supports much more complex formulas than Ritex.
+		* 	PNG for old browser is not here yet. The plan is to use
+			BlahTeX.
+
+*	Syntax changes:
+
+	* Compatibility with newest Markdown.pl: `[text]` as a synonim of `[text][]`.
+
+	*	Meta data: the first IAL in a span environment now refers to the parent.
+		This makes it possible to set attributes for cells:
+
+			Head           |  Head |
+			---------------+-------+--
+			{:r}  Hello    + ...
+
+			{:r: scope='row'}
+
+		The first cell will have the `scope` attribute set to `row`.
+
+*	Maruku HTML export:
+
+	*	By the way -- did I mention it? -- **Maruku HTML has always been
+		proper validating XHTML strict** (if a page does not validate,
+		please report it as a bug).
+
+		Of course, this only matters when using `maruku` as a standalone
+		program.
+		
+		*	I have updated the XHTML DTD used to support MathML: 
+			currently using XHTML+MathML+SVG.
+		*	Content-type set to `application/xhtml+xml`	
+		*	All entities are written as numeric entities.
+
+*	New settings:
+	
+	*	Disable the Maruku signature by setting `maruku signature: false`
+	
+*	Bugs fixed:
+
+	*	`markdown=1` did not propagate to children.
+	*	LaTeX: An exception was raised if an unknown entity was used.
+
+*	Command line options for the `maruku` command:
+
+		Usage: maruku [options] [file1.md [file2.md ...
+		    -v, --[no-]verbose               Run verbosely
+		    -u, --[no-]unsafe                Use unsafe features
+		    -b                               Break on error
+		    -m, --math-engine ENGINE         Uses ENGINE to render MathML
+		        --pdf                        Write PDF
+		        --html                       Write HTML
+		        --tex                        Write LaTeX
+		        --inspect                    Shows the parsing result
+		        --version                    Show version
+		    -h, --help                       Show this message
+
+*	Other things:
+	
+	*	Created the embryo of an extension system. Please don't use it
+		yet, as probably the API is bound to change.
+
+	*	There are a couple of hidden features...
+
+#### Changes in 0.4.2 ####     
+
+*	Adapted syntax to the [new meta-data proposal][proposal].
+
+*	Changes in LaTeX export: 
+
+	*	Links to external URLs are blue by default.
+
+	*	New attributes: `latex_preamble` to add a custom preamble,
+		and `latex_cjk` to add packages for UTF-8 Japanese characters.
+		(**support for this is still shaky**). Example:
+	
+			Title: my document
+			LaTeX CJK: true
+			LaTeX preamble: preamble.tex
+		
+			Content
+
+*	Bug fixes
+
+	+ Images were not given `id` or `class` attributes.
+
+	+ Fixed bug in LaTeX export with handling of `<`,`>` enclosed URLs: `<google.com>`.
 
 #### Changes in 0.4.1 aka "Typographer" ####
 
@@ -105,9 +223,9 @@ Immediate TODO-list:
 
 *	Support for images in PDF.
 
-#### Changes in 0.2.13 ####
 
-- better handling of inline HTML code.
-- Handle HTML comments.
-- Sanitizes HR and IMG tags if you don't close them.
-- documentation included in HTML format
+[proposal]: http://maruku.rubyforge.org/proposal.html
+[contact]: http://www.dis.uniroma1.it/~acensi/contact.html
+[markdown-discuss]: http://six.pairlist.net/mailman/listinfo/markdown-discuss
+[tracker]: http://rubyforge.org/tracker/?group_id=2795
+

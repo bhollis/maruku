@@ -77,3 +77,10 @@ img#logo {
 .html .number { color: #F99; }
 .html .attribute { color: #BB7; }
 
+.maruku-att-origin {
+	padding-left: 2em;
+	margin-top: -1em;
+	font-size: 70%;
+	color: grey;
+}
+

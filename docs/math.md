@@ -95,11 +95,16 @@ Enabling the extension
 Use the `-m` option to choose the kind of output. Possible choices are:
 
 *	`-m itex2mml` 
+
+	[Instructions for itex2mml][itex2mml].
+
 *	`-m ritex`
 *	`-m blahtex`
 
 *	`-mi blahtex`
 
+
+[itex2mml]: http://golem.ph.utexas.edu/~distler/code/itexToMML/
 
 ### With embedded Maruku
 
