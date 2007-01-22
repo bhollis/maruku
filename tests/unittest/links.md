@@ -148,9 +148,10 @@ Search on GoogleSearch on GoogleSearch on GoogleSearch on GoogleSearch on Google
 
 
 
-Failed tests:   [:to_latex] 
+Failed tests:   [:inspect, :to_latex] 
 
 *** Output of inspect ***
+-----| WARNING | -----
 md_el(:document,[
 	md_par(["Search on ", md_link(["Google"],"")]),
 	md_par(["Search on ", md_link(["Google"],"")]),
@@ -183,8 +184,8 @@ md_el(:document,[
 	md_ref_def("google2", "http://www.google.com", {:title=>"Single quotes"}),
 	md_ref_def("google3", "http://www.google.com", {:title=>"Double quotes"}),
 	md_ref_def("google4", "http://www.google.com", {:title=>"Parenthesis"}),
-	md_ref_def("google search", "http://www.google.com", {:title=>"Google search"}),
-	md_ref_def("google images", "http://images.google.com", {:title=>"Google images"})
+	md_ref_def("google_search", "http://www.google.com", {:title=>"Google search"}),
+	md_ref_def("google_images", "http://images.google.com", {:title=>"Google images"})
 ],{},[])
 *** Output of to_html ***
 
@@ -218,7 +219,7 @@ Search on \href{http://www.google.com}{Google}
 
 Search on \href{http://www.google.com}{Google}
 
-Search on \href{http://images.google.com}{Google images}
+Search on Google images
 
 Inline: \href{http://google.com}{Google images}
 
@@ -273,7 +274,7 @@ Search on GoogleSearch on GoogleSearch on GoogleSearch on GoogleSearch on Google
 
 <p>Inline with title: <a href="http://google.com  "Title"">Google images</a></p>
 
-<p>Search on <a href="http://www.gogole.com">http://www.gogole.com</a> or <a href="http://Here.com">http://Here.com</a> or ask <a href="&#109;&#x61;&#105;&#108;&#x74;&#x6F;:&#x62;&#x69;&#x6C;&#x6C;&#64;g&#111;o&#x67;&#108;&#101;&#x2E;&#99;&#x6F;&#109;">&#x62;&#x69;&#x6C;&#x6C;&#64;g&#111;o&#x67;&#108;&#101;&#x2E;&#99;&#x6F;&#109;</a>
+<p>Search on <a href="http://www.gogole.com">http://www.gogole.com</a> or <a href="http://Here.com">http://Here.com</a> or ask <a href="&#x6D;&#97;&#x69;&#x6C;&#116;&#111;:b&#x69;&#108;&#108;&#64;&#x67;&#111;&#111;&#103;&#x6C;&#101;&#46;&#99;&#x6F;&#x6D;">b&#x69;&#108;&#108;&#64;&#x67;&#111;&#111;&#103;&#x6C;&#101;&#46;&#99;&#x6F;&#x6D;</a>
 or you might ask bill@google.com.</p>
 
 <p>If all else fails, ask <a href="http://www.google.com">Google</a></p>

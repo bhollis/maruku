@@ -1,3 +1,6 @@
+css: style.css
+
+
 #### Changes in the development version (not released yet) ####     {#last}
 
 [Charles Distler]: http://golem.ph.utexas.edu/~distler

@@ -51,9 +51,9 @@ This is an email address:
 *** Output of to_s ***
 This is an email address: 
 *** Output of Markdown.pl ***
-<p>This is an email address: <a href="&#x6D;&#x61;&#x69;&#108;&#116;&#x6F;:&#97;&#110;&#100;&#114;&#101;&#x61;&#64;&#105;&#x6E;&#118;&#x61;&#108;&#x69;&#100;&#x2E;&#x69;&#x74;">&#97;&#110;&#100;&#114;&#101;&#x61;&#64;&#105;&#x6E;&#118;&#x61;&#108;&#x69;&#100;&#x2E;&#x69;&#x74;</a></p>
+<p>This is an email address: <a href="&#x6D;&#97;&#105;&#108;&#x74;&#x6F;:&#x61;&#x6E;&#100;&#x72;&#x65;&#97;&#64;&#105;&#110;&#x76;a&#108;&#x69;&#100;&#x2E;i&#x74;">&#x61;&#x6E;&#100;&#x72;&#x65;&#97;&#64;&#105;&#110;&#x76;a&#108;&#x69;&#100;&#x2E;i&#x74;</a></p>
 
 *** Output of Markdown.pl (parsed) ***
-<p>This is an email address: <a href='&amp;#x6D;&amp;#x61;&amp;#x69;&amp;#108;&amp;#116;&amp;#x6F;:&amp;#97;&amp;#110;&amp;#100;&amp;#114;&amp;#101;&amp;#x61;&amp;#64;&amp;#105;&amp;#x6E;&amp;#118;&amp;#x61;&amp;#108;&amp;#x69;&amp;#100;&amp;#x2E;&amp;#x69;&amp;#x74;'>&#97;&#110;&#100;&#114;&#101;&#x61;&#64;&#105;&#x6E;&#118;&#x61;&#108;&#x69;&#100;&#x2E;&#x69;&#x74;</a
+<p>This is an email address: <a href='&amp;#x6D;&amp;#97;&amp;#105;&amp;#108;&amp;#x74;&amp;#x6F;:&amp;#x61;&amp;#x6E;&amp;#100;&amp;#x72;&amp;#x65;&amp;#97;&amp;#64;&amp;#105;&amp;#110;&amp;#x76;a&amp;#108;&amp;#x69;&amp;#100;&amp;#x2E;i&amp;#x74;'>&#x61;&#x6E;&#100;&#x72;&#x65;&#97;&#64;&#105;&#110;&#x76;a&#108;&#x69;&#100;&#x2E;i&#x74;</a
    ></p
  >
