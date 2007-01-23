@@ -91,3 +91,16 @@ img#logo {
 	font-size: 90%;
 }
 
+a.maruku-link-samedoc {
+	color: red;
+}
+
+a.maruku-link-local {
+	color: green;	
+}
+
+a.maruku-link-external {
+	color: blue;		
+}
+
+

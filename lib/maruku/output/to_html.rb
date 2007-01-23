@@ -540,12 +540,40 @@ of the form `#ff00ff`.
 		pre
 	end
 
+	def add_class_to(el, cl)
+		el.attributes['class'] = 
+		if already = el.attributes['class']
+			already + " " + cl
+		else
+			cl
+		end
+	end
+
+	def add_class_to_link(a)
+		url = a.attributes['href']
+		
+#		puts "url: #{url}"
+		return if not url
+		
+		if url =~ /^#/
+			add_class_to(a, 'maruku-link-samedoc')
+		elsif url =~ /^http:/
+			add_class_to(a, 'maruku-link-external')
+		else
+			add_class_to(a, 'maruku-link-local')
+		end
+	
+#		puts a.attributes['class']
+	end
+	
+	
 	def to_html_immediate_link
 		a =  create_html_element 'a'
 		url = self.url
 		text = url.gsub(/^mailto:/,'') # don't show mailto
 		a << Text.new(text)
 		a.attributes['href'] = url
+		add_class_to_link(a)
 		a
 	end
 	
@@ -564,6 +592,8 @@ of the form `#ff00ff`.
 			tell_user "Not creating a link for ref_id = #{id.inspect}."
 			return wrap_as_element('span')
 		end
+
+#		add_class_to_link(a)
 		return a
 	end
 	
