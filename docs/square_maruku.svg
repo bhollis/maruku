@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE svg PUBLIC '-//W3C//DTD SVG 1.0//EN' 'http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd'>
+<svg fill-opacity="1" xmlns:xlink="http://www.w3.org/1999/xlink" color-rendering="auto" color-interpolation="auto" text-rendering="auto" stroke="black" stroke-linecap="square" stroke-miterlimit="10" shape-rendering="auto" stroke-opacity="1" fill="black" stroke-dasharray="none" font-weight="normal" stroke-width="1" xmlns="http://www.w3.org/2000/svg" font-family="&apos;Dialog&apos;" font-style="normal" stroke-linejoin="miter" font-size="12" stroke-dashoffset="0" image-rendering="auto">
+  <!--Unicode Character 'SQUARE MARUKU' (U+3346)-->
+  <defs id="genericDefs" />
+  <g>
+    <g>
+      <path d="M278.7188 222.3281 Q254.9531 256.3594 219.7969 266.0625 L219.7969 145.125 L232.7344 145.125 L232.7344 246.7969 Q253.8281 236.6719 268.7344 211.3594 L278.7188 222.3281 ZM198.1406 190.9688 Q198.1406 231.6094 163.2656 264.0938 L152.2969 254.25 Q167.0625 242.2969 176.1328 225.7734 Q185.2031 209.25 185.2031 181.6875 L185.2031 145.125 L198.1406 145.125 L198.1406 190.9688 ZM133.875 160.5938 L84.6562 227.25 Q91.5469 233.8594 108.5625 257.2031 L97.5938 266.9062 Q75.375 232.7344 37.4062 204.1875 L48.375 194.625 Q63.5625 206.5781 74.25 217.4062 L111.7969 167.3438 L17.8594 167.3438 L17.8594 153.9844 L125.2969 153.9844 L133.875 160.5938 ZM127.5469 301.7812 Q117.4219 378.8438 42.3281 406.5469 L33.1875 394.4531 Q98.4375 372.375 110.5312 315.2812 L56.3906 315.2812 Q43.0312 335.3906 26.1562 349.0312 L15.8906 338.0625 Q45.2812 317.9531 59.0625 281.1094 L72.5625 286.1719 Q68.7656 294.8906 64.8281 301.7812 L127.5469 301.7812 Z" stroke="none" />
+    </g>
+  </g>
+</svg>
