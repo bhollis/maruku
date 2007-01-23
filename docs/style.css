@@ -78,9 +78,16 @@ img#logo {
 .html .attribute { color: #BB7; }
 
 .maruku-att-origin {
-	padding-left: 2em;
+	padding-left: 30px;
 	margin-top: -1em;
 	font-size: 70%;
 	color: grey;
+}
+
+.maruku-att-default {
+	padding-left: 30px;
+	margin-top: -1.4em;
+	margin-bottom: +1em;
+	font-size: 90%;
 }
 

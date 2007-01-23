@@ -2,7 +2,7 @@ CSS: style.css
 Use numbered headers: true
 HTML use syntax: true
 LaTeX use listings: true
-LaTeX CJK: true
+LaTeX CJK: false
 
 ![MaRuKu](logo.png){#logo}
 
@@ -110,6 +110,8 @@ For issues about the Markdown syntax itself and improvements to it,
 please write to the [Markdown-discuss mailing list][markdown-discuss].
 
 Have fun!
+
+See the [changelog](http://maruku.rubyforge.org/changelog.html#stable).
 
 Download       {#download}
 --------
@@ -240,20 +242,19 @@ Maruku summary of features
 		*	[Translation of HTML entities to LaTeX](#entities)
 		*	Syntax highlighting via the [`listings`][listings] package.
 
+[Documentation for supported attributes](exd.html).
 
-
-New meta-data syntax {#meta}
---------------------
+### New meta-data syntax {#meta}
 
 Maruku implements a syntax that allows to attach "meta" information
 to objects.
 
-### Meta-data for block-level and span-level elements ###
+#### Meta-data for block-level and span-level elements ###
 
 See [this proposal][meta_data_proposal].
 
 
-### Meta-data for the document ###
+#### Meta-data for the document ###
 
 Meta-data for the document itself is specified through the use
 of email headers:
@@ -276,97 +277,6 @@ the title and stylesheet are added as expected.
 Meta-data keys are assumed to be case-insensitive.
 
 
-* * *
-
-
-### List of meta-data  ###    {#metalist}
-
-**`title`, `subject`**
-: (document) Sets the title of the document (HTML: used in the `TITLE` element).
-
-**`use_numbered_headers`**
-: (document) If `true`, headers are numbered (just like this document). Default is `false`.
-
-**`css`**
-: (document, HTML) Url of stylesheet.
-
-**`html_use_syntax`**
-: (document, HTML) If set, use the [Ruby `syntax` library][syntax] to add source highlighting.
-
-**`latex_use_listings`**
-: (document, LaTeX) If set, use the fancy [`listings` package][listings] for better displaying code blocks.
-     
-     If not set,  use standard `verbatim` environment.
-
-**`style`, `id`, `class`**
-: (any block object, HTML) Standard CSS attributes are copied.
-
-**`lang`**
-: (code blocks) Name of programming language (`ruby`) for syntax highlighting.
-
-      Default for this is `code_lang` in document.
-      
-      Syntax highlighting is delegated to the [`syntax` library][syntax] for
-      HTML output and to the [`listings` package][listings] for LaTeX output.
-
-
-**`code_show_spaces`**
-: Shows tabs and newlines (default is read in the document object).
-
-**`code_background_color`**
-: Background color for code blocks. (default is read in the document object).
-
-    The format is either a named color (`green`, `red`) or a CSS color
-    of the form `#ff00ff`. 
-
-    * for **HTML output**, the value is put straight in the `background-color` CSS 
-      property of the block.
-
-    * for **LaTeX output**, if it is a named color, it must be a color accepted
-      by the LaTeX `color` packages. If it is of the form `#ff00ff`, Maruku
-      defines a color using the `\color[rgb]{r,g,b}` macro. 
-
-      For example, for `#0000ff`, the macro is called as: `\color[rgb]{0,0,1}`.
-
-
-
-### Examples ###
-
-An example of this is the following:
-
-		 One space
-		  Two spaces
-			 	Tab, space, tab
-					Tab, tab, tab and all is green!
-	{:code_show_spaces code_background_color=#ffeedd}
-{:markdown}
-	
-That will produce:
-
-	 One space
-	  Two spaces
-		 	Tab, space, tab
-				Tab, tab, tab and all is green!
-{:code_show_spaces code_background_color=#ffeedd}
-
-
-Or highlighting (support depends on languages):
-
-		<div style="text-align:center">Div</div>
-	{:lang=html}
-
-produces:
-
-	<div style="text-align:center">Div</div>
-{:lang=html}
-
-
-
-* * *
-
-Miscellaneous Features      {#features}
---------------
-
 ### Automatic generation of the table of contents ###    {#toc-generation}
 
 If you create a list, and then set the `toc` attribute, when rendering
@@ -386,9 +296,13 @@ Entity      | Result
 ------------|----------
 `&copy;`    |  &copy;
 `&pound;`   |  &pound;
-`a&nbsp;b`  |  a&nbsp;b
 `&lambda;`  |  &lambda;
 `&mdash;`   |  &mdash;
+
+See the [list of supported entities][ent_html] ([pdf][ent_pdf]).
+
+[ent_html]: http://maruku.rubyforge.org/entity_test.html
+[ent_pdf]: http://maruku.rubyforge.org/entity_test.pdf
 
 
 ### This header contains *emphasis* **strong text** and `code` ####
@@ -396,6 +310,7 @@ Entity      | Result
 Note that this header contains formatting and it still works, also in the table of contents.
 
 And [This is a *link* with **all** ***sort*** of `weird stuff`](#features) in the text.
+
 
 Examples of PHP Markdown Extra syntax {#extra}
 -------------------------------------
@@ -455,8 +370,6 @@ Examples of PHP Markdown Extra syntax {#extra}
 *[ABB]: Simply an abbreviation
 
 
-
-	
 
 <!--
 Future developments                              {#future}

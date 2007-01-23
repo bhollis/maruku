@@ -16,6 +16,9 @@ pdfs+=math.pdf
 htmls+=math.xhtml
 others+=math.md
 
+pdfs+=exd.pdf
+htmls+=exd.html
+
 
 all: pdf html 
 
@@ -55,4 +58,9 @@ publish_doc:
 exd.html:
 	ruby -I../lib exd/exd.rb
 	
-	
+exd.tex: exd.html
+
+%.pdf: %.tex
+	pdflatex $*	
+	pdflatex $*	
+

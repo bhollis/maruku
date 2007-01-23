@@ -1,5 +1,5 @@
-css: style.css
-
+CSS: style.css
+LaTeX CJK: true
 
 #### Changes in the development version (not released yet) ####     {#last}
 
@@ -8,8 +8,10 @@ css: style.css
 [math]: http://rubyforge.maruku.org/math.html
 <!--	This is the [math syntax specification][math]. -->
 
+*	*Jan. 24*  Fixed some bugs in HTML parsing.
 
 *	*Jan. 22*  With very minimal changes, Maruku now works in JRuby. 
+	It is very slow, though.
 
 	Some benchmarks:
 
@@ -96,7 +98,7 @@ css: style.css
 
 	*	There are a couple of hidden features...
 
-#### Changes in 0.4.2 ####     
+#### Changes in 0.4.2 ####    {#stable}
 
 *	Adapted syntax to the [new meta-data proposal][proposal].
 
