@@ -19,6 +19,9 @@ others+=math.md
 pdfs+=exd.pdf
 htmls+=exd.html
 
+pdfs+=changelog.pdf
+htmls+=changelog.html
+others+=changelog.md
 
 all: pdf html 
 

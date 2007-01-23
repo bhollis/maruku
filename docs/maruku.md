@@ -11,7 +11,7 @@ Mar**u**k**u**: a Markdown-superset interpreter
 
 [Maruku] is a Markdown interpreter written in [Ruby].
 
-> [Last release](#release_notes) is version 0.4.2 -- 2007-01-12.
+> [Last release](#release_notes) is version 0.5.0 -- 2007-01-23.
 >
 > Use this command to update:
 >
@@ -219,42 +219,46 @@ Maruku summary of features
 	*	[Basic Markdown][markdown_syntax]
 	*	[Markdown Extra](#extra)
 	*	[Meta-data syntax](#meta)
-	*	[LaTeX Math syntax][math_syntax] (not enabled by default)
-	*	An extension system for adding new syntax is available, 
-		but the API is bound to change in the future, 
-		so please don't use it.
 	
 *	Output
-
-	*	Misc
-		
-		*	[Automatic generation of the TOC](#toc-generation)
 		
 	*	XHTML
 	
 		*	Syntax highlighting via the [`syntax`][syntax] library.
-		*	Math: LaTeX to MathML using either one of [`ritex`][ritex], [`itex2mml`][itex2mml], 
-			[`blahtex`][blahtex].
-		*	Math: LaTeX to PNG using [`blahtex`][blahtex].
 	
 	*	LaTeX
 
 		*	[Translation of HTML entities to LaTeX](#entities)
 		*	Syntax highlighting via the [`listings`][listings] package.
 
-[Documentation for supported attributes](exd.html).
+*	Misc
+
+	*	[Documentation for supported attributes][supported_attributes]
+	
+	*	[Automatic generation of the TOC](#toc-generation)
+
+
+[supported_attributes]: exd.html
+
+**Experimental features (not released yet)**
+
+*	[LaTeX Math syntax][math_syntax] (not enabled by default)
+*	An extension system for adding new syntax is available, 
+	but the API is bound to change in the future, 
+	so please don't use it.
+*	LaTeX to MathML using either one of [`ritex`][ritex], [`itex2mml`][itex2mml], 
+	[`blahtex`][blahtex].
+*	LaTeX to PNG using [`blahtex`][blahtex].
 
 ### New meta-data syntax {#meta}
 
 Maruku implements a syntax that allows to attach "meta" information
 to objects.
 
-#### Meta-data for block-level and span-level elements ###
+See [this proposal][meta_data_proposal] for how to attach
+metadata to the elements.
 
-See [this proposal][meta_data_proposal].
-
-
-#### Meta-data for the document ###
+See the [documentation for supported attributes][supported_attributes].
 
 Meta-data for the document itself is specified through the use
 of email headers:

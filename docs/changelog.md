@@ -1,14 +1,12 @@
 CSS: style.css
 LaTeX CJK: true
 
-#### Changes in the development version (not released yet) ####     {#last}
+#### Changes in the development version and **experimental** features  ####     {#last}
 
-[Charles Distler]: http://golem.ph.utexas.edu/~distler
+[Jacques Distler]: http://golem.ph.utexas.edu/~distler
 [itex2MML]:  http://golem.ph.utexas.edu/~distler/blog/itex2MML.html
 [math]: http://rubyforge.maruku.org/math.html
 <!--	This is the [math syntax specification][math]. -->
-
-*	*Jan. 24*  Fixed some bugs in HTML parsing.
 
 *	*Jan. 22*  With very minimal changes, Maruku now works in JRuby. 
 	It is very slow, though.
@@ -30,7 +28,7 @@ LaTeX CJK: true
 
 *	Support for LaTeX-style formula input, and export to MathML. 
 
-	[Charles Distler] is integrating Maruku into Instiki (a Ruby On Rails-based wiki software), as to have a Ruby wiki with proper math support. You know, these physicists like all those funny symbols.
+	[Jacques Distler] is integrating Maruku into Instiki (a Ruby On Rails-based wiki software), as to have a Ruby wiki with proper math support. You know, these physicists like all those funny symbols.
 
 	*	To have the MathML export, it is needed to install one of:
 	
@@ -39,43 +37,6 @@ LaTeX CJK: true
 		* 	PNG for old browser is not here yet. The plan is to use
 			BlahTeX.
 
-*	Syntax changes:
-
-	* Compatibility with newest Markdown.pl: `[text]` as a synonim of `[text][]`.
-
-	*	Meta data: the first IAL in a span environment now refers to the parent.
-		This makes it possible to set attributes for cells:
-
-			Head           |  Head |
-			---------------+-------+--
-			{:r}  Hello    + ...
-
-			{:r: scope='row'}
-
-		The first cell will have the `scope` attribute set to `row`.
-
-*	Maruku HTML export:
-
-	*	By the way -- did I mention it? -- **Maruku HTML has always been
-		proper validating XHTML strict** (if a page does not validate,
-		please report it as a bug).
-
-		Of course, this only matters when using `maruku` as a standalone
-		program.
-		
-		*	I have updated the XHTML DTD used to support MathML: 
-			currently using XHTML+MathML+SVG.
-		*	Content-type set to `application/xhtml+xml`	
-		*	All entities are written as numeric entities.
-
-*	New settings:
-	
-	*	Disable the Maruku signature by setting `maruku signature: false`
-	
-*	Bugs fixed:
-
-	*	`markdown=1` did not propagate to children.
-	*	LaTeX: An exception was raised if an unknown entity was used.
 
 *	Command line options for the `maruku` command:
 
@@ -98,7 +59,46 @@ LaTeX CJK: true
 
 	*	There are a couple of hidden features...
 
-#### Changes in 0.4.2 ####    {#stable}
+#### Changes in 0.5.0 ####    {#stable}
+
+*	Syntax changes:
+
+	*	Compatibility with newest Markdown.pl: `[text]` as a synonim of `[text][]`.
+
+	*	Meta data: the first IAL in a span environment now refers to the parent.
+		This makes it possible to set attributes for cells:
+
+			Head           |  Head |
+			---------------+-------+--
+			{:r}  Hello    + ...
+
+			{:r: scope='row'}
+
+		The first cell will have the `scope` attribute set to `row`.
+
+*	New settings:
+
+	*	Disable the Maruku signature by setting `maruku signature: false`
+
+*	Stricter doctype. By the way -- did I mention it? -- 
+	**Maruku HTML has always been proper validating XHTML strict** 
+	(if a page does not validate, please report it as a bug).
+
+	Of course, this only matters when using `maruku` as a standalone
+	program.
+
+	*	I have updated the XHTML DTD used to support MathML: 
+		currently using XHTML+MathML+SVG.
+	*	Content-type set to `application/xhtml+xml`	
+	*	All entities are written as numeric entities.
+
+*	Bug fixes
+
+	*	Many fixes in the code handling the sanitizing of inline HTML.
+	*	`markdown=1` did not propagate to children.
+	*	LaTeX: An exception was raised if an unknown entity was used.
+
+#### Changes in 0.4.2 ####    
 
 *	Adapted syntax to the [new meta-data proposal][proposal].
 
