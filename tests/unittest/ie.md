@@ -1,5 +1,5 @@
-We must make sure that amps, quotes and apos are always written
-numerically.
+We must make sure that `&apos;` is always written as `&#39;`.
+
 *** Parameters: ***
 {} # params 
 *** Markdown input: ***
