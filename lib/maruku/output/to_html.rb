@@ -550,9 +550,9 @@ of the form `#ff00ff`.
 	end
 
 	def add_class_to_link(a)
-		url = a.attributes['href']
+		return # not ready yet
 		
-#		puts "url: #{url}"
+		url = a.attributes['href']
 		return if not url
 		
 		if url =~ /^#/
@@ -653,7 +653,7 @@ of the form `#ff00ff`.
 		else
 			maruku_error"Could not find id = #{id.inspect} for\n #{self.inspect}"
 			tell_user "Could not create image with ref_id = #{id.inspect};"+
-				 +" Using SPAN element as replacement."
+				 " Using SPAN element as replacement."
 				return wrap_as_element('span')
 		end
 		return a

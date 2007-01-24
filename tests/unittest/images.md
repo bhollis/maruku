@@ -70,9 +70,9 @@ Please mouseover to see the title:
 
 Please mouseover to see the title: 
 
-I'll say it one more time: this page does not use {\bf Images not supported yet (http\char58\char47\char47jigsaw\char46w\char51\char46org\char47css\char45validator\char47images\char47vcss)}
+I'll say it one more time: this page does not use 
 
-This is double size: {\bf Images not supported yet (http\char58\char47\char47jigsaw\char46w\char51\char46org\char47css\char45validator\char47images\char47vcss)}
+This is double size: 
 
 
 *** Output of to_md ***

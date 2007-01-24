@@ -624,6 +624,11 @@ module MaRuKu; module In; module Markdown; module SpanLevelParser
 			con.push_element md_im_image(alt_text, url, title)
 		when ?[ # link ref
 			ref_id = read_ref_id(src,con)
+			if ref_id.size == 0
+				ref_id =  alt_text.to_s.downcase.gsub(' ','_')
+			else
+				ref_id = ref_id.downcase
+			end
 			con.push_element md_image(alt_text, ref_id)
 		else # no stuff
 			con.push_elements children
