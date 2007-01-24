@@ -121,16 +121,14 @@ The development site is <http://rubyforge.org/projects/maruku/>.
 Install with:
 
 	$ gem install maruku
-
-  {:shell}
+{:shell}
 
 Released files can also be seen at <http://rubyforge.org/frs/?group_id=2795>.
 
 Anonymous access to the repository is possible with:
 
 	$ svn checkout svn://rubyforge.org/var/svn/maruku/trunk
-
-  {:shell}
+{:shell}
 
 If you want commit access to the repository, just create an account on Rubyforge and [drop me a mail][contact].
 
@@ -151,20 +149,17 @@ This is the basic usage:
 
 	doc = Maruku.new(markdown_string)
 	puts doc.to_html
-
-  {:ruby}
+{:ruby}
 
 The method `to_html` outputs only an HTML fragment, while the method `to_html_document` outputs a complete XHTML 1.0 document:
 
 	puts doc.to_html_document
-
-  {:ruby}
+{:ruby}
 	
 You can have the REXML document tree with:
 
 	tree = doc.to_html_document_tree
-
-  {:ruby}
+{:ruby}
 
 ### From the command line ###
 
@@ -267,14 +262,12 @@ of email headers:
 	CSS: style.css
 	
 	Content of the document
-
-  {:markdown}
+{:markdown}
 
 When creating the document through 
 
 	Maruku.new(s).to_html_document
-
-  {:ruby}
+{:ruby}
 
 the title and stylesheet are added as expected.
 

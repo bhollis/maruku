@@ -394,7 +394,9 @@ by Maruku, to have the same results in both HTML and LaTeX.
 	def source2html(source)
 		source = source.gsub(/&/,'&amp;')
 		source = Text.normalize(source)
-		Text.new(source, true, nil, false )
+		source = source.gsub(/\&apos;/,'&#39;') # IE bug
+		source = source.gsub(/'/,'&#39;') # IE bug
+		Text.new(source, true, nil, true )
 	end
 		
 =begin maruku_doc
@@ -455,10 +457,18 @@ and
 				source = source.gsub(/\n*\Z/,'')
 				
 				html = convertor.convert( source )
-			
-				pre = Document.new(html, {:respect_whitespace =>:all}).root
-				pre.attributes['class'] = lang
-				pre
+				html = html.gsub(/\&apos;/,'&#39;') # IE bug
+				html = html.gsub(/'/,'&#39;') # IE bug
+	#			html = html.gsub(/&/,'&amp;') 
+				
+				code = Document.new(html, {:respect_whitespace =>:all}).root
+				code.name = 'code'
+				code.attributes['class'] = lang
+				code.attributes['lang'] = lang
+				
+				pre = Element.new 'pre'
+				pre << code
+				add_ws pre
 			rescue LoadError => e
 				maruku_error "Could not load package 'syntax'.\n"+
 					"Please install it, for example using 'gem install syntax'."
@@ -523,8 +533,12 @@ of the form `#ff00ff`.
 
 		text = Text.new(s, respect_ws=true, parent=nil, raw=true )
 		
+		if lang = self.attributes[:lang]
+			code.attributes['lang'] = lang
+			code.attributes['class'] = lang
+		end
 		code << text
-		pre
+		add_ws pre
 	end
 
 	def to_html_inline_code; 

@@ -3,34 +3,54 @@ numerically.
 *** Parameters: ***
 {} # params 
 *** Markdown input: ***
-`here's an apostrophe & a quote "`
+`<p>here's an apostrophe & a quote "</p>`
 
-	here's an apostrophe & a quote "
+	<p>here's an apostrophe & a quote "</p>
 {:}
 
-	here's an apostrophe & a quote "
-{:html_use_syntax=true lang=boh}
+	<p>here's an apostrophe & a quote "</p>
+{:lang=xml}
 
-	here's an apostrophe & a quote "
+	<p>here's an apostrophe & a quote "</p>
+{:html_use_syntax=true lang=not_supported}
+
+	<p>here's an apostrophe & a quote "</p>
+{:html_use_syntax=true lang=xml}
+
+	<p>here's an apostrophe & a quote "</p>
 {:html_use_syntax=true lang=xml}
 
 *** Output of inspect ***
 md_el(:document,[
-	md_par([md_code("here's an apostrophe & a quote \"")]),
-	md_el(:code,[],{:raw_code=>"here's an apostrophe & a quote \""},[]),
-	md_el(:code,[],{:raw_code=>"here's an apostrophe & a quote \""},[["html_use_syntax", "true"], ["lang", "boh"]]),
-	md_el(:code,[],{:raw_code=>"here's an apostrophe & a quote \""},[["html_use_syntax", "true"], ["lang", "xml"]])
+	md_par([md_code("<p>here's an apostrophe & a quote \"</p>")]),
+	md_el(:code,[],{:raw_code=>"<p>here's an apostrophe & a quote \"</p>"},[]),
+	md_el(:code,[],{:raw_code=>"<p>here's an apostrophe & a quote \"</p>"},[["lang", "xml"]]),
+	md_el(:code,[],{:raw_code=>"<p>here's an apostrophe & a quote \"</p>"},[["html_use_syntax", "true"], ["lang", "not_supported"]]),
+	md_el(:code,[],{:raw_code=>"<p>here's an apostrophe & a quote \"</p>"},[["html_use_syntax", "true"], ["lang", "xml"]]),
+	md_el(:code,[],{:raw_code=>"<p>here's an apostrophe & a quote \"</p>"},[["html_use_syntax", "true"], ["lang", "xml"]])
 ],{},[])
 *** Output of to_html ***
 
-<p><code>here&apos;s an apostrophe &amp; a quote &quot;</code></p>
-<pre><code>here&#39;s an apostrophe &amp; a quote &quot;</code></pre><pre class='boh'>here's an apostrophe &amp; a quote &quot;</pre><pre class='xml'>here's an apostrophe &amp; a quote &quot;</pre>
-*** Output of to_latex ***
-\colorbox[rgb]{1.00,0.93,1.00}{\tt here\char39s~an~apostrophe~\char38~a~quote~\char34}
+<p><code>&lt;p&gt;here&#39;s an apostrophe &amp; a quote &quot;&lt;/p&gt;</code></p>
 
-\begin{verbatim}here's an apostrophe & a quote "\end{verbatim}
-\begin{verbatim}here's an apostrophe & a quote "\end{verbatim}
-\begin{verbatim}here's an apostrophe & a quote "\end{verbatim}
+<pre><code>&lt;p&gt;here&#39;s an apostrophe &amp; a quote &quot;&lt;/p&gt;</code></pre>
+
+<pre><code class='xml' lang='xml'>&lt;p&gt;here&#39;s an apostrophe &amp; a quote &quot;&lt;/p&gt;</code></pre>
+
+<pre><code class='not_supported' lang='not_supported'>&lt;p&gt;here&#39;s an apostrophe &amp; a quote &quot;&lt;/p&gt;</code></pre>
+
+<pre><code class='xml' lang='xml'><span class='punct'>&lt;</span><span class='tag'>p</span><span class='punct'>&gt;</span>here&#39;s an apostrophe &amp; a quote &quot;<span class='punct'>&lt;/</span><span class='tag'>p</span><span class='punct'>&gt;</span></code></pre>
+
+<pre><code class='xml' lang='xml'><span class='punct'>&lt;</span><span class='tag'>p</span><span class='punct'>&gt;</span>here&#39;s an apostrophe &amp; a quote &quot;<span class='punct'>&lt;/</span><span class='tag'>p</span><span class='punct'>&gt;</span></code></pre>
+
+*** Output of to_latex ***
+\colorbox[rgb]{1.00,0.93,1.00}{\tt \char60p\char62here\char39s~an~apostrophe~\char38~a~quote~\char34\char60\char47p\char62}
+
+\begin{verbatim}<p>here's an apostrophe & a quote "</p>\end{verbatim}
+\begin{verbatim}<p>here's an apostrophe & a quote "</p>\end{verbatim}
+\begin{verbatim}<p>here's an apostrophe & a quote "</p>\end{verbatim}
+\begin{verbatim}<p>here's an apostrophe & a quote "</p>\end{verbatim}
+\begin{verbatim}<p>here's an apostrophe & a quote "</p>\end{verbatim}
 
 *** Output of to_md ***
 
@@ -47,40 +67,61 @@ md_el(:document,[
 
 
 *** Output of Markdown.pl ***
-<p><code>here's an apostrophe &amp; a quote "</code></p>
+<p><code>&lt;p&gt;here's an apostrophe &amp; a quote "&lt;/p&gt;</code></p>
 
-<pre><code>here's an apostrophe &amp; a quote "
+<pre><code>&lt;p&gt;here's an apostrophe &amp; a quote "&lt;/p&gt;
 </code></pre>
 
 <p>{:}</p>
 
-<pre><code>here's an apostrophe &amp; a quote "
+<pre><code>&lt;p&gt;here's an apostrophe &amp; a quote "&lt;/p&gt;
 </code></pre>
 
-<p>{:html<em>use</em>syntax=true lang=boh}</p>
+<p>{:lang=xml}</p>
 
-<pre><code>here's an apostrophe &amp; a quote "
+<pre><code>&lt;p&gt;here's an apostrophe &amp; a quote "&lt;/p&gt;
+</code></pre>
+
+<p>{:html<em>use</em>syntax=true lang=not_supported}</p>
+
+<pre><code>&lt;p&gt;here's an apostrophe &amp; a quote "&lt;/p&gt;
+</code></pre>
+
+<p>{:html<em>use</em>syntax=true lang=xml}</p>
+
+<pre><code>&lt;p&gt;here's an apostrophe &amp; a quote "&lt;/p&gt;
 </code></pre>
 
 <p>{:html<em>use</em>syntax=true lang=xml}</p>
 
 *** Output of Markdown.pl (parsed) ***
 <p
-     ><code>here's an apostrophe &amp; a quote "</code
+     ><code>&lt;p&gt;here's an apostrophe &amp; a quote "&lt;/p&gt;</code
    ></p
    ><pre
-     ><code>here's an apostrophe &amp; a quote "
+     ><code>&lt;p&gt;here's an apostrophe &amp; a quote "&lt;/p&gt;
 </code
    ></pre
    ><p>{:}</p
    ><pre
-     ><code>here's an apostrophe &amp; a quote "
+     ><code>&lt;p&gt;here's an apostrophe &amp; a quote "&lt;/p&gt;
+</code
+   ></pre
+   ><p>{:lang=xml}</p
+   ><pre
+     ><code>&lt;p&gt;here's an apostrophe &amp; a quote "&lt;/p&gt;
 </code
    ></pre
    ><p>{:html<em>use</em
-     >syntax=true lang=boh}</p
+     >syntax=true lang=not_supported}</p
    ><pre
-     ><code>here's an apostrophe &amp; a quote "
+     ><code>&lt;p&gt;here's an apostrophe &amp; a quote "&lt;/p&gt;
+</code
+   ></pre
+   ><p>{:html<em>use</em
+     >syntax=true lang=xml}</p
+   ><pre
+     ><code>&lt;p&gt;here's an apostrophe &amp; a quote "&lt;/p&gt;
 </code
    ></pre
    ><p>{:html<em>use</em
