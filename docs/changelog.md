@@ -59,7 +59,21 @@ LaTeX CJK: true
 
 	*	There are a couple of hidden features...
 
-#### Changes in 0.5.0 ####    {#stable}
+
+#### Changes in 0.5.1 ####    {#stable}
+
+*	Bug fixes:
+	
+	*	Workaround for Internet Explorer bug: 
+		be very sure that `&apos;` is always written as `&#39;`.
+		
+	*	Support for empty images ref: `![image]` and `![image][]`.
+
+*	Minor things:
+	
+	*	Added `lang` attribute to `<code>` elements.
+	
+#### Changes in 0.5.0 ####  
 
 *	Syntax changes:
 
