@@ -10,7 +10,9 @@ Write a comment abouth the test here.
 *** Output of inspect ***
 md_el(:document,[md_el(:code,[],{:raw_code=>"       $ python       "},[])],{},[])
 *** Output of to_html ***
+
 <pre><code>       $ python       </code></pre>
+
 *** Output of to_latex ***
 \begin{verbatim}       $ python       \end{verbatim}
 

@@ -58,8 +58,10 @@ md_el(:document,[
 <p>Entity-substitution does not happen in code blocks or inline code.</p>
 
 <p>The following should not be translated:</p>
+
 <pre><code>&amp;copy;
 </code></pre>
+
 <p>It should read just like this: <code>&amp;copy;</code>.</p>
 
 *** Output of to_latex ***

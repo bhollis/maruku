@@ -36,19 +36,25 @@ md_el(:document,[
 *** Output of to_html ***
 
 <p>This block is composed of three lines:</p>
+
 <pre><code>one
 
 three
 </code></pre>
+
 <p>This block is composed of 5</p>
+
 <pre><code>one
 
 
 four
 
 </code></pre>
+
 <p>This block is composed of 2</p>
+
 <pre><code>two</code></pre>
+
 *** Output of to_latex ***
 This block is composed of three lines:
 

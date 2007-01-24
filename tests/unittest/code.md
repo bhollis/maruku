@@ -17,10 +17,12 @@ md_el(:document,[
 *** Output of to_html ***
 
 <p>Here is an example of AppleScript:</p>
+
 <pre><code>tell application &quot;Foo&quot;
     beep
 end tell
 	tab</code></pre>
+
 *** Output of to_latex ***
 Here is an example of AppleScript:
 

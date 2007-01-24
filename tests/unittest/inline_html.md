@@ -76,13 +76,17 @@ md_el(:document,[
 *** Output of to_html ***
 
 <p>Input:</p>
+
 <pre><code>&lt;em&gt;Emphasis&lt;/em&gt;
 </code></pre>
+
 <p>Result: <em>Emphasis</em></p>
 
 <p>Input:</p>
+
 <pre><code>&lt;img src=&quot;http://jigsaw.w3.org/css-validator/images/vcss&quot;/&gt;
 </code></pre>
+
 <p>Result on span: <img src='http://jigsaw.w3.org/css-validator/images/vcss' /></p>
 
 <p>Result alone:</p>

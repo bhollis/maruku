@@ -1,5 +1,6 @@
 CSS: style.css
 LaTeX CJK: true
+HTML use syntax: true
 
 #### Changes in the development version and **experimental** features  ####     {#last}
 
@@ -69,10 +70,25 @@ LaTeX CJK: true
 		
 	*	Support for empty images ref: `![image]` and `![image][]`.
 
+	*	Fixed bug in parsing attribute lists definitions.
+
 *	Minor things:
 	
-	*	Added `lang` attribute to `<code>` elements.
-	
+	*	Now code blocks are written as a `<code>` element inside a `<pre>`, and
+		`<code>` elements have both `class` and `lang` attributes set 
+		to the specified language.
+		
+		Example:
+
+			    Example
+			{:lang=ruby}
+		{:lang=markdown}
+		
+		produces:
+		
+			<pre><code class='ruby' lang='ruby'>Example</code></pre>
+		{:lang=xml}
+		
 #### Changes in 0.5.0 ####  
 
 *	Syntax changes:

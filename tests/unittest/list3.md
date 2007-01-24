@@ -36,7 +36,9 @@ md_el(:document,[
 
 <li>
 <p>A list item with a code block:</p>
-<pre><code>&lt;code goes here&gt;</code></pre></li>
+
+<pre><code>&lt;code goes here&gt;</code></pre>
+</li>
 </ul>
 
 *** Output of to_latex ***

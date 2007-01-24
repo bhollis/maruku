@@ -33,14 +33,22 @@ md_el(:document,[
 *** Output of to_html ***
 
 <p>This is code (4 spaces):</p>
+
 <pre><code>Code</code></pre>
+
 <p>This is not code</p>
+
 <pre><code>Code
 </code></pre>
+
 <p>This is code (1 tab):</p>
+
 <pre><code>Code</code></pre>
+
 <p>This is not code</p>
+
 <pre><code>Code</code></pre>
+
 *** Output of to_latex ***
 This is code (4 spaces):
 

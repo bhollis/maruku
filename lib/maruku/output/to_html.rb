@@ -439,7 +439,6 @@ and
 
 		lang = 'xml' if lang=='html'
 
-
 		use_syntax = get_setting :html_use_syntax
 		
 		element = 
@@ -468,7 +467,7 @@ and
 				
 				pre = Element.new 'pre'
 				pre << code
-				add_ws pre
+				pre
 			rescue LoadError => e
 				maruku_error "Could not load package 'syntax'.\n"+
 					"Please install it, for example using 'gem install syntax'."
@@ -490,7 +489,7 @@ and
 		if color != Globals[:code_background_color]
 			element.attributes['style'] = "background-color: #{color};"
 		end
-		element
+		add_ws element
 	end
 	
 =begin maruku_doc
@@ -538,7 +537,7 @@ of the form `#ff00ff`.
 			code.attributes['class'] = lang
 		end
 		code << text
-		add_ws pre
+		pre
 	end
 
 	def to_html_inline_code; 
