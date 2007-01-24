@@ -12,14 +12,14 @@ This is an ![image].
 *** Output of inspect ***
 md_el(:document,[
 	md_par(["This is an ", md_image(["image"], "image"), "."]),
-	md_par(["This is an ."]),
+	md_par(["This is an ", md_image(["image"], "image"), "."]),
 	md_ref_def("image", "image.jpg", {:title=>nil})
 ],{},[])
 *** Output of to_html ***
 
 <p>This is an <img src='image.jpg' alt='' />.</p>
 
-<p>This is an .</p>
+<p>This is an <img src='image.jpg' alt='' />.</p>
 
 *** Output of to_latex ***
 This is an .
@@ -30,11 +30,11 @@ This is an .
 *** Output of to_md ***
 This is an image.
 
-This is an .
+This is an image.
 
 
 *** Output of to_s ***
-This is an image.This is an .
+This is an image.This is an image.
 *** EOF ***
 
 
