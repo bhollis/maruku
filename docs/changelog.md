@@ -67,6 +67,8 @@ HTML use syntax: true
 	*	Found by Aggelos Orfanakos; crash on this line:
 	
 			[test][]:
+	
+	*	Regression with attribute system.
 
 #### Changes in 0.5.1 ####    
 
