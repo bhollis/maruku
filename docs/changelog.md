@@ -62,6 +62,12 @@ HTML use syntax: true
 
 #### Changes in 0.5.2 ####   {#stable}
 
+*	Features:
+
+	*	[All HTML `table` attributes](http://www.w3.org/TR/html4/struct/tables.html#h-11.2.1)
+		are used (`summary`, `width`, `frame`, `rules`,
+		`border`, `cellspacing`, `cellpadding`).
+
 *	Bug fixes:
 
 	*	Found by Aggelos Orfanakos; crash on this line:
@@ -69,6 +75,8 @@ HTML use syntax: true
 			[test][]:
 	
 	*	Regression with attribute system.
+	
+	
 
 #### Changes in 0.5.1 ####    
 
