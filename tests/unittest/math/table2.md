@@ -33,7 +33,7 @@ md_el(:document,[
 \begin{tabular}{l|l|l}
 Symbol&Meaning&comments\\
 \hline 
- $\alpha$&The first&I like it.\\
+ $\alpha${}&The first&I like it.\\
  &The first&I like it.\\
 \end{tabular}
 

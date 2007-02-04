@@ -3,8 +3,10 @@ Use numbered headers: true
 HTML use syntax: true
 LaTeX use listings: true
 LaTeX CJK: false
+LaTeX preamble: preamble.tex
 
 ![MaRuKu](logo.png){#logo}
+
 
 Mar**u**k**u**: a Markdown-superset interpreter 
 ===============================================
@@ -18,7 +20,10 @@ Mar**u**k**u**: a Markdown-superset interpreter
 > 	$ gem update maruku
 {#news}
 
+
+
 * * *
+
 
 Maruku allows you to write in an easy-to-read-and-write syntax, like this:
 
@@ -206,7 +211,7 @@ looking for much more patterns in the file.
 
 
 
-Maruku summary of features
+Maruku summary of features                {#features}
 --------------------------
 
 *	Supported syntax

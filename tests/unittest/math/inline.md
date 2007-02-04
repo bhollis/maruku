@@ -38,7 +38,7 @@ Here are some formulas:
 \item $x^{n}+y^{n} \neq z^{n}$
 
 \end{itemize}
-That's it, nothing else is supported.
+That'{}s it, nothing else is supported.
 
 
 *** Output of to_md ***

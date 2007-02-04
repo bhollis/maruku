@@ -70,11 +70,11 @@ Maruku translates HTML entities to the equivalent in \LaTeX\xspace :
 \begin{tabular}{l|l}
 Entity&Result\\
 \hline 
-\colorbox[rgb]{1.00,0.93,1.00}{\tt \char38copy\char59}&\copyright \\
-\colorbox[rgb]{1.00,0.93,1.00}{\tt \char38pound\char59}&\pounds \\
-\colorbox[rgb]{1.00,0.93,1.00}{\tt a\char38nbsp\char59b}&a~b\\
-\colorbox[rgb]{1.00,0.93,1.00}{\tt \char38lambda\char59}&$\lambda$\\
-\colorbox[rgb]{1.00,0.93,1.00}{\tt \char38mdash\char59}&---\\
+\colorbox[rgb]{1.00,0.93,1.00}{\tt \char38copy\char59}&\copyright{}\\
+\colorbox[rgb]{1.00,0.93,1.00}{\tt \char38pound\char59}&\pounds{}\\
+\colorbox[rgb]{1.00,0.93,1.00}{\tt a\char38nbsp\char59b}&a~{}b\\
+\colorbox[rgb]{1.00,0.93,1.00}{\tt \char38lambda\char59}&$\lambda${}\\
+\colorbox[rgb]{1.00,0.93,1.00}{\tt \char38mdash\char59}&---{}\\
 \end{tabular}
 
 Entity-substitution does not happen in code blocks or inline code.

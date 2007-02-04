@@ -60,8 +60,15 @@ HTML use syntax: true
 
 	*	There are a couple of hidden features...
 
+#### Changes in 0.5.2 ####   {#stable}
 
-#### Changes in 0.5.1 ####    {#stable}
+*	Bug fixes:
+
+	*	Found by Aggelos Orfanakos; crash on this line:
+	
+			[test][]:
+
+#### Changes in 0.5.1 ####    
 
 *	Bug fixes:
 	
