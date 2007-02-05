@@ -58,7 +58,7 @@ HTML use syntax: true
 	*	Created the embryo of an extension system. Please don't use it
 		yet, as probably the API is bound to change.
 
-	*	There are a couple of hidden features...
+	*	There are a couple of hidden, unsafe, features that are not enabled by default.
 
 #### Changes in 0.5.2 ####   {#stable}
 
@@ -66,17 +66,19 @@ HTML use syntax: true
 
 	*	[All HTML `table` attributes](http://www.w3.org/TR/html4/struct/tables.html#h-11.2.1)
 		are used (`summary`, `width`, `frame`, `rules`,
-		`border`, `cellspacing`, `cellpadding`).
+		`border`, `cellspacing`, `cellpadding`). (requested by )
+		
+		The next version will hopefully use all HTML attributes.
 
+	<!-- A version of Markdown that is more Japanese or something --> 
+	
 *	Bug fixes:
 
-	*	Found by Aggelos Orfanakos; crash on this line:
+	*	Crash on this line: (found by Aggelos Orfanakos) 
 	
 			[test][]:
 	
-	*	Regression with attribute system.
-	
-	
+	*	Regression with attribute system (found by Charles)
 
 #### Changes in 0.5.1 ####    
 

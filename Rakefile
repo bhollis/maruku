@@ -39,19 +39,34 @@ task :release => [:gem, :package] do
   end
 end
 
+task :test => [:markdown_span_tests, :markdown_block_tests]
+
+task :markdown_block_tests do
+	tests = Dir['tests/unittest/**/*.md'].join(' ')
+	puts "Executing tests #{tests}"
+#	ok = marutest(tests)
+	ok = system "ruby -Ilib bin/marutest #{tests}"
+	raise "Failed block unittest" if not ok
+end
+
+task :markdown_span_tests do
+	ok = system( "ruby -Ilib lib/maruku/tests/new_parser.rb v b")
+	raise "Failed span unittest" if not ok
+end
+
 require 'rake/rdoctask'
 
 Rake::RDocTask.new do |rdoc|
-     files = [#'README', 'LICENSE', 'COPYING', 
-			'lib/**/*.rb', 
-         'rdoc/*.rdoc'#, 'test/*.rb'
-			]
-     rdoc.rdoc_files.add(files)
-     rdoc.main = "rdoc/main.rdoc" # page to start on
-     rdoc.title = "Maruku Documentation"
-     rdoc.template = "jamis.rb"
-     rdoc.rdoc_dir = 'doc' # rdoc output folder
-     rdoc.options << '--line-numbers' << '--inline-source'
+	files = [#'README', 'LICENSE', 'COPYING', 
+		'lib/**/*.rb', 
+		'rdoc/*.rdoc'#, 'test/*.rb'
+	]
+	rdoc.rdoc_files.add(files)
+	rdoc.main = "rdoc/main.rdoc" # page to start on
+	rdoc.title = "Maruku Documentation"
+	rdoc.template = "jamis.rb"
+	rdoc.rdoc_dir = 'doc' # rdoc output folder
+	rdoc.options << '--line-numbers' << '--inline-source'
 end
 
 

@@ -4,7 +4,7 @@ require 'lib/maruku/version'
 $spec = Gem::Specification.new do |s|
   s.name = 'maruku'
   s.version = MaRuKu::Version
-  s.summary = "A Markdown interpreter in Ruby"
+  s.summary = "Maruku is a Markdown-superset interpreter written in Ruby."
   s.description = %{Maruku is a Markdown interpreter in Ruby.
 	It features native export to HTML and PDF (via Latex). The
 	output is really beautiful!
@@ -12,7 +12,7 @@ $spec = Gem::Specification.new do |s|
   s.files = Dir['lib/**/*.rb'] + Dir['lib/*.rb'] + 
 	Dir['docs/*.md'] +	Dir['docs/*.html'] +
 	Dir['tests/**/*.md'] +
-          Dir['bin/*'] 
+          Dir['bin/*'] + ['Rakefile']
 
   s.bindir = 'bin'
   s.executables = ['maruku','marutex']

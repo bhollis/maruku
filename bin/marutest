@@ -223,9 +223,7 @@ def passed?(args, arg)
 	end
 end
 
-def marutest
-	args = ARGV.clone
-
+def marutest(args)
 	dont_worry = []
 	TOTEST.each do |x|
 		arg = "ok:#{x}"
@@ -248,7 +246,8 @@ def marutest
 	relaxed = {}
 	
 	args.each do |f|
-		$stdout.write "#{f}\n\t\t"
+		$stdout.write  f + ' '*(50-f.size) + " "
+		$stdout.flush
 		tf, tr, tcrashed = run_test(f, dont_worry)
 		
 		tf = tf + tcrashed
@@ -282,7 +281,7 @@ def marutest
 	
 	if failed.size > 0
 		failed.each do |file, fl|
-			num_failed += failed.size
+			num_failed += fl.size
 			if fl.size > 0
 				puts "\t#{file}\tfailed on #{fl.inspect}"
 			end
@@ -313,15 +312,16 @@ def marutest
 		end
 	end
 	
-	num_failed
+	return num_failed == 0
 end
 
-
-if ARGV.empty?
-	puts "marutest is a tool for running Maruku's unittest."
-	exit
+if File.basename(__FILE__) == 'marutest'
+	if ARGV.empty?
+		puts "marutest is a tool for running Maruku's unittest."
+		exit 1
+	end
+	ok = marutest(ARGV.clone)
+	
+	exit ok ? 0 : -1 
 end
-
-marutest
-
 
