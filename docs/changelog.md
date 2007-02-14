@@ -60,13 +60,28 @@ HTML use syntax: true
 
 	*	There are a couple of hidden, unsafe, features that are not enabled by default.
 
-#### Changes in 0.5.2 ####   {#stable}
+#### Changes in 0.5.3 ####   {#stable}
+
+
+*	Features:
+
+	*	Math:
+		
+		*	`\begin{equation}` and `\end{equation}` are understood
+		*	Math parsing enabled per-instance using the `math_enabled` attribute.
+		
+*	Bug fixes:
+
+	*	Runs quietly with `ruby -w`.
+
+
+#### Changes in 0.5.3 ####   {#stable}
 
 *	Features:
 
 	*	[All HTML `table` attributes](http://www.w3.org/TR/html4/struct/tables.html#h-11.2.1)
-		are used (`summary`, `width`, `frame`, `rules`,
-		`border`, `cellspacing`, `cellpadding`). (requested by )
+		can be used (`summary`, `width`, `frame`, `rules`,
+		`border`, `cellspacing`, `cellpadding`).
 		
 		The next version will hopefully use all HTML attributes.
 

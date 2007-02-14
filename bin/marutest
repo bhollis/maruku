@@ -1,12 +1,25 @@
 #!/usr/bin/env ruby
 
 require 'maruku'
+require 'maruku/textile2'
+
+$marutest_language = :markdown
 
 #MARKER = "\n***EOF***\n"
 SPLIT = %r{\n\*\*\*[^\*]+\*\*\*\n}m
 
 def marker(x)
 	"\n*** Output of #{x} ***\n"
+end
+
+def write_lines(i, j, lines, prefix, i_star)
+	i = [i, 0].max
+	j = [j, lines.size-1].min
+	for a in i..j
+		l = lines[a].gsub(/\t/,'  ')
+		puts( ("%s %3d" % [prefix, a]) + 
+			(a==i_star ? " -->" : "    ")+lines[a])
+	end
 end
 
 # a = expected   b = found 
@@ -20,15 +33,6 @@ def equals(a, b)
 		if la != lb
 			puts "\n"
 			
-			def write_lines(i, j, lines, prefix, i_star)
-				i = [i, 0].max
-				j = [j, lines.size-1].min
-				for a in i..j
-					l = lines[a].gsub(/\t/,'  ')
-					puts ("%s %3d" % [prefix, a]) + 
-						(a==i_star ? " -->" : "    ")+lines[a]
-				end
-			end
 			
 			write_lines(i-3, i+3, a, "expected", i )
 			write_lines(i-3, i+3, b, "   found", i )
@@ -74,7 +78,12 @@ def run_test(filename, its_ok, verbose=true)
 	crashed = []
 	actual = {}
 	
-	doc = Maruku.new(markdown, params)
+	doc = 
+		if $marutest_language == :markdown
+			Maruku.new(markdown, params)
+		else
+			MaRuKu.textile2(markdown, params)
+		end
 
 	for s in TOTEST
 		begin

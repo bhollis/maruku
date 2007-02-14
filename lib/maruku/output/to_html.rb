@@ -432,6 +432,7 @@ and
 
 =end
 
+	$syntax_loaded = false
 	def to_html_code; 
 		source = self.raw_code
 
@@ -565,17 +566,17 @@ of the form `#ff00ff`.
 	def add_class_to_link(a)
 		return # not ready yet
 		
-		url = a.attributes['href']
-		return if not url
-		
-		if url =~ /^#/
-			add_class_to(a, 'maruku-link-samedoc')
-		elsif url =~ /^http:/
-			add_class_to(a, 'maruku-link-external')
-		else
-			add_class_to(a, 'maruku-link-local')
-		end
-	
+		# url = a.attributes['href']
+		# return if not url
+		# 
+		# if url =~ /^#/
+		# 	add_class_to(a, 'maruku-link-samedoc')
+		# elsif url =~ /^http:/
+		# 	add_class_to(a, 'maruku-link-external')
+		# else
+		# 	add_class_to(a, 'maruku-link-local')
+		# end
+		# 	
 #		puts a.attributes['class']
 	end
 	
