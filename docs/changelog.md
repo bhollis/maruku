@@ -60,10 +60,19 @@ HTML use syntax: true
 
 	*	There are a couple of hidden, unsafe, features that are not enabled by default.
 
-#### Changes in 0.5.3 ####   {#stable}
+#### Changes in 0.5.4 ####
 
 
 *	Features:
+
+	*	All HTML attributes are supported 
+	
+			>  Science is a wonderful thing if one does not
+			>  have to earn one's living at it.
+			{: cite="http://en.wikiquote.org/wiki/Albert_Einstein"}
+
+		>    Science is a wonderful thing if one does not have to earn one's living at it.
+		{: cite="http://en.wikiquote.org/wiki/Albert_Einstein" style="border: solid thin black; padding=2em; margin=2em; "}
 
 	*	Math:
 		
