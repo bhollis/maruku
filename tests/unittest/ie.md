@@ -32,7 +32,7 @@ md_el(:document,[
 
 <pre><code>&lt;p&gt;here&#39;s an apostrophe &amp; a quote &quot;&lt;/p&gt;</code></pre>
 
-<pre><code class='xml' lang='xml'>&lt;p&gt;here&#39;s an apostrophe &amp; a quote &quot;&lt;/p&gt;</code></pre>
+<pre lang='xml'><code class='xml' lang='xml'>&lt;p&gt;here&#39;s an apostrophe &amp; a quote &quot;&lt;/p&gt;</code></pre>
 
 <pre><code class='not_supported' lang='not_supported'>&lt;p&gt;here&#39;s an apostrophe &amp; a quote &quot;&lt;/p&gt;</code></pre>
 

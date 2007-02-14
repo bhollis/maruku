@@ -59,9 +59,9 @@ md_el(:document,[
 
 <p>Please mouseover to see the title: <img src='http://jigsaw.w3.org/css-validator/images/vcss' alt='Title ok!' /></p>
 
-<p>I&#8217;ll say it one more time: this page does not use <img title='Optional title attribute' src='http://jigsaw.w3.org/css-validator/images/vcss' alt='Optional title attribute' /></p>
+<p>I&#8217;ll say it one more time: this page does not use <img src='http://jigsaw.w3.org/css-validator/images/vcss' alt='Optional title attribute' /></p>
 
-<p>This is double size: <img class='external' title='Optional title attribute' src='http://jigsaw.w3.org/css-validator/images/vcss' alt='Optional title attribute' style='border:0;width:188px;height:131px' /></p>
+<p>This is double size: <img src='http://jigsaw.w3.org/css-validator/images/vcss' alt='Optional title attribute' /></p>
 
 *** Output of to_latex ***
 This page does not uilizes 

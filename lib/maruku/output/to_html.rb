@@ -316,11 +316,55 @@ Output: HTML
 It is copied as a standard HTML attribute.
 =end
 	
-	StandardAttributes = [:id, :style, :class]
+		
+	
+	
+	
+	HTML4Attributes = {}
+	
+	coreattrs = [:id, :class, :style, :title]
+	i18n = [:lang, 'xml:lang'.to_sym]
+	events = [
+		:onclick, :ondblclick, :onmousedown, :onmouseup, :onmouseover, 
+		:onmousemove, :onmouseout,
+		:onkeypress, :onkeydown, :onkeyup]	
+	attrs = coreattrs + i18n + events
+	cellhalign = [:align, :char, :charoff]
+	cellvalign = [:valign]
+	[
+		['body', attrs + [:onload, :onunload]],
+		['address', attrs],
+		['div', attrs],
+		['a', attrs+[:charset, :type, :name, :rel, :rev, :accesskey, :shape, :coords, :tabindex, 
+			:onfocus,:onblur]],
+		['img', attrs + [:longdesc, :name, :height, :width, :alt] ],
+		['p', attrs],
+		[['h1','h2','h3','h4','h5','h6'], attrs], 
+		[['pre'], attrs],
+		[['q', 'blockquote'], attrs+[:cite]],
+		[['ins','del'], attrs+[:cite,:datetime]],
+		[['ol','ul','li'], attrs],
+		['table',attrs+[:summary, :width, :frame, :rules, :border, :cellspacing, :cellpadding]],
+		['caption',attrs],	
+		[['colgroup','col'],attrs+[:span, :width]+cellhalign+cellvalign],
+		[['thead','tbody','tfoot'], attrs+cellhalign+cellvalign],
+		[['td','td','th'], attrs+[:abbr, :axis, :headers, :scope, :rowspan, :colspan, :cellvalign, :cellhalign]],
+		
+		# altri
+		[['em','code','strong','hr','span','dl','dd','dt'], attrs]
+	].each do |el, a| [*el].each do |e| HTML4Attributes[e] = a end end
+		
+		
 	def create_html_element(name, attributes_to_copy=[])
 		m = Element.new name
-			(StandardAttributes+attributes_to_copy).each do |a|
-				if v = @attributes[a] then m.attributes[a.to_s] = v.to_s end
+			if atts = HTML4Attributes[name] then 
+				atts.each do |att|
+					if v = @attributes[att] then 
+						m.attributes[att.to_s] = v.to_s 
+					end
+				end
+			else
+			#	puts "not atts for #{name.inspect}"
 			end
 		m
 	end
@@ -548,7 +592,7 @@ of the form `#ff00ff`.
 			
 			color = get_setting(:code_background_color)
 			if color != Globals[:code_background_color]
-				pre.attributes['style'] = "background-color: #{color};"
+				pre.attributes['style'] = "background-color: #{color};"+(pre.attributes['style']||"")
 			end
 			
 		pre
@@ -660,10 +704,7 @@ of the form `#ff00ff`.
 			url = ref[:url]
 			title = ref[:title]
 			a.attributes['src'] = url.to_s
-			a.attributes['alt'] = title.to_s
-			[:title, :class, :style].each do |s| 
-				a.attributes[s.to_s] = ref[s] if ref[s]
-			end
+			a.attributes['alt'] = title.to_s if not a.attributes['alt']
 		else
 			maruku_error"Could not find id = #{id.inspect} for\n #{self.inspect}"
 			tell_user "Could not create image with ref_id = #{id.inspect};"+
@@ -675,15 +716,15 @@ of the form `#ff00ff`.
 	
 	def to_html_im_image
 		if not url = self.url
-			maruku_error"Image with no url: #{self.inspect}"
+			maruku_error "Image with no url: #{self.inspect}"
 			tell_user "Could not create image with ref_id = #{id.inspect};"+
-			 +" Using SPAN element as replacement."
+				" Using SPAN element as replacement."
 			return wrap_as_element('span')
 		end
 		title = self.title
 		a =  create_html_element 'img'
-			a.attributes['src'] = url
-			a.attributes['alt'] = title.to_s
+			a.attributes['src'] = url.to_s
+			a.attributes['alt'] = title.to_s if not a.attributes['alt']
 		return a
 	end
 
@@ -763,8 +804,7 @@ of the form `#ff00ff`.
 			i += num_columns
 		end
 		
-		table = create_html_element 'table', 
-			[:summary, :width, :frame, :rules, :border, :cellspacing, :cellpadding]
+		table = create_html_element 'table'
 			thead = Element.new 'thead'
 			tr = Element.new 'tr'
 				array_to_html(head).each do |x| tr<<x end
