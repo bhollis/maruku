@@ -54,14 +54,16 @@ end
 		:regexp  => EquationStart,
 		:handler => lambda { |doc, src, con|
 			return false if not doc.is_math_enabled?
-
 			first = src.shift_line
 			if first =~ OneLineEquation
 				opening, tex, closing, label = $1, $2, $3, $4
-				con.push doc.md_equation(tex, label)
+				numerate = doc.get_setting(:math_numbered).include?(opening)
+				con.push doc.md_equation(tex, label, numerate)
 			else
 				first =~ EquationStart
 				opening, tex = $1, $2
+				
+				numerate = doc.get_setting(:math_numbered).include?(opening)
 				label = nil
 				while true
 					if not src.cur_line
@@ -79,7 +81,7 @@ end
 						tex += line + "\n"
 					end
 				end
-				con.push doc.md_equation(tex, label)
+				con.push doc.md_equation(tex, label, numerate)
 			end
 			true
 		})

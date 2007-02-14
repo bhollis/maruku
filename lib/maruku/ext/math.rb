@@ -13,9 +13,8 @@ require 'maruku/ext/math/mathml_engines/blahtex'
 
 =begin maruku_doc
 Attribute: math_enabled
-Scope: global, document, element
+Scope: global, document
 Summary: Enables parsing of LaTeX math 
-Default: <?mrk md_code(Globals[:math_enabled].to_s) ?>
 
 To explicitly disable the math parsing:
 
@@ -25,3 +24,18 @@ To explicitly disable the math parsing:
 =end
 
 MaRuKu::Globals[:math_enabled] = true
+
+
+=begin maruku_doc
+Attribute: math_numbered
+Scope: global, document
+Summary: Math openings which should be numerated
+
+Array containing any of `'\\['`, `'\\begin{equation}'`, `'$$'`.
+
+	MaRuKu::Globals[math_numbered] = ['\\[']
+	
+=end
+
+
+MaRuKu::Globals[:math_numbered] = [] 

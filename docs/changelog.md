@@ -65,7 +65,7 @@ HTML use syntax: true
 
 *	Features:
 
-	*	All HTML attributes are supported 
+	*	[All HTML attributes](http://www.w3.org/TR/html4/index/attributes.html) are supported. 
 	
 			>  Science is a wonderful thing if one does not
 			>  have to earn one's living at it.
