@@ -1,7 +1,7 @@
 
 *** Parameters: ***
 require 'maruku/ext/math'
-{:math_numbered => '\\[', :html_math_engine => 'itex2mml' }
+{:math_numbered => ['\\['], :html_math_engine => 'itex2mml' }
 *** Markdown input: ***
 
 \[

@@ -74,10 +74,13 @@ HTML use syntax: true
 		>    Science is a wonderful thing if one does not have to earn one's living at it.
 		{: cite="http://en.wikiquote.org/wiki/Albert_Einstein" style="border: solid thin black; padding=2em; margin=2em; "}
 
+	*	Attribute `doc_prefix`.
+	
 	*	Math:
 		
 		*	`\begin{equation}` and `\end{equation}` are understood
 		*	Math parsing enabled per-instance using the `math_enabled` attribute.
+		*	`math_numbered` attribute
 		
 *	Bug fixes:
 
@@ -93,6 +96,7 @@ HTML use syntax: true
 		`border`, `cellspacing`, `cellpadding`).
 		
 		The next version will hopefully use all HTML attributes.
+		
 
 	<!-- A version of Markdown that is more Japanese or something --> 
 	
