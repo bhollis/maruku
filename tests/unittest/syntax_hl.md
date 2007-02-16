@@ -17,7 +17,7 @@ This is ruby code:
 *** Output of inspect ***
 md_el(:document,[
 	md_par(["This is ruby code:"]),
-	md_el(:code,[],{:raw_code=>"require 'maruku'\n\nputs Maruku.new($stdin).to_html\n"},[]),
+	md_el(:code,[],{:raw_code=>"require 'maruku'\n\nputs Maruku.new($stdin).to_html"},[]),
 	md_par(["This is ruby code:"]),
 	md_el(:code,[],{:raw_code=>"require 'maruku'"},[["lang", "ruby"], [:ref, "html_use_syntax"]]),
 	md_el(:code,[],{:raw_code=>"puts Maruku.new($stdin).to_html"},[])
@@ -28,8 +28,7 @@ md_el(:document,[
 
 <pre><code>require &#39;maruku&#39;
 
-puts Maruku.new($stdin).to_html
-</code></pre>
+puts Maruku.new($stdin).to_html</code></pre>
 
 <p>This is ruby code:</p>
 
@@ -42,8 +41,7 @@ This is ruby code:
 
 \begin{verbatim}require 'maruku'
 
-puts Maruku.new($stdin).to_html
-\end{verbatim}
+puts Maruku.new($stdin).to_html\end{verbatim}
 This is ruby code:
 
 \begin{verbatim}require 'maruku'\end{verbatim}

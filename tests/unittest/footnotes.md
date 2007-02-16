@@ -44,7 +44,7 @@ md_el(:document,[
 		md_par([
 			"And that",
 			md_entity("rsquo"),
-			"s the footnote. This is second sentence (same paragraph)"
+			"s the footnote. This is second sentence (same paragraph)."
 		])
 	],{:footnote_id=>"^b"},[]),
 	md_el(:footnote,[
@@ -59,7 +59,7 @@ md_el(:document,[
 
 <p>This is not a footnote.</p>
 <div class='footnotes'><hr /><ol><li id='fn:1'>
-<p>And that&#8217;s the footnote. This is second sentence (same paragraph)</p>
+<p>And that&#8217;s the footnote. This is second sentence (same paragraph).</p>
 <a href='#fnref:1' rev='footnote'>&#8617;</a></li><li id='fn:2'>
 <p>This is the very long one.</p>
 
@@ -70,7 +70,7 @@ md_el(:document,[
 <p>That&#8217;s the second paragraph of the footnote.</p>
 <a href='#fnref:3' rev='footnote'>&#8617;</a></li></ol></div>
 *** Output of to_latex ***
-That'{}s some text with a footnote \footnote{And that'{}s the footnote. This is second sentence (same paragraph)}  and another \footnote{This is the very long one.
+That'{}s some text with a footnote \footnote{And that'{}s the footnote. This is second sentence (same paragraph).}  and another \footnote{This is the very long one.
 
 That'{}s the second paragraph.}  and another \footnote{And that'{}s the footnote.
 
@@ -89,7 +89,7 @@ That s the second paragraph of the
 footnote.
 
 And that s the footnote. This is second
-sentence (same paragraph)
+sentence (same paragraph).
 
 This is the very long one.
 
@@ -99,7 +99,7 @@ This is not a footnote.
 
 
 *** Output of to_s ***
-Thats some text with a footnote  and another  and another .And thats the footnote.Thats the second paragraph of the footnote.And thats the footnote. This is second sentence (same paragraph)This is the very long one.Thats the second paragraph.This is not a footnote.
+Thats some text with a footnote  and another  and another .And thats the footnote.Thats the second paragraph of the footnote.And thats the footnote. This is second sentence (same paragraph).This is the very long one.Thats the second paragraph.This is not a footnote.
 *** EOF ***
 
 

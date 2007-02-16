@@ -27,9 +27,9 @@ This block is composed of 2
 *** Output of inspect ***
 md_el(:document,[
 	md_par(["This block is composed of three lines:"]),
-	md_el(:code,[],{:raw_code=>"one\n\nthree\n"},[]),
+	md_el(:code,[],{:raw_code=>"one\n\nthree"},[]),
 	md_par(["This block is composed of 5"]),
-	md_el(:code,[],{:raw_code=>"one\n\n\nfour\n\n"},[]),
+	md_el(:code,[],{:raw_code=>"one\n\n\nfour"},[]),
 	md_par(["This block is composed of 2"]),
 	md_el(:code,[],{:raw_code=>"two"},[])
 ],{},[])
@@ -39,17 +39,14 @@ md_el(:document,[
 
 <pre><code>one
 
-three
-</code></pre>
+three</code></pre>
 
 <p>This block is composed of 5</p>
 
 <pre><code>one
 
 
-four
-
-</code></pre>
+four</code></pre>
 
 <p>This block is composed of 2</p>
 
@@ -60,16 +57,13 @@ This block is composed of three lines:
 
 \begin{verbatim}one
 
-three
-\end{verbatim}
+three\end{verbatim}
 This block is composed of 5
 
 \begin{verbatim}one
 
 
-four
-
-\end{verbatim}
+four\end{verbatim}
 This block is composed of 2
 
 \begin{verbatim}two\end{verbatim}

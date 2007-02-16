@@ -24,7 +24,7 @@ md_el(:document,[
 	md_par(["This is code (4 spaces):"]),
 	md_el(:code,[],{:raw_code=>"Code"},[]),
 	md_par(["This is not code"]),
-	md_el(:code,[],{:raw_code=>"Code\n"},[]),
+	md_el(:code,[],{:raw_code=>"Code"},[]),
 	md_par(["This is code (1 tab):"]),
 	md_el(:code,[],{:raw_code=>"Code"},[]),
 	md_par(["This is not code"]),
@@ -38,8 +38,7 @@ md_el(:document,[
 
 <p>This is not code</p>
 
-<pre><code>Code
-</code></pre>
+<pre><code>Code</code></pre>
 
 <p>This is code (1 tab):</p>
 
@@ -55,8 +54,7 @@ This is code (4 spaces):
 \begin{verbatim}Code\end{verbatim}
 This is not code
 
-\begin{verbatim}Code
-\end{verbatim}
+\begin{verbatim}Code\end{verbatim}
 This is code (1 tab):
 
 \begin{verbatim}Code\end{verbatim}

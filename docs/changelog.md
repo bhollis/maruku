@@ -78,13 +78,14 @@ HTML use syntax: true
 	
 	*	Math:
 		
-		*	`\begin{equation}` and `\end{equation}` are understood
+		*	`\begin{equation}` and `\end{equation}` are understood.
 		*	Math parsing enabled per-instance using the `math_enabled` attribute.
-		*	`math_numbered` attribute
+		*	`math_numbered` attribute.
 		
 *	Bug fixes:
 
 	*	Runs quietly with `ruby -w`.
+	*	Bug when reading indented lines.
 
 
 #### Changes in 0.5.3 ####   {#stable}

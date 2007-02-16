@@ -18,7 +18,7 @@ md_el(:document,[
 			md_par([
 				"This is the second paragraph in the list item. You",
 				md_entity("rsquo"),
-				"re only required to indent the first line. Lorem ipsum dolo sit amet, consectetuer adipiscing elit"
+				"re only required to indent the first line. Lorem ipsum dolor sit amet, consectetuer adipiscing elit."
 			])
 		],{:want_my_paragraph=>true},[]),
 		md_el(:li,[md_par(["other"])],{:want_my_paragraph=>false},[])
@@ -30,7 +30,7 @@ md_el(:document,[
 <li>
 <p>This is a list item with two paragraphs.</p>
 
-<p>This is the second paragraph in the list item. You&#8217;re only required to indent the first line. Lorem ipsum dolo sit amet, consectetuer adipiscing elit</p>
+<p>This is the second paragraph in the list item. You&#8217;re only required to indent the first line. Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</p>
 </li>
 
 <li>
@@ -42,7 +42,7 @@ md_el(:document,[
 \begin{itemize}%
 \item This is a list item with two paragraphs.
 
-This is the second paragraph in the list item. You'{}re only required to indent the first line. Lorem ipsum dolo sit amet, consectetuer adipiscing elit
+This is the second paragraph in the list item. You'{}re only required to indent the first line. Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
 
 
 \item other
@@ -53,12 +53,12 @@ This is the second paragraph in the list item. You'{}re only required to indent 
 
 *** Output of to_md ***
 -This is a list item with two paragraphs.
-This is the second paragraph in the list item. Youre only required to indent the first line. Lorem ipsum dolo sit amet, consectetuer adipiscing elit
+This is the second paragraph in the list item. Youre only required to indent the first line. Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
 -ther
 
 
 *** Output of to_s ***
-This is a list item with two paragraphs.This is the second paragraph in the list item. Youre only required to indent the first line. Lorem ipsum dolo sit amet, consectetuer adipiscing elitother
+This is a list item with two paragraphs.This is the second paragraph in the list item. Youre only required to indent the first line. Lorem ipsum dolor sit amet, consectetuer adipiscing elit.other
 *** EOF ***
 
 

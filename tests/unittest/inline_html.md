@@ -55,10 +55,10 @@ The following is invalid HTML, and will generate an error:
 *** Output of inspect ***
 md_el(:document,[
 	md_par(["Input:"]),
-	md_el(:code,[],{:raw_code=>"<em>Emphasis</em>\n"},[]),
+	md_el(:code,[],{:raw_code=>"<em>Emphasis</em>"},[]),
 	md_par(["Result: ", md_html("<em>Emphasis</em>")]),
 	md_par(["Input:"]),
-	md_el(:code,[],{:raw_code=>"<img src=\"http://jigsaw.w3.org/css-validator/images/vcss\"/>\n"},[]),
+	md_el(:code,[],{:raw_code=>"<img src=\"http://jigsaw.w3.org/css-validator/images/vcss\"/>"},[]),
 	md_par([
 		"Result on span: ",
 		md_html("<img src=\"http://jigsaw.w3.org/css-validator/images/vcss\" />")
@@ -77,15 +77,13 @@ md_el(:document,[
 
 <p>Input:</p>
 
-<pre><code>&lt;em&gt;Emphasis&lt;/em&gt;
-</code></pre>
+<pre><code>&lt;em&gt;Emphasis&lt;/em&gt;</code></pre>
 
 <p>Result: <em>Emphasis</em></p>
 
 <p>Input:</p>
 
-<pre><code>&lt;img src=&quot;http://jigsaw.w3.org/css-validator/images/vcss&quot;/&gt;
-</code></pre>
+<pre><code>&lt;img src=&quot;http://jigsaw.w3.org/css-validator/images/vcss&quot;/&gt;</code></pre>
 
 <p>Result on span: <img src='http://jigsaw.w3.org/css-validator/images/vcss' /></p>
 
@@ -158,14 +156,12 @@ md_el(:document,[
 *** Output of to_latex ***
 Input:
 
-\begin{verbatim}<em>Emphasis</em>
-\end{verbatim}
+\begin{verbatim}<em>Emphasis</em>\end{verbatim}
 Result: 
 
 Input:
 
-\begin{verbatim}<img src="http://jigsaw.w3.org/css-validator/images/vcss"/>
-\end{verbatim}
+\begin{verbatim}<img src="http://jigsaw.w3.org/css-validator/images/vcss"/>\end{verbatim}
 Result on span: 
 
 Result alone:

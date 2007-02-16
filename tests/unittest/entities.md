@@ -43,7 +43,7 @@ md_el(:document,[
 		"Entity-substitution does not happen in code blocks or inline code."
 	]),
 	md_par(["The following should not be translated:"]),
-	md_el(:code,[],{:raw_code=>"&copy;\n"},[]),
+	md_el(:code,[],{:raw_code=>"&copy;"},[]),
 	md_par(["It should read just like this: ", md_code("&copy;"), "."])
 ],{},[])
 *** Output of to_html ***
@@ -59,8 +59,7 @@ md_el(:document,[
 
 <p>The following should not be translated:</p>
 
-<pre><code>&amp;copy;
-</code></pre>
+<pre><code>&amp;copy;</code></pre>
 
 <p>It should read just like this: <code>&amp;copy;</code>.</p>
 
@@ -81,8 +80,7 @@ Entity-substitution does not happen in code blocks or inline code.
 
 The following should not be translated:
 
-\begin{verbatim}&copy;
-\end{verbatim}
+\begin{verbatim}&copy;\end{verbatim}
 It should read just like this: \colorbox[rgb]{1.00,0.93,1.00}{\tt \char38copy\char59}.
 
 
