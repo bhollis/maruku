@@ -60,6 +60,21 @@ HTML use syntax: true
 
 	*	There are a couple of hidden, unsafe, features that are not enabled by default.
 
+#### Changes in 0.5.5 ####  {#stable}
+
+*	Features:
+
+	*	Input of HTML numeric entities:
+	
+			Examples of numeric character references include &#169; or &#xA9; 
+			for the copyright symbol, &#913; or &#x391; for the Greek capital 
+			letter alpha, and &#1575; or &#x627; for the Arabic letter alef.
+
+		> Examples of numeric character references include &#169; or &#xA9; 
+		> for the copyright symbol, &#913; or &#x391; for the Greek capital 
+		> letter alpha, and &#1575; or &#x627; for the Arabic letter alef.
+	
+
 #### Changes in 0.5.4 ####  {#stable}
 
 *	Features:
