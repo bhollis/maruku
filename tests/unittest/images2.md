@@ -17,9 +17,9 @@ md_el(:document,[
 ],{},[])
 *** Output of to_html ***
 
-<p>This is an <img src='image.jpg' alt='' />.</p>
+<p>This is an <img src='image.jpg' alt='image' />.</p>
 
-<p>This is an <img src='image.jpg' alt='' />.</p>
+<p>This is an <img src='image.jpg' alt='image' />.</p>
 
 *** Output of to_latex ***
 This is an .
