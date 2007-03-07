@@ -2,14 +2,14 @@ CSS: style.css
 LaTeX CJK: true
 HTML use syntax: true
 
-#### Changes in the development version and **experimental** features  ####     {#last}
 
 [Jacques Distler]: http://golem.ph.utexas.edu/~distler
 [itex2MML]:  http://golem.ph.utexas.edu/~distler/blog/itex2MML.html
 [math]: http://rubyforge.maruku.org/math.html
-<!--	This is the [math syntax specification][math]. -->
 
-#### Changes in 0.5.5 ####  {#stable}
+#### Changes in the development version (**not yet released**)  ####     {#last}
+
+#### Changes in 0.5.5  ####     {#stable}
 
 *	Features:
 
@@ -25,7 +25,6 @@ HTML use syntax: true
 
 *	Bug fixes:
 	
-	*	(TODO) Several bugs with ULs.
 	*	Alt text was ignored for images.
 	*	Fixed minor bug in reading HTML inside paragraph.
 	*	Changed rules for block-level HTML to make it similar to Markdown.pl. 
@@ -51,6 +50,9 @@ HTML use syntax: true
 		
 			<div></div>
 
+*	**Pending bugs**: there are some problems when parsing lists. It is difficult
+	to get it right because the spec is very fuzzy. At the moment, list items 
+	cannot be indented by more than 1 space.
 
 #### Changes in 0.5.4 ####  
 

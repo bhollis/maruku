@@ -124,8 +124,8 @@ inputs.each do |f, input|
 			suffix='.pretty_md'
 			out = doc.to_markdown
 		when :s5
-			suffix='_s5slides.html'
-			out = doc.to_s5
+			suffix='_s5slides.xhtml'
+			out = doc.to_s5({:content_only => false})
 		end
 		$stderr.puts "Rendering in %.2f seconds." % (Time.now-t)
 			

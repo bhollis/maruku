@@ -71,8 +71,7 @@ md_el(:document,[
 	md_el(:header,["header"],{:level=>3},[]),
 	md_par(["Paragraph with header on two lines:"]),
 	md_el(:header,["header"],{:level=>2},[]),
-	md_par(["Paragraph with html after"]),
-	md_html("<div></div>"),
+	md_par(["Paragraph with html after ", md_html("<div></div>")]),
 	md_par([
 		"Paragraph with html after, indented: ",
 		md_html("<em>Emphasis</em>")
@@ -122,8 +121,8 @@ md_el(:document,[
 
 <h2 id='header'>header</h2>
 
-<p>Paragraph with html after</p>
-<div />
+<p>Paragraph with html after <div /></p>
+
 <p>Paragraph with html after, indented: <em>Emphasis</em></p>
 
 <p>Paragraph with html after, indented: <em>Emphasis</em> <em>tralla</em> <em>Emph</em></p>
@@ -162,7 +161,7 @@ Paragraph with header on two lines:
 
 \hypertarget{header}{}\subsection*{{header}}\label{header}
 
-Paragraph with html after
+Paragraph with html after 
 
 Paragraph with html after, indented: 
 
@@ -212,7 +211,7 @@ Paragraph with html after, indented:
 
 
 *** Output of to_s ***
-Paragraph, list with no space: * ciaoParagraph, list with 1 space: * ciaoParagraph, list with 3 space: * ciaoParagraph, list with 4 spaces: * ciaoParagraph, list with 1 tab: * ciaoParagraph (1 space after), list with no space: * ciaoParagraph (2 spaces after), list with no space:* ciaoParagraph (3 spaces after), list with no space: * ciaoParagraph with block quote:QuotedParagraph with header:headerParagraph with header on two lines:headerParagraph with html afterParagraph with html after, indented: Paragraph with html after, indented:  tralla Paragraph with html after, indented: 
+Paragraph, list with no space: * ciaoParagraph, list with 1 space: * ciaoParagraph, list with 3 space: * ciaoParagraph, list with 4 spaces: * ciaoParagraph, list with 1 tab: * ciaoParagraph (1 space after), list with no space: * ciaoParagraph (2 spaces after), list with no space:* ciaoParagraph (3 spaces after), list with no space: * ciaoParagraph with block quote:QuotedParagraph with header:headerParagraph with header on two lines:headerParagraph with html after Paragraph with html after, indented: Paragraph with html after, indented:  tralla Paragraph with html after, indented: 
 *** EOF ***
 
 
