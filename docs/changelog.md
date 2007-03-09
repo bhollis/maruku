@@ -9,6 +9,11 @@ HTML use syntax: true
 
 #### Changes in the development version (**not yet released**)  ####     {#last}
 
+*	Bug fixes:
+	*	Another tiny bug in HTML parsing.
+
+*	Changes: now Maruku is strict, for using metadata you have to include the `:`.
+
 #### Changes in 0.5.5  ####     {#stable}
 
 *	Features:
