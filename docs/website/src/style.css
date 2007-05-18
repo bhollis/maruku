@@ -1,0 +1,106 @@
+
+body {
+	font-family: Georgia;
+	max-width: 40em;
+	padding-left: 3em;
+}
+
+#news {
+	background-color: #fee;
+	border: solid 2px red;
+	padding: 0.3em;
+	margin: 0.3em;
+	width: 50%;
+}
+
+h1 { margin-left: -1em;}
+h2 { margin-left: -1em;}
+
+pre {
+	margin-left: 2em;
+	background-color: #eff;
+	border: solid 1px #bdd;
+	padding: 4px;
+}
+
+/*code {background-color: #eff;}*/
+h1 strong { color: red;}
+
+table.example TD,
+table.example TR,
+table.example TH {
+	border: solid 1px #555;
+	padding: 4px;
+	
+}
+
+img#logo {
+	float: right;
+}
+
+/*pre SPAN { border: solid 1px black; }*/
+
+.ruby .normal {}
+.ruby .comment { color: #005; font-style: italic; }
+.ruby .keyword { color: #A00; font-weight: bold; }
+.ruby .method { color: #077; }
+.ruby .class { color: #074; }
+.ruby .module { color: #050; }
+.ruby .punct { color: #447; font-weight: bold; }
+.ruby .symbol { color: #099; }
+.ruby .string { color: #944; background: #FFE; }
+.ruby .char { color: #F07; }
+.ruby .ident { color: #004; }
+.ruby .constant { color: #07F; }
+.ruby .regex { color: #B66; background: #FEF; }
+.ruby .number { color: #F99; }
+.ruby .attribute { color: #7BB; }
+.ruby .global { color: #7FB; }
+.ruby .expr { color: #227; }
+.ruby .escape { color: #277; }
+
+.xml .normal {}
+.xml .namespace { color: #B66; font-weight: bold; }
+.xml .tag { color: #F88; }
+.xml .comment { color: #005; font-style: italic; }
+.xml .punct { color: #447; font-weight: bold; }
+.xml .string { color: #944; }
+.xml .number { color: #F99; }
+.xml .attribute { color: #BB7; }
+
+.html .normal {}
+.html .namespace { color: #B66; font-weight: bold; }
+.html .tag { color: #F88; }
+.html .comment { color: #005; font-style: italic; }
+.html .punct { color: #447; font-weight: bold; }
+.html .string { color: #944; }
+.html .number { color: #F99; }
+.html .attribute { color: #BB7; }
+
+.maruku-att-origin {
+	padding-left: 30px;
+	margin-top: -1em;
+	font-size: 70%;
+	color: grey;
+}
+
+.maruku-att-default {
+	padding-left: 30px;
+	margin-top: -1.4em;
+	margin-bottom: +1em;
+	font-size: 90%;
+}
+
+a.maruku-link-samedoc {
+	color: red;
+}
+
+a.maruku-link-local {
+	color: green;	
+}
+
+a.maruku-link-external {
+	color: blue;		
+}
+
+

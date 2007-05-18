@@ -12,7 +12,7 @@ $spec = Gem::Specification.new do |s|
   s.files = Dir['lib/**/*.rb'] + Dir['lib/*.rb'] + 
 	Dir['docs/*.md'] +	Dir['docs/*.html'] +
 	Dir['tests/**/*.md'] +
-          Dir['bin/*'] + ['Rakefile', 'maruku_gem.rb']
+          Dir['bin/*'] + Dir['*.sh'] + ['Rakefile', 'maruku_gem.rb']
 
   s.bindir = 'bin'
   s.executables = ['maruku','marutex']

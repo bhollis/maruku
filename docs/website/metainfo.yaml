@@ -1,0 +1,99 @@
+index.page:
+  inMenu: false
+  page_class: index
+
+about.page:
+  orderInfo: 1
+
+research:
+  orderInfo: 2
+
+software.page:
+  orderInfo: 3
+
+contact.page:
+  title: Contact
+  orderInfo: 4
+
+misc:
+  title: Misc
+  orderInfo: 5
+
+pictures.page:
+  title: Pictures
+  orderInfo: 6
+
+italiano.page:
+  title: In italiano
+  orderInfo: 7
+
+research/index.page:
+  inMenu: false
+
+
+
+
+default.template:
+  inMenu: false
+
+misc/index.page:
+  inMenu: false
+
+misc/japan05/index.page:
+  inMenu: false
+
+misc/japan05/japan-1.page:
+  orderInfo: 1
+  title: Jet-lagged adventures
+
+misc/japan05/japan-2.page:
+  orderInfo: 2
+  title: Rule number one
+
+misc/japan05/japan-3.page:
+  orderInfo: 3
+  title: Merry Christmas
+
+misc/japan05/japan-4.page:
+  orderInfo: 4
+  title: Lost in prescription
+
+misc/japan05/japan-5.page:
+  orderInfo: 5
+  title: Tabemono
+
+misc/japan05/japan-6.page:
+  orderInfo: 6
+  title: L'auberge japonaise
+
+misc/japan05/japan-7.page:
+  orderInfo: 7
+  title: Yaguchino Watashi
+
+misc/japan05/japan-8.page:
+  orderInfo: 8
+  title: Manga
+
+misc/japan05/japan-9.page:
+  orderInfo: 9
+  title: Life in the lab
+
+misc/japan05/japan-10.page:
+  orderInfo: 10
+  title: Greetings from 2006
+
+misc/japan05/japan-11.page:
+  orderInfo: 11
+  title: Game over
+
+misc/japan05/japan-12.page:
+  orderInfo: 12
+  title: Gaijin
+
+---
+misc:
+  title: Miscellaneous
+
+misc/japan05:
+  title: My Japanese experience
+

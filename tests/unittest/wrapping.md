@@ -39,10 +39,10 @@ md_el(:document,[
 </ul>
 
 *** Output of to_latex ***
-Lorem ipsum dolor amet. Lorem ipsum dolor amet. Lorem ipsum dolor amet. Lorem ipsum dolor amet. Lorem ipsum dolor amet. Lorem ipsum dolor amet. Lorem ipsum dolor amet. Break:\linebreak Lorem ipsum dolor amet. Lorem ipsum dolor amet. Lorem ipsum dolor amet. Lorem ipsum dolor amet.
+Lorem ipsum dolor amet. Lorem ipsum dolor amet. Lorem ipsum dolor amet. Lorem ipsum dolor amet. Lorem ipsum dolor amet. Lorem ipsum dolor amet. Lorem ipsum dolor amet. Break:\newline Lorem ipsum dolor amet. Lorem ipsum dolor amet. Lorem ipsum dolor amet. Lorem ipsum dolor amet.
 
 \begin{itemize}%
-\item Lorem ipsum dolor amet. Lorem ipsum dolor amet. Lorem ipsum dolor amet. Lorem ipsum dolor amet Lorem ipsum Break:\linebreak Lorem ipsum dolor amet. Lorem ipsum dolor amet. Lorem ipsum dolor amet
+\item Lorem ipsum dolor amet. Lorem ipsum dolor amet. Lorem ipsum dolor amet. Lorem ipsum dolor amet Lorem ipsum Break:\newline Lorem ipsum dolor amet. Lorem ipsum dolor amet. Lorem ipsum dolor amet
 \item Lorem ipsum dolor amet. Lorem ipsum dolor amet. Lorem ipsum dolor amet. Lorem ipsum dolor amet
 
 \end{itemize}

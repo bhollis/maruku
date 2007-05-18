@@ -106,9 +106,9 @@ Paragraph, list with 1 tab: * ciao
 
 Paragraph (1 space after), list with no space: * ciao
 
-Paragraph (2 spaces after), list with no space:\linebreak * ciao
+Paragraph (2 spaces after), list with no space:\newline * ciao
 
-Paragraph (3 spaces after), list with no space: \linebreak * ciao
+Paragraph (3 spaces after), list with no space: \newline * ciao
 
 Paragraph with block quote:
 

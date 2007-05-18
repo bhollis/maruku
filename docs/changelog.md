@@ -2,17 +2,20 @@ CSS: style.css
 LaTeX CJK: true
 HTML use syntax: true
 
-
-[Jacques Distler]: http://golem.ph.utexas.edu/~distler
-[itex2MML]:  http://golem.ph.utexas.edu/~distler/blog/itex2MML.html
-[math]: http://rubyforge.maruku.org/math.html
-
 #### Changes in the development version (**not yet released**)  ####     {#last}
 
 *	Bug fixes:
 	*	Another tiny bug in HTML parsing.
+	*	Changed `\linebreak` to `\newline`.
 
-*	Changes: now Maruku is strict, for using metadata you have to include the `:`.
+*	Changes: 
+	- now Maruku is strict, for using metadata you have to include the `:`.
+	- `maruku_signature` defaults to false.
+	- unittests included in the distribution.
+	
+*	Pending bugs:
+
+	- Maruku does not allow 3-space indented lists.
 
 #### Changes in 0.5.5  ####     {#stable}
 
@@ -238,6 +241,13 @@ HTML use syntax: true
 
 [rdoc]: http://maruku.rubyforge.org/rdoc/
 [meta]: http://maruku.rubyforge.org/proposal.html
+
+
+
+[Jacques Distler]: http://golem.ph.utexas.edu/~distler
+[itex2MML]:  http://golem.ph.utexas.edu/~distler/blog/itex2MML.html
+[math]: http://rubyforge.maruku.org/math.html
+
 
 #### Changes in 0.3 ####
 

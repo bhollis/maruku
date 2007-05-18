@@ -1,0 +1,13 @@
+# Configuration file for webgen
+# Used to set the parameters of the plugins
+
+File/PageHandler:
+  defaultMetaInfo:
+    blocks: [[content, maruku]]
+    dblocks: [[content, html]]
+    inMenu: true
+    page_class: normal_page
+
+Tag/Flickr:
+  apikey: "6464ed1c7addfb6cf035f165eec1aadc"
+

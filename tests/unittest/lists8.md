@@ -33,12 +33,8 @@ md_el(:document,[
 *** Output of to_latex ***
 Here is a paragraph.
 
-\begin{itemize}%
-\item Item 1
-\item Item 2
-\item Item 3
+* Item 1 * Item 2 * Item 3
 
-\end{itemize}
 
 *** Output of to_md ***
 Here is a paragraph.
@@ -55,7 +51,7 @@ Here is a paragraph.Item 1Item 2Item 3
 
 
 
-Failed tests:   [:inspect, :to_html, :to_latex, :to_md, :to_s] 
+Failed tests:   [:inspect, :to_html, :to_md, :to_s] 
 
 *** Output of inspect ***
 -----| WARNING | -----
@@ -71,7 +67,6 @@ md_el(:document,[
 <p>* Item 1 * Item 2 * Item 3</p>
 
 *** Output of to_latex ***
------| WARNING | -----
 Here is a paragraph.
 
 * Item 1 * Item 2 * Item 3
