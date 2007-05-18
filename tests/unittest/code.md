@@ -56,11 +56,11 @@ end tell
 
 *** Output of Markdown.pl (parsed) ***
 <p>Here is an example of AppleScript:</p
-   ><pre
-     ><code>tell application "Foo"
+    ><pre
+      ><code>tell application "Foo"
     beep
 end tell
     tab
 </code
-   ></pre
- >
+    ></pre
+  >

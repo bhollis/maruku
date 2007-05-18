@@ -43,5 +43,5 @@ Paragraph2
 *** Output of Markdown.pl (parsed) ***
 <p>Paragraph2 
 {#2}</p
-   ><p>{paragraph}: .maruku-par</p
- >
+    ><p>{paragraph}: .maruku-par</p
+  >

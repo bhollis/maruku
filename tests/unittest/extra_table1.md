@@ -55,8 +55,8 @@ Content Cell  | Content Cell</p>
 
 *** Output of Markdown.pl (parsed) ***
 <p>CSS: style.css</p
-   ><p>First Header  | Second Header
+    ><p>First Header | Second Header
 ------------- | -------------
-Content Cell  | Content Cell
-Content Cell  | Content Cell</p
- >
+Content Cell | Content Cell
+Content Cell | Content Cell</p
+  >

@@ -138,8 +138,13 @@ inputs.each do |f, input|
 				output_file = job  + suffix
 			end
 			
-			$stderr.puts "Writing to #{output_file}"
-			File.open(output_file,'w') do |f| f.puts out end
+			if output_file == "-"
+				$stderr.puts "Writing to standard output"
+				$stdout.puts out
+			else
+				$stderr.puts "Writing to #{output_file}"
+				File.open(output_file,'w') do |f| f.puts out end
+			end
 			
 			if export == :pdf
 				cmd = "pdflatex '#{job}' -interaction=nonstopmode "+
@@ -149,6 +154,7 @@ inputs.each do |f, input|
 				system cmd
 			end
 		else # write to stdout
+			$stderr.puts "Writing to standard output"
 			$stdout.puts out
 		end
 	end

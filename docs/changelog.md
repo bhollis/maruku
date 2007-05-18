@@ -4,18 +4,31 @@ HTML use syntax: true
 
 #### Changes in the development version (**not yet released**)  ####     {#last}
 
-*	Bug fixes:
-	*	Another tiny bug in HTML parsing.
-	*	Changed `\linebreak` to `\newline`.
+*	News:
 
-*	Changes: 
-	- now Maruku is strict, for using metadata you have to include the `:`.
-	- `maruku_signature` defaults to false.
-	- unittests included in the distribution.
+	-	Now Maruku is in the official Gentoo Portage tree (done by [Aggelos Orfanakos])
 	
-*	Pending bugs:
+*	New stuff: 
+
+	- Attribute `maruku_signature` defaults to false. (many people asked this)
+	- unittests scripts are included in the distribution.
+	- New attribute `filter_html`: if true, raw HTML/XML is discarded. (asked by Marik)
+	- Command line: if output file is `-`, Maruku writes to stdout.
+
+*	Bug fixes:
+
+	*	Another tiny bug in HTML parsing.
+	*	In latex, `\linebreak` was used instead of `\newline` (reported by Sam Kleinman)
+	*	Fixed bug with non-alpha numeric characters in ref.ids (reported by Aggelos Orfanakos)
+
+	
+*	Pending bugs/feature requests:
 
 	- Maruku does not allow 3-space indented lists.
+	- Lists item whose first character is UTF8 are not recognized (reported by Aggelos Orfanakos)
+	- Maruku cannot output `"`-delimited attributes, because `REXML` does not support it.
+	
+[Aggelos Orfanakos]: http://agorf.gr/
 
 #### Changes in 0.5.5  ####     {#stable}
 

@@ -83,9 +83,9 @@ ParagraphheaderParagraphheaderParagraphheader
 
 *** Output of Markdown.pl (parsed) ***
 <p>Paragraph</p
-   ><h3>header</h3
-   ><p>Paragraph</p
-   ><h2>header</h2
-   ><p>Paragraph</p
-   ><h1>header</h1
- >
+    ><h3>header</h3
+    ><p>Paragraph</p
+    ><h2>header</h2
+    ><p>Paragraph</p
+    ><h1>header</h1
+  >

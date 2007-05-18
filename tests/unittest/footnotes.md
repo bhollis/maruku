@@ -129,18 +129,18 @@ This is second sentence (same paragraph).</p>
 
 *** Output of Markdown.pl (parsed) ***
 <p>That's some text with a footnote [^b] and another [^c] and another [^a].</p
-   ><p>[^a]: And that's the footnote.</p
-   ><pre
-     ><code>That's the second paragraph of the footnote.
+    ><p>[^a]: And that's the footnote.</p
+    ><pre
+      ><code>That's the second paragraph of the footnote.
 </code
-   ></pre
-   ><p>[^b]: And that's the footnote.
+    ></pre
+    ><p>[^b]: And that's the footnote.
 This is second sentence (same paragraph).</p
-   ><p>[^c]:
-    This is the very long one.</p
-   ><pre
-     ><code>That's the second paragraph.
+    ><p>[^c]:
+ This is the very long one.</p
+    ><pre
+      ><code>That's the second paragraph.
 </code
-   ></pre
-   ><p>This is not a footnote.</p
- >
+    ></pre
+    ><p>This is not a footnote.</p
+  >

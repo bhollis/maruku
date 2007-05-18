@@ -128,24 +128,24 @@ Maruku translates HTML entities to the equivalent in LaTeX:EntityResultabEntity-
 
 *** Output of Markdown.pl (parsed) ***
 <p>Maruku translates HTML entities to the equivalent in LaTeX:</p
-   ><p>Entity      | Result
+    ><p>Entity | Result
 ------------|----------
 <code>&amp;copy;</code
-     >    |  &copy;
+      > | &copy;
 <code>&amp;pound;</code
-     >   |  &pound;
+      > | &pound;
 <code>a&amp;nbsp;b</code
-     >  |  a&nbsp;b
+      > | a&nbsp;b
 <code>&amp;lambda;</code
-     >  |  &lambda;
+      > | &lambda;
 <code>&amp;mdash;</code
-     >   |  &mdash;</p
-   ><p>Entity-substitution does not happen in code blocks or inline code.</p
-   ><p>The following should not be translated:</p
-   ><pre
-     ><code>&amp;copy;
+      > | &mdash;</p
+    ><p>Entity-substitution does not happen in code blocks or inline code.</p
+    ><p>The following should not be translated:</p
+    ><pre
+      ><code>&amp;copy;
 </code
-   ></pre
-   ><p>It should read just like this: <code>&amp;copy;</code
-     >.</p
- >
+    ></pre
+    ><p>It should read just like this: <code>&amp;copy;</code
+      >.</p
+  >

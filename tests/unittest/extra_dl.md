@@ -73,9 +73,9 @@ ApplePomaceous fruit of plants of the genus Malus in the family Rosaceae.OrangeT
 
 *** Output of Markdown.pl (parsed) ***
 <p>CSS: style.css</p
-   ><p>Apple
-:   Pomaceous fruit of plants of the genus Malus in 
-    the family Rosaceae.</p
-   ><p>Orange
-:   The fruit of an evergreen tree of the genus Citrus.</p
- >
+    ><p>Apple
+: Pomaceous fruit of plants of the genus Malus in 
+ the family Rosaceae.</p
+    ><p>Orange
+: The fruit of an evergreen tree of the genus Citrus.</p
+  >

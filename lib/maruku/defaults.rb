@@ -31,6 +31,9 @@ Globals = {
 	:maruku_signature => false,
 	:code_background_color => '#fef',
 	:code_show_spaces => false,
+	
+	:filter_html => false,
+	
 	:html_math_output_mathml => true, # also set :html_math_engine
 	:html_math_engine => 'none', #ritex, itex2mml
 	

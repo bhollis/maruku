@@ -75,8 +75,8 @@ The HTML specification is maintained by the W3C.Operation Tigra Genesis is going
 
 *** Output of Markdown.pl (parsed) ***
 <p>The HTML specification is maintained by the W3C.</p
-   ><p>*[HTML]: Hyper Text Markup Language
-*[W3C]:  World Wide Web Consortium</p
-   ><p>Operation Tigra Genesis is going well.</p
-   ><p>*[Tigra Genesis]:</p
- >
+    ><p>*[HTML]: Hyper Text Markup Language
+*[W3C]: World Wide Web Consortium</p
+    ><p>Operation Tigra Genesis is going well.</p
+    ><p>*[Tigra Genesis]:</p
+  >

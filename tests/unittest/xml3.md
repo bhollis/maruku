@@ -42,11 +42,11 @@ md_el(:document,[
 
 *** Output of Markdown.pl (parsed) ***
 <table markdown='1'>
-    Blah
-    <thead>
-        <td>*em*</td
-       >
-    </thead
-     >
+ Blah
+ <thead>
+ <td>*em*</td
+        >
+ </thead
+      >
 </table
- >
+  >

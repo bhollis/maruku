@@ -93,38 +93,26 @@ md_el(:document,[
 <img src='http://jigsaw.w3.org/css-validator/images/vcss' /><div>
 <p>
 <p>This is</p>
-</p>
 <em>
-<p>
 <p>true</p>
-</p>
 </em>
-<p>
 <p>markdown text (paragraph)</p>
 </p>
 <p>
 <p>
 <p>This is</p>
-</p>
 <em>
-<p>
 <p>true</p>
-</p>
 </em>
-<p>
 <p>markdown text (no paragraph)</p>
 </p>
 </p>
 	<p>
 <p>
 <p>This is</p>
-</p>
 <em>
-<p>
 <p>true</p>
-</p>
 </em>
-<p>
 <p>markdown text (block paragraph)</p>
 </p>
 </p>
@@ -250,7 +238,27 @@ Input:Result: Input:Result on span: Result alone:Without closing:The following i
 </table>
 
 *** Output of Markdown.pl (parsed) ***
-Error: #<REXML::ParseException: Missing end tag for 'img' (got "p")
+Error: #<REXML::ParseException: #<REXML::ParseException: Missing end tag for 'img' (got "p")
+Line: 
+Position: 
+Last 80 unconsumed characters:
+  <div markdown="1">     This is *true* markdown text (paragraph)      <p markdow>
+/Volumes/Alter/Ruby/local/lib/ruby/1.8/rexml/parsers/baseparser.rb:315:in `pull'
+/Volumes/Alter/Ruby/local/lib/ruby/1.8/rexml/parsers/treeparser.rb:21:in `parse'
+/Volumes/Alter/Ruby/local/lib/ruby/1.8/rexml/document.rb:190:in `build'
+/Volumes/Alter/Ruby/local/lib/ruby/1.8/rexml/document.rb:45:in `initialize'
+bin/marutest:197:in `new'
+bin/marutest:197:in `run_test'
+bin/marutest:260:in `marutest'
+bin/marutest:257:in `each'
+bin/marutest:257:in `marutest'
+bin/marutest:332
+...
+Missing end tag for 'img' (got "p")
+Line: 
+Position: 
+Last 80 unconsumed characters:
+  <div markdown="1">     This is *true* markdown text (paragraph)      <p markdow
 Line: 
 Position: 
 Last 80 unconsumed characters:

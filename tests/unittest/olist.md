@@ -67,12 +67,12 @@ This is a list:onetwothree
 
 *** Output of Markdown.pl (parsed) ***
 <p>This is a list:</p
-   ><ol>
+    ><ol>
 <li>one</li
-     >
+      >
 <li>two</li
-     >
+      >
 <li>three</li
-     >
+      >
 </ol
- >
+  >

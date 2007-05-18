@@ -85,28 +85,28 @@ md_el(:document,[
 
 *** Output of Markdown.pl (parsed) ***
 <p
-     ><code>&lt;p&gt;here's an apostrophe &amp; a quote "&lt;/p&gt;</code
-   ></p
-   ><pre
-     ><code>&lt;p&gt;here's an apostrophe &amp; a quote "&lt;/p&gt;
+      ><code>&lt;p&gt;here's an apostrophe &amp; a quote "&lt;/p&gt;</code
+    ></p
+    ><pre
+      ><code>&lt;p&gt;here's an apostrophe &amp; a quote "&lt;/p&gt;
 </code
-   ></pre
-   ><p>{:}</p
-   ><pre
-     ><code>&lt;p&gt;here's an apostrophe &amp; a quote "&lt;/p&gt;
+    ></pre
+    ><p>{:}</p
+    ><pre
+      ><code>&lt;p&gt;here's an apostrophe &amp; a quote "&lt;/p&gt;
 </code
-   ></pre
-   ><p>{:lang=xml}</p
-   ><pre
-     ><code>&lt;p&gt;here's an apostrophe &amp; a quote "&lt;/p&gt;
+    ></pre
+    ><p>{:lang=xml}</p
+    ><pre
+      ><code>&lt;p&gt;here's an apostrophe &amp; a quote "&lt;/p&gt;
 </code
-   ></pre
-   ><p>{:html<em>use</em
-     >syntax=true lang=not_supported}</p
-   ><pre
-     ><code>&lt;p&gt;here's an apostrophe &amp; a quote "&lt;/p&gt;
+    ></pre
+    ><p>{:html<em>use</em
+      >syntax=true lang=not_supported}</p
+    ><pre
+      ><code>&lt;p&gt;here's an apostrophe &amp; a quote "&lt;/p&gt;
 </code
-   ></pre
-   ><p>{:html<em>use</em
-     >syntax=true lang=xml}</p
- >
+    ></pre
+    ><p>{:html<em>use</em
+      >syntax=true lang=xml}</p
+  >

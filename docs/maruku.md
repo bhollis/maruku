@@ -15,12 +15,17 @@ Mar**u**k**u**: a Markdown-superset interpreter
 
 > [Last release](#release_notes) is version 0.5.5 -- 2007-03-07.
 >
-> Use this command to update:
+> Install using [rubygems]: 
+>
+> 	$ gem install maruku
+>
+> Use this command to update to latest version:
 >
 > 	$ gem update maruku
+>
 {#news}
 
-
+[rubygems]: http://rubygems.org
 
 * * *
 

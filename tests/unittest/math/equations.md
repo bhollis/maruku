@@ -73,10 +73,10 @@ $$</p>
 
 *** Output of Markdown.pl (parsed) ***
 <p>$$ x = y $$</p
-   ><p>$$ x 
+    ><p>$$ x 
 = y $$</p
-   ><p>$$ 
+    ><p>$$ 
 x = y $$</p
-   ><p>$$ x = y 
+    ><p>$$ x = y 
 $$</p
- >
+  >
