@@ -1,0 +1,16 @@
+---
+page_class: index
+linkAttrs:
+  :link_text: Embedding
+inMenu: false
+title: "Embedding Maruku into other software"
+---
+
+
+Maruku has been embedded in the following software:
+
+* [instiki](instiki.html)
+* [webgen](webgen.html)
+* [radiant](radiant.html)
+* [Movable Type](mt.html)
+

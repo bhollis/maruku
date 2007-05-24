@@ -1,0 +1,8 @@
+---
+page_class: index
+linkAttrs:
+  :link_text: Maruku&nbsp;vs&nbsp;Bluecloth
+inMenu: false
+title: "Maruku vs Bluecloth"
+---
+

@@ -5,25 +5,8 @@ LaTeX use listings: true
 LaTeX CJK: false
 LaTeX preamble: preamble.tex
 
-![MaRuKu](logo.png){#logo}
-
-
-Mar**u**k**u**: a Markdown-superset interpreter 
-===============================================
-
-[Maruku] is a Markdown interpreter written in [Ruby].
-
-> [Last release](#release_notes) is version 0.5.5 -- 2007-03-07.
->
-> Use this command to update:
->
-> 	$ gem update maruku
-{#news}
-
-
-
-* * *
-
+Introduction
+---------
 
 Maruku allows you to write in an easy-to-read-and-write syntax, like this:
 
@@ -118,29 +101,6 @@ Have fun!
 
 See the [changelog](http://maruku.rubyforge.org/changelog.html#stable).
 
-Download       {#download}
---------
-
-The development site is <http://rubyforge.org/projects/maruku/>.
-
-Install with:
-
-	$ gem install maruku
-{:shell}
-
-Released files can also be seen at <http://rubyforge.org/frs/?group_id=2795>.
-
-Anonymous access to the repository is possible with:
-
-	$ svn checkout svn://rubyforge.org/var/svn/maruku/trunk
-{:shell}
-
-If you want commit access to the repository, just create an account on Rubyforge and [drop me a mail][contact].
-
-### Bugs report ###
-
-Use the [tracker][tracker] or [drop me an email][contact].
-
 
 Usage
 --------
@@ -180,34 +140,6 @@ transform to PDF:
 
 	$ maruku --pdf file.md  # creates file.tex and file.pdf
 {:shell}
-
-
-Maruku and Bluecloth          {#maruku-and-bluecloth}
---------------------
-
-The other Ruby implementation of Markdown is [Bluecloth]. 
-
-Maruku is much different in philosophy from Bluecloth: the biggest 
-difference is that *parsing* is separated from *rendering*.
-In Maruku, an in-memory representation of the Markdown
-document is created. Instead, Bluecloth mantains the document in
-memory as a String at all times, and does a series of `gsub` 
-to transform to HTML.
-
-Maruku is usually faster than Bluecloth. Bluecloth is faster 
-for very small documents. Bluecloth sometimes chokes on very big
-documents (it is reported that the blame should be on Ruby's regexp 
-implementation).
-
-This is the canonical benchmark (the Markdown specification), 
-executed with Ruby 1.8.5 on a Powerbook 1.5GhZ:
-
-	BlueCloth (to_html): parsing 0.01 sec + rendering 1.87 sec = 1.88 sec   (1.00x)
-	   Maruku (to_html): parsing 0.66 sec + rendering 0.43 sec = 1.09 sec   (1.73x)
-	  Maruku (to_latex): parsing 0.67 sec + rendering 0.23 sec = 0.90 sec   (2.10x)
-
-Please note that Maruku has a lot more features and therefore is 
-looking for much more patterns in the file.
 
 
 

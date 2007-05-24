@@ -1,0 +1,9 @@
+---
+page_class: index
+linkAttrs:
+  :link_text: Changelog
+inMenu: false
+title: "Changelog"
+description:  "Changelog for Maruku"
+---
+

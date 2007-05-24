@@ -1,0 +1,8 @@
+---
+page_class: normal
+linkAttrs:
+  :link_text: Download
+inMenu: false
+title: "Download"
+---
+

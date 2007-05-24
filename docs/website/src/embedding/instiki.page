@@ -1,0 +1,16 @@
+---
+page_class: index
+linkAttrs:
+  :link_text: Instiki
+inMenu: false
+title: "Embedding Maruku in Instiki"
+---
+
+[Jacques Distler] maintains a branch of [Instiki] which is
+Math-enabled and uses Maruku for rendering pages.
+
+<http://golem.ph.utexas.edu/instiki/show/HomePage>
+
+
+[Jacques Distler]: http://golem.ph.utexas.edu/~distler/
+[instiki]: http://www.instiki.org
