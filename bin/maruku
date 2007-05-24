@@ -115,7 +115,7 @@ inputs.each do |f, input|
 			suffix='.tex'
 			out = doc.to_latex_document
 		when :tex_frag
-			suffix='.html_frag'
+			suffix='.tex_frag'
 			out = doc.to_latex
 		when :inspect
 			suffix='.txt'
