@@ -13,7 +13,7 @@ Mar**u**k**u**: a Markdown-superset interpreter
 
 [Maruku] is a Markdown interpreter written in [Ruby].
 
-> [Last release](#release_notes) is version 0.5.5 -- 2007-03-07.
+> [Last release](#release_notes) is version 0.5.6 -- 2007-05-22.
 >
 > Install using [rubygems]: 
 >

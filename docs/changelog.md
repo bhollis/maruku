@@ -2,7 +2,9 @@ CSS: style.css
 LaTeX CJK: true
 HTML use syntax: true
 
-#### Changes in the development version (**not yet released**)  ####     {#last}
+<!-- #### Changes in the development version (**not yet released**)  ####     {#last} -->
+
+#### Changes in 0.5.6  ####     {#stable}
 
 *	News:
 
@@ -30,7 +32,7 @@ HTML use syntax: true
 	
 [Aggelos Orfanakos]: http://agorf.gr/
 
-#### Changes in 0.5.5  ####     {#stable}
+#### Changes in 0.5.5  ####    
 
 *	Features:
 
