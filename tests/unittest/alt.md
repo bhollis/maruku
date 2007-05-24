@@ -34,6 +34,6 @@ bar
 
 *** Output of Markdown.pl (parsed) ***
 <p
-      ><img title='' src='/foo.jpg' alt='bar'
-      /></p
-  >
+     ><img title='' src='/foo.jpg' alt='bar'/
+   ></p
+ >

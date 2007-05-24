@@ -93,12 +93,12 @@ Here is a paragraph.* Item 1 * Item 2 * Item 3
 
 *** Output of Markdown.pl (parsed) ***
 <p>Here is a paragraph.</p
-    ><ul>
+   ><ul>
 <li>Item 1</li
-      >
+     >
 <li>Item 2</li
-      >
+     >
 <li>Item 3</li
-      >
+     >
 </ul
-  >
+ >

@@ -43,5 +43,5 @@ Paragraph1Paragraph2
 
 *** Output of Markdown.pl (parsed) ***
 <p>Paragraph1</p
-    ><p>Paragraph2</p
-  >
+   ><p>Paragraph2</p
+ >

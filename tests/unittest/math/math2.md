@@ -73,12 +73,12 @@ md_el(:document,[
 
 *** Output of Markdown.pl (parsed) ***
 <p>[
- \alpha
+    \alpha
 ]</p
-    ><p>\begin{equation}
- \alpha
+   ><p>\begin{equation}
+    \alpha
 \end{equation}</p
-    ><p>\begin{equation} \beta
+   ><p>\begin{equation} \beta
 \end{equation}</p
-    ><p>\begin{equation} \gamma \end{equation}</p
-  >
+   ><p>\begin{equation} \gamma \end{equation}</p
+ >

@@ -27,6 +27,6 @@ md_el(:document,[md_html("<br />")],{},[])
 
 *** Output of Markdown.pl (parsed) ***
 <p
-      ><br
-      />123</p
-  >
+     ><br/
+     >123</p
+ >

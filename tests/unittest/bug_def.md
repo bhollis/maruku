@@ -33,4 +33,4 @@ test:
 
 *** Output of Markdown.pl (parsed) ***
 <p>[test][]:</p
-  >
+ >

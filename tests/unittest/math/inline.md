@@ -70,11 +70,11 @@ Here are some formulas:Thats it, nothing else is supported.
 
 *** Output of Markdown.pl (parsed) ***
 <p>Here are some formulas:</p
-    ><ul>
+   ><ul>
 <li>$\alpha$</li
-      >
+     >
 <li>$x^{n}+y^{n} \neq z^{n}$</li
-      >
+     >
 </ul
-    ><p>That's it, nothing else is supported.</p
-  >
+   ><p>That's it, nothing else is supported.</p
+ >

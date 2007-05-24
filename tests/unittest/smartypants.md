@@ -149,27 +149,7 @@ Twas a test to remember in the 90s.It was  in a sense  really interesting.I  too
 </blockquote>
 
 *** Output of Markdown.pl (parsed) ***
-Error: #<REXML::ParseException: #<REXML::ParseException: Missing end tag for 'here' (got "p")
-Line: 
-Position: 
-Last 80 unconsumed characters:
-  <pre><code>She was 6\"12\'. </code></pre>  <blockquote>   <p>She was 6\"12\'.</>
-/Volumes/Alter/Ruby/local/lib/ruby/1.8/rexml/parsers/baseparser.rb:315:in `pull'
-/Volumes/Alter/Ruby/local/lib/ruby/1.8/rexml/parsers/treeparser.rb:21:in `parse'
-/Volumes/Alter/Ruby/local/lib/ruby/1.8/rexml/document.rb:190:in `build'
-/Volumes/Alter/Ruby/local/lib/ruby/1.8/rexml/document.rb:45:in `initialize'
-bin/marutest:197:in `new'
-bin/marutest:197:in `run_test'
-bin/marutest:260:in `marutest'
-bin/marutest:257:in `each'
-bin/marutest:257:in `marutest'
-bin/marutest:332
-...
-Missing end tag for 'here' (got "p")
-Line: 
-Position: 
-Last 80 unconsumed characters:
-  <pre><code>She was 6\"12\'. </code></pre>  <blockquote>   <p>She was 6\"12\'.</
+Error: #<REXML::ParseException: Missing end tag for 'here' (got "p")
 Line: 
 Position: 
 Last 80 unconsumed characters:

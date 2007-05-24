@@ -59,9 +59,9 @@ SymbolMeaningcomments The firstI like it. The firstI like it.
 <p>{:r: scope='row'}</p>
 
 *** Output of Markdown.pl (parsed) ***
-<p>Symbol | Meaning | comments
+<p>Symbol    | Meaning | comments
 ------------|---------|---------
 {:r} &alpha; | The first | I like it.
 {:r} &aleph; | The first | I like it.</p
-    ><p>{:r: scope='row'}</p
-  >
+   ><p>{:r: scope='row'}</p
+ >

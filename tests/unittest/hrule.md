@@ -59,9 +59,9 @@ md_el(:document,[
 <hr />
 
 *** Output of Markdown.pl (parsed) ***
-<hr
-    /><hr
-    /><hr
-    /><hr
-    /><hr
-    />
+<hr/
+   ><hr/
+   ><hr/
+   ><hr/
+   ><hr/
+ >

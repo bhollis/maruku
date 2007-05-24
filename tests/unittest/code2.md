@@ -49,12 +49,13 @@ Code
 
 *** Output of Markdown.pl (parsed) ***
 <blockquote>
- <p>Code</p
-      >
+  <p>Code</p
+     >
+
 <pre
-        ><code>Ciao
+       ><code>Ciao
 </code
-      ></pre
-      >
+     ></pre
+     >
 </blockquote
-  >
+ >

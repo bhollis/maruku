@@ -46,6 +46,6 @@ Paragraph
 *** Output of Markdown.pl (parsed) ***
 <p>Paragraph
 {:a}</p
-    ><p>{:a: b}
+   ><p>{:a: b}
 {:b: a}</p
-  >
+ >

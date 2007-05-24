@@ -35,6 +35,6 @@ md_el(:document,[md_par([md_code("There is a literal backtick (`) here.")])],{},
 
 *** Output of Markdown.pl (parsed) ***
 <p
-      ><code>There is a literal backtick (`) here.</code
-    ></p
-  >
+     ><code>There is a literal backtick (`) here.</code
+   ></p
+ >

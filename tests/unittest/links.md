@@ -168,7 +168,7 @@ Search on GoogleSearch on GoogleSearch on GoogleSearch on GoogleSearch on Google
 
 <p>Inline with title: <a href="http://google.com  "Title"">Google images</a></p>
 
-<p>Search on <a href="http://www.gogole.com">http://www.gogole.com</a> or <a href="http://Here.com">http://Here.com</a> or ask <a href="&#109;&#x61;&#x69;&#108;&#116;&#x6F;:&#x62;&#x69;&#x6C;&#x6C;&#64;&#x67;o&#x6F;&#103;&#108;&#101;&#46;&#x63;&#x6F;&#109;">&#x62;&#x69;&#x6C;&#x6C;&#64;&#x67;o&#x6F;&#103;&#108;&#101;&#46;&#x63;&#x6F;&#109;</a>
+<p>Search on <a href="http://www.gogole.com">http://www.gogole.com</a> or <a href="http://Here.com">http://Here.com</a> or ask <a href="&#109;ai&#x6C;&#116;&#111;:&#x62;i&#108;&#108;&#64;&#x67;&#111;&#x6F;&#x67;&#x6C;e&#46;&#99;o&#109;">&#x62;i&#108;&#108;&#64;&#x67;&#111;&#x6F;&#x67;&#x6C;e&#46;&#99;o&#109;</a>
 or you might ask bill@google.com.</p>
 
 <p>If all else fails, ask <a href="http://www.google.com">Google</a></p>
@@ -176,27 +176,7 @@ or you might ask bill@google.com.</p>
 <p>[google2]: http://www.google.com 'Single quotes'</p>
 
 *** Output of Markdown.pl (parsed) ***
-Error: #<REXML::ParseException: #<REXML::ParseException: Missing end tag for 'p' (got "div")
-Line: 
-Position: 
-Last 80 unconsumed characters:
->
-/Volumes/Alter/Ruby/local/lib/ruby/1.8/rexml/parsers/baseparser.rb:315:in `pull'
-/Volumes/Alter/Ruby/local/lib/ruby/1.8/rexml/parsers/treeparser.rb:21:in `parse'
-/Volumes/Alter/Ruby/local/lib/ruby/1.8/rexml/document.rb:190:in `build'
-/Volumes/Alter/Ruby/local/lib/ruby/1.8/rexml/document.rb:45:in `initialize'
-bin/marutest:197:in `new'
-bin/marutest:197:in `run_test'
-bin/marutest:260:in `marutest'
-bin/marutest:257:in `each'
-bin/marutest:257:in `marutest'
-bin/marutest:332
-...
-Missing end tag for 'p' (got "div")
-Line: 
-Position: 
-Last 80 unconsumed characters:
-
+Error: #<REXML::ParseException: Missing end tag for 'p' (got "div")
 Line: 
 Position: 
 Last 80 unconsumed characters:

@@ -44,5 +44,5 @@ This is not $math$.[ \alpha ]
 
 *** Output of Markdown.pl (parsed) ***
 <p>This is not $math$.</p
-    ><p>[ \alpha ]</p
-  >
+   ><p>[ \alpha ]</p
+ >

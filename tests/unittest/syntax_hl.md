@@ -83,21 +83,21 @@ puts Maruku.new($stdin).to_html
 
 *** Output of Markdown.pl (parsed) ***
 <p>This is ruby code:</p
-    ><pre
-      ><code>require 'maruku'
+   ><pre
+     ><code>require 'maruku'
 
 puts Maruku.new($stdin).to_html
 </code
-    ></pre
-    ><p>This is ruby code:</p
-    ><pre
-      ><code>require 'maruku'
+   ></pre
+   ><p>This is ruby code:</p
+   ><pre
+     ><code>require 'maruku'
 </code
-    ></pre
-    ><p>{: lang=ruby html<em>use</em
-      >syntax}</p
-    ><pre
-      ><code>puts Maruku.new($stdin).to_html
+   ></pre
+   ><p>{: lang=ruby html<em>use</em
+     >syntax}</p
+   ><pre
+     ><code>puts Maruku.new($stdin).to_html
 </code
-    ></pre
-  >
+   ></pre
+ >
