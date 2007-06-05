@@ -6,7 +6,6 @@ inMenu: false
 title: "Embedding Maruku into other software"
 ---
 
-
 Maruku has been embedded in the following software:
 
 * [instiki](instiki.html)

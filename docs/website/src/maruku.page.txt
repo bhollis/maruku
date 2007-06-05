@@ -2,7 +2,7 @@
 page_class: index
 linkAttrs:
   :link_text: Maruku Features
-inMenu: false
+inMenu: true
 title: "Maruku features"
 description:  "Maruku - a Markdown-superset interpreter"
 ---

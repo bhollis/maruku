@@ -27,6 +27,7 @@ sub maruku {
 	@args = (
 		$MARUKU, 
 		"--html-frag", 
+		"-m", "blahtex",
 		"-o", $fileout,
 		$filename);
     system(@args) == 0

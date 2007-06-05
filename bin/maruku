@@ -136,22 +136,29 @@ inputs.each do |f, input|
 				dir = File.dirname(f)
 				job = File.join(dir, File.basename(f, File.extname(f)))
 				output_file = job  + suffix
+			else
+				job = File.basename(output_file, File.extname(output_file))
 			end
 			
 			if output_file == "-"
 				$stderr.puts "Writing to standard output"
 				$stdout.puts out
 			else
-				$stderr.puts "Writing to #{output_file}"
-				File.open(output_file,'w') do |f| f.puts out end
-			end
 			
-			if export == :pdf
-				cmd = "pdflatex '#{job}' -interaction=nonstopmode "+
-				      "'-output-directory=#{dir}' "
-				# run twice for cross references
-				system cmd 
-				system cmd
+				if not (export == :pdf)
+					$stderr.puts "Writing to #{output_file}"
+					File.open(output_file,'w') do |f| f.puts out end
+				else
+					$stderr.puts "Writing to #{job}.tex"
+					File.open("#{job}.tex",'w') do |f| f.puts out end
+					cmd = "pdflatex '#{job}.tex' -interaction=nonstopmode "+
+					      "'-output-directory=#{dir}' "
+					$stderr.puts "maruku: executing $ #{cmd}"
+					# run twice for cross references
+					system cmd 
+					system cmd
+				end
+			
 			end
 		else # write to stdout
 			$stderr.puts "Writing to standard output"

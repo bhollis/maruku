@@ -2,6 +2,21 @@ CSS: style.css
 LaTeX CJK: true
 HTML use syntax: true
 
+Release notes  {#release_notes}
+--------------
+
+Note: Maruku seems to be very robust, nevertheless it is still beta-level
+software. So if you want to use it in production environments, please 
+check back in a month or so, while we squash the remaining bugs.
+
+In the meantime, feel free to toy around, and please signal problems,
+request features, by [contacting me][contact] or using the [tracker][tracker]. 
+For issues about the Markdown syntax itself and improvements to it, 
+please write to the [Markdown-discuss mailing list][markdown-discuss].
+
+Have fun!
+
+
 <!-- #### Changes in the development version (**not yet released**)  ####     {#last} -->
 
 #### Changes in 0.5.6  ####     {#stable}
