@@ -1,9 +1,9 @@
 ---
 page_class: index
 linkAttrs:
-  :link_text: Maruku Features
+  :link_text: Features
 inMenu: true
-title: "Maruku features"
+title: ""
 description:  "Maruku - a Markdown-superset interpreter"
 ---
 

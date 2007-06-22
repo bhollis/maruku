@@ -1,0 +1,61 @@
+---
+page_class: index
+linkAttrs:
+  :link_text: Movable Type
+inMenu: false
+title: "Embedding Maruku in Movable Type"
+---
+
+I hacked this plugin for [Movable Type]. I hope someone will improve on it.
+Please note that I don't know Perl.
+
+
+[movable type]: http://movabletype.org
+
+
+	package MT::Plugins::Maruku;
+	use vars qw( $MARUKU );
+
+	# Put here the path to the Maruku executable.
+	$MARUKU = "/usr/bin/maruku";
+
+	use MT;
+
+	MT->add_text_filter('Maruku' => {
+	  label => 'Maruku',
+	  docs => 'http://maruku.rubyforge.org',
+	  on_format => \&maruku
+	});
+
+	sub maruku {
+		use File::Temp qw/ tempfile tempdir /;
+		my $text=shift;
+		my $ctx=shift;
+
+		($fh, $filename) = tempfile();
+		print $fh  $text;
+		close $fh ;
+
+		$fileout = $filename.".out"; 
+
+		@args = (
+			$MARUKU, 
+			"--html-frag", 
+			"-m", "blahtex",
+			"-o", $fileout,
+			$filename);
+	    system(@args) == 0
+		 or die "system @args failed: $?";
+	
+		# read entire file
+		$result  = "";
+		open SLURP, $fileout or die "can't open  $fileout: $!";
+		while ($data = <SLURP>) {
+			$result = $result . $data;
+		}
+		close SLURP or die "cannot close  $fileout: $!";
+
+
+		$result;
+	}
+{: lang=perl}

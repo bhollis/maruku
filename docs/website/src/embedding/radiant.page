@@ -1,0 +1,12 @@
+---
+linkAttrs:
+  :link_text: Radiant
+title: "Embedding Maruku in Radiant"
+---
+
+See here for integration with [Radiant]:
+
+<http://blog.brandalism.com/2007/2/24/maruku-filter-for-radiant>
+
+
+[radiant]: http://radiantcms.org/

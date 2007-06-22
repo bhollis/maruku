@@ -2,6 +2,9 @@ index.page:
   inMenu: false
   page_class: index
 
+embedding/index.page:
+  inMenu: false
+
 about.page:
   orderInfo: 1
 

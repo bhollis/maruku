@@ -1,10 +1,17 @@
 ---
-page_class: index
 linkAttrs:
-  :link_text: Maruku Features
+  :link_text: Webgen
 inMenu: false
-title: "Maruku features"
-description:  "Maruku - a Markdown-superset interpreter"
+title: "Maruku and Webgen"
+description:  "Maruku and Webgen"
 ---
+
+Maruku and [Webgen] work perfectly together.
+
+Check out the official documentation:
+
+<http://webgen.rubyforge.org/documentation/plugins/contentconverter/maruku.html>
+
+[webgen]: http://webgen.rubyforge.org
 
 

@@ -1,11 +1,18 @@
+---
+page_class: index
+linkAttrs:
+  :link_text: Changelog
+inMenu: false
+title: "Changelog"
+description:  "Changelog for Maruku"
+---
+
 CSS: style.css
 LaTeX CJK: true
 HTML use syntax: true
 
-Release notes  {#release_notes}
---------------
 
-Note: Maruku seems to be very robust, nevertheless it is still beta-level
+<!--Note: Maruku seems to be very robust, nevertheless it is still beta-level
 software. So if you want to use it in production environments, please 
 check back in a month or so, while we squash the remaining bugs.
 
@@ -14,7 +21,7 @@ request features, by [contacting me][contact] or using the [tracker][tracker].
 For issues about the Markdown syntax itself and improvements to it, 
 please write to the [Markdown-discuss mailing list][markdown-discuss].
 
-Have fun!
+Have fun!-->
 
 
 #### Changes in the development version (**not yet released**)  ####     {#last}

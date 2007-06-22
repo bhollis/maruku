@@ -1,0 +1,8 @@
+---
+page_class: normal
+linkAttrs:
+  :link_text: Meta-data syntax
+inMenu: false
+title: "Meta-data syntax"
+---
+

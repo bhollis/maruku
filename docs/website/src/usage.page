@@ -1,0 +1,45 @@
+---
+page_class: normal
+linkAttrs:
+  :link_text: Usage
+inMenu: true
+title: "Usage"
+description:  ""
+---
+
+### Embedded Maruku ###
+
+This is the basic usage:
+
+	require 'rubygems'
+	require 'maruku'
+
+	doc = Maruku.new(markdown_string)
+	puts doc.to_html
+{:ruby}
+
+The method `to_html` outputs only an HTML fragment, while the method `to_html_document` outputs a complete XHTML 1.0 document:
+
+	puts doc.to_html_document
+{:ruby}
+	
+You can have the REXML document tree with:
+
+	tree = doc.to_html_document_tree
+{:ruby}
+
+### From the command line ###
+
+There is one command-line program installed: `maruku`.
+
+Without arguments, it converts  Markdown to HTML:
+
+	$ maruku file.md  # creates file.html
+{:shell}
+
+With the `--pdf` arguments, it converts Markdown to LaTeX, then calls `pdflatex` to 
+transform to PDF:
+
+	$ maruku --pdf file.md  # creates file.tex and file.pdf
+{:shell}
+
