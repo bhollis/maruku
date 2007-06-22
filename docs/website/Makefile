@@ -30,3 +30,7 @@ others: $(additional)
 
 clean: 
 	-rm $(PAGES)
+	
+	
+publish: 
+	rsync  --recursive output/* andrea@rubyforge.org:/var/www/gforge-projects/maruku/

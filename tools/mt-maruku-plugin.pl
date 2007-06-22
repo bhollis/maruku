@@ -3,8 +3,6 @@ use vars qw( $MARUKU );
 
 $MARUKU = "/usr/bin/maruku.sh";
 
-
-
 use MT;
 
 MT->add_text_filter('Maruku' => {

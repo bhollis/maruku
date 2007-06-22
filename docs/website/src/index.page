@@ -33,8 +33,18 @@ the [katakana] transliteration
 of "Mark", the first word in Markdown. I chose this name because Ruby 
 is Japanese, and also the sillable "ru" appears in Maruku.
 
+### Bugs report ###
+
+Use the [tracker][tracker] or [drop me an email][contact].
+
+[contact]: http://www.dis.uniroma1.it/~acensi/contact.html
+[gem]: http://rubygems.rubyforge.org/
+[tracker]: http://rubyforge.org/tracker/?group_id=2795
+
 
 [romaji]: http://en.wikipedia.org/wiki/Romaji
 [katakana]: http://en.wikipedia.org/wiki/Katakana
 [andrea censi]: http://www.dis.uniroma1.it/~acensi/
+[ruby]: http://www.ruby-lang.org/
+[maruku]: http://maruku.rubyforge.org/
 
