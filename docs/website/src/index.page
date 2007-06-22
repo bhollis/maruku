@@ -17,6 +17,9 @@ LaTeX preamble: preamble.tex
 
 [Maruku] is a Markdown interpreter written in [Ruby].
 
+![data flow](diagram.png){#dataflow}
+
+
 > [Last release](changelog.html#stable) is version 0.5.6 -- 2007-05-22.
 >
 > Use this command to update:
@@ -32,6 +35,8 @@ __The name of the game__: Maruku is the [romaji] transliteration of
 the [katakana] transliteration
 of "Mark", the first word in Markdown. I chose this name because Ruby 
 is Japanese, and also the sillable "ru" appears in Maruku.
+
+
 
 ### Bugs report ###
 
