@@ -23,7 +23,7 @@ or LaTeX, which is then converted to PDF:
 Maruku implements:
 
 * the original [Markdown syntax][markdown_html] 
-  ([HTML][markdown_html] or [PDF][markdown_pdf]), translated by Maruku).
+  ([HTML][markdown_html] or [PDF][markdown_pdf]), translated by Maruku.
 
 * all the improvements in [PHP Markdown Extra]. 
 

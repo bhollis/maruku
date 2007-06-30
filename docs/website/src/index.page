@@ -15,17 +15,14 @@ LaTeX preamble: preamble.tex
 
 <!--![MaRuKu](logo.png){#logo}-->
 
-[Maruku] is a Markdown interpreter written in [Ruby].
+Maruku is a [Markdown] interpreter written in [Ruby].
+
+> [Last release](changelog.html#stable) is version 0.5.6 -- 2007-05-22.
+{#news}
 
 ![data flow](diagram.png){#dataflow}
 
 
-> [Last release](changelog.html#stable) is version 0.5.6 -- 2007-05-22.
->
-> Use this command to update:
->
-> 	$ gem update maruku
-{#news}
 
 
 __Authors__: Maruku has been developed so far by [Andrea Censi].
@@ -36,7 +33,11 @@ the [katakana] transliteration
 of "Mark", the first word in Markdown. I chose this name because Ruby 
 is Japanese, and also the sillable "ru" appears in Maruku.
 
+### Do you like this software? ###
 
+How about [a donation to Wikipedia][wiki]? (and please, if you do donate, let me know).
+
+[wiki]: http://wikimediafoundation.org/wiki/Fundraising
 
 ### Bugs report ###
 
@@ -52,4 +53,4 @@ Use the [tracker][tracker] or [drop me an email][contact].
 [andrea censi]: http://www.dis.uniroma1.it/~acensi/
 [ruby]: http://www.ruby-lang.org/
 [maruku]: http://maruku.rubyforge.org/
-
+[Markdown]: http://en.wikipedia.org/wiki/Markdown

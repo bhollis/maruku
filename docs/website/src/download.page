@@ -15,7 +15,7 @@ Install with:
 
 ### Distribution Packages ###
 
-Gentoo: <http://packages.gentoo.org/ebuilds/?maruku-0.5.6>
+Gentoo: <http://packages.gentoo.org/packages/?category=dev-ruby;name=maruku>
 
 Debian: <http://packages.debian.org/experimental/interpreters/libmaruku-ruby>
 

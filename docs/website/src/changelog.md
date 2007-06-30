@@ -23,7 +23,13 @@ Have fun!
 
 	*	PDF: Fixed bug with colorbox. 
 	*	PDF: Fixed bug for pdf export with `-o`.
-
+	*	Markdown input: corrected a bug in parsing.
+		
+		This fragment:
+		
+			* [maruku]: good software.
+		
+		was not correctly interpreted (it was mistaken as a link definition).
 
 #### Changes in 0.5.6  ####     {#stable}
 

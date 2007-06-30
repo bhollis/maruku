@@ -8,11 +8,11 @@ body {
 #news {
 	background-color: #fee;
 	border: solid 2px red;
-	padding: 0.3em;
+	padding: 0.1em 0.3em 0.1em 0.3em;
 	margin: 0.3em;
-	width: 50%;
+	width: 70%;
 }
-
+#news P { margin: 0; padding: 0;}
 h2 { margin-left: -1em;}
 
 pre {
