@@ -69,9 +69,9 @@ hellohh c1c2
 *** Output of Markdown.pl (parsed) ***
 <p>hello
 {: summary="Table summary" .class1 style="color:red"}</p
-   ><p>h         | h
+    ><p>h | h
 ----------|--
-{:t}  c1  | c2
+{:t} c1 | c2
 {: summary="Table summary" .class1 style="color:red"}</p
-   ><p>{:t: scope="row"}</p
- >
+    ><p>{:t: scope="row"}</p
+  >

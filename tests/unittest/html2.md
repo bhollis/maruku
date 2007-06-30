@@ -41,9 +41,9 @@ One 123
 
 *** Output of Markdown.pl (parsed) ***
 <p>One
-<div/
-     >123</p
-   ><p
-     ><div/
-     >123</p
- >
+<div
+      />123</p
+    ><p
+      ><div
+      />123</p
+  >

@@ -69,11 +69,11 @@ Maruku translates HTML entities to the equivalent in \LaTeX\xspace :
 \begin{tabular}{l|l}
 Entity&Result\\
 \hline 
-\colorbox[rgb]{1.00,0.93,1.00}{\tt \char38copy\char59}&\copyright{}\\
-\colorbox[rgb]{1.00,0.93,1.00}{\tt \char38pound\char59}&\pounds{}\\
-\colorbox[rgb]{1.00,0.93,1.00}{\tt a\char38nbsp\char59b}&a~{}b\\
-\colorbox[rgb]{1.00,0.93,1.00}{\tt \char38lambda\char59}&$\lambda${}\\
-\colorbox[rgb]{1.00,0.93,1.00}{\tt \char38mdash\char59}&---{}\\
+{\colorbox[rgb]{1.00,0.93,1.00}{\tt \char38copy\char59}}&\copyright{}\\
+{\colorbox[rgb]{1.00,0.93,1.00}{\tt \char38pound\char59}}&\pounds{}\\
+{\colorbox[rgb]{1.00,0.93,1.00}{\tt a\char38nbsp\char59b}}&a~{}b\\
+{\colorbox[rgb]{1.00,0.93,1.00}{\tt \char38lambda\char59}}&$\lambda${}\\
+{\colorbox[rgb]{1.00,0.93,1.00}{\tt \char38mdash\char59}}&---{}\\
 \end{tabular}
 
 Entity-substitution does not happen in code blocks or inline code.
@@ -81,7 +81,7 @@ Entity-substitution does not happen in code blocks or inline code.
 The following should not be translated:
 
 \begin{verbatim}&copy;\end{verbatim}
-It should read just like this: \colorbox[rgb]{1.00,0.93,1.00}{\tt \char38copy\char59}.
+It should read just like this: {\colorbox[rgb]{1.00,0.93,1.00}{\tt \char38copy\char59}}.
 
 
 *** Output of to_md ***
@@ -128,24 +128,24 @@ Maruku translates HTML entities to the equivalent in LaTeX:EntityResultabEntity-
 
 *** Output of Markdown.pl (parsed) ***
 <p>Maruku translates HTML entities to the equivalent in LaTeX:</p
-   ><p>Entity      | Result
+    ><p>Entity | Result
 ------------|----------
 <code>&amp;copy;</code
-     >    |  &copy;
+      > | &copy;
 <code>&amp;pound;</code
-     >   |  &pound;
+      > | &pound;
 <code>a&amp;nbsp;b</code
-     >  |  a&nbsp;b
+      > | a&nbsp;b
 <code>&amp;lambda;</code
-     >  |  &lambda;
+      > | &lambda;
 <code>&amp;mdash;</code
-     >   |  &mdash;</p
-   ><p>Entity-substitution does not happen in code blocks or inline code.</p
-   ><p>The following should not be translated:</p
-   ><pre
-     ><code>&amp;copy;
+      > | &mdash;</p
+    ><p>Entity-substitution does not happen in code blocks or inline code.</p
+    ><p>The following should not be translated:</p
+    ><pre
+      ><code>&amp;copy;
 </code
-   ></pre
-   ><p>It should read just like this: <code>&amp;copy;</code
-     >.</p
- >
+    ></pre
+    ><p>It should read just like this: <code>&amp;copy;</code
+      >.</p
+  >

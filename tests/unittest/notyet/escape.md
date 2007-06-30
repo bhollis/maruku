@@ -14,9 +14,9 @@ md_el(:document,[md_par([md_code("\\\\")]), md_par([md_code("\\")])],{},[])
 <p><code>\</code></p>
 
 *** Output of to_latex ***
-\colorbox[rgb]{1.00,0.93,1.00}{\tt \char92\char92}
+{\colorbox[rgb]{1.00,0.93,1.00}{\tt \char92\char92}}
 
-\colorbox[rgb]{1.00,0.93,1.00}{\tt \char92}
+{\colorbox[rgb]{1.00,0.93,1.00}{\tt \char92}}
 
 
 *** Output of to_md ***
@@ -38,9 +38,9 @@ md_el(:document,[md_par([md_code("\\\\")]), md_par([md_code("\\")])],{},[])
 
 *** Output of Markdown.pl (parsed) ***
 <p
-     ><code>\\</code
-   ></p
-   ><p
-     ><code>\</code
-   ></p
- >
+      ><code>\\</code
+    ></p
+    ><p
+      ><code>\</code
+    ></p
+  >

@@ -32,7 +32,7 @@ Hello! how are you?
 
 *** Output of Markdown.pl (parsed) ***
 <p
-     ><em>Hello!</em
-     > how are <strong>you</strong
-     >?</p
- >
+      ><em>Hello!</em
+      > how are <strong>you</strong
+      >?</p
+  >

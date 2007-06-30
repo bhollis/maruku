@@ -50,6 +50,6 @@ Paragraph2</p>
 *** Output of Markdown.pl (parsed) ***
 <p>Paragraph1
 {:#par1}</p
-   ><p>{:#par2}
+    ><p>{:#par2}
 Paragraph2</p
- >
+  >

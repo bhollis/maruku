@@ -122,13 +122,13 @@ ciao</p>
 <p>This is a list:
 * one
 * two</p
-   ><p>This is not a list:
+    ><p>This is not a list:
 * one
 ciao</p
-   ><p>This is a list:
+    ><p>This is a list:
 1. one
 1. two</p
-   ><p>This is not a list:
+    ><p>This is not a list:
 1987. one
 ciao</p
- >
+  >

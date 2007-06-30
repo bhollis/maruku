@@ -39,7 +39,7 @@ md_el(:document,[
 <pre><code class='xml' lang='xml'><span class='punct'>&lt;</span><span class='tag'>p</span><span class='punct'>&gt;</span>here&#39;s an apostrophe &amp; a quote &quot;<span class='punct'>&lt;/</span><span class='tag'>p</span><span class='punct'>&gt;</span></code></pre>
 
 *** Output of to_latex ***
-\colorbox[rgb]{1.00,0.93,1.00}{\tt \char60p\char62here\char39s~an~apostrophe~\char38~a~quote~\char34\char60\char47p\char62}
+{\colorbox[rgb]{1.00,0.93,1.00}{\tt \char60p\char62here\char39s~an~apostrophe~\char38~a~quote~\char34\char60\char47p\char62}}
 
 \begin{verbatim}<p>here's an apostrophe & a quote "</p>\end{verbatim}
 \begin{verbatim}<p>here's an apostrophe & a quote "</p>\end{verbatim}
@@ -85,28 +85,28 @@ md_el(:document,[
 
 *** Output of Markdown.pl (parsed) ***
 <p
-     ><code>&lt;p&gt;here's an apostrophe &amp; a quote "&lt;/p&gt;</code
-   ></p
-   ><pre
-     ><code>&lt;p&gt;here's an apostrophe &amp; a quote "&lt;/p&gt;
+      ><code>&lt;p&gt;here's an apostrophe &amp; a quote "&lt;/p&gt;</code
+    ></p
+    ><pre
+      ><code>&lt;p&gt;here's an apostrophe &amp; a quote "&lt;/p&gt;
 </code
-   ></pre
-   ><p>{:}</p
-   ><pre
-     ><code>&lt;p&gt;here's an apostrophe &amp; a quote "&lt;/p&gt;
+    ></pre
+    ><p>{:}</p
+    ><pre
+      ><code>&lt;p&gt;here's an apostrophe &amp; a quote "&lt;/p&gt;
 </code
-   ></pre
-   ><p>{:lang=xml}</p
-   ><pre
-     ><code>&lt;p&gt;here's an apostrophe &amp; a quote "&lt;/p&gt;
+    ></pre
+    ><p>{:lang=xml}</p
+    ><pre
+      ><code>&lt;p&gt;here's an apostrophe &amp; a quote "&lt;/p&gt;
 </code
-   ></pre
-   ><p>{:html<em>use</em
-     >syntax=true lang=not_supported}</p
-   ><pre
-     ><code>&lt;p&gt;here's an apostrophe &amp; a quote "&lt;/p&gt;
+    ></pre
+    ><p>{:html<em>use</em
+      >syntax=true lang=not_supported}</p
+    ><pre
+      ><code>&lt;p&gt;here's an apostrophe &amp; a quote "&lt;/p&gt;
 </code
-   ></pre
-   ><p>{:html<em>use</em
-     >syntax=true lang=xml}</p
- >
+    ></pre
+    ><p>{:html<em>use</em
+      >syntax=true lang=xml}</p
+  >

@@ -13,7 +13,7 @@ md_el(:document,[md_par([md_code("There is a literal backtick (`) here.")])],{},
 <p><code>There is a literal backtick (`) here.</code></p>
 
 *** Output of to_latex ***
-\colorbox[rgb]{1.00,0.93,1.00}{\tt There~is~a~literal~backtick~\char40\char96\char41~here\char46}
+{\colorbox[rgb]{1.00,0.93,1.00}{\tt There~is~a~literal~backtick~\char40\char96\char41~here\char46}}
 
 
 *** Output of to_md ***
@@ -35,6 +35,6 @@ md_el(:document,[md_par([md_code("There is a literal backtick (`) here.")])],{},
 
 *** Output of Markdown.pl (parsed) ***
 <p
-     ><code>There is a literal backtick (`) here.</code
-   ></p
- >
+      ><code>There is a literal backtick (`) here.</code
+    ></p
+  >
