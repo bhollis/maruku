@@ -1,0 +1,61 @@
+---
+page_class: empty
+title: ""
+---
+
+Logical grouping / DIV syntax for Markdown
+==========================================
+
+`+--` starts a div, `---` ends a div (both with no indentation):
+
+    +--
+      Inside a div..
+    ---
+
+These two can be nested:
+
+    +--
+    Inside first DIV
+    +--
+     DIV inside DIV
+    ---
+    ---
+
+Attribute lists can be put after `+--` or after `---`:
+
+    +--                           {.warning}
+    This is a Warning!
+    ---
+
+    +--
+    Second Warning!
+    ---                           {.warning}
+
+Compressed syntax: if the first line after `+--` begins with `|`,
+the content of the DIV is
+
+    +--                           {.warning}
+    | third warning!
+
+Visual candy can be added easily:
+
+    +-----------------------------------{.warning}------
+    | this is the last warning!
+    |
+    | please, go away!
+    |
+    |+------------------------------------- {.menace} --
+    || or else terrible things will happen
+    ||--------------------------------------------------
+    |---------------------------------------------------
+
+this translates to:
+
+    <div class="warning">
+      <p>this is the last warning!</p>
+      <p>please, go away!</p>
+      <div class="menace">
+      <p>or else terrible things will happen</p>
+      </div>
+    </div>
+
