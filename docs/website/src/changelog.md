@@ -2,7 +2,7 @@ CSS: style.css
 LaTeX CJK: true
 HTML use syntax: true
 
-#### In the queue ####
+#### In the queue (TODO)  ####
 
 *	Implement references (requested Jacques Distler)
 *	Implement [DIV syntax](div.html) (Jacques Distler)
@@ -11,7 +11,18 @@ HTML use syntax: true
 *	Write documentation for math extension.
 *	[fix this](http://rubyforge.org/tracker/index.php?func=detail&aid=11421&group_id=2795&atid=10738)
 *	[not sure of this](http://rubyforge.org/tracker/index.php?func=detail&aid=11448&group_id=2795&atid=10738), fix would be a quick hack.
+*	Implement templating system for command-line `maruku`.
+*	Put back in the trunk changes made by Jacques distler: [REXML fragments][A] and [S5 tweaks][B].
+*	Confirm bug:
+		[a. b] is a link.
+		
+		[a. b]: http://site.com/
+*	Fix bug about double-encoding of ampersands in code blocks.
+*	Changes to S5 by Jacques.
 
+[A]: http://golem.ph.utexas.edu/~distler/code/instiki/svn/vendor/plugins/maruku/lib/maruku/output/to_html.rb
+
+[B]: http://golem.ph.utexas.edu/~distler/code/instiki/svn/vendor/plugins/maruku/lib/maruku/output/s5/to_s5.rb
 
 #### Changes in the development version (**not yet released**)  ####     {#last}
 
