@@ -19,7 +19,6 @@ md_el(:document,[
 	md_par(["That", md_entity("rsquo"), "s it, nothing else is supported."])
 ],{},[])
 *** Output of to_html ***
-
 <p>Here are some formulas:</p>
 
 <ul>
@@ -29,7 +28,6 @@ md_el(:document,[
 </ul>
 
 <p>That&#8217;s it, nothing else is supported.</p>
-
 *** Output of to_latex ***
 Here are some formulas:
 
@@ -39,15 +37,11 @@ Here are some formulas:
 
 \end{itemize}
 That'{}s it, nothing else is supported.
-
-
 *** Output of to_md ***
 Here are some formulas:
 
 --
 That s it, nothing else is supported.
-
-
 *** Output of to_s ***
 Here are some formulas:Thats it, nothing else is supported.
 *** EOF ***
@@ -69,12 +63,4 @@ Here are some formulas:Thats it, nothing else is supported.
 <p>That's it, nothing else is supported.</p>
 
 *** Output of Markdown.pl (parsed) ***
-<p>Here are some formulas:</p
-    ><ul>
-<li>$\alpha$</li
-      >
-<li>$x^{n}+y^{n} \neq z^{n}$</li
-      >
-</ul
-    ><p>That's it, nothing else is supported.</p
-  >
+Error: #<NoMethodError: private method `write_children' called for <div> ... </>:REXML::Element>

@@ -62,7 +62,6 @@ md_el(:document,[
 	md_el(:header,["header"],{:level=>2},[])
 ],{},[])
 *** Output of to_html ***
-
 <p>Paragraph, list with no space: * ciao</p>
 
 <p>Paragraph, list with 1 space: * ciao</p>
@@ -92,7 +91,6 @@ md_el(:document,[
 <p>Paragraph with header on two lines:</p>
 
 <h2 id='header'>header</h2>
-
 *** Output of to_latex ***
 Paragraph, list with no space: * ciao
 
@@ -124,8 +122,6 @@ Paragraph with header:
 Paragraph with header on two lines:
 
 \hypertarget{header}{}\subsection*{{header}}\label{header}
-
-
 *** Output of to_md ***
 Paragraph, list with no space: * ciao
 
@@ -207,31 +203,4 @@ Paragraph, list with no space: * ciaoParagraph, list with 1 space: * ciaoParagra
 <h2>header</h2>
 
 *** Output of Markdown.pl (parsed) ***
-<p>Paragraph, list with no space:
-* ciao</p
-    ><p>Paragraph, list with 1 space:
- * ciao</p
-    ><p>Paragraph, list with 3 space:
- * ciao</p
-    ><p>Paragraph, list with 4 spaces:
- * ciao</p
-    ><p>Paragraph, list with 1 tab:
- * ciao</p
-    ><p>Paragraph (1 space after), list with no space: 
-* ciao</p
-    ><p>Paragraph (2 spaces after), list with no space: <br
-      />
-* ciao</p
-    ><p>Paragraph (3 spaces after), list with no space: <br
-      />
-* ciao</p
-    ><p>Paragraph with block quote:</p
-    ><blockquote>
- <p>Quoted</p
-      >
-</blockquote
-    ><p>Paragraph with header:</p
-    ><h3>header</h3
-    ><p>Paragraph with header on two lines:</p
-    ><h2>header</h2
-  >
+Error: #<NoMethodError: private method `write_children' called for <div> ... </>:REXML::Element>

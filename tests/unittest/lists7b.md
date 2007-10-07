@@ -27,7 +27,6 @@ md_el(:document,[
 	],{},[])
 ],{},[])
 *** Output of to_html ***
-
 <ul>
 <li>
 a
@@ -43,7 +42,6 @@ a
 <p>b</p>
 </li>
 </ul>
-
 *** Output of to_latex ***
 \begin{itemize}%
 \item a
@@ -59,13 +57,10 @@ a
 
 
 \end{itemize}
-
 *** Output of to_md ***
 -* a1
 * a2
 -
-
-
 *** Output of to_s ***
 aa1a2b
 *** EOF ***
@@ -91,7 +86,6 @@ md_el(:document,[
 ],{},[])
 *** Output of to_html ***
 -----| WARNING | -----
-
 <ul>
 <li>
 <p>a</p>
@@ -107,7 +101,6 @@ md_el(:document,[
 <p>b</p>
 </li>
 </ul>
-
 *** Output of to_latex ***
 \begin{itemize}%
 \item a
@@ -123,13 +116,10 @@ md_el(:document,[
 
 
 \end{itemize}
-
 *** Output of to_md ***
 -* a1
 * a2
 -
-
-
 *** Output of to_s ***
 aa1a2b
 *** Output of Markdown.pl ***
@@ -143,17 +133,4 @@ aa1a2b
 </ul>
 
 *** Output of Markdown.pl (parsed) ***
-<ul>
-<li>a
-<ul>
-<li>a1</li
-          >
-<li>a2</li
-          >
-</ul
-      ></li
-      >
-<li>b</li
-      >
-</ul
-  >
+Error: #<NoMethodError: private method `write_children' called for <div> ... </>:REXML::Element>

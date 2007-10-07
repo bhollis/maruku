@@ -40,19 +40,14 @@ md_el(:document,[
 <p>Targets <? noTarget?> <?php ?> <?xml ?> <?mrk ?></p>
 
 <p>Inside: <?mrk puts "Inside: Hello"?> last</p>
-
 *** Output of to_latex ***
 Targets    
 
 Inside:  last
-
-
 *** Output of to_md ***
 Targets
 
 Inside: last
-
-
 *** Output of to_s ***
 Targets    Inside:  last
 *** EOF ***
@@ -74,8 +69,4 @@ Targets    Inside:  last
 <p>Inside: <?mrk puts "Inside: Hello" ?> last</p>
 
 *** Output of Markdown.pl (parsed) ***
-<p
-      >      <? noTarget?>      <?php ?>      <?xml ?>      <?mrk ?></p
-    ><p>Targets       <? noTarget?>      <?php ?>      <?xml ?>      <?mrk ?></p
-    ><p>Inside:       <?mrk puts "Inside: Hello"?> last</p
-  >
+Error: #<NoMethodError: private method `write_children' called for <div> ... </>:REXML::Element>

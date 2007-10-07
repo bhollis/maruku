@@ -7,17 +7,11 @@ Paragraph
 *** Output of inspect ***
 md_el(:document,[md_par(["Paragraph"])],{},[])
 *** Output of to_html ***
-
 <p>Paragraph</p>
-
 *** Output of to_latex ***
 Paragraph
-
-
 *** Output of to_md ***
 Paragraph
-
-
 *** Output of to_s ***
 Paragraph
 *** EOF ***
@@ -32,5 +26,4 @@ Paragraph
 <p>Paragraph</p>
 
 *** Output of Markdown.pl (parsed) ***
-<p>Paragraph</p
-  >
+Error: #<NoMethodError: private method `write_children' called for <div> ... </>:REXML::Element>

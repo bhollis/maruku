@@ -34,7 +34,6 @@ md_el(:document,[
 	md_par(["This is not a list: 1987. one ciao"])
 ],{},[])
 *** Output of to_html ***
-
 <p>This is a list:</p>
 
 <ul>
@@ -54,7 +53,6 @@ md_el(:document,[
 </ol>
 
 <p>This is not a list: 1987. one ciao</p>
-
 *** Output of to_latex ***
 This is a list:
 
@@ -73,8 +71,6 @@ This is a list:
 
 \end{enumerate}
 This is not a list: 1987. one ciao
-
-
 *** Output of to_md ***
 This is a list:
 
@@ -89,8 +85,6 @@ This is a list:
 2.  two
 
 This is not a list: 1987. one ciao
-
-
 *** Output of to_s ***
 This is a list:onetwoThis is not a list: * one ciaoThis is a list:onetwoThis is not a list: 1987. one ciao
 *** EOF ***
@@ -119,16 +113,4 @@ ciao</p>
 ciao</p>
 
 *** Output of Markdown.pl (parsed) ***
-<p>This is a list:
-* one
-* two</p
-    ><p>This is not a list:
-* one
-ciao</p
-    ><p>This is a list:
-1. one
-1. two</p
-    ><p>This is not a list:
-1987. one
-ciao</p
-  >
+Error: #<NoMethodError: private method `write_children' called for <div> ... </>:REXML::Element>

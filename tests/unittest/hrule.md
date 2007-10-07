@@ -24,7 +24,6 @@ md_el(:document,[
 *** Output of to_html ***
 <hr /><hr /><hr /><hr /><hr />
 *** Output of to_latex ***
-
 \vspace{.5em} \hrule \vspace{.5em}
 
 \vspace{.5em} \hrule \vspace{.5em}
@@ -34,7 +33,6 @@ md_el(:document,[
 \vspace{.5em} \hrule \vspace{.5em}
 
 \vspace{.5em} \hrule \vspace{.5em}
-
 *** Output of to_md ***
 
 *** Output of to_s ***
@@ -59,9 +57,4 @@ md_el(:document,[
 <hr />
 
 *** Output of Markdown.pl (parsed) ***
-<hr
-    /><hr
-    /><hr
-    /><hr
-    /><hr
-    />
+Error: #<NoMethodError: private method `write_children' called for <div> ... </>:REXML::Element>

@@ -14,7 +14,7 @@ HTML use syntax: true
 #### In the queue (TODO)  ####
 
 *	Implement references (requested Jacques Distler)
-*	Implement [DIV syntax](div.html) 
+*	Implement [DIV syntax](div.html) (Jacques Distler)
 *	Fix bug with acronyms (found by Aggelos)
 *	Document extensions mechanism.
 *	Write documentation for math extension.
@@ -22,12 +22,28 @@ HTML use syntax: true
 *	[not sure of this](http://rubyforge.org/tracker/index.php?func=detail&aid=11448&group_id=2795&atid=10738), fix would be a quick hack.
 *	Implement templating system for command-line `maruku`.
 *	Put back in the trunk changes made by Jacques distler: [REXML fragments][A] and [S5 tweaks][B].
+*	Confirm bug:
+		[a. b] is a link.
+		
+		[a. b]: http://site.com/
+*	Fix bug about double-encoding of ampersands in code blocks.
+*	Changes to S5 by Jacques.
+*	Changes to `to_latex.rb` by Jacques.
 
 [A]: http://golem.ph.utexas.edu/~distler/code/instiki/svn/vendor/plugins/maruku/lib/maruku/output/to_html.rb
 
 [B]: http://golem.ph.utexas.edu/~distler/code/instiki/svn/vendor/plugins/maruku/lib/maruku/output/s5/to_s5.rb
 
 #### Changes in the development version (**not yet released**)  ####     {#last}
+
+...
+
+#### Changes in 0.5.7  ####     {#stable}
+
+*	Fixed compatibility bug with newest Ruby 1.8.6 patchlevel 110. 
+	Update if you find this error:
+	
+		NameError: undefined method `write_children' for class `REXML::Element'
 
 *	Bug fixes:
 
@@ -41,7 +57,7 @@ HTML use syntax: true
 		
 		was not correctly interpreted (it was mistaken as a link definition).
 
-#### Changes in 0.5.6  (stable version) ####     {#stable}
+#### Changes in 0.5.6  ####    
 
 *	News:
 

@@ -34,7 +34,6 @@ md_el(:document,[
 	md_el(:code,[],{:raw_code=>"two"},[])
 ],{},[])
 *** Output of to_html ***
-
 <p>This block is composed of three lines:</p>
 
 <pre><code>one
@@ -51,7 +50,6 @@ four</code></pre>
 <p>This block is composed of 2</p>
 
 <pre><code>two</code></pre>
-
 *** Output of to_latex ***
 This block is composed of three lines:
 
@@ -67,15 +65,12 @@ four\end{verbatim}
 This block is composed of 2
 
 \begin{verbatim}two\end{verbatim}
-
 *** Output of to_md ***
 This block is composed of three lines:
 
 This block is composed of 5
 
 This block is composed of 2
-
-
 *** Output of to_s ***
 This block is composed of three lines:This block is composed of 5This block is composed of 2
 *** EOF ***
@@ -108,24 +103,4 @@ four
 </code></pre>
 
 *** Output of Markdown.pl (parsed) ***
-<p>This block is composed of three lines:</p
-    ><pre
-      ><code>one
-
-three
-</code
-    ></pre
-    ><p>This block is composed of 5</p
-    ><pre
-      ><code>one
-
-
-four
-</code
-    ></pre
-    ><p>This block is composed of 2</p
-    ><pre
-      ><code>two
-</code
-    ></pre
-  >
+Error: #<NoMethodError: private method `write_children' called for <div> ... </>:REXML::Element>

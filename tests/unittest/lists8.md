@@ -19,7 +19,6 @@ md_el(:document,[
 	],{},[])
 ],{},[])
 *** Output of to_html ***
-
 <p>Here is a paragraph.</p>
 
 <ul>
@@ -29,21 +28,16 @@ md_el(:document,[
 
 <li>Item 3</li>
 </ul>
-
 *** Output of to_latex ***
 Here is a paragraph.
 
 * Item 1 * Item 2 * Item 3
-
-
 *** Output of to_md ***
 Here is a paragraph.
 
 -tem 1
 -tem 2
 -tem 3
-
-
 *** Output of to_s ***
 Here is a paragraph.Item 1Item 2Item 3
 *** EOF ***
@@ -61,24 +55,18 @@ md_el(:document,[
 ],{},[])
 *** Output of to_html ***
 -----| WARNING | -----
-
 <p>Here is a paragraph.</p>
 
 <p>* Item 1 * Item 2 * Item 3</p>
-
 *** Output of to_latex ***
 Here is a paragraph.
 
 * Item 1 * Item 2 * Item 3
-
-
 *** Output of to_md ***
 -----| WARNING | -----
 Here is a paragraph.
 
 * Item 1 * Item 2 * Item 3
-
-
 *** Output of to_s ***
 -----| WARNING | -----
 Here is a paragraph.* Item 1 * Item 2 * Item 3
@@ -92,13 +80,4 @@ Here is a paragraph.* Item 1 * Item 2 * Item 3
 </ul>
 
 *** Output of Markdown.pl (parsed) ***
-<p>Here is a paragraph.</p
-    ><ul>
-<li>Item 1</li
-      >
-<li>Item 2</li
-      >
-<li>Item 3</li
-      >
-</ul
-  >
+Error: #<NoMethodError: private method `write_children' called for <div> ... </>:REXML::Element>

@@ -25,7 +25,6 @@ md_el(:document,[
 	],{},[])
 ],{},[])
 *** Output of to_html ***
-
 <ul>
 <li>
 <p>This is a list item with two paragraphs.</p>
@@ -37,7 +36,6 @@ md_el(:document,[
 <p>other</p>
 </li>
 </ul>
-
 *** Output of to_latex ***
 \begin{itemize}%
 \item This is a list item with two paragraphs.
@@ -50,13 +48,10 @@ This is the second paragraph in the list item. You'{}re only required to indent 
 
 
 \end{itemize}
-
 *** Output of to_md ***
 -This is a list item with two paragraphs.
 This is the second paragraph in the list item. Youre only required to indent the first line. Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
 -ther
-
-
 *** Output of to_s ***
 This is a list item with two paragraphs.This is the second paragraph in the list item. Youre only required to indent the first line. Lorem ipsum dolor sit amet, consectetuer adipiscing elit.other
 *** EOF ***
@@ -78,18 +73,4 @@ sit amet, consectetuer adipiscing elit.</p></li>
 </ul>
 
 *** Output of Markdown.pl (parsed) ***
-<ul>
-<li
-        ><p>This is a list item with two paragraphs.</p
-        >
-<p>This is the second paragraph in the list item. You're
-only required to indent the first line. Lorem ipsum dolor
-sit amet, consectetuer adipiscing elit.</p
-      ></li
-      >
-<li
-        ><p>other</p
-      ></li
-      >
-</ul
-  >
+Error: #<NoMethodError: private method `write_children' called for <div> ... </>:REXML::Element>

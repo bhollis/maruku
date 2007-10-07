@@ -28,8 +28,6 @@ h&h\\
 \hline 
  c1&c2\\
 \end{tabular}
-
-
 *** Output of to_md ***
 hh c1c2
 *** Output of to_s ***
@@ -51,9 +49,4 @@ hh c1c2
 <p>{:t: scope="row"}</p>
 
 *** Output of Markdown.pl (parsed) ***
-<p>h | h
-----------|--
-{:t} c1 | c2
-{: summary="Table summary" .class1 style="color:red" border=3 width="50%" frame=lhs rules=cols cellspacing=2em cellpadding=4px}</p
-    ><p>{:t: scope="row"}</p
-  >
+Error: #<NoMethodError: private method `write_children' called for <div> ... </>:REXML::Element>

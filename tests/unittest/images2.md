@@ -16,23 +16,17 @@ md_el(:document,[
 	md_ref_def("image", "image.jpg", {:title=>nil})
 ],{},[])
 *** Output of to_html ***
-
 <p>This is an <img src='image.jpg' alt='image' />.</p>
 
 <p>This is an <img src='image.jpg' alt='image' />.</p>
-
 *** Output of to_latex ***
 This is an .
 
 This is an .
-
-
 *** Output of to_md ***
 This is an image.
 
 This is an image.
-
-
 *** Output of to_s ***
 This is an image.This is an image.
 *** EOF ***
@@ -49,7 +43,4 @@ This is an image.This is an image.
 <p>This is an ![image].</p>
 
 *** Output of Markdown.pl (parsed) ***
-<p>This is an <img src='image.jpg' alt='image'
-      />.</p
-    ><p>This is an ![image].</p
-  >
+Error: #<NoMethodError: private method `write_children' called for <div> ... </>:REXML::Element>

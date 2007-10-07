@@ -10,23 +10,17 @@ This is not $math$.
 *** Output of inspect ***
 md_el(:document,[md_par(["This is not $math$."]), md_par(["[ \\alpha ]"])],{},[])
 *** Output of to_html ***
-
 <p>This is not $math$.</p>
 
 <p>[ \alpha ]</p>
-
 *** Output of to_latex ***
 This is not \$math\$.
 
 [ $\backslash$alpha ]
-
-
 *** Output of to_md ***
 This is not $math$.
 
 [ \alpha ]
-
-
 *** Output of to_s ***
 This is not $math$.[ \alpha ]
 *** EOF ***
@@ -43,6 +37,4 @@ This is not $math$.[ \alpha ]
 <p>[ \alpha ]</p>
 
 *** Output of Markdown.pl (parsed) ***
-<p>This is not $math$.</p
-    ><p>[ \alpha ]</p
-  >
+Error: #<NoMethodError: private method `write_children' called for <div> ... </>:REXML::Element>

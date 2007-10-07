@@ -51,18 +51,4 @@ width="600px" height="400px">
 </svg:svg></p>
 
 *** Output of Markdown.pl (parsed) ***
-<p
-      ><svg:svg
-      /></p
-    ><p
-      ><svg:svg height='400px' width='600px'>
- <svg:g id='group'>
- <svg:circle cy='3cm' id='circ1' r='1cm' cx='3cm' style='fill:red;'
-          />
- <svg:circle cy='3cm' id='circ2' r='1cm' cx='7cm' style='fill:red;'
-          />
- </svg:g
-        >
-</svg:svg
-    ></p
-  >
+Error: #<NoMethodError: private method `write_children' called for <div> ... </>:REXML::Element>

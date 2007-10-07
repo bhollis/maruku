@@ -19,12 +19,22 @@ HTML use syntax: true
 		[a. b]: http://site.com/
 *	Fix bug about double-encoding of ampersands in code blocks.
 *	Changes to S5 by Jacques.
+*	Changes to `to_latex.rb` by Jacques.
 
 [A]: http://golem.ph.utexas.edu/~distler/code/instiki/svn/vendor/plugins/maruku/lib/maruku/output/to_html.rb
 
 [B]: http://golem.ph.utexas.edu/~distler/code/instiki/svn/vendor/plugins/maruku/lib/maruku/output/s5/to_s5.rb
 
 #### Changes in the development version (**not yet released**)  ####     {#last}
+
+...
+
+#### Changes in 0.5.7  ####     {#stable}
+
+*	Fixed compatibility bug with newest Ruby 1.8.6 patchlevel 110. 
+	Update if you find this error:
+	
+		NameError: undefined method `write_children' for class `REXML::Element'
 
 *	Bug fixes:
 
@@ -38,7 +48,7 @@ HTML use syntax: true
 		
 		was not correctly interpreted (it was mistaken as a link definition).
 
-#### Changes in 0.5.6  ####     {#stable}
+#### Changes in 0.5.6  ####    
 
 *	News:
 

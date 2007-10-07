@@ -10,13 +10,11 @@ md_el(:document,[
 	md_el(:quote,[md_par(["Code"]), md_el(:code,[],{:raw_code=>"Ciao"},[])],{},[])
 ],{},[])
 *** Output of to_html ***
-
 <blockquote>
 <p>Code</p>
 
 <pre><code>Ciao</code></pre>
 </blockquote>
-
 *** Output of to_latex ***
 \begin{quote}%
 Code
@@ -24,11 +22,8 @@ Code
 \begin{verbatim}Ciao\end{verbatim}
 
 \end{quote}
-
 *** Output of to_md ***
 Code
-
-
 *** Output of to_s ***
 Code
 *** EOF ***
@@ -48,13 +43,4 @@ Code
 </blockquote>
 
 *** Output of Markdown.pl (parsed) ***
-<blockquote>
- <p>Code</p
-      >
-<pre
-        ><code>Ciao
-</code
-      ></pre
-      >
-</blockquote
-  >
+Error: #<NoMethodError: private method `write_children' called for <div> ... </>:REXML::Element>

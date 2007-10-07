@@ -30,7 +30,6 @@ md_el(:document,[
 	],{},[])
 ],{},[])
 *** Output of to_html ***
-
 <dl>
 <dt>Apple</dt>
 
@@ -40,7 +39,6 @@ md_el(:document,[
 
 <dd>The fruit of an evergreen tree of the genus Citrus.</dd>
 </dl>
-
 *** Output of to_latex ***
 \begin{description}
 
@@ -48,7 +46,6 @@ md_el(:document,[
 
 \item[Orange] The fruit of an evergreen tree of the genus Citrus. 
 \end{description}
-
 *** Output of to_md ***
 ApplePomaceous fruit of plants of the genus Malus in the family Rosaceae.OrangeThe fruit of an evergreen tree of the genus Citrus.
 *** Output of to_s ***
@@ -72,10 +69,4 @@ ApplePomaceous fruit of plants of the genus Malus in the family Rosaceae.OrangeT
 :   The fruit of an evergreen tree of the genus Citrus.</p>
 
 *** Output of Markdown.pl (parsed) ***
-<p>CSS: style.css</p
-    ><p>Apple
-: Pomaceous fruit of plants of the genus Malus in 
- the family Rosaceae.</p
-    ><p>Orange
-: The fruit of an evergreen tree of the genus Citrus.</p
-  >
+Error: #<NoMethodError: private method `write_children' called for <div> ... </>:REXML::Element>

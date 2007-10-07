@@ -22,7 +22,6 @@ md_el(:document,[
 	],{},[])
 ],{},[])
 *** Output of to_html ***
-
 <ul>
 <li>
 <p>Due</p>
@@ -40,7 +39,6 @@ md_el(:document,[
 <p>Due</p>
 </li>
 </ul>
-
 *** Output of to_latex ***
 \begin{itemize}%
 \item Due
@@ -57,14 +55,11 @@ md_el(:document,[
 
 
 \end{itemize}
-
 *** Output of to_md ***
 -ue* tre
 * tre
 * tre
 -ue
-
-
 *** Output of to_s ***
 DuetretretreDue
 *** EOF ***
@@ -87,19 +82,4 @@ DuetretretreDue
 </ul>
 
 *** Output of Markdown.pl (parsed) ***
-<ul>
-<li>Due
-<ol>
-<li>tre</li
-          >
-<li>tre</li
-          >
-<li>tre</li
-          >
-</ol
-      ></li
-      >
-<li>Due</li
-      >
-</ul
-  >
+Error: #<NoMethodError: private method `write_children' called for <div> ... </>:REXML::Element>

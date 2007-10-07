@@ -52,7 +52,6 @@ md_el(:document,[
 	md_ref_def("css2", "http://jigsaw.w3.org/css-validator/images/vcss", {:title=>"Optional title attribute"})
 ],{},[])
 *** Output of to_html ***
-
 <p>This page does not uilizes <img src='http://jigsaw.w3.org/css-validator/images/vcss' alt='Cascading Style Sheets' /></p>
 
 <p>Please mouseover to see the title: <img src='http://jigsaw.w3.org/css-validator/images/vcss' alt='Cascading Style Sheets' /></p>
@@ -62,7 +61,6 @@ md_el(:document,[
 <p>I&#8217;ll say it one more time: this page does not use <img src='http://jigsaw.w3.org/css-validator/images/vcss' alt='Cascading Style Sheets' /></p>
 
 <p>This is double size: <img src='http://jigsaw.w3.org/css-validator/images/vcss' alt='Cascading Style Sheets' /></p>
-
 *** Output of to_latex ***
 This page does not uilizes 
 
@@ -72,9 +70,7 @@ Please mouseover to see the title:
 
 I'{}ll say it one more time: this page does not use 
 
-This is double size: 
-
-
+This is double size:
 *** Output of to_md ***
 This page does not uilizes
 Cascading Style Sheets
@@ -90,8 +86,6 @@ does not use Cascading Style Sheets
 
 This is double size:
 Cascading Style Sheets
-
-
 *** Output of to_s ***
 This page does not uilizes Cascading Style SheetsPlease mouseover to see the title: Cascading Style SheetsPlease mouseover to see the title: Cascading Style SheetsIll say it one more time: this page does not use Cascading Style SheetsThis is double size: Cascading Style Sheets
 *** EOF ***
@@ -117,15 +111,4 @@ This page does not uilizes Cascading Style SheetsPlease mouseover to see the tit
    style="border:0;width:188px;height:131px"</p>
 
 *** Output of Markdown.pl (parsed) ***
-<p>This page does not uilizes <img title='' src='http://jigsaw.w3.org/css-validator/images/vcss' alt='Cascading Style Sheets'
-      /></p
-    ><p>Please mouseover to see the title: <img title='Title ok!' src='http://jigsaw.w3.org/css-validator/images/vcss' alt='Cascading Style Sheets'
-      /></p
-    ><p>Please mouseover to see the title: <img title='Title ok!' src='http://jigsaw.w3.org/css-validator/images/vcss' alt='Cascading Style Sheets'
-      /></p
-    ><p>I'll say it one more time: this page does not use <img title='Optional title attribute' src='http://jigsaw.w3.org/css-validator/images/vcss' alt='Cascading Style Sheets'
-      /></p
-    ><p>This is double size: ![Cascading Style Sheets] [css2]</p
-    ><p>[css2]: http://jigsaw.w3.org/css-validator/images/vcss "Optional title attribute" class=external
- style="border:0;width:188px;height:131px"</p
-  >
+Error: #<NoMethodError: private method `write_children' called for <div> ... </>:REXML::Element>

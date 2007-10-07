@@ -23,7 +23,6 @@ md_el(:document,[
 	md_el(:code,[],{:raw_code=>"puts Maruku.new($stdin).to_html"},[])
 ],{},[])
 *** Output of to_html ***
-
 <p>This is ruby code:</p>
 
 <pre><code>require &#39;maruku&#39;
@@ -35,7 +34,6 @@ puts Maruku.new($stdin).to_html</code></pre>
 <pre><code class='ruby' lang='ruby'><span class='ident'>require</span> <span class='punct'>&#39;</span><span class='string'>maruku</span><span class='punct'>&#39;</span></code></pre>
 
 <pre><code>puts Maruku.new($stdin).to_html</code></pre>
-
 *** Output of to_latex ***
 This is ruby code:
 
@@ -46,13 +44,10 @@ This is ruby code:
 
 \begin{verbatim}require 'maruku'\end{verbatim}
 \begin{verbatim}puts Maruku.new($stdin).to_html\end{verbatim}
-
 *** Output of to_md ***
 This is ruby code:
 
 This is ruby code:
-
-
 *** Output of to_s ***
 This is ruby code:This is ruby code:
 *** EOF ***
@@ -82,22 +77,4 @@ puts Maruku.new($stdin).to_html
 </code></pre>
 
 *** Output of Markdown.pl (parsed) ***
-<p>This is ruby code:</p
-    ><pre
-      ><code>require 'maruku'
-
-puts Maruku.new($stdin).to_html
-</code
-    ></pre
-    ><p>This is ruby code:</p
-    ><pre
-      ><code>require 'maruku'
-</code
-    ></pre
-    ><p>{: lang=ruby html<em>use</em
-      >syntax}</p
-    ><pre
-      ><code>puts Maruku.new($stdin).to_html
-</code
-    ></pre
-  >
+Error: #<NoMethodError: private method `write_children' called for <div> ... </>:REXML::Element>

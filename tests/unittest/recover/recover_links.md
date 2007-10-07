@@ -6,13 +6,9 @@ Search on [Google images][ 	GoOgle search ]
 *** Output of inspect ***
 md_el(:document,[md_par(["Search on Google imagesGoOgle search ]"])],{},[])
 *** Output of to_html ***
-
 <p>Search on Google imagesGoOgle search ]</p>
-
 *** Output of to_latex ***
 Search on Google imagesGoOgle search ]
-
-
 *** Output of to_md ***
 Search on Google imagesGoOgle search ]
 *** Output of to_s ***
@@ -29,5 +25,4 @@ Search on Google imagesGoOgle search ]
 <p>Search on [Google images][  GoOgle search ]</p>
 
 *** Output of Markdown.pl (parsed) ***
-<p>Search on [Google images][ GoOgle search ]</p
-  >
+Error: #<NoMethodError: private method `write_children' called for <div> ... </>:REXML::Element>

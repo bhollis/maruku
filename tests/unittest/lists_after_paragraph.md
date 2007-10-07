@@ -90,7 +90,6 @@ md_el(:document,[
 	])
 ],{},[])
 *** Output of to_html ***
-
 <p>Paragraph, list with no space: * ciao</p>
 
 <p>Paragraph, list with 1 space: * ciao</p>
@@ -128,7 +127,6 @@ md_el(:document,[
 <p>Paragraph with html after, indented: <em>Emphasis</em> <em>tralla</em> <em>Emph</em></p>
 
 <p>Paragraph with html after, indented: <em>Emphasis *tralla* Emph</em></p>
-
 *** Output of to_latex ***
 Paragraph, list with no space: * ciao
 
@@ -167,9 +165,7 @@ Paragraph with html after, indented:
 
 Paragraph with html after, indented:  \emph{tralla} 
 
-Paragraph with html after, indented: 
-
-
+Paragraph with html after, indented:
 *** Output of to_md ***
 Paragraph, list with no space: * ciao
 
@@ -208,10 +204,8 @@ Paragraph with html after, indented:
 tralla
 
 Paragraph with html after, indented:
-
-
 *** Output of to_s ***
-Paragraph, list with no space: * ciaoParagraph, list with 1 space: * ciaoParagraph, list with 3 space: * ciaoParagraph, list with 4 spaces: * ciaoParagraph, list with 1 tab: * ciaoParagraph (1 space after), list with no space: * ciaoParagraph (2 spaces after), list with no space:* ciaoParagraph (3 spaces after), list with no space: * ciaoParagraph with block quote:QuotedParagraph with header:headerParagraph with header on two lines:headerParagraph with html after Paragraph with html after, indented: Paragraph with html after, indented:  tralla Paragraph with html after, indented: 
+Paragraph, list with no space: * ciaoParagraph, list with 1 space: * ciaoParagraph, list with 3 space: * ciaoParagraph, list with 4 spaces: * ciaoParagraph, list with 1 tab: * ciaoParagraph (1 space after), list with no space: * ciaoParagraph (2 spaces after), list with no space:* ciaoParagraph (3 spaces after), list with no space: * ciaoParagraph with block quote:QuotedParagraph with header:headerParagraph with header on two lines:headerParagraph with html after Paragraph with html after, indented: Paragraph with html after, indented:  tralla Paragraph with html after, indented:
 *** EOF ***
 
 
@@ -271,43 +265,4 @@ Paragraph, list with no space: * ciaoParagraph, list with 1 space: * ciaoParagra
 <p>Paragraph with html after, indented: <em>Emphasis <em>tralla</em> Emph</em></p>
 
 *** Output of Markdown.pl (parsed) ***
-<p>Paragraph, list with no space:
-* ciao</p
-    ><p>Paragraph, list with 1 space:
- * ciao</p
-    ><p>Paragraph, list with 3 space:
- * ciao</p
-    ><p>Paragraph, list with 4 spaces:
- * ciao</p
-    ><p>Paragraph, list with 1 tab:
- * ciao</p
-    ><p>Paragraph (1 space after), list with no space: 
-* ciao</p
-    ><p>Paragraph (2 spaces after), list with no space: <br
-      />
-* ciao</p
-    ><p>Paragraph (3 spaces after), list with no space: <br
-      />
-* ciao</p
-    ><p>Paragraph with block quote:</p
-    ><blockquote>
- <p>Quoted</p
-      >
-</blockquote
-    ><p>Paragraph with header:</p
-    ><h3>header</h3
-    ><p>Paragraph with header on two lines:</p
-    ><h2>header</h2
-    ><p>Paragraph with html after</p
-    ><div
-    /><p>Paragraph with html after, indented:
- <em>Emphasis</em
-    ></p
-    ><p>Paragraph with html after, indented: <em>Emphasis</em
-      ><em>tralla</em
-      ><em>Emph</em
-    ></p
-    ><p>Paragraph with html after, indented: <em>Emphasis <em>tralla</em
-        > Emph</em
-    ></p
-  >
+Error: #<NoMethodError: private method `write_children' called for <div> ... </>:REXML::Element>

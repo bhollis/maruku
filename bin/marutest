@@ -147,6 +147,8 @@ def run_test(filename, its_ok, verbose=true)
 
 
 	TOTEST.each do |x|
+		expected[x].strip!
+		actual[x].strip!
 		if not equals(expected[x], actual[x])
 			if its_ok.include? x
 				expected[x] = actual[x]

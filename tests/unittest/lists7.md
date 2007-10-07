@@ -12,13 +12,11 @@ Ciao
 *** Output of inspect ***
 nil
 *** Output of to_html ***
-
 <p>Ciao</p>
 
 <ul>
 <li>Tab * Tab * Tab</li>
 </ul>
-
 *** Output of to_latex ***
 Ciao
 
@@ -26,13 +24,10 @@ Ciao
 \item Tab * Tab * Tab
 
 \end{itemize}
-
 *** Output of to_md ***
 Ciao
 
 -ab * Tab * Tab
-
-
 *** Output of to_s ***
 CiaoTab * Tab * Tab
 *** EOF ***
@@ -49,13 +44,11 @@ md_el(:document,[
 	md_el(:ul,[md_el(:li_span,["Tab * Tab * Tab"],{:want_my_paragraph=>false},[])],{},[])
 ],{},[])
 *** Output of to_html ***
-
 <p>Ciao</p>
 
 <ul>
 <li>Tab * Tab * Tab</li>
 </ul>
-
 *** Output of to_latex ***
 Ciao
 
@@ -63,13 +56,10 @@ Ciao
 \item Tab * Tab * Tab
 
 \end{itemize}
-
 *** Output of to_md ***
 Ciao
 
 -ab * Tab * Tab
-
-
 *** Output of to_s ***
 CiaoTab * Tab * Tab
 *** Output of Markdown.pl ***
@@ -86,19 +76,4 @@ CiaoTab * Tab * Tab
 </ul>
 
 *** Output of Markdown.pl (parsed) ***
-<p>Ciao</p
-    ><ul>
-<li>Tab
-<ul>
-<li>Tab
-<ul>
-<li>Tab</li
-              >
-</ul
-          ></li
-          >
-</ul
-      ></li
-      >
-</ul
-  >
+Error: #<NoMethodError: private method `write_children' called for <div> ... </>:REXML::Element>

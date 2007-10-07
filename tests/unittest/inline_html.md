@@ -74,7 +74,6 @@ md_el(:document,[
 	md_html("</table>")
 ],{},[])
 *** Output of to_html ***
-
 <p>Input:</p>
 
 <pre><code>&lt;em&gt;Emphasis&lt;/em&gt;</code></pre>
@@ -157,8 +156,6 @@ Result alone:
 Without closing:
 
 The following is invalid HTML, and will generate an error:
-
-
 *** Output of to_md ***
 Input:
 
@@ -174,8 +171,6 @@ Without closing:
 
 The following is invalid HTML, and will
 generate an error:
-
-
 *** Output of to_s ***
 Input:Result: Input:Result on span: Result alone:Without closing:The following is invalid HTML, and will generate an error:
 *** EOF ***
@@ -243,16 +238,16 @@ Line:
 Position: 
 Last 80 unconsumed characters:
   <div markdown="1">     This is *true* markdown text (paragraph)      <p markdow>
-/Volumes/Alter/Ruby/local/lib/ruby/1.8/rexml/parsers/baseparser.rb:315:in `pull'
-/Volumes/Alter/Ruby/local/lib/ruby/1.8/rexml/parsers/treeparser.rb:21:in `parse'
-/Volumes/Alter/Ruby/local/lib/ruby/1.8/rexml/document.rb:190:in `build'
-/Volumes/Alter/Ruby/local/lib/ruby/1.8/rexml/document.rb:45:in `initialize'
-bin/marutest:197:in `new'
-bin/marutest:197:in `run_test'
-bin/marutest:260:in `marutest'
-bin/marutest:257:in `each'
-bin/marutest:257:in `marutest'
-bin/marutest:332
+/Volumes/Alter/Ruby/local186/lib/ruby/1.8/rexml/parsers/baseparser.rb:320:in `pull'
+/Volumes/Alter/Ruby/local186/lib/ruby/1.8/rexml/parsers/treeparser.rb:21:in `parse'
+/Volumes/Alter/Ruby/local186/lib/ruby/1.8/rexml/document.rb:190:in `build'
+/Volumes/Alter/Ruby/local186/lib/ruby/1.8/rexml/document.rb:45:in `initialize'
+bin/marutest:199:in `new'
+bin/marutest:199:in `run_test'
+bin/marutest:262:in `marutest'
+bin/marutest:259:in `each'
+bin/marutest:259:in `marutest'
+bin/marutest:334
 ...
 Missing end tag for 'img' (got "p")
 Line: 

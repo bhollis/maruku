@@ -21,29 +21,23 @@ md_el(:document,[
 	md_ref_def("google3", "#", {:title=>nil})
 ],{},[])
 *** Output of to_html ***
-
 <p>Paragraph</p>
 
 <p>Paragraph</p>
 
 <p>Paragraph</p>
-
 *** Output of to_latex ***
 Paragraph
 
 Paragraph
 
 Paragraph
-
-
 *** Output of to_md ***
 Paragraph
 
 Paragraph
 
 Paragraph
-
-
 *** Output of to_s ***
 ParagraphParagraphParagraph
 *** EOF ***
@@ -60,7 +54,4 @@ Paragraph
 Paragraph</p>
 
 *** Output of Markdown.pl (parsed) ***
-<p>Paragraph
-Paragraph
-Paragraph</p
-  >
+Error: #<NoMethodError: private method `write_children' called for <div> ... </>:REXML::Element>

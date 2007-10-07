@@ -22,7 +22,6 @@ md_el(:document,[
 	md_par(["$$ x = y $$"])
 ],{},[])
 *** Output of to_html ***
-
 <p>$$ x = y $$</p>
 
 <h1 id='_x'>$$ x</h1>
@@ -30,7 +29,6 @@ md_el(:document,[
 <p>$$ x = y $$</p>
 
 <p>$$ x = y $$</p>
-
 *** Output of to_latex ***
 \$\$ x = y \$\$
 
@@ -39,16 +37,12 @@ md_el(:document,[
 \$\$ x = y \$\$
 
 \$\$ x = y \$\$
-
-
 *** Output of to_md ***
 $$ x = y $$
 
 $$ x$$ x = y $$
 
 $$ x = y $$
-
-
 *** Output of to_s ***
 $$ x = y $$$$ x$$ x = y $$$$ x = y $$
 *** EOF ***
@@ -72,11 +66,4 @@ x = y $$</p>
 $$</p>
 
 *** Output of Markdown.pl (parsed) ***
-<p>$$ x = y $$</p
-    ><p>$$ x 
-= y $$</p
-    ><p>$$ 
-x = y $$</p
-    ><p>$$ x = y 
-$$</p
-  >
+Error: #<NoMethodError: private method `write_children' called for <div> ... </>:REXML::Element>

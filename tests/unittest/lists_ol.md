@@ -98,7 +98,6 @@ md_el(:document,[
 	],{},[])
 ],{},[])
 *** Output of to_html ***
-
 <ol>
 <li>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aliquam hendrerit mi posuere lectus. Vestibulum enim wisi, viverra nec, fringilla in, laoreet vitae, risus.</li>
 
@@ -160,7 +159,6 @@ md_el(:document,[
 <p>Another item in the same list.</p>
 </li>
 </ul>
-
 *** Output of to_latex ***
 \begin{enumerate}%
 \item Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aliquam hendrerit mi posuere lectus. Vestibulum enim wisi, viverra nec, fringilla in, laoreet vitae, risus.
@@ -214,7 +212,6 @@ This is the second paragraph in the list item. You'{}re only required to indent 
 
 
 \end{itemize}
-
 *** Output of to_md ***
 1.  Lorem ipsum dolor sit amet,
     consectetuer adipiscing elit.
@@ -261,8 +258,6 @@ Ancora
 -This is a list item with two paragraphs.
 This is the second paragraph in the list item. Youre only required to indent the first line. Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
 -nother item in the same list.
-
-
 *** Output of to_s ***
 Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aliquam hendrerit mi posuere lectus. Vestibulum enim wisi, viverra nec, fringilla in, laoreet vitae, risus.Donec sit amet nisl. Aliquam semper ipsum sit amet velit. Suspendisse id sem consectetuer libero luctus adipiscing.Donec sit amet nisl. Aliquam semper ipsum sit amet velit. Suspendisse id sem consectetuer libero luctus adipiscing.Donec sit amet nisl. Aliquam semper ipsum sit amet velit. Suspendisse id sem consectetuer libero luctus adipiscing.Donec sit amet nisl. Aliquam semper ipsum sit amet velit. Suspendisse id sem consectetuer libero luctus adipiscing.AncoraThis is a list item with two paragraphs. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aliquam hendrerit mi posuere lectus.ATTENZIONE!UnoDuetretretreDueSuspendisse id sem consectetuer libero luctus adipiscing.AncoraThis is a list item with two paragraphs.This is the second paragraph in the list item. Youre only required to indent the first line. Lorem ipsum dolor sit amet, consectetuer adipiscing elit.Another item in the same list.
 *** EOF ***
@@ -326,76 +321,4 @@ sit amet, consectetuer adipiscing elit.</p></li>
 </ul>
 
 *** Output of Markdown.pl (parsed) ***
-<ol>
-<li>Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
-Aliquam hendrerit mi posuere lectus. Vestibulum enim wisi,
-viverra nec, fringilla in, laoreet vitae, risus.
-<ol>
-<li>Donec sit amet nisl. Aliquam semper ipsum sit amet velit.
-Suspendisse id sem consectetuer libero luctus adipiscing.</li
-          >
-</ol
-      ></li
-      >
-<li>Donec sit amet nisl. Aliquam semper ipsum sit amet velit.
-Suspendisse id sem consectetuer libero luctus adipiscing.
-<ol>
-<li>Donec sit amet nisl. Aliquam semper ipsum sit amet velit.
-Suspendisse id sem consectetuer libero luctus adipiscing.</li
-          >
-<li>Donec sit amet nisl. Aliquam semper ipsum sit amet velit.
-Suspendisse id sem consectetuer libero luctus adipiscing.</li
-          >
-</ol
-      ></li
-      >
-</ol
-    ><p>Ancora</p
-    ><ol>
-<li
-        ><p>This is a list item with two paragraphs. Lorem ipsum dolor
-sit amet, consectetuer adipiscing elit. Aliquam hendrerit
-mi posuere lectus.</p
-        >
-<p>ATTENZIONE!</p
-        >
-<ul>
-<li>Uno</li
-          >
-<li>Due
-<ol>
-<li>tre</li
-              >
-<li>tre</li
-              >
-<li>tre</li
-              >
-</ol
-          ></li
-          >
-<li>Due</li
-          >
-</ul
-      ></li
-      >
-<li
-        ><p>Suspendisse id sem consectetuer libero luctus adipiscing.</p
-      ></li
-      >
-</ol
-    ><p>Ancora</p
-    ><ul>
-<li
-        ><p>This is a list item with two paragraphs.</p
-        >
-<p>This is the second paragraph in the list item. You're
-only required to indent the first line. Lorem ipsum dolor
-sit amet, consectetuer adipiscing elit.</p
-      ></li
-      >
-<li
-        ><p>Another item in the same list.</p
-      ></li
-      >
-</ul
-  >
+Error: #<NoMethodError: private method `write_children' called for <div> ... </>:REXML::Element>

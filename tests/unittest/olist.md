@@ -17,7 +17,6 @@ md_el(:document,[
 	],{},[])
 ],{},[])
 *** Output of to_html ***
-
 <p>This is a list:</p>
 
 <ol>
@@ -27,7 +26,6 @@ md_el(:document,[
 
 <li>three</li>
 </ol>
-
 *** Output of to_latex ***
 This is a list:
 
@@ -37,15 +35,12 @@ This is a list:
 \item three
 
 \end{enumerate}
-
 *** Output of to_md ***
 This is a list:
 
 1.  one
 2.  two
 3.  three
-
-
 *** Output of to_s ***
 This is a list:onetwothree
 *** EOF ***
@@ -66,13 +61,4 @@ This is a list:onetwothree
 </ol>
 
 *** Output of Markdown.pl (parsed) ***
-<p>This is a list:</p
-    ><ol>
-<li>one</li
-      >
-<li>two</li
-      >
-<li>three</li
-      >
-</ol
-  >
+Error: #<NoMethodError: private method `write_children' called for <div> ... </>:REXML::Element>

@@ -31,8 +31,6 @@ First Header&Second Header\\
 Content Cell&Content Cell\\
 Content Cell&Content Cell\\
 \end{tabular}
-
-
 *** Output of to_md ***
 First HeaderSecond HeaderContent CellContent CellContent CellContent Cell
 *** Output of to_s ***
@@ -54,9 +52,4 @@ Content Cell  | Content Cell
 Content Cell  | Content Cell</p>
 
 *** Output of Markdown.pl (parsed) ***
-<p>CSS: style.css</p
-    ><p>First Header | Second Header
-------------- | -------------
-Content Cell | Content Cell
-Content Cell | Content Cell</p
-  >
+Error: #<NoMethodError: private method `write_children' called for <div> ... </>:REXML::Element>

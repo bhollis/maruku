@@ -29,7 +29,6 @@ md_el(:document,[
 	],{},[])
 ],{},[])
 *** Output of to_html ***
-
 <p>Lorem ipsum dolor amet. Lorem ipsum dolor amet. Lorem ipsum dolor amet. Lorem ipsum dolor amet. Lorem ipsum dolor amet. Lorem ipsum dolor amet. Lorem ipsum dolor amet. Break:<br />Lorem ipsum dolor amet. Lorem ipsum dolor amet. Lorem ipsum dolor amet. Lorem ipsum dolor amet.</p>
 
 <ul>
@@ -37,7 +36,6 @@ md_el(:document,[
 
 <li>Lorem ipsum dolor amet. Lorem ipsum dolor amet. Lorem ipsum dolor amet. Lorem ipsum dolor amet</li>
 </ul>
-
 *** Output of to_latex ***
 Lorem ipsum dolor amet. Lorem ipsum dolor amet. Lorem ipsum dolor amet. Lorem ipsum dolor amet. Lorem ipsum dolor amet. Lorem ipsum dolor amet. Lorem ipsum dolor amet. Break:\newline Lorem ipsum dolor amet. Lorem ipsum dolor amet. Lorem ipsum dolor amet. Lorem ipsum dolor amet.
 
@@ -46,7 +44,6 @@ Lorem ipsum dolor amet. Lorem ipsum dolor amet. Lorem ipsum dolor amet. Lorem ip
 \item Lorem ipsum dolor amet. Lorem ipsum dolor amet. Lorem ipsum dolor amet. Lorem ipsum dolor amet
 
 \end{itemize}
-
 *** Output of to_md ***
 Lorem ipsum dolor amet. Lorem ipsum
 dolor amet. Lorem ipsum dolor amet.
@@ -66,8 +63,6 @@ dolor amet. Lorem ipsum dolor amet
 -orem ipsum dolor amet. Lorem ipsum
 dolor amet. Lorem ipsum dolor amet.
 Lorem ipsum dolor amet
-
-
 *** Output of to_s ***
 Lorem ipsum dolor amet. Lorem ipsum dolor amet. Lorem ipsum dolor amet. Lorem ipsum dolor amet. Lorem ipsum dolor amet. Lorem ipsum dolor amet. Lorem ipsum dolor amet. Break:Lorem ipsum dolor amet. Lorem ipsum dolor amet. Lorem ipsum dolor amet. Lorem ipsum dolor amet.Lorem ipsum dolor amet. Lorem ipsum dolor amet. Lorem ipsum dolor amet. Lorem ipsum dolor amet Lorem ipsum Break:Lorem ipsum dolor amet. Lorem ipsum dolor amet. Lorem ipsum dolor ametLorem ipsum dolor amet. Lorem ipsum dolor amet. Lorem ipsum dolor amet. Lorem ipsum dolor amet
 *** EOF ***
@@ -90,16 +85,4 @@ Lorem ipsum dolor amet. Lorem ipsum dolor amet. Lorem ipsum dolor amet</li>
 </ul>
 
 *** Output of Markdown.pl (parsed) ***
-<p>Lorem ipsum dolor amet. Lorem ipsum dolor amet. Lorem ipsum dolor amet. Lorem ipsum dolor amet. Lorem ipsum dolor amet. Lorem ipsum dolor amet. Lorem ipsum dolor amet. Break: <br
-      />
-Lorem ipsum dolor amet. Lorem ipsum dolor amet. Lorem ipsum dolor amet. Lorem ipsum dolor amet. </p
-    ><ul>
-<li>Lorem ipsum dolor amet. Lorem ipsum dolor amet. Lorem ipsum dolor amet. Lorem ipsum dolor amet
-Lorem ipsum Break: <br
-        />
-Lorem ipsum dolor amet. Lorem ipsum dolor amet. Lorem ipsum dolor amet</li
-      >
-<li>Lorem ipsum dolor amet. Lorem ipsum dolor amet. Lorem ipsum dolor amet. Lorem ipsum dolor amet</li
-      >
-</ul
-  >
+Error: #<NoMethodError: private method `write_children' called for <div> ... </>:REXML::Element>

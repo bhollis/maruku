@@ -31,6 +31,4 @@ md_el(:document,[
 {:b: a}</p>
 
 *** Output of Markdown.pl (parsed) ***
-<p>{a}: a
-{:b: a}</p
-  >
+Error: #<NoMethodError: private method `write_children' called for <div> ... </>:REXML::Element>

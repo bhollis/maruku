@@ -8,17 +8,11 @@ Write a comment here
 *** Output of inspect ***
 md_el(:document,[md_par([md_im_image(["bar"], "/foo.jpg", nil)])],{},[])
 *** Output of to_html ***
-
 <p><img src='/foo.jpg' alt='bar' /></p>
-
 *** Output of to_latex ***
-
-
 
 *** Output of to_md ***
 bar
-
-
 *** Output of to_s ***
 bar
 *** EOF ***
@@ -33,7 +27,4 @@ bar
 <p><img src="/foo.jpg" alt="bar" title="" /></p>
 
 *** Output of Markdown.pl (parsed) ***
-<p
-      ><img title='' src='/foo.jpg' alt='bar'
-      /></p
-  >
+Error: #<NoMethodError: private method `write_children' called for <div> ... </>:REXML::Element>

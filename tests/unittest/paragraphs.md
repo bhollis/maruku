@@ -24,21 +24,17 @@ md_el(:document,[
 	])
 ],{},[])
 *** Output of to_html ***
-
 <p>Paragraph 1</p>
 
 <p>Paragraph 2</p>
 
 <p>Paragraph 3 Paragraph 4 Paragraph Br-&gt;<br />Paragraph 5</p>
-
 *** Output of to_latex ***
 Paragraph 1
 
 Paragraph 2
 
 Paragraph 3 Paragraph 4 Paragraph Br-{\tt \char62}\newline Paragraph 5
-
-
 *** Output of to_md ***
 Paragraph 1
 
@@ -46,8 +42,6 @@ Paragraph 2
 
 Paragraph 3 Paragraph 4 Paragraph Br->  
 Paragraph 5
-
-
 *** Output of to_s ***
 Paragraph 1Paragraph 2Paragraph 3 Paragraph 4 Paragraph Br->Paragraph 5
 *** EOF ***
@@ -69,11 +63,4 @@ Paragraph Br-> <br />
 Paragraph 5</p>
 
 *** Output of Markdown.pl (parsed) ***
-<p>Paragraph 1</p
-    ><p>Paragraph 2</p
-    ><p>Paragraph 3
-Paragraph 4
-Paragraph Br-> <br
-      />
-Paragraph 5</p
-  >
+Error: #<NoMethodError: private method `write_children' called for <div> ... </>:REXML::Element>

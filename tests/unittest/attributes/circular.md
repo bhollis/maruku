@@ -17,13 +17,9 @@ md_el(:document,[
 	md_el(:ald,[],{:ald=>[[:ref, "a"]],:ald_id=>"b"},[])
 ],{},[])
 *** Output of to_html ***
-
 <p>Paragraph</p>
-
 *** Output of to_latex ***
 Paragraph
-
-
 *** Output of to_md ***
 Paragraph
 *** Output of to_s ***
@@ -44,8 +40,4 @@ Paragraph
 {:b: a}</p>
 
 *** Output of Markdown.pl (parsed) ***
-<p>Paragraph
-{:a}</p
-    ><p>{:a: b}
-{:b: a}</p
-  >
+Error: #<NoMethodError: private method `write_children' called for <div> ... </>:REXML::Element>

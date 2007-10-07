@@ -27,7 +27,6 @@ md_el(:document,[
 	md_el(:ald,[],{:ald=>[["scope", "row"]],:ald_id=>"t"},[])
 ],{},[])
 *** Output of to_html ***
-
 <p class='class1' style='color:red'>hello</p>
 <table class='class1' summary='Table summary' style='color:red'><thead><tr><th>h</th><th>h</th></tr></thead><tbody><tr><th scope='row' style='text-align: left;'> c1</th><td style='text-align: left;'>c2</td>
 </tr></tbody></table>
@@ -39,8 +38,6 @@ h&h\\
 \hline 
  c1&c2\\
 \end{tabular}
-
-
 *** Output of to_md ***
 hello
 
@@ -67,11 +64,4 @@ hellohh c1c2
 <p>{:t: scope="row"}</p>
 
 *** Output of Markdown.pl (parsed) ***
-<p>hello
-{: summary="Table summary" .class1 style="color:red"}</p
-    ><p>h | h
-----------|--
-{:t} c1 | c2
-{: summary="Table summary" .class1 style="color:red"}</p
-    ><p>{:t: scope="row"}</p
-  >
+Error: #<NoMethodError: private method `write_children' called for <div> ... </>:REXML::Element>

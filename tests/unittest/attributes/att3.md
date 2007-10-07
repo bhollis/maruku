@@ -13,23 +13,17 @@ md_el(:document,[
 	md_par(["Paragraph2"], [[:id, "par2"]])
 ],{},[])
 *** Output of to_html ***
-
 <p id='par1'>Paragraph1</p>
 
 <p id='par2'>Paragraph2</p>
-
 *** Output of to_latex ***
 Paragraph1
 
 Paragraph2
-
-
 *** Output of to_md ***
 Paragraph1
 
 Paragraph2
-
-
 *** Output of to_s ***
 Paragraph1Paragraph2
 *** EOF ***
@@ -48,8 +42,4 @@ Paragraph1Paragraph2
 Paragraph2</p>
 
 *** Output of Markdown.pl (parsed) ***
-<p>Paragraph1
-{:#par1}</p
-    ><p>{:#par2}
-Paragraph2</p
-  >
+Error: #<NoMethodError: private method `write_children' called for <div> ... </>:REXML::Element>

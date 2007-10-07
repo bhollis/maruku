@@ -32,7 +32,6 @@ md_el(:document,[
 	md_par(["End of ", md_code("paragraph ")])
 ],{},[])
 *** Output of to_html ***
-
 <p>Hello: ! ! ` { } [ ] ( ) # . ! * * *</p>
 
 <p>Ora, <em>emphasis</em>, <strong>bold</strong>, * &lt;- due asterischi-&gt; * , un underscore-&gt; _ , <em>emphasis</em>, incre<em>dible</em>e!</p>
@@ -42,7 +41,6 @@ md_el(:document,[
 <p><code>Start </code> of paragraph</p>
 
 <p>End of <code>paragraph </code></p>
-
 *** Output of to_latex ***
 Hello: ! ! ` \{ \} [ ] ( ) \# . ! * * *
 
@@ -53,8 +51,6 @@ This is {\colorbox[rgb]{1.00,0.93,1.00}{\tt Code~with~a~special\char58~\char45\c
 {\colorbox[rgb]{1.00,0.93,1.00}{\tt Start~}} of paragraph
 
 End of {\colorbox[rgb]{1.00,0.93,1.00}{\tt paragraph~}}
-
-
 *** Output of to_md ***
 Hello: ! ! ` { } [ ] ( ) # . ! * * *
 
@@ -67,10 +63,8 @@ This is (after)
 of paragraph
 
 End of
-
-
 *** Output of to_s ***
-Hello: ! ! ` { } [ ] ( ) # . ! * * *Ora, emphasis, bold, * <- due asterischi-> * , un underscore-> _ , emphasis, incrediblee!This is (after) of paragraphEnd of 
+Hello: ! ! ` { } [ ] ( ) # . ! * * *Ora, emphasis, bold, * <- due asterischi-> * , un underscore-> _ , emphasis, incrediblee!This is (after) of paragraphEnd of
 *** EOF ***
 
 
@@ -92,18 +86,4 @@ Hello: ! ! ` { } [ ] ( ) # . ! * * *Ora, emphasis, bold, * <- due asterischi-> *
 <p>End of <code>paragraph</code></p>
 
 *** Output of Markdown.pl (parsed) ***
-<p>Hello: ! ! ` { } [ ] ( ) # . ! * * *</p
-    ><p>Ora, <em>emphasis</em
-      >, <strong>bold</strong
-      >, * &lt;- due asterischi-> * , un underscore-> _ , <em>emphasis</em
-      >,
- incre<em>dible</em
-      >e!</p
-    ><p>This is <code>Code with a special: -&gt; ` &lt;-</code
-      >(after)</p
-    ><p
-      ><code>Start</code
-      > of paragraph</p
-    ><p>End of <code>paragraph</code
-    ></p
-  >
+Error: #<NoMethodError: private method `write_children' called for <div> ... </>:REXML::Element>

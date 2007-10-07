@@ -68,7 +68,6 @@ md_el(:document,[
 	],{},[])
 ],{},[])
 *** Output of to_html ***
-
 <pre><code>&#39;Twas a &quot;test&quot; to &#39;remember&#39; in the &#39;90s.</code></pre>
 
 <p>&#8216;Twas a &#8220;test&#8221; to &#8216;remember&#8217; in the &#8217;90s.</p>
@@ -86,7 +85,6 @@ md_el(:document,[
 <blockquote>
 <p>She was 6&#34;12&#39;.</p>
 </blockquote>
-
 *** Output of to_latex ***
 \begin{verbatim}'Twas a "test" to 'remember' in the '90s.\end{verbatim}
 `{}Twas a ``{}test''{} to `{}remember'{} in the '{}90s.
@@ -103,7 +101,6 @@ She was 6"{}12'{}.
 
 
 \end{quote}
-
 *** Output of to_md ***
 Twas a test to remember in the 90s.
 
@@ -113,8 +110,6 @@ I too met some curly quotes there or
 here No space.
 
 She was 6 12 .
-
-
 *** Output of to_s ***
 Twas a test to remember in the 90s.It was  in a sense  really interesting.I  too  met some curly quotes there or hereNo space.She was 612.
 *** EOF ***
@@ -154,16 +149,16 @@ Line:
 Position: 
 Last 80 unconsumed characters:
   <pre><code>She was 6\"12\'. </code></pre>  <blockquote>   <p>She was 6\"12\'.</>
-/Volumes/Alter/Ruby/local/lib/ruby/1.8/rexml/parsers/baseparser.rb:315:in `pull'
-/Volumes/Alter/Ruby/local/lib/ruby/1.8/rexml/parsers/treeparser.rb:21:in `parse'
-/Volumes/Alter/Ruby/local/lib/ruby/1.8/rexml/document.rb:190:in `build'
-/Volumes/Alter/Ruby/local/lib/ruby/1.8/rexml/document.rb:45:in `initialize'
-bin/marutest:197:in `new'
-bin/marutest:197:in `run_test'
-bin/marutest:260:in `marutest'
-bin/marutest:257:in `each'
-bin/marutest:257:in `marutest'
-bin/marutest:332
+/Volumes/Alter/Ruby/local186/lib/ruby/1.8/rexml/parsers/baseparser.rb:320:in `pull'
+/Volumes/Alter/Ruby/local186/lib/ruby/1.8/rexml/parsers/treeparser.rb:21:in `parse'
+/Volumes/Alter/Ruby/local186/lib/ruby/1.8/rexml/document.rb:190:in `build'
+/Volumes/Alter/Ruby/local186/lib/ruby/1.8/rexml/document.rb:45:in `initialize'
+bin/marutest:199:in `new'
+bin/marutest:199:in `run_test'
+bin/marutest:262:in `marutest'
+bin/marutest:259:in `each'
+bin/marutest:259:in `marutest'
+bin/marutest:334
 ...
 Missing end tag for 'here' (got "p")
 Line: 

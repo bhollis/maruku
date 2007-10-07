@@ -17,7 +17,6 @@ md_el(:document,[
 	],{},[])
 ],{},[])
 *** Output of to_html ***
-
 <ul>
 <li>
 <p>A list item with a blockquote:</p>
@@ -27,7 +26,6 @@ md_el(:document,[
 </blockquote>
 </li>
 </ul>
-
 *** Output of to_latex ***
 \begin{itemize}%
 \item A list item with a blockquote:
@@ -40,13 +38,10 @@ This is a blockquote inside a list item.
 
 
 \end{itemize}
-
 *** Output of to_md ***
 - list item with a blockquote:
 This is a blockquote inside a list
 item.
-
-
 *** Output of to_s ***
 A list item with a blockquote:This is a blockquote inside a list item.
 *** EOF ***
@@ -68,16 +63,4 @@ A list item with a blockquote:This is a blockquote inside a list item.
 </ul>
 
 *** Output of Markdown.pl (parsed) ***
-<ul>
-<li
-        ><p>A list item with a blockquote:</p
-        >
-<blockquote>
- <p>This is a blockquote
- inside a list item.</p
-          >
-</blockquote
-      ></li
-      >
-</ul
-  >
+Error: #<NoMethodError: private method `write_children' called for <div> ... </>:REXML::Element>

@@ -9,13 +9,9 @@ Japanese: マルク
 *** Output of inspect ***
 md_el(:document,[md_par(["Japanese: \343\203\236\343\203\253\343\202\257"])],{},[])
 *** Output of to_html ***
-
 <p>Japanese: マルク</p>
-
 *** Output of to_latex ***
 Japanese: マルク
-
-
 *** Output of to_md ***
 Japanese: マルク
 *** Output of to_s ***
@@ -34,6 +30,4 @@ Japanese: マルク
 <p>Japanese: マルク</p>
 
 *** Output of Markdown.pl (parsed) ***
-<p>Italian: àèìòù.</p
-    ><p>Japanese: マルク</p
-  >
+Error: #<NoMethodError: private method `write_children' called for <div> ... </>:REXML::Element>

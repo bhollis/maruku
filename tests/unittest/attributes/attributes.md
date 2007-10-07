@@ -30,7 +30,6 @@ md_el(:document,[
 	md_el(:ald,[],{:ald=>[[:class, "chello"]],:ald_id=>"hello"},[])
 ],{},[])
 *** Output of to_html ***
-
 <h2 id='header1'>Header with attributes</h2>
 
 <h3 id='header2'>Header with attributes</h3>
@@ -40,7 +39,6 @@ md_el(:document,[
 <p id='par1'>Paragraph with a.</p>
 
 <p id='par2'>Paragraph with <em class='chello'>emphasis</em></p>
-
 *** Output of to_latex ***
 \hypertarget{header1}{}\subsection*{{Header with attributes}}\label{header1}
 
@@ -51,14 +49,10 @@ md_el(:document,[
 Paragraph with a.
 
 Paragraph with \emph{emphasis}
-
-
 *** Output of to_md ***
 Header with attributesHeader with attributesHeader no attributesParagraph with a.
 
 Paragraph with emphasis
-
-
 *** Output of to_s ***
 Header with attributesHeader with attributesHeader no attributesParagraph with a.Paragraph with emphasis
 *** EOF ***
@@ -85,13 +79,4 @@ Header with attributesHeader with attributesHeader no attributesParagraph with a
 <p>{:hello: .chello}</p>
 
 *** Output of Markdown.pl (parsed) ***
-<h2>Header with attributes {#header1} </h2
-    ><h3>Header with attributes ### {#header2}</h3
-    ><h3>Header no attributes</h3
-    ><p>{:warn2}Paragraph with a.
-{#par1}</p
-    ><p>Paragraph with <em>emphasis</em
-      >{:hello notfound}
- {#par2}</p
-    ><p>{:hello: .chello}</p
-  >
+Error: #<NoMethodError: private method `write_children' called for <div> ... </>:REXML::Element>

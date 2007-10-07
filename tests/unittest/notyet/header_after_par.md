@@ -23,7 +23,6 @@ md_el(:document,[
 	md_el(:header,["header"],{:level=>1},[])
 ],{},[])
 *** Output of to_html ***
-
 <p>Paragraph</p>
 
 <h3 id='header'>header</h3>
@@ -35,7 +34,6 @@ md_el(:document,[
 <p>Paragraph</p>
 
 <h1 id='header'>header</h1>
-
 *** Output of to_latex ***
 Paragraph
 
@@ -48,8 +46,6 @@ Paragraph
 Paragraph
 
 \hypertarget{header}{}\section*{{header}}\label{header}
-
-
 *** Output of to_md ***
 Paragraph
 
@@ -82,10 +78,4 @@ ParagraphheaderParagraphheaderParagraphheader
 <h1>header</h1>
 
 *** Output of Markdown.pl (parsed) ***
-<p>Paragraph</p
-    ><h3>header</h3
-    ><p>Paragraph</p
-    ><h2>header</h2
-    ><p>Paragraph</p
-    ><h1>header</h1
-  >
+Error: #<NoMethodError: private method `write_children' called for <div> ... </>:REXML::Element>

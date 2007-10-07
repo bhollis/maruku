@@ -54,7 +54,6 @@ md_el(:document,[
 	md_par(["This is not a footnote."])
 ],{},[])
 *** Output of to_html ***
-
 <p>That&#8217;s some text with a footnote <sup id='fnref:1'><a href='#fn:1' rel='footnote'>1</a></sup> and another <sup id='fnref:2'><a href='#fn:2' rel='footnote'>2</a></sup> and another <sup id='fnref:3'><a href='#fn:3' rel='footnote'>3</a></sup>.</p>
 
 <p>This is not a footnote.</p>
@@ -77,8 +76,6 @@ That'{}s the second paragraph.}  and another \footnote{And that'{}s the footnote
 That'{}s the second paragraph of the footnote.} .
 
 This is not a footnote.
-
-
 *** Output of to_md ***
 That s some text with a footnote and
 another and another .
@@ -96,8 +93,6 @@ This is the very long one.
 That s the second paragraph.
 
 This is not a footnote.
-
-
 *** Output of to_s ***
 Thats some text with a footnote  and another  and another .And thats the footnote.Thats the second paragraph of the footnote.And thats the footnote. This is second sentence (same paragraph).This is the very long one.Thats the second paragraph.This is not a footnote.
 *** EOF ***
@@ -128,19 +123,4 @@ This is second sentence (same paragraph).</p>
 <p>This is not a footnote.</p>
 
 *** Output of Markdown.pl (parsed) ***
-<p>That's some text with a footnote [^b] and another [^c] and another [^a].</p
-    ><p>[^a]: And that's the footnote.</p
-    ><pre
-      ><code>That's the second paragraph of the footnote.
-</code
-    ></pre
-    ><p>[^b]: And that's the footnote.
-This is second sentence (same paragraph).</p
-    ><p>[^c]:
- This is the very long one.</p
-    ><pre
-      ><code>That's the second paragraph.
-</code
-    ></pre
-    ><p>This is not a footnote.</p
-  >
+Error: #<NoMethodError: private method `write_children' called for <div> ... </>:REXML::Element>
