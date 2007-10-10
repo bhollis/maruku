@@ -1,0 +1,13 @@
+---
+page_class: index
+linkAttrs:
+  :link_text: Rails
+inMenu: false
+title: "Embedding Maruku in Rails"
+---
+
+I don't know Rails myself. Here's the result of a google search for `maruku` and `rails`:
+
+<http://mucur.name/posts/switching-to-maruku>
+
+If someone has more information, please let me know.
