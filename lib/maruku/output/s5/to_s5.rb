@@ -2,6 +2,18 @@
 module MaRuKu
 	 
 	class MDDocument
+
+	def s5_theme
+	  html_escape(self.attributes[:slide_theme] || "default")
+	end
+
+	def  html_escape(string)
+	  string.gsub( /&/, "&amp;" ).
+	         gsub( /</, "&lt;" ).
+	         gsub( />/, "&gt;" ).
+	         gsub( /'/, "&#39;" ).
+	         gsub( /"/, "&quot;" )
+	end
 		
 	# Render as an HTML fragment (no head, just the content of BODY). (returns a string)
 	def to_s5(context={})
@@ -42,7 +54,7 @@ module MaRuKu
 		dummy_layout_slide = 
 		"
 		<div class='layout'>
-		<div id='controls'></div>
+		<div id='controls'> </div>
 		<div id='currentSlide'> </div>
 		<div id='header'> #{slide_header}</div>
 		<div id='footer'>

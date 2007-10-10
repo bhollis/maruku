@@ -12,11 +12,15 @@ HTML use syntax: true
 *	[fix this](http://rubyforge.org/tracker/index.php?func=detail&aid=11421&group_id=2795&atid=10738)
 *	[not sure of this](http://rubyforge.org/tracker/index.php?func=detail&aid=11448&group_id=2795&atid=10738), fix would be a quick hack.
 *	Implement templating system for command-line `maruku`.
-*	Put back in the trunk changes made by Jacques distler: [REXML fragments][A] and [S5 tweaks][B].
 *	Confirm bug:
 		[a. b] is a link.
 		
 		[a. b]: http://site.com/
+
+
+#### Changes in the development version (**not yet released**)  ####     {#last}
+
+*	Put back in the trunk changes made by Jacques distler: [REXML fragments][A] and [S5 tweaks][B].
 *	Fix bug about double-encoding of ampersands in code blocks.
 *	Changes to S5 by Jacques.
 *	Changes to `to_latex.rb` by Jacques.
@@ -25,11 +29,7 @@ HTML use syntax: true
 
 [B]: http://golem.ph.utexas.edu/~distler/code/instiki/svn/vendor/plugins/maruku/lib/maruku/output/s5/to_s5.rb
 
-#### Changes in the development version (**not yet released**)  ####     {#last}
-
-...
-
-#### Changes in 0.5.7  ####     {#stable}
+#### Changes in 0.5.7  (October 2007) ####     {#stable}
 
 *	Fixed compatibility bug with newest Ruby 1.8.6 patchlevel 110. 
 	Update if you find this error:
