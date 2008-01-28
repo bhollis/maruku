@@ -4,9 +4,9 @@ linkAttrs:
 title: "Embedding Maruku in Radiant"
 ---
 
-See here for integration with [Radiant]:
+[Bjorn Michelsen] created a [Radiant] extension for Maruku:
 
-<http://blog.brandalism.com/2007/2/24/maruku-filter-for-radiant>
+<http://www.bjornmichelsen.com/projects/radiant/extensions/maruku_filter/>
 
-
+[Bjorn Michelsen]: http://www.bjornmichelsen.com
 [radiant]: http://radiantcms.org/
