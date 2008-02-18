@@ -594,7 +594,7 @@ module MaRuKu; module In; module Markdown; module SpanLevelParser
 				return
 			end
 		else # empty [link]
-			id = children.to_s.downcase.gsub(' ','_')
+			id = sanitize_ref_id(children.to_s) #. downcase.gsub(' ','_')
 			con.push_element md_link(children, id)
 		end
 	end # read link
