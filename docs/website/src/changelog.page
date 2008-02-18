@@ -24,10 +24,13 @@ HTML use syntax: true
 
 #### Changes in the development version (**not yet released**)  ####     {#last}
 
+#### Changes in 0.5.8 (February 2008) ####     {#stable}
+
 *	Fixed bugs:
 	*	Fix bug in which links `<http://..>` at beginning of lines could sometimes be mistaken for HTML.
 	*	Empty cells in table are now allowed.
 	*	Now this is accepted (Maruku did not like the "." inside the link)
+	
 			[a. b] is a link.
 		
 			[a. b]: http://site.com/
@@ -40,7 +43,7 @@ HTML use syntax: true
 
 [B]: http://golem.ph.utexas.edu/~distler/code/instiki/svn/vendor/plugins/maruku/lib/maruku/output/s5/to_s5.rb
 
-#### Changes in 0.5.7  (October 2007) ####     {#stable}
+#### Changes in 0.5.7  (October 2007) ####     
 
 *	Fixed compatibility bug with newest Ruby 1.8.6 patchlevel 110. 
 	Update if you find this error:

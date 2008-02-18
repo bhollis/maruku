@@ -17,7 +17,7 @@ LaTeX preamble: preamble.tex
 
 Maruku is a [Markdown] interpreter written in [Ruby].
 
-> [Last release](changelog.html#stable) is version 0.5.7 -- 2007-10-05.
+> [Last release](changelog.html#stable) is version 0.5.8 -- 2008-02-17.
 {#news}
 
 ![data flow](diagram.png){#dataflow}
@@ -43,14 +43,14 @@ How about [a donation to Wikipedia][wiki]? (and please, if you do donate, let me
 
 Use the [tracker][tracker] or [drop me an email][contact].
 
-[contact]: http://www.dis.uniroma1.it/~acensi/contact.html
+[contact]: http://www.cds.caltech.edu/~andrea/contact.html
 [gem]: http://rubygems.rubyforge.org/
 [tracker]: http://rubyforge.org/tracker/?group_id=2795
 
 
 [romaji]: http://en.wikipedia.org/wiki/Romaji
 [katakana]: http://en.wikipedia.org/wiki/Katakana
-[andrea censi]: http://www.dis.uniroma1.it/~acensi/
+[andrea censi]: http://www.cds.caltech.edu/~andrea/
 [ruby]: http://www.ruby-lang.org/
 [maruku]: http://maruku.rubyforge.org/
 [Markdown]: http://en.wikipedia.org/wiki/Markdown
