@@ -25,10 +25,11 @@ HTML use syntax: true
 		[a. b] is a link.
 		
 		[a. b]: http://site.com/
-
+*	Fix bug in which links `<..>` can sometimes be mistaken for HTML.
 
 #### Changes in the development version (**not yet released**)  ####     {#last}
 
+* Fixed bugs: empty cells in table now is allowed
 *	Put back in the trunk changes made by Jacques distler: [REXML fragments][A] and [S5 tweaks][B].
 *	Fix bug about double-encoding of ampersands in code blocks.
 *	Changes to S5 by Jacques.
