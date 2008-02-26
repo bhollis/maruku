@@ -1,7 +1,7 @@
 
 PAGES = \
 	src/maruku.page \
-	src/changelog.page \
+#	src/changelog.page \
 	src/proposal.page \
 	src/download.page
 	
