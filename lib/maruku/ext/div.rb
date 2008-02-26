@@ -72,9 +72,7 @@ MaRuKu::In::Markdown::register_block_extension(
 		cs = MaRuKu::In::Markdown::SpanLevelParser::CharSource
 		al = al_string &&
 			doc.read_attribute_list(cs.new(inside), its_context=nil, break_on=[nil])
-			
-		puts al.inspect
-	end
+		end
 		
 		src = MaRuKu::In::Markdown::BlockLevelParser::LineSource.new(lines)
 		children = doc.parse_blocks(src)
