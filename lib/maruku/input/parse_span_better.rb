@@ -647,14 +647,19 @@ module MaRuKu; module In; module Markdown; module SpanLevelParser
 			con.push_element md_im_image(alt_text, url, title)
 		when ?[ # link ref
 			ref_id = read_ref_id(src,con)
-			if ref_id.size == 0
-				ref_id =  alt_text.to_s.downcase.gsub(' ','_')
-			else
-				ref_id = ref_id.downcase
+			if not ref_id # TODO: check around
+				error('Reference not closed.', src, con)
+				ref_id = ""
 			end
+			if ref_id.size == 0
+				ref_id =  alt_text.to_s
+			end
+
+			ref_id = sanitize_ref_id(ref_id)
+
 			con.push_element md_image(alt_text, ref_id)
 		else # no stuff
-			ref_id =  alt_text.to_s.downcase.gsub(' ','_')
+			ref_id =  sanitize_ref_id(alt_text.to_s)
 			con.push_element md_image(alt_text, ref_id)
 		end
 	end # read link
