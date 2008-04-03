@@ -83,4 +83,4 @@ Header 1Header 2Header 3Then you can create links to different parts of the same
 <a href="#header3">Link back to header 3</a></p>
 
 *** Output of Markdown.pl (parsed) ***
-Error: #<NoMethodError: private method `write_children' called for <div> ... </>:REXML::Element>
+Error: #<NoMethodError: undefined method `write_children' for <div> ... </>:REXML::Element>

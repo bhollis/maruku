@@ -33,4 +33,4 @@ md_el(:document,[md_par([md_code("\\\\")]), md_par([md_code("\\")])],{},[])
 <p><code>\</code></p>
 
 *** Output of Markdown.pl (parsed) ***
-Error: #<NoMethodError: private method `write_children' called for <div> ... </>:REXML::Element>
+Error: #<NoMethodError: undefined method `write_children' for <div> ... </>:REXML::Element>

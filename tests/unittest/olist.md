@@ -61,4 +61,4 @@ This is a list:onetwothree
 </ol>
 
 *** Output of Markdown.pl (parsed) ***
-Error: #<NoMethodError: private method `write_children' called for <div> ... </>:REXML::Element>
+Error: #<NoMethodError: undefined method `write_children' for <div> ... </>:REXML::Element>

@@ -265,4 +265,4 @@ Paragraph, list with no space: * ciaoParagraph, list with 1 space: * ciaoParagra
 <p>Paragraph with html after, indented: <em>Emphasis <em>tralla</em> Emph</em></p>
 
 *** Output of Markdown.pl (parsed) ***
-Error: #<NoMethodError: private method `write_children' called for <div> ... </>:REXML::Element>
+Error: #<NoMethodError: undefined method `write_children' for <div> ... </>:REXML::Element>

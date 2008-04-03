@@ -36,4 +36,4 @@ Linea 1Linea 2
 <p>Linea 2</p>
 
 *** Output of Markdown.pl (parsed) ***
-Error: #<NoMethodError: private method `write_children' called for <div> ... </>:REXML::Element>
+Error: #<NoMethodError: undefined method `write_children' for <div> ... </>:REXML::Element>

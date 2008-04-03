@@ -44,4 +44,4 @@ involve <b href="http://www.flickr.com/photos/censi/70893277/">coffee</b>,
 <a href="http://www.flickr.com/photos/censi/42775888/in/set-936677/">sushi</a>,</p>
 
 *** Output of Markdown.pl (parsed) ***
-Error: #<NoMethodError: private method `write_children' called for <div> ... </>:REXML::Element>
+Error: #<NoMethodError: undefined method `write_children' for <div> ... </>:REXML::Element>

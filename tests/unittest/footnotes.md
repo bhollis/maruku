@@ -123,4 +123,4 @@ This is second sentence (same paragraph).</p>
 <p>This is not a footnote.</p>
 
 *** Output of Markdown.pl (parsed) ***
-Error: #<NoMethodError: private method `write_children' called for <div> ... </>:REXML::Element>
+Error: #<NoMethodError: undefined method `write_children' for <div> ... </>:REXML::Element>

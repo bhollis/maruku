@@ -54,8 +54,7 @@ opt = OptionParser.new do |opts|
 	opts.on_tail("--inspect",  "Shows the parsing result" ) do export = :inspect  end
 
 	opts.on_tail("--version", "Show version") do
-		puts OptionParser::Version.join('.')
-		exit
+		puts "Maruku #{MaRuKu::Version}"; exit
 	end
 
 	opts.on_tail("-h", "--help", "Show this message") do

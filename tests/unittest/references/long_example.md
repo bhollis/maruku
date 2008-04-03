@@ -85,4 +85,4 @@ inspiration for Markdown's syntax is the format of plain text email.</p>
 <p>To this end, Markdown's syntax is comprised entirely of punctuation</p>
 
 *** Output of Markdown.pl (parsed) ***
-Error: #<NoMethodError: private method `write_children' called for <div> ... </>:REXML::Element>
+Error: #<NoMethodError: undefined method `write_children' for <div> ... </>:REXML::Element>

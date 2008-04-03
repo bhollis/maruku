@@ -15,7 +15,8 @@ HTML use syntax: true
 
 *	Write documentation for extensions.
 *	Bugs:
-
+	
+	*	See reported bugs in the [rubyforge tracker]().
 	*	[not sure of this](http://rubyforge.org/tracker/index.php?func=detail&aid=11448&group_id=2795&atid=10738), fix would be a quick hack.
 	*	Fix bug with acronyms (found by Aggelos)
 
@@ -24,7 +25,7 @@ HTML use syntax: true
 	*	Implement references (requested Jacques Distler)
 	*	Implement templating system for command-line `maruku`.
 
-#### Changes in the development version (**not yet released**)  ####     {#last}
+#### Changes in the development version (**not released yet**)  ####     {#last}
 
 *	Features:
 
@@ -33,7 +34,9 @@ HTML use syntax: true
 
 *	Fixed bugs:
 
-	*	Incorrect handling of malformed Markdown (`![alt][` with no closing)
+	*	Incorrect handling of malformed Markdown (`![alt][` with no closing bracket)
+	*	(Markdown Extra) Aligned behaviour of footnotes references to PHP Markdown Extra.
+	*	(Demetrios Kyriakis) Command line option "--version" now shows Maruku version.
 	
 #### Changes in 0.5.8 (February 2008) ####     {#stable}
 

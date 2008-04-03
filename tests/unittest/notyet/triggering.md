@@ -203,4 +203,4 @@ Paragraph, list with no space: * ciaoParagraph, list with 1 space: * ciaoParagra
 <h2>header</h2>
 
 *** Output of Markdown.pl (parsed) ***
-Error: #<NoMethodError: private method `write_children' called for <div> ... </>:REXML::Element>
+Error: #<NoMethodError: undefined method `write_children' for <div> ... </>:REXML::Element>

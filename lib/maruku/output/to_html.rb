@@ -827,10 +827,21 @@ If true, raw HTML is discarded from the output.
 		# save the order of used footnotes
 		order = @doc.footnotes_order
 		
+		if order.include? id
+		  # footnote has already been used
+		  return []
+	  end
+	  
+	  if not @doc.footnotes[id]
+	    return []
+    end
+	  
 		# take next number
 		order << id
-		num = order.size; 
 		
+		#num = order.size; 
+		num = order.index(id) + 1
+		  
 		sup = Element.new 'sup'
 		sup.attributes['id'] = "#{get_setting(:doc_prefix)}fnref:#{num}"
 			a = Element.new 'a'

@@ -31,4 +31,4 @@ md_el(:document,[md_html("<!--\n<\n-->")],{},[])
 -->
 
 *** Output of Markdown.pl (parsed) ***
-Error: #<NoMethodError: private method `write_children' called for <div> ... </>:REXML::Element>
+Error: #<NoMethodError: undefined method `write_children' for <div> ... </>:REXML::Element>

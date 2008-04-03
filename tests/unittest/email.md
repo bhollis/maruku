@@ -27,7 +27,7 @@ This is an email address:
 
 
 *** Output of Markdown.pl ***
-<p>This is an email address: <a href="&#x6D;&#x61;&#x69;&#x6C;t&#x6F;:&#x61;&#110;&#x64;&#114;&#x65;&#97;&#64;&#x69;&#x6E;&#118;&#97;&#x6C;&#105;&#100;&#46;&#105;&#116;">&#x61;&#110;&#x64;&#114;&#x65;&#97;&#64;&#x69;&#x6E;&#118;&#97;&#x6C;&#105;&#100;&#46;&#105;&#116;</a></p>
+<p>This is an email address: <a href="&#109;&#97;&#x69;&#x6C;&#116;o:&#97;&#x6E;&#100;&#114;e&#97;&#64;&#105;nv&#x61;&#x6C;&#x69;&#100;&#46;&#105;&#116;">&#97;&#x6E;&#100;&#114;e&#97;&#64;&#105;nv&#x61;&#x6C;&#x69;&#100;&#46;&#105;&#116;</a></p>
 
 *** Output of Markdown.pl (parsed) ***
-Error: #<NoMethodError: private method `write_children' called for <div> ... </>:REXML::Element>
+Error: #<NoMethodError: undefined method `write_children' for <div> ... </>:REXML::Element>
