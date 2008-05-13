@@ -15,36 +15,33 @@ module MaRuKu; module Out; module HTML
 			# first, we check whether this image has already been processed
 			md5sum = Digest::MD5.hexdigest(tex+" params: ")
 			result_file = File.join(MaRuKu::Globals[:html_png_dir], md5sum+".txt")
-			
+
 			if not File.exists?(result_file) 
 				tmp_in = Tempfile.new('maruku_blahtex')
-				f = tmp_in.open
+        f = tmp_in.open
 				f.write tex
 				f.close
-				
+
 				resolution = get_setting(:html_png_resolution)
-			
+
 				options = "--png --use-preview-package --shell-dvipng 'dvipng -D #{resolution}' "
 				options += ("--png-directory '%s'" % MaRuKu::Globals[:html_png_dir])
-			
+
 				cmd = "blahtex #{options} < #{tmp_in.path} > #{result_file}"
 				$stderr.puts "$ #{cmd}"
-				system cmd
+        system cmd
 				tmp_in.delete
-				
 			end
 			
-			result = nil
-			f = File.open(result_file)
-			result = f.read
-			f.close
-			
-			
+      result = File.read(result_file)
+      if result.nil? || result.empty?
+        raise "Blahtex error: empty output"
+      end
+      
 			doc = Document.new(result, {:respect_whitespace =>:all})
 			png = doc.root.elements[1]
 			if png.name != 'png'
-				maruku_error "Blahtex error: \n#{doc}"
-				return nil
+				raise "Blahtex error: \n#{doc}"
 			end
 			depth = png.elements['depth'] || (raise "No depth element in:\n #{doc}")
 			height = png.elements['height'] || (raise "No height element in:\n #{doc}")
@@ -56,7 +53,6 @@ module MaRuKu; module Out; module HTML
 			
 			dir_url = MaRuKu::Globals[:html_png_url]
 			return PNG.new("#{dir_url}#{md5}.png", depth, height)
-			
 		rescue Exception => e
 			maruku_error "Error: #{e}"
 		end
