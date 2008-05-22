@@ -24,11 +24,12 @@ module MaRuKu; module Out; module HTML
 
 				resolution = get_setting(:html_png_resolution)
 
-				options = "--png --use-preview-package --shell-dvipng 'dvipng -D #{resolution}' "
+				options = "--png --use-preview-package --shell-dvipng '/usr/bin/dvipng -D #{resolution}' "
+				options += ("--temp-directory '%s' " % MaRuKu::Globals[:html_png_dir])
 				options += ("--png-directory '%s'" % MaRuKu::Globals[:html_png_dir])
 
 				cmd = "blahtex #{options} < #{tmp_in.path} > #{result_file}"
-				$stderr.puts "$ #{cmd}"
+				#$stderr.puts "$ #{cmd}"
         system cmd
 				tmp_in.delete
 			end
@@ -59,12 +60,13 @@ module MaRuKu; module Out; module HTML
 		nil
 	end
 
-	BlahtexCache = PStore.new("blahtex_cache.pstore")
-
+  
 	def convert_to_mathml_blahtex(kind, tex)
+    @@BlahtexCache = PStore.new(MaRuKu::Globals[:latex_cache_file])
+    
 		begin
-			BlahtexCache.transaction do 
-				if BlahtexCache[tex].nil?
+			@@BlahtexCache.transaction do 
+				if @@BlahtexCache[tex].nil?
 					tmp_in = Tempfile.new('maruku_blahtex')
 						f = tmp_in.open
 						f.write tex
@@ -73,7 +75,7 @@ module MaRuKu; module Out; module HTML
 	
 					options = "--mathml"
 					cmd = "blahtex #{options} < #{tmp_in.path} > #{tmp_out.path}"
-					$stderr.puts "$ #{cmd}"
+					#$stderr.puts "$ #{cmd}"
 					system cmd
 					tmp_in.delete
 					
@@ -81,10 +83,10 @@ module MaRuKu; module Out; module HTML
 					File.open(tmp_out.path) do |f| result=f.read end
 						puts result
 					
-					BlahtexCache[tex] = result
+          @@BlahtexCache[tex] = result
 				end
 			
-				blahtex = BlahtexCache[tex]
+				blahtex = @@BlahtexCache[tex]
 				doc = Document.new(blahtex, {:respect_whitespace =>:all})
 				mathml = doc.root.elements['mathml']
 				if not mathml

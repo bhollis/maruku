@@ -42,11 +42,12 @@ Globals = {
 	:html_png_dir => 'pngs',
 	:html_png_url => 'pngs/',
 	:html_png_resolution => 200,
-	
+  
 	:html_use_syntax => false,
 	
 	:latex_use_listings => false,
 	:latex_cjk => false,
+  :latex_cache_file  => "blahtex_cache.pstore", # cache file for blahtex filter
 	
 	:debug_keep_ials => false,
 	:doc_prefix => ''
