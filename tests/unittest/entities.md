@@ -121,4 +121,4 @@ Maruku translates HTML entities to the equivalent in LaTeX:EntityResultabEntity-
 <p>It should read just like this: <code>&amp;copy;</code>.</p>
 
 *** Output of Markdown.pl (parsed) ***
-Error: #<NoMethodError: undefined method `write_children' for <div> ... </>:REXML::Element>
+Error: #<NoMethodError: private method `write_children' called for <div> ... </>:REXML::Element>

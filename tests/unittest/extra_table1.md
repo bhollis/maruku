@@ -52,4 +52,4 @@ Content Cell  | Content Cell
 Content Cell  | Content Cell</p>
 
 *** Output of Markdown.pl (parsed) ***
-Error: #<NoMethodError: undefined method `write_children' for <div> ... </>:REXML::Element>
+Error: #<NoMethodError: private method `write_children' called for <div> ... </>:REXML::Element>

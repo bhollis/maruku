@@ -111,4 +111,4 @@ This page does not uilizes Cascading Style SheetsPlease mouseover to see the tit
    style="border:0;width:188px;height:131px"</p>
 
 *** Output of Markdown.pl (parsed) ***
-Error: #<NoMethodError: undefined method `write_children' for <div> ... </>:REXML::Element>
+Error: #<NoMethodError: private method `write_children' called for <div> ... </>:REXML::Element>

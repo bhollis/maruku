@@ -85,4 +85,4 @@ A list item with a blockquote:This is a blockquote inside a list item.A list ite
 </ul>
 
 *** Output of Markdown.pl (parsed) ***
-Error: #<NoMethodError: undefined method `write_children' for <div> ... </>:REXML::Element>
+Error: #<NoMethodError: private method `write_children' called for <div> ... </>:REXML::Element>

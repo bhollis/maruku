@@ -29,4 +29,4 @@ md_el(:document,[md_el(:code,[],{:raw_code=>"       $ python       "},[])],{},[]
 <p>$ python       </p>
 
 *** Output of Markdown.pl (parsed) ***
-Error: #<NoMethodError: undefined method `write_children' for <div> ... </>:REXML::Element>
+Error: #<NoMethodError: private method `write_children' called for <div> ... </>:REXML::Element>

@@ -51,4 +51,4 @@ A title with emphasisA title with emphasisA title with emphasis
 <h4>A title with <em>emphasis</em></h4>
 
 *** Output of Markdown.pl (parsed) ***
-Error: #<NoMethodError: undefined method `write_children' for <div> ... </>:REXML::Element>
+Error: #<NoMethodError: private method `write_children' called for <div> ... </>:REXML::Element>

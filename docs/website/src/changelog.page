@@ -27,6 +27,35 @@ HTML use syntax: true
 
 #### Changes in the development version (**not released yet**)  ####     {#last}
 
+*	New feature, requested by Jeff Barczewski
+
+	> It seems like a good fit to extend the Maruku meta data features to support setting things like this in a standard way.
+	>
+	>	<meta name="author" content="John Doe"/>
+	>	<meta name="description" content="This is my page description."/>
+	>	<meta name="revised" content="Hege Refsnes, 6/10/99" />
+	>
+	> One could support things directly like
+	>
+	> 	Author: John Doe
+	> 	Description: This is my page description.
+	> 	Revised: Hege Refsnes, 6/10/99
+	>
+	> of if you want to make all the meta tags generic you could do
+	> 
+	> 	Meta-Author: John Doe
+	> 	Meta-Description: This is my page description.
+	>
+	> Where `Meta-*` would always create a `<meta name="foo" content="bar"/>`
+
+
+
+*	Bugs:
+
+	* Export to s5 now uses `html` suffix.
+	
+#### Changes in 0.5.9 (June 2008) ####     {#stable}
+
 *	Features:
 
 	*	Implemented [DIV syntax](div.html) (Jacques Distler)
@@ -37,8 +66,9 @@ HTML use syntax: true
 	*	Incorrect handling of malformed Markdown (`![alt][` with no closing bracket)
 	*	(Markdown Extra) Aligned behaviour of footnotes references to PHP Markdown Extra.
 	*	(Demetrios Kyriakis) Command line option "--version" now shows Maruku version.
+	*   Maruku did not allow abbreviation definitions. 
 	
-#### Changes in 0.5.8 (February 2008) ####     {#stable}
+#### Changes in 0.5.8 (February 2008) ####     
 
 *	Fixed bugs:
 	*	Fix bug in which links `<http://..>` at beginning of lines could sometimes be mistaken for HTML.

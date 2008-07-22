@@ -69,4 +69,4 @@ ApplePomaceous fruit of plants of the genus Malus in the family Rosaceae.OrangeT
 :   The fruit of an evergreen tree of the genus Citrus.</p>
 
 *** Output of Markdown.pl (parsed) ***
-Error: #<NoMethodError: undefined method `write_children' for <div> ... </>:REXML::Element>
+Error: #<NoMethodError: private method `write_children' called for <div> ... </>:REXML::Element>
