@@ -65,17 +65,6 @@ ParagraphheaderParagraphheaderParagraphheader
 
 
 *** Output of Markdown.pl ***
-<p>Paragraph</p>
-
-<h3>header</h3>
-
-<p>Paragraph</p>
-
-<h2>header</h2>
-
-<p>Paragraph</p>
-
-<h1>header</h1>
-
+(not used anymore)
 *** Output of Markdown.pl (parsed) ***
-Error: #<NoMethodError: private method `write_children' called for <div> ... </>:REXML::Element>
+(not used anymore)

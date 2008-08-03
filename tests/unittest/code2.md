@@ -35,12 +35,6 @@ Code
 
 
 *** Output of Markdown.pl ***
-<blockquote>
-  <p>Code</p>
-
-<pre><code>Ciao
-</code></pre>
-</blockquote>
-
+(not used anymore)
 *** Output of Markdown.pl (parsed) ***
-Error: #<NoMethodError: private method `write_children' called for <div> ... </>:REXML::Element>
+(not used anymore)

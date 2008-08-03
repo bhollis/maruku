@@ -22,7 +22,6 @@ One line
 
 
 *** Output of Markdown.pl ***
-<p>One line</p>
-
+(not used anymore)
 *** Output of Markdown.pl (parsed) ***
-Error: #<NoMethodError: private method `write_children' called for <div> ... </>:REXML::Element>
+(not used anymore)

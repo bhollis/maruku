@@ -121,51 +121,6 @@ Twas a test to remember in the 90s.It was  in a sense  really interesting.I  too
 
 
 *** Output of Markdown.pl ***
-<pre><code>'Twas a "test" to 'remember' in the '90s.
-</code></pre>
-
-<p>'Twas a "test" to 'remember' in the '90s.</p>
-
-<pre><code>It was --- in a sense --- really... interesting.
-</code></pre>
-
-<p>It was --- in a sense --- really... interesting.</p>
-
-<pre><code>I -- too -- met &lt;&lt; some curly quotes &gt;&gt; there or &lt;&lt;here&gt;&gt;No space.
-</code></pre>
-
-<p>I -- too -- met &lt;&lt; some curly quotes >> there or &lt;<here>>No space.</p>
-
-<pre><code>She was 6\"12\'.
-</code></pre>
-
-<blockquote>
-  <p>She was 6\"12\'.</p>
-</blockquote>
-
+(not used anymore)
 *** Output of Markdown.pl (parsed) ***
-Error: #<REXML::ParseException: #<REXML::ParseException: Missing end tag for 'here' (got "p")
-Line: 
-Position: 
-Last 80 unconsumed characters:
-  <pre><code>She was 6\"12\'. </code></pre>  <blockquote>   <p>She was 6\"12\'.</>
-/Volumes/Alter/Ruby/local186/lib/ruby/1.8/rexml/parsers/baseparser.rb:320:in `pull'
-/Volumes/Alter/Ruby/local186/lib/ruby/1.8/rexml/parsers/treeparser.rb:21:in `parse'
-/Volumes/Alter/Ruby/local186/lib/ruby/1.8/rexml/document.rb:190:in `build'
-/Volumes/Alter/Ruby/local186/lib/ruby/1.8/rexml/document.rb:45:in `initialize'
-bin/marutest:199:in `new'
-bin/marutest:199:in `run_test'
-bin/marutest:262:in `marutest'
-bin/marutest:259:in `each'
-bin/marutest:259:in `marutest'
-bin/marutest:334
-...
-Missing end tag for 'here' (got "p")
-Line: 
-Position: 
-Last 80 unconsumed characters:
-  <pre><code>She was 6\"12\'. </code></pre>  <blockquote>   <p>She was 6\"12\'.</
-Line: 
-Position: 
-Last 80 unconsumed characters:
-  <pre><code>She was 6\"12\'. </code></pre>  <blockquote>   <p>She was 6\"12\'.</>
+(not used anymore)

@@ -22,8 +22,6 @@ md_el(:document,[md_el(:code,[],{:raw_code=>"@articles.map(&:title)"},[])],{},[]
 
 
 *** Output of Markdown.pl ***
-<pre><code>@articles.map(&amp;:title)
-</code></pre>
-
+(not used anymore)
 *** Output of Markdown.pl (parsed) ***
-Error: #<NoMethodError: private method `write_children' called for <div> ... </>:REXML::Element>
+(not used anymore)

@@ -71,13 +71,6 @@ Here is a paragraph.
 -----| WARNING | -----
 Here is a paragraph.* Item 1 * Item 2 * Item 3
 *** Output of Markdown.pl ***
-<p>Here is a paragraph.</p>
-
-<ul>
-<li>Item 1</li>
-<li>Item 2</li>
-<li>Item 3</li>
-</ul>
-
+(not used anymore)
 *** Output of Markdown.pl (parsed) ***
-Error: #<NoMethodError: private method `write_children' called for <div> ... </>:REXML::Element>
+(not used anymore)

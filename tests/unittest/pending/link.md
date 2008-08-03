@@ -79,25 +79,6 @@ md_el(:document,[
 
 
 *** Output of Markdown.pl ***
-<p><a href="http://www.aa.com">http://www.aa.com</a></p>
-
-<p><a href="http://www.bb.com">http://www.bb.com</a></p>
-
-<p><a href="http://www.cc.com">http://www.cc.com</a></p>
-
-<p><a href="http://www.dd.com">http://www.dd.com</a></p>
-
-<pre><code>&lt;http://www.dd.com&gt;
-</code></pre>
-
-<p><a href="&#x6D;&#x61;&#105;&#x6C;&#116;&#x6F;:&#x61;&#64;&#105;&#110;&#118;&#97;&#x6C;&#x69;d&#x2E;&#x69;&#x74;">&#x61;&#64;&#105;&#110;&#118;&#97;&#x6C;&#x69;d&#x2E;&#x69;&#x74;</a></p>
-
-<p><a href="&#x6D;&#97;&#105;l&#116;&#111;:&#x61;&#64;&#105;&#x6E;&#118;&#97;&#x6C;&#x69;&#100;&#46;&#105;&#116;">&#x61;&#64;&#105;&#x6E;&#118;&#97;&#x6C;&#x69;&#100;&#46;&#105;&#116;</a></p>
-
-<p><a href="&#x6D;&#x61;&#x69;&#x6C;&#116;&#x6F;:a&#64;&#x69;&#x6E;&#x76;&#97;&#108;&#x69;&#x64;&#46;i&#x74;">a&#64;&#x69;&#x6E;&#x76;&#97;&#108;&#x69;&#x64;&#46;i&#x74;</a></p>
-
-<pre><code>&lt;a@invalid.it&gt;
-</code></pre>
-
+(not used anymore)
 *** Output of Markdown.pl (parsed) ***
-Error: #<NoMethodError: undefined method `write_children' for <div> ... </>:REXML::Element>
+(not used anymore)

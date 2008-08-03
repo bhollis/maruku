@@ -53,14 +53,6 @@ Here are some formulas:Thats it, nothing else is supported.
 
 
 *** Output of Markdown.pl ***
-<p>Here are some formulas:</p>
-
-<ul>
-<li>$\alpha$</li>
-<li>$x^{n}+y^{n} \neq z^{n}$</li>
-</ul>
-
-<p>That's it, nothing else is supported.</p>
-
+(not used anymore)
 *** Output of Markdown.pl (parsed) ***
-Error: #<NoMethodError: private method `write_children' called for <div> ... </>:REXML::Element>
+(not used anymore)

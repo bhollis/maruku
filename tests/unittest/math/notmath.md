@@ -32,9 +32,6 @@ This is not $math$.[ \alpha ]
 
 
 *** Output of Markdown.pl ***
-<p>This is not $math$.</p>
-
-<p>[ \alpha ]</p>
-
+(not used anymore)
 *** Output of Markdown.pl (parsed) ***
-Error: #<NoMethodError: private method `write_children' called for <div> ... </>:REXML::Element>
+(not used anymore)

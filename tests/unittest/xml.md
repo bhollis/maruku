@@ -40,15 +40,6 @@ md_el(:document,[
 
 
 *** Output of Markdown.pl ***
-<p><svg:svg/></p>
-
-<p><svg:svg 
-width="600px" height="400px">
-  <svg:g id="group">
-    <svg:circle id="circ1" r="1cm" cx="3cm" cy="3cm" style="fill:red;"></svg:circle>
-    <svg:circle id="circ2" r="1cm" cx="7cm" cy="3cm" style="fill:red;" />
-  </svg:g>
-</svg:svg></p>
-
+(not used anymore)
 *** Output of Markdown.pl (parsed) ***
-Error: #<NoMethodError: private method `write_children' called for <div> ... </>:REXML::Element>
+(not used anymore)

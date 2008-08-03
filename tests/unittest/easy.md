@@ -22,7 +22,6 @@ Hello! how are you?
 
 
 *** Output of Markdown.pl ***
-<p><em>Hello!</em> how are <strong>you</strong>?</p>
-
+(not used anymore)
 *** Output of Markdown.pl (parsed) ***
-Error: #<NoMethodError: private method `write_children' called for <div> ... </>:REXML::Element>
+(not used anymore)

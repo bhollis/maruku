@@ -41,13 +41,6 @@ Here is an example of AppleScript:
 
 
 *** Output of Markdown.pl ***
-<p>Here is an example of AppleScript:</p>
-
-<pre><code>tell application "Foo"
-    beep
-end tell
-    tab
-</code></pre>
-
+(not used anymore)
 *** Output of Markdown.pl (parsed) ***
-Error: #<NoMethodError: private method `write_children' called for <div> ... </>:REXML::Element>
+(not used anymore)

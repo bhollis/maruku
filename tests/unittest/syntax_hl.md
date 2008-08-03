@@ -59,22 +59,6 @@ This is ruby code:This is ruby code:
 
 
 *** Output of Markdown.pl ***
-<p>This is ruby code:</p>
-
-<pre><code>require 'maruku'
-
-puts Maruku.new($stdin).to_html
-</code></pre>
-
-<p>This is ruby code:</p>
-
-<pre><code>require 'maruku'
-</code></pre>
-
-<p>{: lang=ruby html<em>use</em>syntax}</p>
-
-<pre><code>puts Maruku.new($stdin).to_html
-</code></pre>
-
+(not used anymore)
 *** Output of Markdown.pl (parsed) ***
-Error: #<NoMethodError: private method `write_children' called for <div> ... </>:REXML::Element>
+(not used anymore)

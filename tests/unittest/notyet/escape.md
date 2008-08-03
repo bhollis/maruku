@@ -28,9 +28,6 @@ md_el(:document,[md_par([md_code("\\\\")]), md_par([md_code("\\")])],{},[])
 
 
 *** Output of Markdown.pl ***
-<p><code>\\</code></p>
-
-<p><code>\</code></p>
-
+(not used anymore)
 *** Output of Markdown.pl (parsed) ***
-Error: #<NoMethodError: private method `write_children' called for <div> ... </>:REXML::Element>
+(not used anymore)

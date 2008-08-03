@@ -44,10 +44,6 @@ B&&X\\
 
 
 *** Output of Markdown.pl ***
-<p>|    | 1  | 2  |
-|----|----|----|
-|  A | X  |    |
-|  B |    | X  |</p>
-
+(not used anymore)
 *** Output of Markdown.pl (parsed) ***
-Error: #<NoMethodError: private method `write_children' called for <div> ... </>:REXML::Element>
+(not used anymore)

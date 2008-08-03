@@ -152,53 +152,6 @@ texttexttexttexttexttexttexttexttexttexttexttext
 
 
 *** Output of Markdown.pl ***
-<p>+---------
-| text
-+----------</p>
-
-<p>+---------
-|text</p>
-
-<p>+--
- text</p>
-
-<p>=--</p>
-
-<p>+---------
- | text
- +----------</p>
-
-<p>+---------
- |text</p>
-
-<p>+--
- text</p>
-
-<p>=--</p>
-
-<p>+---------
-  | text
-  +----------</p>
-
-<p>+---------
-  |text</p>
-
-<p>+--
-  text</p>
-
-<p>=--</p>
-
-<p>+---------
-   | text
-   +----------</p>
-
-<p>+---------
-   |text</p>
-
-<p>+--
-   text</p>
-
-<p>=--</p>
-
+(not used anymore)
 *** Output of Markdown.pl (parsed) ***
-Error: #<NoMethodError: private method `write_children' called for <div> ... </>:REXML::Element>
+(not used anymore)

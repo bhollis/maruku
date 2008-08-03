@@ -123,14 +123,6 @@ md_el(:document,[
 *** Output of to_s ***
 aa1a2b
 *** Output of Markdown.pl ***
-<ul>
-<li>a
-<ul>
-<li>a1</li>
-<li>a2</li>
-</ul></li>
-<li>b</li>
-</ul>
-
+(not used anymore)
 *** Output of Markdown.pl (parsed) ***
-Error: #<NoMethodError: private method `write_children' called for <div> ... </>:REXML::Element>
+(not used anymore)

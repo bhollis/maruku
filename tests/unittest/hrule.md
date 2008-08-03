@@ -46,15 +46,6 @@ md_el(:document,[
 
 
 *** Output of Markdown.pl ***
-<hr />
-
-<hr />
-
-<hr />
-
-<hr />
-
-<hr />
-
+(not used anymore)
 *** Output of Markdown.pl (parsed) ***
-Error: #<NoMethodError: private method `write_children' called for <div> ... </>:REXML::Element>
+(not used anymore)

@@ -22,7 +22,6 @@ Search on Google imagesGoOgle search ]
 
 
 *** Output of Markdown.pl ***
-<p>Search on [Google images][  GoOgle search ]</p>
-
+(not used anymore)
 *** Output of Markdown.pl (parsed) ***
-Error: #<NoMethodError: private method `write_children' called for <div> ... </>:REXML::Element>
+(not used anymore)

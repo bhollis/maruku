@@ -189,27 +189,34 @@ def run_test(filename, its_ok, verbose=true)
 	end
 
 	
-	md_pl = markdown_pl(markdown)
+	if false
+		md_pl = markdown_pl(markdown)
 		
-	f.write "\n*** Output of Markdown.pl ***\n" 
-	f.write md_pl
+		f.write "\n*** Output of Markdown.pl ***\n" 
+		f.write md_pl
 	
-	f.write "\n*** Output of Markdown.pl (parsed) ***\n"
-	begin 
-		doc = REXML::Document.new("<div>#{md_pl}</div>",{
-			:compress_whitespace=>['div','p'],
-			:ignore_whitespace_nodes=>['div','p'],
-			:respect_whitespace=>['pre','code']
-		})
-		div = doc.root
-		xml =""
-		div.write_children(xml,indent=1,transitive=true,ie_hack=false)
-		f.write xml
-	rescue Exception=>e
-		f.puts "Error: #{e.inspect}"
+		f.write "\n*** Output of Markdown.pl (parsed) ***\n"
+		begin 
+			doc = REXML::Document.new("<div>#{md_pl}</div>",{
+				:compress_whitespace=>['div','p'],
+				:ignore_whitespace_nodes=>['div','p'],
+				:respect_whitespace=>['pre','code']
+			})
+			div = doc.root
+			xml =""
+			div.write_children(xml,indent=1,transitive=true,ie_hack=false)
+			f.write xml
+		rescue Exception=>e
+			f.puts "Error: #{e.inspect}"
+		end
+		f.close
+	else
+		f.write "\n*** Output of Markdown.pl ***\n" 
+		f.write "(not used anymore)"
+	
+		f.write "\n*** Output of Markdown.pl (parsed) ***\n"
+		f.write "(not used anymore)"		
 	end
-	f.close
-	
 	
 	return failed, relaxed, crashed
 end

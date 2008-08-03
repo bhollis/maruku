@@ -29,10 +29,6 @@ One 123
 
 
 *** Output of Markdown.pl ***
-<p>One
-<div></div>123</p>
-
-<p><div></div>123</p>
-
+(not used anymore)
 *** Output of Markdown.pl (parsed) ***
-Error: #<NoMethodError: private method `write_children' called for <div> ... </>:REXML::Element>
+(not used anymore)

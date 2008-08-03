@@ -31,9 +31,6 @@ Linea 1Linea 2
 
 
 *** Output of Markdown.pl ***
-<p>Linea 1</p>
-
-<p>Linea 2</p>
-
+(not used anymore)
 *** Output of Markdown.pl (parsed) ***
-Error: #<NoMethodError: private method `write_children' called for <div> ... </>:REXML::Element>
+(not used anymore)

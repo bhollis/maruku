@@ -24,7 +24,6 @@ bar
 
 
 *** Output of Markdown.pl ***
-<p><img src="/foo.jpg" alt="bar" title="" /></p>
-
+(not used anymore)
 *** Output of Markdown.pl (parsed) ***
-Error: #<NoMethodError: private method `write_children' called for <div> ... </>:REXML::Element>
+(not used anymore)

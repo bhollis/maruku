@@ -53,15 +53,6 @@ hellohh c1c2
 
 
 *** Output of Markdown.pl ***
-<p>hello
-{: summary="Table summary" .class1 style="color:red"}</p>
-
-<p>h         | h
-----------|--
-{:t}  c1  | c2
-{: summary="Table summary" .class1 style="color:red"}</p>
-
-<p>{:t: scope="row"}</p>
-
+(not used anymore)
 *** Output of Markdown.pl (parsed) ***
-Error: #<NoMethodError: private method `write_children' called for <div> ... </>:REXML::Element>
+(not used anymore)

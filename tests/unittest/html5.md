@@ -30,9 +30,6 @@ md_el(:document,[
 
 
 *** Output of Markdown.pl ***
-<p><div class="frame">
- <a class="photo" href="http://www.flickr.com/photos/censi/88561568/" ><img moz-do-not-send="true" src="http://static.flickr.com/28/88561568_ab84d28245_m.jpg" width="240" height="180" alt="Aperitif" /></a>
- </div></p>
-
+(not used anymore)
 *** Output of Markdown.pl (parsed) ***
-Error: #<NoMethodError: private method `write_children' called for <div> ... </>:REXML::Element>
+(not used anymore)

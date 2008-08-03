@@ -49,12 +49,6 @@ SymbolMeaningcomments The firstI like it. The firstI like it.
 
 
 *** Output of Markdown.pl ***
-<p>Symbol    | Meaning | comments
-------------|---------|---------
-{:r} &alpha; | The first | I like it.
-{:r} &aleph; | The first | I like it.</p>
-
-<p>{:r: scope='row'}</p>
-
+(not used anymore)
 *** Output of Markdown.pl (parsed) ***
-Error: #<NoMethodError: private method `write_children' called for <div> ... </>:REXML::Element>
+(not used anymore)

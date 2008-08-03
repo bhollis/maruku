@@ -33,11 +33,6 @@ Paragraph
 
 
 *** Output of Markdown.pl ***
-<p>Paragraph
-{:a}</p>
-
-<p>{:a: b}
-{:b: a}</p>
-
+(not used anymore)
 *** Output of Markdown.pl (parsed) ***
-Error: #<NoMethodError: private method `write_children' called for <div> ... </>:REXML::Element>
+(not used anymore)

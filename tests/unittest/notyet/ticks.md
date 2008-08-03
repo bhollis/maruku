@@ -25,7 +25,6 @@ md_el(:document,[md_par([md_code("There is a literal backtick (`) here.")])],{},
 
 
 *** Output of Markdown.pl ***
-<p><code>There is a literal backtick (`) here.</code></p>
-
+(not used anymore)
 *** Output of Markdown.pl (parsed) ***
-Error: #<NoMethodError: private method `write_children' called for <div> ... </>:REXML::Element>
+(not used anymore)

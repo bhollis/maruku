@@ -25,9 +25,6 @@ Japanese: マルク
 
 
 *** Output of Markdown.pl ***
-<p>Italian: àèìòù.</p>
-
-<p>Japanese: マルク</p>
-
+(not used anymore)
 *** Output of Markdown.pl (parsed) ***
-Error: #<NoMethodError: private method `write_children' called for <div> ... </>:REXML::Element>
+(not used anymore)
