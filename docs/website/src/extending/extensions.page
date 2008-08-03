@@ -1,0 +1,80 @@
+---
+page_class: normal
+linkAttrs:
+  :link_text: Extending
+inMenu: false
+title: Extending Maruku
+---
+HTML use syntax: true
+
+***INCOMPLETE DRAFT***
+
+The syntax used by Maruku can be extended with other constructs.
+Currently, this is used in practice to support math equations 
+and the div syntax. This is a miniguide for using 
+the extensions mechanisms.
+
+## Introduction: parsing process and internal representations 
+
+
+
+
+## Extending block-level constructs
+
+The syntax for registering your new block-level construct is:
+
+	MaRuKu::In::Markdown::register_block_extension(
+		:regexp  => your_regexp,
+		:handler => lambda { |doc, src, context|
+			# doc     is the Document handle
+			# src     is the LineSource handle
+			# context is the array of previously read elements
+			...
+			# return true if you are handling this, false otherwise
+		}
+	)
+{:ruby}
+
+For example, say that you want to recognize the DIV syntax:
+
+	+--
+	Div content
+	=--
+{:markdown}
+
+In this example, for brevity, we don't care about the full syntax for DIVs. The resulting code is compact and easy to understand:
+
+	OpenDiv = /^\+\-\-/
+	CloseDiv = /^\=\-\-/
+
+	MaRuKu::In::Markdown::register_block_extension(
+		:regexp  => OpenDiv,
+		:handler => lambda { |doc, src, context|
+			# Throw away the first line.
+			src.shift_line
+			# Read lines from src until one matches CloseDiv
+			lines = []
+			while src.cur_line && !(src.cur_line =~ CloseDiv)
+				lines.push src.shift_line
+			end
+			# Throw away this last line.
+			src.shift_line
+			# Parse lines as blocks.
+			content = doc.parse_blocks(LineSource.new(lines))
+			# Push into context a div element with such content.
+			context.push doc.md_div(content)
+			true
+		})
+{:ruby}
+
+## Extending span-level constructs
+
+
+
+
+
+{:ruby: lang="ruby"}
+
+
+
+
