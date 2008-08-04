@@ -90,7 +90,7 @@ module MaRuKu; module Out; module HTML
 		img = Element.new 'img'
 		img.attributes['src'] = src
 		img.attributes['style'] = style
-		img.attributes['alt'] = "equation"
+		img.attributes['alt'] = "$#{self.math.strip}$"
 		img
 	end
 	
