@@ -25,7 +25,7 @@ module MaRuKu; module Out; module HTML
 				resolution = get_setting(:html_png_resolution)
 
 				options = "--png --use-preview-package --shell-dvipng 'dvipng -D #{resolution}' "
-				options += ("--displaymath ") if kind == :equation
+				options += "--displaymath " if kind == :equation
 				options += ("--temp-directory '%s' " % get_setting(:html_png_dir))
 				options += ("--png-directory '%s'" % get_setting(:html_png_dir))
 
@@ -63,7 +63,7 @@ module MaRuKu; module Out; module HTML
 
   
 	def convert_to_mathml_blahtex(kind, tex)
-    @@BlahtexCache = PStore.new(get_setting(latex_cache_file))
+    @@BlahtexCache = PStore.new(get_setting(:latex_cache_file))
     
 		begin
 			@@BlahtexCache.transaction do 
