@@ -103,7 +103,7 @@ module MaRuKu; module Out; module HTML
 			
 			if mathml
 				add_class_to(mathml, 'maruku-mathml')
-				span << mathml 
+				return mathml
 			end
 	
 			if png
