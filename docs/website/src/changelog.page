@@ -27,6 +27,10 @@ HTML use syntax: true
 
 #### Changes in the development version (**not released yet**)  ####     {#last}
 
+*	Now the DIV syntax is activated by default.
+
+*	Merged back changes by Jacques Distler for theorems support.
+
 *	New feature, requested by Jeff Barczewski
 
 	> It seems like a good fit to extend the Maruku meta data features to support setting things like this in a standard way.
