@@ -25,12 +25,7 @@ md_el(:document,[
 	md_el(:equation,[],{:label=>nil,:math=>" \\gamma ",:num=>nil},[])
 ],{},[])
 *** Output of to_html ***
-<div class='maruku-equation' id='eq:eq1'><span class='maruku-eq-number'>(1)</span><math class='maruku-mathml' display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mi>&alpha;</mi></math><div class='maruku-eq-tex'><code style='display: none'>	\alpha
-
-</code></div></div><div class='maruku-equation'><math class='maruku-mathml' display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mi>&alpha;</mi></math><div class='maruku-eq-tex'><code style='display: none'>	\alpha
-
-</code></div></div><div class='maruku-equation'><math class='maruku-mathml' display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mi>&beta;</mi></math><div class='maruku-eq-tex'><code style='display: none'> \beta
-</code></div></div><div class='maruku-equation'><math class='maruku-mathml' display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mi>&gamma;</mi></math><div class='maruku-eq-tex'><code style='display: none'> \gamma </code></div></div>
+<div class='maruku-equation' id='eq:eq1'><math class='maruku-mathml' display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mi>&alpha;</mi></math><span class='maruku-eq-tex'><code style='display: none'>\alpha</code></span><span class='maruku-eq-number'>(1)</span></div><div class='maruku-equation'><math class='maruku-mathml' display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mi>&alpha;</mi></math><span class='maruku-eq-tex'><code style='display: none'>\alpha</code></span></div><div class='maruku-equation'><math class='maruku-mathml' display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mi>&beta;</mi></math><span class='maruku-eq-tex'><code style='display: none'>\beta</code></span></div><div class='maruku-equation'><math class='maruku-mathml' display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mi>&gamma;</mi></math><span class='maruku-eq-tex'><code style='display: none'>\gamma</code></span></div>
 *** Output of to_latex ***
 \begin{equation}
 \alpha
@@ -64,17 +59,12 @@ md_el(:document,[
 ],{},[])
 *** Output of to_html ***
 -----| WARNING | -----
-<div class='maruku-equation' id='eq:eq1'><span class='maruku-eq-number'>(1)</span><code class='maruku-mathml'>	\alpha
+<div class='maruku-equation' id='eq:eq1'><code class='maruku-mathml'>	\alpha
 
-</code><div class='maruku-eq-tex'><code style='display: none'>	\alpha
+</code><span class='maruku-eq-tex'><code style='display: none'>\alpha</code></span><span class='maruku-eq-number'>(1)</span></div><div class='maruku-equation'><code class='maruku-mathml'>	\alpha
 
-</code></div></div><div class='maruku-equation'><code class='maruku-mathml'>	\alpha
-
-</code><div class='maruku-eq-tex'><code style='display: none'>	\alpha
-
-</code></div></div><div class='maruku-equation'><code class='maruku-mathml'> \beta
-</code><div class='maruku-eq-tex'><code style='display: none'> \beta
-</code></div></div><div class='maruku-equation'><code class='maruku-mathml'> \gamma </code><div class='maruku-eq-tex'><code style='display: none'> \gamma </code></div></div>
+</code><span class='maruku-eq-tex'><code style='display: none'>\alpha</code></span></div><div class='maruku-equation'><code class='maruku-mathml'> \beta
+</code><span class='maruku-eq-tex'><code style='display: none'>\beta</code></span></div><div class='maruku-equation'><code class='maruku-mathml'> \gamma </code><span class='maruku-eq-tex'><code style='display: none'>\gamma</code></span></div>
 *** Output of to_latex ***
 \begin{equation}
 \alpha

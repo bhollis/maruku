@@ -48,7 +48,8 @@ HTML use syntax: true
 	>
 	> Where `Meta-*` would always create a `<meta name="foo" content="bar"/>`
 
-
+*	Merged back changes by [Ari Stern](http://www.acm.caltech.edu/~astern) for equation-to-PNG 
+	support in Instiki.
 
 *	Bugs:
 

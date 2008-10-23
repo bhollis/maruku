@@ -145,6 +145,8 @@ class MDDocument
 	
 	safe_attr_accessor :latex_required_packages, Array
 	
+	safe_attr_accessor :refid2ref, Hash
+	
 	def initialize(s=nil)
 		super(:document)
 		@doc       = self
