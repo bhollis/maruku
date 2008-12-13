@@ -27,6 +27,10 @@ HTML use syntax: true
 
 #### Changes in the development version (**not released yet**)  ####     {#last}
 
+*   Allows space in link ref ids (patch by Damir Zekic)
+
+*	Better regexps for DIV frames (patch by Alexandr Mankuta)
+
 *	Now the DIV syntax is activated by default.
 
 *	Merged back changes by Jacques Distler for theorems support.
