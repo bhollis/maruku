@@ -9,7 +9,7 @@ $spec = Gem::Specification.new do |s|
 	It features native export to HTML and PDF (via Latex). The
 	output is really beautiful!
 	}
-  s.files = Dir['lib/**/*.rb'] + Dir['lib/*.rb'] + 
+  s.files = Dir['lib/**/*.rb'] + Dir['lib/*.rb'] + Dir['data/*'] +
 	Dir['docs/*.md'] +	Dir['docs/*.html'] +
 	Dir['tests/**/*.md'] +
           Dir['bin/*'] + Dir['*.sh'] + ['Rakefile', 'maruku_gem.rb']
