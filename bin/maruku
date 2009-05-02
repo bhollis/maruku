@@ -3,6 +3,7 @@
 require 'maruku'
 require 'optparse'
 
+
 def cli_puts(s)
 	$stderr.puts(s) if MaRuKu::Globals[:verbose]	
 end
@@ -55,6 +56,10 @@ opt = OptionParser.new do |opts|
 
 	opts.on_tail("--version", "Show version") do
 		puts "Maruku #{MaRuKu::Version}"; exit
+	end
+
+	opts.on_tail("--ext EXTENSIONS",  "Use maruku extensions (comma separated)" ) do |s|
+	  s.split(",").each do |e| require "maruku/ext/#{e}"; end
 	end
 
 	opts.on_tail("-h", "--help", "Show this message") do
