@@ -251,6 +251,7 @@ module MaRuKu; module In; module Markdown; module BlockLevelParser
 				"I see that #{h.rest.inspect} is left after the raw HTML.", src
 		end
 		raw_html = h.stuff_you_read
+		
 		return md_html(raw_html)
 	end
 	

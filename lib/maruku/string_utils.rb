@@ -150,7 +150,7 @@ module MaRuKu; module Strings
 	
 	# change space to "_" and remove any non-word character
 	def sanitize_ref_id(x)
-		x.downcase.gsub(' ','_').gsub(/[^\w]/,'')
+		x.strip.downcase.gsub(' ','_').gsub(/[^\w]/,'')
 	end
 
 

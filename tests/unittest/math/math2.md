@@ -47,40 +47,9 @@ md_el(:document,[
 
 
 
+	OK!
 
-Failed tests:   [:to_html] 
 
-*** Output of inspect ***
-md_el(:document,[
-	md_el(:equation,[],{:label=>"eq1",:math=>"\t\\alpha\n\n",:num=>1},[]),
-	md_el(:equation,[],{:label=>nil,:math=>"\t\\alpha\n\n",:num=>nil},[]),
-	md_el(:equation,[],{:label=>nil,:math=>" \\beta\n",:num=>nil},[]),
-	md_el(:equation,[],{:label=>nil,:math=>" \\gamma ",:num=>nil},[])
-],{},[])
-*** Output of to_html ***
------| WARNING | -----
-<div class='maruku-equation' id='eq:eq1'><code class='maruku-mathml'>	\alpha
-
-</code><span class='maruku-eq-tex'><code style='display: none'>\alpha</code></span><span class='maruku-eq-number'>(1)</span></div><div class='maruku-equation'><code class='maruku-mathml'>	\alpha
-
-</code><span class='maruku-eq-tex'><code style='display: none'>\alpha</code></span></div><div class='maruku-equation'><code class='maruku-mathml'> \beta
-</code><span class='maruku-eq-tex'><code style='display: none'>\beta</code></span></div><div class='maruku-equation'><code class='maruku-mathml'> \gamma </code><span class='maruku-eq-tex'><code style='display: none'>\gamma</code></span></div>
-*** Output of to_latex ***
-\begin{equation}
-\alpha
-\label{eq1}\end{equation}
-\begin{displaymath}
-\alpha
-\end{displaymath}
-\begin{displaymath}
-\beta
-\end{displaymath}
-\begin{displaymath}
-\gamma
-\end{displaymath}
-*** Output of to_md ***
-
-*** Output of to_s ***
 
 *** Output of Markdown.pl ***
 (not used anymore)

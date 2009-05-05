@@ -27,6 +27,10 @@ HTML use syntax: true
 
 #### Changes in the development version (**not released yet**)  ####     {#last}
 
+#### Changes in 0.6 (May 2009) ####     {#stable}
+
+*   Ruby 1.9 fixes by Nathan Weizenbaum.
+
 *   Allows space in link ref ids (patch by Damir Zekic)
 
 *	Better regexps for DIV frames (patch by Alexandr Mankuta)
