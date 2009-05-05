@@ -16,13 +16,13 @@ on the project's website: http://maruku.rubyforge.org
 The basic use is to create a new document, and then write
 its HTML representation with the method +to_html+:
 
-    doc = Maruku.new(markdown_string)
-    puts doc.to_html
+  doc = Maruku.new(markdown_string)
+  puts doc.to_html
 
 Method MaRuKu::MDDocument::to_html() returns a string, representing only an HTML fragment.
 
-    Maruku.new("## Header ##").to_html 
-    # => "<h2 id='header'>header</h2>"
+  Maruku.new("## Header ##").to_html 
+  # => "<h2 id='header'>header</h2>"
 
 This is useful to use Maruku inside other programs. 
 
@@ -39,14 +39,14 @@ on the standard error, and then try to continue.
 You can change this behaviour. If you create the #Maruku 
 object in this way:
 
-    Maruku.new(string, {:on_error => :raise})
+  Maruku.new(string, {:on_error => :raise})
 
 then Maruku will raise an exception.
 
 To change the error stream, use this construct:
 
-    errors = "Errors reported by Maruku:\n" 
-    Maruku.new(invalid, {:error_stream => errors})
+  errors = "Errors reported by Maruku:\n" 
+  Maruku.new(invalid, {:error_stream => errors})
 
 You can pass any object that supports operator << .
 
@@ -56,12 +56,12 @@ There are two command-line programs installed: +maruku+ and +marutex+.
 
 +maruku+ converts Markdown to HTML:
 
-    $ maruku file.md  # creates file.html
+  $ maruku file.md  # creates file.html
 
 +marutex+ converts Markdown to LaTeX, then calls +pdflatex+ to 
 transform to PDF:
 
-    $ marutex file.md  # creates file.tex and file.pdf
+  $ marutex file.md  # creates file.tex and file.pdf
 
 == Code organization 
 

@@ -20,7 +20,6 @@
 
 require 'rexml/document'
 
-# :include:MaRuKu.txt
 module MaRuKu
 
 	module In
