@@ -17,7 +17,7 @@ LaTeX preamble: preamble.tex
 
 Maruku is a [Markdown] interpreter written in [Ruby].
 
-> [Last release](changelog.html#stable) is version 0.5.9 -- 2008-06-08.
+> [Last release](changelog.html#stable) is version 0.6.0 -- 2009-05-04.
 {#news}
 
 ![data flow](diagram.png){#dataflow}
