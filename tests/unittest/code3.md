@@ -69,15 +69,3 @@ This is code (1 tab):
 This is not code
 *** Output of to_s ***
 This is code (4 spaces):This is not codeThis is code (1 tab):This is not code
-*** EOF ***
-
-
-
-	OK!
-
-
-
-*** Output of Markdown.pl ***
-(not used anymore)
-*** Output of Markdown.pl (parsed) ***
-(not used anymore)

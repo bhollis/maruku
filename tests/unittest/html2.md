@@ -20,15 +20,3 @@ One 123
 One 123
 *** Output of to_s ***
 One 123
-*** EOF ***
-
-
-
-	OK!
-
-
-
-*** Output of Markdown.pl ***
-(not used anymore)
-*** Output of Markdown.pl (parsed) ***
-(not used anymore)

@@ -65,15 +65,3 @@ of paragraph
 End of
 *** Output of to_s ***
 Hello: ! ! ` { } [ ] ( ) # . ! * * *Ora, emphasis, bold, * <- due asterischi-> * , un underscore-> _ , emphasis, incrediblee!This is (after) of paragraphEnd of
-*** EOF ***
-
-
-
-	OK!
-
-
-
-*** Output of Markdown.pl ***
-(not used anymore)
-*** Output of Markdown.pl (parsed) ***
-(not used anymore)

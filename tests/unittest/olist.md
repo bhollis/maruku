@@ -43,15 +43,3 @@ This is a list:
 3.  three
 *** Output of to_s ***
 This is a list:onetwothree
-*** EOF ***
-
-
-
-	OK!
-
-
-
-*** Output of Markdown.pl ***
-(not used anymore)
-*** Output of Markdown.pl (parsed) ***
-(not used anymore)

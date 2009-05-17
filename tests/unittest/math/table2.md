@@ -40,15 +40,3 @@ Symbol&Meaning&comments\\
 SymbolMeaningcomments The firstI like it. The firstI like it.
 *** Output of to_s ***
 SymbolMeaningcomments The firstI like it. The firstI like it.
-*** EOF ***
-
-
-
-	OK!
-
-
-
-*** Output of Markdown.pl ***
-(not used anymore)
-*** Output of Markdown.pl (parsed) ***
-(not used anymore)

@@ -69,15 +69,3 @@ To this end, Markdown s syntax is
 comprised entirely of punctuation
 *** Output of to_s ***
 filters  including Setext, atx, Textile, reStructuredText, Grutatext, and EtText  the single biggest source of inspiration for Markdowns syntax is the format of plain text email.To this end, Markdowns syntax is comprised entirely of punctuation
-*** EOF ***
-
-
-
-	OK!
-
-
-
-*** Output of Markdown.pl ***
-(not used anymore)
-*** Output of Markdown.pl (parsed) ***
-(not used anymore)

@@ -62,15 +62,3 @@ md_el(:document,[
 -ue
 *** Output of to_s ***
 DuetretretreDue
-*** EOF ***
-
-
-
-	OK!
-
-
-
-*** Output of Markdown.pl ***
-(not used anymore)
-*** Output of Markdown.pl (parsed) ***
-(not used anymore)

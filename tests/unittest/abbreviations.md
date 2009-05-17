@@ -50,15 +50,3 @@ Operation Tigra Genesisis going well.
 *[Tigra Genesis]:
 *** Output of to_s ***
 The HTML specification is maintained by the W3C.Operation Tigra Genesis is going well.
-*** EOF ***
-
-
-
-	OK!
-
-
-
-*** Output of Markdown.pl ***
-(not used anymore)
-*** Output of Markdown.pl (parsed) ***
-(not used anymore)

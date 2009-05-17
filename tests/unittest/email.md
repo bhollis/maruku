@@ -18,15 +18,3 @@ This is an email address: \href{mailto:andrea@invalid.it}{andrea\char64invalid\c
 This is an email address:
 *** Output of to_s ***
 This is an email address:
-*** EOF ***
-
-
-
-	OK!
-
-
-
-*** Output of Markdown.pl ***
-(not used anymore)
-*** Output of Markdown.pl (parsed) ***
-(not used anymore)

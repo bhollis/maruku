@@ -14,15 +14,3 @@ test:
 test:
 *** Output of to_s ***
 test:
-*** EOF ***
-
-
-
-	OK!
-
-
-
-*** Output of Markdown.pl ***
-(not used anymore)
-*** Output of Markdown.pl (parsed) ***
-(not used anymore)

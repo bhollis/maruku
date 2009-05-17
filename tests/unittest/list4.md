@@ -87,15 +87,3 @@ This is a list:
 This is not a list: 1987. one ciao
 *** Output of to_s ***
 This is a list:onetwoThis is not a list: * one ciaoThis is a list:onetwoThis is not a list: 1987. one ciao
-*** EOF ***
-
-
-
-	OK!
-
-
-
-*** Output of Markdown.pl ***
-(not used anymore)
-*** Output of Markdown.pl (parsed) ***
-(not used anymore)

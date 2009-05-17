@@ -17,15 +17,3 @@ md_el(:document,[md_html("<!--\n<\n-->")],{},[])
 
 *** Output of to_s ***
 
-*** EOF ***
-
-
-
-	OK!
-
-
-
-*** Output of Markdown.pl ***
-(not used anymore)
-*** Output of Markdown.pl (parsed) ***
-(not used anymore)

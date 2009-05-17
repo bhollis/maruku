@@ -23,15 +23,3 @@ This is not $math$.
 [ \alpha ]
 *** Output of to_s ***
 This is not $math$.[ \alpha ]
-*** EOF ***
-
-
-
-	OK!
-
-
-
-*** Output of Markdown.pl ***
-(not used anymore)
-*** Output of Markdown.pl (parsed) ***
-(not used anymore)

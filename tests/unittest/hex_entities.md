@@ -35,15 +35,3 @@ alpha, and or for the Arabic letter
 alef.
 *** Output of to_s ***
 Examples of numeric character references include  or  for the copyright symbol,  or  for the Greek capital letter alpha, and  or  for the Arabic letter alef.
-*** EOF ***
-
-
-
-	OK!
-
-
-
-*** Output of Markdown.pl ***
-(not used anymore)
-*** Output of Markdown.pl (parsed) ***
-(not used anymore)

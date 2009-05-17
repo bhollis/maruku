@@ -73,15 +73,3 @@ This block is composed of 5
 This block is composed of 2
 *** Output of to_s ***
 This block is composed of three lines:This block is composed of 5This block is composed of 2
-*** EOF ***
-
-
-
-	OK!
-
-
-
-*** Output of Markdown.pl ***
-(not used anymore)
-*** Output of Markdown.pl (parsed) ***
-(not used anymore)

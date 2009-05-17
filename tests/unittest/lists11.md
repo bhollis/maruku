@@ -21,15 +21,3 @@ md_el(:document,[
 - ένα
 *** Output of to_s ***
 ένα
-*** EOF ***
-
-
-
-	OK!
-
-
-
-*** Output of Markdown.pl ***
-(not used anymore)
-*** Output of Markdown.pl (parsed) ***
-(not used anymore)

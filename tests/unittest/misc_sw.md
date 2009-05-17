@@ -523,15 +523,3 @@ LiberLiberfor books in italian.
 API you can use.
 *** Output of to_s ***
 GeneralOperating System : Mac OS X: heaven, after the purgatory of Linux and the hell of Windows.Browser: Firefox. On a Mac, Camino.Email: GMail, search, dont sort really works.Text Editor: TextMate, you have to buy it, but its worth every penny. There are rumours that its been converting (recovering) Emacs users (addicts). Unfortunately, its Mac only. An alternative is jedit (GPL, Java).DevelopmentBuild system: cmake, throw the autotools away.Source code control system: ditch CVS for subversion.Project management: Trac tracks everything.Scripting language: Ruby is Japanese pragmatism (and has a poignant guide). Python, you say? Python is too academic and snob:Java IDE: JBuilder is great software and has a free version (IMHO better than Eclipse). Java is not a pain anymore since it gained generics and got opensourced.Mark-up language: HTML is so 2001, why dont you take at look at Markdown? Look at the source of this page.C++ libraries: * QT for GUIs. * GSL for math. * Magick++ for manipulating images. * Cairo for creating PDFs. * Boost for just about everything else.ResearchWriting papers: LaTeXWriting papers & enjoying the process: LyXHandsome figures in your papers: xfig or, better, jfig.The occasional presentation with many graphical content: OpenOffice Impress (using the OOOlatex plugin); the alternative is PowerPoint with the TexPoint plugin.Managing BibTeX: jabref: multi-platform, for all your bibtex needs.IEEExplore and BibTeX: convert citations using BibConverter.Cool websitesBest site in the wwworld: WikipediaMutopia for sheet music; the Gutenberg Project for books; LiberLiber for books in italian.Blogs: BloglinesSharing photos: flickr exposes an API you can use.
-*** EOF ***
-
-
-
-	OK!
-
-
-
-*** Output of Markdown.pl ***
-(not used anymore)
-*** Output of Markdown.pl (parsed) ***
-(not used anymore)

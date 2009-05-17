@@ -95,15 +95,3 @@ That s the second paragraph.
 This is not a footnote.
 *** Output of to_s ***
 Thats some text with a footnote  and another  and another .And thats the footnote.Thats the second paragraph of the footnote.And thats the footnote. This is second sentence (same paragraph).This is the very long one.Thats the second paragraph.This is not a footnote.
-*** EOF ***
-
-
-
-	OK!
-
-
-
-*** Output of Markdown.pl ***
-(not used anymore)
-*** Output of Markdown.pl (parsed) ***
-(not used anymore)

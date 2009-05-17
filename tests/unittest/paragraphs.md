@@ -44,15 +44,3 @@ Paragraph 3 Paragraph 4 Paragraph Br->
 Paragraph 5
 *** Output of to_s ***
 Paragraph 1Paragraph 2Paragraph 3 Paragraph 4 Paragraph Br->Paragraph 5
-*** EOF ***
-
-
-
-	OK!
-
-
-
-*** Output of Markdown.pl ***
-(not used anymore)
-*** Output of Markdown.pl (parsed) ***
-(not used anymore)

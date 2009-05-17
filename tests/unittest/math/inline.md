@@ -44,15 +44,3 @@ Here are some formulas:
 That s it, nothing else is supported.
 *** Output of to_s ***
 Here are some formulas:Thats it, nothing else is supported.
-*** EOF ***
-
-
-
-	OK!
-
-
-
-*** Output of Markdown.pl ***
-(not used anymore)
-*** Output of Markdown.pl (parsed) ***
-(not used anymore)

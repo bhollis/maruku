@@ -43,15 +43,3 @@ please, go away!
 or else terrible things will happen
 *** Output of to_s ***
 this is the last warning!please, go away!or else terrible things will happen
-*** EOF ***
-
-
-
-	OK!
-
-
-
-*** Output of Markdown.pl ***
-(not used anymore)
-*** Output of Markdown.pl (parsed) ***
-(not used anymore)

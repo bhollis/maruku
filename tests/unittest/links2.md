@@ -20,15 +20,3 @@ See \href{http://agorf.gr/}{foo'{} bar}
 See foo bar
 *** Output of to_s ***
 See foo bar
-*** EOF ***
-
-
-
-	OK!
-
-
-
-*** Output of Markdown.pl ***
-(not used anymore)
-*** Output of Markdown.pl (parsed) ***
-(not used anymore)

@@ -16,15 +16,3 @@ Japanese: マルク
 Japanese: マルク
 *** Output of to_s ***
 Japanese: マルク
-*** EOF ***
-
-
-
-	OK!
-
-
-
-*** Output of Markdown.pl ***
-(not used anymore)
-*** Output of Markdown.pl (parsed) ***
-(not used anymore)

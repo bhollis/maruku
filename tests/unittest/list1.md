@@ -44,15 +44,3 @@ This is a blockquote inside a list
 item.
 *** Output of to_s ***
 A list item with a blockquote:This is a blockquote inside a list item.
-*** EOF ***
-
-
-
-	OK!
-
-
-
-*** Output of Markdown.pl ***
-(not used anymore)
-*** Output of Markdown.pl (parsed) ***
-(not used anymore)

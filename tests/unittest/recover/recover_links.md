@@ -13,15 +13,3 @@ Search on Google images
 Search on Google images
 *** Output of to_s ***
 Search on Google images
-*** EOF ***
-
-
-
-	OK!
-
-
-
-*** Output of Markdown.pl ***
-(not used anymore)
-*** Output of Markdown.pl (parsed) ***
-(not used anymore)

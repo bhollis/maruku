@@ -13,15 +13,3 @@ One line
 One line
 *** Output of to_s ***
 One line
-*** EOF ***
-
-
-
-	OK!
-
-
-
-*** Output of Markdown.pl ***
-(not used anymore)
-*** Output of Markdown.pl (parsed) ***
-(not used anymore)

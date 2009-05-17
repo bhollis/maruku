@@ -32,15 +32,3 @@ end tell
 Here is an example of AppleScript:
 *** Output of to_s ***
 Here is an example of AppleScript:
-*** EOF ***
-
-
-
-	OK!
-
-
-
-*** Output of Markdown.pl ***
-(not used anymore)
-*** Output of Markdown.pl (parsed) ***
-(not used anymore)

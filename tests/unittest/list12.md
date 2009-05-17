@@ -26,15 +26,3 @@ md_el(:document,[
 -aruku: good.
 *** Output of to_s ***
 Maruku: good.
-*** EOF ***
-
-
-
-	OK!
-
-
-
-*** Output of Markdown.pl ***
-(not used anymore)
-*** Output of Markdown.pl (parsed) ***
-(not used anymore)

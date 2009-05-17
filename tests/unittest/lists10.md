@@ -32,15 +32,3 @@ List:
 - è`gcc`
 *** Output of to_s ***
 List:è
-*** EOF ***
-
-
-
-	OK!
-
-
-
-*** Output of Markdown.pl ***
-(not used anymore)
-*** Output of Markdown.pl (parsed) ***
-(not used anymore)

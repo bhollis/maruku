@@ -13,15 +13,3 @@ Ok, this\_was a\_really\_old bug
 Ok, this_was a_really_old bug
 *** Output of to_s ***
 Ok, this_was a_really_old bug
-*** EOF ***
-
-
-
-	OK!
-
-
-
-*** Output of Markdown.pl ***
-(not used anymore)
-*** Output of Markdown.pl (parsed) ***
-(not used anymore)

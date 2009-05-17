@@ -35,15 +35,3 @@ B&&X\\
 12AXBX
 *** Output of to_s ***
 12AXBX
-*** EOF ***
-
-
-
-	OK!
-
-
-
-*** Output of Markdown.pl ***
-(not used anymore)
-*** Output of Markdown.pl (parsed) ***
-(not used anymore)

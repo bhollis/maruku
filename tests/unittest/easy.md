@@ -13,15 +13,3 @@ md_el(:document,[md_par([md_em(["Hello!"]), " how are ", md_strong(["you"]), "?"
 Hello!how are you?
 *** Output of to_s ***
 Hello! how are you?
-*** EOF ***
-
-
-
-	OK!
-
-
-
-*** Output of Markdown.pl ***
-(not used anymore)
-*** Output of Markdown.pl (parsed) ***
-(not used anymore)

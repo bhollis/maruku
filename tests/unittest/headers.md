@@ -35,15 +35,3 @@ md_el(:document,[
 A title with emphasisA title with emphasisA title with emphasis
 *** Output of to_s ***
 A title with emphasisA title with emphasisA title with emphasis
-*** EOF ***
-
-
-
-	OK!
-
-
-
-*** Output of Markdown.pl ***
-(not used anymore)
-*** Output of Markdown.pl (parsed) ***
-(not used anymore)

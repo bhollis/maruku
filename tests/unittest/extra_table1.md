@@ -35,15 +35,3 @@ Content Cell&Content Cell\\
 First HeaderSecond HeaderContent CellContent CellContent CellContent Cell
 *** Output of to_s ***
 First HeaderSecond HeaderContent CellContent CellContent CellContent Cell
-*** EOF ***
-
-
-
-	OK!
-
-
-
-*** Output of Markdown.pl ***
-(not used anymore)
-*** Output of Markdown.pl (parsed) ***
-(not used anymore)

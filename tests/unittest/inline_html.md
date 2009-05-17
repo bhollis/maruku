@@ -150,15 +150,3 @@ Result alone:
 Without closing:
 *** Output of to_s ***
 Input:Result: Input:Result on span: Result alone:Without closing:
-*** EOF ***
-
-
-
-	OK!
-
-
-
-*** Output of Markdown.pl ***
-(not used anymore)
-*** Output of Markdown.pl (parsed) ***
-(not used anymore)

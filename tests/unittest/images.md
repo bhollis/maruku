@@ -88,15 +88,3 @@ This is double size:
 Cascading Style Sheets
 *** Output of to_s ***
 This page does not uilizes Cascading Style SheetsPlease mouseover to see the title: Cascading Style SheetsPlease mouseover to see the title: Cascading Style SheetsIll say it one more time: this page does not use Cascading Style SheetsThis is double size: Cascading Style Sheets
-*** EOF ***
-
-
-
-	OK!
-
-
-
-*** Output of Markdown.pl ***
-(not used anymore)
-*** Output of Markdown.pl (parsed) ***
-(not used anymore)

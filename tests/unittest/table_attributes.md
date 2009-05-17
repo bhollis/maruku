@@ -32,15 +32,3 @@ h&h\\
 hh c1c2
 *** Output of to_s ***
 hh c1c2
-*** EOF ***
-
-
-
-	OK!
-
-
-
-*** Output of Markdown.pl ***
-(not used anymore)
-*** Output of Markdown.pl (parsed) ***
-(not used anymore)

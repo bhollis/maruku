@@ -29,15 +29,3 @@ This is an image.
 This is an image.
 *** Output of to_s ***
 This is an image.This is an image.
-*** EOF ***
-
-
-
-	OK!
-
-
-
-*** Output of Markdown.pl ***
-(not used anymore)
-*** Output of Markdown.pl (parsed) ***
-(not used anymore)

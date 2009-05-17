@@ -112,15 +112,3 @@ here No space.
 She was 6 12 .
 *** Output of to_s ***
 Twas a test to remember in the 90s.It was  in a sense  really interesting.I  too  met some curly quotes there or hereNo space.She was 612.
-*** EOF ***
-
-
-
-	OK!
-
-
-
-*** Output of Markdown.pl ***
-(not used anymore)
-*** Output of Markdown.pl (parsed) ***
-(not used anymore)

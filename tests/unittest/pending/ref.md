@@ -19,15 +19,3 @@ md_el(:document,[
 a. bis a link.
 *** Output of to_s ***
 a. b is a link.
-*** EOF ***
-
-
-
-	OK!
-
-
-
-*** Output of Markdown.pl ***
-(not used anymore)
-*** Output of Markdown.pl (parsed) ***
-(not used anymore)

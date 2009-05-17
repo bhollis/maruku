@@ -15,15 +15,3 @@ md_el(:document,[md_par([md_im_image(["bar"], "/foo.jpg", nil)])],{},[])
 bar
 *** Output of to_s ***
 bar
-*** EOF ***
-
-
-
-	OK!
-
-
-
-*** Output of Markdown.pl ***
-(not used anymore)
-*** Output of Markdown.pl (parsed) ***
-(not used anymore)

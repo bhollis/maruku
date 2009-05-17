@@ -40,15 +40,3 @@ Paragraph
 Paragraph
 *** Output of to_s ***
 ParagraphParagraphParagraph
-*** EOF ***
-
-
-
-	OK!
-
-
-
-*** Output of Markdown.pl ***
-(not used anymore)
-*** Output of Markdown.pl (parsed) ***
-(not used anymore)

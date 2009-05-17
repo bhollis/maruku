@@ -55,15 +55,3 @@ Header with attributesHeader with attributesHeader no attributesParagraph with a
 Paragraph with emphasis
 *** Output of to_s ***
 Header with attributesHeader with attributesHeader no attributesParagraph with a.Paragraph with emphasis
-*** EOF ***
-
-
-
-	OK!
-
-
-
-*** Output of Markdown.pl ***
-(not used anymore)
-*** Output of Markdown.pl (parsed) ***
-(not used anymore)

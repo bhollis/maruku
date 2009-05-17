@@ -29,15 +29,3 @@ taking part in  which involve , , ,
 taking part in which involve , , ,
 *** Output of to_s ***
 taking part in  which involve , , ,
-*** EOF ***
-
-
-
-	OK!
-
-
-
-*** Output of Markdown.pl ***
-(not used anymore)
-*** Output of Markdown.pl (parsed) ***
-(not used anymore)
