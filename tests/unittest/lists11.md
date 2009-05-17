@@ -5,15 +5,22 @@ Write a comment here
 - ένα
 
 *** Output of inspect ***
-md_el(:document,[md_par(["- \316\255\316\275\316\261"])],{},[])
+md_el(:document,[
+	md_el(:ul,[md_el(:li_span,["ένα"],{:want_my_paragraph=>false},[])],{},[])
+],{},[])
 *** Output of to_html ***
-<p>- ένα</p>
+<ul>
+<li>ένα</li>
+</ul>
 *** Output of to_latex ***
-- ένα
+\begin{itemize}%
+\item ένα
+
+\end{itemize}
 *** Output of to_md ***
 - ένα
 *** Output of to_s ***
-- ένα
+ένα
 *** EOF ***
 
 

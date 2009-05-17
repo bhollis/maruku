@@ -22,10 +22,10 @@ md_el(:document,[
 	md_el(:equation,[],{:label=>nil,:math=>" x = y \n",:num=>nil},[])
 ],{},[])
 *** Output of to_html ***
-<div class='maruku-equation'><code class='maruku-mathml'> x = y </code><div class='maruku-eq-tex'><code style='display: none'>x = y</code></div></div><div class='maruku-equation'><code class='maruku-mathml'> x = y 
-</code><div class='maruku-eq-tex'><code style='display: none'>x = y</code></div></div><div class='maruku-equation'><code class='maruku-mathml'> x = y 
-</code><div class='maruku-eq-tex'><code style='display: none'>x = y</code></div></div><div class='maruku-equation'><code class='maruku-mathml'> x = y 
-</code><div class='maruku-eq-tex'><code style='display: none'>x = y</code></div></div>
+<div class='maruku-equation'><code class='maruku-mathml'> x = y </code><span class='maruku-eq-tex'><code style='display: none'>x = y</code></span></div><div class='maruku-equation'><code class='maruku-mathml'> x = y 
+</code><span class='maruku-eq-tex'><code style='display: none'>x = y</code></span></div><div class='maruku-equation'><code class='maruku-mathml'> x = y 
+</code><span class='maruku-eq-tex'><code style='display: none'>x = y</code></span></div><div class='maruku-equation'><code class='maruku-mathml'> x = y 
+</code><span class='maruku-eq-tex'><code style='display: none'>x = y</code></span></div>
 *** Output of to_latex ***
 \begin{displaymath}
 x = y

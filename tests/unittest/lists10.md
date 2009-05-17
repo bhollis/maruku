@@ -10,7 +10,7 @@ List:
 md_el(:document,[
 	md_par(["List:"]),
 	md_el(:ul,[
-		md_el(:li_span,["\303\250", md_code("gcc")],{:want_my_paragraph=>false},[])
+		md_el(:li_span,["è", md_code("gcc")],{:want_my_paragraph=>false},[])
 	],{},[])
 ],{},[])
 *** Output of to_html ***
@@ -29,7 +29,7 @@ List:
 *** Output of to_md ***
 List:
 
--�
+- è`gcc`
 *** Output of to_s ***
 List:è
 *** EOF ***
