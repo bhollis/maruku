@@ -12,7 +12,7 @@ describe "A Maruku document" do
     $stderr = @old_stderr
   end
 
-  Dir[File.dirname(__FILE__) + "/unittest/**/*.md"].each do |md|
+  Dir[File.dirname(__FILE__) + "/block_docs/**/*.md"].each do |md|
     describe " for the #{md} file" do
       input = File.read(md).split(/\n\*{3}[^*\n]+\*{3}\n/m)
       input = ["Write a comment here", "{}", input.first] if input.size == 1
@@ -23,7 +23,7 @@ describe "A Maruku document" do
 
       before(:each) do
         red_dir = 
-        pending if md =~ Regexp.new("^" + Regexp.quote(File.dirname(__FILE__) + "/unittest/red_tests"))
+        pending if md =~ Regexp.new("^" + Regexp.quote(File.dirname(__FILE__) + "/block_docs/red_tests"))
 
         $already_warned_itex2mml = false
         @doc = Maruku.new(markdown, params)
