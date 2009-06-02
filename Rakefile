@@ -20,18 +20,11 @@ task :release => [:package] do
   end
 end
 
-task :test => [:markdown_span_tests, :markdown_block_tests]
+begin
+  require 'spec/rake/spectask'
 
-task :markdown_block_tests do
-  tests = Dir['tests/unittest/**/*.md'].join(' ')
-  puts "Executing tests #{tests}"
-  ok = system "ruby -Ilib bin/marutest #{tests}"
-  raise "Failed block unittest" if not ok
-end
-
-task :markdown_span_tests do
-  ok = system( "ruby -Ilib lib/maruku/tests/new_parser.rb v b")
-  raise "Failed span unittest" if not ok
+  Spec::Rake::SpecTask.new
+rescue LoadError => e
 end
 
 require 'rake/rdoctask'
