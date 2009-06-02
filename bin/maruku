@@ -93,6 +93,11 @@ end
 
 
 unless ARGV.empty?
+  if ARGV.size > 1 && output_file
+    $stderr.puts "Can't write #{ARGV.map {|f| f.inspect}.join(' and ')} to #{output_file.inspect}"
+    exit 1
+  end
+
   # If we are given filenames, convert each file
   ARGV.map do |f|
     # read file content
@@ -137,6 +142,11 @@ end.each do |filename, input|
   end
 
   if (output_file.nil? && filename.nil?) || output_file == "-"
+    if export == :pdf
+      $stderr.puts "Can't write PDF to stdout"
+      exit 1
+    end
+
     cli_puts "Writing to standard output"
     $stdout.puts out
     next
