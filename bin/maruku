@@ -22,7 +22,7 @@ using_mathml = false
 output_file = nil
 
 opt = OptionParser.new do |opts|
-  opts.banner = "Usage: maruku [options] [file1.md] [file2.md] ..."
+  opts.banner = "Usage: #{File.basename($0)} [options] [file1.md] [file2.md] ..."
 
   opts.on("-v", "--[no-]verbose", "Run verbosely") do |v|
     MaRuKu::Globals[:verbose] = v
