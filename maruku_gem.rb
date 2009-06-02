@@ -14,7 +14,7 @@ MARUKU_GEMSPEC = Gem::Specification.new do |s|
     The output is really beautiful!
   DESCRIPTION
 
-  s.executables = ['maruku','marutex']
+  s.executables = ['maruku', 'marutex']
   s.files = FileList['lib/**/*', 'data/*', 'docs/**/*.md', 'bin/*',
     'spec/**/*.rb', 'spec/**/*.md'] +
     FileList.new('*') {|list| list.exclude(/(^|[^.a-z])[a-z]+/) }
