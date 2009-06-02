@@ -60,6 +60,7 @@ opt = OptionParser.new do |opts|
   opts.on_tail("--html", "Output HTML") {export = :html}
   opts.on_tail("--html-frag", "Output the contents of the <body> tag") {export = :html_frag}
   opts.on_tail("--tex", "Output LaTeX" ) {export = :tex}
+  opts.on_tail("--markdown", "Output Markdown" ) {export = :markdown}
   opts.on_tail("--inspect", "Output the parse tree") {export = :inspect}
 
   opts.on_tail("--version", "Show version") do
@@ -133,8 +134,8 @@ end.each do |filename, input|
       suffix = '.txt'
       out = doc.inspect
     when :markdown
-      suffix = '.pretty_md'
-      out = doc.to_markdown
+      suffix = '.md'
+      out = doc.to_md
     when :s5
       suffix = '_s5slides.html'
       out = doc.to_s5(:content_only => false)
