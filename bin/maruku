@@ -1,6 +1,6 @@
 #!/usr/bin/env ruby
 
-require 'maruku'
+require File.join(File.dirname(__FILE__), '..', 'lib', 'maruku')
 require 'optparse'
 
 

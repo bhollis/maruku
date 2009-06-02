@@ -18,6 +18,9 @@
 #   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #++
 
+dir = File.dirname(__FILE__)
+$LOAD_PATH.unshift dir unless $LOAD_PATH.include?(dir)
+
 require 'rexml/document'
 
 module MaRuKu
@@ -67,8 +70,6 @@ end
 # This is the public interface
 class Maruku < MaRuKu::MDDocument; end
 
-
-require 'rexml/document'
 
 # Structures definition
 require 'maruku/structures'
