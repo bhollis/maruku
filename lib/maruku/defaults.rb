@@ -25,7 +25,6 @@ module MaRuKu
     :unsafe_features => false,
     :on_error => :warning,
 
-
     :use_numbered_headers => false,
 
     :maruku_signature => false,
@@ -55,16 +54,12 @@ module MaRuKu
 
   class MDElement
     def get_setting(sym)
-      if self.attributes.has_key?(sym) then
-        return self.attributes[sym]
-      elsif self.doc && self.doc.attributes.has_key?(sym) then
-        return self.doc.attributes[sym]
-      elsif MaRuKu::Globals.has_key?(sym)
-        return MaRuKu::Globals[sym]
-      else
-        $stderr.puts "Bug: no default for #{sym.inspect}"
-        nil
-      end
+      return attributes[sym] if attributes.has_key?(sym)
+      return doc.attributes[sym] if doc && doc.attributes.has_key?(sym)
+      return MaRuKu::Globals[sym] if MaRuKu::Globals.has_key?(sym)
+
+      $stderr.puts "Bug: no default for #{sym.inspect}"
+      nil
     end
   end
 
