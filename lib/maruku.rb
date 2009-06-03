@@ -104,7 +104,7 @@ require 'maruku/attributes'
 
 require 'maruku/structures_iterators'
 
-require 'maruku/errors_management'
+require 'maruku/errors'
 
 # Code for creating a table of contents
 require 'maruku/toc'
