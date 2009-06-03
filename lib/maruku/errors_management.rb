@@ -19,43 +19,39 @@
 #++
 
 
-
-#m  Any method that detects formatting error calls the
-#m  maruku_error() method.
-#m  if @meta[:on_error] ==
-#m
-#m  - :warning   write on the standard err (or @error_stream if defined),
-#m              then do your best.
-#m  - :ignore    be shy and try to continue
-#m  - :raise     raises a MarukuException
-#m
-#m  default is :raise
+#  Any method that detects a formatting error calls the maruku_error() method.
+#  If MaRuKu::Globals[:on_error] ==
+#
+#  - :warning   print the error to stderr (or @error_stream if defined)
+#               and try to continue
+#  - :ignore    don't print anything and try to continue
+#  - :raise     raise a MarukuException
+#
+#  default is :warning
 
 module MaRuKu
-
-  class Exception < RuntimeError
-  end
+  class Exception < RuntimeError; end
 
   module Errors
+    FRAME_WIDTH = 75
 
-    def maruku_error(s,src=nil,con=nil)
+    def maruku_error(*args)
       policy = get_setting(:on_error)
 
       case policy
       when :ignore
       when :raise
-        raise_error create_frame(describe_error(s,src,con))
+        raise_error create_frame(describe_error(*args))
       when :warning
-        tell_user create_frame(describe_error(s,src,con))
+        tell_user create_frame(describe_error(*args))
       else
-        raise "BugBug: policy = #{policy.inspect}"
+        raise "Unknown on_error policy: #{policy.inspect}"
       end
     end
 
-    def maruku_recover(s,src=nil,con=nil)
-      tell_user create_frame(describe_error(s,src,con))
+    def maruku_recover(*args)
+      tell_user create_frame(describe_error(*args))
     end
-
     alias error maruku_error
 
     def raise_error(s)
@@ -63,28 +59,27 @@ module MaRuKu
     end
 
     def tell_user(s)
-      error_stream = self.attributes[:error_stream] || $stderr
-      error_stream << s
+      (self.attributes[:error_stream] || $stderr) << s
     end
+
+    private
 
     def create_frame(s)
-      n = 75
-      "\n" +
-      " "+"_"*n + "\n"+
-      "| Maruku tells you:\n" +
-      "+" + ("-"*n) +"\n"+
-      add_tabs(s,1,'| ') + "\n" +
-      "+" + ("-"*n) + "\n" +
-      add_tabs(caller[0, 5].join("\n"),1,'!') + "\n" +
-      "\\" + ("_"*n) + "\n"
+      "\n" + <<FRAME
+ #{"_" * FRAME_WIDTH}
+| Maruku tells you:
++#{"-" * FRAME_WIDTH}
+#{s.gsub(/^/, '| ').rstrip}
++#{"-" * FRAME_WIDTH}
+#{caller[0...5].join("\n").gsub(/^/, '!')}
+\\#{"_" * FRAME_WIDTH}
+FRAME
     end
 
-    def describe_error(s,src,con)
-      t = s
-      src && (t += "\n#{src.describe}\n")
-      con && (t += "\n#{con.describe}\n")
-      t
+    def describe_error(s, src = nil, con = nil)
+      s += "\n#{src.describe}\n" if src
+      s += "\n#{con.describe}\n" if con
+      s
     end
-
-  end # Errors
-end # MaRuKu
+  end
+end
