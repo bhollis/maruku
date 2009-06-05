@@ -22,11 +22,6 @@
 # Boring stuff with strings.
 module MaRuKu
   module Strings
-
-    def add_tabs(s,n=1,char="\t")
-      s.split("\n").map{|x| char*n+x }.join("\n")
-    end
-
     TabSize = 4;
 
     def split_lines(s)

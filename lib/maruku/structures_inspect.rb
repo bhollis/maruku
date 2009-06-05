@@ -76,7 +76,7 @@ class MDElement
 			s
 		else
 			"[\n"+
-			add_tabs(@children.inspect_more(compact,",\n",false))+
+			@children.inspect_more(compact,",\n",false).gsub(/^/, "\t")+
 			"\n]"
 		end
 	end

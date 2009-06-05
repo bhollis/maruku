@@ -825,7 +825,7 @@ If true, raw HTML is discarded from the output.
 		else # invalid
 			# Creates red box with offending HTML
 			tell_user "Wrapping bad html in a PRE with class 'markdown-html-error'\n"+
-				add_tabs(raw_html,1,'|')
+				raw_html.gsub(/^/, '|')
 			pre = Element.new('pre')
 			pre.attributes['style'] = 'border: solid 3px red; background-color: pink'
 			pre.attributes['class'] = 'markdown-html-error'

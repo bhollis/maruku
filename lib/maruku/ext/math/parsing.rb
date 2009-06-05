@@ -68,7 +68,7 @@ end
 				while true
 					if not src.cur_line
 						doc.maruku_error("Stream finished while reading equation\n\n"+
-							doc.add_tabs(tex,1,'$> '), src, con)
+							tex.gsub(/^/, '$> '), src, con)
 						break
 					end
 					line = src.shift_line

@@ -214,7 +214,7 @@ module MaRuKu; module In; module Markdown; module BlockLevelParser
 		if not code =~ (/\?>\s*$/)
 			garbage = (/\?>(.*)$/.match(code))[1]
 			maruku_error "Trailing garbage on last line: #{garbage.inspect}:\n"+
-				add_tabs(code, 1, '|'), src
+				code.gsub(/^/, '|'), src
 		end
 		code.gsub!(/\?>\s*$/, '')
 		
@@ -244,7 +244,7 @@ module MaRuKu; module In; module Markdown; module BlockLevelParser
 			end
 		rescue Exception => e
 			ex = e.inspect + e.backtrace.join("\n")
-			maruku_error "Bad block-level HTML:\n#{add_tabs(ex,1,'|')}\n", src
+			maruku_error "Bad block-level HTML:\n#{ex.gsub(/^/, '|')}\n", src
 		end
 		if not (h.rest =~ /^\s*$/)
 			maruku_error "Could you please format this better?\n"+

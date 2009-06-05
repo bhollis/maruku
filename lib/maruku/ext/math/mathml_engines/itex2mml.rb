@@ -17,7 +17,7 @@ module MaRuKu; module Out; module HTML
 			maruku_error "Could not load package 'itex2mml'.\n"+ "Please install it." 			unless $already_warned_itex2mml 
 			$already_warned_itex2mml = true
 		rescue REXML::ParseException => e
-			maruku_error "Invalid MathML TeX: \n#{add_tabs(tex,1,'tex>')}"+
+			maruku_error "Invalid MathML TeX: \n#{tex.gsub(/^/, 'tex>')}"+
 				"\n\n #{e.inspect}"
 		rescue 
 			maruku_error "Could not produce MathML TeX: \n#{tex}"+
