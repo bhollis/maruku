@@ -22,12 +22,10 @@
 # The Maruku class is the public interface
 #
 
-class Maruku
-  def initialize(s=nil, meta={})
+class Maruku < MaRuKu::MDDocument
+  def initialize(s = nil, meta = {})
     super(nil)
     self.attributes.merge! meta
-    if s
-      parse_doc(s)
-    end
+    parse_doc(s) if s
   end
 end
