@@ -19,90 +19,78 @@
 #++
 
 module MaRuKu
-
   # I did not want to have a class for each possible element.
   # Instead I opted to have only the class "MDElement"
   # that represents eveything in the document (paragraphs, headers, etc).
+  # The node type is available via the variable +node_type+.
   #
-  # You can tell what it is by the variable `node_type`.
+  # The instance variable <tt>@children</tt> contains the child nodes,
+  # which can be of class String or MDElement.
   #
-  # In the instance-variable `children` there are the children. These
-  # can be of class 1) String or 2) MDElement.
-  #
-  # The @doc variable points to the document to which the MDElement
+  # The <tt>@doc</tt> variable points to the document to which the MDElement
   # belongs (which is an instance of Maruku, subclass of MDElement).
   #
-  # Attributes are contained in the hash `attributes`.
-  # Keys are symbols (downcased, with spaces substituted by underscores)
+  # Attributes are contained in the hash +attributes+.
+  # Keys are symbols (downcased, with spaces substituted by underscores).
   #
-  # For example, if you write in the source document.
+  # For example, if you write in the source document:
   #
   #     Title: test document
   #     My property: value
   #
   #     content content
   #
-  # You can access `value` by writing:
+  # You can access +value+ by writing:
   #
-  #     @doc.attributes[:my_property] # => 'value'
+  #     @doc.attributes[:my_property] #=> 'value'
   #
-  # from whichever MDElement in the hierarchy.
-  #
+  # within any MDElement in the hierarchy.
   class MDElement
-    # See helpers.rb for the list of allowed #node_type values
+    # See helpers.rb for the list of allowed <tt>#node_type</tt> values
     attr_accessor :node_type
 
-    # Children are either Strings or MDElement
+    # Children are either Strings or MDElements.
     attr_accessor :children
 
-    # An attribute list, may not be nil
+    # An attribute list, may not be nil.
     attr_accessor :al
 
-    # These are the processed attributes
+    # The processed attributes.
     attr_accessor :attributes
 
-    # Reference of the document (which is of class Maruku)
+    # The document root (which is of class Maruku).
     attr_accessor :doc
 
-    def initialize(node_type=:unset, children=[], meta={},
-        al=MaRuKu::AttributeList.new )
-      super();
+    def initialize(node_type = :unset, children = [], meta = {}, al = nil)
       self.children = children
       self.node_type = node_type
-
-      @attributes = {}
+      self.attributes = {}
 
       meta.each do |symbol, value|
-        self.instance_eval "
+        self.instance_eval <<RUBY
           def #{symbol}; @#{symbol}; end
-          def #{symbol}=(val); @#{symbol}=val; end"
+          def #{symbol}=(val); @#{symbol} = val; end
+RUBY
         self.send "#{symbol}=", value
       end
 
       self.al = al || AttributeList.new
-
       self.meta_priv = meta
     end
 
+    # private
     attr_accessor :meta_priv
 
     def ==(o)
-      ok = o.kind_of?(MDElement) &&
-      (self.node_type == o.node_type) &&
-      (self.meta_priv == o.meta_priv) &&
-      (self.children == o.children)
-
-      if not ok
-  #			puts "This:\n"+self.inspect+"\nis different from\n"+o.inspect+"\n\n"
-      end
-      ok
+      o.is_a?(MDElement) &&
+        self.node_type == o.node_type &&
+        self.meta_priv == o.meta_priv &&
+        self.children == o.children
     end
   end
 
   # This represents the whole document and holds global data.
-
   class MDDocument
-
     attr_accessor :refs
     attr_accessor :footnotes
 
@@ -121,8 +109,8 @@ module MaRuKu
 
     def initialize(s=nil)
       super(:document)
-      @doc       = self
 
+      self.doc = self
       self.refs = {}
       self.footnotes = {}
       self.footnotes_order = []
@@ -133,6 +121,4 @@ module MaRuKu
       parse_doc(s) if s
     end
   end
-
-
-end # MaRuKu
+end
