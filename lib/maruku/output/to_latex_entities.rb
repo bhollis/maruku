@@ -55,10 +55,10 @@ module MaRuKu; module Out; module Latex
 	end
 	
 	class LatexEntity
-		safe_attr_accessor :html_num, Fixnum
-		safe_attr_accessor :html_entity, String
-		safe_attr_accessor :latex_string, String
-		safe_attr_accessor :latex_packages, Array
+		attr_accessor :html_num
+		attr_accessor :html_entity
+		attr_accessor :latex_string
+		attr_accessor :latex_packages
 	end
 	
 	def Latex.need_entity_table

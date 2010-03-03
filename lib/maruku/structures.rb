@@ -18,34 +18,6 @@
 #   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #++
 
-
-
-class Module
-  def safe_attr_accessor1(symbol, klass)
-    attr_reader symbol
-    code = <<-EOF
-    def #{symbol}=(val)
-      if not val.kind_of? #{klass}
-        s = "\nCould not assign an object of type \#{val.class} to #{symbol}.\n\n"
-        s += "Tried to assign object of class \#{val.class}:\n"+
-             "\#{val.inspect}\n"+
-             "to \#{self.class}::#{symbol} constrained to be of class #{klass}.\n"
-        raise s
-      end
-      @#{symbol} = val
-    end
-
-EOF
-    module_eval code
-  end
-
-  def safe_attr_accessor2(symbol, klass)
-    attr_accessor symbol
-  end
-
-  alias  safe_attr_accessor  safe_attr_accessor2
-end
-
 module MaRuKu
 
   # I did not want to have a class for each possible element.
@@ -78,16 +50,16 @@ module MaRuKu
   #
   class MDElement
     # See helpers.rb for the list of allowed #node_type values
-    safe_attr_accessor :node_type, Symbol
+    attr_accessor :node_type
 
     # Children are either Strings or MDElement
-    safe_attr_accessor :children, Array
+    attr_accessor :children
 
     # An attribute list, may not be nil
-    safe_attr_accessor :al, Array #Maruku::AttributeList
+    attr_accessor :al
 
     # These are the processed attributes
-    safe_attr_accessor :attributes, Hash
+    attr_accessor :attributes
 
     # Reference of the document (which is of class Maruku)
     attr_accessor :doc
@@ -131,21 +103,21 @@ module MaRuKu
 
   class MDDocument
 
-    safe_attr_accessor :refs, Hash
-    safe_attr_accessor :footnotes, Hash
+    attr_accessor :refs
+    attr_accessor :footnotes
 
     # This is an hash. The key might be nil.
-    safe_attr_accessor :abbreviations, Hash
+    attr_accessor :abbreviations
 
     # Attribute lists definition
-    safe_attr_accessor :ald, Hash
+    attr_accessor :ald
 
     # The order in which footnotes are used. Contains the id.
-    safe_attr_accessor :footnotes_order, Array
+    attr_accessor :footnotes_order
 
-    safe_attr_accessor :latex_required_packages, Array
+    attr_accessor :latex_required_packages
 
-    safe_attr_accessor :refid2ref, Hash
+    attr_accessor :refid2ref
 
     def initialize(s=nil)
       super(:document)
