@@ -18,21 +18,25 @@
 #   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #++
 
+require 'strscan'
 
 # Boring stuff with strings.
 module MaRuKu
   module Strings
-    TabSize = 4;
+    TAB_SIZE = 4
 
+    # Split a string into multiple lines,
+    # on line feeds and/or carriage returns.
     def split_lines(s)
-      s.gsub("\r","").split("\n")
+      s.split(/\r\n|\r|\n/)
     end
 
-    # This parses email headers. Returns an hash.
+    # Parses email headers, returning a hash.
     #
-    # +hash['data']+ is the message.
+    # +hash[:data]+ is the message.
     #
-    # Keys are downcased, space becomes underscore, converted to symbols.
+    # Keys are downcased and converted to symbols;
+    # spaces become underscores.
     #
     #     My key: true
     #
@@ -41,57 +45,27 @@ module MaRuKu
     #     {:my_key => true}
     #
     def parse_email_headers(s)
-      keys={}
-      match = (s =~ /\A((\w[\w\s\_\-]+: .*\n)+)\s*\n/)
-      if match != 0
-        keys[:data] = s
-      else
-        keys[:data] = $'
-        headers = $1
-        headers.split("\n").each do |l|
-  # Fails if there are other ':' characters.
-  #				k, v = l.split(':')
-          k, v = l.split(':', 2)
-          k, v = normalize_key_and_value(k, v)
-          k = k.to_sym
-  #				puts "K = #{k}, V=#{v}"
-          keys[k] = v
-        end
+      headers = {}
+      scanner = StringScanner.new(s)
+
+      while scanner.scan(/(\w[\w\s\-]+): +(.*)\n/)
+        k, v = normalize_key_and_value(scanner[1], scanner[2])
+        headers[k.to_sym] = v
       end
-      keys
-    end
 
-    # Keys are downcased, space becomes underscore, converted to symbols.
-    def normalize_key_and_value(k,v)
-      v = v ? v.strip : true # no value defaults to true
-      k = k.strip
-
-      # check synonyms
-      v = true if ['yes','true'].include?(v.to_s.downcase)
-      v = false if ['no','false'].include?(v.to_s.downcase)
-
-      k = k.downcase.gsub(' ','_')
-      return k, v
+      headers[:data] = scanner.rest
+      headers
     end
 
     # Returns the number of leading spaces, considering that
-    # a tab counts as `TabSize` spaces.
+    # a tab counts as +TAB_SIZE+ spaces.
     def number_of_leading_spaces(s)
-      n=0; i=0;
-      while i < s.size
-        c = s[i,1]
-        if c == ' '
-          i+=1; n+=1;
-        elsif c == "\t"
-          i+=1; n+=TabSize;
-        else
-          break
-        end
-      end
-      n
+      spaces = s.scan(/^\s*/).first
+      spaces.count(" ") + spaces.count("\t") * TAB_SIZE
     end
 
-    # This returns the position of the first real char in a list item
+    # This returns the position of the first non-list character
+    # in a list item.
     #
     # For example:
     #     '*Hello' # => 1
@@ -100,88 +74,59 @@ module MaRuKu
     #     ' *   Hello' # => 5
     #     '1.Hello' # => 2
     #     ' 1.  Hello' # => 5
-
     def spaces_before_first_char(s)
-      case s.md_type
-      when :ulist
-        i=0;
-        # skip whitespace if present
-        while s[i,1] =~ /\s/; i+=1 end
-        # skip indicator (+, -, *)
-        i+=1
-        # skip optional whitespace
-        while s[i,1] =~ /\s/; i+=1 end
-        return i
-      when :olist
-        i=0;
-        # skip whitespace
-        while s[i,1] =~ /\s/; i+=1 end
-        # skip digits
-        while s[i,1] =~ /\d/; i+=1 end
-        # skip dot
-        i+=1
-        # skip whitespace
-        while s[i,1] =~ /\s/; i+=1 end
-        return i
-      else
-        tell_user "BUG (my bad): '#{s}' is not a list"
-        0
-      end
-    end
-
-    # Counts the number of leading '#' in the string
-    def num_leading_hashes(s)
-      i=0;
-      while i<(s.size-1) && (s[i,1]=='#'); i+=1 end
-      i
-    end
-
-    # Strips initial and final hashes
-    def strip_hashes(s)
-      s = s[num_leading_hashes(s), s.size]
-      i = s.size-1
-      while i > 0 && (s[i,1] =~ /(#|\s)/); i-=1; end
-      s[0, i+1].strip
-    end
-
-    # change space to "_" and remove any non-word character
-    def sanitize_ref_id(x)
-      x.strip.downcase.gsub(' ','_').gsub(/[^\w]/,'')
-    end
-
-
-    # removes initial quote
-    def unquote(s)
-      s.gsub(/^>\s?/,'')
-    end
-
-    # toglie al massimo n caratteri
-    def strip_indent(s, n)
-      i = 0
-      while i < s.size && n>0
-        c = s[i,1]
-        if c == ' '
-          n-=1;
-        elsif c == "\t"
-          n-=TabSize;
+      match =
+        case s.md_type
+        when :ulist; s.match(/\s*.\s*/)
+        when :olist; s.match(/s*\d+.\s*/)
         else
-          break
+          tell_user "MARUKU BUG: '#{s.inspect}' is not a list"
+          nil
         end
-        i+=1
+      match ? match.end(0) : 0
+    end
+
+    # Replace spaces with underscores and remove non-word characters.
+    def sanitize_ref_id(x)
+      x.strip.downcase.gsub(' ', '_').gsub(/[^\w]/, '')
+    end
+
+    # Remove line-initial +>+ characters for a quotation.
+    def unquote(s)
+      s.gsub(/^>\s?/, '')
+    end
+
+    # Removes indentation from the beginning ofx +s+,
+    # up to at most +n+ spaces.
+    # Tabs are counted as +TAB_SIZE+ spaces.
+    def strip_indent(s, n)
+      while n > 0
+        case s[0]
+        when ?\s; n -= 1
+        when ?\t; n -= TAB_SIZE
+        else; return s
+        end
+        s = s[1..-1]
       end
-      s[i, s.size]
+      return s
     end
 
-    def dbg_describe_ary(a, prefix='')
-      i = 0
-      a.each do |l|
-        puts "#{prefix} (#{i+=1})# #{l.inspect}"
-      end
-    end
+    private
 
-    def force_linebreak?(l)
-      l =~ /  $/
-    end
+    # Normalize the key/value pairs for email headers.
+    # Keys are downcased and converted to symbols;
+    # spaces become underscores.
+    #
+    # Values of +"yes"+, +"true"+, +"no"+, and +"false"+
+    # are converted to appropriate booleans.
+    def normalize_key_and_value(k, v)
+      k = k.strip.downcase.gsub(/\s+/, '_')
+      v = v.strip
 
+      # check synonyms
+      return k, true if %w[yes true].include?(v.downcase)
+      return k, false if %w[no false].include?(v.downcase)
+      return k, v
+    end
   end
 end
