@@ -1,4 +1,4 @@
---readme          README.rdoc
+--readme          README.md
 --markup          markdown
 --markup-provider maruku
 --default-return  ""
