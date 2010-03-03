@@ -1,4 +1,3 @@
-#--
 #   Copyright (C) 2006  Andrea Censi  <andrea (at) rubyforge.org>
 #
 # This file is part of Maruku.
@@ -16,8 +15,6 @@
 #   You should have received a copy of the GNU General Public License
 #   along with Maruku; if not, write to the Free Software
 #   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
-#++
-
 
 
 module MaRuKu
@@ -34,15 +31,15 @@ module MaRuKu
         map {|k| k.inspect + "=>" + @meta_priv[k].inspect}.
         join(',') + "}"
 
-      "md_el(:%s,%s,%s,%s)" % [
-        self.node_type,
+      "md_el(%s,%s,%s,%s)" % [
+        self.node_type.inspect,
         children_inspect(compact),
         meta_ordered,
         self.al.inspect
       ]
     end
 
-    def children_inspect(compact = true)
+    def children_inspect(compact=true)
       kids = @children.map {|x| x.is_a?(MDElement) ? x.inspect(compact) : x.inspect}
       comma = kids.join(", ")
 
