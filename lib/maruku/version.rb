@@ -1,4 +1,3 @@
-#--
 #   Copyright (C) 2006  Andrea Censi  <andrea (at) rubyforge.org>
 #
 # This file is part of Maruku.
@@ -16,23 +15,29 @@
 #   You should have received a copy of the GNU General Public License
 #   along with Maruku; if not, write to the Free Software
 #   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
-#++
+
 
 module MaRuKu
+  # The Maruku version.
   VERSION = '0.6.0'
 
-  # Deprecated, exists for backwards compatibility.
+  # @deprecated Exists for backwards compatibility. Use {VERSION}
+  # @private
   Version = VERSION
 
+  # The URL of the Maruku website.
   MARUKU_URL = 'http://maruku.rubyforge.org/'
 
-  # Deprecated, exists for backwards compatibility.
+  # @deprecated Exists for backwards compatibility. Use {MARUKU_URL}
+  # @private
   MarukuURL = MARUKU_URL
 
   # Whether Markdown implements the PHP Markdown extra syntax.
   #
   # Note: it is not guaranteed that if this is false,
   # then no special features will be used.
+  #
+  # @return [Boolean]
   def markdown_extra?
     true
   end
@@ -41,6 +46,8 @@ module MaRuKu
   #
   # Note: it is not guaranteed that if this is false,
   # then no special features will be used.
+  #
+  # @return [Boolean]
   def new_meta_data?
     true
   end
