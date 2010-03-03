@@ -20,13 +20,6 @@
 
 
 
-class Hash
-  def inspect_ordered(a=nil,b=nil)
-    "{"+keys.map{|x|x.to_s}.sort.map{|x|x.to_sym}.
-    map{|k| k.inspect + "=>"+self[k].inspect}.join(',')+"}"
-  end
-end
-
 module MaRuKu
   class MDElement
     def inspect(compact=true)
@@ -35,10 +28,16 @@ module MaRuKu
         return i2 if i2
       end
 
+      # Make sure the attributes are lexically ordered
+      meta_ordered = "{" + @meta_priv.keys.
+        map {|x| x.to_s}.sort.map {|x| x.to_sym}.
+        map {|k| k.inspect + "=>" + @meta_priv[k].inspect}.
+        join(',') + "}"
+
       "md_el(:%s,%s,%s,%s)" % [
         self.node_type,
         children_inspect(compact),
-        @meta_priv.inspect_ordered,
+        meta_ordered,
         self.al.inspect
       ]
     end
