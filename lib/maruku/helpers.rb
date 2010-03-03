@@ -1,4 +1,3 @@
-#--
 #   Copyright (C) 2006  Andrea Censi  <andrea (at) rubyforge.org>
 #
 # This file is part of Maruku.
@@ -16,18 +15,17 @@
 #   You should have received a copy of the GNU General Public License
 #   along with Maruku; if not, write to the Free Software
 #   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
-#++
 
-
-# A series of helper functions for creating elements: they hide the
-# particular internal representation.
-#
-# Please, always use these instead of creating MDElement.
-#
 
 module MaRuKu
+  # A collection of helper functions for creating Markdown elements.
+  # They hide the particular internal representations.
+  #
+  # Always use these rather than creating an {MDElement} directly.
   module Helpers
-    # if the first is a md_ial, it is used as such
+    # @param children [Array<MDElement, String>]
+    #   The child nodes.
+    #   If the first child is a \{#md\_ial}, it's merged with `al`
     def md_el(node_type, children = [], meta = {}, al = nil)
       first = children.first
       if first.is_a?(MDElement) && first.node_type == :ial
@@ -130,13 +128,13 @@ ERR
       md_strong(md_em(children), al)
     end
 
-    # <http://www.example.com/>
+    # A URL to be linkified (e.g. `<http://www.example.com/>`).
     def md_url(url, al = nil)
       md_el(:immediate_link, [], {:url => url}, al)
     end
 
-    # <andrea@rubyforge.org>
-    # <mailto:andrea@rubyforge.org>
+    # An email to be linkified
+    # (e.g. `<andrea@rubyforge.org>` or `<mailto:andrea@rubyforge.org>`).
     def md_email(email, al = nil)
       md_el(:email_address, [], {:email => email}, al)
     end
@@ -154,7 +152,7 @@ ERR
       md_el(:paragraph, children, meta = {}, al)
     end
 
-    # [1]: http://url [properties]
+    # A definition of a reference (e.g. `[1]: http://url [properties]`).
     def md_ref_def(ref_id, url, title = nil, meta = {}, al = nil)
       meta[:url] = url
       meta[:ref_id] = ref_id
@@ -173,7 +171,7 @@ ERR
       md_el(:ald, [], :ald_id => id, :ald => al)
     end
 
-    # Server directive <?target code... ?>
+    # A server directive (e.g. `<?target code... ?>`)
     def md_xml_instr(target, code)
       md_el(:xml_instr, [], :target => target, :code => code)
     end
@@ -198,7 +196,8 @@ ERR
       :ial                => ["ial",      :ial]
     }
 
-    # outputs abbreviated form  (this should be eval()uable to get the document)
+    # Outputs the abbreviated form of an element
+    # (this should be `eval`-able to get a copy of the original element).
     def inspect2
       name, *params = INSPECT2_FORMS[@node_type]
       return nil unless name

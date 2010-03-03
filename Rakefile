@@ -27,12 +27,14 @@ begin
 rescue LoadError => e
 end
 
-require 'rake/rdoctask'
-
-Rake::RDocTask.new do |rdoc|
-  rdoc.title = "Maruku"
-  rdoc.options << '--line-numbers' << '--inline-source'
-  rdoc.rdoc_files.include(*FileList['README.rdoc', 'LICENSE', 'AUTHORS', 'lib/**/*'].to_a)
-  rdoc.main = "README.rdoc"
-  rdoc.rdoc_dir = "doc"
+begin
+  require 'yard'
+  YARD::Rake::YardocTask.new do |t|
+    files = %w[attributes errors helpers maruku string_utils structures version]
+    t.files = FileList["lib/maruku.rb", "lib/maruku/{#{files.join(',')}}.rb"]
+  end
+rescue LoadError
+  task :yardoc do
+    abort "YARD is not available. In order to run yardoc, you must: sudo gem install yard"
+  end
 end

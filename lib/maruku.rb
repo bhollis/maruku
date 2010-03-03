@@ -1,4 +1,3 @@
-#--
 #   Copyright (C) 2006  Andrea Censi  <andrea (at) rubyforge.org>
 #
 # This file is part of Maruku.
@@ -16,7 +15,6 @@
 #   You should have received a copy of the GNU General Public License
 #   along with Maruku; if not, write to the Free Software
 #   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
-#++
 
 dir = File.dirname(__FILE__)
 $LOAD_PATH.unshift dir unless $LOAD_PATH.include?(dir)
@@ -29,19 +27,14 @@ module MaRuKu
       module SpanLevelParser; end
       module BlockLevelParser; end
     end
-    # more to come?
   end
 
   module Out
-    # Functions for exporting to MarkDown.
     module Markdown; end
-    # Functions for exporting to HTML.
     module HTML; end
-    # Functions for exporting to Latex
     module Latex; end
   end
 
-  # These are strings utilities.
   module Strings; end
 
   module Helpers; end
@@ -67,7 +60,6 @@ module MaRuKu
   end
 end
 
-# This is the public interface
 class Maruku < MaRuKu::MDDocument; end
 
 
