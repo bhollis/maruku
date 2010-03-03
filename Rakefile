@@ -30,7 +30,7 @@ end
 begin
   require 'yard'
   YARD::Rake::YardocTask.new do |t|
-    t.files = %w[lib/maruku.rb]
+    t.files = %w[lib/maruku.rb lib/maruku/attributes.rb]
   end
 rescue LoadError
   task :yardoc do

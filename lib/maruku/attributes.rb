@@ -1,4 +1,3 @@
-#--
 #   Copyright (C) 2006  Andrea Censi  <andrea (at) rubyforge.org>
 #
 # This file is part of Maruku.
@@ -16,14 +15,14 @@
 #   You should have received a copy of the GNU General Public License
 #   along with Maruku; if not, write to the Free Software
 #   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
-#++
+
 
 module MaRuKu
+  # This represents a list of attributes specified in the Markdown document
+  # that apply to a Markdown-generated tag.
+  # What was `{#id .class key="val" ref}` in the Markdown
+  # is parsed into `[[:id, 'id'], [:class, 'id'], ['key', 'val'], [:ref, 'ref']]`.
   class AttributeList < Array
-    # An attribute list becomes
-    # {#id .class key="val" ref}
-    # [[:id, 'id'], [:class, 'id'], ['key', 'val'], [:ref, 'ref']]
-
     def to_s
       map do |k, v|
         case k
@@ -47,7 +46,7 @@ module MaRuKu
   module In::Markdown::SpanLevelParser
     def md_al(s = []); AttributeList.new(s); end
 
-    # returns nil or an AttributeList
+    # @return [AttributeList, nil]
     def read_attribute_list(src, con, break_on_chars)
       separators = break_on_chars + [?=, ?\s, ?\t]
       escaped = Maruku::EscapedCharInQuotes
