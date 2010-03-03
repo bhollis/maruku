@@ -19,22 +19,29 @@
 #++
 
 module MaRuKu
-  Version = '0.6.0'
+  VERSION = '0.6.0'
 
-  MarukuURL = 'http://maruku.rubyforge.org/'
+  # Deprecated, exists for backwards compatibility.
+  Version = VERSION
 
-  # If true, use also PHP Markdown extra syntax
+  MARUKU_URL = 'http://maruku.rubyforge.org/'
+
+  # Deprecated, exists for backwards compatibility.
+  MarukuURL = MARUKU_URL
+
+  # Whether Markdown implements the PHP Markdown extra syntax.
   #
-  # Note: it is not guaranteed that if it's false
+  # Note: it is not guaranteed that if this is false,
   # then no special features will be used.
-  #
-  # So please, ignore it for now.
   def markdown_extra?
     true
   end
 
+  # Whether Markdown implements the new meta-data proposal.
+  #
+  # Note: it is not guaranteed that if this is false,
+  # then no special features will be used.
   def new_meta_data?
     true
   end
-
 end
