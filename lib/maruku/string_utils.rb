@@ -20,30 +20,36 @@
 
 require 'strscan'
 
-# Boring stuff with strings.
 module MaRuKu
+  # Utility functions for dealing with strings.
   module Strings
     TAB_SIZE = 4
 
     # Split a string into multiple lines,
     # on line feeds and/or carriage returns.
+    #
+    # @param s [String]
+    # @return [String]
     def split_lines(s)
       s.split(/\r\n|\r|\n/)
     end
 
     # Parses email headers, returning a hash.
-    #
-    # +hash[:data]+ is the message.
+    # `hash[:data]` is the message;
+    # that is, anything past the headers.
     #
     # Keys are downcased and converted to symbols;
-    # spaces become underscores.
+    # spaces become underscores. For example:
     #
+    #     !!!plain
     #     My key: true
     #
     # becomes:
     #
     #     {:my_key => true}
     #
+    # @param s [String] The email
+    # @return [Symbol => String] The header values
     def parse_email_headers(s)
       headers = {}
       scanner = StringScanner.new(s)
@@ -57,8 +63,11 @@ module MaRuKu
       headers
     end
 
-    # Returns the number of leading spaces, considering that
-    # a tab counts as +TAB_SIZE+ spaces.
+    # Returns the number of leading spaces,
+    # considering that a tab counts as {TAB_SIZE} spaces.
+    #
+    # @param s [String]
+    # @return [Fixnum]
     def number_of_leading_spaces(s)
       spaces = s.scan(/^\s*/).first
       spaces.count(" ") + spaces.count("\t") * TAB_SIZE
@@ -67,13 +76,16 @@ module MaRuKu
     # This returns the position of the first non-list character
     # in a list item.
     #
-    # For example:
-    #     '*Hello' # => 1
-    #     '* Hello' # => 2
-    #     ' * Hello' # => 3
-    #     ' *   Hello' # => 5
-    #     '1.Hello' # => 2
-    #     ' 1.  Hello' # => 5
+    # @example
+    # spaces_before_first_char('*Hello') #=> 1
+    # spaces_before_first_char('* Hello') #=> 2
+    # spaces_before_first_char(' * Hello') #=> 3
+    # spaces_before_first_char(' *   Hello') #=> 5
+    # spaces_before_first_char('1.Hello') #=> 2
+    # spaces_before_first_char(' 1.  Hello') #=> 5
+    #
+    # @param s [String]
+    # @return [Fixnum]
     def spaces_before_first_char(s)
       match =
         case s.md_type
@@ -87,18 +99,28 @@ module MaRuKu
     end
 
     # Replace spaces with underscores and remove non-word characters.
-    def sanitize_ref_id(x)
-      x.strip.downcase.gsub(' ', '_').gsub(/[^\w]/, '')
+    #
+    # @param s [String]
+    # @return [String]
+    def sanitize_ref_id(s)
+      s.strip.downcase.gsub(' ', '_').gsub(/[^\w]/, '')
     end
 
-    # Remove line-initial +>+ characters for a quotation.
+    # Remove line-initial `>` characters for a quotation.
+    #
+    # @param s [String]
+    # @return [String]
     def unquote(s)
       s.gsub(/^>\s?/, '')
     end
 
-    # Removes indentation from the beginning ofx +s+,
-    # up to at most +n+ spaces.
-    # Tabs are counted as +TAB_SIZE+ spaces.
+    # Removes indentation from the beginning of `s`,
+    # up to at most `n` spaces.
+    # Tabs are counted as {TAB_SIZE} spaces.
+    #
+    # @param s [String]
+    # @param n [Fixnum]
+    # @return [String]
     def strip_indent(s, n)
       while n > 0
         case s[0]
@@ -117,8 +139,12 @@ module MaRuKu
     # Keys are downcased and converted to symbols;
     # spaces become underscores.
     #
-    # Values of +"yes"+, +"true"+, +"no"+, and +"false"+
+    # Values of `"yes"`, `"true"`, `"no"`, and `"false"`
     # are converted to appropriate booleans.
+    #
+    # @param k [String]
+    # @param v [String]
+    # @return [Array(String, String or Boolean)]
     def normalize_key_and_value(k, v)
       k = k.strip.downcase.gsub(/\s+/, '_')
       v = v.strip
