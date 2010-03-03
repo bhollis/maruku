@@ -20,30 +20,6 @@
 
 
 
-class String
-  def inspect_more(a=nil,b=nil)
-    inspect
-  end
-end
-
-class Object
-  def inspect_more(a=nil,b=nil)
-    inspect
-  end
-end
-
-class Array
-  def inspect_more(compact, join_string, add_brackets=true)
-    s  = map {|x|
-      x.kind_of?(String) ? x.inspect :
-      x.kind_of?(MaRuKu::MDElement) ? x.inspect(compact) :
-      (raise "WTF #{x.class} #{x.inspect}")
-    }.join(join_string)
-
-    add_brackets ? "[#{s}]" : s
-  end
-end
-
 class Hash
   def inspect_ordered(a=nil,b=nil)
     "{"+keys.map{|x|x.to_s}.sort.map{|x|x.to_sym}.
@@ -52,35 +28,28 @@ class Hash
 end
 
 module MaRuKu
-class MDElement
-  def inspect(compact=true)
-    if compact
-      i2 = inspect2
-      return i2 if i2
+  class MDElement
+    def inspect(compact=true)
+      if compact
+        i2 = inspect2
+        return i2 if i2
+      end
+
+      "md_el(:%s,%s,%s,%s)" % [
+        self.node_type,
+        children_inspect(compact),
+        @meta_priv.inspect_ordered,
+        self.al.inspect
+      ]
     end
 
-    "md_el(:%s,%s,%s,%s)" %
-    [
-      self.node_type,
-      children_inspect(compact),
-      @meta_priv.inspect_ordered,
-      self.al.inspect
-    ]
-  end
+    def children_inspect(compact = true)
+      kids = @children.map {|x| x.is_a?(MDElement) ? x.inspect(compact) : x.inspect}
+      comma = kids.join(", ")
 
-  def children_inspect(compact=true)
-    s = @children.inspect_more(compact,', ')
-    if @children.empty?
-      "[]"
-    elsif s.size < 70
-      s
-    else
-      "[\n"+
-      @children.inspect_more(compact,",\n",false).gsub(/^/, "\t")+
-      "\n]"
+      return "[#{comma}]" if comma.size < 70
+      "[\n\t#{kids.join(",\n\t")}\n]"
     end
+
   end
-
-end
-
 end
