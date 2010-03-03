@@ -1,4 +1,3 @@
-#--
 #   Copyright (C) 2006  Andrea Censi  <andrea (at) rubyforge.org>
 #
 # This file is part of Maruku.
@@ -16,18 +15,7 @@
 #   You should have received a copy of the GNU General Public License
 #   along with Maruku; if not, write to the Free Software
 #   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
-#++
 
-
-#  Any method that detects a formatting error calls the maruku_error() method.
-#  If MaRuKu::Globals[:on_error] ==
-#
-#  - :warning   print the error to stderr (or @error_stream if defined)
-#               and try to continue
-#  - :ignore    don't print anything and try to continue
-#  - :raise     raise a MarukuException
-#
-#  default is :warning
 
 module MaRuKu
   class Exception < RuntimeError; end
@@ -35,6 +23,22 @@ module MaRuKu
   module Errors
     FRAME_WIDTH = 75
 
+    # Properly handles a formatting error.
+    # All such errors go through this method.
+    #
+    # The behavior depends on {MaRuKu::Globals `MaRuKu::Globals[:on_error]`}.
+    # If this is `:warning`, this prints the error to stderr
+    # (or `@error_stream if` it's defined) and tries to continue.
+    # If `:on_error` is `:ignore`, this doesn't print anything
+    # and tries to continue. If it's `:raise`, this raises a {MaRuKu::Exception}.
+    #
+    # By default, `:on_error` is set to `:warning`.
+    #
+    # @overload def maruku_error(s, src = nil, con = nil)
+    # @param s [String] The text of the error
+    # @param src [#describe, nil] The source of the error
+    # @param con [#describe, nil] The context of the error
+    # @raise [MaRuKu::Exception] If `:on_error` is set to `:raise`
     def maruku_error(*args)
       policy = get_setting(:on_error)
 
