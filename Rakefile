@@ -30,7 +30,7 @@ end
 begin
   require 'yard'
   YARD::Rake::YardocTask.new do |t|
-    files = %w[attributes errors helpers maruku string_utils]
+    files = %w[attributes errors helpers maruku string_utils structures]
     t.files = FileList["lib/maruku.rb", "lib/maruku/{#{files.join(',')}}.rb"]
   end
 rescue LoadError
