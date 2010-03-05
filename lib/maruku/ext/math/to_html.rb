@@ -41,37 +41,39 @@ Same thing as `html_math_engine`, only for PNG output.
 module MaRuKu
   module Out
     module HTML
-      # Creates an xml Mathml document of self.math
+      # Creates an xml Mathml document of this node's TeX code.
+      #
+      # @return [REXML::Document]
       def render_mathml(kind, tex)
         engine = get_setting(:html_math_engine)
-        method = "convert_to_mathml_#{engine}".to_sym
+        method = "convert_to_mathml_#{engine}"
         if self.respond_to? method
           mathml = self.send(method, kind, tex)
           return mathml || convert_to_mathml_none(kind, tex)
-        else
-          puts "A method called #{method} should be defined."
-          return convert_to_mathml_none(kind, tex)
         end
+
+        # TODO: Warn here
+        puts "A method called #{method} should be defined."
+        return convert_to_mathml_none(kind, tex)
       end
 
-      # Creates an xml Mathml document of self.math
+      # Renders a PNG image of this node's TeX code.
+      # Returns
+      #
+      # @return [MaRuKu::Out::HTML::PNG, nil]
+      #   A struct describing the location and size of the image,
+      #   or nil if no library is loaded that can render PNGs.
       def render_png(kind, tex)
         engine = get_setting(:html_png_engine)
         method = "convert_to_png_#{engine}".to_sym
-        if self.respond_to? method
-          return self.send(method, kind, tex)
-        else
-          puts "A method called #{method} should be defined."
-          return nil
-        end
+        return self.send(method, kind, tex) if self.respond_to? method
+
+        puts "A method called #{method} should be defined."
+        return nil
       end
 
       def pixels_per_ex
-        if not $pixels_per_ex
-          x = render_png(:inline, "x")
-          $pixels_per_ex  = x.height # + x.depth
-        end
-        $pixels_per_ex
+        $pixels_per_ex ||= render_png(:inline, "x").height
       end
 
       def adjust_png(png, use_depth)
@@ -83,8 +85,9 @@ module MaRuKu
         depth_in_ex = depth_in_px / pixels_per_ex
         total_height_in_ex = height_in_ex + depth_in_ex
         style = ""
-        style += "vertical-align: -#{depth_in_ex}ex;" if use_depth
-        style += "height: #{total_height_in_ex}ex;"
+        style << "vertical-align: -#{depth_in_ex}ex;" if use_depth
+        style << "height: #{total_height_in_ex}ex;"
+
         img = Element.new 'img'
         img.attributes['src'] = src
         img.attributes['style'] = style
@@ -93,8 +96,8 @@ module MaRuKu
       end
 
       def to_html_inline_math
-        mathml  = get_setting(:html_math_output_mathml) && render_mathml(:inline, self.math)
-        png = get_setting(:html_math_output_png) &&  render_png(:inline, self.math)
+        mathml = get_setting(:html_math_output_mathml) && render_mathml(:inline, self.math)
+        png    = get_setting(:html_math_output_png)    && render_png(:inline, self.math)
 
         span = create_html_element 'span'
         add_class_to(span, 'maruku-inline')
@@ -105,17 +108,17 @@ module MaRuKu
         end
 
         if png
-          img = adjust_png(png, use_depth=true)
+          img = adjust_png(png, true)
           add_class_to(img, 'maruku-png')
           span << img
         end
-        span
 
+        span
       end
 
       def to_html_equation
-        mathml  = get_setting(:html_math_output_mathml) && render_mathml(:equation, self.math)
-        png     = get_setting(:html_math_output_png)    && render_png(:equation, self.math)
+        mathml = get_setting(:html_math_output_mathml) && render_mathml(:equation, self.math)
+        png    = get_setting(:html_math_output_png)    && render_png(:equation, self.math)
 
         div = create_html_element 'div'
         add_class_to(div, 'maruku-equation')
@@ -125,7 +128,7 @@ module MaRuKu
         end
 
         if png
-          img = adjust_png(png, use_depth=false)
+          img = adjust_png(png, false)
           add_class_to(img, 'maruku-png')
           div << img
         end
@@ -137,47 +140,40 @@ module MaRuKu
         source_span << code
         div << source_span
 
-        if self.label  # then numerate
+        if self.label # then numerate
           span = Element.new 'span'
           span.attributes['class'] = 'maruku-eq-number'
-          num = self.num
-          span << Text.new("(#{num})")
-          div << span
+          span << Text.new("(#{self.num})")
           div.attributes['id'] = "eq:#{self.label}"
+          div << span
         end
         div
       end
 
       def to_html_eqref
-        if eq = self.doc.eqid2eq[self.eqid]
-          num = eq.num
-          a = Element.new 'a'
-          a.attributes['class'] = 'maruku-eqref'
-          a.attributes['href'] = "#eq:#{self.eqid}"
-          a << Text.new("(#{num})")
-          a
-        else
+        unless eq = self.doc.eqid2eq[self.eqid]
           maruku_error "Cannot find equation #{self.eqid.inspect}"
-          Text.new "(eq:#{self.eqid})"
+          return Text.new("(eq:#{self.eqid})")
         end
+
+        a = Element.new 'a'
+        a.attributes['class'] = 'maruku-eqref'
+        a.attributes['href'] = "#eq:#{self.eqid}"
+        a << Text.new("(#{eq.num})")
+        a
       end
 
       def to_html_divref
-        ref= nil
-        self.doc.refid2ref.each_value { |h|
-          ref = h[self.refid] if h.has_key?(self.refid)
-        }
-        if ref
-          num = ref.num
-          a = Element.new 'a'
-          a.attributes['class'] = 'maruku-ref'
-          a.attributes['href'] = "#" + self.refid
-          a << Text.new(num.to_s)
-          a
-        else
+        unless ref = self.doc.refid2ref.values.find {|h| h[self.refid]}
           maruku_error "Cannot find div #{self.refid.inspect}"
-          Text.new "\\ref{#{self.refid}}"
+          return Text.new("\\ref{#{self.refid}}")
         end
+
+        a = Element.new 'a'
+        a.attributes['class'] = 'maruku-ref'
+        a.attributes['href'] = "#" + self.refid
+        a << Text.new(ref.num.to_s)
+        a
       end
     end
   end
