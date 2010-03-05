@@ -1,7 +1,8 @@
 module MaRuKu
-
   class MDDocument
-    # Hash equation id (String) to equation element (MDElement)
+    # A hash of equation ids to equation elements
+    #
+    # @return [String => MDElement]
     attr_accessor :eqid2eq
 
     def is_math_enabled?
@@ -10,26 +11,20 @@ module MaRuKu
   end
 end
 
-
+# TODO: Properly scope all these regexps
 # Everything goes; takes care of escaping the "\$" inside the expression
 RegInlineMath = /\${1}((?:[^\$]|\\\$)+)\$/
 
-MaRuKu::In::Markdown::register_span_extension(
+MaRuKu::In::Markdown.register_span_extension(
   :chars => ?$,
   :regexp => RegInlineMath,
-  :handler => lambda { |doc, src, con|
-    return false if not doc.is_math_enabled?
-
-    if m = src.read_regexp(RegInlineMath)
-      math = m.captures.compact.first
-      con.push doc.md_inline_math(math)
-      true
-    else
-      #puts "not math: #{src.cur_chars 10}"
-      false
-    end
-  }
-)
+  :handler => lambda do |doc, src, con|
+    next false unless doc.is_math_enabled?
+    next false unless m = src.read_regexp(RegInlineMath)
+    math = m.captures.compact.first
+    con.push doc.md_inline_math(math)
+    true
+  end)
 
 
 MathOpen1 = Regexp.escape('\\begin{equation}')
@@ -50,70 +45,67 @@ EquationEnd = /^(.*)(#{EquationClose})\s*#{EqLabel}?\s*$/
 # $1 is opening, $2 is tex, $3 is closing, $4 is label
 OneLineEquation = /^[ ]{0,3}(#{EquationOpen})(.*)(#{EquationClose})\s*#{EqLabel}?\s*$/
 
-MaRuKu::In::Markdown::register_block_extension(
+MaRuKu::In::Markdown.register_block_extension(
   :regexp  => EquationStart,
-  :handler => lambda { |doc, src, con|
-    return false if not doc.is_math_enabled?
+  :handler => lambda do |doc, src, con|
+    next false unless doc.is_math_enabled?
     first = src.shift_line
     if first =~ OneLineEquation
       opening, tex, closing, label = $1, $2, $3, $4
       numerate = doc.get_setting(:math_numbered).include?(opening)
       con.push doc.md_equation(tex, label, numerate)
-    else
-      first =~ EquationStart
-      opening, tex = $1, $2
-
-      numerate = doc.get_setting(:math_numbered).include?(opening)
-      label = nil
-      while true
-        if not src.cur_line
-          doc.maruku_error("Stream finished while reading equation\n\n"+
-            tex.gsub(/^/, '$> '), src, con)
-          break
-        end
-        line = src.shift_line
-        if line =~ EquationEnd
-          tex_line, closing = $1, $2
-          label = $3 if $3
-          tex += tex_line + "\n"
-          break
-        else
-          tex += line + "\n"
-        end
-      end
-      con.push doc.md_equation(tex, label, numerate)
+      next true
     end
+
+    opening, tex = first.scan(EquationStart).first
+    numerate = doc.get_setting(:math_numbered).include?(opening)
+    label = nil
+    loop do
+      unless src.cur_line
+        doc.maruku_error(
+          "Stream finished while reading equation\n\n" + tex.gsub(/^/, '$> '),
+          src, con)
+        break
+      end
+
+      line = src.shift_line
+      if line =~ EquationEnd
+        tex_line, closing = $1, $2
+        label = $3 if $3
+        tex << tex_line << "\n"
+        break
+      end
+
+      tex << line << "\n"
+    end
+    con.push doc.md_equation(tex, label, numerate)
     true
-  })
+  end)
 
 
 # This adds support for \eqref
 RegEqrefLatex = /\\eqref\{(\w+)\}/
 RegEqPar = /\(eq:(\w+)\)/
-RegEqref = Regexp::union(RegEqrefLatex, RegEqPar)
+RegEqref = Regexp.union(RegEqrefLatex, RegEqPar)
 
-MaRuKu::In::Markdown::register_span_extension(
+MaRuKu::In::Markdown.register_span_extension(
   :chars => [?\\, ?(],
   :regexp => RegEqref,
-  :handler => lambda { |doc, src, con|
-    return false if not doc.is_math_enabled?
+  :handler => lambda do |doc, src, con|
+    return false unless doc.is_math_enabled?
     eqid = src.read_regexp(RegEqref).captures.compact.first
-    r = doc.md_el(:eqref, [], meta={:eqid=>eqid})
-    con.push r
+    con.push doc.md_el(:eqref, [], :eqid => eqid)
     true
-  }
-)
+  end)
 
 # This adds support for \ref
 RegRef = /\\ref\{(\w*)\}/
-MaRuKu::In::Markdown::register_span_extension(
+MaRuKu::In::Markdown.register_span_extension(
   :chars => [?\\, ?(],
   :regexp => RegRef,
-  :handler => lambda { |doc, src, con|
-    return false if not doc.is_math_enabled?
+  :handler => lambda do |doc, src, con|
+    return false unless doc.is_math_enabled?
     refid = src.read_regexp(RegRef).captures.compact.first
-    r = doc.md_el(:divref, [], meta={:refid=>refid})
-    con.push r
+    con.push doc.md_el(:divref, [], :refid => refid)
     true
-  }
-)
+  end)
