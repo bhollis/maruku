@@ -1,30 +1,33 @@
 module MaRuKu
   module Out
     module HTML
-
       def convert_to_mathml_itex2mml(kind, tex)
-        if not $itex2mml_parser
-          require 'itextomml'
-          $itex2mml_parser =  Itex2MML::Parser.new
-        end
+        return if $already_warned_itex2mml
+        require 'itextomml'
 
-        itex_method = {:equation=>:block_filter,:inline=>:inline_filter}
+        parser = Itex2MML::Parser.new
+        mathml =
+          case kind
+          when :equation; parser.block_filter(tex)
+          when :inline; parser.inline_filter(tex)
+          else
+            maruku_error "Unknown itex2mml kind: #{kind}"
+            return
+          end
 
-        mathml =  $itex2mml_parser.send(itex_method[kind], tex)
-        doc = Document.new(mathml, {:respect_whitespace =>:all}).root
-        return doc
+        return Document.new(mathml, :respect_whitespace => :all).root
       rescue LoadError => e
-        maruku_error "Could not load package 'itex2mml'.\n"+ "Please install it."       unless $already_warned_itex2mml
+        # TODO: Properly scope this global
+        maruku_error "Could not load package 'itex2mml'.\nPlease install it." unless $already_warned_itex2mml
         $already_warned_itex2mml = true
+        nil
       rescue REXML::ParseException => e
-        maruku_error "Invalid MathML TeX: \n#{tex.gsub(/^/, 'tex>')}"+
-          "\n\n #{e.inspect}"
+        maruku_error "Invalid MathML TeX: \n#{tex.gsub(/^/, 'tex>')}\n\n #{e.inspect}"
+        nil
       rescue
-        maruku_error "Could not produce MathML TeX: \n#{tex}"+
-          "\n\n #{e.inspect}"
+        maruku_error "Could not produce MathML TeX: \n#{tex}\n\n #{e.inspect}"
         nil
       end
-
     end
   end
 end
