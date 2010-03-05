@@ -3,15 +3,13 @@ require 'maruku/ext/math/latex_fix'
 module MaRuKu
   module Out
     module Latex
-
       def to_latex_inline_math
         fix_latex("$#{self.math.strip}$")
       end
 
       def to_latex_equation
         if self.label
-          l =  "\\label{#{self.label}}"
-          fix_latex("\\begin{equation}\n#{self.math.strip}\n#{l}\\end{equation}\n")
+          fix_latex("\\begin{equation}\n#{self.math.strip}\n\\label{#{self.label}}\\end{equation}\n")
         else
           fix_latex("\\begin{displaymath}\n#{self.math.strip}\n\\end{displaymath}\n")
         end
@@ -22,7 +20,7 @@ module MaRuKu
       end
 
       def to_latex_divref
-           "\\ref{#{self.refid}}"
+        "\\ref{#{self.refid}}"
       end
 
       private
