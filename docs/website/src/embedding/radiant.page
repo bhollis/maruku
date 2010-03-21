@@ -6,7 +6,8 @@ title: "Embedding Maruku in Radiant"
 
 [Bjorn Michelsen] created a [Radiant] extension for Maruku:
 
-<http://github.com/michelsen/radiant-maruku/tree/master>
+<http://github.com/michelsen/radiant_maruku>
 
-[Bjorn Michelsen]: http://www.bjornmichelsen.com
+
+[Bjorn Michelsen]: http://www.bmichelsen.no
 [radiant]: http://radiantcms.org/
