@@ -19,7 +19,15 @@ Gentoo: <http://packages.gentoo.org/packages/?category=dev-ruby;name=maruku>
 
 Debian: <http://packages.debian.org/experimental/interpreters/libmaruku-ruby>
 
+
 ### Repository ###
+
+The official repository has moved to GitHub: <a href="http://github.com/nex3/maruku">http://github.com/nex3/maruku</a>.
+
+
+### Repository (old subversion repository) ###
+
+**Please use the github repository as detailed above.**
 
 The development site is <http://rubyforge.org/projects/maruku/>.
 
