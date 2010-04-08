@@ -68,7 +68,7 @@ HTML use syntax: true
 	* Export to s5 now uses `html` suffix.
 	
 	* Fixed [this bug](http://rubyforge.org/tracker/?func=detail&atid=10735&aid=20010&group_id=2795): now if there is an underscore in a world, then emphasis is not triggered. For example, `mod_ruby  mod\_ruby`
-	yields "mod_ruby  mod\_ruby".
+	yields "mod\_ruby  mod\_ruby".
 	
 #### Changes in 0.5.9 (June 2008) ####     {#stable}
 

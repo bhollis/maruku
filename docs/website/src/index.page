@@ -17,7 +17,10 @@ LaTeX preamble: preamble.tex
 
 Maruku is a [Markdown] interpreter written in [Ruby].
 
-> [Last release](changelog.html#stable) is version 0.6.0 -- 2009-05-04.
+> The official repository has moved to GitHub: <a href="http://github.com/nex3/maruku">http://github.com/nex3/maruku</a>
+{#news}
+
+> [The last GEM release](changelog.html#stable) is version 0.6.0 -- 2009-05-04.
 {#news}
 
 ![data flow](diagram.png){#dataflow}
@@ -25,8 +28,8 @@ Maruku is a [Markdown] interpreter written in [Ruby].
 
 
 
-__Authors__: Maruku has been developed so far by [Andrea Censi].
-Contributors are most welcome!
+__Authors__: Maruku was started by [Andrea Censi]. The current maintaner is
+<a href="http://nex-3.com/">Nathan Weizenbaum</a>. Many other people contributed patches; a partial list is in the AUTHORS file in the source distribution.
 
 __The name of the game__: Maruku is the [romaji] transliteration of 
 the [katakana] transliteration
