@@ -284,7 +284,8 @@ module MaRuKu; module In; module Markdown; module BlockLevelParser
 		item_type = src.cur_line.md_type
 		first = src.shift_line
 
-		indentation = spaces_before_first_char(first)
+		indentation, ial = spaces_before_first_char(first)
+		al = read_attribute_list(CharSource.new(ial,src), context=nil, break_on=[nil]) if ial
 		break_list = [:ulist, :olist, :ial]
 		# Ugly things going on inside `read_indented_content`
 		lines, want_my_paragraph = 
@@ -301,7 +302,7 @@ module MaRuKu; module In; module Markdown; module BlockLevelParser
 		children = parse_blocks(src2)
 		with_par = want_my_paragraph || (children.size>1)
 		
-		return md_li(children, with_par)
+		return md_li(children, with_par, al)
 	end
 
 	def read_abbreviation(src)
