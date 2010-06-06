@@ -4,6 +4,7 @@ module MaRuKu
       def convert_to_mathml_itex2mml(kind, tex)
         return if $already_warned_itex2mml
         require 'itextomml'
+        require 'stringsupport'
 
         parser = Itex2MML::Parser.new
         mathml =
@@ -15,7 +16,7 @@ module MaRuKu
             return
           end
 
-        return Document.new(mathml, :respect_whitespace => :all).root
+        return Document.new(mathml.to_utf8, :respect_whitespace => :all).root
       rescue LoadError => e
         # TODO: Properly scope this global
         maruku_error "Could not load package 'itex2mml'.\nPlease install it." unless $already_warned_itex2mml

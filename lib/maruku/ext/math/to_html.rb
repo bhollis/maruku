@@ -123,6 +123,13 @@ module MaRuKu
         div = create_html_element 'div'
         add_class_to(div, 'maruku-equation')
         if mathml
+          if self.label  # then numerate
+            span = Element.new 'span'
+            span.attributes['class'] = 'maruku-eq-number'
+            span << Text.new("(#{self.num})")
+            div << span
+            div.attributes['id'] = "eq:#{self.label}"
+          end	
           add_class_to(mathml, 'maruku-mathml')
           div << mathml
         end
@@ -131,6 +138,13 @@ module MaRuKu
           img = adjust_png(png, false)
           add_class_to(img, 'maruku-png')
           div << img
+          if self.label  # then numerate
+            span = Element.new 'span'
+            span.attributes['class'] = 'maruku-eq-number'
+            span << Text.new("(#{self.num})")
+            div << span
+            div.attributes['id'] = "eq:#{self.label}"
+          end	
         end
 
         source_span = Element.new 'span'
@@ -140,13 +154,6 @@ module MaRuKu
         source_span << code
         div << source_span
 
-        if self.label # then numerate
-          span = Element.new 'span'
-          span.attributes['class'] = 'maruku-eq-number'
-          span << Text.new("(#{self.num})")
-          div.attributes['id'] = "eq:#{self.label}"
-          div << span
-        end
         div
       end
 
@@ -164,10 +171,11 @@ module MaRuKu
       end
 
       def to_html_divref
-        unless ref = self.doc.refid2ref.values.find {|h| h[self.refid]}
+        unless hash = self.doc.refid2ref.values.find {|h| h.has_key?(self.refid)}
           maruku_error "Cannot find div #{self.refid.inspect}"
           return Text.new("\\ref{#{self.refid}}")
         end
+        ref= hash[self.refid]
 
         a = Element.new 'a'
         a.attributes['class'] = 'maruku-ref'

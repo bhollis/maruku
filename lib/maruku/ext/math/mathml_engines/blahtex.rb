@@ -24,7 +24,7 @@ module MaRuKu
             # because newlines in arguments get escaped as "'\n'".
             system <<COMMAND.gsub("\n  ", " ")
 blahtex --png --use-preview-package
-  --shell-dvipng #{shellescape("dvipng -D #{shellescape(get_setting(:html_png_resolution))}")}
+  --shell-dvipng #{shellescape("dvipng -D #{shellescape(get_setting(:html_png_resolution).to_s)}")}
   #{'--displaymath' if kind == :equation}
   --temp-directory #{shellescape(get_setting(:html_png_dir))}
   --png-directory #{shellescape(get_setting(:html_png_dir))}
