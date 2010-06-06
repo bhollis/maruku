@@ -164,10 +164,11 @@ module MaRuKu
       end
 
       def to_html_divref
-        unless ref = self.doc.refid2ref.values.find {|h| h[self.refid]}
+        unless hash = self.doc.refid2ref.values.find {|h| h.has_key?(self.refid)}
           maruku_error "Cannot find div #{self.refid.inspect}"
           return Text.new("\\ref{#{self.refid}}")
         end
+        ref= hash[self.refid]
 
         a = Element.new 'a'
         a.attributes['class'] = 'maruku-ref'
