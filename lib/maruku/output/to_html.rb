@@ -389,7 +389,7 @@ It is copied as a standard HTML attribute.
 	
 	HTML4Attributes = {}
 	
-	coreattrs = [:id, :class, :style, :title]
+	coreattrs = [:id, :class, :style, :title, :accesskey, :contenteditable, :dir, :draggable, :spellcheck, :tabindex]
 	i18n = [:lang, 'xml:lang'.to_sym]
 	events = [
 		:onclick, :ondblclick, :onmousedown, :onmouseup, :onmouseover, 
@@ -410,7 +410,9 @@ It is copied as a standard HTML attribute.
 		[['pre'], attrs],
 		[['q', 'blockquote'], attrs+[:cite]],
 		[['ins','del'], attrs+[:cite,:datetime]],
-		[['ol','ul','li'], attrs],
+		[['ol'], attrs+[:reversed, :start]],
+		[['ul'], attrs],
+		[['li'], attrs+[:value]],
 		['table',attrs+[:summary, :width, :frame, :rules, :border, :cellspacing, :cellpadding]],
 		['caption',attrs],	
 		[['colgroup','col'],attrs+[:span, :width]+cellhalign+cellvalign],
@@ -550,6 +552,7 @@ and
 		lang = self.attributes[:lang] || @doc.attributes[:code_lang] 
 
 		lang = 'xml' if lang=='html'
+		lang = 'css21' if lang == 'css'
 
 		use_syntax = get_setting :html_use_syntax
 		
@@ -574,10 +577,10 @@ and
 				
 				code = Document.new(html, {:respect_whitespace =>:all}).root
 				code.name = 'code'
-				code.attributes['class'] = lang
 				code.attributes['lang'] = lang
 				
 				pre = Element.new 'pre'
+				pre.attributes['class'] = lang
 				pre << code
 				pre
 			rescue LoadError => e

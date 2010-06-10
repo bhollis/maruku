@@ -87,7 +87,7 @@ module MaRuKu
     # @param s [String]
     # @return [Fixnum]
     def spaces_before_first_char(s)
-      match =
+      match = 
         case s.md_type
         when :ulist; s.match(/\s*.(\s*\{(.*?)\})?\s*/)
         when :olist; s.match(/s*\d+.(\s*\{(.*?)\})?\s*/)

@@ -122,6 +122,9 @@ RUBY
     # @return [{String => {String => MDElement}}]
     attr_accessor :refid2ref
 
+    # A counter for generating unique IDs [Integer]
+    attr_accessor :id_counter
+
     def initialize(s=nil)
       super(:document)
 
@@ -132,6 +135,7 @@ RUBY
       self.abbreviations = {}
       self.ald = {}
       self.latex_required_packages = []
+      self.id_counter = 0
 
       parse_doc(s) if s
     end
