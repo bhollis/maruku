@@ -89,13 +89,13 @@ module MaRuKu
     def spaces_before_first_char(s)
       match =
         case s.md_type
-        when :ulist; s.match(/\s*.\s*/)
-        when :olist; s.match(/s*\d+.\s*/)
+        when :ulist; s.match(/\s*.(\s*\{(.*?)\})?\s*/)
+        when :olist; s.match(/s*\d+.(\s*\{(.*?)\})?\s*/)
         else
           tell_user "MARUKU BUG: '#{s.inspect}' is not a list"
           nil
         end
-      match ? match.end(0) : 0
+      match ? [match.end(0), match[0]] : [0, nil]
     end
 
     # Replace spaces with underscores and remove non-word characters.
