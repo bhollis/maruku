@@ -89,13 +89,21 @@ module MaRuKu
     def spaces_before_first_char(s)
       match = 
         case s.md_type
-        when :ulist; s.match(/\s*.(\s*\{(.*?)\})?\s*/)
-        when :olist; s.match(/s*\d+.(\s*\{(.*?)\})?\s*/)
-        else
-          tell_user "MARUKU BUG: '#{s.inspect}' is not a list"
-          nil
-        end
-      match ? [match.end(0), match[0]] : [0, nil]
+          when :ulist
+            # whitespace, followed by ('*'|'+'|'-') followed by
+            # more whitespace, followed by an optional IAL, followed
+            # by yet more whitespace
+            s[/^\s*(\*|\+|\-)\s*(\{.*?\})?\s*/]
+          when :olist
+            # whitespace, followed by a number, followed by a period,
+            # more whitespace, an optional IAL, and more whitespace
+            s[/^\s*\d+\.\s*(\{.*?\})?\s*/]
+          else
+            tell_user "BUG (my bad): '#{s}' is not a list"
+            ''
+          end
+      ial = match[/\{.*\}/]
+      return [match.length, ial]		
     end
 
     # Replace spaces with underscores and remove non-word characters.
@@ -131,6 +139,26 @@ module MaRuKu
         s = s[1..-1]
       end
       return s
+    end
+
+#--
+    MARUKU_HTML_ESCAPE = {
+      '&' => '&amp;',
+      '<' => '&lt;',
+      '>' => '&gt;',
+      "'" => '&#39;',
+      '"' => '&quot;',
+    }
+    MARUKU_HTML_ESCAPE_PATTERN = Regexp.union(*MARUKU_HTML_ESCAPE.keys)
+#++
+
+    # HTML-escapes a string.
+    #
+    # @param str [String]
+    # @return [String]
+    
+    def html_escape(string)
+      string.gsub(MARUKU_HTML_ESCAPE_PATTERN){|m| MARUKU_HTML_ESCAPE[m]}
     end
 
     # Escapes a string so that it can be safely used in a Bourne shell command line.
