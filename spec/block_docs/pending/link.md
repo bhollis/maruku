@@ -32,21 +32,21 @@ md_el(:document,[
 	md_el(:code,[],{:raw_code=>"<a@invalid.it>"},[])
 ],{},[])
 *** Output of to_html ***
-<p><a href='http://www.aa.com'>http://www.aa.com</a></p>
+<p><a href="http://www.aa.com">http://www.aa.com</a></p>
 
-<p><a href='http://www.bb.com'>http://www.bb.com</a></p>
+<p><a href="http://www.bb.com">http://www.bb.com</a></p>
 
-<p><a href='http://www.cc.com'>http://www.cc.com</a></p>
+<p><a href="http://www.cc.com">http://www.cc.com</a></p>
 
-<p><a href='http://www.dd.com'>http://www.dd.com</a></p>
+<p><a href="http://www.dd.com">http://www.dd.com</a></p>
 
 <pre><code>&lt;http://www.dd.com&gt;</code></pre>
 
-<p><a href='mailto:a@invalid.it'>&#097;&#064;&#105;&#110;&#118;&#097;&#108;&#105;&#100;&#046;&#105;&#116;</a></p>
+<p><a href="mailto:a@invalid.it">&#097;&#064;&#105;&#110;&#118;&#097;&#108;&#105;&#100;&#046;&#105;&#116;</a></p>
 
-<p><a href='mailto:a@invalid.it'>&#097;&#064;&#105;&#110;&#118;&#097;&#108;&#105;&#100;&#046;&#105;&#116;</a></p>
+<p><a href="mailto:a@invalid.it">&#097;&#064;&#105;&#110;&#118;&#097;&#108;&#105;&#100;&#046;&#105;&#116;</a></p>
 
-<p><a href='mailto:a@invalid.it'>&#097;&#064;&#105;&#110;&#118;&#097;&#108;&#105;&#100;&#046;&#105;&#116;</a></p>
+<p><a href="mailto:a@invalid.it">&#097;&#064;&#105;&#110;&#118;&#097;&#108;&#105;&#100;&#046;&#105;&#116;</a></p>
 
 <pre><code>&lt;a@invalid.it&gt;</code></pre>
 *** Output of to_latex ***

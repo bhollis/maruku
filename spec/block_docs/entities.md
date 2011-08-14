@@ -48,11 +48,11 @@ md_el(:document,[
 ],{},[])
 *** Output of to_html ***
 <p>Maruku translates HTML entities to the equivalent in LaTeX:</p>
-<table><thead><tr><th>Entity</th><th>Result</th></tr></thead><tbody><tr><td style='text-align: left;'><code>&amp;copy;</code></td><td style='text-align: left;'>&#169;</td>
-</tr><tr><td style='text-align: left;'><code>&amp;pound;</code></td><td style='text-align: left;'>&#163;</td>
-</tr><tr><td style='text-align: left;'><code>a&amp;nbsp;b</code></td><td style='text-align: left;'>a&#160;b</td>
-</tr><tr><td style='text-align: left;'><code>&amp;lambda;</code></td><td style='text-align: left;'>&#955;</td>
-</tr><tr><td style='text-align: left;'><code>&amp;mdash;</code></td><td style='text-align: left;'>&#8212;</td>
+<table><thead><tr><th>Entity</th><th>Result</th></tr></thead><tbody><tr><td style="text-align: left;"><code>&amp;copy;</code></td><td style="text-align: left;">&#169;</td>
+</tr><tr><td style="text-align: left;"><code>&amp;pound;</code></td><td style="text-align: left;">&#163;</td>
+</tr><tr><td style="text-align: left;"><code>a&amp;nbsp;b</code></td><td style="text-align: left;">a&#160;b</td>
+</tr><tr><td style="text-align: left;"><code>&amp;lambda;</code></td><td style="text-align: left;">&#955;</td>
+</tr><tr><td style="text-align: left;"><code>&amp;mdash;</code></td><td style="text-align: left;">&#8212;</td>
 </tr></tbody></table>
 <p>Entity-substitution does not happen in code blocks or inline code.</p>
 

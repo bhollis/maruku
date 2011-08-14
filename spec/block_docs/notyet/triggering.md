@@ -74,9 +74,9 @@ md_el(:document,[
 
 <p>Paragraph (1 space after), list with no space: * ciao</p>
 
-<p>Paragraph (2 spaces after), list with no space:<br />* ciao</p>
+<p>Paragraph (2 spaces after), list with no space:<br/>* ciao</p>
 
-<p>Paragraph (3 spaces after), list with no space: <br />* ciao</p>
+<p>Paragraph (3 spaces after), list with no space: <br/>* ciao</p>
 
 <p>Paragraph with block quote:</p>
 
@@ -86,11 +86,11 @@ md_el(:document,[
 
 <p>Paragraph with header:</p>
 
-<h3 id='header'>header</h3>
+<h3 id="header_1">header</h3>
 
 <p>Paragraph with header on two lines:</p>
 
-<h2 id='header'>header</h2>
+<h2 id="header_2">header</h2>
 *** Output of to_latex ***
 Paragraph, list with no space: * ciao
 
@@ -117,11 +117,11 @@ Quoted
 \end{quote}
 Paragraph with header:
 
-\hypertarget{header}{}\subsubsection*{{header}}\label{header}
+\hypertarget{header_1}{}\subsubsection*{{header}}\label{header_1}
 
 Paragraph with header on two lines:
 
-\hypertarget{header}{}\subsection*{{header}}\label{header}
+\hypertarget{header_2}{}\subsection*{{header}}\label{header_2}
 *** Output of to_md ***
 Paragraph, list with no space: * ciao
 

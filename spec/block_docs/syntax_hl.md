@@ -25,13 +25,13 @@ md_el(:document,[
 *** Output of to_html ***
 <p>This is ruby code:</p>
 
-<pre><code>require &#39;maruku&#39;
+<pre><code>require 'maruku'
 
 puts Maruku.new($stdin).to_html</code></pre>
 
 <p>This is ruby code:</p>
 
-<pre><code class='ruby' lang='ruby'><span class='ident'>require</span> <span class='punct'>&#39;</span><span class='string'>maruku</span><span class='punct'>&#39;</span></code></pre>
+<pre class="ruby"><code lang="ruby"><span class="ident">require</span> <span class="punct">'</span><span class="string">maruku</span><span class="punct">'</span></code></pre>
 
 <pre><code>puts Maruku.new($stdin).to_html</code></pre>
 *** Output of to_latex ***

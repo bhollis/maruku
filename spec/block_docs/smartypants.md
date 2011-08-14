@@ -68,7 +68,7 @@ md_el(:document,[
 	],{},[])
 ],{},[])
 *** Output of to_html ***
-<pre><code>&#39;Twas a &quot;test&quot; to &#39;remember&#39; in the &#39;90s.</code></pre>
+<pre><code>'Twas a "test" to 'remember' in the '90s.</code></pre>
 
 <p>&#8216;Twas a &#8220;test&#8221; to &#8216;remember&#8217; in the &#8217;90s.</p>
 
@@ -80,7 +80,7 @@ md_el(:document,[
 
 <p>I &#8211; too &#8211; met &#171;&#160;some curly quotes&#160;&#187; there or &#171;here&#187;No space.</p>
 
-<pre><code>She was 6\&quot;12\&#39;.</code></pre>
+<pre><code>She was 6\"12\'.</code></pre>
 
 <blockquote>
 <p>She was 6&#34;12&#39;.</p>

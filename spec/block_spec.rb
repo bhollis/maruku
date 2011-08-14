@@ -1,3 +1,6 @@
+#!/usr/bin/env ruby -w
+# encoding: UTF-8
+Encoding.default_external=('UTF-8') if ''.respond_to?(:force_encoding)
 require File.dirname(__FILE__) + "/spec_helper"
 
 METHODS = [:to_html, :to_latex, :to_md, :to_s]
@@ -26,7 +29,7 @@ describe "A Maruku document" do
 
         $already_warned_itex2mml = false
         @doc = Maruku.new(markdown, params)
-        @expected = METHODS.zip(input).inject({}) {|h, (k, v)| h[k] = v.strip; h}
+        @expected = METHODS.zip(input).inject({}) {|h, (k, v)| h[k] = v ? v.strip : '' ; h}
       end
 
       it "should read in the output of #inspect as the same document" do

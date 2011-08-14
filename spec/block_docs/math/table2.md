@@ -26,8 +26,8 @@ md_el(:document,[
 	md_el(:ald,[],{:ald=>[["scope", "row"]],:ald_id=>"r"},[])
 ],{},[])
 *** Output of to_html ***
-<table><thead><tr><th>Symbol</th><th>Meaning</th><th>comments</th></tr></thead><tbody><tr><th scope='row' style='text-align: left;'> &#945;</th><td style='text-align: left;'>The first</td><td style='text-align: left;'>I like it.</td>
-</tr><tr><th scope='row' style='text-align: left;'> &aleph;</th><td style='text-align: left;'>The first</td><td style='text-align: left;'>I like it.</td>
+<table><thead><tr><th>Symbol</th><th>Meaning</th><th>comments</th></tr></thead><tbody><tr><th scope="row" style="text-align: left;"> &#945;</th><td style="text-align: left;">The first</td><td style="text-align: left;">I like it.</td>
+</tr><tr><th scope="row" style="text-align: left;"> &aleph;</th><td style="text-align: left;">The first</td><td style="text-align: left;">I like it.</td>
 </tr></tbody></table>
 *** Output of to_latex ***
 \begin{tabular}{l|l|l}

@@ -17,7 +17,7 @@ md_el(:document,[
 *** Output of to_html ***
 <p>Here is an example of AppleScript:</p>
 
-<pre><code>tell application &quot;Foo&quot;
+<pre><code>tell application "Foo"
     beep
 end tell
 	tab</code></pre>

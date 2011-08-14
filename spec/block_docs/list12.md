@@ -15,7 +15,7 @@ md_el(:document,[
 ],{},[])
 *** Output of to_html ***
 <ul>
-<li><a href='http://maruku.org/'>Maruku</a>: good.</li>
+<li><a href="http://maruku.org/">Maruku</a>: good.</li>
 </ul>
 *** Output of to_latex ***
 \begin{itemize}%

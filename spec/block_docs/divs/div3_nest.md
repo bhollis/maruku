@@ -20,12 +20,12 @@ md_el(:document,[
 	],{:label=>nil,:num=>nil,:type=>nil},[[:class, "warning"]])
 ],{},[])
 *** Output of to_html ***
-<div class='warning'>
+<div class="warning">
 <p>this is the last warning!</p>
 
 <p>please, go away!</p>
 
-<div class='menace'>
+<div class="menace">
 <p>or else terrible things will happen</p>
 </div>
 </div>

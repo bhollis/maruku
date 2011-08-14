@@ -32,7 +32,7 @@ md_el(:document,[
 	md_el(:abbr_def,[],{:abbr=>"Tigra Genesis",:text=>nil},[])
 ],{},[])
 *** Output of to_html ***
-<p>The <abbr title='Hyper Text Markup Language'>HTML</abbr> specification is maintained by the <abbr title='World Wide Web Consortium'>W3C</abbr>.</p>
+<p>The <abbr title="Hyper Text Markup Language">HTML</abbr> specification is maintained by the <abbr title="World Wide Web Consortium">W3C</abbr>.</p>
 
 <p>Operation <abbr>Tigra Genesis</abbr> is going well.</p>
 *** Output of to_latex ***

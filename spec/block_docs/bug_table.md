@@ -27,8 +27,8 @@ md_el(:document,[
 	md_el(:ald,[],{:ald=>[["scope", "row"]],:ald_id=>"t"},[])
 ],{},[])
 *** Output of to_html ***
-<p class='class1' style='color:red'>hello</p>
-<table class='class1' summary='Table summary' style='color:red'><thead><tr><th>h</th><th>h</th></tr></thead><tbody><tr><th scope='row' style='text-align: left;'> c1</th><td style='text-align: left;'>c2</td>
+<p class="class1" style="color:red">hello</p>
+<table class="class1" style="color:red" summary="Table summary"><thead><tr><th>h</th><th>h</th></tr></thead><tbody><tr><th scope="row" style="text-align: left;"> c1</th><td style="text-align: left;">c2</td>
 </tr></tbody></table>
 *** Output of to_latex ***
 hello
