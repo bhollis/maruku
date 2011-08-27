@@ -25,7 +25,7 @@ describe "A Maruku document" do
       ast = input.shift
 
       before(:each) do
-        pending if md =~ Regexp.new("^" + Regexp.quote(File.dirname(__FILE__) + "/block_docs/red_tests"))
+#        pending if md =~ Regexp.new("^" + Regexp.quote(File.dirname(__FILE__) + "/block_docs/red_tests"))
 
         $already_warned_itex2mml = false
         @doc = Maruku.new(markdown, params)
