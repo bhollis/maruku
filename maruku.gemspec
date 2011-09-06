@@ -17,7 +17,7 @@ Gem::Specification.new do |s|
   s.author = "Andrea Censi"
   s.executables = ['maruku', 'marutex']
   s.files = Dir.glob("{lib,spec}/**/*.rb") + 
-    Dir.glob("{docs,spec}/**/*md") + 
+    Dir.glob("{docs,spec}/**/*.md") + 
     Dir.glob("{data,bin}/*") + 
     ["LICENSE", "AUTHORS", "Rakefile", "Gemfile", "README.md"]
   s.add_dependency('syntax', '>= 1.0.0')
