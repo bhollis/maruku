@@ -1,40 +1,27 @@
 require 'rubygems'
-require 'rake/gempackagetask'
+require "bundler"
 
-require 'maruku_gem'
-
-task :default => [:package]
-
-Rake::GemPackageTask.new(MARUKU_GEMSPEC) do |pkg|
-  pkg.need_zip = true
-  pkg.need_tar = true
-end
-
-desc "Publish the release files to RubyForge."
-task :release => [:package] do
-  pkg = "pkg/maruku-#{MaRuKu::VERSION}"
-  sh %{rubyforge login}
-  %w[gem tgz zip].each do |ext|
-    sh %{rubyforge add_#{ext == 'gem' ? 'release' : 'file'} maruku maruku
-          #{MaRuKu::VERSION} #{pkg}.#{ext}}
-  end
-end
+require 'rspec/core/rake_task'
+require 'yard'
 
 begin
-  require 'spec/rake/spectask'
-
-  Spec::Rake::SpecTask.new
-rescue LoadError => e
+  Bundler.setup(:default, :development)
+rescue Bundler::BundlerError => e
+  $stderr.puts e.message
+  $stderr.puts "Run `bundle install` to install missing gems"
+  exit e.status_code
 end
 
-begin
-  require 'yard'
-  YARD::Rake::YardocTask.new do |t|
-    t.files = FileList["lib/maruku.rb", "lib/maruku/*.rb", "lib/maruku/ext/*.rb",
-      "lib/maruku/ext/math/*.rb"]
-  end
-rescue LoadError
-  task :yardoc do
-    abort "YARD is not available. In order to run yardoc, you must: sudo gem install yard"
-  end
+Bundler::GemHelper.install_tasks
+
+desc "Run RSpec"
+RSpec::Core::RakeTask.new do |t|
+  t.verbose = false
+end
+
+task :default => :spec
+
+YARD::Rake::YardocTask.new do |t|
+  t.files = FileList["lib/maruku.rb", "lib/maruku/*.rb", "lib/maruku/ext/*.rb",
+    "lib/maruku/ext/math/*.rb"]
 end
