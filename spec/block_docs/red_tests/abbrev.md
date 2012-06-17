@@ -100,7 +100,11 @@ To put it succinctly - don't fuck this up, y'all.
 
 *** Output of inspect ***
 md_el(:document,[
-	md_el(:header,["WebKit (Safari 3.1) and the CSS @font-face declaration"],{:level=>1},[]),
+	md_el(:header,[
+		"WebKit (Safari 3.1) and the ",
+		md_el(:abbr,["CSS"],{:title=>"Cascading Style Sheets"},[]),
+		" @font-face declaration"
+	],{:level=>1},[]),
 	md_par([
 		"I",
 		md_entity("rsquo"),
@@ -138,7 +142,10 @@ md_el(:document,[
 		md_entity("rsquo"),
 		"m extremely happy to see the advent of a standard ",
 		md_code("@font-face"),
-		" declaration in CSS. Internet Explorer first implemented a crutched, basic version of this way back in version 4, but nothing ever really came of it - their decision to create the proprietary .EOT",
+		" declaration in ",
+		md_el(:abbr,["CSS"],{:title=>"Cascading Style Sheets"},[]),
+		". Internet Explorer first implemented a crutched, basic version of this way back in version 4, but nothing ever really came of it - their decision to create the proprietary ",
+		md_el(:abbr,[".EOT"],{:title=>"Embedded OpenType"},[]),
 		md_foot_ref("^eot"),
 		" format to appease overly restrictive type foundries",
 		md_entity("rsquo"),
@@ -147,7 +154,7 @@ md_el(:document,[
 		"s advocates to the web. This new run at ",
 		md_code("@font-face"),
 		" by an established, trusted, and open group (the ",
-		md_link(["W3C"],"w3c"),
+		md_link([md_el(:abbr,["W3C"],{:title=>"World Wide Web Consortium"},[])], "w3c"),
 		" itself, responsible for helping to make much of what we use as designers on the web standard and cross-system compatible) has a much better chance, in my humble opinion - and I am quite looking forward to the consequences if it succeeds."
 	]),
 	md_par([
@@ -174,14 +181,21 @@ md_el(:document,[
 	]),
 	md_par([
 		"The ",
-		md_link(["CSS spec section"],"spec"),
+		md_link([
+			md_el(:abbr,["CSS"],{:title=>"Cascading Style Sheets"},[]),
+			" spec section"
+		], "spec"),
 		" for ",
 		md_code("@font-face"),
 		" is very specific - typefaces are to be selected based on a wide array of criteria placed in the ",
 		md_code("@font-face"),
-		" declaration block itself. Various textual CSS attributes may be defined within the ",
+		" declaration block itself. Various textual ",
+		md_el(:abbr,["CSS"],{:title=>"Cascading Style Sheets"},[]),
+		" attributes may be defined within the ",
 		md_code("@font-face"),
-		" declaration, and then they will be checked when the typeface is referred to later in the CSS. For instance, if I have two ",
+		" declaration, and then they will be checked when the typeface is referred to later in the ",
+		md_el(:abbr,["CSS"],{:title=>"Cascading Style Sheets"},[]),
+		". For instance, if I have two ",
 		md_code("@font-face"),
 		" declarations for the Diavlo family - one for regular text, and one for a heavier weighted version of the typeface - then I later utilize Diavlo in a ",
 		md_code("font-family:"),
@@ -276,9 +290,12 @@ md_el(:document,[
 			md_par([
 				"And by wet, I mean ",
 				md_entity("lsquo"),
-				"not DRY",
+				"not ",
+				md_el(:abbr,["DRY"],{:title=>"Don't Repeat Yourself"},[]),
 				md_entity("rsquo"),
-				". What if we decide to change one of the bastardized font names? Or use a different font entirely? We have to go through all of our CSS, all of our Javascript, and make sure we update every occurrence of the typeface",
+				". What if we decide to change one of the bastardized font names? Or use a different font entirely? We have to go through all of our ",
+				md_el(:abbr,["CSS"],{:title=>"Cascading Style Sheets"},[]),
+				", all of our Javascript, and make sure we update every occurrence of the typeface",
 				md_entity("rsquo"),
 				"s bastardized name."
 			])
@@ -361,24 +378,39 @@ md_el(:document,[
 		md_entity("rsquo"),
 		"all."
 	]),
-	md_ref_def("museo", "http://www.josbuivenga.demon.nl/museo.html>", {:title=>"Jos Buivenga"}),
-	md_ref_def("diavlo", "http://www.josbuivenga.demon.nl/diavlo.html>", {:title=>"Jos Buivenga"}),
+	md_ref_def("museo", "http://www.josbuivenga.demon.nl/museo.html", {:title=>"Jos Buivenga's Museo free typeface"}),
+	md_ref_def("diavlo", "http://www.josbuivenga.demon.nl/diavlo.html", {:title=>"Jos Buivenga's free Diavlo typeface"}),
+	md_el(:footnote,[
 	md_par([
-		md_em([md_link(["CSS"],"css"), ": Cascading Style Sheets"]),
-		md_link([".EOT"],"eot"),
-		": Embedded OpenType ",
-		md_foot_ref("^eot"),
-		": To give Microsoft a little credit, something I rarely do",
+		"These are fonts by ",
+		md_link(["Jos Buivenga"], "jos"),
+		", quite the amazing person. His (free) fonts are, uniquely, released for use on the web in ",
+		md_code("@font-face"),
+		" declarations - unlike the vast majority of other (even free to download) typefaces, which have ridiculously restricting licenses and terms of use statements. Props, Jos - you",
+		md_entity("rsquo"),
+		"re a pioneer, and deserve recognition as such."
+	])
+	],{:footnote_id=>"^jos"},[]),
+		md_el(:abbr_def,[],{:abbr=>"CSS",:text=>"Cascading Style Sheets"},[]),
+		md_el(:abbr_def,[],{:abbr=>".EOT",:text=>"Embedded OpenType"},[]),
+		md_el(:footnote,[
+		md_par([
+		"To give Microsoft a little credit, something I rarely do",
 		md_entity("hellip"),
 		" Yes, I",
 		md_entity("rsquo"),
-		"m aware Microsoft submitted EOT to the W3C as a proposal - the problem isn",
+		"m aware Microsoft submitted EOT to the ",
+		md_el(:abbr,["W3C"],{:title=>"World Wide Web Consortium"},[]),
+		" as a proposal - the problem isn",
 		md_entity("rsquo"),
-		"t with their attempts to make it non-proprietary, but with the basic concept of making typefaces on the web DRMed. Look what such attempts have done to the music and video industry - simply decimated it. Do we really want to see the same thing happen to our beloved medium as typography moves into the 21st century? ",
-		md_em([md_link(["W3C"],"w3c"), ": World Wide Web Consortium"])
-	]),
-	md_ref_def("w3c", "http://w3c.org>", {:title=>"World Wide Web Consortium"}),
-	md_ref_def("spec", "http://?>", {:title=>")   *[DRY]: Don"})
+		"t with their attempts to make it non-proprietary, but with the basic concept of making typefaces on the web DRMed. Look what such attempts have done to the music and video industry - simply decimated it. Do we really want to see the same thing happen to our beloved medium as typography moves into the 21st century?"
+	])
+	],{:footnote_id=>"^eot"},[]),
+		md_el(:abbr_def,[],{:abbr=>"W3C",:text=>"World Wide Web Consortium"},[]),
+		md_ref_def("w3c", "http://w3c.org", {:title=>"World Wide Web Consortium"}),
+		md_ref_def("spec", "http://?", {:title=>nil}),
+		md_el(:abbr_def,[],{:abbr=>"DRY",:text=>"Don't Repeat Yourself"},[]),
+		md_ref_def("jos", "jos", {:title=>nil})
 ],{},[])
 *** Output of to_html ***
 <h1 id="webkit_safari_31_and_the_css_fontface_declaration_1">WebKit (Safari 3.1) and the <abbr title="Cascading Style Sheets">CSS</abbr> @font-face declaration</h1>

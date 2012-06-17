@@ -19,9 +19,9 @@ require 'maruku/ext/math'
 \begin{equation} \gamma \end{equation}
 *** Output of inspect ***
 md_el(:document,[
-	md_el(:equation,[],{:label=>"eq1",:math=>"\t\\alpha\n\n",:num=>1},[]),
-	md_el(:equation,[],{:label=>nil,:math=>"\t\\alpha\n\n",:num=>nil},[]),
-	md_el(:equation,[],{:label=>nil,:math=>" \\beta\n",:num=>nil},[]),
+	md_el(:equation,[],{:label=>"eq1",:math=>"\n\t\\alpha\n\n",:num=>1},[]),
+	md_el(:equation,[],{:label=>nil,:math=>"\n\t\\alpha\n\n",:num=>nil},[]),
+	md_el(:equation,[],{:label=>nil,:math=>" \\beta\n\n",:num=>nil},[]),
 	md_el(:equation,[],{:label=>nil,:math=>" \\gamma ",:num=>nil},[])
 ],{},[])
 *** Output of to_html ***

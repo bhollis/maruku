@@ -3,7 +3,8 @@
 Encoding.default_external=('UTF-8') if ''.respond_to?(:force_encoding)
 require File.dirname(__FILE__) + "/spec_helper"
 
-METHODS = [:to_html, :to_latex, :to_md, :to_s]
+#METHODS = [:to_html, :to_latex, :to_md, :to_s]
+METHODS = [:to_html, :to_latex]
 
 describe "A Maruku document" do
   before(:all) do

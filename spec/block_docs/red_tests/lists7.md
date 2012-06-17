@@ -10,7 +10,10 @@ Ciao
 		*	Tab
 
 *** Output of inspect ***
-nil
+md_el(:document,[
+        md_par(["Ciao"]),
+        md_el(:ul,[md_el(:li_span,["Tab * Tab * Tab"],{:want_my_paragraph=>false},[])],{},[])
+       ],{},[])
 *** Output of to_html ***
 <p>Ciao</p>
 
