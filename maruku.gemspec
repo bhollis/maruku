@@ -1,9 +1,6 @@
-
-require 'lib/maruku/version'
-
-$spec = Gem::Specification.new do |s|
+Gem::Specification.new do |s|
   s.name = 'maruku'
-  s.version = MaRuKu::Version
+  s.version = '0.6.0'
   s.summary = "Maruku is a Markdown-superset interpreter written in Ruby."
   s.description = %{Maruku is a Markdown interpreter in Ruby.
 	It features native export to HTML and PDF (via Latex). The
