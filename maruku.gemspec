@@ -9,13 +9,12 @@ Gem::Specification.new do |s|
   s.files = Dir['lib/**/*.rb'] + Dir['lib/*.rb'] + 
 	Dir['docs/*.md'] +	Dir['docs/*.html'] +
 	Dir['spec/**/*.rb'] + Dir['spec/**/*.md'] +
-          Dir['bin/*'] + ['Rakefile', 'maruku_gem.rb']
+          Dir['bin/*'] + ['Rakefile']
 
   s.bindir = 'bin'
   s.executables = ['maruku','marutex']
 
   s.require_path = 'lib'
-  s.autorequire = 'maruku'
 
   s.add_dependency('syntax', '>= 1.0.0')
 
