@@ -19,7 +19,9 @@ Gem::Specification.new do |s|
 
   s.require_path = 'lib'
 
-  s.add_dependency('syntax', '>= 1.0.0')
+  s.add_dependency('syntax', '~> 1.0.0')
+
+  s.add_development_dependency('rspec', '~> 2.0')
 
   s.authors = ["Andrea Censi", "Nathan Weizenbaum"]
   s.email = "andrea@rubyforge.org"
