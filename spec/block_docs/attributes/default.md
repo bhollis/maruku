@@ -13,7 +13,7 @@ md_el(:document,[
 	md_el(:ald,[],{:ald=>[[:class, "maruku-par"]],:ald_id=>"paragraph"},[])
 ],{},[])
 *** Output of to_html ***
-<p class='maruku-par' id='2'>Paragraph2</p>
+<p id="2" class="maruku-par">Paragraph2</p>
 *** Output of to_latex ***
 Paragraph2
 *** Output of to_md ***

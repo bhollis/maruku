@@ -34,7 +34,7 @@ Paragraph 1
 
 Paragraph 2
 
-Paragraph 3 Paragraph 4 Paragraph Br-{\tt \char62}\newline Paragraph 5
+Paragraph 3 Paragraph 4 Paragraph Br-{\tt \symbol{62}}\newline Paragraph 5
 *** Output of to_md ***
 Paragraph 1
 

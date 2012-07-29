@@ -17,7 +17,7 @@ md_el(:document,[
 *** Output of to_html ***
 <p>Here is an example of AppleScript:</p>
 
-<pre><code>tell application &quot;Foo&quot;
+<pre><code>tell application "Foo"
     beep
 end tell
 	tab</code></pre>
@@ -30,5 +30,10 @@ end tell
 	tab\end{verbatim}
 *** Output of to_md ***
 Here is an example of AppleScript:
+
+     tell application "Foo"
+         beep
+     end tell
+     	tab
 *** Output of to_s ***
 Here is an example of AppleScript:

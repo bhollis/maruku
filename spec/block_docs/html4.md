@@ -14,8 +14,8 @@ md_el(:document,[
 	md_html("<div class=\"frame\">\n\t<a  class=\"photo\" href=\"http://www.flickr.com/photos/censi/54757256/\"><img alt=\"\"\n  moz-do-not-send=\"true\"\n  src=\"http://static.flickr.com/27/54757256_1a2c1d2a95_m.jpg\" /></a>\n</div>")
 ],{},[])
 *** Output of to_html ***
-<div class='frame'>
-	<a href='http://www.flickr.com/photos/censi/54757256/' class='photo'><img src='http://static.flickr.com/27/54757256_1a2c1d2a95_m.jpg' moz-do-not-send='true' alt='' /></a>
+<div class="frame">
+	<a class="photo" href="http://www.flickr.com/photos/censi/54757256/"><img alt="" moz-do-not-send="true" src="http://static.flickr.com/27/54757256_1a2c1d2a95_m.jpg" /></a>
 </div>
 *** Output of to_latex ***
 

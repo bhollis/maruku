@@ -13,9 +13,9 @@ md_el(:document,[
 	md_par(["Paragraph2"], [[:id, "par2"]])
 ],{},[])
 *** Output of to_html ***
-<p id='par1'>Paragraph1</p>
+<p id="par1">Paragraph1</p>
 
-<p id='par2'>Paragraph2</p>
+<p id="par2">Paragraph2</p>
 *** Output of to_latex ***
 Paragraph1
 

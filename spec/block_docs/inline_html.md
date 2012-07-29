@@ -6,13 +6,13 @@ CSS: style.css
 
 Input:
 
-	<em>Emphasis</em>
+    <em>Emphasis</em>
 
 Result: <em>Emphasis</em>
 
 Input:
 
-	<img src="http://jigsaw.w3.org/css-validator/images/vcss"/>
+    <img src="http://jigsaw.w3.org/css-validator/images/vcss"/>
 
 Result on span: <img src="http://jigsaw.w3.org/css-validator/images/vcss"/>
 
@@ -25,14 +25,14 @@ Without closing:
 <img src="http://jigsaw.w3.org/css-validator/images/vcss">
 
 <div markdown="1">
-	This is *true* markdown text (paragraph)
+   This is *true* markdown text (paragraph)
 
-	<p markdown="1">
-		This is *true* markdown text (no paragraph)
-	</p>
-	<p markdown="block">
-		This is *true* markdown text (block paragraph)
-	</p>
+   <p markdown="1">
+   This is *true* markdown text (no paragraph)
+   </p>
+   <p markdown="block">
+   This is *true* markdown text (block paragraph)
+   </p>
 </div>
 
 <table>
@@ -59,7 +59,7 @@ md_el(:document,[
 	md_html("<img src=\"http://jigsaw.w3.org/css-validator/images/vcss\" />"),
 	md_par(["Without closing:"]),
 	md_html("<img src=\"http://jigsaw.w3.org/css-validator/images/vcss\" />"),
-	md_html("<div markdown=\"1\">\n\tThis is *true* markdown text (paragraph)\n\n\t<p markdown=\"1\">\n\t\tThis is *true* markdown text (no paragraph)\n\t</p>\n\t<p markdown=\"block\">\n\t\tThis is *true* markdown text (block paragraph)\n\t</p>\n</div>"),
+	md_html("<div markdown=\"1\">\n   This is *true* markdown text (paragraph)\n\n   <p markdown=\"1\">\n   This is *true* markdown text (no paragraph)\n   </p>\n   <p markdown=\"block\">\n   This is *true* markdown text (block paragraph)\n   </p>\n</div>"),
 	md_html("<table>\n<tr>\n<td markdown=\"1\">This is a *true* markdown text. (no par)</td>\n<td markdown=\"block\">This is *true* markdown text. (par)</td>\n</tr>\n</table>")
 ],{},[])
 *** Output of to_html ***
@@ -71,14 +71,14 @@ md_el(:document,[
 
 <p>Input:</p>
 
-<pre><code>&lt;img src=&quot;http://jigsaw.w3.org/css-validator/images/vcss&quot;/&gt;</code></pre>
+<pre><code>&lt;img src="http://jigsaw.w3.org/css-validator/images/vcss"/&gt;</code></pre>
 
-<p>Result on span: <img src='http://jigsaw.w3.org/css-validator/images/vcss' /></p>
+<p>Result on span: <img src="http://jigsaw.w3.org/css-validator/images/vcss" /></p>
 
 <p>Result alone:</p>
-<img src='http://jigsaw.w3.org/css-validator/images/vcss' />
+<img src="http://jigsaw.w3.org/css-validator/images/vcss" />
 <p>Without closing:</p>
-<img src='http://jigsaw.w3.org/css-validator/images/vcss' /><div>
+<img src="http://jigsaw.w3.org/css-validator/images/vcss" /><div>
 <p>
 <p>This is</p>
 <em>
@@ -95,7 +95,7 @@ md_el(:document,[
 <p>markdown text (no paragraph)</p>
 </p>
 </p>
-	<p>
+   <p>
 <p>
 <p>This is</p>
 <em>

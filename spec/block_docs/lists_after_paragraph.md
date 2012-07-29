@@ -114,13 +114,13 @@ md_el(:document,[
 
 <p>Paragraph with header:</p>
 
-<h3 id='header'>header</h3>
+<h3 id="header_1">header</h3>
 
 <p>Paragraph with header on two lines:</p>
 
-<h2 id='header'>header</h2>
+<h2 id="header_2">header</h2>
 
-<p>Paragraph with html after <div /></p>
+<p>Paragraph with html after <div></div></p>
 
 <p>Paragraph with html after, indented: <em>Emphasis</em></p>
 
@@ -153,11 +153,11 @@ Quoted
 \end{quote}
 Paragraph with header:
 
-\hypertarget{header}{}\subsubsection*{{header}}\label{header}
+\hypertarget{header_1}{}\subsubsection*{{header}}\label{header_1}
 
 Paragraph with header on two lines:
 
-\hypertarget{header}{}\subsection*{{header}}\label{header}
+\hypertarget{header_2}{}\subsection*{{header}}\label{header_2}
 
 Paragraph with html after 
 
@@ -194,9 +194,13 @@ Quoted
 
 Paragraph with header:
 
-headerParagraph with header on two lines:
+### header
 
-headerParagraph with html after
+Paragraph with header on two lines:
+
+## header
+
+Paragraph with html after
 
 Paragraph with html after, indented:
 

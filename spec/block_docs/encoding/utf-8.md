@@ -9,7 +9,7 @@ Japanese: マルク
 *** Output of inspect ***
 md_el(:document,[md_par(["Japanese: \343\203\236\343\203\253\343\202\257"])],{},[])
 *** Output of to_html ***
-<p>Japanese: マルク</p>
+<p>Japanese: &#x30DE;&#x30EB;&#x30AF;</p>
 *** Output of to_latex ***
 Japanese: マルク
 *** Output of to_md ***

@@ -13,8 +13,8 @@ md_el(:document,[
 	md_html("<table markdown='1'>\n\t$\\alpha$\n\t<thead>\n\t\t<td>$\\beta$</td>\n\t</thead>\n</table>")
 ],{},[])
 *** Output of to_html ***
-<table><math class='maruku-mathml' display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mi>&alpha;</mi></math><thead>
-		<td><math class='maruku-mathml' display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mi>&beta;</mi></math></td>
+<table><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline" class="maruku-mathml"><mi>&#x3B1;</mi></math><thead>
+		<td><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline" class="maruku-mathml"><mi>&#x3B2;</mi></math></td>
 	</thead>
 </table>
 *** Output of to_latex ***

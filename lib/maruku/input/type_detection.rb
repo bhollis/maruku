@@ -50,11 +50,6 @@ module MaRuKu; module Strings
 		return :xml_instr if l =~ %r{^\s*<\?}
 		return :raw_html if l =~ %r{^[ ]?[ ]?[ ]?</?\s*\w+}
 		return :raw_html if l =~ %r{^[ ]?[ ]?[ ]?<\!\-\-}
-		# Something is wrong with how we parse lists! :-(
-		#return :ulist    if l =~ /^[ ]{0,3}([\*\-\+])\s+.*\w+/
-		#return :olist    if l =~ /^[ ]{0,3}\d+\..*\w+/
-		return :ulist    if l =~ /^[ ]{0,1}([\*\-\+])\s+.*\w+/
-		return :olist    if l =~ /^[ ]{0,1}\d+\..*\w+/
 		return :header1  if l =~ /^(=)+/ 
 		return :header2  if l =~ /^([-\s])+$/ 
 		return :header3  if l =~ /^(#)+\s*\S+/ 
@@ -62,6 +57,11 @@ module MaRuKu; module Strings
 		return :hrule    if l =~ /^(\s*\*\s*){3,1000}$/ 
 		return :hrule    if l =~ /^(\s*-\s*){3,1000}$/ # or hyphens
 		return :hrule    if l =~ /^(\s*_\s*){3,1000}$/ # or underscores	
+		# Something is wrong with how we parse lists! :-(
+		#return :ulist    if l =~ /^[ ]{0,3}([\*\-\+])\s+.*\w+/
+		#return :olist    if l =~ /^[ ]{0,3}\d+\..*\w+/
+		return :ulist    if l =~ /^[ ]{0,1}([\*\-\+])\s+.*/
+		return :olist    if l =~ /^[ ]{0,1}\d+\.\s+.*/
 		return :quote    if l =~ /^>/
 		return :metadata if l =~ /^@/
 #		if @@new_meta_data?
@@ -74,9 +74,9 @@ module MaRuKu; module Strings
 
 		
 	# $1 = id   $2 = attribute list
-	AttributeDefinitionList = /^\s{0,3}\{([\w\d\s]+)\}:\s*(.*)\s*$/
+	AttributeDefinitionList = /^\s{0,3}\{([\w\d\s]+)\}:\s*(.*?)\s*$/
 	# 
-	InlineAttributeList = /^\s{0,3}\{([:#\.].*)\}\s*$/
+	InlineAttributeList = /^\s{0,3}\{([:#\.].*?)\}\s*$/
 	# Example:
 	#     ^:blah blah
 	#     ^: blah blah
@@ -120,19 +120,17 @@ module MaRuKu; module Strings
 		  [ ]*
 		<?([^>\s]+)>?				# url = $2
 		  [ ]*
-		(?:# Titles are delimited by "quotes" or (parens).
-			["(']
-			(.+?)			# title = $3
-			[")']			# Matching ) or "
-			\s*(.+)?   # stuff = $4
+		(?: # Titles are delimited by "quotes" or (parens).
+			(?:(?:"([^"]+)")|(?:'([^']+)')|(?:\(([^\(\)]+)\))) # title = $3, $4, or $5
+			\s*(.+)? # stuff = $6
 		)?	# title is optional
 	  }x
 
-	IncompleteLink = %r{^[ ]{0,3}\[([^\[\]]+)\]:\s*$}
+	IncompleteLink = %r{^[ ]{0,3}\[([^\[\]]+?)\]:\s*$}
 
-	HeaderWithId = /^(.*)\{\#([\w_-]+)\}\s*$/
+	HeaderWithId = /^(.*?)\{\#([\w_-]+)\}\s*$/
 
-	HeaderWithAttributes = /^(.*)\{(.*)\}\s*$/
+	HeaderWithAttributes = /^(.*?)\{(.*?)\}\s*$/
 
 
 	# if contains a pipe, it could be a table header
@@ -140,8 +138,8 @@ module MaRuKu; module Strings
 	# -------------:
 	Sep = /\s*(\:)?\s*-+\s*(\:)?\s*/
 	# | -------------:| ------------------------------ |
-	TableSeparator = %r{^(\|?#{Sep}\|?)+\s*$}
+	TableSeparator = %r{^(\|?#{Sep}\|?)+?\s*$}
 
 
-	EMailAddress = /<([^:]+@[^:]+)>/
+	EMailAddress = /<([^:@>]+?@[^:@>]+?)>/
 end end

@@ -10,12 +10,12 @@ Paragraph2
 *** Output of inspect ***
 md_el(:document,[
 	md_par(["Paragraph1"]),
-	md_html('<iframe width="560" height="345" src="http://www.youtube.com/" frameborder="0" allowfullscreen="true"></iframe>'),
+	md_html('<iframe src="http://www.youtube.com/"></iframe>'),
 	md_par(["Paragraph2"])
 ],{},[])
 *** Output of to_html ***
 <p>Paragraph1</p>
-<iframe src='http://www.youtube.com/'></iframe>
+<iframe src="http://www.youtube.com/"></iframe>
 <p>Paragraph2</p>
 *** Output of to_latex ***
 Paragraph1

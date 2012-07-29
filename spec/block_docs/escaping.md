@@ -44,24 +44,25 @@ md_el(:document,[
 *** Output of to_latex ***
 Hello: ! ! ` \{ \} [ ] ( ) \# . ! * * *
 
-Ora, \emph{emphasis}, \textbf{bold}, * {\tt \char60}- due asterischi-{\tt \char62} * , un underscore-{\tt \char62} \_ , \emph{emphasis}, incre\emph{dible}e!
+Ora, \emph{emphasis}, \textbf{bold}, * {\tt \symbol{60}}- due asterischi-{\tt \symbol{62}} * , un underscore-{\tt \symbol{62}} \_ , \emph{emphasis}, incre\emph{dible}e!
 
-This is {\colorbox[rgb]{1.00,0.93,1.00}{\tt Code~with~a~special\char58~\char45\char62~\char96~\char60\char45}}(after)
+This is {\colorbox[rgb]{1.00,0.93,1.00}{\tt Code\char32with\char32a\char32special\char58\char32\char45\char62\char32\char96\char32\char60\char45}}(after)
 
-{\colorbox[rgb]{1.00,0.93,1.00}{\tt Start~}} of paragraph
+{\colorbox[rgb]{1.00,0.93,1.00}{\tt Start\char32}} of paragraph
 
-End of {\colorbox[rgb]{1.00,0.93,1.00}{\tt paragraph~}}
+End of {\colorbox[rgb]{1.00,0.93,1.00}{\tt paragraph\char32}}
 *** Output of to_md ***
-Hello: ! ! ` { } [ ] ( ) # . ! * * *
+Hello: ! \! \` \{ \} \[ \] \( \) \# \. \! * \* *
 
-Ora, emphasis, bold, * <- due
+
+Ora, *emphasis*, **bold**, * <- due
 asterischi-> * , un underscore-> _ ,
-emphasis, incre diblee!
+*emphasis*, incre*dible*e!
 
-This is (after)
+This is ``Code with a special: -> ` <- ``(after)
 
-of paragraph
+`Start ` of paragraph
 
-End of
+End of `paragraph `
 *** Output of to_s ***
 Hello: ! ! ` { } [ ] ( ) # . ! * * *Ora, emphasis, bold, * <- due asterischi-> * , un underscore-> _ , emphasis, incrediblee!This is (after) of paragraphEnd of

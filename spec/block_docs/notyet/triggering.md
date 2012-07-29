@@ -86,11 +86,11 @@ md_el(:document,[
 
 <p>Paragraph with header:</p>
 
-<h3 id='header'>header</h3>
+<h3 id="header_1">header</h3>
 
 <p>Paragraph with header on two lines:</p>
 
-<h2 id='header'>header</h2>
+<h2 id="header_2">header</h2>
 *** Output of to_latex ***
 Paragraph, list with no space: * ciao
 
@@ -117,11 +117,11 @@ Quoted
 \end{quote}
 Paragraph with header:
 
-\hypertarget{header}{}\subsubsection*{{header}}\label{header}
+\hypertarget{header_1}{}\subsubsection*{{header}}\label{header_1}
 
 Paragraph with header on two lines:
 
-\hypertarget{header}{}\subsection*{{header}}\label{header}
+\hypertarget{header_2}{}\subsection*{{header}}\label{header_2}
 *** Output of to_md ***
 Paragraph, list with no space: * ciao
 
@@ -146,12 +146,13 @@ no space:
 
 Paragraph with block quote:
 
-Quoted
-
+> Quoted
 Paragraph with header:
 
-headerParagraph with header on two lines:
+### header
 
-header
+Paragraph with header on two lines:
+
+## header
 *** Output of to_s ***
 Paragraph, list with no space: * ciaoParagraph, list with 1 space: * ciaoParagraph, list with 3 space: * ciaoParagraph, list with 4 spaces: * ciaoParagraph, list with 1 tab: * ciaoParagraph (1 space after), list with no space: * ciaoParagraph (2 spaces after), list with no space:* ciaoParagraph (3 spaces after), list with no space: * ciaoParagraph with block quote:QuotedParagraph with header:headerParagraph with header on two lines:header

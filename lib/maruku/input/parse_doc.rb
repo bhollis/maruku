@@ -18,6 +18,9 @@
 #   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #++
 
+require 'nokogiri'
+require 'strscan'
+
 module MaRuKu; module In; module Markdown; module BlockLevelParser
 		
 	def parse_doc(s)
@@ -139,19 +142,19 @@ Disabled by default because of security concerns.
 			return object.instance_eval(code)
 		rescue Exception => e
 			maruku_error "Exception while executing this:\n"+
-				add_tabs(code, 1, ">")+
+				code.gsub(/^/, ">")+
 				"\nThe error was:\n"+
-				add_tabs(e.inspect+"\n"+e.caller.join("\n"), 1, "|")
+				(e.inspect+"\n"+e.caller.join("\n")).gsub(/^/, "|")
 		rescue RuntimeError => e
 			maruku_error "2: Exception while executing this:\n"+
-				add_tabs(code, 1, ">")+
+				code.gsub(/^/, ">")+
 				"\nThe error was:\n"+
-				add_tabs(e.inspect, 1, "|")
+				e.inspect.gsub(/^/, "|")
 		rescue SyntaxError => e
 			maruku_error "2: Exception while executing this:\n"+
-				add_tabs(code, 1, ">")+
+				code.gsub(/^/, ">")+
 				"\nThe error was:\n"+
-				add_tabs(e.inspect, 1, "|")
+				e.inspect.gsub(/^/, "|")
 		end
 		nil
 	end
@@ -172,17 +175,19 @@ Disabled by default because of security concerns.
 			reg = Regexp.new(Regexp.escape(abbrev))
 			self.replace_each_string do |s|
 				# bug if many abbreviations are present (agorf)
-				if m = reg.match(s)
-					e = md_abbr(abbrev.dup, title ? title.dup : nil)
-					[m.pre_match, e, m.post_match]
-				else
-					s
-				end
+                p=StringScanner.new(s)
+                a = []
+                until p.eos?  
+                  o = ''
+                  o << p.getch until p.scan(reg) or p.eos?
+                  a << o
+                  a <<  md_abbr(abbrev.dup, title ? title.dup : nil)  if p.matched =~ reg
+                end
+                a
 			end
 		end
 	end
 	
-	include REXML
 	# (PHP Markdown extra) Search for elements that have
 	# markdown=1 or markdown=block defined
 	def substitute_markdown_inside_raw_html
@@ -193,35 +198,38 @@ Disabled by default because of security concerns.
 				block_tags = ['div']
 
 				# use xpath to find elements with 'markdown' attribute
-				XPath.match(doc, "//*[attribute::markdown]" ).each do |e|
+				doc.xpath("//*[attribute::markdown]").each do |e|
 #					puts "Found #{e}"
 					# should we parse block-level or span-level?
 					
-					how = e.attributes['markdown']
+					how = e['markdown']
 					parse_blocks = (how == 'block') || block_tags.include?(e.name)
 					               
 					# Select all text elements of e
-					XPath.match(e, "//text()" ).each { |original_text| 
-						s = original_text.value.strip
-						if s.size > 0
+					e.xpath("//text()").each { |original_text| 
+						s = original_text.text
+						if s.strip.size > 0
 
-					#	    puts "Parsing #{s.inspect} as blocks: #{parse_blocks}  (#{e.name}, #{e.attributes['markdown']})  "
+					#	    puts "Parsing #{s.inspect} as blocks: #{parse_blocks}  (#{e.name}, #{e['markdown']})  "
 
 							el = md_el(:dummy,
 							 	parse_blocks ? parse_text_as_markdown(s) :
 							                  parse_lines_as_span([s]) )
 							p = original_text.parent
+							#Nokogiri collapses consecutive Text nodes, so replace it by a dummy element
+							guard = Nokogiri::XML::Element.new('guard', doc)
+							original_text.replace(guard)
 							el.children_to_html.each do |x|
-								p.insert_before(original_text, x)
+								guard.before(x)
 							end
-							p.delete(original_text)
+							guard.remove
 							
 						end
 					}
 					
 					
           # remove 'markdown' attribute
-          e.delete_attribute 'markdown'
+          e.delete('markdown')
           
 				end
 				

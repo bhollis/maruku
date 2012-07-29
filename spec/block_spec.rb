@@ -1,6 +1,9 @@
-require File.expand_path("../spec_helper", __FILE__)
+# encoding: UTF-8
+Encoding.default_external=('UTF-8') if ''.respond_to?(:force_encoding)
+require File.dirname(__FILE__) + "/spec_helper"
 
-METHODS = [:to_html, :to_latex, :to_md, :to_s]
+# :to_md and :to_s tests are disabled for now
+METHODS = [:to_html, :to_latex]
 
 describe "A Maruku document" do
   before(:all) do
@@ -22,11 +25,11 @@ describe "A Maruku document" do
       ast = input.shift
 
       before(:each) do
-        pending if md =~ Regexp.new("^" + Regexp.quote(File.dirname(__FILE__) + "/block_docs/red_tests"))
+#        pending if md =~ Regexp.new("^" + Regexp.quote(File.dirname(__FILE__) + "/block_docs/red_tests"))
 
         $already_warned_itex2mml = false
         @doc = Maruku.new(markdown, params)
-        @expected = METHODS.zip(input).inject({}) {|h, (k, v)| h[k] = v.strip; h}
+        @expected = METHODS.zip(input).inject({}) {|h, (k, v)| h[k] = v ? v.strip : '' ; h}
       end
 
       it "should read in the output of #inspect as the same document" do

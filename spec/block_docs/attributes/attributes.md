@@ -30,28 +30,36 @@ md_el(:document,[
 	md_el(:ald,[],{:ald=>[[:class, "chello"]],:ald_id=>"hello"},[])
 ],{},[])
 *** Output of to_html ***
-<h2 id='header1'>Header with attributes</h2>
+<h2 id="header1">Header with attributes</h2>
 
-<h3 id='header2'>Header with attributes</h3>
+<h3 id="header2">Header with attributes</h3>
 
-<h3 id='header_no_attributes'>Header no attributes</h3>
+<h3 id="header_no_attributes_3">Header no attributes</h3>
 
-<p id='par1'>Paragraph with a.</p>
+<p id="par1">Paragraph with a.</p>
 
-<p id='par2'>Paragraph with <em class='chello'>emphasis</em></p>
+<p id="par2">Paragraph with <em class="chello">emphasis</em></p>
 *** Output of to_latex ***
 \hypertarget{header1}{}\subsection*{{Header with attributes}}\label{header1}
 
 \hypertarget{header2}{}\subsubsection*{{Header with attributes}}\label{header2}
 
-\hypertarget{header_no_attributes}{}\subsubsection*{{Header no attributes}}\label{header_no_attributes}
+\hypertarget{header_no_attributes_3}{}\subsubsection*{{Header no attributes}}\label{header_no_attributes_3}
 
 Paragraph with a.
 
 Paragraph with \emph{emphasis}
 *** Output of to_md ***
-Header with attributesHeader with attributesHeader no attributesParagraph with a.
 
-Paragraph with emphasis
+## Header with attributes ##
+
+### Header with attributes ###
+
+### Header no attributes ###
+
+Paragraph with a.
+
+Paragraph with *emphasis*
+
 *** Output of to_s ***
 Header with attributesHeader with attributesHeader no attributesParagraph with a.Paragraph with emphasis

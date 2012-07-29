@@ -1,29 +1,30 @@
-require 'rake'
-require 'rake/clean'
-require 'rdoc/task'
-require 'rspec/core'
-require 'rspec/core/rake_task'
 require 'bundler'
+
+begin
+  Bundler.setup(:default, :development)
+rescue Bundler::BundlerError => e
+  $stderr.puts e.message
+  $stderr.puts "Run `bundle install` to install missing gems"
+  exit e.status_code
+end
+
+require 'rake/clean'
+require 'rspec/core/rake_task'
+require 'yard'
+
+task :default => :spec
+CLEAN.replace %w(pkg doc .yardoc)
+
+Bundler::GemHelper.install_tasks
+
+desc "Run RSpec"
+RSpec::Core::RakeTask.new do |t|
+  t.verbose = false
+end
 
 task :default => :spec
 
-CLEAN.replace %w(pkg doc)
-
-RDoc::Task.new do |rdoc|
-  files = [
-           'lib/**/*.rb',
-           'rdoc/*.rdoc'
-  ]
-  rdoc.rdoc_files.add(files)
-  rdoc.main = "rdoc/main.rdoc" # page to start on
-  rdoc.title = "Maruku Documentation"
-  rdoc.template = "jamis.rb"
-  rdoc.rdoc_dir = 'doc' # rdoc output folder
-  rdoc.options << '--line-numbers' << '--inline-source'
+YARD::Rake::YardocTask.new do |t|
+  t.files = FileList["lib/maruku.rb", "lib/maruku/*.rb", "lib/maruku/ext/*.rb",
+    "lib/maruku/ext/math/*.rb"]
 end
-
-RSpec::Core::RakeTask.new(:spec) do |spec|
-  spec.pattern = FileList['spec/**/*_spec.rb']
-end
-
-Bundler::GemHelper.install_tasks
