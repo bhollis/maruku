@@ -32,7 +32,7 @@ module MaRuKu
     :filter_html => false,
 
     :html_math_output_mathml => true, # also set :html_math_engine
-    :html_math_engine => 'itex2mml', # none, ritex, itex2mml
+    :html_math_engine => 'none', # none, ritex, itex2mml
 
     :html_math_output_png => false,
     :html_png_engine => 'none',
