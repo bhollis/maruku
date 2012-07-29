@@ -1,6 +1,9 @@
+($LOAD_PATH << File.expand_path("../lib", __FILE__)).uniq!
+require "maruku/version"
+
 Gem::Specification.new do |s|
   s.name = 'maruku'
-  s.version = '0.6.0'
+  s.version = MaRuKu::Version
   s.summary = "Maruku is a Markdown-superset interpreter written in Ruby."
   s.description = %{Maruku is a Markdown interpreter in Ruby.
 	It features native export to HTML and PDF (via Latex). The
@@ -18,12 +21,8 @@ Gem::Specification.new do |s|
 
   s.add_dependency('syntax', '>= 1.0.0')
 
-  s.author = "Andrea Censi"
+  s.authors = ["Andrea Censi", "Nathan Weizenbaum"]
   s.email = "andrea@rubyforge.org"
   s.homepage = "http://maruku.rubyforge.org"
 end
-
-#  s.has_rdoc = true
-#  s.extra_rdoc_files = Dir['[A-Z]*']
-#  s.rdoc_options << '--title' <<  'Builder -- Easy XML Building'
 
