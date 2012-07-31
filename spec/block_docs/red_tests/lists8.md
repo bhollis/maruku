@@ -5,9 +5,9 @@ Write a comment here
 Here is a paragraph.
 
 
- * Item 1
- * Item 2
- * Item 3
+   * Item 1
+   * Item 2
+   * Item 3
 
 *** Output of inspect ***
 md_el(:document,[
@@ -31,12 +31,7 @@ md_el(:document,[
 *** Output of to_latex ***
 Here is a paragraph.
 
-\begin{itemize}%
-\item Item 1
-\item Item 2
-\item Item 3
-
-\end{itemize}
+* Item 1 * Item 2 * Item 3
 *** Output of to_md ***
 Here is a paragraph.
 
