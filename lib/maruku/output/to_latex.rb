@@ -350,7 +350,7 @@ Otherwise, a standard `verbatim` environment is used.
 			elsif SAFE_CHARS.include? b
 				s << b
 			else
-				s += "\\char%d" % b.ord 
+				s += "\\char%d" % b[0].ord 
 			end
 		end
 		s
