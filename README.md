@@ -16,7 +16,7 @@ its HTML representation with the method `to_html`:
     doc = Maruku.new(markdown_string)
     puts doc.to_html
 
-The {MaRuKu::MDDocument#to_html `#to_html`} method returns a string,
+The `#to_html` method returns a string,
 representing an HTML fragment.
 
     Maruku.new("## Header ##").to_html
@@ -25,7 +25,7 @@ representing an HTML fragment.
 This is useful for using Maruku inside other programs.
 
 If you want to create full HTML documents,
-use the {MaRuKu::MDDocument#to_html_document `#to_html_document`} method.
+use the `#to_html_document` method.
 
 ### Error Management
 
@@ -66,8 +66,8 @@ then calls `pdflatex` to transform the LaTeX to a PDF:
 
 ## Code organization
 
-The public interface is the {Maruku} class.
-Everything else is in the module {MaRuKu}.
+The public interface is the `Maruku` class.
+Everything else is in the module `MaRuKu`.
 
 # Build Status
 
@@ -76,3 +76,5 @@ Everything else is in the module {MaRuKu}.
 ## License
 
 Copyright (c) 2006 Andrea Censi. GPLv2 Licensed, see [LICENSE] for details.
+
+[LICENSE]: https://github.com/bhollis/maruku/blob/master/LICENSE
