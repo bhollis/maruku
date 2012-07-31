@@ -8,9 +8,6 @@ Maruku implements:
 * All the improvements in PHP Markdown Extra.
 * A new meta-data syntax.
 
-More documentation about Maruku can be found
-on the project's website: http://maruku.rubyforge.org
-
 ## Basic Use
 
 The basic use is to create a new document, and then write
@@ -71,3 +68,11 @@ then calls `pdflatex` to transform the LaTeX to a PDF:
 
 The public interface is the {Maruku} class.
 Everything else is in the module {MaRuKu}.
+
+# Build Status
+
+[![Build Status](http://travis-ci.org/bhollis/maruku.png)](http://travis-ci.org/bhollis/maruku)
+
+## License
+
+Copyright (c) 2006 Andrea Censi. GPLv2 Licensed, see [LICENSE] for details.
