@@ -40,7 +40,7 @@ module MaRuKu
     :html_png_url => 'pngs/',
     :html_png_resolution => 200,
 
-    :html_use_syntax => true,
+    :html_use_syntax => false,
 
     :latex_use_listings => false,
     :latex_cjk => false,
