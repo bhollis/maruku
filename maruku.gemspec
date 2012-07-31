@@ -9,6 +9,11 @@ Gem::Specification.new do |s|
 	It features native export to HTML and PDF (via Latex). The
 	output is really beautiful!
 	}
+  s.license = 'GPL-2'
+  s.authors = ["Andrea Censi", "Nathan Weizenbaum"]
+  s.email = "ben@benhollis.net"
+  s.homepage = "http://github.com/bhollis/maruku"
+
   s.files = Dir['lib/**/*.rb'] + Dir['lib/*.rb'] + 
 	Dir['docs/*.md'] +	Dir['docs/*.html'] +
 	Dir['spec/**/*.rb'] + Dir['spec/**/*.md'] +
@@ -26,9 +31,5 @@ Gem::Specification.new do |s|
   s.add_development_dependency('rake', '~> 0.9.2')
   s.add_development_dependency('rspec', '~> 2.6.0')
   s.add_development_dependency('yard', '~> 0.7.2')
-
-  s.authors = ["Andrea Censi", "Nathan Weizenbaum"]
-  s.email = "andrea@rubyforge.org"
-  s.homepage = "http://maruku.rubyforge.org"
 end
 
