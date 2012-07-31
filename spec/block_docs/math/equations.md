@@ -1,6 +1,6 @@
 Write a comment here
 *** Parameters: ***
-require 'maruku/ext/math';{}
+require 'maruku/ext/math';{:html_math_engine => 'itex2mml'}
 *** Markdown input: ***
 
 $$ x = y $$
