@@ -72,7 +72,7 @@ EXPECTATIONS = Maruku.new.instance_eval do
     ["a _ b_", :raise, 'Unclosed emphasis'],
     ["_b_", [md_em('b')], 'Emphasis 7'],
     ["_b_ _c_", [md_em('b'),' ',md_em('c')], 'Emphasis 8'],
-    #["_b__c_", [md_em('b'),md_em('c')], 'Emphasis 9'], # Not necessarily valid
+    ["_b__c_", [md_em('b'),md_em('c')], 'Emphasis 9'],
     # underscores in word
     ["mod_ruby", ['mod_ruby'], 'Word with underscore'],
     # strong

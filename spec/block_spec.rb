@@ -1,8 +1,9 @@
+#!/usr/bin/env ruby -w
 # encoding: UTF-8
 Encoding.default_external=('UTF-8') if ''.respond_to?(:force_encoding)
 require File.dirname(__FILE__) + "/spec_helper"
 
-# :to_md and :to_s tests are disabled for now
+#METHODS = [:to_html, :to_latex, :to_md, :to_s]
 METHODS = [:to_html, :to_latex]
 
 describe "A Maruku document" do
