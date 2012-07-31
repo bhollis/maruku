@@ -72,6 +72,8 @@ module MaRuKu; module Strings
 		return :text # else, it's just text
 	end
 
+  # MacRuby has trouble with commented regexes, so just put the expanded form
+  # in a comment.
 		
 	# $1 = id   $2 = attribute list
 	AttributeDefinitionList = /^\s{0,3}\{([\w\d\s]+)\}:\s*(.*?)\s*$/
@@ -81,50 +83,54 @@ module MaRuKu; module Strings
 	#     ^:blah blah
 	#     ^: blah blah
 	#     ^   : blah blah
-	Definition = %r{ 
-		^ # begin of line
-		[ ]{0,3} # up to 3 spaces
-		: # colon
-		\s* # whitespace
-		(\S.*) # the text    = $1
-		$ # end of line
-	}x
+	Definition = /^[ ]{0,3}:\s*(\S.*)$/
+  # %r{ 
+  #	  ^ # begin of line
+	#   [ ]{0,3} # up to 3 spaces
+	#   : # colon
+	#   \s* # whitespace
+	#   (\S.*) # the text    = $1
+	#   $ # end of line
+	# }x
 
 	# Example:
 	#     *[HTML]: Hyper Text Markup Language
-	Abbreviation = %r{
-		^  # begin of line
-		[ ]{0,3} # up to 3 spaces
-		\* # one asterisk
-		\[ # opening bracket
-		([^\]]+) # any non-closing bracket:  id = $1
-		\] # closing bracket
-		:  # colon
-		\s* # whitespace
-		(\S.*\S)* #           definition=$2
-		\s* # strip this whitespace
-		$   # end of line
-	}x
+	Abbreviation = /^[ ]{0,3}\*\[([^\]]+)\]:\s*(\S.*\S)*\s*$/
+  # %r{
+	#   ^  # begin of line
+	#   [ ]{0,3} # up to 3 spaces
+	#   \* # one asterisk
+	#   \[ # opening bracket
+	#   ([^\]]+) # any non-closing bracket:  id = $1
+	#   \] # closing bracket
+	#   :  # colon
+	#   \s* # whitespace
+	#   (\S.*\S)* #           definition=$2
+	#   \s* # strip this whitespace
+  #   $   # end of line
+	# }x
 
-	FootnoteText = %r{
-		^  # begin of line
-		[ ]{0,3} # up to 3 spaces
-		\[(\^.+)\]: # id = $1 (including '^')
-		\s*(\S.*)?$    # text = $2 (not obb.)
-	}x
+	FootnoteText = /^[ ]{0,3}\[(\^.+)\]:\s*(\S.*)?$/
+  # %r{
+	#   ^  # begin of line
+	#   [ ]{0,3} # up to 3 spaces
+	#   \[(\^.+)\]: # id = $1 (including '^')
+	#   \s*(\S.*)?$    # text = $2 (not obb.)
+	# }x
 
 	# This regex is taken from BlueCloth sources
 	# Link defs are in the form: ^[id]: \n? url "optional title"
-	LinkRegex = %r{
-		^[ ]{0,3}\[([^\[\]]+)\]:		# id = $1
-		  [ ]*
-		<?([^>\s]+)>?				# url = $2
-		  [ ]*
-		(?: # Titles are delimited by "quotes" or (parens).
-			(?:(?:"([^"]+)")|(?:'([^']+)')|(?:\(([^\(\)]+)\))) # title = $3, $4, or $5
-			\s*(.+)? # stuff = $6
-		)?	# title is optional
-	  }x
+	LinkRegex = /^[ ]{0,3}\[([^\[\]]+)\]:[ ]*<?([^>\s]+)>?[ ]*(?:(?:(?:"([^"]+)")|(?:'([^']+)')|(?:\(([^\(\)]+)\)))\s*(.+)?)?/
+  #%r{
+	#	^[ ]{0,3}\[([^\[\]]+)\]:		# id = $1
+	#	  [ ]*
+	#	<?([^>\s]+)>?				# url = $2
+	#	  [ ]*
+	#	(?: # Titles are delimited by "quotes" or (parens).
+	#		(?:(?:"([^"]+)")|(?:'([^']+)')|(?:\(([^\(\)]+)\))) # title = $3, $4, or $5
+	#		\s*(.+)? # stuff = $6
+	#	)?	# title is optional
+	#}x
 
 	IncompleteLink = %r{^[ ]{0,3}\[([^\[\]]+?)\]:\s*$}
 
