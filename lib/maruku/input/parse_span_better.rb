@@ -183,7 +183,7 @@ SpanContext = SpanContext_String # Seems to be faster
 			when ?*
 				if not src.next_char
 					maruku_error "Opening * as last char.", src, con
-					maruku_recover "Threating as literal"
+					maruku_recover "Treating as literal"
 					con.push_char src.shift_char
 				else
 					follows = src.cur_chars(4)
@@ -200,7 +200,7 @@ SpanContext = SpanContext_String # Seems to be faster
 			when ?_
 				if not src.next_char
 					maruku_error "Opening _ as last char", src, con
-					maruku_recover "Threating as literal", src, con
+					maruku_recover "Treating as literal", src, con
 					con.push_char src.shift_char
 				else
 					# we don't want "mod_ruby" to start an emphasis
