@@ -32,7 +32,7 @@ class String
 		s2 = ""
 		s.each_char do |b|
 			if LATEX_TO_CHARCODE.include? b
-				s2 += "{\\tt \\symbol{#{b.ord}}}" 
+				s2 += "{\\tt \\symbol{#{b[0].ord}}}" 
 			elsif LATEX_ADD_SLASH.include? b
 				s2 << ?\\ << b
 			elsif b == '\\'
