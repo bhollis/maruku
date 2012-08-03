@@ -41,7 +41,7 @@ describe "A Maruku document" do
       METHODS.each do |m|
         it "should have the expected ##{m} output" do
           res = @doc.send(m).strip
-          pending "install itex2mml" if m == :to_html && $already_warned_itex2mml
+          pending "install itex2mml to run these tests" if m == :to_html && $already_warned_itex2mml
           res.should == @expected[m]
         end
       end

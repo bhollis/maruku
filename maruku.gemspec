@@ -27,7 +27,6 @@ Gem::Specification.new do |s|
   s.add_dependency('nokogiri', '~> 1.5')
 
   s.add_development_dependency('syntax', '~> 1.0.0')
-  s.add_development_dependency("itextomml", '~> 1.4.6')
   s.add_development_dependency('rake', '~> 0.9.2')
   s.add_development_dependency('rspec', '~> 2.6.0')
   s.add_development_dependency('yard', '~> 0.7.2')
