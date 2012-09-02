@@ -102,7 +102,8 @@ module MaRuKu
             tell_user "BUG (my bad): '#{s}' is not a list"
             ''
           end
-      ial = match[/\{.*\}/]
+      s = /\{(.*?)\}/.match(match)
+      ial = s[1] if s
       return [match.length, ial]		
     end
 
