@@ -93,17 +93,17 @@ module MaRuKu
             # whitespace, followed by ('*'|'+'|'-') followed by
             # more whitespace, followed by an optional IAL, followed
             # by yet more whitespace
-            s[/^\s*(\*|\+|\-)\s*(\{.*?\})?\s*/]
+            s[/^\s*(\*|\+|\-)\s*(\{(:|#).*?\})?\s*/]
           when :olist
             # whitespace, followed by a number, followed by a period,
             # more whitespace, an optional IAL, and more whitespace
-            s[/^\s*\d+\.\s*(\{.*?\})?\s*/]
+            s[/^\s*\d+\.\s*(\{(:|#).*?\})?\s*/]
           else
             tell_user "BUG (my bad): '#{s}' is not a list"
             ''
           end
-      s = /\{(.*?)\}/.match(match)
-      ial = s[1] if s
+      s = /\{(#.*?)\}|\{:(.*?)\}/.match(match)
+      ial = (s[1] ? s[1] : s[2]) if s
       return [match.length, ial]		
     end
 

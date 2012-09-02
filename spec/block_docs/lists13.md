@@ -6,14 +6,17 @@ List Items with non alphanumeric content
 * {: #bar } ?
 * {#fubar} B
 * {#fubar2 } C
+* {Not an IAL}
 
 *** Output of inspect ***
 md_el(:document,[
   md_el(:ul,[
-   md_el(:li_span,["A"],{:want_my_paragraph=>false},[[:ref, ":"], [:id, "foo"]]),
-   md_el(:li_span,["?"],{:want_my_paragraph=>false},[[:ref, ":"], [:id, "bar"]]),
+   md_el(:li_span,["A"],{:want_my_paragraph=>false},[[:id, "foo"]]),
+   md_el(:li_span,["?"],{:want_my_paragraph=>false},[[:id, "bar"]]),
    md_el(:li_span,["B"],{:want_my_paragraph=>false},[[:id, "fubar"]]),
-   md_el(:li_span,["C"],{:want_my_paragraph=>false},[[:id, "fubar2"]])  ],{},[])
+   md_el(:li_span,["C"],{:want_my_paragraph=>false},[[:id, "fubar2"]]),
+   md_el(:li_span,["{Not an IAL}"],{:want_my_paragraph=>false},[])
+   ],{},[]),
 ],{},[])
 
 *** Output of to_html ***
@@ -25,6 +28,8 @@ md_el(:document,[
 <li id="fubar">B</li>
 
 <li id="fubar2">C</li>
+
+<li>{Not an IAL}</li>
 </ul>
 
 *** Output of to_latex ***
@@ -33,6 +38,7 @@ md_el(:document,[
 \item ?
 \item B
 \item C
+\item \{Not an IAL\}
 
 \end{itemize}
 
@@ -41,8 +47,9 @@ md_el(:document,[
 - ?
 - B
 - C
+- {Not an IAL}
 
 *** Output of to_s ***
-A?BC
+A?BC{Not an IAL}
 
 
