@@ -54,7 +54,6 @@ module MaRuKu; module Out; module HTML
 	
 	# Render to a complete HTML document (returns a string)
 	def to_html_document(context={})
-		indent = context[:indent] || -1
 		doc = to_html_document_tree
 		xml  = "" 
 		
