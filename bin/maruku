@@ -53,7 +53,7 @@ opt = OptionParser.new do |opts|
     MaRuKu::Globals[:html_math_engine] = s
   end
 
-  opts.on("-o", "--output FILE", "Output filename") {|s| output_file = s}
+  opts.on("-o", "--output FILE", "Output filename (`-o -' writes to stdout)") {|s| output_file = s}
 
   opts.on_tail("--pdf", "Output PDF", "First writes LaTeX, then calls pdflatex") {export = :pdf}
   opts.on_tail("--s5", "Output S5 slideshow") {export = :s5}
