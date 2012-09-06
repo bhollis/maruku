@@ -12,8 +12,6 @@ require 'maruku/string_utils'
 		
 	# Render as an HTML fragment (no head, just the content of BODY). (returns a string)
 	def to_s5(context={})
-		indent       = context[:indent]       || -1
-		ie_hack      = !context[:ie_hack].kind_of?(FalseClass)
 		content_only = !context[:content_only].kind_of?(FalseClass)
 
 		doc = Nokogiri::XML::Document.new

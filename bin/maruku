@@ -120,10 +120,10 @@ end.each do |filename, input|
     case export
     when :html
       suffix = using_mathml ? '.xhtml' : '.html'
-      out = doc.to_html_document(:indent => -1)
+      out = doc.to_html_document
     when :html_frag
       suffix = '.html_frag'
-      out = doc.to_html(:indent => -1)
+      out = doc.to_html
     when :pdf, :tex
       suffix = '.tex'
       out = doc.to_latex_document

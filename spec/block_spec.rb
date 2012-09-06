@@ -26,8 +26,6 @@ describe "A Maruku document" do
       ast = input.shift
 
       before(:each) do
-#        pending if md =~ Regexp.new("^" + Regexp.quote(File.dirname(__FILE__) + "/block_docs/red_tests"))
-
         $already_warned_itex2mml = false
         @doc = Maruku.new(markdown, params)
         @expected = METHODS.zip(input).inject({}) {|h, (k, v)| h[k] = v ? v.strip : '' ; h}
@@ -44,7 +42,7 @@ describe "A Maruku document" do
       METHODS.each do |m|
         it "should have the expected ##{m} output" do
           res = @doc.send(m).strip
-          pending "install itex2mml" if m == :to_html && $already_warned_itex2mml
+          pending "install itex2mml to run these tests" if m == :to_html && $already_warned_itex2mml
           res.should == @expected[m]
         end
       end
