@@ -37,7 +37,7 @@ opt = OptionParser.new do |opts|
   end
 
 
-  opts.on("-i", "--math-images ENGINE", "Uses ENGINE to render TeX to PNG.") do |s|
+  opts.on("-i", "--math-images ENGINE", "Use ENGINE to render TeX to PNG") do |s|
     using_math = true
     MaRuKu::Globals[:html_math_output_png] = true
     MaRuKu::Globals[:html_math_output_mathml] = false
@@ -45,7 +45,7 @@ opt = OptionParser.new do |opts|
     cli_puts "Using png engine #{s}."
   end
 
-  opts.on("-m", "--math-engine ENGINE", "Uses ENGINE to render MathML") do |s|
+  opts.on("-m", "--math-engine ENGINE", "Use ENGINE to render MathML") do |s|
     MaRuKu::Globals[:html_math_output_png] = false
     MaRuKu::Globals[:html_math_output_mathml] = true
     using_math = true
@@ -53,9 +53,9 @@ opt = OptionParser.new do |opts|
     MaRuKu::Globals[:html_math_engine] = s
   end
 
-  opts.on("-o", "--output FILE", "Output filename") {|s| output_file = s}
+  opts.on("-o", "--output FILE", "Output filename (`-o -' writes to stdout)") {|s| output_file = s}
 
-  opts.on_tail("--pdf", "Output PDF", "First writes LaTeX, then calls pdflatex") {export = :pdf}
+  opts.on_tail("--pdf", "Output PDF;", "first writes LaTeX, then calls pdflatex") {export = :pdf}
   opts.on_tail("--s5", "Output S5 slideshow") {export = :s5}
   opts.on_tail("--html", "Output HTML") {export = :html}
   opts.on_tail("--html-frag", "Output the contents of the <body> tag") {export = :html_frag}
@@ -63,17 +63,17 @@ opt = OptionParser.new do |opts|
   opts.on_tail("--markdown", "Output Markdown" ) {export = :markdown}
   opts.on_tail("--inspect", "Output the parse tree") {export = :inspect}
 
-  opts.on_tail("--version", "Show version") do
-    puts "Maruku #{MaRuKu::Version}"
-    exit
-  end
-
-  opts.on_tail("--ext EXTENSIONS", "Use maruku extensions (comma separated)") do |s|
+  opts.on_tail("--ext EXTENSIONS", "Use Maruku extensions (comma separated)") do |s|
     s.split(",").each {|e| require "maruku/ext/#{e}"}
   end
 
-  opts.on_tail("-h", "--help", "Show this message") do
+  opts.on_tail("-h", "--help", "Show this help message") do
     puts opts
+    exit
+  end
+
+  opts.on_tail("--version", "Show version") do
+    puts "Maruku #{MaRuKu::Version}"
     exit
   end
 end
