@@ -1,6 +1,6 @@
 #!/usr/bin/env ruby
 
-require File.join(File.dirname(__FILE__), '..', 'lib', 'maruku')
+require File.expand_path(File.join(File.dirname(__FILE__), '..', 'lib', 'maruku'))
 require 'optparse'
 
 
