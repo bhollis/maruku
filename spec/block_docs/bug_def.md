@@ -7,7 +7,7 @@ Write a comment here
 *** Output of inspect ***
 md_el(:document,[md_par([md_link(["test"],"test"), ":"])],{},[])
 *** Output of to_html ***
-<p><span>test</span>:</p>
+<p>[test][]:</p>
 *** Output of to_latex ***
 test:
 *** Output of to_md ***
