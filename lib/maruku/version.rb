@@ -19,9 +19,9 @@
 #++
 
 module MaRuKu
-	Version = '0.6.0'
+	Version = '0.6.1'
 	
-	MarukuURL = 'http://maruku.rubyforge.org/'
+	MarukuURL = 'http://github.com/bhollis/maruku/'
 	
 	# If true, use also PHP Markdown extra syntax
 	#
