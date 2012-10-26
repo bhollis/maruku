@@ -1,4 +1,4 @@
-
+Markdown inside HTML according to Markdown Extra: http://michelf.ca/projects/php-markdown/extra/#markdown-attr
 *** Parameters: ***
 {}
 *** Markdown input: ***

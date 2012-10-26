@@ -2,21 +2,30 @@ Write a comment abouth the test here.
 *** Parameters: ***
 {}
 *** Markdown input: ***
-This is a list:
+This is not a list:
 * one
 * two
 
-This is not a list:
+This is a list:
+
+* one
+* two
+
+This is a list:
+
 * one
 ciao
 
 This is a list:
+
 1. one
 1. two
 
-This is not a list:
+This is a list:
+
 1987. one
 ciao
+
 
 *** Output of inspect ***
 md_el(:document,[
@@ -34,25 +43,40 @@ md_el(:document,[
 	md_par(["This is not a list: 1987. one ciao"])
 ],{},[])
 *** Output of to_html ***
+<p>This is not a list:
+* one
+* two</p>
+
 <p>This is a list:</p>
 
 <ul>
 <li>one</li>
-
 <li>two</li>
 </ul>
 
-<p>This is not a list: * one ciao</p>
+
+<p>This is not a list:</p>
+
+<ul>
+<li>one
+ciao</li>
+</ul>
+
 
 <p>This is a list:</p>
 
 <ol>
 <li>one</li>
-
 <li>two</li>
 </ol>
 
-<p>This is not a list: 1987. one ciao</p>
+
+<p>This is not a list:</p>
+
+<ol>
+<li>one
+ciao</li>
+</ol>
 *** Output of to_latex ***
 This is a list:
 

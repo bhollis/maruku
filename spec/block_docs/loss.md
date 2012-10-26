@@ -5,9 +5,9 @@ Write a comment here
 <br/>123
 
 *** Output of inspect ***
-md_el(:document,[md_html("<br />")],{},[])
+md_el(:document,[md_par([md_html("<br />"), "123"]),{},[])
 *** Output of to_html ***
-<br />
+<p><br/>123</p>
 *** Output of to_latex ***
 
 *** Output of to_md ***

@@ -68,16 +68,15 @@ md_el(:document,[
 			]),
 			md_par(["ATTENZIONE!"]),
 			md_el(:ul,[
-				md_el(:li,[md_par(["Uno"])],{:want_my_paragraph=>false},[]),
-				md_el(:li,[
-					md_par(["Due"]),
+				md_el(:li,["Uno"],{},[]),
+				md_el(:li,["Due",
 					md_el(:ol,[
 						md_el(:li_span,["tre"],{:want_my_paragraph=>false},[]),
 						md_el(:li_span,["tre"],{:want_my_paragraph=>false},[]),
 						md_el(:li_span,["tre"],{:want_my_paragraph=>false},[])
 					],{},[])
-				],{:want_my_paragraph=>true},[]),
-				md_el(:li,[md_par(["Due"])],{:want_my_paragraph=>false},[])
+				],{},[]),
+				md_el(:li,["Due"],{},[])
 			],{},[])
 		],{:want_my_paragraph=>true},[]),
 		md_el(:li,[
@@ -119,13 +118,9 @@ md_el(:document,[
 <p>ATTENZIONE!</p>
 
 <ul>
-<li>
-<p>Uno</p>
-</li>
+<li>Uno</li>
 
-<li>
-<p>Due</p>
-
+<li>Due
 <ol>
 <li>tre</li>
 
@@ -135,9 +130,7 @@ md_el(:document,[
 </ol>
 </li>
 
-<li>
-<p>Due</p>
-</li>
+<li>Due</li>
 </ul>
 </li>
 

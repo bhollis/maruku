@@ -6,14 +6,14 @@ Write a comment abouth the test here.
 This is code (4 spaces):
 
     Code
-This is not code
+This is code
     
     Code
 
 This is code (1 tab):
 
 	Code
-This is not code
+This is code
 
 	Code
 
@@ -23,11 +23,11 @@ This is not code
 md_el(:document,[
 	md_par(["This is code (4 spaces):"]),
 	md_el(:code,[],{:raw_code=>"Code"},[]),
-	md_par(["This is not code"]),
+	md_par(["This is code"]),
 	md_el(:code,[],{:raw_code=>"Code"},[]),
 	md_par(["This is code (1 tab):"]),
 	md_el(:code,[],{:raw_code=>"Code"},[]),
-	md_par(["This is not code"]),
+	md_par(["This is code"]),
 	md_el(:code,[],{:raw_code=>"Code"},[])
 ],{},[])
 *** Output of to_html ***
@@ -35,7 +35,7 @@ md_el(:document,[
 
 <pre><code>Code</code></pre>
 
-<p>This is not code</p>
+<p>This is code</p>
 
 <pre><code>Code</code></pre>
 
@@ -43,7 +43,7 @@ md_el(:document,[
 
 <pre><code>Code</code></pre>
 
-<p>This is not code</p>
+<p>This is code</p>
 
 <pre><code>Code</code></pre>
 *** Output of to_latex ***
