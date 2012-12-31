@@ -272,9 +272,10 @@ SpanContext = SpanContext_String # Seems to be faster
 		src.ignore_chars(2) # starting <?
 
 		# read target <?target code... ?>
-		target = if m = src.read_regexp(/(\w+)/)
+		target = if m = src.read_regexp(/^(\w+)/)
 			m[1]
 		else
+      # XML instructions are invalid without a target
 			''
 		end
 		

@@ -21,6 +21,7 @@ Bundler::GemHelper.install_tasks
 desc "Run RSpec"
 RSpec::Core::RakeTask.new do |t|
   t.verbose = false
+  t.rspec_opts = '--color -f nested'
 end
 
 task :default => :spec
