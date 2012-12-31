@@ -123,9 +123,9 @@ EXPECTATIONS = Maruku.new.instance_eval do
     # This is valid in the new Markdown version
     # ["[a]",   ["a"],   'Not a link'],
     ["[a]",   [ md_link(["a"],'a')], 'Empty link'],
-    ["[a][]", ],
-    ["[a][]b",   [ md_link(["a"],'a'),'b'], 'Empty link'],
-    ["[a\\]][]", [ md_link(["a]"],'a')], 'Escape inside link (throw ?] away)'],
+    ["[a][]", [ md_link(["a"],'')] ],
+    ["[a][]b",   [ md_link(["a"],''),'b'], 'Empty link'],
+    ["[a\\]][]", [ md_link(["a]"],'')], 'Escape inside link (throw ?] away)'],
 
     ["[a",  :raise,   'Link not closed'],
     ["[a][",  :raise,   'Ref not closed'],
