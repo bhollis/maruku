@@ -704,7 +704,7 @@ of the form `#ff00ff`.
 			maruku_error "Could not find ref_id = #{id.inspect} for #{self.inspect}\n"+
 				"Available refs are #{@doc.refs.keys.inspect}"
 			tell_user "Not creating a link for ref_id = #{id.inspect}."
-			return wrap_as_element('span')
+			return "[#{children_to_s}][#{id}]"
 		end
 
 #		add_class_to_link(a)

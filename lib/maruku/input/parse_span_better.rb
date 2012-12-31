@@ -612,9 +612,7 @@ SpanContext = SpanContext_String # Seems to be faster
 		when ?[ # link ref
 			ref_id = read_ref_id(src,con)
 			if ref_id
-				if ref_id.size == 0
-					ref_id = sanitize_ref_id(children.to_s)
-				else
+				if ref_id.size > 0
 					ref_id = sanitize_ref_id(ref_id)
 				end	
 				con.push_element md_link(children, ref_id)
