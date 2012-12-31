@@ -11,7 +11,7 @@ This is an ![image].
 
 *** Output of inspect ***
 md_el(:document,[
-	md_par(["This is an ", md_image(["image"], "image"), "."]),
+	md_par(["This is an ", md_image(["image"], ""), "."]),
 	md_par(["This is an ", md_image(["image"], "image"), "."]),
 	md_ref_def("image", "image.jpg", {:title=>nil})
 ],{},[])

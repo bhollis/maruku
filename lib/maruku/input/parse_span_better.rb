@@ -467,7 +467,6 @@ SpanContext = SpanContext_String # Seems to be faster
 	# Reads a bracketed id "[refid]". Consumes also both brackets.
 	def read_ref_id(src, con)
 		src.ignore_char # [
-		src.consume_whitespace
 #		puts "Next: #{src.cur_chars(10).inspect}"
 		if m = src.read_regexp(R_REF_ID) 
 #			puts "Got: #{m[1].inspect} Ignored: #{m[2].inspect}"
@@ -612,10 +611,7 @@ SpanContext = SpanContext_String # Seems to be faster
 		when ?[ # link ref
 			ref_id = read_ref_id(src,con)
 			if ref_id
-				if ref_id.size > 0
-					ref_id = sanitize_ref_id(ref_id)
-				end	
-				con.push_element md_link(children, ref_id)
+        con.push_element md_link(children, ref_id)
 			else 
 				maruku_error "Could not read ref_id", src, con
 				maruku_recover "I will not create the link for "+
@@ -624,7 +620,7 @@ SpanContext = SpanContext_String # Seems to be faster
 				return
 			end
 		else # empty [link]
-			id = sanitize_ref_id(children.to_s) #. downcase.gsub(' ','_')
+			id = children.join
 			con.push_element md_link(children, id)
 		end
 	end # read link
@@ -681,15 +677,10 @@ SpanContext = SpanContext_String # Seems to be faster
 				error('Reference not closed.', src, con)
 				ref_id = ""
 			end
-			if ref_id.size == 0
-				ref_id =  alt_text.to_s
-			end
-
-			ref_id = sanitize_ref_id(ref_id)
 
 			con.push_element md_image(alt_text, ref_id)
 		else # no stuff
-			ref_id =  sanitize_ref_id(alt_text.to_s)
+			ref_id = alt_text.join
 			con.push_element md_image(alt_text, ref_id)
 		end
 	end # read link

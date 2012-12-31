@@ -179,9 +179,9 @@ EXPECTATIONS = Maruku.new.instance_eval do
     ["![a] ('url )" ],
 
     ["![a][imref]",  [md_image(['a'],'imref')], 'Image with ref'],
-    ["![a][ imref]"],
-    ["![a][ imref ]"],
-    ["![a][\timref\t]"],
+    ["![a][ imref]",  [md_image(['a'],' imref')], 'Image with ref'],
+    ["![a][ imref ]",  [md_image(['a'],' imref ' )], 'Image with ref'],
+    ["![a][\timref\t]",  [md_image(['a'],"\timref\t")], 'Image with ref'],
 
 
     ['<http://example.com/?foo=1&bar=2>',

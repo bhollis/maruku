@@ -198,7 +198,7 @@ md_el(:document,[
 				": ",
 				md_link(["JBuilder"],"jbuilder"),
 				" is great software and has a free version (IMHO better than Eclipse). Java is not a pain anymore since it gained ",
-				md_link(["generics"],"javagenerics"),
+				md_link(["generics"],"java-generics"),
 				" and got opensourced."
 			])
 		],{:want_my_paragraph=>false},[]),
@@ -330,7 +330,7 @@ md_el(:document,[
 	md_ref_def("mutopia", "http://www.mutopiaproject.org/", {:title=>nil}),
 	md_ref_def("liberliber", "http://www.liberliber.it/", {:title=>nil}),
 	md_ref_def("gutenberg", "http://www.gutenberg.org/", {:title=>nil}),
-	md_ref_def("javagenerics", "http://java.sun.com/j2se/1.5.0/docs/guide/language/generics.html", {:title=>nil})
+	md_ref_def("java-generics", "http://java.sun.com/j2se/1.5.0/docs/guide/language/generics.html", {:title=>nil})
 ],{},[])
 *** Output of to_html ***
 <h3 id="general_1">General</h3>

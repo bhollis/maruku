@@ -50,13 +50,13 @@ md_el(:document,[
 This is code (4 spaces):
 
 \begin{verbatim}Code\end{verbatim}
-This is not code
+This is code
 
 \begin{verbatim}Code\end{verbatim}
 This is code (1 tab):
 
 \begin{verbatim}Code\end{verbatim}
-This is not code
+This is code
 
 \begin{verbatim}Code\end{verbatim}
 *** Output of to_md ***
@@ -64,7 +64,7 @@ This is code (4 spaces):
 
      Code
 
-This is not code
+This is code
 
      Code
 
@@ -72,8 +72,8 @@ This is code (1 tab):
 
      Code
 
-This is not code
+This is code
 
      Code
 *** Output of to_s ***
-This is code (4 spaces):This is not codeThis is code (1 tab):This is not code
+This is code (4 spaces):This is codeThis is code (1 tab):This is code

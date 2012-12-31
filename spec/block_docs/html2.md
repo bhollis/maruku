@@ -1,4 +1,4 @@
-Write a comment here
+PENDING - Maruku should not nest block-level HTML inside a paragraph
 *** Parameters: ***
 {} # params 
 *** Markdown input: ***

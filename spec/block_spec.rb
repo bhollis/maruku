@@ -35,8 +35,8 @@ describe "A Maruku document" do
         Maruku.new.instance_eval(@doc.inspect).should == @doc
       end
 
-      it "should read in the given AST as the same document" do
-        Maruku.new.instance_eval(ast).should == @doc
+      it "should produce the given AST" do
+        @doc.should == Maruku.new.instance_eval(ast)
       end
 
       METHODS.each do |m|

@@ -695,7 +695,7 @@ of the form `#ff00ff`.
 		a =  wrap_as_element 'a'
 		id = self.ref_id
 		
-		if ref = @doc.refs[id]
+		if ref = @doc.refs[sanitize_ref_id(id)] || @doc.refs[sanitize_ref_id(children_to_s)]
 			url = ref[:url]
 			title = ref[:title]
 			a['href'] = url if url
@@ -759,7 +759,7 @@ of the form `#ff00ff`.
 	def to_html_image
 		a =  create_html_element 'img'
 		id = self.ref_id
-		if ref = @doc.refs[id]
+		if ref = @doc.refs[sanitize_ref_id(id)] || @doc.refs[sanitize_ref_id(children_to_s)]
 			url = ref[:url]
 			title = ref[:title]
 			a['src'] = url.to_s
