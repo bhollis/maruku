@@ -9,7 +9,7 @@ Write a comment here
 *** Output of inspect ***
 md_el(:document,[
 	md_el(:ul,[
-		md_el(:li_span,[md_link(["Maruku"],"maruku"), ": good."],{:want_my_paragraph=>false},[])
+		md_el(:li_span,[md_link(["Maruku"],"Maruku"), ": good."],{:want_my_paragraph=>false},[])
 	],{},[]),
 	md_ref_def("maruku", "http://maruku.org/", {:title=>nil})
 ],{},[])

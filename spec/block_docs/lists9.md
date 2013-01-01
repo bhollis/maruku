@@ -18,7 +18,7 @@ md_el(:document,[
 				md_el(:li_span,["tre"],{:want_my_paragraph=>false},[])
 			],{},[])
 		],{:want_my_paragraph=>true},[]),
-		md_el(:li,["Due")],{:want_my_paragraph=>false},[])
+		md_el(:li,["Due"],{:want_my_paragraph=>false},[])
 	],{},[])
 ],{},[])
 *** Output of to_html ***
