@@ -1,3 +1,7 @@
+PENDING - Maruku improperly wraps list elements in paragraphs and doesn't handle nested lists right.
+*** Parameters: ***
+{}
+*** Markdown input: ***
 ## Nested
 
 *	Tab
@@ -24,29 +28,65 @@ Same thing but with paragraphs:
 
 3. Third
 
-
-*** Parameters: ***
-{}
-*** Markdown input: ***
-
 *** Output of inspect ***
-md_el(:document,[],{},[])
+md_el(:document,[
+ 	md_el(:header,["Nested"],{:level=>2},[]),
+ 	md_el(:ul,[
+    md_el(:li,[
+      "Tab",
+      md_el(:ul,[
+        md_el(:li,[
+          "Tab",
+          md_el(:ul,[
+            md_el(:li,[
+              "Tab"
+            ],{:want_my_paragraph=>false},[])
+          ],{},[]),
+        ],{:want_my_paragraph=>false},[])
+      ],{},[]),
+    ],{:want_my_paragraph=>false},[])
+  ],{},[]),
+ 	md_par(["Here", md_entity("rsquo"), "s another:"]),
+ 	md_el(:ol,[
+   	md_el(:li,["First"],{:want_my_paragraph=>false},[]),
+   	md_el(:li,[
+   	  "Second:",
+   	  md_el(:ul,[
+   	    md_el(:li_span,["Fee"],{:want_my_paragraph=>false},[]),
+ 	      md_el(:li_span,["Fie"],{:want_my_paragraph=>false},[]),
+ 	      md_el(:li_span,["Foe"],{:want_my_paragraph=>false},[])
+      ],{},[])
+    ],{:want_my_paragraph=>true},[]),
+ 	  md_el(:li,["Third"],{:want_my_paragraph=>false},[])
+  ],{},[]),
+ 	md_par(["Same thing but with paragraphs:"]),
+ 	md_el(:ol,[
+ 	  md_el(:li,[md_par(["First"])],{:want_my_paragraph=>true},[]),
+ 	  md_el(:li,[
+ 	    "Second:",
+ 	    md_el(:ul,[
+ 	      md_el(:li_span,["Fee"],{:want_my_paragraph=>false},[]),
+ 	      md_el(:li_span,["Fie"],{:want_my_paragraph=>false},[]),
+ 	      md_el(:li_span,["Foe"],{:want_my_paragraph=>false},[])
+      ],{},[])
+      ],{:want_my_paragraph=>true},[]),
+ 	  md_el(:li,["Third"],{:want_my_paragraph=>false},[])
+  ],{},[])
+],{},[])
 *** Output of to_html ***
-<h1 id="nested_1">Nested</h1>
+<h2 id="nested_1">Nested</h2>
 
 <ul>
-<li>  Tab
-
+<li>Tab
 <ul>
-<li>  Tab
-
+<li>Tab
 <ul>
-<li>  Tab</li>
+<li>Tab</li>
 </ul></li>
 </ul></li>
 </ul>
 
-<p>Here&#39;s another:</p>
+<p>Here&#8217;s another:</p>
 
 <ol>
 <li>First</li>
