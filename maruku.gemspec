@@ -24,11 +24,11 @@ Gem::Specification.new do |s|
 
   s.require_path = 'lib'
 
-  s.add_dependency('nokogiri', '~> 1.5')
+  s.add_dependency('nokogiri', '~> 1.5', '>= 1.5.6')
 
   s.add_development_dependency('syntax', '~> 1.0.0')
   s.add_development_dependency('rake', '~> 0.9.2')
-  s.add_development_dependency('rspec', '~> 2.6.0')
+  s.add_development_dependency('rspec', '~> 2.12.0')
   s.add_development_dependency('yard', '~> 0.7.2')
 end
 

@@ -891,7 +891,7 @@ If true, raw HTML is discarded from the output.
 		table = create_html_element 'table'
 			thead = Nokogiri::XML::Element.new('thead', table)
 			tr = Nokogiri::XML::Element.new('tr', table)
-				array_to_html(head).each do |x| tr<<x end
+				array_to_html(head).each do |x| tr << x end
 			thead << tr
 			table << thead
 			
@@ -900,7 +900,7 @@ If true, raw HTML is discarded from the output.
 				tr = Nokogiri::XML::Element.new('tr', table)
 					array_to_html(row).each_with_index do |x,i| 
 						x['style'] ="text-align: #{align[i].to_s};" 
-						tr<<x 
+						tr << x 
 					end
 						
 				tbody << tr << Nokogiri::XML::Text.new("\n", table)
@@ -933,11 +933,10 @@ If true, raw HTML is discarded from the output.
 			entity_name = 39
 		end
 
-		
 		if entity_name.kind_of? Fixnum
 			 Nokogiri::XML::EntityReference.new(d, '#%d' % [entity_name])
 		else
-			 Nokogiri::XML::EntityReference.new(d, '%s' % [entity_name])
+			 Nokogiri::XML::EntityReference.new(d, entity_name)
 		end
 	end
 
