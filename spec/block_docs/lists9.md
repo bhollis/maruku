@@ -1,4 +1,4 @@
-Write a comment here
+PENDING - Maruku should not unnecessarily wrap <li>'s in <p>
 *** Parameters: ***
 {} # params 
 *** Markdown input: ***
@@ -24,18 +24,14 @@ md_el(:document,[
 *** Output of to_html ***
 <ul>
 <li>Due
-
 <ol>
 <li>tre</li>
-
 <li>tre</li>
-
 <li>tre</li>
-</ol>
-</li>
-
+</ol></li>
 <li>Due</li>
 </ul>
+
 *** Output of to_latex ***
 \begin{itemize}%
 \item Due
