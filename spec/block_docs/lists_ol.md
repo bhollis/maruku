@@ -1,4 +1,4 @@
-Write a comment abouth the test here.
+PENDING - Maruku should not unnecessarily wrap <li>'s in <p>
 *** Parameters: ***
 {}
 *** Markdown input: ***
