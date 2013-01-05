@@ -32,7 +32,7 @@ describe "A Maruku document" do
       end
 
       it "should read in the output of #inspect as the same document" do
-        Maruku.new.instance_eval(@doc.inspect).should == @doc
+        Maruku.new.instance_eval("#coding: utf-8\n#{@doc.inspect}").should == @doc
       end
 
       it "should produce the given AST" do
