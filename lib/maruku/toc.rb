@@ -112,8 +112,6 @@ module MaRuKu
     def _to_html
       d = Nokogiri::XML::Document.new
       ul = Nokogiri::XML::Element.new('ul', d)
-      # let's remove the bullets
-      ul['style'] = 'list-style: none;'
       @section_children.each do |c|
         li = Nokogiri::XML::Element.new('li', d)
         if span = c.header_element.render_section_number

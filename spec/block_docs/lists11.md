@@ -10,7 +10,7 @@ md_el(:document,[
 ],{},[])
 *** Output of to_html ***
 <ul>
-<li>&#x3AD;&#x3BD;&#x3B1;</li>
+<li>ένα</li>
 </ul>
 *** Output of to_latex ***
 \begin{itemize}%

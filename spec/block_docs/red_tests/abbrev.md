@@ -121,9 +121,9 @@ md_el(:document,[
 		" non-standard. (As of this writing, I",
 		md_entity("rsquo"),
 		"m using ",
-		md_link(["Museo"],"museo"),
+		md_link(["Museo"],""),
 		" and ",
-		md_link(["Diavlo"],"diavlo"),
+		md_link(["Diavlo"],""),
 		md_foot_ref("^jos"),
 		" heavily on both.)"
 	]),
@@ -154,7 +154,7 @@ md_el(:document,[
 		"s advocates to the web. This new run at ",
 		md_code("@font-face"),
 		" by an established, trusted, and open group (the ",
-		md_link([md_el(:abbr,["W3C"],{:title=>"World Wide Web Consortium"},[])], "w3c"),
+		md_link([md_el(:abbr,["W3C"],{:title=>"World Wide Web Consortium"},[])], ""),
 		" itself, responsible for helping to make much of what we use as designers on the web standard and cross-system compatible) has a much better chance, in my humble opinion - and I am quite looking forward to the consequences if it succeeds."
 	]),
 	md_par([

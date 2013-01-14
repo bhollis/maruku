@@ -44,11 +44,11 @@ And now [reference-style link ID (without spaces)][Google Search]
  http://images.google.com  (Google images)
 *** Output of inspect ***
 md_el(:document,[
+	md_par(["Search on ", md_link(["Google"],"")]),
+	md_par(["Search on ", md_link(["Google"],"")]),
 	md_par(["Search on ", md_link(["Google"],"google")]),
-	md_par(["Search on ", md_link(["Google"],"google")]),
-	md_par(["Search on ", md_link(["Google"],"google")]),
-	md_par(["Search on ", md_link(["Google"],"google")]),
-	md_par(["Search on ", md_link(["Google images"],"google_images")]),
+	md_par(["Search on ", md_link(["Google"],"Google")]),
+	md_par(["Search on ", md_link(["Google images"],"")]),
 	md_par(["Inline: ", md_im_link(["Google images"], "http://google.com", nil)]),
 	md_par([
 		"Inline with title: ",
@@ -73,18 +73,18 @@ md_el(:document,[
 	]),
 	md_par([
 		"And now ",
-		md_link(["reference-style link ID with spaces"],"google_images")
+		md_link(["reference-style link ID with spaces"],"Google Images")
 	]),
 	md_par([
 		"And now ",
-		md_link(["reference-style link ID (without spaces)"], "google_search")
+		md_link(["reference-style link ID (without spaces)"], "Google Search")
 	]),
 	md_ref_def("google", "http://www.google.com", {:title=>nil}),
 	md_ref_def("google2", "http://www.google.com", {:title=>"Single quotes"}),
 	md_ref_def("google3", "http://www.google.com", {:title=>"Double quotes"}),
 	md_ref_def("google4", "http://www.google.com", {:title=>"Parenthesis"}),
-	md_ref_def("google_search", "http://www.google.com", {:title=>"Google search"}),
-	md_ref_def("google_images", "http://images.google.com", {:title=>"Google images"})
+	md_ref_def("google search", "http://www.google.com", {:title=>"Google search"}),
+	md_ref_def("google images", "http://images.google.com", {:title=>"Google images"})
 ],{},[])
 *** Output of to_html ***
 <p>Search on <a href="http://www.google.com">Google</a></p>

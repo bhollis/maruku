@@ -71,7 +71,7 @@ Everything else is in the module `MaRuKu`.
 
 # Build Status
 
-[![Build Status](http://travis-ci.org/bhollis/maruku.png)](http://travis-ci.org/bhollis/maruku)
+[![Build Status](https://travis-ci.org/bhollis/maruku.png)](http://travis-ci.org/bhollis/maruku)
 
 ## License
 

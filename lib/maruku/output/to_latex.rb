@@ -395,7 +395,7 @@ Otherwise, a standard `verbatim` environment is used.
 	
 	def to_latex_link
 		id = self.ref_id
-		ref = @doc.refs[id]
+		ref = @doc.refs[sanitize_ref_id(id)] || @doc.refs[sanitize_ref_id(children_to_s)]
 		if not ref
 			$stderr.puts "Could not find id = '#{id}'"
 			return children_to_latex
@@ -503,7 +503,7 @@ Otherwise, a standard `verbatim` environment is used.
 
 	def to_latex_image
 		id = self.ref_id
-		ref = @doc.refs[id]
+		ref = @doc.refs[sanitize_ref_id(id)] || @doc.refs[sanitize_ref_id(children_to_s)]
 		if not ref
 			maruku_error "Could not find ref #{id.inspect} for image.\n"+
 				"Available are: #{@docs.refs.keys.inspect}"

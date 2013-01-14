@@ -17,7 +17,7 @@ md_el(:document,[
 <p>List:</p>
 
 <ul>
-<li>&#xE8;<code>gcc</code></li>
+<li>è<code>gcc</code></li>
 </ul>
 *** Output of to_latex ***
 List:

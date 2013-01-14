@@ -1,4 +1,5 @@
-Write a comment abouth the test here.
+Definition lists - only Maruku and Kramdown support this syntax (and only
+Kramdown gets it right.
 *** Parameters: ***
 {:css=>"style.css"}
 *** Markdown input: ***

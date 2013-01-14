@@ -123,9 +123,9 @@ EXPECTATIONS = Maruku.new.instance_eval do
     # This is valid in the new Markdown version
     # ["[a]",   ["a"],   'Not a link'],
     ["[a]",   [ md_link(["a"],'a')], 'Empty link'],
-    ["[a][]", ],
-    ["[a][]b",   [ md_link(["a"],'a'),'b'], 'Empty link'],
-    ["[a\\]][]", [ md_link(["a]"],'a')], 'Escape inside link (throw ?] away)'],
+    ["[a][]", [ md_link(["a"],'')] ],
+    ["[a][]b",   [ md_link(["a"],''),'b'], 'Empty link'],
+    ["[a\\]][]", [ md_link(["a]"],'')], 'Escape inside link (throw ?] away)'],
 
     ["[a",  :raise,   'Link not closed'],
     ["[a][",  :raise,   'Ref not closed'],
@@ -179,9 +179,9 @@ EXPECTATIONS = Maruku.new.instance_eval do
     ["![a] ('url )" ],
 
     ["![a][imref]",  [md_image(['a'],'imref')], 'Image with ref'],
-    ["![a][ imref]"],
-    ["![a][ imref ]"],
-    ["![a][\timref\t]"],
+    ["![a][ imref]",  [md_image(['a'],' imref')], 'Image with ref'],
+    ["![a][ imref ]",  [md_image(['a'],' imref ' )], 'Image with ref'],
+    ["![a][\timref\t]",  [md_image(['a'],"\timref\t")], 'Image with ref'],
 
 
     ['<http://example.com/?foo=1&bar=2>',

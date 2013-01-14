@@ -36,7 +36,7 @@ module MaRuKu; module Out; module HTML
 	
 	# Render as an HTML fragment (no head, just the content of BODY). (returns a string)
 	def to_html(context={})		
-        d = Nokogiri::XML::Document.parse('<dummy/>')
+    d = Nokogiri::XML::Document.parse('<dummy/>', nil, 'UTF-8')
 			children_to_html.each do |e|
 				d.root << e
 			end
@@ -695,7 +695,7 @@ of the form `#ff00ff`.
 		a =  wrap_as_element 'a'
 		id = self.ref_id
 		
-		if ref = @doc.refs[id]
+		if ref = @doc.refs[sanitize_ref_id(id)] || @doc.refs[sanitize_ref_id(children_to_s)]
 			url = ref[:url]
 			title = ref[:title]
 			a['href'] = url if url
@@ -704,7 +704,7 @@ of the form `#ff00ff`.
 			maruku_error "Could not find ref_id = #{id.inspect} for #{self.inspect}\n"+
 				"Available refs are #{@doc.refs.keys.inspect}"
 			tell_user "Not creating a link for ref_id = #{id.inspect}."
-			return wrap_as_element('span')
+			return "[#{children_to_s}][#{id}]"
 		end
 
 #		add_class_to_link(a)
@@ -759,7 +759,7 @@ of the form `#ff00ff`.
 	def to_html_image
 		a =  create_html_element 'img'
 		id = self.ref_id
-		if ref = @doc.refs[id]
+		if ref = @doc.refs[sanitize_ref_id(id)] || @doc.refs[sanitize_ref_id(children_to_s)]
 			url = ref[:url]
 			title = ref[:title]
 			a['src'] = url.to_s
@@ -891,7 +891,7 @@ If true, raw HTML is discarded from the output.
 		table = create_html_element 'table'
 			thead = Nokogiri::XML::Element.new('thead', table)
 			tr = Nokogiri::XML::Element.new('tr', table)
-				array_to_html(head).each do |x| tr<<x end
+				array_to_html(head).each do |x| tr << x end
 			thead << tr
 			table << thead
 			
@@ -900,7 +900,7 @@ If true, raw HTML is discarded from the output.
 				tr = Nokogiri::XML::Element.new('tr', table)
 					array_to_html(row).each_with_index do |x,i| 
 						x['style'] ="text-align: #{align[i].to_s};" 
-						tr<<x 
+						tr << x 
 					end
 						
 				tbody << tr << Nokogiri::XML::Text.new("\n", table)
@@ -933,11 +933,10 @@ If true, raw HTML is discarded from the output.
 			entity_name = 39
 		end
 
-		
 		if entity_name.kind_of? Fixnum
 			 Nokogiri::XML::EntityReference.new(d, '#%d' % [entity_name])
 		else
-			 Nokogiri::XML::EntityReference.new(d, '%s' % [entity_name])
+			 Nokogiri::XML::EntityReference.new(d, entity_name)
 		end
 	end
 

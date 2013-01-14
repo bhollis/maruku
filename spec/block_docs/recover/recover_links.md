@@ -1,12 +1,12 @@
-This shows how Maruku recovers from parsing errors
+Maruku should not mangle references that don't exist.
 *** Parameters: ***
 {:on_error=>:warning}
 *** Markdown input: ***
 Search on [Google images][ 	GoOgle search ]
 *** Output of inspect ***
-md_el(:document,[md_par(["Search on ", md_link(["Google images"],"google_search")])],{},[])
+md_el(:document,[md_par(["Search on ", md_link(["Google images"]," \tGoOgle search ")])],{},[])
 *** Output of to_html ***
-<p>Search on <span>Google images</span></p>
+<p>Search on [Google images][ 	GoOgle search ]</p>
 *** Output of to_latex ***
 Search on Google images
 *** Output of to_md ***

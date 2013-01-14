@@ -107,12 +107,12 @@ module MaRuKu
       return [match.length, ial]		
     end
 
-    # Replace spaces with underscores and remove non-word characters.
+    # Normalize a link reference.
     #
     # @param s [String]
     # @return [String]
     def sanitize_ref_id(s)
-      s.strip.downcase.gsub(' ', '_').gsub(/[^\w]/, '')
+      s.downcase.gsub(/\s+/, ' ')
     end
 
     # Remove line-initial `>` characters for a quotation.

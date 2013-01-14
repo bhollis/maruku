@@ -8,8 +8,8 @@ Write a comment here
 
 *** Output of inspect ***
 md_el(:document,[
-	md_par([md_link(["a. b"],"a_b"), " is a link."]),
-	md_ref_def("a_b", "http://site.com/", {:title=>nil})
+	md_par([md_link(["a. b"],"a. b"), " is a link."]),
+	md_ref_def("a. b", "http://site.com/", {:title=>nil})
 ],{},[])
 *** Output of to_html ***
 <p><a href="http://site.com/">a. b</a> is a link.</p>

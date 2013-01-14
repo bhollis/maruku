@@ -29,14 +29,15 @@ describe "A Maruku document" do
         $already_warned_itex2mml = false
         @doc = Maruku.new(markdown, params)
         @expected = METHODS.zip(input).inject({}) {|h, (k, v)| h[k] = v ? v.strip : '' ; h}
+        pending "#{comment} - #{md}" if comment.start_with?("PENDING")
       end
 
       it "should read in the output of #inspect as the same document" do
-        Maruku.new.instance_eval(@doc.inspect).should == @doc
+        Maruku.new.instance_eval("#coding: utf-8\n#{@doc.inspect}").should == @doc
       end
 
-      it "should read in the given AST as the same document" do
-        Maruku.new.instance_eval(ast).should == @doc
+      it "should produce the given AST" do
+        @doc.should == Maruku.new.instance_eval(ast)
       end
 
       METHODS.each do |m|

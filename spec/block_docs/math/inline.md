@@ -22,9 +22,9 @@ md_el(:document,[
 <p>Here are some formulas:</p>
 
 <ul>
-<li><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline" class="maruku-mathml"><mi>&#x3B1;</mi></math></li>
+<li><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline" class="maruku-mathml"><mi>α</mi></math></li>
 
-<li><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline" class="maruku-mathml"><msup><mi>x</mi> <mi>n</mi></msup><mo>+</mo><msup><mi>y</mi> <mi>n</mi></msup><mo>&#x2260;</mo><msup><mi>z</mi> <mi>n</mi></msup></math></li>
+<li><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline" class="maruku-mathml"><msup><mi>x</mi> <mi>n</mi></msup><mo>+</mo><msup><mi>y</mi> <mi>n</mi></msup><mo>≠</mo><msup><mi>z</mi> <mi>n</mi></msup></math></li>
 </ul>
 
 <p>That&#8217;s it, nothing else is supported.</p>

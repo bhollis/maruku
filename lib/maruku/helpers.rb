@@ -96,7 +96,7 @@ ERR
     end
 
     def md_link(children, ref_id, al = nil)
-      md_el(:link, children, {:ref_id => ref_id.downcase}, al)
+      md_el(:link, children, {:ref_id => ref_id}, al)
     end
 
     def md_im_link(children, url, title = nil, al = nil)
