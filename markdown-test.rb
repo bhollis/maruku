@@ -3,6 +3,9 @@
 puts "Maruku:"
 puts `bin/maruku -o - --html-frag #{ARGV[0]}`
 
+puts "Old Maruku:"
+puts `maruku -o - --html-frag #{ARGV[0]}`
+
 puts "\n\nRedcarpet:"
 puts `redcarpet #{ARGV[0]}`
 
