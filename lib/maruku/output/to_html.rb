@@ -36,7 +36,7 @@ module MaRuKu; module Out; module HTML
 	
 	# Render as an HTML fragment (no head, just the content of BODY). (returns a string)
 	def to_html(context={})		
-        d = Nokogiri::XML::Document.parse('<dummy/>')
+    d = Nokogiri::XML::Document.parse('<dummy/>', nil, 'UTF-8')
 			children_to_html.each do |e|
 				d.root << e
 			end
