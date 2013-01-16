@@ -21,7 +21,7 @@ module MaRuKu; module In; module Markdown
 		c = src.cur_char
 		if extensions = SpanExtensionsTrigger[c]
 			extensions.each do |e|
-				if e.regexp && (match = src.next_matches(e.regexp))
+				if e.regexp && src.next_matches(e.regexp)
 					return true if e.block.call(doc, src, con)
 				end
 			end
@@ -49,7 +49,7 @@ module MaRuKu; module In; module Markdown
 
 	def check_block_extensions(src, con, line)
 		BlockExtensions.each do |reg, block|
-			if m = reg.match(line)
+			if reg.match(line)
 				block = BlockExtensions[reg]
 				accepted =  block.call(doc, src, con)
 				return true if accepted

@@ -78,10 +78,10 @@ SpanContext = SpanContext_String # Seems to be faster
 
 			break if exit_on_chars && exit_on_chars.include?(c)
 			if exit_on_strings && exit_on_strings.any? {|x| src.cur_chars_are x}
-                # Special case: bold nested in italic
-                 break unless !(['*', '_'] & exit_on_strings).empty? && ['**','__'].include?(src.cur_chars(2))
-            end 
-			
+				# Special case: bold nested in italic
+				break unless !(['*', '_'] & exit_on_strings).empty? && ['**','__'].include?(src.cur_chars(2))
+			end
+
 			# check if there are extensions
 			if check_span_extensions(src, con)
 				next
@@ -171,10 +171,10 @@ SpanContext = SpanContext_String # Seems to be faster
 				end
 			when ?&
 				# named references
-				if m = src.read_regexp(/\&([\w\d]+);/)
+				if m = src.read_regexp(/\&(\w+);/)
 					con.push_element md_entity(m[1])
 				# numeric
-				elsif m = src.read_regexp(/\&\#(x)?([\w\d]+);/)
+				elsif m = src.read_regexp(/\&\#(x)?(\w+);/)
 					num = m[1]  ? m[2].hex : m[2].to_i
 					con.push_element md_entity(num)
 				else
@@ -281,9 +281,7 @@ SpanContext = SpanContext_String # Seems to be faster
 		
 		delim = "?>"
 		
-		code = 
-			read_simple(src, escaped=[], break_on_chars=[], 
-			break_on_strings=[delim])
+		code = read_simple(src, [], [], [delim])
 		
 		src.ignore_chars delim.size
 		
@@ -301,7 +299,7 @@ SpanContext = SpanContext_String # Seems to be faster
 		when ?#, ?.
 			extension_meta(src, con, break_on_chars)
 		else
-			stuff = read_simple(src, escaped=[?}], break_on_chars, [])
+			stuff = read_simple(src, [?}], break_on_chars, [])
 			if stuff =~ /^(\w+\s|[^\w])/
 				extension_id = $1.strip
 				if false
@@ -535,9 +533,7 @@ SpanContext = SpanContext_String # Seems to be faster
 		# We will read until this string
 		end_string = "`"*num_ticks
 
-		code = 
-			read_simple(src, escaped=[], break_on_chars=[], 
-				break_on_strings=[end_string])
+		code = read_simple(src, [], [], [end_string])
 		
 #		puts "Now I expects #{num_ticks} ticks: #{src.cur_chars(10).inspect}"
 		src.ignore_chars num_ticks
@@ -590,8 +586,7 @@ SpanContext = SpanContext_String # Seems to be faster
 					if not src.next_matches(/\s*\)/)
 						# if there is not a closing par ), then read
 						# the rest and guess it's title with quotes
-						rest = read_simple(src, escaped=[], break_on_chars=[?)], 
-							break_on_strings=[])
+						rest = read_simple(src, [], [?)], [])
 						# chop the closing char
 						rest.chop!
 						title << quote_char << rest
@@ -656,8 +651,7 @@ SpanContext = SpanContext_String # Seems to be faster
 					if not src.next_matches(/\s*\)/)
 						# if there is not a closing par ), then read
 						# the rest and guess it's title with quotes
-						rest = read_simple(src, escaped=[], break_on_chars=[?)], 
-							break_on_strings=[])
+						rest = read_simple(src, [], [?)], [])
 						# chop the closing char
 						rest.chop!
 						title << quote_char << rest
@@ -699,7 +693,7 @@ SpanContext = SpanContext_String # Seems to be faster
 	
 		def push_element(e)
 			raise "Only MDElement and String, please. You pushed #{e.class}: #{e.inspect} " if
-			 not (e.kind_of?(String) or e.kind_of?(MDElement))
+			 not(e.kind_of?(String) or e.kind_of?(MDElement))
 		
 			push_string_if_present
 			@elements << e
@@ -764,7 +758,7 @@ SpanContext = SpanContext_String # Seems to be faster
 	
 		def push_element(e)
 			raise "Only MDElement and String, please. You pushed #{e.class}: #{e.inspect} " if
-			 not (e.kind_of?(String) or e.kind_of?(MDElement))
+			 not(e.kind_of?(String) or e.kind_of?(MDElement))
 		
 			push_string_if_present
 			@elements << e

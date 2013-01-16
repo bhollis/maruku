@@ -37,7 +37,7 @@ class MDElement
 		title = children_to_s
 		title.gsub!(/ /,'_')
 		title.downcase!
-		title.gsub!(/[^\w_]/,'')
+		title.gsub!(/\W/,'')
 		title.strip!
 		
 		if title.size == 0

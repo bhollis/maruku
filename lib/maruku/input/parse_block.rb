@@ -119,7 +119,7 @@ module MaRuKu; module In; module Markdown; module BlockLevelParser
 		output.each do |c| 
 			# Remove paragraphs that we can get rid of
 			if [:ul,:ol].include? c.node_type 
-				if c.children.all? {|li| !li.want_my_paragraph} then
+				if c.children.all? {|_li| !_li.want_my_paragraph} then
 					c.children.each do |d|
 						d.node_type = :li_span
 						d.children = d.children[0].children if d.children[0]
@@ -163,7 +163,7 @@ module MaRuKu; module In; module Markdown; module BlockLevelParser
 	def read_ald(src)
 		if (l=src.shift_line) =~ AttributeDefinitionList
 			id = $1;   al=$2;
-			al = read_attribute_list(CharSource.new(al,src), context=nil, break_on=[nil])
+			al = read_attribute_list(CharSource.new(al,src), nil, [nil])
 			self.ald[id] = al;
 			return md_ald(id, al)
 		else
@@ -180,7 +180,7 @@ module MaRuKu; module In; module Markdown; module BlockLevelParser
 		if new_meta_data? and line =~ /^(.*?)\{(.*?)\}\s*$/
 			line = $1.strip
 			ial = $2
-			al  = read_attribute_list(CharSource.new(ial,src), context=nil, break_on=[nil])
+			al  = read_attribute_list(CharSource.new(ial,src), nil, [nil])
 		end
 		text = parse_lines_as_span [ line ]
 		level = src.cur_line.md_type == :header2 ? 2 : 1;  
@@ -196,7 +196,7 @@ module MaRuKu; module In; module Markdown; module BlockLevelParser
 		if new_meta_data? and line =~ /^(.*?)\{(.*?)\}\s*$/
 			line = $1.strip
 			ial = $2
-			al  = read_attribute_list(CharSource.new(ial,src), context=nil, break_on=[nil])
+			al  = read_attribute_list(CharSource.new(ial,src), nil, [nil])
 		end
 		level = line[/^#+/].size
 		text = parse_lines_as_span [line.gsub(/\A#+|#+\Z/, '')]
@@ -246,7 +246,7 @@ module MaRuKu; module In; module Markdown; module BlockLevelParser
 			ex = e.inspect + e.backtrace.join("\n")
 			maruku_error "Bad block-level HTML:\n#{ex.gsub(/^/, '|')}\n", src
 		end
-		if not (h.rest =~ /^\s*$/)
+		if not(h.rest =~ /^\s*$/)
 			maruku_error "Could you please format this better?\n"+
 				"I see that #{h.rest.inspect} is left after the raw HTML.", src
 		end
@@ -284,7 +284,7 @@ module MaRuKu; module In; module Markdown; module BlockLevelParser
 		first = src.shift_line
 
 		indentation, ial = spaces_before_first_char(first)
-		al = read_attribute_list(CharSource.new(ial,src), context=nil, break_on=[nil]) if ial
+		al = read_attribute_list(CharSource.new(ial,src), nil, [nil]) if ial
 		break_list = [:ulist, :olist, :ial]
 		# Ugly things going on inside `read_indented_content`
 		lines, want_my_paragraph = 
@@ -304,7 +304,7 @@ module MaRuKu; module In; module Markdown; module BlockLevelParser
 	end
 
 	def read_abbreviation(src)
-		if not (l=src.shift_line) =~ Abbreviation
+		if not((l=src.shift_line) =~ Abbreviation)
 			maruku_error "Bug: it's Andrea's fault. Tell him.\n#{l.inspect}"
 		end
 		
@@ -339,8 +339,7 @@ module MaRuKu; module In; module Markdown; module BlockLevelParser
 		
 		break_list = [:footnote_text, :ref_definition, :definition, :abbreviation]
 		item_type = :footnote_text
-		lines, want_my_paragraph = 
-			read_indented_content(src,indentation, break_list, item_type)
+		lines, _ = read_indented_content(src,indentation, break_list, item_type)
 
 		# add first line
 		if text && text.strip != "" then lines.unshift text end
@@ -372,7 +371,7 @@ module MaRuKu; module In; module Markdown; module BlockLevelParser
 			# after a white line
 			if saw_empty
 				# we expect things to be properly aligned
-				if (ns=number_of_leading_spaces(src.cur_line)) < indentation
+				if number_of_leading_spaces(src.cur_line) < indentation
 					#puts "breaking for spaces, only #{ns}: #{src.cur_line}"
 					break
 				end
@@ -501,7 +500,7 @@ module MaRuKu; module In; module Markdown; module BlockLevelParser
 		end
 #			puts hash.inspect
 		
-		out.push md_ref_def(id, url, meta={:title=>title})
+		out.push md_ref_def(id, url, :title=>title)
 	end
 	
 	def split_cells(s)

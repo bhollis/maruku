@@ -152,7 +152,7 @@ ERR
     end
 
     def md_par(children, al = nil)
-      md_el(:paragraph, children, meta = {}, al)
+      md_el(:paragraph, children, {}, al)
     end
 
     # A definition of a reference (e.g. `[1]: http://url [properties]`).
