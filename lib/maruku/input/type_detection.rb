@@ -76,7 +76,7 @@ module MaRuKu; module Strings
   # in a comment.
 		
 	# $1 = id   $2 = attribute list
-	AttributeDefinitionList = /^\s{0,3}\{([\w\d\s]+)\}:\s*(.*?)\s*$/
+	AttributeDefinitionList = /^\s{0,3}\{([\w\s]+)\}:\s*(.*?)\s*$/
 	# 
 	InlineAttributeList = /^\s{0,3}\{([:#\.].*?)\}\s*$/
 	# Example:
@@ -134,7 +134,7 @@ module MaRuKu; module Strings
 
 	IncompleteLink = %r{^[ ]{0,3}\[([^\[\]]+?)\]:\s*$}
 
-	HeaderWithId = /^(.*?)\{\#([\w_-]+)\}\s*$/
+	HeaderWithId = /^(.*?)\{\#([\w-]+)\}\s*$/
 
 	HeaderWithAttributes = /^(.*?)\{(.*?)\}\s*$/
 

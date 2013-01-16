@@ -171,10 +171,10 @@ SpanContext = SpanContext_String # Seems to be faster
 				end
 			when ?&
 				# named references
-				if m = src.read_regexp(/\&([\w\d]+);/)
+				if m = src.read_regexp(/\&(\w+);/)
 					con.push_element md_entity(m[1])
 				# numeric
-				elsif m = src.read_regexp(/\&\#(x)?([\w\d]+);/)
+				elsif m = src.read_regexp(/\&\#(x)?(\w+);/)
 					num = m[1]  ? m[2].hex : m[2].to_i
 					con.push_element md_entity(num)
 				else
