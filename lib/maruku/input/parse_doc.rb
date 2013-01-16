@@ -215,7 +215,7 @@ Disabled by default because of security concerns.
 							el = md_el(:dummy,
 							 	parse_blocks ? parse_text_as_markdown(s) :
 							                  parse_lines_as_span([s]) )
-							p = original_text.parent
+							original_text.parent
 							#Nokogiri collapses consecutive Text nodes, so replace it by a dummy element
 							guard = Nokogiri::XML::Element.new('guard', doc)
 							original_text.replace(guard)

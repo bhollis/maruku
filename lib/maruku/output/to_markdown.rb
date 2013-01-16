@@ -120,7 +120,7 @@ module MaRuKu; module Out; module Markdown
 #		s = wrap(@children, len-2, context).rstrip.gsub(/^/, '  ')
 #		s[0] = ?*
 #		s + "\n"
-			s = "* " + wrap(@children, len-2, context).rstrip + "\n"
+			"* " + wrap(@children, len-2, context).rstrip + "\n"
 		end
 	
 	def to_md_abbr_def(context)
@@ -134,7 +134,7 @@ module MaRuKu; module Out; module Markdown
 #			s = (w=wrap(li.children, len-2, context)).rstrip.gsub(/^/, '    ')+"\n"
 #			s[0,4] = "#{i+1}.  "[0,4]
 #			puts w.inspect
-            s = "#{i+1}. " + (w=wrap(li.children, len-2, context)).rstrip + "\n"
+            s = "#{i+1}. " + wrap(li.children, len-2, context).rstrip + "\n"
 			md += s
 		end
 		md + "\n"

@@ -281,9 +281,7 @@ SpanContext = SpanContext_String # Seems to be faster
 		
 		delim = "?>"
 		
-		code = 
-			read_simple(src, escaped=[], break_on_chars=[], 
-			break_on_strings=[delim])
+		code = read_simple(src, [], [], [delim])
 		
 		src.ignore_chars delim.size
 		
@@ -301,7 +299,7 @@ SpanContext = SpanContext_String # Seems to be faster
 		when ?#, ?.
 			extension_meta(src, con, break_on_chars)
 		else
-			stuff = read_simple(src, escaped=[?}], break_on_chars, [])
+			stuff = read_simple(src, [?}], break_on_chars, [])
 			if stuff =~ /^(\w+\s|[^\w])/
 				extension_id = $1.strip
 				if false
@@ -535,9 +533,7 @@ SpanContext = SpanContext_String # Seems to be faster
 		# We will read until this string
 		end_string = "`"*num_ticks
 
-		code = 
-			read_simple(src, escaped=[], break_on_chars=[], 
-				break_on_strings=[end_string])
+		code = read_simple(src, [], [], [end_string])
 		
 #		puts "Now I expects #{num_ticks} ticks: #{src.cur_chars(10).inspect}"
 		src.ignore_chars num_ticks
@@ -590,8 +586,7 @@ SpanContext = SpanContext_String # Seems to be faster
 					if not src.next_matches(/\s*\)/)
 						# if there is not a closing par ), then read
 						# the rest and guess it's title with quotes
-						rest = read_simple(src, escaped=[], break_on_chars=[?)], 
-							break_on_strings=[])
+						rest = read_simple(src, [], [?)], [])
 						# chop the closing char
 						rest.chop!
 						title << quote_char << rest
@@ -656,8 +651,7 @@ SpanContext = SpanContext_String # Seems to be faster
 					if not src.next_matches(/\s*\)/)
 						# if there is not a closing par ), then read
 						# the rest and guess it's title with quotes
-						rest = read_simple(src, escaped=[], break_on_chars=[?)], 
-							break_on_strings=[])
+						rest = read_simple(src, [], [?)], [])
 						# chop the closing char
 						rest.chop!
 						title << quote_char << rest

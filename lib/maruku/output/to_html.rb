@@ -474,7 +474,7 @@ by Maruku, to have the same results in both HTML and LaTeX.
 	def render_section_number
 	    d = Nokogiri::XML::Document.new
 		# if we are bound to a section, add section number
-		if num = section_number
+		if section_number
 			span = Nokogiri::XML::Element.new('span', d)
 			span['class'] = 'maruku_section_number'
 			span << Nokogiri::XML::Text.new(section_number, d)
@@ -496,7 +496,7 @@ by Maruku, to have the same results in both HTML and LaTeX.
 
 	def source2html(source)
 	    d = Nokogiri::XML::Document.new
-        t = Nokogiri::XML::Text.new(source,d)
+      Nokogiri::XML::Text.new(source,d)
 	end
 		
 =begin maruku_doc
@@ -741,7 +741,6 @@ of the form `#ff00ff`.
 	end
 	
 	def to_html_email_address
-	    d = Nokogiri::XML::Document.new
 		email = self.email
 		a = create_html_element 'a'
 			#a.attributes['href'] = Text.new("mailto:"+obfuscate(email),false,nil,true)
@@ -815,7 +814,7 @@ If true, raw HTML is discarded from the output.
 			end
 			
 			# copies the @children array (FIXME is it deep?)
-			elements =  root.children.to_a 
+			root.children.to_a 
 		else # invalid
 			# Creates red box with offending HTML
 			tell_user "Wrapping bad html in a PRE with class 'markdown-html-error'\n"+
