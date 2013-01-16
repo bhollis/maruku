@@ -898,8 +898,8 @@ If true, raw HTML is discarded from the output.
 			tbody = Nokogiri::XML::Element.new('tbody', table)
 			rows.each do |row|
 				tr = Nokogiri::XML::Element.new('tr', table)
-					array_to_html(row).each_with_index do |x,i| 
-						x['style'] ="text-align: #{align[i].to_s};" 
+					array_to_html(row).each_with_index do |x,_i| 
+						x['style'] ="text-align: #{align[_i].to_s};" 
 						tr << x 
 					end
 						
