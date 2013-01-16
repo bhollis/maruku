@@ -17,3 +17,6 @@ puts `bluecloth #{ARGV[0]}`
 
 puts "\n\nRDiscount:"
 puts `rdiscount #{ARGV[0]}`
+
+puts "\n\nMultiMarkdown:"
+puts `multimarkdown #{ARGV[0]}`
