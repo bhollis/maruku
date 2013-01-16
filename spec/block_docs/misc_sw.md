@@ -340,9 +340,9 @@ md_el(:document,[
 
 <li><em>Browser</em>: <a href="http://getfirefox.com/">Firefox</a>. On a Mac, <a href="http://www.caminobrowser.org/">Camino</a>.</li>
 
-<li><em>Email</em>: <a href="http://gmail.com/">GMail</a>, &#8220;search, don&#8217;t sort&#8221; really works.</li>
+<li><em>Email</em>: <a href="http://gmail.com/">GMail</a>, “search, don’t sort” really works.</li>
 
-<li><em>Text Editor</em>: <a href="http://www.apple.com/getamac/">TextMate</a>, you have to buy it, but it&#8217;s worth every penny. There are rumours that it&#8217;s been converting (recovering) Emacs users (addicts). Unfortunately, it&#8217;s Mac only. An alternative is <a href="http://www.jedit.org/">jedit</a> (GPL, Java).</li>
+<li><em>Text Editor</em>: <a href="http://www.apple.com/getamac/">TextMate</a>, you have to buy it, but it’s worth every penny. There are rumours that it’s been converting (recovering) Emacs users (addicts). Unfortunately, it’s Mac only. An alternative is <a href="http://www.jedit.org/">jedit</a> (GPL, Java).</li>
 </ul>
 
 <h3 id="development_2">Development</h3>
@@ -377,7 +377,7 @@ Type "help", "copyright", "credits" or "license" for more information.
 </li>
 
 <li>
-<p><em>Mark-up language</em>: HTML is so 2001, why don&#8217;t you take at look at <a href="http://en.wikipedia.org/wiki/Markdown">Markdown</a>? <a href="data/misc_markdown.png">Look at the source of this page</a>.</p>
+<p><em>Mark-up language</em>: HTML is so 2001, why don’t you take at look at <a href="http://en.wikipedia.org/wiki/Markdown">Markdown</a>? <a href="data/misc_markdown.png">Look at the source of this page</a>.</p>
 </li>
 
 <li>

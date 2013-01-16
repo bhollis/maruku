@@ -27,7 +27,7 @@ md_el(:document,[
 <li><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline" class="maruku-mathml"><msup><mi>x</mi> <mi>n</mi></msup><mo>+</mo><msup><mi>y</mi> <mi>n</mi></msup><mo>≠</mo><msup><mi>z</mi> <mi>n</mi></msup></math></li>
 </ul>
 
-<p>That&#8217;s it, nothing else is supported.</p>
+<p>That’s it, nothing else is supported.</p>
 *** Output of to_latex ***
 Here are some formulas:
 

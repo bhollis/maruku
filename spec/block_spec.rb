@@ -19,7 +19,7 @@ describe "A Maruku document" do
     describe " for the #{md} file" do
       input = File.read(md).split(/\n\*{3}[^*\n]+\*{3}\n/m)
       input = ["Write a comment here", "{}", input.first] if input.size == 1
-      comment = input.shift
+      comment = input.shift.strip
       params = eval(input.shift)
       markdown = input.shift
       ast = input.shift
@@ -29,6 +29,7 @@ describe "A Maruku document" do
         @doc = Maruku.new(markdown, params)
         @expected = METHODS.zip(input).inject({}) {|h, (k, v)| h[k] = v ? v.strip : '' ; h}
         pending "#{comment} - #{md}" if comment.start_with?("PENDING")
+        pending "#{comment} - #{md}" if comment.start_with?("JRUBY PENDING") && RUBY_PLATFORM == 'java'
       end
 
       it "should read in the output of #inspect as the same document" do
@@ -39,12 +40,19 @@ describe "A Maruku document" do
         @doc.should == Maruku.new.instance_eval(ast)
       end
 
-      METHODS.each do |m|
-        it "should have the expected ##{m} output" do
-          res = @doc.send(m).strip
-          pending "install itex2mml to run these tests" if m == :to_html && $already_warned_itex2mml
-          res.should == @expected[m]
-        end
+      it "should have the expected to_html output" do
+        res = @doc.to_html.strip
+        pending "install itex2mml to run these tests" if $already_warned_itex2mml
+        
+        # Canonicalize the HTML to avoid problems with differences in attribute order
+        # or the representation of HTML entities
+        #Nokogiri::XML(res).canonicalize.should == Nokogiri::XML(@expected[:to_html]).canonicalize
+        res.should == @expected[:to_html]
+      end
+
+      it "should have the expected to_latex output" do
+        res = @doc.to_latex.strip
+        res.should == @expected[:to_latex]
       end
     end
   end
