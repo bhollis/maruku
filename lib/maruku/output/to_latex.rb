@@ -436,12 +436,12 @@ Otherwise, a standard `verbatim` environment is used.
 		
 		s = "\\begin{tabular}{#{align_string}}\n"
 			
-			s += array_to_latex(head, '&') + "\\\\" +"\n"
+			s += array_to_latex(head, '&') + "\\\\" + "\n"
 			
 			s += "\\hline \n"
 			
 			rows.each do |row|
-				s += array_to_latex(row, '&') + "\\\\" +"\n"
+				s += array_to_latex(row, '&') + "\\\\" + "\n"
 			end
 			
 		s += "\\end{tabular}"
