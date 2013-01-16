@@ -123,7 +123,7 @@ class CharSourceManual
 	
 	def consume_whitespace
 		while c = cur_char 
-		  if (c == ?\s || c == ?\t)
+			if (c == ?\s || c == ?\t)
 #				puts "ignoring #{c}"
 				ignore_char
 			else
@@ -243,48 +243,47 @@ class CharSourceStrscan
 	def consume_whitespace; @scanner.skip(/\s+/); end
 
 	def describe
-    	len = 75
-    	num_before = [len/2, @scanner.pos].min
-    	num_after = [len/2, @scanner.rest_size].min
-    	num_before_max = @scanner.pos
-    	num_after_max = @scanner.rest_size
+  	len = 75
+  	num_before = [len/2, @scanner.pos].min
+  	num_after = [len/2, @scanner.rest_size].min
+  	num_before_max = @scanner.pos
+  	num_after_max = @scanner.rest_size
+
+  	num_before = [num_before_max, len-num_after].min
+  	num_after  = [num_after_max, len-num_before].min
+
+  	index_start = [@scanner.pos - num_before, 0].max
+  	index_end   = [@scanner.pos + num_after, @size].min
+
+  	size = index_end- index_start
+
+  	str = @scanner.string[index_start, size]
+  	str.gsub!("\n",'N')
+  	str.gsub!("\t",'T')
+
+  	if index_end == @size 
+  		str += "EOF"
+  	end
 	
-    	num_before = [num_before_max, len-num_after].min
-    	num_after  = [num_after_max, len-num_before].min
-	
-    	index_start = [@scanner.pos - num_before, 0].max
-    	index_end   = [@scanner.pos + num_after, @size].min
-	
-    	size = index_end- index_start
-	
-    	str = @scanner.string[index_start, size]
-    	str.gsub!("\n",'N')
-    	str.gsub!("\t",'T')
-	
-    	if index_end == @size 
-    		str += "EOF"
-    	end
-		
-    	pre_s = @scanner.pos-index_start
-    	pre_s = [pre_s, 0].max
-    	pre_s2 = [len-pre_s,0].max
+  	pre_s = @scanner.pos-index_start
+  	pre_s = [pre_s, 0].max
+  	pre_s2 = [len-pre_s,0].max
 #		puts "pre_S = #{pre_s}"
-    	pre =" "*(pre_s) 
-	
-    	"-"*len+"\n"+
-    	str + "\n" +
-    	"-"*pre_s + "|" + "-"*(pre_s2)+"\n"+
+  	pre =" "*(pre_s) 
+
+  	"-"*len+"\n"+
+  	str + "\n" +
+  	"-"*pre_s + "|" + "-"*(pre_s2)+"\n"+
 #		pre + "|\n"+
-    	pre + "+--- Byte #{@scanner.pos}\n"+
-	
-    	"Shown bytes [#{index_start} to #{size}] of #{@size}:\n"+
-    	@scanner.string.gsub(/^/, ">")
+  	pre + "+--- Byte #{@scanner.pos}\n"+
+
+  	"Shown bytes [#{index_start} to #{size}] of #{@size}:\n"+
+  	@scanner.string.gsub(/^/, ">")
 	
 #		"CharSource: At character #{@buffer_index} of block "+
 #		" beginning with:\n    #{@buffer[0,50].inspect} ...\n"+
 #		" before: \n     ... #{cur_chars(50).inspect} ... "
-
-    end
+	end
 end
 
 class CharSourceDebug

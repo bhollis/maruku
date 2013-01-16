@@ -43,20 +43,15 @@ module MaRuKu; module Out; module Markdown
 	def to_md(context={})
 		children_to_md(context)
 	end
-	
-	def to_md_paragraph(context)
-		line_length = context[:line_length] || DefaultLineLength
-		wrap(@children, line_length, context)+"\n"
-	end
 
     def to_md_header(context)
         pounds = "#" * @level
     "#{pounds} #{children_to_md(context)} #{pounds}\n\n"
     end
 
-    def to_md_inline_code(context)
-    "`#{@raw_code}`"
-     end
+		def to_md_inline_code(context)
+			"`#{@raw_code}`"
+		end
 
      def to_md_code(context)
         @raw_code.split("\n").collect { |line| "     " + line}.join("\n") + "\n\n"
@@ -75,17 +70,17 @@ module MaRuKu; module Out; module Markdown
         "*#{children_to_md(context)}*"
     end
 
-    def to_md_strong(context)
-         "**#{children_to_md(context)}**"
-     end
+		def to_md_strong(context)
+			"**#{children_to_md(context)}**"
+		end
 
     def to_md_immediate_link(context)
         "<#{@url}>"
     end
 
-    def to_md_email_address(context)
-        "<#{@email}>"
-     end
+		def to_md_email_address(context)
+			"<#{@email}>"
+		end
 
     def to_md_entity(context)
         "&#{@entity_name};"
@@ -95,10 +90,10 @@ module MaRuKu; module Out; module Markdown
         "\n"
     end
 
-    def to_md_paragraph(context)
-        line_length = context[:line_length] || DefaultLineLength
-         wrap(@children, line_length, context)+"\n"
-     end
+		def to_md_paragraph(context)
+			line_length = context[:line_length] || DefaultLineLength
+			wrap(@children, line_length, context)+"\n"
+		end
 
     def to_md_im_link(context)
          "[#{children_to_md(context)}](#{@url}#{" \"#{@title}\"" if @title})"
@@ -108,9 +103,10 @@ module MaRuKu; module Out; module Markdown
         "[#{children_to_md(context)}][#{@ref_id}]"
     end
 
-    def to_md_im_image(context)
-     "![#{children_to_md(context)}](#{@url}#{" \"#{@title}\"" if @title})"
-     end
+		def to_md_im_image(context)
+			"![#{children_to_md(context)}](#{@url}#{" \"#{@title}\"" if @title})"
+		end
+
     def to_md_image(context)
         "![#{children_to_md(context)}][#{@ref_id}]"
     end
@@ -119,13 +115,13 @@ module MaRuKu; module Out; module Markdown
         "[#{@ref_id}] #{@url}#{" \"#{@title}\"" if @title}"
     end
 
-    def to_md_li_span(context)
-		len = (context[:line_length] || DefaultLineLength) - 2
+		def to_md_li_span(context)
+			len = (context[:line_length] || DefaultLineLength) - 2
 #		s = wrap(@children, len-2, context).rstrip.gsub(/^/, '  ')
 #		s[0] = ?*
 #		s + "\n"
-        s = "* " + wrap(@children, len-2, context).rstrip + "\n"
-	end
+			"* " + wrap(@children, len-2, context).rstrip + "\n"
+		end
 	
 	def to_md_abbr_def(context)
 		"*[#{self.abbr}]: #{self.text}\n"
@@ -138,7 +134,7 @@ module MaRuKu; module Out; module Markdown
 #			s = (w=wrap(li.children, len-2, context)).rstrip.gsub(/^/, '    ')+"\n"
 #			s[0,4] = "#{i+1}.  "[0,4]
 #			puts w.inspect
-            s = "#{i+1}. " + (w=wrap(li.children, len-2, context)).rstrip + "\n"
+            s = "#{i+1}. " + wrap(li.children, len-2, context).rstrip + "\n"
 			md += s
 		end
 		md + "\n"

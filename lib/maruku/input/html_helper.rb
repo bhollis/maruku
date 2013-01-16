@@ -177,8 +177,6 @@ module MaRuKu; module In; module Markdown; module SpanLevelParser
 			@already
 		end
 		
-		def rest() @rest end
-		
 		def is_finished?
 			(self.state == :inside_element)  and @tag_stack.empty?
 		end

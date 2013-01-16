@@ -191,8 +191,8 @@ Disabled by default because of security concerns.
 	# (PHP Markdown extra) Search for elements that have
 	# markdown=1 or markdown=block defined
 	def substitute_markdown_inside_raw_html
-		self.each_element(:raw_html) do |e|
-			doc = e.instance_variable_get :@parsed_html
+		self.each_element(:raw_html) do |_e|
+			doc = _e.instance_variable_get :@parsed_html
 			if doc # valid html
 				# parse block-level markdown elements in these HTML tags
 				block_tags = ['div']
@@ -215,7 +215,7 @@ Disabled by default because of security concerns.
 							el = md_el(:dummy,
 							 	parse_blocks ? parse_text_as_markdown(s) :
 							                  parse_lines_as_span([s]) )
-							p = original_text.parent
+							original_text.parent
 							#Nokogiri collapses consecutive Text nodes, so replace it by a dummy element
 							guard = Nokogiri::XML::Element.new('guard', doc)
 							original_text.replace(guard)

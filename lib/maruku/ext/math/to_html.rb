@@ -99,7 +99,6 @@ module MaRuKu
       end
 
       def to_html_inline_math
-	    d = Nokogiri::XML::Document.new
         mathml = get_setting(:html_math_output_mathml) && render_mathml(:inline, self.math)
         png    = get_setting(:html_math_output_png)    && render_png(:inline, self.math)
 
