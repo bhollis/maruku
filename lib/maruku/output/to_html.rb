@@ -45,20 +45,25 @@ module MaRuKu; module Out; module HTML
 			if @doc.footnotes_order.size > 0
 				d.root << render_footnotes
 			end
-		
-        xml = d.to_xml(:indent => (context[:indent] || 2), :save_with => 18 )
 
-		xml.gsub!(/\A<dummy>\s*|\s*<\/dummy>\s*\Z|\A<dummy\s*\/>/,'')
-		xml
+    # We don't want indentation because it messes up "pre" and makes
+    # things inconsistent between MRI and JRuby
+		save_options = Nokogiri::XML::Node::SaveOptions::DEFAULT_XHTML ^ 
+      Nokogiri::XML::Node::SaveOptions::FORMAT
+    xml = d.to_xml(:save_with => save_options )
+
+	  xml.gsub(/\A<dummy>\s*|\s*<\/dummy>\s*\Z|\A<dummy\s*\/>/,'')
+       .gsub(/<br>/, '<br />') # JRuby nokogiri bug https://github.com/sparklemotion/nokogiri/issues/834
 	end
 	
 	# Render to a complete HTML document (returns a string)
 	def to_html_document(context={})
 		doc = to_html_document_tree
-		xml  = "" 
 		
-		xml = doc.to_xml(:indent => (context[:indent] || 2), :save_with => 18 )
-		
+    save_options = Nokogiri::XML::Node::SaveOptions::DEFAULT_XHTML ^ 
+      Nokogiri::XML::Node::SaveOptions::FORMAT
+    xml = doc.to_xml(:save_with => save_options )
+
 		Xhtml11_mathml2_svg11 + xml
 	end
 	
@@ -339,7 +344,6 @@ Example:
 	def wrap_as_element(name, attributes_to_copy=[])
 		m = create_html_element(name, attributes_to_copy)
 			children_to_html.each do |e| m << e; end
-			
 		m
 	end
 	
@@ -732,7 +736,11 @@ of the form `#ff00ff`.
 ##### Email address
 	
 	def obfuscate(s)
-	    d = Nokogiri::XML::Document.new
+    # Because of https://github.com/sparklemotion/nokogiri/issues/835
+    # we can't print entity references correctly in JRuby
+    return s if RUBY_PLATFORM == 'java'
+
+    d = Nokogiri::XML::Document.new
 		res = Nokogiri::XML::NodeSet.new(d)
 		s.each_byte do |char|
 			res <<  Nokogiri::XML::EntityReference.new(d, "#%03d" % char)
@@ -932,11 +940,14 @@ If true, raw HTML is discarded from the output.
 			entity_name = 39
 		end
 
-		if entity_name.kind_of? Fixnum
-			 Nokogiri::XML::EntityReference.new(d, '#%d' % [entity_name])
+		x = if entity_name.kind_of? Fixnum
+       # Work around https://github.com/sparklemotion/nokogiri/issues/835
+       # by simply converting numeric entities to unicode characters
+       Nokogiri::XML::Text.new([entity_name].pack('U*'), d)
 		else
 			 Nokogiri::XML::EntityReference.new(d, entity_name)
 		end
+    x
 	end
 
 	def to_html_xml_instr
@@ -968,7 +979,7 @@ If true, raw HTML is discarded from the output.
 				" for object #{c.inspect[0,300]}"
 			end
 
-			if h.kind_of?Array
+			if h.kind_of? Array
 				e = e + h #h.each do |hh| e << hh end
 			else
 				e << h
