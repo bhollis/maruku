@@ -693,7 +693,7 @@ SpanContext = SpanContext_String # Seems to be faster
 	
 		def push_element(e)
 			raise "Only MDElement and String, please. You pushed #{e.class}: #{e.inspect} " if
-			 not (e.kind_of?(String) or e.kind_of?(MDElement))
+			 not(e.kind_of?(String) or e.kind_of?(MDElement))
 		
 			push_string_if_present
 			@elements << e
@@ -758,7 +758,7 @@ SpanContext = SpanContext_String # Seems to be faster
 	
 		def push_element(e)
 			raise "Only MDElement and String, please. You pushed #{e.class}: #{e.inspect} " if
-			 not (e.kind_of?(String) or e.kind_of?(MDElement))
+			 not(e.kind_of?(String) or e.kind_of?(MDElement))
 		
 			push_string_if_present
 			@elements << e

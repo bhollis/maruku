@@ -246,7 +246,7 @@ module MaRuKu; module In; module Markdown; module BlockLevelParser
 			ex = e.inspect + e.backtrace.join("\n")
 			maruku_error "Bad block-level HTML:\n#{ex.gsub(/^/, '|')}\n", src
 		end
-		if not (h.rest =~ /^\s*$/)
+		if not(h.rest =~ /^\s*$/)
 			maruku_error "Could you please format this better?\n"+
 				"I see that #{h.rest.inspect} is left after the raw HTML.", src
 		end
@@ -304,7 +304,7 @@ module MaRuKu; module In; module Markdown; module BlockLevelParser
 	end
 
 	def read_abbreviation(src)
-		if not (l=src.shift_line) =~ Abbreviation
+		if not((l=src.shift_line) =~ Abbreviation)
 			maruku_error "Bug: it's Andrea's fault. Tell him.\n#{l.inspect}"
 		end
 		
