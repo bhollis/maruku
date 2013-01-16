@@ -78,10 +78,10 @@ SpanContext = SpanContext_String # Seems to be faster
 
 			break if exit_on_chars && exit_on_chars.include?(c)
 			if exit_on_strings && exit_on_strings.any? {|x| src.cur_chars_are x}
-                # Special case: bold nested in italic
-                 break unless !(['*', '_'] & exit_on_strings).empty? && ['**','__'].include?(src.cur_chars(2))
-            end 
-			
+				# Special case: bold nested in italic
+				break unless !(['*', '_'] & exit_on_strings).empty? && ['**','__'].include?(src.cur_chars(2))
+			end
+
 			# check if there are extensions
 			if check_span_extensions(src, con)
 				next

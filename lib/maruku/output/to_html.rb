@@ -84,9 +84,9 @@ Xhtml11_mathml2_svg11 =
 	
 	
 	def xml_newline
-        d = Nokogiri::XML::Document.new
-        Nokogiri::XML::Text.new("\n", d)
-    end
+		d = Nokogiri::XML::Document.new
+		Nokogiri::XML::Text.new("\n", d)
+	end
 		
 
 =begin maruku_doc
@@ -846,11 +846,11 @@ If true, raw HTML is discarded from the output.
 		if order.include? id
 		  # footnote has already been used
 		  return []
-	  end
+		end
 	  
-	  if not @doc.footnotes[id]
+		if not @doc.footnotes[id]
 	    return []
-    end
+		end
 	  
 		# take next number
 		order << id

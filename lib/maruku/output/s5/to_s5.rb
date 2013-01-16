@@ -4,7 +4,7 @@ module MaRuKu
 require 'nokogiri'
 require 'maruku/string_utils'
 	 
-	class MDDocument
+class MDDocument
 
 	def s5_theme
 	  html_escape(self.attributes[:slide_theme] || "default")
