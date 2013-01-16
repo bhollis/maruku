@@ -43,11 +43,6 @@ module MaRuKu; module Out; module Markdown
 	def to_md(context={})
 		children_to_md(context)
 	end
-	
-	def to_md_paragraph(context)
-		line_length = context[:line_length] || DefaultLineLength
-		wrap(@children, line_length, context)+"\n"
-	end
 
     def to_md_header(context)
         pounds = "#" * @level
