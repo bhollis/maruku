@@ -2,6 +2,28 @@
 Encoding.default_external=('UTF-8') if ''.respond_to?(:force_encoding)
 require File.dirname(__FILE__) + "/spec_helper"
 
+require 'nokogiri/diff'
+
+# Fix nokogiri-diff to understand comments (until they release a fixed version):
+class Nokogiri::XML::Node
+  def tdiff_equal(node)
+    if (self.class == node.class)
+      case node
+      when Nokogiri::XML::Attr
+        (self.name == node.name && self.value == node.value)
+      when Nokogiri::XML::Element, Nokogiri::XML::DTD
+        self.name == node.name
+      when Nokogiri::XML::Text, Nokogiri::XML::Comment
+        self.text == node.text
+      else
+        false
+      end
+    else
+      false
+    end
+  end
+end
+
 # :to_md and :to_s tests are disabled for now
 METHODS = [:to_html, :to_latex]
 
@@ -44,10 +66,17 @@ describe "A Maruku document" do
         res = @doc.to_html.strip
         pending "install itex2mml to run these tests" if $already_warned_itex2mml
         
-        # Canonicalize the HTML to avoid problems with differences in attribute order
-        # or the representation of HTML entities
-        #Nokogiri::XML(res).canonicalize.should == Nokogiri::XML(@expected[:to_html]).canonicalize
-        res.should == @expected[:to_html]
+        resdoc = Nokogiri::XML(res)
+        expdoc = Nokogiri::XML(@expected[:to_html])
+
+        diff = ""
+        changed = false
+        resdoc.diff(expdoc) do |change, node|
+          diff << "#{change} #{node.inspect}\n"
+          changed = true unless change == ' '
+        end
+
+        fail diff if changed
       end
 
       it "should have the expected to_latex output" do
