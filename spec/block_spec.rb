@@ -15,6 +15,8 @@ class Nokogiri::XML::Node
         self.name == node.name
       when Nokogiri::XML::Text, Nokogiri::XML::Comment
         self.text == node.text
+      when Nokogiri::XML::ProcessingInstruction
+        (self.name == node.name && self.content = self.content)
       else
         false
       end
@@ -38,20 +40,21 @@ describe "A Maruku document" do
   end
 
   Dir[File.dirname(__FILE__) + "/block_docs/**/*.md"].each do |md|
+
     describe " for the #{md} file" do
       input = File.read(md).split(/\n\*{3}[^*\n]+\*{3}\n/m)
       input = ["Write a comment here", "{}", input.first] if input.size == 1
       comment = input.shift.strip
-      params = eval(input.shift)
+      params = input.shift
       markdown = input.shift
       ast = input.shift
 
       before(:each) do
-        $already_warned_itex2mml = false
-        @doc = Maruku.new(markdown, params)
-        @expected = METHODS.zip(input).inject({}) {|h, (k, v)| h[k] = v ? v.strip : '' ; h}
         pending "#{comment} - #{md}" if comment.start_with?("PENDING")
         pending "#{comment} - #{md}" if comment.start_with?("JRUBY PENDING") && RUBY_PLATFORM == 'java'
+        $already_warned_itex2mml = false
+        @doc = Maruku.new(markdown, eval(params))
+        @expected = METHODS.zip(input).inject({}) {|h, (k, v)| h[k] = v ? v.strip : '' ; h}
       end
 
       it "should read in the output of #inspect as the same document" do
@@ -65,18 +68,20 @@ describe "A Maruku document" do
       it "should have the expected to_html output" do
         res = @doc.to_html.strip
         pending "install itex2mml to run these tests" if $already_warned_itex2mml
-        
-        resdoc = Nokogiri::XML(res)
-        expdoc = Nokogiri::XML(@expected[:to_html])
+
+        resdoc = Nokogiri::XML("<dummy>#{res}</dummy>")
+        expdoc = Nokogiri::XML("<dummy>#{@expected[:to_html]}</dummy>")
 
         diff = ""
         changed = false
-        resdoc.diff(expdoc) do |change, node|
+        expdoc.diff(resdoc) do |change, node|
           diff << "#{change} #{node.inspect}\n"
           changed = true unless change == ' '
         end
 
-        fail diff if changed
+        if changed
+          res.should == @expected[:to_html]
+        end
       end
 
       it "should have the expected to_latex output" do

@@ -36,8 +36,8 @@ md_el(:document,[
 	])
 ],{},[])
 *** Output of to_html ***
-<?  noTarget?><?php ?><?xml ?><?mrk ?>
-<p>Targets <? noTarget?> <?php ?> <?xml ?> <?mrk ?></p>
+&lt;? noTarget?&gt;<?php ?><?xml ?><?mrk ?>
+<p>Targets &lt;?noTarget?&gt; <?php ?> <?xml ?> <?mrk ?></p>
 
 <p>Inside: <?mrk puts "Inside: Hello"?> last</p>
 *** Output of to_latex ***

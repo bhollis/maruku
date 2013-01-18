@@ -952,9 +952,16 @@ If true, raw HTML is discarded from the output.
 
 	def to_html_xml_instr
 		target = self.target || ''
-		code = self.code || ''
-	    d = Nokogiri::XML::Document.new
-	    Nokogiri::XML::ProcessingInstruction.new(d,target,code)
+    code = self.code || ''
+
+    d = Nokogiri::XML::Document.new
+    
+    # A blank target is invalid XML. Just create a text node?
+    if target.empty?
+      Nokogiri::XML::Text.new("<?#{code}?>", d)
+    else
+      Nokogiri::XML::ProcessingInstruction.new(d, target, code)
+    end
 	end
 
 	# Convert each child to html
