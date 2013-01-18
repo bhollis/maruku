@@ -36,7 +36,7 @@ module MaRuKu; module Out; module HTML
 	
 	# Render as an HTML fragment (no head, just the content of BODY). (returns a string)
 	def to_html(context={})		
-    d = Nokogiri::XML::Document.parse('<dummy/>', nil, 'UTF-8', &:noblanks)
+    d = Nokogiri::XML::Document.parse('<dummy/>', nil, 'UTF-8')
 			children_to_html.each do |e|
 				d.root << e
 			end
@@ -45,28 +45,19 @@ module MaRuKu; module Out; module HTML
 			if @doc.footnotes_order.size > 0
 				d.root << render_footnotes
 			end
+		
+        xml = d.to_xml(:indent => (context[:indent] || 2), :save_with => 18 )
 
-    save_options = Nokogiri::XML::Node::SaveOptions::DEFAULT_XHTML
-    xml = d.to_xml(:indent => (context[:indent] || 2), :save_with => save_options)
-
-    # remove the dummy root element
 		xml.gsub!(/\A<dummy>\s*|\s*<\/dummy>\s*\Z|\A<dummy\s*\/>/,'')
-    
-    # un-indent from the dummy element
-    xml.gsub!(/^  /,'')
-
-    # munge pre tags a bit so they display correctly, since they are whitespace sensitive
-    xml.gsub!(/^\s*<pre>.*?<code>/m,'<pre><code>')
-    xml.gsub!(%r{</code>.*?</pre>}m,'</code></pre>')
-    xml
+		xml
 	end
 	
 	# Render to a complete HTML document (returns a string)
 	def to_html_document(context={})
 		doc = to_html_document_tree
-
-    save_options = Nokogiri::XML::Node::SaveOptions::DEFAULT_XHTML
-    xml = doc.to_xml(:indent => (context[:indent] || 2), :save_with => save_options )
+		xml  = "" 
+		
+		xml = doc.to_xml(:indent => (context[:indent] || 2), :save_with => 18 )
 		
 		Xhtml11_mathml2_svg11 + xml
 	end
@@ -92,6 +83,12 @@ Xhtml11_mathml2_svg11 =
 '
 	
 	
+	def xml_newline
+		d = Nokogiri::XML::Document.new
+		Nokogiri::XML::Text.new("\n", d)
+	end
+		
+
 =begin maruku_doc
 Attribute: title
 Scope: document
@@ -175,6 +172,7 @@ Example:
 		root['xml:lang'] = lang
 		doc << root
 		
+		root << xml_newline
 		head = Nokogiri::XML::Element.new('head', doc)
 		root << head
 		
@@ -213,6 +211,8 @@ Example:
 			add_css_to(head)
 			
 		
+		root << xml_newline
+		
 		body = Nokogiri::XML::Element.new('body', doc)
 		
 			children_to_html.each do |e|
@@ -244,6 +244,7 @@ Example:
 			link['rel'] = 'stylesheet'
 			link['href'] = css
 			head << link 
+			head << xml_newline
 			end
 		end
 	end
@@ -433,16 +434,16 @@ It is copied as a standard HTML attribute.
 			html_toc = @doc.toc.to_html
 			return html_toc
 		else
-			wrap_as_element('ul')               
+			add_ws  wrap_as_element('ul')               
 		end
 	end
 	
 	
-	def to_html_paragraph; wrap_as_element('p')                end
-	def to_html_ol;        wrap_as_element('ol')        end
-	def to_html_li;        wrap_as_element('li')        end
-	def to_html_li_span;   wrap_as_element('li')        end
-	def to_html_quote;     wrap_as_element('blockquote')  end
+	def to_html_paragraph; add_ws wrap_as_element('p')                end
+	def to_html_ol;        add_ws wrap_as_element('ol')        end
+	def to_html_li;        add_ws wrap_as_element('li')        end
+	def to_html_li_span;   add_ws wrap_as_element('li')        end
+	def to_html_quote;     add_ws wrap_as_element('blockquote')  end
 	def to_html_strong;    wrap_as_element('strong')           end
 	def to_html_emphasis;  wrap_as_element('em')               end
 
@@ -490,7 +491,7 @@ by Maruku, to have the same results in both HTML and LaTeX.
 		if span = render_section_number
 		  h.children.first.before(span)
 		end
-		h
+		add_ws h
 	end
 
 	def source2html(source)
@@ -561,7 +562,7 @@ and
 				html.gsub!(/\&apos;|'/,'&#39;') # IE bug
 	#			html = html.gsub(/&/,'&amp;') 
 				dd = Nokogiri::XML::Document.new				
-				d = Nokogiri::XML::Document.parse(html, &:noblanks)
+				d = Nokogiri::XML::Document.parse(html)
 				code = d.root
 				code.name = 'code'
 				code['lang'] = lang
@@ -591,7 +592,7 @@ and
 		if color != Globals[:code_background_color]
 			element['style'] = "background-color: #{color};"
 		end
-		element
+		add_ws element
 	end
 	
 =begin maruku_doc
@@ -724,6 +725,10 @@ of the form `#ff00ff`.
 		end
 	end
 	
+	def add_ws(e)
+	    d = Nokogiri::XML::Document.new
+		[Nokogiri::XML::Text.new("\n", d), e, Nokogiri::XML::Text.new("\n", d)]
+	end
 ##### Email address
 	
 	def obfuscate(s)
@@ -864,10 +869,10 @@ If true, raw HTML is discarded from the output.
 	end
 	
 ## Definition lists ###
-	def to_html_definition_list() wrap_as_element('dl') end
+	def to_html_definition_list() add_ws wrap_as_element('dl') end
 	def to_html_definition() children_to_html end
-	def to_html_definition_term() wrap_as_element('dt') end
-	def to_html_definition_data() wrap_as_element('dd') end	
+	def to_html_definition_term() add_ws wrap_as_element('dt') end
+	def to_html_definition_data() add_ws wrap_as_element('dd') end	
 
 	# FIXME: Ugly code
 	def to_html_table
@@ -897,7 +902,7 @@ If true, raw HTML is discarded from the output.
 						tr << x 
 					end
 						
-				tbody << tr
+				tbody << tr << Nokogiri::XML::Text.new("\n", table)
 			end
 			table << tbody
 		table
