@@ -50,10 +50,8 @@ module MaRuKu; module Out; module HTML
     # things inconsistent between MRI and JRuby
 		save_options = Nokogiri::XML::Node::SaveOptions::DEFAULT_XHTML ^ 
       Nokogiri::XML::Node::SaveOptions::FORMAT
-    xml = d.to_xml(:save_with => save_options )
-
-	  xml.gsub(/\A<dummy>\s*|\s*<\/dummy>\s*\Z|\A<dummy\s*\/>/,'')
-       .gsub(/<br>/, '<br />') # JRuby nokogiri bug https://github.com/sparklemotion/nokogiri/issues/834
+    
+    correct_document(d.to_xml(:save_with => save_options ))
 	end
 	
 	# Render to a complete HTML document (returns a string)
@@ -62,12 +60,25 @@ module MaRuKu; module Out; module HTML
 		
     save_options = Nokogiri::XML::Node::SaveOptions::DEFAULT_XHTML ^ 
       Nokogiri::XML::Node::SaveOptions::FORMAT
-    xml = doc.to_xml(:save_with => save_options )
-
+    xml = correct_document(doc.to_xml(:save_with => save_options ))
 		Xhtml11_mathml2_svg11 + xml
 	end
 	
-				
+  def correct_document(doc)
+    doc = doc.gsub(/\A<dummy>\s*|\s*<\/dummy>\s*\Z|\A<dummy\s*\/>/,'').
+      gsub(/<br>/, '<br />'). # JRuby nokogiri bug https://github.com/sparklemotion/nokogiri/issues/834
+      gsub(/<hr>/, '<hr />')
+
+    # Fix more JRuby Nokogiri closing slash awfulness
+    doc.gsub(/<img(.*?)>/) do |match|
+      if ($1.end_with?('/'))
+        "<img#{$1}>"
+      else
+        "<img#{$1} />"
+      end
+    end
+  end
+	
 		Xhtml10strict  = 
 "<?xml version='1.0' encoding='utf-8'?>
 <!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Strict//EN'
@@ -570,6 +581,7 @@ and
 				code = d.root
 				code.name = 'code'
 				code['lang'] = lang
+        code['xml:lang'] = lang
 				
 				pre = Nokogiri::XML::Element.new('pre', dd)
 				pre['class'] = lang
