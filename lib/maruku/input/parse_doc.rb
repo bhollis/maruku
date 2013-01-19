@@ -197,7 +197,7 @@ Disabled by default because of security concerns.
 				# parse block-level markdown elements in these HTML tags
 				block_tags = ['div']
 
-x				# find elements with 'markdown' attribute
+				# find elements with 'markdown' attribute
 				doc.css("[markdown]").each do |e|
 #					puts "Found #{e}"
 					# should we parse block-level or span-level?
