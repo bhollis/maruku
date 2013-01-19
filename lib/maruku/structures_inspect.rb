@@ -19,7 +19,7 @@
 
 module MaRuKu
   class MDElement
-    INSPECT2_FORMS = {
+    INSPECT_FORMS = {
       :paragraph          => ["par",      :children],
       :footnote_reference => ["foot_ref", :footnote_id],
       :entity             => ["entity",   :entity_name],
@@ -38,44 +38,37 @@ module MaRuKu
       :li                 => ["li",       :children, :want_my_paragraph]
     }
 
-    def inspect(compact = true)
-      if compact
-        i2 = inspect2
-        return i2 if i2
-      end
-
-      params = [
-                self.node_type.inspect,
-                children_inspect(compact)
-               ]
-
-      params << @meta_priv.inspect unless @meta_priv.empty?
-      params << self.al.inspect unless self.al.empty?
-
-      "md_el(#{params.join(', ')})"
-    end
-
-    # Outputs the abbreviated form of an element
+    # Outputs the document AST as calls to document helpers.
     # (this should be `eval`-able to get a copy of the original element).
-    def inspect2
-      name, *params = INSPECT2_FORMS[@node_type]
-      return nil unless name
+    def inspect
+      if INSPECT_FORMS.has_key? @node_type
+        name, *params = INSPECT_FORMS[@node_type]
 
-      params = params.map do |p|
-        next children_inspect if p == :children
-        send(p).inspect
+        params = params.map do |p|
+          if p == :children
+            children_inspect
+          else
+            send(p).inspect
+          end
+        end
+        params << @al.inspect if @al && !@al.empty?
+      else
+        name = 'el'
+        params = [self.node_type.inspect, children_inspect]
+        params << @meta_priv.inspect unless @meta_priv.empty? && self.al.empty?
+        params << self.al.inspect unless self.al.empty?
       end
-      params << @al.inspect if @al && !@al.empty?
 
       "md_#{name}(#{params.join(', ')})"
     end
 
-    def children_inspect(compact=true)
-      kids = @children.map {|x| x.is_a?(MDElement) ? x.inspect(compact) : x.inspect}
+    private
+
+    def children_inspect
+      kids = @children.map(&:inspect)
       return kids.first if kids.size == 1
 
       comma = kids.join(", ")
-
       if comma.size < 70
         "[#{comma}]"
       else
