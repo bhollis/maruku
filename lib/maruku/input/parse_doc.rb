@@ -197,16 +197,16 @@ Disabled by default because of security concerns.
 				# parse block-level markdown elements in these HTML tags
 				block_tags = ['div']
 
-				# use xpath to find elements with 'markdown' attribute
-				doc.xpath("//*[attribute::markdown]").each do |e|
+x				# find elements with 'markdown' attribute
+				doc.css("[markdown]").each do |e|
 #					puts "Found #{e}"
 					# should we parse block-level or span-level?
 					
 					how = e['markdown']
 					parse_blocks = (how == 'block') || block_tags.include?(e.name)
-					               
-					# Select all text elements of e
-					e.xpath("//text()").each { |original_text| 
+
+					# Select all text children of e
+					e.xpath("./text()").each do |original_text|
 						s = original_text.text
 						if s.strip.size > 0
 
@@ -225,9 +225,9 @@ Disabled by default because of security concerns.
 							guard.remove
 							
 						end
-					}
-					
-					
+					end
+
+
           # remove 'markdown' attribute
           e.delete('markdown')
           

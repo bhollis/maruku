@@ -822,34 +822,21 @@ If true, raw HTML is discarded from the output.
 =end
 
 	def to_html_raw_html
-	    d = Nokogiri::XML::Document.new
 		return [] if get_setting(:filter_html)
-		
+		return @parsed_html if @parsed_html
+
+    # If there's no parsed HTML
 		raw_html = self.raw_html
-		if rexml_doc = @parsed_html
-			root = rexml_doc.root
-			if root.nil?
-				s = "Bug in REXML: root() of Document is nil: \n#{rexml_doc.inspect}\n"+
-				"Raw HTML:\n#{raw_html.inspect}"
-				maruku_error s
-				tell_user 'The REXML version you have has a bug, omitting HTML'
-                div = Nokogiri::XML::Element.new('div', d)
-				#div << Text.new(s)
-				return div
-			end
-			
-			# copies the @children array (FIXME is it deep?)
-			root.children.to_a 
-		else # invalid
-			# Creates red box with offending HTML
-			tell_user "Wrapping bad html in a PRE with class 'markdown-html-error'\n"+
-				raw_html.gsub(/^/, '|')
-            pre = Nokogiri::XML::Element.new('pre', d)
-			pre['style'] = 'border: solid 3px red; background-color: pink'
-			pre['class'] = 'markdown-html-error'
-            pre << Nokogiri::XML::Text.new("Nokogiri could not parse this XML/HTML: \n#{raw_html}", d)
-			return pre
-		end
+    d = Nokogiri::XML::Document.new
+    # Creates red box with offending HTML
+    tell_user "Wrapping bad html in a PRE with class 'markdown-html-error'\n"+
+      raw_html.gsub(/^/, '|')
+    pre = Nokogiri::XML::Element.new('pre', d)
+    pre['style'] = 'border: solid 3px red; background-color: pink'
+    pre['class'] = 'markdown-html-error'
+    pre << Nokogiri::XML::Text.new("Nokogiri could not parse this XML/HTML: \n#{raw_html}", d)
+
+    pre
 	end
 
 	def to_html_abbr

@@ -79,49 +79,20 @@ md_el(:document,[
 <img src="http://jigsaw.w3.org/css-validator/images/vcss" />
 <p>Without closing:</p>
 <img src="http://jigsaw.w3.org/css-validator/images/vcss" /><div>
-<p>
-<p>This is</p>
-<em>
-<p>true</p>
-</em>
-<p>markdown text (paragraph)</p>
-</p>
-<p>
-<p>
-<p>This is</p>
-<em>
-<p>true</p>
-</em>
-<p>markdown text (no paragraph)</p>
-</p>
-</p>
+<p>This is <em>true</em> markdown text (paragraph)</p>
+<p>This is <em>true</em> markdown text (no paragraph)</p>
    <p>
-<p>
-<p>This is</p>
-<em>
-<p>true</p>
-</em>
-<p>markdown text (block paragraph)</p>
-</p>
+<p>This is <em>true</em> markdown text (block paragraph)</p>
 </p>
 </div><table>
 <tr>
+<td>This is a <em>true</em> markdown text. (no par)</td>
 <td>
-<p>This is a</p>
-<em>
-<p>true</p>
-</em>
-<p>markdown text. (no par)</p>
-</td>
-<td>
-<p>This is</p>
-<em>
-<p>true</p>
-</em>
-<p>markdown text. (par)</p>
+<p>This is <em>true</em> markdown text. (par)</p>
 </td>
 </tr>
 </table>
+
 *** Output of to_latex ***
 Input:
 

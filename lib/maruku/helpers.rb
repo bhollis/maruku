@@ -82,9 +82,18 @@ require 'nokogiri'
     def md_html(raw_html, al = nil)
       e = md_el(:raw_html, [], :raw_html => raw_html)
       begin
-        e.instance_variable_set("@parsed_html",
-          Nokogiri::XML::Document.parse("<marukuwrap>#{raw_html.strip}</marukuwrap>"))
-      rescue Nokogiri::XML::Document.errors => ex
+        d = Nokogiri::XML::Document.new
+
+        # Make sure the SVG namespace is known
+        root = Nokogiri::XML::Element.new('html', d)
+        root.add_namespace('svg', "http://www.w3.org/2000/svg" )
+
+        parsed_html = Nokogiri::HTML::DocumentFragment.new(d, raw_html, d)
+
+        # Set this as an instance variable so it doesn't get included
+        # in metadata comparisons
+        e.instance_variable_set("@parsed_html", parsed_html)
+      rescue Exception => ex
         e.instance_variable_set "@parsed_html", nil
         maruku_recover <<ERR
 Nokogiri cannot parse this block of HTML/XML:
