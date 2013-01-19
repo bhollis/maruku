@@ -65,18 +65,23 @@ module MaRuKu; module Out; module HTML
 	end
 	
   def correct_document(doc)
-    doc = doc.gsub(/\A<dummy>\s*|\s*<\/dummy>\s*\Z|\A<dummy\s*\/>/,'').
-      gsub(/<br>/, '<br />'). # JRuby nokogiri bug https://github.com/sparklemotion/nokogiri/issues/834
-      gsub(/<hr>/, '<hr />')
+    doc = doc.gsub(/\A<dummy>\s*|\s*<\/dummy>\s*\Z|\A<dummy\s*\/>/,'')
+    if RUBY_PLATFORM == 'java'
+      doc = doc.
+        gsub(/<br>/, '<br />'). # JRuby nokogiri bug https://github.com/sparklemotion/nokogiri/issues/834
+        gsub(/<hr>/, '<hr />')
 
-    # Fix more JRuby Nokogiri closing slash awfulness
-    doc.gsub(/<img(.*?)>/) do |match|
-      if ($1.end_with?('/'))
-        "<img#{$1}>"
-      else
-        "<img#{$1} />"
+      # Fix more JRuby Nokogiri closing slash awfulness
+      doc = doc.gsub(/<img(.*?)>/) do |match|
+        if ($1.end_with?('/'))
+          "<img#{$1}>"
+        else
+          "<img#{$1} />"
+        end
       end
     end
+
+    doc
   end
 	
 		Xhtml10strict  = 
