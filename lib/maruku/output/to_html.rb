@@ -324,7 +324,7 @@ Example:
 					a = Nokogiri::XML::Element.new('a', d)
 						a['href'] = "\##{get_setting(:doc_prefix)}fnref:#{num}"
 						a['rev'] = 'footnote'
-                        a << Nokogiri::XML::EntityReference.new(d, '#8617')
+          a << Nokogiri::XML::Text.new([8617].pack('U*'), d)
 
 					last = nil
 					li.children.reverse_each do |child|
