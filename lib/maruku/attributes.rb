@@ -21,15 +21,16 @@ module MaRuKu
   # This represents a list of attributes specified in the Markdown document
   # that apply to a Markdown-generated tag.
   # What was `{#id .class key="val" ref}` in the Markdown
-  # is parsed into `[[:id, 'id'], [:class, 'id'], ['key', 'val'], [:ref, 'ref']]`.
+  # is parsed into `[[:id, 'id'], [:class, 'class'], ['key', 'val'], [:ref, 'ref']]`.
   class AttributeList < Array
     def to_s
       map do |k, v|
+        value = quote_if_needed(v)
         case k
-        when :id;    "#" + quote_if_needed(v)
-        when :class; "." + quote_if_needed(v)
-        when :ref;    quote_if_needed(v)
-        else quote_if_needed(k) + "=" + quote_if_needed(v)
+        when :id;    "#" + value
+        when :class; "." + value
+        when :ref;    value
+        else quote_if_needed(k) + "=" + value
         end
       end.join(' ')
     end
@@ -38,13 +39,14 @@ module MaRuKu
     private
 
     def quote_if_needed(str)
-      return str unless str =~ /[\s'"]/
-      str.inspect
+      (str =~ /[\s'"]/) ? str.inspect : str
     end
   end
 
   module In::Markdown::SpanLevelParser
-    def md_al(s = []); AttributeList.new(s); end
+    def md_al(s = [])
+      AttributeList.new(s)
+    end
 
     # @return [AttributeList, nil]
     def read_attribute_list(src, con, break_on_chars)
@@ -115,7 +117,7 @@ module MaRuKu
           after.al = e.ial
         else
           maruku_error <<ERR, src, con
-It's unclear which element the attribute list {:#{e.ial.to_md}}
+It's unclear which element the attribute list {:#{e.ial.to_s}}
 is referring to. The element before is a #{before.class},
 the element after is a #{after.class}.
   before: #{before.inspect}
