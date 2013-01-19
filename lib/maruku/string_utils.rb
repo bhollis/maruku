@@ -56,7 +56,7 @@ module MaRuKu
 
       while scanner.scan(/(\w[\w\s\-]+): +(.*)\n/)
         k, v = normalize_key_and_value(scanner[1], scanner[2])
-        headers[k.to_sym] = v
+        headers[k] = v
       end
 
       headers[:data] = scanner.rest
@@ -87,7 +87,7 @@ module MaRuKu
     # @param s [String]
     # @return [Fixnum]
     def spaces_before_first_char(s)
-      match = 
+      match =
         case s.md_type
         when :ulist
           # whitespace, followed by ('*'|'+'|'-') followed by
@@ -103,7 +103,8 @@ module MaRuKu
           ''
         end
       ial = match[/\{.*\}/]
-      return [match.length, ial]		
+
+      [match.length, ial]
     end
 
     # Normalize a link reference.
@@ -138,54 +139,8 @@ module MaRuKu
         end
         s = s[1..-1]
       end
-      return s
-    end
 
-#--
-    MARUKU_HTML_ESCAPE = {
-      '&' => '&amp;',
-      '<' => '&lt;',
-      '>' => '&gt;',
-      "'" => '&#39;',
-      '"' => '&quot;',
-    }
-    MARUKU_HTML_ESCAPE_PATTERN = Regexp.union(*MARUKU_HTML_ESCAPE.keys)
-#++
-
-    # HTML-escapes a string.
-    #
-    # @param str [String]
-    # @return [String]
-    
-    def html_escape(string)
-      string.gsub(MARUKU_HTML_ESCAPE_PATTERN){|m| MARUKU_HTML_ESCAPE[m]}
-    end
-
-    # Escapes a string so that it can be safely used in a Bourne shell command line.
-    #
-    # Note that a resulted string should be used unquoted
-    # and is not intended for use in double quotes nor in single quotes.
-    #
-    # This is a copy of the Shellwords.shellescape function in Ruby 1.8.7.
-    # It's included for Ruby 1.8.6 compatibility.
-    #
-    # @param str [String]
-    # @return [String]
-    def shellescape(str)
-      # An empty argument will be skipped, so return empty quotes.
-      return "''" if str.empty?
-
-      str = str.dup
-
-      # Process as a single byte sequence because not all shell
-      # implementations are multibyte aware.
-      str.gsub!(/([^A-Za-z0-9_\-.,:\/@\n])/n, "\\\\\\1")
-
-      # A LF cannot be escaped with a backslash because a backslash + LF
-      # combo is regarded as line continuation and simply ignored.
-      str.gsub!(/\n/, "'\n'")
-
-      return str
+      s
     end
 
     private
@@ -201,7 +156,7 @@ module MaRuKu
     # @param v [String]
     # @return [Array(String, String or Boolean)]
     def normalize_key_and_value(k, v)
-      k = k.strip.downcase.gsub(/\s+/, '_')
+      k = k.strip.downcase.gsub(/\s+/, '_').to_sym
       v = v.strip
 
       # check synonyms

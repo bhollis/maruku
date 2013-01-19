@@ -5,11 +5,6 @@ require 'nokogiri'
 require 'maruku/string_utils'
 	 
 class MDDocument
-
-	def s5_theme
-	  html_escape(self.attributes[:slide_theme] || "default")
-	end
-		
 	# Render as an HTML fragment (no head, just the content of BODY). (returns a string)
 	def to_s5(context={})
 		content_only = !context[:content_only].kind_of?(FalseClass)

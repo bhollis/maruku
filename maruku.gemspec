@@ -14,15 +14,17 @@ Gem::Specification.new do |s|
   s.email = "ben@benhollis.net"
   s.homepage = "http://github.com/bhollis/maruku"
 
-  s.files = Dir['lib/**/*.rb'] + Dir['lib/*.rb'] + 
-	Dir['docs/*.md'] +	Dir['docs/*.html'] +
-	Dir['spec/**/*.rb'] + Dir['spec/**/*.md'] +
-          Dir['data/*'] + Dir['bin/*'] + ['Rakefile']
+  s.files = Dir['lib/**/*.rb'] + Dir['lib/*.rb'] +
+    Dir['docs/*.md'] +	Dir['docs/*.html'] +
+    Dir['spec/**/*.rb'] + Dir['spec/**/*.md'] +
+    Dir['data/*'] + Dir['bin/*'] + ['Rakefile']
 
   s.bindir = 'bin'
   s.executables = ['maruku','marutex']
 
   s.require_path = 'lib'
+
+  s.required_ruby_version = '>= 1.8.7'
 
   s.add_dependency('nokogiri', '~> 1.5', '>= 1.5.6')
 

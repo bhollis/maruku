@@ -25,12 +25,12 @@ module MaRuKu
             # because newlines in arguments get escaped as "'\n'".
             system <<COMMAND.gsub("\n  ", " ")
 blahtex --png --use-preview-package
-  --shell-dvipng #{shellescape("dvipng -D #{shellescape(get_setting(:html_png_resolution).to_s)}")}
+  --shell-dvipng #{Shellwords.shellescape("dvipng -D #{Shellwords.shellescape(get_setting(:html_png_resolution).to_s)}")}
   #{'--displaymath' if kind == :equation}
-  --temp-directory #{shellescape(get_setting(:html_png_dir))}
-  --png-directory #{shellescape(get_setting(:html_png_dir))}
-  < #{shellescape(tmp_in.path)}
-  > #{shellescape(result_file)}
+  --temp-directory #{Shellwords.shellescape(get_setting(:html_png_dir))}
+  --png-directory #{Shellwords.shellescape(get_setting(:html_png_dir))}
+  < #{Shellwords.shellescape(tmp_in.path)}
+  > #{Shellwords.shellescape(result_file)}
 COMMAND
           end
         end
@@ -71,7 +71,7 @@ COMMAND
               tmp_in.write tex
 
               Tempfile.new('maruku_blahtex') do |tmp_out|
-                system "blahtex --mathml < #{shellescape(tmp_in.path)} > #{shellescape(tmp_out.path)}"
+                system "blahtex --mathml < #{Shellwords.shellescape(tmp_in.path)} > #{Shellwords.shellescape(tmp_out.path)}"
                 @@BlahtexCache[tex] = tmp_out.read
               end
             end
