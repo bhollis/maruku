@@ -1,4 +1,4 @@
-Directives should be preserved.
+JRUBY PENDING (nokogiri puts newlines after xml instructions) - Directives should be preserved.
 *** Parameters: ***
 {}
 *** Markdown input: ***
