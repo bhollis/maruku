@@ -1,23 +1,23 @@
-($LOAD_PATH << File.expand_path("../lib", __FILE__)).uniq!
-require "maruku/version"
+require File.expand_path("../lib/maruku/version", __FILE__)
 
 Gem::Specification.new do |s|
   s.name = 'maruku'
   s.version = MaRuKu::Version
   s.summary = "Maruku is a Markdown-superset interpreter written in Ruby."
-  s.description = %{Maruku is a Markdown interpreter in Ruby.
+  s.description = "Maruku is a Markdown interpreter in Ruby.
 	It features native export to HTML and PDF (via Latex). The
-	output is really beautiful!
-	}
+	output is really beautiful!"
   s.license = 'GPL-2'
-  s.authors = ["Andrea Censi", "Nathan Weizenbaum"]
+  s.authors = ["Andrea Censi", "Nathan Weizenbaum", "Ben Hollis"]
   s.email = "ben@benhollis.net"
   s.homepage = "http://github.com/bhollis/maruku"
 
-  s.files = Dir['lib/**/*.rb'] + Dir['lib/*.rb'] +
-    Dir['docs/*.md'] +	Dir['docs/*.html'] +
-    Dir['spec/**/*.rb'] + Dir['spec/**/*.md'] +
-    Dir['data/*'] + Dir['bin/*'] + ['Rakefile']
+  s.files = Dir['lib/**/*.rb',
+                'docs/*.{md,html}',
+                'spec/**/*.{rb,md}',
+                'data/*',
+                'bin/*',
+                'LICENSE']
 
   s.bindir = 'bin'
   s.executables = ['maruku','marutex']

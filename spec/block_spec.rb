@@ -1,7 +1,8 @@
 # encoding: UTF-8
 Encoding.default_external=('UTF-8') if ''.respond_to?(:force_encoding)
-require File.dirname(__FILE__) + "/spec_helper"
 
+require 'rspec'
+require 'maruku'
 require 'nokogiri/diff'
 
 # Fix nokogiri-diff to understand comments (until they release a fixed version):

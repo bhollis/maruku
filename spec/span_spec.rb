@@ -1,4 +1,5 @@
-require File.dirname(__FILE__) + "/spec_helper"
+require 'rspec'
+require 'maruku'
 
 EXPECTATIONS = Maruku.new.instance_eval do
   [

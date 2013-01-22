@@ -10,3 +10,5 @@
   before it produced XML entity references.
 
 * Empty link references now match the way other Markdown implementations work.
+
+* Maruku now requires Ruby 1.8.7 or newer.
