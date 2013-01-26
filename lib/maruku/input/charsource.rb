@@ -97,15 +97,15 @@ module MaRuKu::In::Markdown::SpanLevelParser
       r2.match @buffer
     end
 
-		def read_regexp(r)
-			r2 = /^#{r}/
-			rest = current_remaining_buffer
-			m = r2.match(rest)
-			if m
-				@buffer_index += m.to_s.size
-			end
-			m
-		end
+    def read_regexp(r)
+      r2 = /^#{r}/
+      rest = current_remaining_buffer
+      m = r2.match(rest)
+      if m
+        @buffer_index += m.to_s.size
+      end
+      m
+    end
 
     def consume_whitespace
       while c = cur_char
@@ -119,8 +119,8 @@ module MaRuKu::In::Markdown::SpanLevelParser
       c = nil
       while @buffer_index < s && (c = @buffer[@buffer_index]) &&
           ((c >= ?a && c <= ?z) || (c >= ?A && c <= ?Z))
-				out << c
-				@buffer_index += 1
+        out << c
+        @buffer_index += 1
       end
     end
 
