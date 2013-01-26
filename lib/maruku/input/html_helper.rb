@@ -23,8 +23,6 @@ module MaRuKu::In::Markdown::SpanLevelParser
 
   # This class helps me read and sanitize HTML blocks
   class HTMLHelper
-    #include MaRuKu::Strings
-
     Tag = %r{^<(/)?(\w+)\s*([^>]*?)>}m
     PartialTag = %r{^<.*}m
 
