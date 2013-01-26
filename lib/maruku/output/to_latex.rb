@@ -143,7 +143,7 @@ will produce:
 \\hrule
 \\vspace{1.2mm}
 \\begin{tiny}
-Created by \\href{http://maruku.rubyforge.org}{Maruku} #{self.nice_date}.
+Created by \\href{#{MaRuKu::MARUKU_URL}}{Maruku} #{self.nice_date}.
 \\end{tiny}"
 	end
 

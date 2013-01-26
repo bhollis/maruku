@@ -302,7 +302,7 @@ Example:
 				span['style'] = 'font-size: small; font-style: italic'
 				div << span << Nokogiri::XML::Text.new('Created by ', div)
 				a = Nokogiri::XML::Element.new('a', span)
-					a['href'] = 'http://maruku.rubyforge.org'
+					a['href'] = MaRuKu::MARUKU_URL
 					a['title'] = 'Maruku: a Markdown-superset interpreter for Ruby'
 					a << Nokogiri::XML::Text.new('Maruku', div)
 				span << Nokogiri::XML::Text.new(nice_date+".", div)
