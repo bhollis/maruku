@@ -45,7 +45,7 @@ SpanContext = SpanContext_String # Seems to be faster
         IgnoreWikiLinks = MaRuKu::Globals[:ignore_wikilinks]
 
 	def parse_lines_as_span(lines, parent=nil)
-		parse_span_better lines.join("\n"), parent
+		parse_span_better Array(lines).join("\n"), parent
 	end
 
 	def parse_span_better(string, parent=nil)
@@ -291,7 +291,7 @@ SpanContext = SpanContext_String # Seems to be faster
 
 	# Start: cursor on character **after** '{'
 	# End: curson on '}' or EOF
-	def interpret_extension(src, con, break_on_chars)
+	def interpret_extension(src, con, break_on_chars=nil)
 		case src.cur_char
 		when ?:
 			src.ignore_char # :
@@ -315,7 +315,7 @@ SpanContext = SpanContext_String # Seems to be faster
 		end
 	end
 
-	def extension_meta(src, con, break_on_chars)
+	def extension_meta(src, con, break_on_chars=nil)
 		if m = src.read_regexp(/([^\s\:\"\']+?):/)
 			name = m[1]
 			al = read_attribute_list(src, con, break_on_chars)

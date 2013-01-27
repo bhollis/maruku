@@ -49,7 +49,8 @@ module MaRuKu
     end
 
     # @return [AttributeList, nil]
-    def read_attribute_list(src, con, break_on_chars)
+    def read_attribute_list(src, con=nil, break_on_chars=[])
+      break_on_chars = Array(break_on_chars)
       separators = break_on_chars + [?=, ?\s, ?\t]
       escaped = Maruku::EscapedCharInQuotes
 
