@@ -249,7 +249,7 @@ module MaRuKu; module In; module Markdown; module BlockLevelParser
         #       puts "html -> #{l.inspect}"
         h.eat_this "\n" + l
       end
-    rescue Exception => e
+    rescue => e
       ex = e.inspect + e.backtrace.join("\n")
       maruku_error "Bad block-level HTML:\n#{ex.gsub(/^/, '|')}\n", src
     end

@@ -94,7 +94,7 @@ module MaRuKu
         # Set this as an instance variable so it doesn't get included
         # in metadata comparisons
         e.instance_variable_set("@parsed_html", parsed_html)
-      rescue Exception => ex
+      rescue => ex
         e.instance_variable_set "@parsed_html", nil
         maruku_recover <<ERR
 Nokogiri cannot parse this block of HTML/XML:
