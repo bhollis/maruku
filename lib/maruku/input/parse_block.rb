@@ -151,7 +151,7 @@ module MaRuKu; module In; module Markdown; module BlockLevelParser
         src.next_line &&
         src.next_line =~ TableSeparator
       output << read_table(src)
-    elsif [:header1, :header2].include? src.next_line.md_type
+    elsif src.next_line && [:header1, :header2].include?(src.next_line.md_type)
       output << read_header12(src)
     elsif eventually_comes_a_def_list(src)
       definition = read_definition(src)
@@ -273,7 +273,7 @@ module MaRuKu; module In; module Markdown; module BlockLevelParser
         break if src.next_line.md_type == t
       end
       break if src.cur_line.strip.empty?
-      break if [:header1, :header2].include? src.next_line.md_type
+      break if src.next_line && [:header1, :header2].include?(src.next_line.md_type)
       break if any_matching_block_extension?(src.cur_line)
 
       lines << src.shift_line

@@ -25,12 +25,6 @@ class String
   end
 end
 
-class NilClass
-  def md_type
-    nil
-  end
-end
-
 # This code does the classification of lines for block-level parsing.
 module MaRuKu::Strings
 
