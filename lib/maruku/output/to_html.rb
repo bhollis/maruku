@@ -21,16 +21,6 @@
 require 'nokogiri'
 require 'maruku/string_utils'
 
-class String
-	# A string is rendered into HTML by creating
-	# a Nokogiri::XML::Text node. Nokogiri takes care of all the encoding.
-	def to_html
-        d = Nokogiri::XML::Document.new
-	    Nokogiri::XML::Text.new(self, d)
-	end
-end
-
-
 # This module groups all functions related to HTML export.
 module MaRuKu; module Out; module HTML
 	
@@ -976,27 +966,36 @@ If true, raw HTML is discarded from the output.
 	def array_to_html(array)
 		e = []
 		array.each do |c|
-			method = c.kind_of?(MDElement) ? "to_html_#{c.node_type}" : "to_html"
+      if c.kind_of?(String)
+        e << string_to_html(c)
+      else
+        method = c.kind_of?(MDElement) ? "to_html_#{c.node_type}" : "to_html"
 
-			if not c.respond_to?(method)
-				#raise "Object does not answer to #{method}: #{c.class} #{c.inspect}"
-				next
-			end
+        if not c.respond_to?(method)
+          #raise "Object does not answer to #{method}: #{c.class} #{c.inspect}"
+          next
+        end
 
-			h =  c.send(method)
+        h = c.send(method)
 
-			if h.nil?
-				raise "Nil html created by method  #{method}:\n#{h.inspect}\n"+
-				" for object #{c.inspect[0,300]}"
-			end
+        if h.nil?
+          raise "Nil html created by method  #{method}:\n#{h.inspect}\n"+
+            " for object #{c.inspect[0,300]}"
+        end
 
-			if h.kind_of? Array
-				e = e + h #h.each do |hh| e << hh end
-			else
-				e << h
-			end
+        if h.kind_of? Array
+          e = e + h
+        else
+          e << h
+        end
+      end
 		end
 		e
+	end
+
+	def string_to_html(str)
+    d = Nokogiri::XML::Document.new
+    Nokogiri::XML::Text.new(str, d)
 	end
 
 	def to_html_ref_definition; [] end
