@@ -244,11 +244,11 @@ describe "The Maruku span parser" do
   EXPECTATIONS.each do |md, res, comment|
     if res == :raise
       it "should raise an error for \"#{md}\"" do
-        lambda {@doc.parse_span_better(md)}.should raise_error(Maruku::Exception)
+        lambda {@doc.parse_span(md)}.should raise_error(Maruku::Exception)
       end
     else
       it "should parse \"#{md}\" as #{res.inspect}" do
-        @doc.parse_span_better(md).should == res
+        @doc.parse_span(md).should == res
       end
     end
   end

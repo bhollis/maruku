@@ -45,10 +45,10 @@ SpanContext = SpanContext_String # Seems to be faster
         IgnoreWikiLinks = MaRuKu::Globals[:ignore_wikilinks]
 
 	def parse_lines_as_span(lines, parent=nil)
-		parse_span_better Array(lines).join("\n"), parent
+		parse_span Array(lines).join("\n"), parent
 	end
 
-	def parse_span_better(string, parent=nil)
+	def parse_span(string, parent=nil)
 		if not string.kind_of? String then 
 			error "Passed #{string.class}." end
 
