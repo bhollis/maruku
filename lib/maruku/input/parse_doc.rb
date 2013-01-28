@@ -190,8 +190,7 @@ Disabled by default because of security concerns.
           if s.strip.size > 0
 
             el = md_el(:dummy,
-                       parse_blocks ? parse_text_as_markdown(s) :
-                         parse_lines_as_span(s) )
+                       parse_blocks ? parse_text_as_markdown(s) : parse_span(s))
 
             #Nokogiri collapses consecutive Text nodes, so replace it by a dummy element
             guard = Nokogiri::XML::Element.new('guard', doc)

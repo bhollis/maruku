@@ -47,35 +47,35 @@ module MaRuKu::In::Markdown::SpanLevelParser
       @parent = parent
     end
 
-    # Return current char as a FixNum (or nil).
+    # Return current char as a String (or nil).
     def cur_char
-      @buffer[@buffer_index]   
+      cur_chars(1)
     end
 
     # Return the next n chars as a String.
     def cur_chars(n)
-      @buffer[@buffer_index, n] 
+      return nil if @buffer_index >= @buffer.size
+      @buffer[@buffer_index, n]
     end
 
-    # Return the char after current char as a FixNum (or nil).
+    # Return the char after current char as a String (or nil).
     def next_char
-      @buffer[@buffer_index + 1] 
+      return nil if @buffer_index + 1 >= @buffer.size
+      @buffer[@buffer_index + 1, 1]
     end
 
     def shift_char
-      c = @buffer[@buffer_index]
+      c = cur_char
       @buffer_index += 1
       c
     end
 
     def ignore_char
       @buffer_index += 1
-      nil
     end
 
     def ignore_chars(n)
       @buffer_index += n
-      nil
     end
 
     def current_remaining_buffer
@@ -83,13 +83,7 @@ module MaRuKu::In::Markdown::SpanLevelParser
     end
 
     def cur_chars_are(string)
-      # There is a bug here
-      if false
-        r2 = /^.{#{@buffer_index}}#{Regexp.escape string}/m
-        @buffer =~ r2
-      else
-        cur_chars(string.size) == string
-      end
+      cur_chars(string.size) == string
     end
 
     def next_matches(r)
@@ -109,18 +103,8 @@ module MaRuKu::In::Markdown::SpanLevelParser
 
     def consume_whitespace
       while c = cur_char
-        break unless (c == ?\s || c == ?\t)
+        break unless (c == ' ' || c == "\t")
         ignore_char
-      end
-    end
-
-    def read_text_chars(out)
-      s = @buffer.size
-      c = nil
-      while @buffer_index < s && (c = @buffer[@buffer_index]) &&
-          ((c >= ?a && c <= ?z) || (c >= ?A && c <= ?Z))
-        out << c
-        @buffer_index += 1
       end
     end
 
@@ -145,7 +129,7 @@ module MaRuKu::In::Markdown::SpanLevelParser
       index_start = [buffer_index - num_before, 0].max
       index_end   = [buffer_index + num_after, buffer.size].min
 
-      size = index_end- index_start
+      size = index_end - index_start
 
       str = buffer[index_start, size]
       str.gsub!("\n", 'N')
@@ -177,7 +161,7 @@ module MaRuKu::In::Markdown::SpanLevelParser
       @size = s.size
     end
 
-    # Return current char as a FixNum (or nil).
+    # Return current char as a String (or nil).
     def cur_char
       @scanner.peek(1)[0]
     end
@@ -187,12 +171,12 @@ module MaRuKu::In::Markdown::SpanLevelParser
       @scanner.peek(n)
     end
 
-    # Return the char after current char as a FixNum (or nil).
+    # Return the char after current char as a String (or nil).
     def next_char
       @scanner.peek(2)[1]
     end
 
-    # Return a character as a FixNum, advancing the pointer.
+    # Return a character as a String, advancing the pointer.
     def shift_char
       @scanner.getch[0]
     end

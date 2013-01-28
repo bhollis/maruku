@@ -20,8 +20,6 @@ EXPECTATIONS = Maruku.new.instance_eval do
     ["\n",     [],      'Compress newlines 6'],
     ["\n\n\n", [],      'Compress newlines 7'],
 
-    [nil, :raise, "Should throw on nil input"],
-
     # Code blocks
     ["`" ,   :raise,  'Unclosed single ticks'],
     ["``" ,  :raise,  'Unclosed double ticks'],
@@ -35,8 +33,8 @@ EXPECTATIONS = Maruku.new.instance_eval do
     ["a  \n", ['a',md_el(:linebreak)], 'Two spaces give br.'],
     ["a \n",  ['a'], 'Newlines 2'],
     ["  \n",  [md_el(:linebreak)], 'Newlines 3'],
-    ["  \n  \n",  [md_el(:linebreak),md_el(:linebreak)],'Newlines 3'],
-    ["  \na  \n",  [md_el(:linebreak),'a',md_el(:linebreak)],'Newlines 3'],
+    ["  \n  \n",  [md_el(:linebreak),md_el(:linebreak)],'Newlines 4'],
+    ["  \na  \n",  [md_el(:linebreak),'a',md_el(:linebreak)],'Newlines 5'],
 
     # Inline HTML
     ["a < b", ['a < b'], '< can be on itself'],
@@ -243,7 +241,7 @@ describe "The Maruku span parser" do
 
   EXPECTATIONS.each do |md, res, comment|
     if res == :raise
-      it "should raise an error for \"#{md}\"" do
+      it "should raise an error (#{comment}) for \"#{md}\"" do
         lambda {@doc.parse_span(md)}.should raise_error(Maruku::Exception)
       end
     else

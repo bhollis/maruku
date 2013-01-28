@@ -49,9 +49,9 @@ module MaRuKu
     end
 
     # @return [AttributeList, nil]
-    def read_attribute_list(src, con=nil, break_on_chars=[])
+    def read_attribute_list(src, con=nil, break_on_chars=nil)
       break_on_chars = Array(break_on_chars)
-      separators = break_on_chars + [?=, ?\s, ?\t]
+      separators = break_on_chars + ['=', ' ', "\t"]
       escaped = Maruku::EscapedCharInQuotes
 
       al = AttributeList.new
@@ -64,11 +64,11 @@ module MaRuKu
           maruku_error "Attribute list terminated by EOF:\n #{al.inspect}", src, con
           tell_user "Returning partial attribute list:\n #{al.inspect}"
           break
-        when ?=     # error
+        when '='     # error
           src.ignore_char
           maruku_error "In attribute lists, cannot start identifier with `=`."
           tell_user "Ignoring and continuing."
-        when ?#     # id definition
+        when '#'     # id definition
           src.ignore_char
           if id = read_quoted_or_unquoted(src, con, escaped, separators)
             al << [:id, id]
@@ -76,7 +76,7 @@ module MaRuKu
             maruku_error 'Could not read `id` attribute.', src, con
             tell_user 'Ignoring bad `id` attribute.'
           end
-        when ?.     # class definition
+        when '.'     # class definition
           src.ignore_char
           if klass = read_quoted_or_unquoted(src, con, escaped, separators)
             al << [:class, klass]
@@ -90,7 +90,7 @@ module MaRuKu
             next
           end
 
-          if src.cur_char != ?=
+          if src.cur_char != '='
             al << [:ref, key]
             next
           end

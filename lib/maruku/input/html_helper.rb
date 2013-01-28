@@ -117,8 +117,8 @@ module MaRuKu::In::Markdown::SpanLevelParser
       attributes = @m[3].to_s
 
       is_single = false
-      if attributes[-1] == ?/ # =~ /\A(.*)\/\Z/
-        attributes = attributes[0, attributes.size-1]
+      if attributes[-1, 1] == '/'
+        attributes = attributes[0, attributes.size - 1]
         is_single = true
       end
 

@@ -16,7 +16,7 @@ end
 RegInlineMath = /\${1}((?:[^\$]|\\\$)+)\$/
 
 MaRuKu::In::Markdown.register_span_extension(
-  :chars => ?$,
+  :chars => '$',
   :regexp => RegInlineMath,
   :handler => lambda do |doc, src, con|
     next false unless doc.is_math_enabled?
@@ -91,7 +91,7 @@ RegEqPar = /\(eq:(\w+?)\)/
 RegEqref = Regexp.union(RegEqrefLatex, RegEqPar)
 
 MaRuKu::In::Markdown.register_span_extension(
-  :chars => [?\\, ?(],
+  :chars => ["\\", '('],
   :regexp => RegEqref,
   :handler => lambda do |doc, src, con|
     return false unless doc.is_math_enabled?
@@ -103,7 +103,7 @@ MaRuKu::In::Markdown.register_span_extension(
 # This adds support for \ref
 RegRef = /\\ref\{(\w*?)\}/
 MaRuKu::In::Markdown.register_span_extension(
-  :chars => [?\\, ?(],
+  :chars => ["\\", '('],
   :regexp => RegRef,
   :handler => lambda do |doc, src, con|
     return false unless doc.is_math_enabled?

@@ -188,7 +188,7 @@ module MaRuKu; module In; module Markdown; module BlockLevelParser
       ial = $2
       al = read_attribute_list(CharSource.new(ial, src))
     end
-    text = parse_lines_as_span line
+    text = parse_span line
     level = src.cur_line.md_type == :header2 ? 2 : 1;
     src.shift_line
     md_header(level, text, al)
@@ -205,7 +205,7 @@ module MaRuKu; module In; module Markdown; module BlockLevelParser
       al = read_attribute_list(CharSource.new(ial, src))
     end
     level = line[/^#+/].size
-    text = parse_lines_as_span line.gsub(/\A#+|#+\Z/, '')
+    text = parse_span line.gsub(/\A#+|#+\Z/, '')
     md_header(level, text, al)
   end
 
@@ -278,7 +278,7 @@ module MaRuKu; module In; module Markdown; module BlockLevelParser
 
       lines << src.shift_line
     end
-    children = parse_lines_as_span(lines, src)
+    children = parse_span(lines, src)
 
     md_par(children)
   end
@@ -510,7 +510,7 @@ module MaRuKu; module In; module Markdown; module BlockLevelParser
 
   def read_table(src)
     head = split_cells(src.shift_line).map do |s|
-      md_el(:head_cell, parse_lines_as_span(s))
+      md_el(:head_cell, parse_span(s))
     end
 
     separator = split_cells(src.shift_line)
@@ -539,7 +539,7 @@ module MaRuKu; module In; module Markdown; module BlockLevelParser
 
     while src.cur_line && src.cur_line =~ /\|/
       row = split_cells(src.shift_line).map do |s|
-        md_el(:cell, parse_lines_as_span([s]))
+        md_el(:cell, parse_span(s))
       end
 
       if head.size != num_columns
@@ -565,7 +565,7 @@ module MaRuKu; module In; module Markdown; module BlockLevelParser
     # Read one or more terms
     terms = []
     while src.cur_line && src.cur_line.md_type == :text
-      terms << md_el(:definition_term, parse_lines_as_span(src.shift_line))
+      terms << md_el(:definition_term, parse_span(src.shift_line))
     end
 
     want_my_paragraph = false
