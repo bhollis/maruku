@@ -18,7 +18,7 @@ def extract_chunks(is, start_reg, end_reg)
 				all.push [current.join, current_start, current_end]
 				current = nil
 			else
-				current.push l
+				current.push l.sub(/^\s*#/, '')
 			end
 		end
 		line += 1
@@ -27,13 +27,13 @@ def extract_chunks(is, start_reg, end_reg)
 end
 
 all_docs = []
-dir = '../lib/'
-sources = Dir[dir+'**/*.rb'].each do |file|
+dir = File.expand_path("../../../lib/", __FILE__)
+sources = Dir[dir + '/**/*.rb'].each do |file|
 	File.open(file, 'r') do |f|
-		chunks = extract_chunks(f, /^\=begin maruku_doc/, /^\=end/)
+		chunks = extract_chunks(f, /^\s*\#\=begin maruku_doc/, /^\s*\#\=end/)
 		chunks.each do  |chunk, line_start, line_end|
 			doc = Maruku.new(chunk, {:on_error => :raise})
-			doc.attributes[:file] = file.gsub(/^\.\.\/lib\/maruku\//,'')
+			doc.attributes[:file] = file.gsub(/^.*?\/lib\/maruku\//,'')
 			doc.attributes[:line_start] = line_start
 			doc.attributes[:line_end] = line_end
 			all_docs << doc
@@ -81,9 +81,8 @@ is a Markdown document:
 	
 	@children << md_header(2, ['Attribute documentation'])
 	
-	table_children = 
 	extended = []
-	
+
 	attributes.keys.sort.each do |att| desc = attributes[att]
 		h = md_header(3, ["Attribute ", md_code(att)])
 		h.attributes[:id] = att
