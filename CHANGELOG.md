@@ -12,3 +12,5 @@
 * Empty link references now match the way other Markdown implementations work.
 
 * Maruku now requires Ruby 1.8.7 or newer.
+
+* Maruku no longer extends NilType or String with its own internal-use methods.

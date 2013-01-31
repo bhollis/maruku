@@ -31,7 +31,7 @@ module MaRuKu::In::Markdown::BlockLevelParser
 
     def initialize(lines, parent=nil, parent_offset=nil)
       raise "NIL lines? " unless lines
-      @lines = lines
+      @lines = lines.map {|l| l.kind_of?(MaRuKu::MDLine) ? l : MaRuKu::MDLine.new(l) }
       @lines_index = 0
       @parent = parent
       @parent_offset = parent_offset

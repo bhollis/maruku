@@ -63,16 +63,6 @@ module MaRuKu
       headers
     end
 
-    # Returns the number of leading spaces,
-    # considering that a tab counts as {TAB_SIZE} spaces.
-    #
-    # @param s [String]
-    # @return [Fixnum]
-    def number_of_leading_spaces(s)
-      spaces = s.scan(/^\s*/).first
-      spaces.count(" ") + spaces.count("\t") * TAB_SIZE
-    end
-
     # This returns the position of the first non-list character
     # in a list item.
     #
@@ -132,10 +122,13 @@ module MaRuKu
     # @return [String]
     def strip_indent(s, n)
       while n > 0
-        case s[0]
-        when ?\s; n -= 1
-        when ?\t; n -= TAB_SIZE
-        else; return s
+        case s[0, 1]
+        when ' '
+          n -= 1
+        when "\t"
+          n -= TAB_SIZE
+        else
+          return s
         end
         s = s[1..-1]
       end

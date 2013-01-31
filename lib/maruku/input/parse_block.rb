@@ -380,7 +380,7 @@ module MaRuKu; module In; module Markdown; module BlockLevelParser
       # after a white line
       if saw_empty
         # we expect things to be properly aligned
-        if number_of_leading_spaces(src.cur_line) < indentation
+        if src.cur_line.number_of_leading_spaces < indentation
           #puts "breaking for spaces, only #{ns}: #{src.cur_line}"
           break
         end
@@ -474,7 +474,7 @@ module MaRuKu; module In; module Markdown; module BlockLevelParser
     # if link is incomplete, shift next line
     if src.cur_line &&
         ![:footnote_text, :ref_definition, :definition, :abbreviation].include?(src.cur_line.md_type) &&
-        (1..3).include?(number_of_leading_spaces(src.cur_line))
+        (1..3).include?(src.cur_line.number_of_leading_spaces)
       line << " " << src.shift_line
     end
 
