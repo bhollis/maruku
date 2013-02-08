@@ -1,4 +1,4 @@
-Write a comment here
+The markdown="1" attribute does NOT get recursively applied
 *** Parameters: ***
 {}
 *** Markdown input: ***
@@ -15,7 +15,7 @@ md_el(:document,[
 ],{},[])
 *** Output of to_html ***
 <table>Blah<thead>
-		<td><em>em</em></td>
+		<td>*em*</td>
 	</thead>
 </table>
 *** Output of to_latex ***

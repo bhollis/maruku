@@ -70,20 +70,20 @@ md_el(:document,[
 *** Output of to_html ***
 <pre><code>'Twas a "test" to 'remember' in the '90s.</code></pre>
 
-<p>&#8216;Twas a &#8220;test&#8221; to &#8216;remember&#8217; in the &#8217;90s.</p>
+<p>‘Twas a “test” to ‘remember’ in the ’90s.</p>
 
 <pre><code>It was --- in a sense --- really... interesting.</code></pre>
 
-<p>It was &#8212; in a sense &#8212; really&#8230; interesting.</p>
+<p>It was — in a sense — really… interesting.</p>
 
 <pre><code>I -- too -- met &lt;&lt; some curly quotes &gt;&gt; there or &lt;&lt;here&gt;&gt;No space.</code></pre>
 
-<p>I &#8211; too &#8211; met &#171;&#160;some curly quotes&#160;&#187; there or &#171;here&#187;No space.</p>
+<p>I – too – met « some curly quotes » there or «here»No space.</p>
 
 <pre><code>She was 6\"12\'.</code></pre>
 
 <blockquote>
-<p>She was 6&#34;12&#39;.</p>
+<p>She was 6"12'.</p>
 </blockquote>
 *** Output of to_latex ***
 \begin{verbatim}'Twas a "test" to 'remember' in the '90s.\end{verbatim}

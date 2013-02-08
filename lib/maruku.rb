@@ -16,11 +16,6 @@
 #   along with Maruku; if not, write to the Free Software
 #   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
-dir = File.dirname(__FILE__)
-$LOAD_PATH.unshift dir unless $LOAD_PATH.include?(dir)
-
-require 'rexml/document'
-
 module MaRuKu
   module In
     module Markdown
@@ -42,7 +37,6 @@ module MaRuKu
   module Errors; end
 
   class MDElement
-    include REXML
     include MaRuKu
     include Out::Markdown
     include Out::HTML
@@ -68,6 +62,7 @@ require 'maruku/structures'
 require 'maruku/structures_inspect'
 
 require 'maruku/defaults'
+
 # Less typing
 require 'maruku/helpers'
 
@@ -87,7 +82,7 @@ require 'maruku/input/parse_block'
 
 # Code for parsing Markdown span-level elements
 require 'maruku/input/charsource'
-require 'maruku/input/parse_span_better'
+require 'maruku/input/parse_span'
 require 'maruku/input/rubypants'
 
 require 'maruku/input/extensions'

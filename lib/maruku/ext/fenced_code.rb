@@ -68,8 +68,7 @@ MaRuKu::In::Markdown::register_block_extension(
 		inside = $1
 		cs = MaRuKu::In::Markdown::SpanLevelParser::CharSource
 		al = ial &&
-			doc.read_attribute_list(cs.new(inside),
-				its_context=nil, break_on=[nil])
+			doc.read_attribute_list(cs.new(inside), nil, [nil])
 	end
 
 	source = lines.join("\n")

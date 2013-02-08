@@ -58,7 +58,7 @@ md_el(:document,[
 
 <p>Please mouseover to see the title: <img src="http://jigsaw.w3.org/css-validator/images/vcss" alt="Cascading Style Sheets" title="Title ok!" /></p>
 
-<p>I&#8217;ll say it one more time: this page does not use <img src="http://jigsaw.w3.org/css-validator/images/vcss" alt="Cascading Style Sheets" title="Optional title attribute" /></p>
+<p>I’ll say it one more time: this page does not use <img src="http://jigsaw.w3.org/css-validator/images/vcss" alt="Cascading Style Sheets" title="Optional title attribute" /></p>
 
 <p>This is double size: <img src="http://jigsaw.w3.org/css-validator/images/vcss" alt="Cascading Style Sheets" title="Optional title attribute" /></p>
 *** Output of to_latex ***

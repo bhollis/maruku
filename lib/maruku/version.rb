@@ -26,7 +26,7 @@ module MaRuKu
   Version = VERSION
 
   # The URL of the Maruku website.
-  MARUKU_URL = 'http://maruku.rubyforge.org/'
+  MARUKU_URL = 'http://github.com/bhollis/maruku/'
 
   # @deprecated Exists for backwards compatibility. Use {MARUKU_URL}
   # @private

@@ -16,7 +16,6 @@
 #   along with Maruku; if not, write to the Free Software
 #   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
-
 module MaRuKu
   # Rather than having a separate class for every possible element,
   # Maruku has a single {MDElement} class
@@ -72,12 +71,14 @@ module MaRuKu
       self.node_type = node_type
       self.attributes = {}
 
+      # Define a new accessor on the singleton class for this instance
+      # for each metadata key
       meta.each do |symbol, value|
-        self.instance_eval <<RUBY
-          def #{symbol}; @#{symbol}; end
-          def #{symbol}=(val); @#{symbol} = val; end
-RUBY
-        self.send "#{symbol}=", value
+        class << self
+          self
+        end.send(:attr_accessor, symbol)
+
+        self.send("#{symbol}=", value)
       end
 
       self.al = al || AttributeList.new
@@ -96,7 +97,7 @@ RUBY
   end
 
   # This represents the whole document and holds global data.
-  class MDDocument
+  class MDDocument # < MDElement
     # @return [{String => {:url => String, :title => String}}]
     attr_accessor :refs
 

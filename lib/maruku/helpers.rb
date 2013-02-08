@@ -16,22 +16,23 @@
 #   along with Maruku; if not, write to the Free Software
 #   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
+require 'nokogiri'
 
 module MaRuKu
-
-require 'nokogiri'
 
   # A collection of helper functions for creating Markdown elements.
   # They hide the particular internal representations.
   #
   # Always use these rather than creating an {MDElement} directly.
   module Helpers
-    # @param children [Array<MDElement, String>]
+    # @param children [MDElement, String, Array<MDElement, String>]
     #   The child nodes.
     #   If the first child is a \{#md\_ial}, it's merged with `al`
     def md_el(node_type, children = [], meta = {}, al = nil)
+      children = Array(children)
+
       first = children.first
-      if first.is_a?(MDElement) && first.node_type == :ial
+      if first && first.is_a?(MDElement) && first.node_type == :ial
         if al
           al += first.ial
         else
@@ -46,45 +47,54 @@ require 'nokogiri'
     end
 
     def md_header(level, children, al = nil)
-      md_el(:header, children, {:level => level}, al)
+      md_el(:header, children, { :level => level }, al)
     end
 
     # Inline code
     def md_code(code, al = nil)
-      md_el(:inline_code, [], {:raw_code => code}, al)
+      md_el(:inline_code, [], { :raw_code => code }, al)
     end
 
     # Code block
     def md_codeblock(source, al = nil)
-      md_el(:code, [], {:raw_code => source}, al)
+      md_el(:code, [], { :raw_code => source }, al)
     end
 
     def md_quote(children, al = nil)
       md_el(:quote, children, {}, al)
     end
 
-    def md_li(children, want_my_par, al = nil)
-      md_el(:li, children, {:want_my_paragraph => want_my_par}, al)
+    def md_li(children, want_my_par = false, al = nil)
+      md_el(:li, children, { :want_my_paragraph => want_my_par }, al)
     end
 
     def md_footnote(footnote_id, children, al = nil)
-      md_el(:footnote, children, {:footnote_id => footnote_id}, al)
+      md_el(:footnote, children, { :footnote_id => footnote_id }, al)
     end
 
     def md_abbr_def(abbr, text, al = nil)
-      md_el(:abbr_def, [], {:abbr => abbr, :text => text}, al)
+      md_el(:abbr_def, [], { :abbr => abbr, :text => text }, al)
     end
 
     def md_abbr(abbr, title)
-      md_el(:abbr, [abbr], :title => title)
+      md_el(:abbr, abbr, :title => title)
     end
 
     def md_html(raw_html, al = nil)
       e = md_el(:raw_html, [], :raw_html => raw_html)
       begin
-        e.instance_variable_set("@parsed_html",
-          Nokogiri::XML::Document.parse("<marukuwrap>#{raw_html.strip}</marukuwrap>"))
-      rescue Nokogiri::XML::Document.errors => ex
+        d = Nokogiri::XML::Document.new
+
+        # Make sure the SVG namespace is known
+        root = Nokogiri::XML::Element.new('html', d)
+        root.add_namespace('svg', "http://www.w3.org/2000/svg" )
+
+        parsed_html = Nokogiri::HTML::DocumentFragment.new(d, raw_html, d)
+
+        # Set this as an instance variable so it doesn't get included
+        # in metadata comparisons
+        e.instance_variable_set("@parsed_html", parsed_html)
+      rescue => ex
         e.instance_variable_set "@parsed_html", nil
         maruku_recover <<ERR
 Nokogiri cannot parse this block of HTML/XML:
@@ -96,23 +106,23 @@ ERR
     end
 
     def md_link(children, ref_id, al = nil)
-      md_el(:link, children, {:ref_id => ref_id}, al)
+      md_el(:link, children, { :ref_id => ref_id }, al)
     end
 
     def md_im_link(children, url, title = nil, al = nil)
-      md_el(:im_link, children, {:url => url, :title => title}, al)
+      md_el(:im_link, children, { :url => url, :title => title }, al)
     end
 
     def md_image(children, ref_id, al = nil)
-      md_el(:image, children, {:ref_id => ref_id}, al)
+      md_el(:image, children, { :ref_id => ref_id }, al)
     end
 
     def md_im_image(children, url, title = nil, al = nil)
-      md_el(:im_image, children, {:url => url, :title => title}, al)
+      md_el(:im_image, children, { :url => url, :title => title }, al)
     end
 
     def md_em(children, al = nil)
-      md_el(:emphasis, [children].flatten, {}, al)
+      md_el(:emphasis, children, {}, al)
     end
 
     def md_br
@@ -124,7 +134,7 @@ ERR
     end
 
     def md_strong(children, al = nil)
-      md_el(:strong, [children].flatten, {}, al)
+      md_el(:strong, children, {}, al)
     end
 
     def md_emstrong(children, al = nil)
@@ -133,34 +143,33 @@ ERR
 
     # A URL to be linkified (e.g. `<http://www.example.com/>`).
     def md_url(url, al = nil)
-      md_el(:immediate_link, [], {:url => url}, al)
+      md_el(:immediate_link, [], { :url => url }, al)
     end
 
     # An email to be linkified
     # (e.g. `<andrea@rubyforge.org>` or `<mailto:andrea@rubyforge.org>`).
     def md_email(email, al = nil)
-      md_el(:email_address, [], {:email => email}, al)
+      md_el(:email_address, [], { :email => email }, al)
     end
 
     def md_entity(entity_name, al = nil)
-      md_el(:entity, [], {:entity_name => entity_name}, al)
+      md_el(:entity, [], { :entity_name => entity_name }, al)
     end
 
     # Markdown extra
     def md_foot_ref(ref_id, al = nil)
-      md_el(:footnote_reference, [], {:footnote_id => ref_id}, al)
+      md_el(:footnote_reference, [], { :footnote_id => ref_id }, al)
     end
 
     def md_par(children, al = nil)
-      md_el(:paragraph, children, meta = {}, al)
+      md_el(:paragraph, children, {}, al)
     end
 
     # A definition of a reference (e.g. `[1]: http://url [properties]`).
     def md_ref_def(ref_id, url, title = nil, meta = {}, al = nil)
-      meta[:url] = url
-      meta[:ref_id] = ref_id
-      meta[:title] = title if title
-      md_el(:ref_definition, [], meta, al)
+      all_meta = meta.merge({ :url => url, :ref_id => ref_id })
+      all_meta[:title] ||= title
+      md_el(:ref_definition, [], all_meta, al)
     end
 
     # inline attribute list
@@ -177,41 +186,6 @@ ERR
     # A server directive (e.g. `<?target code... ?>`)
     def md_xml_instr(target, code)
       md_el(:xml_instr, [], :target => target, :code => code)
-    end
-  end
-
-  class MDElement
-    INSPECT2_FORMS = {
-      :paragraph          => ["par",      :children],
-      :footnote_reference => ["foot_ref", :footnote_id],
-      :entity             => ["entity",   :entity_name],
-      :email_address      => ["email",    :email],
-      :inline_code        => ["code",     :raw_code],
-      :raw_html           => ["html",     :raw_html],
-      :emphasis           => ["em",       :children],
-      :strong             => ["strong",   :children],
-      :immediate_link     => ["url",      :url],
-      :image              => ["image",    :children, :ref_id],
-      :im_image           => ["im_image", :children, :url, :title],
-      :link               => ["link",     :children, :ref_id],
-      :im_link            => ["im_link",  :children, :url, :title],
-      :ref_definition     => ["ref_def",  :ref_id, :url, :title],
-      :ial                => ["ial",      :ial]
-    }
-
-    # Outputs the abbreviated form of an element
-    # (this should be `eval`-able to get a copy of the original element).
-    def inspect2
-      name, *params = INSPECT2_FORMS[@node_type]
-      return nil unless name
-
-      params = params.map do |p|
-        next children_inspect if p == :children
-        send(p).inspect
-      end
-      params << @al.inspect if @al && !@al.empty?
-
-      "md_#{name}(#{params.join(', ')})"
     end
   end
 end

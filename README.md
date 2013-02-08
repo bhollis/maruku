@@ -8,6 +8,8 @@ Maruku implements:
 * All the improvements in PHP Markdown Extra.
 * A new meta-data syntax.
 
+News about Maruku is posted at [http://benhollis.net/blog/category/maruku/](http://benhollis.net/blog/category/maruku/)
+
 ## Basic Use
 
 The basic use is to create a new document, and then write

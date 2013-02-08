@@ -4,11 +4,11 @@ module MaRuKu; module Out; module HTML
   require 'nokogiri'
 
 	def convert_to_mathml_none(kind, tex)
-		# You can: either return a nokogiri::XML::Element
-		# or return an empty array on error
-		#    return []  
-		mathml = "<code>#{html_escape(tex)}</code>"
-		return Nokogiri::XML::Document.parse(mathml).root
+    d = Nokogiri::XML::Document.new
+    code = Nokogiri::XML::Element.new('code', d)
+    tex_node = Nokogiri::XML::Text.new(tex, d)
+    code << tex_node
+    code
 	end
 
 	def convert_to_png_none(kind, tex)

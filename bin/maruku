@@ -1,6 +1,9 @@
 #!/usr/bin/env ruby
 
-require File.expand_path(File.join(File.dirname(__FILE__), '..', 'lib', 'maruku'))
+dir = File.join(File.dirname(__FILE__), '..', 'lib')
+$LOAD_PATH.unshift dir unless $LOAD_PATH.include?(dir)
+
+require 'maruku'
 require 'optparse'
 
 

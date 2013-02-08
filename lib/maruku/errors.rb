@@ -28,7 +28,7 @@ module MaRuKu
     #
     # The behavior depends on {MaRuKu::Globals `MaRuKu::Globals[:on_error]`}.
     # If this is `:warning`, this prints the error to stderr
-    # (or `@error_stream if` it's defined) and tries to continue.
+    # (or `@error_stream` if it's defined) and tries to continue.
     # If `:on_error` is `:ignore`, this doesn't print anything
     # and tries to continue. If it's `:raise`, this raises a {MaRuKu::Exception}.
     #
@@ -52,11 +52,11 @@ module MaRuKu
         raise "Unknown on_error policy: #{policy.inspect}"
       end
     end
+    alias error maruku_error
 
     def maruku_recover(*args)
       tell_user create_frame(describe_error(*args))
     end
-    alias error maruku_error
 
     def raise_error(s)
       raise MaRuKu::Exception, s, caller

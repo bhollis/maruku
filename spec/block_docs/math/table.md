@@ -5,12 +5,12 @@ require 'maruku/ext/math';{:html_math_engine => 'itex2mml' }
 <table markdown='1'>
 	$\alpha$
 	<thead>
-		<td>$\beta$</td>
+		<td markdown='1'>$\beta$</td>
 	</thead>
 </table>
 *** Output of inspect ***
 md_el(:document,[
-	md_html("<table markdown='1'>\n\t$\\alpha$\n\t<thead>\n\t\t<td>$\\beta$</td>\n\t</thead>\n</table>")
+	md_html("<table markdown='1'>\n\t$\\alpha$\n\t<thead>\n\t\t<td markdown='1'>$\\beta$</td>\n\t</thead>\n</table>")
 ],{},[])
 *** Output of to_html ***
 <table><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline" class="maruku-mathml"><mi>α</mi></math><thead>

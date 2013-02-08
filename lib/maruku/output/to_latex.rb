@@ -18,6 +18,8 @@
 #   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #++
 
+require 'set'
+
 module MaRuKu
 
 class MDDocument
@@ -143,7 +145,7 @@ will produce:
 \\hrule
 \\vspace{1.2mm}
 \\begin{tiny}
-Created by \\href{http://maruku.rubyforge.org}{Maruku} #{self.nice_date}.
+Created by \\href{#{MaRuKu::MARUKU_URL}}{Maruku} #{self.nice_date}.
 \\end{tiny}"
 	end
 
@@ -436,12 +438,12 @@ Otherwise, a standard `verbatim` environment is used.
 		
 		s = "\\begin{tabular}{#{align_string}}\n"
 			
-			s += array_to_latex(head, '&') + "\\\\" +"\n"
+			s += array_to_latex(head, '&') + "\\\\" + "\n"
 			
 			s += "\\hline \n"
 			
 			rows.each do |row|
-				s += array_to_latex(row, '&') + "\\\\" +"\n"
+				s += array_to_latex(row, '&') + "\\\\" + "\n"
 			end
 			
 		s += "\\end{tabular}"

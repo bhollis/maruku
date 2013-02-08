@@ -57,17 +57,15 @@ module MaRuKu
     end
 
     def inspect(indent = 1)
-      s = ""
-
       if @header_element
-        s << "\_" * indent <<
+        s = "\_" * indent <<
           "(#{@section_level})>\t #{@section_number.join('.')} : " <<
           @header_element.children_to_s <<
           " (id: '#{@header_element.attributes[:id]}')\n"
       else
-        s << "Master\n"
+        s = "Master\n"
       end
-      @section_children.each {|c| s << c.inspect(indent+1)}
+      @section_children.each {|c| s << c.inspect(indent + 1) }
 
       s
     end
@@ -153,7 +151,7 @@ module MaRuKu
     attr_accessor :toc
 
     def create_toc
-      each_element(:header) {|h| h.attributes[:id] ||= h.generate_id}
+      each_element(:header) {|h| h.attributes[:id] ||= h.generate_id }
 
       stack = []
 
@@ -193,11 +191,8 @@ module MaRuKu
           stack.push s2
 
           i += 1
-        elsif level == stack.last.section_level
-          # this level is a sibling
-          stack.pop
         else
-          # this level is a parent
+          # this level is a parent or sibling
           stack.pop
         end
       end
