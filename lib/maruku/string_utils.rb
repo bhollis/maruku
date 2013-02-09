@@ -56,7 +56,7 @@ module MaRuKu
 
       while scanner.scan(/(\w[\w\s\-]+): +(.*)\n/)
         k, v = normalize_key_and_value(scanner[1], scanner[2])
-        headers[k] = v
+        headers[k.to_sym] = v
       end
 
       headers[:data] = scanner.rest
