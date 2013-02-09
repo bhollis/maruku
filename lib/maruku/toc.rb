@@ -80,7 +80,7 @@ module MaRuKu
     # @overload def numerate
     def numerate(a = [])
       self.section_number = a
-      section_children.each_with_index {|c, i| c.numerate(a + [i + 1])}
+      self.section_children.each_with_index {|c, i| c.numerate(a + [i + 1])}
       if h = self.header_element
         h.attributes[:section_number] = self.section_number
       end
@@ -153,55 +153,38 @@ module MaRuKu
     def create_toc
       each_element(:header) {|h| h.attributes[:id] ||= h.generate_id }
 
-      stack = []
 
       # The root section
       s = Section.new
       s.section_level = 0
 
-      stack.push s
+      stack = [s]
 
-      # TODO: Clean up the logic here once we have better tests
       i = 0
       while i < @children.size
-        while i < @children.size
-          if @children[i].node_type == :header
-            level = @children[i].level
-            break if level <= stack.last.section_level + 1
-          end
-
-          stack.last.immediate_children.push @children[i]
-          i += 1
-        end
-
-        break if i >= @children.size
-
-        header = @children[i]
-        level = header.level
-
-        if level > stack.last.section_level
-          # this level is inside
-
+        if children[i].node_type == :header
+          header = @children[i]
+          level = header.level
           s2 = Section.new
           s2.section_level = level
           s2.header_element = header
           header.instance_variable_set :@section, s2
-
+          while level <= stack.last.section_level
+            stack.pop
+          end
           stack.last.section_children.push s2
           stack.push s2
-
-          i += 1
         else
-          # this level is a parent or sibling
-          stack.pop
+          stack.last.immediate_children.push @children[i]
         end
+        i += 1
       end
 
       # If there is only one big header, then assume it is the master
-      s = s.section_children.first if s.section_children.size == 1
+#      s = s.section_children.first if s.section_children.size == 1
 
       # Assign section numbers
-      s.numerate
+      s.numerate([])
 
       s
     end
