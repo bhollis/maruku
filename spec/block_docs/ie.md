@@ -1,7 +1,7 @@
 We must make sure that `&apos;` is always written as `&#39;`.
 
 *** Parameters: ***
-{} # params 
+{:html_use_syntax => true} # params 
 *** Markdown input: ***
 `<p>here's an apostrophe & a quote "</p>`
 

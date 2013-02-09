@@ -10,7 +10,7 @@ Gem::Specification.new do |s|
   s.license = 'GPL-2'
   s.authors = ["Andrea Censi", "Nathan Weizenbaum", "Ben Hollis"]
   s.email = "ben@benhollis.net"
-  s.homepage = 'http://maruku.rubyforge.org'
+  s.homepage = "http://github.com/bhollis/maruku"
 
   s.files = Dir['lib/**/*.rb',
                 'docs/*.{md,html}',
@@ -27,11 +27,11 @@ Gem::Specification.new do |s|
   s.required_ruby_version = '>= 1.8.7'
 
   s.add_dependency('nokogiri', '~> 1.5', '>= 1.5.6')
-  s.add_dependency('syntax', '>= 1.0.0')
-  s.add_dependency('itextomml', '~> 1.4.10')
 
+  s.add_development_dependency('syntax', '~> 1.0.0')
   s.add_development_dependency('rake', '~> 0.9.2')
   s.add_development_dependency('rspec', '~> 2.12.0')
   s.add_development_dependency('yard', '~> 0.7.2')
   s.add_development_dependency('nokogiri-diff', '~> 0.1.2')
 end
+

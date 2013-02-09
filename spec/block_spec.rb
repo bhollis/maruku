@@ -1,4 +1,3 @@
-#!/usr/bin/env ruby -w
 # encoding: UTF-8
 Encoding.default_external=('UTF-8') if ''.respond_to?(:force_encoding)
 
@@ -28,7 +27,7 @@ class Nokogiri::XML::Node
   end
 end
 
-#METHODS = [:to_html, :to_latex, :to_md, :to_s]
+# :to_md and :to_s tests are disabled for now
 METHODS = [:to_html, :to_latex]
 
 describe "A Maruku document" do
