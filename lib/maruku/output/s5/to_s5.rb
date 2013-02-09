@@ -7,7 +7,7 @@ require 'maruku/string_utils'
 class MDDocument
 
 	def s5_theme
-	  html_escape(self.attributes[:slide_theme] || "default")
+	  CGI::escapeHTML(self.attributes[:slide_theme] || "default")
 	end
 		
 	# Render as an HTML fragment (no head, just the content of BODY). (returns a string)
@@ -82,7 +82,7 @@ class MDDocument
 		presentation << Nokogiri::XML::Document.parse(first_slide).root
 
 		slide_num = 0
-		self.toc.section_children.each do |slide|
+		self.toc.section_children[0].section_children.each do |slide|
 			slide_num += 1
 			@doc.attributes[:doc_prefix] = "s#{slide_num}"
 			
