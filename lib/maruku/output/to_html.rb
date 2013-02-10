@@ -30,7 +30,7 @@ module MaRuKu::Out::HTML
 
   # Render as an HTML fragment (no head, just the content of BODY). (returns a string)
   def to_html(context={})
-    d = Nokogiri::XML::DocumentFragment.new(Nokogiri::XML::Document.new)
+    d = Nokogiri::XML::DocumentFragment.new(xdoc)
     children_to_html.each do |e|
       d << e
     end
@@ -43,6 +43,13 @@ module MaRuKu::Out::HTML
     correct_document(d.to_xml(:save_with => OUTPUT_OPTIONS, :encoding => 'UTF-8'))
   end
 
+  Xhtml11_mathml2_svg11 =
+    '<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC
+    "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN"
+    "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+'
+
   # Render to a complete HTML document (returns a string)
   def to_html_document(context={})
     doc = to_html_document_tree
@@ -51,6 +58,7 @@ module MaRuKu::Out::HTML
     Xhtml11_mathml2_svg11 + xml
   end
 
+  # Correct for bugs in JRuby nokogiri
   def correct_document(doc)
     if RUBY_PLATFORM == 'java'
       doc = doc.
@@ -70,31 +78,14 @@ module MaRuKu::Out::HTML
     doc
   end
 
-  Xhtml10strict  =
-    "<?xml version='1.0' encoding='utf-8'?>
-<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Strict//EN'
-'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'>\n"
-
-  Xhtml11strict_mathml2 = '<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0//EN"
-               "http://www.w3.org/TR/MathML2/dtd/xhtml-math11-f.dtd" [
-  <!ENTITY mathml "http://www.w3.org/1998/Math/MathML">
-]>
-'
-
-  Xhtml11_mathml2_svg11 =
-    '<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE html PUBLIC
-    "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN"
-    "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
-'
-
-
   def xml_newline
-    d = Nokogiri::XML::Document.new
-    Nokogiri::XML::Text.new("\n", d)
+    Nokogiri::XML::Text.new("\n", xdoc)
   end
 
+  # Create an empty XML document to attach nodes to
+  def xdoc
+    @xdoc ||= Nokogiri::XML::Document.new
+  end
 
   #=begin maruku_doc
   # Attribute: title
@@ -134,24 +125,6 @@ module MaRuKu::Out::HTML
   # Synonym for `title`.
   #=end
 
-
-  # Render to an HTML fragment (returns a Nokogiri document tree)
-  def to_html_tree
-    d = Nokogiri::XML::Document.new
-    div = Nokogiri::XML::Element.new('dummy', d)
-    div['class'] = 'maruku_wrapper_div'
-    children_to_html.each do |e|
-      div << e
-    end
-
-    # render footnotes
-    if @doc.footnotes_order.size > 0
-      div << render_footnotes
-    end
-
-    d << div
-  end
-
   #=begin maruku_doc
   # Attribute: css
   # Scope: document
@@ -170,9 +143,7 @@ module MaRuKu::Out::HTML
 
   # Render to a complete HTML document (returns a Nokogiri document tree)
   def to_html_document_tree
-    doc = Nokogiri::XML::Document.new
-
-    root = Nokogiri::XML::Element.new('html', doc)
+    root = Nokogiri::XML::Element.new('html', xdoc)
     root.add_namespace(nil, 'http://www.w3.org/1999/xhtml')
     root.add_namespace('svg', "http://www.w3.org/2000/svg" )
     lang = self.attributes[:lang] || 'en'
@@ -180,18 +151,18 @@ module MaRuKu::Out::HTML
     doc << root
 
     root << xml_newline
-    head = Nokogiri::XML::Element.new('head', doc)
+    head = Nokogiri::XML::Element.new('head', xdoc)
     root << head
 
     #<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
-    me = Nokogiri::XML::Element.new('meta', doc)
+    me = Nokogiri::XML::Element.new('meta', xdoc)
     me['http-equiv'] = 'Content-type'
     me['content'] = 'application/xhtml+xml;charset=utf-8'
     head << me
 
     METAS.each do |m|
       if value = self.attributes[m.to_sym]
-        meta = Nokogiri::XML::Element.new('meta', doc)
+        meta = Nokogiri::XML::Element.new('meta', xdoc)
         meta['name'] = m
         meta['content'] = value.to_s
         head << meta
@@ -212,15 +183,15 @@ module MaRuKu::Out::HTML
 
     # Create title element
     doc_title = self.attributes[:title] || self.attributes[:subject] || ""
-    title = Nokogiri::XML::Element.new('title', doc)
-    title << Nokogiri::XML::Text.new(doc_title, doc)
+    title = Nokogiri::XML::Element.new('title', xdoc)
+    title << Nokogiri::XML::Text.new(doc_title, xdoc)
     head << title
     add_css_to(head)
 
 
     root << xml_newline
 
-    body = Nokogiri::XML::Element.new('body', doc)
+    body = Nokogiri::XML::Element.new('body', xdoc)
 
     children_to_html.each do |e|
       body << e
@@ -243,10 +214,10 @@ module MaRuKu::Out::HTML
 
   def add_css_to(head)
     if css_list = self.attributes[:css]
-      d = Nokogiri::XML::Document.new
+
       css_list.split.each do |css|
         # <link type="text/css" rel="stylesheet" href="..." />
-        link = Nokogiri::XML::Element.new('link', d)
+        link = Nokogiri::XML::Element.new('link', xdoc)
         link['type'] = 'text/css'
         link['rel'] = 'stylesheet'
         link['href'] = css
@@ -280,8 +251,8 @@ module MaRuKu::Out::HTML
   end
 
   def maruku_html_signature
-    d = Nokogiri::XML::Document.new
-    div = Nokogiri::XML::Element.new( 'div', d)
+
+    div = Nokogiri::XML::Element.new( 'div', xdoc)
     div['class'] = 'maruku_signature'
     div << Nokogiri::XML::Element.new('hr', div)
     span = Nokogiri::XML::Element.new('span', div)
@@ -296,21 +267,21 @@ module MaRuKu::Out::HTML
   end
 
   def render_footnotes
-    d = Nokogiri::XML::Document.new
-    div = Nokogiri::XML::Element.new('div', d)
+
+    div = Nokogiri::XML::Element.new('div', xdoc)
     div['class'] = 'footnotes'
-    div <<  Nokogiri::XML::Element.new('hr', d)
-    ol = Nokogiri::XML::Element.new('ol', d)
+    div <<  Nokogiri::XML::Element.new('hr', xdoc)
+    ol = Nokogiri::XML::Element.new('ol', xdoc)
     @doc.footnotes_order.each_with_index do |fid, i| num = i+1
       f = self.footnotes[fid]
       if f
         li = f.wrap_as_element('li')
         li['id'] = "#{get_setting(:doc_prefix)}fn:#{num}"
 
-        a = Nokogiri::XML::Element.new('a', d)
+        a = Nokogiri::XML::Element.new('a', xdoc)
         a['href'] = "\##{get_setting(:doc_prefix)}fnref:#{num}"
         a['rev'] = 'footnote'
-        a << Nokogiri::XML::Text.new([8617].pack('U*'), d)
+        a << Nokogiri::XML::Text.new([8617].pack('U*'), xdoc)
 
         last = nil
         li.children.reverse_each do |child|
@@ -414,8 +385,8 @@ module MaRuKu::Out::HTML
 
 
   def create_html_element(name, attributes_to_copy=[])
-    d = Nokogiri::XML::Document.new
-    m = Nokogiri::XML::Element.new(name, d)
+
+    m = Nokogiri::XML::Element.new(name, xdoc)
     if atts = HTML4Attributes[name] then
       atts.each do |att|
         if v = @attributes[att] then
@@ -473,12 +444,12 @@ module MaRuKu::Out::HTML
 
   # nil if not applicable, else SPAN element
   def render_section_number
-    d = Nokogiri::XML::Document.new
+
     # if we are bound to a section, add section number
     if section_number
-      span = Nokogiri::XML::Element.new('span', d)
+      span = Nokogiri::XML::Element.new('span', xdoc)
       span['class'] = 'maruku_section_number'
-      span << Nokogiri::XML::Text.new(section_number, d)
+      span << Nokogiri::XML::Text.new(section_number, xdoc)
       span
     else
       nil
@@ -496,8 +467,7 @@ module MaRuKu::Out::HTML
   end
 
   def source2html(source)
-    d = Nokogiri::XML::Document.new
-    Nokogiri::XML::Text.new(source,d)
+    Nokogiri::XML::Text.new(source, xdoc)
   end
 
   #=begin maruku_doc
@@ -534,7 +504,7 @@ module MaRuKu::Out::HTML
   #=end
 
   $syntax_loaded = false
-  def to_html_code;
+  def to_html_code
     source = self.raw_code
 
     lang = self.attributes[:lang] || @doc.attributes[:code_lang]
@@ -562,14 +532,13 @@ module MaRuKu::Out::HTML
 
           html.gsub!(/\&apos;|'/,'&#39;') # IE bug
           #     html = html.gsub(/&/,'&amp;')
-          dd = Nokogiri::XML::Document.new
           d = Nokogiri::XML::Document.parse(html)
           code = d.root
           code.name = 'code'
           code['lang'] = lang
           code['xml:lang'] = lang
 
-          pre = Nokogiri::XML::Element.new('pre', dd)
+          pre = Nokogiri::XML::Element.new('pre', xdoc)
           pre['class'] = lang
           pre << code
           pre
@@ -617,9 +586,9 @@ module MaRuKu::Out::HTML
 
 
   def to_html_code_using_pre(source)
-    d = Nokogiri::XML::Document.new
+
     pre = create_html_element  'pre'
-    code = Nokogiri::XML::Element.new('code', d)
+    code = Nokogiri::XML::Element.new('code', xdoc)
     s = source
 
     if get_setting(:code_show_spaces)
@@ -630,7 +599,7 @@ module MaRuKu::Out::HTML
       s.gsub!(/ /,'&#172;')
     end
 
-    text = Nokogiri::XML::Text.new(s, d)
+    text = Nokogiri::XML::Text.new(s, xdoc)
 
     if lang = self.attributes[:lang]
       code['lang'] = lang
@@ -682,11 +651,11 @@ module MaRuKu::Out::HTML
 
 
   def to_html_immediate_link
-    d = Nokogiri::XML::Document.new
+
     a =  create_html_element 'a'
     url = self.url
     text = url.gsub(/^mailto:/,'') # don't show mailto
-    a << Nokogiri::XML::Text.new(text, d)
+    a << Nokogiri::XML::Text.new(text, xdoc)
     a['href'] = url
     add_class_to_link(a)
     a
@@ -727,8 +696,7 @@ module MaRuKu::Out::HTML
   end
 
   def add_ws(e)
-    d = Nokogiri::XML::Document.new
-    [Nokogiri::XML::Text.new("\n", d), e, Nokogiri::XML::Text.new("\n", d)]
+    [xml_newline, e, xml_newline]
   end
   ##### Email address
 
@@ -737,10 +705,9 @@ module MaRuKu::Out::HTML
     # we can't print entity references correctly in JRuby
     return s if RUBY_PLATFORM == 'java'
 
-    d = Nokogiri::XML::Document.new
-    res = Nokogiri::XML::NodeSet.new(d)
+    res = Nokogiri::XML::NodeSet.new(xdoc)
     s.each_byte do |char|
-      res <<  Nokogiri::XML::EntityReference.new(d, "#%03d" % char)
+      res <<  Nokogiri::XML::EntityReference.new(xdoc, "#%03d" % char)
     end
     res
   end
@@ -807,28 +774,28 @@ module MaRuKu::Out::HTML
 
     # If there's no parsed HTML
     raw_html = self.raw_html
-    d = Nokogiri::XML::Document.new
+
     # Creates red box with offending HTML
     tell_user "Wrapping bad html in a PRE with class 'markdown-html-error'\n"+
       raw_html.gsub(/^/, '|')
-    pre = Nokogiri::XML::Element.new('pre', d)
+    pre = Nokogiri::XML::Element.new('pre', xdoc)
     pre['style'] = 'border: solid 3px red; background-color: pink'
     pre['class'] = 'markdown-html-error'
-    pre << Nokogiri::XML::Text.new("Nokogiri could not parse this XML/HTML: \n#{raw_html}", d)
+    pre << Nokogiri::XML::Text.new("Nokogiri could not parse this XML/HTML: \n#{raw_html}", xdoc)
 
     pre
   end
 
   def to_html_abbr
-    d = Nokogiri::XML::Document.new
-    abbr = Nokogiri::XML::Element.new('abbr', d)
-    abbr << Nokogiri::XML::Text.new(children[0], d)
+
+    abbr = Nokogiri::XML::Element.new('abbr', xdoc)
+    abbr << Nokogiri::XML::Text.new(children[0], xdoc)
     abbr['title'] = self.title if self.title
     abbr
   end
 
   def to_html_footnote_reference
-    d = Nokogiri::XML::Document.new
+
     id = self.footnote_id
 
     # save the order of used footnotes
@@ -849,10 +816,10 @@ module MaRuKu::Out::HTML
     #num = order.size;
     num = order.index(id) + 1
 
-    sup = Nokogiri::XML::Element.new('sup', d)
+    sup = Nokogiri::XML::Element.new('sup', xdoc)
     sup['id'] = "#{get_setting(:doc_prefix)}fnref:#{num}"
-    a = Nokogiri::XML::Element.new('a', d)
-    a << Nokogiri::XML::Text.new(num.to_s, d)
+    a = Nokogiri::XML::Element.new('a', xdoc)
+    a << Nokogiri::XML::Text.new(num.to_s, xdoc)
     a['href'] = "\##{get_setting(:doc_prefix)}fn:#{num}"
     a['rel'] = 'footnote'
     sup << a
@@ -910,7 +877,7 @@ module MaRuKu::Out::HTML
   end
 
   def to_html_entity
-    d = Nokogiri::XML::Document.new
+
     MaRuKu::Out::Latex.need_entity_table
 
     entity_name = self.entity_name
@@ -927,9 +894,9 @@ module MaRuKu::Out::HTML
     x = if entity_name.kind_of? Fixnum
           # Work around https://github.com/sparklemotion/nokogiri/issues/835
           # by simply converting numeric entities to unicode characters
-          Nokogiri::XML::Text.new([entity_name].pack('U*'), d)
+          Nokogiri::XML::Text.new([entity_name].pack('U*'), xdoc)
         else
-          Nokogiri::XML::EntityReference.new(d, entity_name)
+          Nokogiri::XML::EntityReference.new(xdoc, entity_name)
         end
     x
   end
@@ -938,13 +905,13 @@ module MaRuKu::Out::HTML
     target = self.target || ''
     code = self.code || ''
 
-    d = Nokogiri::XML::Document.new
+
 
     # A blank target is invalid XML. Just create a text node?
     if target.empty?
-      Nokogiri::XML::Text.new("<?#{code}?>", d)
+      Nokogiri::XML::Text.new("<?#{code}?>", xdoc)
     else
-      Nokogiri::XML::ProcessingInstruction.new(d, target, code)
+      Nokogiri::XML::ProcessingInstruction.new(xdoc, target, code)
     end
   end
 
@@ -984,8 +951,7 @@ module MaRuKu::Out::HTML
   end
 
   def string_to_html(str)
-    d = Nokogiri::XML::Document.new
-    Nokogiri::XML::Text.new(str, d)
+    Nokogiri::XML::Text.new(str, xdoc)
   end
 
   def to_html_ref_definition; [] end
