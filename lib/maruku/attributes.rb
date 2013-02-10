@@ -61,9 +61,7 @@ module MaRuKu
 
         case src.cur_char
         when nil
-          maruku_error "Attribute list terminated by EOF:\n #{al.inspect}", src, con
-          tell_user "Returning partial attribute list:\n #{al.inspect}"
-          break
+          break      # we're done here.
         when '='     # error
           src.ignore_char
           maruku_error "In attribute lists, cannot start identifier with `=`."
