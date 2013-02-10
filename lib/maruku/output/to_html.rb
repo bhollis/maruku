@@ -23,39 +23,35 @@ require 'maruku/string_utils'
 
 # This module groups all functions related to HTML export.
 module MaRuKu::Out::HTML
+  # We don't want indentation because it messes up "pre" and makes
+  # things inconsistent between MRI and JRuby
+  OUTPUT_OPTIONS = Nokogiri::XML::Node::SaveOptions::DEFAULT_XHTML ^
+    Nokogiri::XML::Node::SaveOptions::FORMAT
 
   # Render as an HTML fragment (no head, just the content of BODY). (returns a string)
   def to_html(context={})
-    d = Nokogiri::XML::Document.parse('<dummy/>', nil, 'UTF-8')
+    d = Nokogiri::XML::DocumentFragment.new(Nokogiri::XML::Document.new)
     children_to_html.each do |e|
-      d.root << e
+      d << e
     end
 
     # render footnotes
-    if @doc.footnotes_order.size > 0
-      d.root << render_footnotes
+    unless @doc.footnotes_order.empty?
+      d << render_footnotes
     end
 
-    # We don't want indentation because it messes up "pre" and makes
-    # things inconsistent between MRI and JRuby
-    save_options = Nokogiri::XML::Node::SaveOptions::DEFAULT_XHTML ^
-      Nokogiri::XML::Node::SaveOptions::FORMAT
-
-    correct_document(d.to_xml(:save_with => save_options ))
+    correct_document(d.to_xml(:save_with => OUTPUT_OPTIONS, :encoding => 'UTF-8'))
   end
 
   # Render to a complete HTML document (returns a string)
   def to_html_document(context={})
     doc = to_html_document_tree
 
-    save_options = Nokogiri::XML::Node::SaveOptions::DEFAULT_XHTML ^
-      Nokogiri::XML::Node::SaveOptions::FORMAT
-    xml = correct_document(doc.to_xml(:save_with => save_options ))
+    xml = correct_document(doc.to_xml(:save_with => OUTPUT_OPTIONS, :encoding => 'UTF-8'))
     Xhtml11_mathml2_svg11 + xml
   end
 
   def correct_document(doc)
-    doc = doc.gsub(/\A<dummy>\s*|\s*<\/dummy>\s*\Z|\A<dummy\s*\/>/,'')
     if RUBY_PLATFORM == 'java'
       doc = doc.
         gsub(/<br>/, '<br />'). # JRuby nokogiri bug https://github.com/sparklemotion/nokogiri/issues/834
