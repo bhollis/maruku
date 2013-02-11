@@ -21,6 +21,19 @@
 require 'set'
 
 module MaRuKu::Out::Latex
+  module MDDocumentExtensions
+    # @return [Set<String>]
+    attr_accessor :latex_required_packages
+
+    def latex_require_package(p)
+      self.latex_required_packages << p
+    end
+
+    def initialize(*args)
+      self.latex_required_packages = Set.new
+      super
+    end
+  end
 
   Latex_preamble_enc_cjk =
     "\\usepackage[C40]{fontenc}
@@ -30,12 +43,6 @@ module MaRuKu::Out::Latex
   Latex_preamble_enc_utf8 =
     "\\usepackage{ucs}
 \\usepackage[utf8x]{inputenc}"
-
-  def latex_require_package(p)
-    if not self.latex_required_packages.include? p
-      self.latex_required_packages.push p
-    end
-  end
 
   # Render as a LaTeX fragment
   def to_latex
@@ -58,13 +65,12 @@ module MaRuKu::Out::Latex
     body = to_latex
 
     if get_setting(:maruku_signature)
-      body += render_latex_signature
+      body << render_latex_signature
     end
 
-    required =
-      self.latex_required_packages.map {|p|
+    required = self.latex_required_packages.map do |p|
       "\\usepackage{#{p}}\n"
-    }.join
+    end.join
 
     #=begin maruku_doc
     # Attribute: latex_cjk
@@ -88,8 +94,8 @@ module MaRuKu::Out::Latex
     # <?mrk md_codeblock(Maruku::MDDocument::Latex_preamble_enc_utf8) ?>
     #
     #=end
-    encoding = get_setting(:latex_cjk) ?
-    Latex_preamble_enc_cjk : Latex_preamble_enc_utf8
+
+    encoding = get_setting(:latex_cjk) ? Latex_preamble_enc_cjk : Latex_preamble_enc_utf8
 
     #=begin maruku_doc
     # Attribute: latex_preamble
@@ -112,10 +118,10 @@ module MaRuKu::Out::Latex
     #   ...
     #
     #=end
-    user_preamble = (file = @doc.attributes[:latex_preamble]) ?
-    "\\input{#{file}}\n" : ""
 
-    "\\documentclass{article}
+    user_preamble = (file = @doc.attributes[:latex_preamble]) ? "\\input{#{file}}\n" : ""
+
+"\\documentclass{article}
 
 % Packages required to support encoding
 #{encoding}
@@ -137,9 +143,8 @@ module MaRuKu::Out::Latex
 "
   end
 
-
   def render_latex_signature
-    "\\vfill
+"\\vfill
 \\hrule
 \\vspace{1.2mm}
 \\begin{tiny}
@@ -147,13 +152,17 @@ Created by \\href{#{MaRuKu::MARUKU_URL}}{Maruku} #{self.nice_date}.
 \\end{tiny}"
   end
 
-  def to_latex_hrule; "\n\\vspace{.5em} \\hrule \\vspace{.5em}\n" end
-  def to_latex_linebreak; "\\newline " end
-
-  def to_latex_paragraph
-    children_to_latex+"\n\n"
+  def to_latex_hrule
+    "\n\\vspace{.5em} \\hrule \\vspace{.5em}\n"
   end
 
+  def to_latex_linebreak
+    "\\newline "
+  end
+
+  def to_latex_paragraph
+    children_to_latex + "\n\n"
+  end
 
   #=begin maruku_doc
   # Title: Input format for colors
@@ -167,19 +176,13 @@ Created by \\href{#{MaRuKu::MARUKU_URL}}{Maruku} #{self.nice_date}.
   #   #aabbcc
   #=end
 
-  # \color[named]{name}
+  # \color{name}
   # \color[rgb]{1,0.2,0.3}
   def latex_color(s, command='color')
-    if s =~ /^\#(\w\w)(\w\w)(\w\w)$/
-      r = $1.hex; g = $2.hex; b=$3.hex
-      # convert from 0-255 to 0.0-1.0
-      r = r / 255.0; g = g / 255.0; b = b / 255.0;
-      "\\#{command}[rgb]{%0.2f,%0.2f,%0.2f}" % [r,g,b]
-    elsif s =~ /^\#(\w)(\w)(\w)$/
-      r = $1.hex; g = $2.hex; b=$3.hex
-      # convert from 0-15 to 0.0-1.0
-      r = r / 15.0; g = g / 15.0; b = b / 15.0;
-      "\\#{command}[rgb]{%0.2f,%0.2f,%0.2f}" % [r,g,b]
+    if s =~ /\A\#([1-9A-F]{1,2})([1-9A-F]{1,2})([1-9A-F]{1,2})\Z/i
+      # convert from 0-255 or 0-15 to 0.0-1.0
+      r, g, b = [$1, $2, $3].map {|c| c.hex / (c.length == 1 ? 15.0 : 255.0) }
+      "\\#{command}[rgb]{%0.2f,%0.2f,%0.2f}" % [r, g, b]
     else
       "\\#{command}{#{s}}"
     end
@@ -244,46 +247,37 @@ Created by \\href{#{MaRuKu::MARUKU_URL}}{Maruku} #{self.nice_date}.
   #
   #=end
 
-  def to_latex_code;
-    raw_code = self.raw_code
-
+  def to_latex_code
     if get_setting(:latex_use_listings)
       @doc.latex_require_package('listings')
 
       s = "\\lstset{columns=fixed,frame=shadowbox}"
 
       if get_setting(:code_show_spaces)
-        s+= "\\lstset{showspaces=true,showtabs=true}\n"
+        s << "\\lstset{showspaces=true,showtabs=true}\n"
       else
-        s+= "\\lstset{showspaces=false,showtabs=false}\n"
+        s << "\\lstset{showspaces=false,showtabs=false}\n"
       end
 
       color = latex_color get_setting(:code_background_color)
 
-      s+= "\\lstset{backgroundcolor=#{color}}\n"
+      s << "\\lstset{backgroundcolor=#{color}}\n"
 
-      s+= "\\lstset{basicstyle=\\ttfamily\\footnotesize}\n"
+      s << "\\lstset{basicstyle=\\ttfamily\\footnotesize}\n"
 
 
       lang = self.attributes[:lang] || @doc.attributes[:code_lang] || '{}'
-      if lang
-        s += "\\lstset{language=#{lang}}\n"
-      end
+      s << "\\lstset{language=#{lang}}\n" if lang
 
-      "#{s}\n\\begin{lstlisting}\n#{raw_code}\n\\end{lstlisting}"
+      "#{s}\n\\begin{lstlisting}\n#{self.raw_code}\n\\end{lstlisting}"
     else
-      "\\begin{verbatim}#{raw_code}\\end{verbatim}\n"
+      "\\begin{verbatim}#{self.raw_code}\\end{verbatim}\n"
     end
   end
 
-  TexHeaders = {
-    1=>'section',
-    2=>'subsection',
-    3=>'subsubsection',
-    4=>'paragraph'}
-
   def to_latex_header
-    h = TexHeaders[self.level] || 'paragraph'
+    header_levels = %w(section subsection subsubsection)
+    h = header_levels[self.level - 1] || 'paragraph'
 
     title = children_to_latex
     if number = section_number
@@ -292,15 +286,14 @@ Created by \\href{#{MaRuKu::MARUKU_URL}}{Maruku} #{self.nice_date}.
 
     if id = self.attributes[:id]
       # drop '#' at the beginning
-      if id[0,1] == '#' then id = [1,id.size] end
+      id = id[1..-1] if id.start_with? '#'
       %{\\hypertarget{%s}{}\\%s*{{%s}}\\label{%s}\n\n} % [ id, h, title, id ]
     else
       %{\\%s*{%s}\n\n} % [ h, title]
     end
   end
 
-
-  def to_latex_ul;
+  def to_latex_ul
     if self.attributes[:toc]
       @doc.toc.to_latex
     else
@@ -308,18 +301,26 @@ Created by \\href{#{MaRuKu::MARUKU_URL}}{Maruku} #{self.nice_date}.
     end
   end
 
-  def to_latex_quote;        wrap_as_environment('quote')               end
-  def to_latex_ol;        wrap_as_environment('enumerate')               end
-  def to_latex_li;
+  def to_latex_quote
+    wrap_as_environment('quote')
+  end
+
+  def to_latex_ol
+    wrap_as_environment('enumerate')
+  end
+
+  def to_latex_li
     "\\item #{children_to_latex}\n"
   end
-  def to_latex_li_span;
+
+  def to_latex_li_span
     "\\item #{children_to_latex}\n"
   end
 
   def to_latex_strong
     "\\textbf{#{children_to_latex}}"
   end
+
   def to_latex_emphasis
     "\\emph{#{children_to_latex}}"
   end
@@ -335,28 +336,24 @@ Created by \\href{#{MaRuKu::MARUKU_URL}}{Maruku} #{self.nice_date}.
   end
 
   SAFE_CHARS = Set.new(('a'..'z').to_a + ('A'..'Z').to_a)
+
   # the ultimate escaping
   # (is much better than using \verb)
   def latex_escape(source)
-    s="";
-
-    source.each_char do |b|
-      if b == '\\'
-        s << '~'
-      elsif SAFE_CHARS.include? b
-        s << b
-      else
-        s += "\\char%d" % b[0].ord
-      end
+    source.chars.inject('') do |s, b|
+      s << if b == '\\'
+             '~'
+           elsif SAFE_CHARS.include? b
+             b
+           else
+             "\\char%d" % b[0].ord
+           end
     end
-    s
   end
 
-  def to_latex_inline_code;
-    source = self.raw_code
-
+  def to_latex_inline_code
     # Convert to printable latex chars
-    s = latex_escape(source)
+    s = latex_escape(self.raw_code)
 
     color = get_setting(:code_background_color)
     colorspec = latex_color(color, 'colorbox')
@@ -367,113 +364,100 @@ Created by \\href{#{MaRuKu::MARUKU_URL}}{Maruku} #{self.nice_date}.
   def to_latex_immediate_link
     url = self.url
     text = url.gsub(/^mailto:/,'') # don't show mailto
-    #     gsub('~','$\sim$')
     text = latex_escape(text)
-    if url[0,1] == '#'
-      url = url[1,url.size]
-      return "\\hyperlink{#{url}}{#{text}}"
+    if url.start_with? '#'
+      url = url[1..-1]
+      "\\hyperlink{#{url}}{#{text}}"
     else
-
-      return "\\href{#{url}}{#{text}}"
+      "\\href{#{url}}{#{text}}"
     end
   end
 
   def to_latex_im_link
     url = self.url
 
-    if url[0,1] == '#'
-      url = url[1,url.size]
-      return "\\hyperlink{#{url}}{#{children_to_latex}}"
+    if url.start_with? '#'
+      url = url[1..-1]
+      "\\hyperlink{#{url}}{#{children_to_latex}}"
     else
-      return "\\href{#{url}}{#{children_to_latex}}"
+      "\\href{#{url}}{#{children_to_latex}}"
     end
   end
 
   def to_latex_link
     id = self.ref_id
     ref = @doc.refs[sanitize_ref_id(id)] || @doc.refs[sanitize_ref_id(children_to_s)]
-    if not ref
-      $stderr.puts "Could not find id = '#{id}'"
-      return children_to_latex
-    else
+    if ref
       url = ref[:url]
-      #title = ref[:title] || 'no title'
 
-      if url[0,1] == '#'
-        url = url[1,url.size]
-        return "\\hyperlink{#{url}}{#{children_to_latex}}"
+      if url.start_with? '#'
+        url = url[1..-1]
+        "\\hyperlink{#{url}}{#{children_to_latex}}"
       else
-        return "\\href{#{url}}{#{children_to_latex}}"
+        "\\href{#{url}}{#{children_to_latex}}"
       end
+    else
+      $stderr.puts "Could not find id = '#{id}'"
+      children_to_latex
     end
-
   end
 
   def to_latex_email_address
-    email = self.email
-    "\\href{mailto:#{email}}{#{latex_escape(email)}}"
+    "\\href{mailto:#{self.email}}{#{latex_escape(self.email)}}"
   end
 
-
   def to_latex_table
-    align = self.align
-    num_columns = align.size
+    num_columns = self.align.size
 
-    head = @children.slice(0, num_columns)
-    rows = []
-    i = num_columns
-    while i<@children.size
-      rows << @children.slice(i, num_columns)
-      i+=num_columns
-    end
+    head, *rows = @children.each_slice(num_columns).to_a
 
-    h = {:center=>'c',:left=>'l',:right=>'r'}
-    align_string = align.map{|a| h[a]}.join('|')
+    h = { :center => 'c' , :left => 'l' , :right => 'r'}
+    align_string = self.align.map {|a| h[a] }.join('|')
 
     s = "\\begin{tabular}{#{align_string}}\n"
 
-    s += array_to_latex(head, '&') + "\\\\" + "\n"
+    s << array_to_latex(head, '&') + "\\\\" + "\n"
 
-    s += "\\hline \n"
+    s << "\\hline \n"
 
     rows.each do |row|
-      s += array_to_latex(row, '&') + "\\\\" + "\n"
+      s << array_to_latex(row, '&') + "\\\\" + "\n"
     end
 
-    s += "\\end{tabular}"
+    s << "\\end{tabular}"
 
     # puts table in its own paragraph
-    s += "\n\n"
-
-    s
+    s << "\n\n"
   end
 
 
-  def to_latex_head_cell; children_to_latex end
-  def to_latex_cell; children_to_latex end
+  def to_latex_head_cell
+    children_to_latex
+  end
 
+  def to_latex_cell
+    children_to_latex
+  end
 
   def to_latex_footnote_reference
     id = self.footnote_id
-    f = @doc.footnotes[id]
-    if f
+    if f = @doc.footnotes[id]
       "\\footnote{#{f.children_to_latex.strip}} "
     else
-      $stderr.puts "Could not find footnote '#{fid}'"
+      $stderr.puts "Could not find footnote '#{id}'"
     end
   end
 
   def to_latex_raw_html
-    #'{\bf Raw HTML removed in latex version }'
+    # Raw HTML removed in latex version
     ""
   end
 
   ## Definition lists ###
   def to_latex_definition_list
     s = "\\begin{description}\n"
-    s += children_to_latex
-    s += "\\end{description}\n"
-    s
+    s << children_to_latex
+    s << "\\end{description}\n"
   end
 
   def to_latex_definition
@@ -481,17 +465,16 @@ Created by \\href{#{MaRuKu::MARUKU_URL}}{Maruku} #{self.nice_date}.
     definitions = self.definitions
 
     s = ""
-    terms.each do |t|
-      s +="\n\\item[#{t.children_to_latex}] "
+    self.terms.each do |t|
+      s << "\n\\item[#{t.children_to_latex}] "
     end
 
-    definitions.each do |d|
-      s += "#{d.children_to_latex} \n"
+    self.definitions.each do |d|
+      s << "#{d.children_to_latex} \n"
     end
 
     s
   end
-
 
   def to_latex_abbr
     children_to_latex
@@ -500,18 +483,15 @@ Created by \\href{#{MaRuKu::MARUKU_URL}}{Maruku} #{self.nice_date}.
   def to_latex_image
     id = self.ref_id
     ref = @doc.refs[sanitize_ref_id(id)] || @doc.refs[sanitize_ref_id(children_to_s)]
-    if not ref
-      maruku_error "Could not find ref #{id.inspect} for image.\n"+
-        "Available are: #{@docs.refs.keys.inspect}"
-      #     $stderr.puts "Could not find id = '#{id}'"
-      ""
-    else
+    if ref
       url = ref[:url]
       $stderr.puts "Images not supported yet (#{url})"
-      # "{\\bf Images not supported yet (#{latex_escape(url)})}"
+      ""
+    else
+      maruku_error "Could not find ref #{id.inspect} for image.\n"+
+        "Available are: #{@docs.refs.keys.inspect}"
       ""
     end
-
   end
 
   def to_latex_div
@@ -519,27 +499,24 @@ Created by \\href{#{MaRuKu::MARUKU_URL}}{Maruku} #{self.nice_date}.
     id = self.attributes[:id]
     case type
     when /^un_(\w*)/
-      s = "\\begin{u#{$1}}"
-      #     s += "[#{@children[0].send('children_to_latex')}]"
-      @children.delete_at(0)
-      s += "\n" + children_to_latex
-      s += "\\end{u#{$1}}\n"
+      @children.shift
+      s = "\\begin{u#{$1}}\n"
+      s << children_to_latex
+      s << "\\end{u#{$1}}\n"
     when /^num_(\w*)/
+      @children.delete_at(0)
       s = "\\begin{#{$1}}"
-      #     s += "[#{@children[0].send('children_to_latex')}]"
-      @children.delete_at(0)
-      s += "\n\\label{#{id}}\\hypertarget{#{id}}{}\n"
-      s += children_to_latex
-      s += "\\end{#{$1}}\n"
+      s << "\n\\label{#{id}}\\hypertarget{#{id}}{}\n"
+      s << children_to_latex
+      s << "\\end{#{$1}}\n"
     when /^proof/
-      s = "\\begin{proof}"
       @children.delete_at(0)
-      s += "\n" + children_to_latex
-      s += "\\end{proof}\n"
+      s = "\\begin{proof}\n"
+      s << children_to_latex
+      s << "\\end{proof}\n"
     else
-      s = children_to_latex
+      children_to_latex
     end
-    s
   end
 
   # Convert each child to html
@@ -550,37 +527,29 @@ Created by \\href{#{MaRuKu::MARUKU_URL}}{Maruku} #{self.nice_date}.
   def array_to_latex(array, join_char='')
     e = []
     array.each do |c|
-      method = c.kind_of?(Maruku::MDElement) ?
-      "to_latex_#{c.node_type}" : "to_latex"
-
-      if not c.respond_to?(method)
-        #   raise "Object does not answer to #{method}: #{c.class} #{c.inspect[0,100]}"
-        next
-      end
+      method = c.kind_of?(Maruku::MDElement) ? "to_latex_#{c.node_type}" : "to_latex"
+      next unless c.respond_to?(method)
 
       h =  c.send(method)
 
-      if h.nil?
-        raise "Nil html for #{c.inspect} created with method #{method}"
+      unless h
+        raise "Nil latex for #{c.inspect} created with method #{method}"
       end
 
-      if h.kind_of?Array
-        e = e + h
+      if h.kind_of? Array
+        e.concat h
       else
         e << h
       end
     end
 
-    # puts a space after commands if needed
-    # e.each_index do |i|
-    #   if e[i] =~ /\\\w+\s*$/ # command
-    #     if (s=e[i+1]) && s[0] == ?\ # space
-    #       e[i]  = e[i] + "\\ "
-    #     end
-    #   end
-    # end
-
     e.join(join_char)
   end
 
+end
+
+module MaRuKu
+  class MDDocument
+    include MaRuKu::Out::Latex::MDDocumentExtensions
+  end
 end

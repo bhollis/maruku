@@ -117,9 +117,6 @@ module MaRuKu
     # @return [Array<String>]
     attr_accessor :footnotes_order
 
-    # @return [Array<String>]
-    attr_accessor :latex_required_packages
-
     # @return [{String => {String => MDElement}}]
     attr_accessor :refid2ref
 
@@ -135,7 +132,6 @@ module MaRuKu
       self.footnotes_order = []
       self.abbreviations = {}
       self.ald = {}
-      self.latex_required_packages = []
       self.id_counter = 0
 
       parse_doc(s) if s
