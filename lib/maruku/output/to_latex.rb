@@ -351,6 +351,26 @@ Created by \\href{#{MaRuKu::MARUKU_URL}}{Maruku} #{self.nice_date}.
     end
   end
 
+  def to_latex_entity
+    entity_name = self.entity_name
+
+    entity = MaRuKu::Out::EntityTable.instance.entity(entity_name)
+    unless entity
+      maruku_error "I don't know how to translate entity '#{entity_name}' to LaTeX."
+      return ""
+    end
+    replace = entity.latex_string
+
+    @doc.latex_require_package entity.latex_package if entity.latex_package
+
+    if replace
+      replace + "{}"
+    else
+      tell_user "Cannot translate entity #{entity_name.inspect} to LaTeX."
+      entity_name
+    end
+  end
+
   def to_latex_inline_code
     # Convert to printable latex chars
     s = latex_escape(self.raw_code)
