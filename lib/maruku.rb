@@ -104,6 +104,8 @@ require 'maruku/ext/fenced_code'
 # Version and URL
 require 'maruku/version'
 
+# Entity conversion for HTML and LaTeX
+require 'maruku/output/entity_table'
 
 # Exporting to html
 require 'maruku/output/to_html'
@@ -111,7 +113,6 @@ require 'maruku/output/to_html'
 # Exporting to latex
 require 'maruku/output/to_latex'
 require 'maruku/output/to_latex_strings'
-require 'maruku/output/to_latex_entities'
 
 # Pretty print
 require 'maruku/output/to_markdown'
