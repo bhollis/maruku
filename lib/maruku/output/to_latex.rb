@@ -359,12 +359,16 @@ Created by \\href{#{MaRuKu::MARUKU_URL}}{Maruku} #{self.nice_date}.
       maruku_error "I don't know how to translate entity '#{entity_name}' to LaTeX."
       return ""
     end
-    replace = entity.latex_string
 
+    replace = entity.latex_string
     @doc.latex_require_package entity.latex_package if entity.latex_package
 
     if replace
-      replace + "{}"
+      if replace.start_with?("\\") && replace !~ /[\$\}]\Z/
+        replace + "{}"
+      else
+        replace
+      end
     else
       tell_user "Cannot translate entity #{entity_name.inspect} to LaTeX."
       entity_name

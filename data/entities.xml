@@ -211,7 +211,7 @@
   <char num='208' name='ETH' convertTo='$\eth$' /> <!-- AMS -->
   <char num='209' name='Ntilde' convertTo='\~N' />
   <char num='210' name='Ograve' convertTo='\`O' />
-  <char num='211' name='Oacute' convertTo='\&apos; O' />
+  <char num='211' name='Oacute' convertTo='\&apos;O' />
   <char num='212' name='Ocirc' convertTo='\^O' />
   <char num='213' name='Otilde' convertTo='\~O' />
   <char num='214' name='Ouml' convertTo='\&quot;O' />

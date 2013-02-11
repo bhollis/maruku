@@ -418,8 +418,8 @@ Type "help", "copyright", "credits" or "license" for more information.
 \begin{itemize}%
 \item \emph{Operating System} : \href{http://www.apple.com/getamac/}{Mac OS X}: heaven, after the purgatory of Linux and the hell of Windows.
 \item \emph{Browser}: \href{http://getfirefox.com/}{Firefox}. On a Mac, \href{http://www.caminobrowser.org/}{Camino}.
-\item \emph{Email}: \href{http://gmail.com/}{GMail}, ``{}search, don'{}t sort''{} really works.
-\item \emph{Text Editor}: \href{http://www.apple.com/getamac/}{TextMate}, you have to buy it, but it'{}s worth every penny. There are rumours that it'{}s been converting (recovering) Emacs users (addicts). Unfortunately, it'{}s Mac only. An alternative is \href{http://www.jedit.org/}{jedit} (GPL, Java).
+\item \emph{Email}: \href{http://gmail.com/}{GMail}, ``search, don't sort'' really works.
+\item \emph{Text Editor}: \href{http://www.apple.com/getamac/}{TextMate}, you have to buy it, but it's worth every penny. There are rumours that it's been converting (recovering) Emacs users (addicts). Unfortunately, it's Mac only. An alternative is \href{http://www.jedit.org/}{jedit} (GPL, Java).
 
 \end{itemize}
 \hypertarget{development_2}{}\subsubsection*{{Development}}\label{development_2}
@@ -447,7 +447,7 @@ Type "help", "copyright", "credits" or "license" for more information.
 \item \emph{Java IDE}: \href{http://www.borland.com/us/products/jbuilder/index.html}{JBuilder} is great software and has a free version (IMHO better than Eclipse). Java is not a pain anymore since it gained \href{http://java.sun.com/j2se/1.5.0/docs/guide/language/generics.html}{generics} and got opensourced.
 
 
-\item \emph{Mark-up language}: HTML is so 2001, why don'{}t you take at look at \href{http://en.wikipedia.org/wiki/Markdown}{Markdown}? \href{data/misc_markdown.png}{Look at the source of this page}.
+\item \emph{Mark-up language}: HTML is so 2001, why don't you take at look at \href{http://en.wikipedia.org/wiki/Markdown}{Markdown}? \href{data/misc_markdown.png}{Look at the source of this page}.
 
 
 \item \emph{C++ libraries}: * \href{http://www.trolltech.no/}{QT} for GUIs. * \href{http://www.gnu.org/software/gsl/}{GSL} for math. * \href{http://www.imagemagick.org/Magick++/}{Magick++} for manipulating images. * \href{http://cairographics.org/}{Cairo} for creating PDFs. * \href{http://www.boost.org/}{Boost} for just about everything else.

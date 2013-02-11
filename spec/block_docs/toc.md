@@ -77,7 +77,7 @@ Say something else.
 
 \hypertarget{second_subheader_5}{}\subsection*{{1.3. Second Subheader}}\label{second_subheader_5}
 
-You don'{}t say.
+You don't say.
 *** Output of to_md ***
 # A title with *emphasis* #
 
