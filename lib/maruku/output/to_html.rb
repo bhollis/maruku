@@ -153,11 +153,10 @@ module MaRuKu::Out::HTML
   def to_html_document_tree
     doc = Nokogiri::XML::Document.new
 
-    root = Nokogiri::XML::Element.new('html', xdoc)
+    root = xelem('html')
     root.add_namespace(nil, 'http://www.w3.org/1999/xhtml')
-    root.add_namespace('svg', "http://www.w3.org/2000/svg" )
-    lang = self.attributes[:lang] || 'en'
-    root['xml:lang'] = lang
+    root.add_namespace('svg', "http://www.w3.org/2000/svg")
+    root['xml:lang'] = self.attributes[:lang] || 'en'
     doc << root
 
     root << xml_newline
@@ -170,7 +169,7 @@ module MaRuKu::Out::HTML
     me['content'] = 'application/xhtml+xml;charset=utf-8'
     head << me
 
-    %w{description keywords author revised}.each do |m|
+    %w(description keywords author revised).each do |m|
       if value = self.attributes[m.to_sym]
         meta = xelem('meta')
         meta['name'] = m
@@ -190,11 +189,9 @@ module MaRuKu::Out::HTML
 
     # Create title element
     doc_title = self.attributes[:title] || self.attributes[:subject] || ""
-    title = xelem('title')
-    title << xtext(doc_title)
+    title = xelem('title') << xtext(doc_title)
     head << title
     add_css_to(head)
-
 
     root << xml_newline
 
@@ -205,7 +202,7 @@ module MaRuKu::Out::HTML
     end
 
     # render footnotes
-    if @doc.footnotes_order.size > 0
+    unless @doc.footnotes_order.empty?
       body << render_footnotes(@doc)
     end
 
@@ -221,15 +218,13 @@ module MaRuKu::Out::HTML
 
   def add_css_to(head)
     if css_list = self.attributes[:css]
-
       css_list.split.each do |css|
         # <link type="text/css" rel="stylesheet" href="..." />
         link = xelem('link')
         link['type'] = 'text/css'
         link['rel'] = 'stylesheet'
         link['href'] = css
-        head << link
-        head << xml_newline
+        head << link << xml_newline
       end
     end
   end
@@ -245,43 +240,40 @@ module MaRuKu::Out::HTML
       23 => 'rd',
       31 => 'st'
     }
-    return s[day] || 'th';
+    s[day] || 'th';
   end
 
   # formats a nice date
   def nice_date
-    t = Time.now
-    t.strftime(" at %H:%M on ")+
-      t.strftime("%A, %B %d")+
-      day_suffix(t.day)+
+    Time.now.strftime(" at %H:%M on %A, %B %d") +
+      day_suffix(t.day) +
       t.strftime(", %Y")
   end
 
   def maruku_html_signature
-
-    div = xelem( 'div')
+    div = xelem('div')
     div['class'] = 'maruku_signature'
-    div << Nokogiri::XML::Element.new('hr', div)
-    span = Nokogiri::XML::Element.new('span', div)
+    div << xelem('hr')
+    span = xelem('span')
     span['style'] = 'font-size: small; font-style: italic'
-    div << span << Nokogiri::XML::Text.new('Created by ', div)
-    a = Nokogiri::XML::Element.new('a', span)
+    div << span << xtext('Created by ')
+    a = xelem('a')
     a['href'] = MaRuKu::MARUKU_URL
     a['title'] = 'Maruku: a Markdown-superset interpreter for Ruby'
-    a << Nokogiri::XML::Text.new('Maruku', div)
-    span << Nokogiri::XML::Text.new(nice_date+".", div)
+    a << xtext('Maruku')
+    span << xtext(nice_date + ".")
     div
   end
 
   def render_footnotes
-
     div = xelem('div')
     div['class'] = 'footnotes'
     div <<  xelem('hr')
     ol = xelem('ol')
-    @doc.footnotes_order.each_with_index do |fid, i| num = i+1
-      f = self.footnotes[fid]
-      if f
+
+    @doc.footnotes_order.each_with_index do |fid, i|
+      num = i + 1
+      if f = self.footnotes[fid]
         li = f.wrap_as_element('li')
         li['id'] = "#{get_setting(:doc_prefix)}fn:#{num}"
 
@@ -298,33 +290,34 @@ module MaRuKu::Out::HTML
           end
         end
 
-        if last and last.name == "p"
-          last << Nokogiri::XML::Text.new(' ', last);
-          last << a;
+        if last && last.name == "p"
+          last << xtext(' ') << a
         else
           li.children.last.add_next_sibling(a)
         end
         ol << li
       else
-        maruku_error "Could not find footnote id '#{fid}' among ["+
-          self.footnotes.keys.map{|s|"'"+s+"'"}.join(', ')+"]."
+        maruku_error "Could not find footnote id '#{fid}' among [#{self.footnotes.keys.inspect}]."
       end
     end
+
     div << ol
-    div
   end
 
+  def to_html_hrule
+    create_html_element 'hr'
+  end
 
-  def to_html_hrule; create_html_element 'hr'; end
-  def to_html_linebreak; create_html_element 'br'; end
+  def to_html_linebreak
+    create_html_element 'br'
+  end
 
   # renders children as html and wraps into an element of given name
   #
   # Sets 'id' if meta is set
   def wrap_as_element(name, attributes_to_copy=[])
     m = create_html_element(name, attributes_to_copy)
-    children_to_html.each do |e| m << e; end
-    m
+    children_to_html.inject(m, &:<<)
   end
 
   #=begin maruku_doc
@@ -356,75 +349,83 @@ module MaRuKu::Out::HTML
 
   HTML4Attributes = {}
 
-  coreattrs = [:id, :class, :style, :title, :accesskey, :contenteditable, :dir, :draggable, :spellcheck, :tabindex]
-  i18n = [:lang, 'xml:lang'.to_sym]
-  events = [
-            :onclick, :ondblclick, :onmousedown, :onmouseup, :onmouseover,
+  coreattrs = [:id, :class, :style, :title, :accesskey, :contenteditable, :dir,
+               :draggable, :spellcheck, :tabindex]
+  i18n = [:lang, :'xml:lang']
+  events = [:onclick, :ondblclick, :onmousedown, :onmouseup, :onmouseover,
             :onmousemove, :onmouseout,
             :onkeypress, :onkeydown, :onkeyup]
-  attrs = coreattrs + i18n + events
-  cellhalign = [:align, :char, :charoff]
-  cellvalign = [:valign]
+  common_attrs = coreattrs + i18n + events
+  cells = [:align, :char, :charoff, :valign]
+
+  # Each row maps a list of tags to the list of attributes beyond the common_attributes
+  # that are valid on those elements
   [
-   ['body', attrs + [:onload, :onunload]],
-   ['address', attrs],
-   ['div', attrs],
-   ['a', attrs+[:charset, :type, :name, :rel, :rev, :accesskey, :shape, :coords, :tabindex,
-                :onfocus,:onblur]],
-   ['img', attrs + [:longdesc, :name, :height, :width, :alt] ],
-   ['p', attrs],
-   [['h1','h2','h3','h4','h5','h6'], attrs],
-   [['pre'], attrs],
-   [['q', 'blockquote'], attrs+[:cite]],
-   [['ins','del'], attrs+[:cite,:datetime]],
-   [['ol'], attrs+[:reversed, :start]],
-   [['ul'], attrs],
-   [['li'], attrs+[:value]],
-   ['table',attrs+[:summary, :width, :frame, :rules, :border, :cellspacing, :cellpadding]],
-   ['caption',attrs],
-   [['colgroup','col'],attrs+[:span, :width]+cellhalign+cellvalign],
-   [['thead','tbody','tfoot'], attrs+cellhalign+cellvalign],
-   [['td','td','th'], attrs+[:abbr, :axis, :headers, :scope, :rowspan, :colspan, :cellvalign, :cellhalign]],
-
-   # altri
-   [['em','code','strong','hr','span','dl','dd','dt'], attrs]
-  ].each do |el, a| [*el].each do |e| HTML4Attributes[e] = a end end
-
+   ['body', [:onload, :onunload]],
+   ['a', [:charset, :type, :name, :rel, :rev, :accesskey, :shape, :coords, :tabindex,
+          :onfocus,:onblur]],
+   ['img', [:longdesc, :name, :height, :width, :alt]],
+   ['ol', [:reversed, :start]],
+   ['li', [:value]],
+   ['table', [:summary, :width, :frame, :rules, :border, :cellspacing, :cellpadding]],
+   [%w(q blockquote), [:cite]],
+   [%w(ins del), [:cite, :datetime]],
+   [%w(colgroup col), [:span, :width] + cells],
+   [%w(thead tbody tfoot), cells],
+   [%w(td td th), [:abbr, :axis, :headers, :scope, :rowspan, :colspan] + cells],
+   [%w(em code strong hr span dl dd dt address div p pre caption ul h1 h2 h3 h4 h5 h6), []]
+  ].each do |elements, attributes|
+    [*elements].each do |element|
+      HTML4Attributes[element] = common_attrs + attributes
+    end
+  end
 
   def create_html_element(name, attributes_to_copy=[])
-
     m = xelem(name)
-    if atts = HTML4Attributes[name] then
-      atts.each do |att|
-        if v = @attributes[att] then
-          m[att.to_s] = v.to_s
-        end
+    Array(HTML4Attributes[name]).each do |att|
+      if v = @attributes[att]
+        m[att.to_s] = v.to_s
       end
-    else
-      # puts "not atts for #{name.inspect}"
     end
     m
   end
 
-
   def to_html_ul
     if @attributes[:toc]
       # render toc
-      html_toc = @doc.toc.to_html
-      return html_toc
+      @doc.toc.to_html
     else
-      add_ws  wrap_as_element('ul')
+      add_ws wrap_as_element('ul')
     end
   end
 
+  def to_html_paragraph
+    add_ws wrap_as_element('p')
+  end
 
-  def to_html_paragraph; add_ws wrap_as_element('p')                end
-  def to_html_ol;        add_ws wrap_as_element('ol')        end
-  def to_html_li;        add_ws wrap_as_element('li')        end
-  def to_html_li_span;   add_ws wrap_as_element('li')        end
-  def to_html_quote;     add_ws wrap_as_element('blockquote')  end
-  def to_html_strong;    wrap_as_element('strong')           end
-  def to_html_emphasis;  wrap_as_element('em')               end
+  def to_html_ol
+    add_ws wrap_as_element('ol')
+  end
+
+  def to_html_li
+    add_ws wrap_as_element('li')
+  end
+
+  def to_html_li_span
+    add_ws wrap_as_element('li')
+  end
+
+  def to_html_quote
+    add_ws wrap_as_element('blockquote')
+  end
+
+  def to_html_strong
+    wrap_as_element('strong')
+  end
+
+  def to_html_emphasis
+    wrap_as_element('em')
+  end
 
   #=begin maruku_doc
   # Attribute: use_numbered_headers
@@ -439,28 +440,22 @@ module MaRuKu::Out::HTML
 
   # nil if not applicable, else string
   def section_number
-    return nil if not get_setting(:use_numbered_headers)
+    return nil unless get_setting(:use_numbered_headers)
 
-    n = @attributes[:section_number]
-    if n && (not n.empty?)
-      n.join('.')+". "
-    else
-      nil
-    end
+    n = Array(@attributes[:section_number])
+    return nil if n.empty?
+
+    n.join('.') + ". "
   end
 
   # nil if not applicable, else SPAN element
   def render_section_number
+    return nil unless section_number
 
     # if we are bound to a section, add section number
-    if section_number
-      span = xelem('span')
-      span['class'] = 'maruku_section_number'
-      span << xtext(section_number)
-      span
-    else
-      nil
-    end
+    span = xelem('span')
+    span['class'] = 'maruku_section_number'
+    span << xtext(section_number)
   end
 
   def to_html_header
@@ -470,6 +465,7 @@ module MaRuKu::Out::HTML
     if span = render_section_number
       h.children.first.before(span)
     end
+
     add_ws h
   end
 
@@ -512,7 +508,7 @@ module MaRuKu::Out::HTML
 
     lang = self.attributes[:lang] || @doc.attributes[:code_lang]
 
-    lang = 'xml' if lang=='html'
+    lang = 'xml' if lang == 'html'
     lang = 'css21' if lang == 'css'
 
     use_syntax = get_setting :html_use_syntax
@@ -520,7 +516,7 @@ module MaRuKu::Out::HTML
     element =
       if use_syntax && lang
         begin
-          if not $syntax_loaded
+          unless $syntax_loaded
             require 'rubygems'
             require 'syntax'
             require 'syntax/convertors/html'
@@ -529,12 +525,12 @@ module MaRuKu::Out::HTML
           convertor = Syntax::Convertors::HTML.for_syntax lang
 
           # eliminate trailing newlines otherwise Syntax crashes
-          source = source.gsub(/\n*\Z/,'')
+          source = source.sub(/\n*\Z/, '')
 
-          html = convertor.convert( source )
+          html = convertor.convert(source)
 
           html.gsub!(/\&apos;|'/,'&#39;') # IE bug
-          #     html = html.gsub(/&/,'&amp;')
+
           d = Nokogiri::XML::Document.parse(html)
           code = d.root
           code.name = 'code'
@@ -546,12 +542,12 @@ module MaRuKu::Out::HTML
           pre << code
           pre
         rescue LoadError => e
-          maruku_error "Could not load package 'syntax'.\n"+
+          maruku_error "Could not load package 'syntax'.\n" +
             "Please install it, for example using 'gem install syntax'."
           to_html_code_using_pre(source)
-        rescue Object => e
-          maruku_error"Error while using the syntax library for code:\n#{source.inspect}"+
-            "Lang is #{lang} object is: \n"+
+        rescue => e
+          maruku_error "Error while using the syntax library for code:\n#{source.inspect}" +
+            "Lang is #{lang} object is: \n" +
             self.inspect +
             "\nException: #{e.class}: #{e.message}\n\t#{e.backtrace.join("\n\t")}"
 
@@ -566,6 +562,7 @@ module MaRuKu::Out::HTML
     if color != MaRuKu::Globals[:code_background_color]
       element['style'] = "background-color: #{color};"
     end
+
     add_ws element
   end
 
@@ -589,38 +586,35 @@ module MaRuKu::Out::HTML
 
 
   def to_html_code_using_pre(source)
-
-    pre = create_html_element  'pre'
+    pre = create_html_element('pre')
     code = xelem('code')
-    s = source
 
     if get_setting(:code_show_spaces)
       # 187 = raquo
       # 160 = nbsp
       # 172 = not
-      s.gsub!(/\t/,'&#187;'+'&#160;'*3)
-      s.gsub!(/ /,'&#172;')
+      source = source.gsub(/\t/,'&#187;' + '&#160;' * 3).gsub(/ /,'&#172;')
     end
 
-    text = xtext(s)
+    text = xtext(source)
 
     if lang = self.attributes[:lang]
       code['lang'] = lang
       code['class'] = lang
     end
+
     code << text
     pre << code
-    pre
   end
 
-  def to_html_inline_code;
-    pre =  create_html_element 'code'
+  def to_html_inline_code
+    pre = create_html_element('code')
     source = self.raw_code
     pre << xtext(source)
 
     color = get_setting(:code_background_color)
     if color != MaRuKu::Globals[:code_background_color]
-      pre['style'] = "background-color: #{color};"+(pre['style']||"")
+      pre['style'] = "background-color: #{color};" + (pre['style'] || "")
     end
 
     pre
@@ -635,72 +629,47 @@ module MaRuKu::Out::HTML
       end
   end
 
-  def add_class_to_link(a)
-    return # not ready yet
-
-    # url = a.attributes['href']
-    # return if not url
-    #
-    # if url =~ /^#/
-    #   add_class_to(a, 'maruku-link-samedoc')
-    # elsif url =~ /^http:/
-    #   add_class_to(a, 'maruku-link-external')
-    # else
-    #   add_class_to(a, 'maruku-link-local')
-    # end
-    #
-    #   puts a.attributes['class']
-  end
-
-
   def to_html_immediate_link
-
-    a =  create_html_element 'a'
-    url = self.url
-    text = url.gsub(/^mailto:/,'') # don't show mailto
+    a = create_html_element('a')
+    a['href'] = self.url
+    text = self.url.gsub(/^mailto:/, '') # don't show mailto
     a << xtext(text)
-    a['href'] = url
-    add_class_to_link(a)
-    a
   end
 
   def to_html_link
-    a =  wrap_as_element 'a'
+    a = wrap_as_element('a')
     id = self.ref_id
 
     if ref = @doc.refs[sanitize_ref_id(id)] || @doc.refs[sanitize_ref_id(children_to_s)]
-      url = ref[:url]
-      title = ref[:title]
-      a['href'] = url if url
-      a['title'] = title if title
+      a['href'] = ref[:url] if ref[:url]
+      a['title'] = ref[:title] if ref[:title]
     else
-      maruku_error "Could not find ref_id = #{id.inspect} for #{self.inspect}\n"+
+      maruku_error "Could not find ref_id = #{id.inspect} for #{self.inspect}\n" +
         "Available refs are #{@doc.refs.keys.inspect}"
       tell_user "Not creating a link for ref_id = #{id.inspect}."
       return "[#{children_to_s}][#{id}]"
     end
 
-    #   add_class_to_link(a)
-    return a
+    a
   end
 
   def to_html_im_link
-    if url = self.url
-      title = self.title
-      a =  wrap_as_element 'a'
-      a['href'] = url
-      a['title'] = title if title
-      return a
+    if self.url
+      a = wrap_as_element('a')
+      a['href'] = self.url
+      a['title'] = self.title if self.title
+      a
     else
-      maruku_error"Could not find url in #{self.inspect}"
+      maruku_error "Could not find url in #{self.inspect}"
       tell_user "Not creating a link for ref_id = #{id.inspect}."
-      return wrap_as_element('span')
+      wrap_as_element('span')
     end
   end
 
   def add_ws(e)
     [xml_newline, e, xml_newline]
   end
+
   ##### Email address
 
   def obfuscate(s)
@@ -708,59 +677,50 @@ module MaRuKu::Out::HTML
     # we can't print entity references correctly in JRuby
     return s if RUBY_PLATFORM == 'java'
 
-    res = Nokogiri::XML::NodeSet.new(xdoc)
-    s.each_byte do |char|
-      res <<  Nokogiri::XML::EntityReference.new(xdoc, "#%03d" % char)
+    s.bytes.inject(Nokogiri::XML::NodeSet.new(xdoc)) do |res, char|
+      res << Nokogiri::XML::EntityReference.new(xdoc, "#%03d" % char)
     end
-    res
   end
 
   def to_html_email_address
-    email = self.email
-    a = create_html_element 'a'
-    #a.attributes['href'] = Text.new("mailto:"+obfuscate(email),false,nil,true)
-    #a.attributes.add Attribute.new('href',Text.new(
-    #"mailto:"+obfuscate(email),false,nil,true))
-    # Sorry, for the moment it doesn't work
-    a['href'] = "mailto:#{email}"
-
-    a << obfuscate(email)
-    a
+    a = create_html_element('a')
+    # Obfuscation via entity references is dubious, especially now that
+    # Nokogiri can't put entity references into attributes.
+    a['href'] = "mailto:#{self.email}"
+    a << obfuscate(self.email)
   end
 
   ##### Images
 
   def to_html_image
-    a =  create_html_element 'img'
+    a = create_html_element('img')
     id = self.ref_id
     if ref = @doc.refs[sanitize_ref_id(id)] || @doc.refs[sanitize_ref_id(children_to_s)]
-      url = ref[:url]
-      title = ref[:title]
-      a['src'] = url.to_s
+      a['src'] = ref[:url].to_s
       a['alt'] = children_to_s
-      a['title'] = title.to_s if title
+      a['title'] = ref[:title].to_s if ref[:title]
+      a
     else
-      maruku_error"Could not find id = #{id.inspect} for\n #{self.inspect}"
-      tell_user "Could not create image with ref_id = #{id.inspect};"+
+      maruku_error "Could not find id = #{id.inspect} for\n #{self.inspect}"
+      tell_user "Could not create image with ref_id = #{id.inspect};" +
         " Using SPAN element as replacement."
-      return wrap_as_element('span')
+      wrap_as_element('span')
     end
-    return a
   end
 
   def to_html_im_image
-    if not url = self.url
+    if self.url
+      a = create_html_element('img')
+      a['src'] = self.url.to_s
+      a['alt'] = children_to_s
+      a['title'] = self.title.to_s if self.title
+      a
+    else
       maruku_error "Image with no url: #{self.inspect}"
-      tell_user "Could not create image with ref_id = #{id.inspect};"+
+      tell_user "Could not create image with ref_id = #{id.inspect};" +
         " Using SPAN element as replacement."
-      return wrap_as_element('span')
+      wrap_as_element('span')
     end
-    title = self.title
-    a =  create_html_element 'img'
-    a['src'] = url.to_s
-    a['alt'] = children_to_s
-    a['title'] = title.to_s if title
-    return a
   end
 
   #=begin maruku_doc
@@ -779,18 +739,15 @@ module MaRuKu::Out::HTML
     raw_html = self.raw_html
 
     # Creates red box with offending HTML
-    tell_user "Wrapping bad html in a PRE with class 'markdown-html-error'\n"+
+    tell_user "Wrapping bad html in a PRE with class 'markdown-html-error'\n" +
       raw_html.gsub(/^/, '|')
     pre = xelem('pre')
     pre['style'] = 'border: solid 3px red; background-color: pink'
     pre['class'] = 'markdown-html-error'
     pre << xtext("Nokogiri could not parse this XML/HTML: \n#{raw_html}")
-
-    pre
   end
 
   def to_html_abbr
-
     abbr = xelem('abbr')
     abbr << xtext(children[0])
     abbr['title'] = self.title if self.title
@@ -798,25 +755,19 @@ module MaRuKu::Out::HTML
   end
 
   def to_html_footnote_reference
-
     id = self.footnote_id
 
     # save the order of used footnotes
     order = @doc.footnotes_order
 
-    if order.include? id
-      # footnote has already been used
-      return []
-    end
+    # footnote has already been used
+    return [] if order.include?(id)
 
-    if not @doc.footnotes[id]
-      return []
-    end
+    return [] unless @doc.footnotes[id]
 
     # take next number
     order << id
 
-    #num = order.size;
     num = order.index(id) + 1
 
     sup = xelem('sup')
@@ -826,51 +777,55 @@ module MaRuKu::Out::HTML
     a['href'] = "\##{get_setting(:doc_prefix)}fn:#{num}"
     a['rel'] = 'footnote'
     sup << a
-
-    sup
   end
 
   ## Definition lists ###
-  def to_html_definition_list() add_ws wrap_as_element('dl') end
-  def to_html_definition() children_to_html end
-  def to_html_definition_term() add_ws wrap_as_element('dt') end
-  def to_html_definition_data() add_ws wrap_as_element('dd') end
+  def to_html_definition_list
+    add_ws wrap_as_element('dl')
+  end
 
-  # FIXME: Ugly code
+  def to_html_definition
+    children_to_html
+  end
+
+  def to_html_definition_term
+    add_ws wrap_as_element('dt')
+  end
+
+  def to_html_definition_data
+    add_ws wrap_as_element('dd')
+  end
+
   def to_html_table
-    align = self.align
-    num_columns = align.size
+    num_columns = self.align.size
 
-    head = @children.slice(0, num_columns)
-    rows = []
-    i = num_columns
-    while i<@children.size
-      rows << @children.slice(i, num_columns)
-      i += num_columns
-    end
+    head, *rows = @children.each_slice(num_columns).to_a
 
-    table = create_html_element 'table'
-    thead = Nokogiri::XML::Element.new('thead', table)
-    tr = Nokogiri::XML::Element.new('tr', table)
-    array_to_html(head).each do |x| tr << x end
+    table = create_html_element('table')
+    thead = xelem('thead')
+    tr = xelem('tr')
+    array_to_html(head).inject(tr, &:<<)
     thead << tr
     table << thead
 
-    tbody = Nokogiri::XML::Element.new('tbody', table)
+    tbody = xelem('tbody')
     rows.each do |row|
-      tr = Nokogiri::XML::Element.new('tr', table)
-      array_to_html(row).each_with_index do |x,_i|
-        x['style'] ="text-align: #{align[_i].to_s};"
+      tr = xelem('tr')
+      array_to_html(row).each_with_index do |x, i|
+        x['style'] ="text-align: #{self.align[i].to_s};"
         tr << x
       end
 
-      tbody << tr << Nokogiri::XML::Text.new("\n", table)
+      tbody << tr << xml_newline
     end
+
     table << tbody
-    table
   end
 
-  def to_html_head_cell; wrap_as_element('th') end
+  def to_html_head_cell
+    wrap_as_element('th')
+  end
+
   def to_html_cell
     if @attributes[:scope]
       wrap_as_element('th', [:scope])
@@ -880,7 +835,6 @@ module MaRuKu::Out::HTML
   end
 
   def to_html_entity
-
     MaRuKu::Out::Latex.need_entity_table
 
     entity_name = self.entity_name
@@ -890,25 +844,20 @@ module MaRuKu::Out::HTML
     end
 
     # Fix for Internet Explorer
-    if entity_name == 'apos'
-      entity_name = 39
-    end
+    entity_name = 39 if entity_name == 'apos'
 
-    x = if entity_name.kind_of? Fixnum
-          # Work around https://github.com/sparklemotion/nokogiri/issues/835
-          # by simply converting numeric entities to unicode characters
-          xtext([entity_name].pack('U*'))
-        else
-          Nokogiri::XML::EntityReference.new(xdoc, entity_name)
-        end
-    x
+    if entity_name.kind_of? Fixnum
+      # Work around https://github.com/sparklemotion/nokogiri/issues/835
+      # by simply converting numeric entities to unicode characters
+      xtext([entity_name].pack('U*'))
+    else
+      Nokogiri::XML::EntityReference.new(xdoc, entity_name)
+    end
   end
 
   def to_html_xml_instr
     target = self.target || ''
     code = self.code || ''
-
-
 
     # A blank target is invalid XML. Just create a text node?
     if target.empty?
@@ -930,21 +879,17 @@ module MaRuKu::Out::HTML
         e << xtext(c)
       else
         method = c.kind_of?(MaRuKu::MDElement) ? "to_html_#{c.node_type}" : "to_html"
-
-        if not c.respond_to?(method)
-          #raise "Object does not answer to #{method}: #{c.class} #{c.inspect}"
-          next
-        end
+        next unless c.respond_to?(method)
 
         h = c.send(method)
 
-        if h.nil?
-          raise "Nil html created by method  #{method}:\n#{h.inspect}\n"+
+        unless h
+          raise "Nil html created by method  #{method}:\n#{h.inspect}\n" +
             " for object #{c.inspect[0,300]}"
         end
 
         if h.kind_of? Array
-          e = e + h
+          e.concat h
         else
           e << h
         end
@@ -953,6 +898,11 @@ module MaRuKu::Out::HTML
     e
   end
 
-  def to_html_ref_definition; [] end
-  def to_latex_ref_definition; [] end
+  def to_html_ref_definition
+    []
+  end
+
+  def to_latex_ref_definition
+    []
+  end
 end
