@@ -75,7 +75,7 @@ module MaRuKu::Out::HTML
       end
     end
 
-    doc
+    doc.strip
   end
 
   # Create an empty XML document to attach nodes to
