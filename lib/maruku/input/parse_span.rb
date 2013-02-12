@@ -338,7 +338,7 @@ module MaRuKu::In::Markdown::SpanLevelParser
     when "'", '"'
       read_quoted(src, con)
     else
-      read_simple(src, escaped, exit_on_chars)
+      read_simple(src, escaped, exit_on_chars, nil, false)
     end
   end
 
@@ -359,10 +359,9 @@ module MaRuKu::In::Markdown::SpanLevelParser
   # Reads a simple string (no formatting) until one of break_on_chars,
   # while escaping the escaped.
   # If the string is empty, it returns nil.
-  # Raises on error if the string terminates unexpectedly.
-  # # If eat_delim is true, and if the delim is not the EOF, then the delim
-  # # gets eaten from the stream.
-  def read_simple(src, escaped, exit_on_chars=nil, exit_on_strings=nil)
+  # By default, raises on error if the string terminates unexpectedly. This can be
+  # by setting the last argument to false.
+  def read_simple(src, escaped, exit_on_chars=nil, exit_on_strings=nil, warn=true)
     text = ""
     escaped = Array(escaped)
     while true
@@ -373,11 +372,13 @@ module MaRuKu::In::Markdown::SpanLevelParser
 
       case c
       when nil
-        s= "String finished while reading (break on " +
-          "#{Array(exit_on_chars).map {|x| "" << x }.inspect})" +
-          " already read: #{text.inspect}"
-        maruku_error s, src
-        maruku_recover "I boldly continue", src
+        if warn
+          s= "String finished while reading (break on " +
+            "#{Array(exit_on_chars).map {|x| "" << x }.inspect})" +
+            " already read: #{text.inspect}"
+          maruku_error s, src
+          maruku_recover "I boldly continue", src
+        end
         break
       when "\\"
         d = src.next_char
