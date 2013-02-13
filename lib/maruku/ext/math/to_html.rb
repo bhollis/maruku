@@ -1,42 +1,42 @@
-=begin maruku_doc
-Extension: math
-Attribute: html_math_engine
-Scope: document, element
-Output: html
-Summary: Select the rendering engine for MathML.
-Default: <?mrk Globals[:html_math_engine].to_s ?>
+#=begin maruku_doc
+# Extension: math
+# Attribute: html_math_engine
+# Scope: document, element
+# Output: html
+# Summary: Select the rendering engine for MathML.
+# Default: <?mrk Globals[:html_math_engine].to_s ?>
+#
+# Select the rendering engine for math.
+#
+# If you want to use your custom engine `foo`, then set:
+#
+#   HTML math engine: foo
+# {:lang=markdown}
+#
+# and then implement two functions:
+#
+#   def convert_to_mathml_foo(kind, tex)
+#     ...
+#   end
+#=end
 
-Select the rendering engine for math.
-
-If you want to use your custom engine `foo`, then set:
-
-  HTML math engine: foo
-{:lang=markdown}
-
-and then implement two functions:
-
-  def convert_to_mathml_foo(kind, tex)
-    ...
-  end
-=end
-
-=begin maruku_doc
-Extension: math
-Attribute: html_png_engine
-Scope: document, element
-Output: html
-Summary: Select the rendering engine for math.
-Default: <?mrk Globals[:html_math_engine].to_s ?>
-
-Same thing as `html_math_engine`, only for PNG output.
-
-  def convert_to_png_foo(kind, tex)
-    # same thing
-    ...
-  end
-{:lang=ruby}
-
-=end
+#=begin maruku_doc
+# Extension: math
+# Attribute: html_png_engine
+# Scope: document, element
+# Output: html
+# Summary: Select the rendering engine for math.
+# Default: <?mrk Globals[:html_math_engine].to_s ?>
+#
+# Same thing as `html_math_engine`, only for PNG output.
+#
+#   def convert_to_png_foo(kind, tex)
+#     # same thing
+#     ...
+#   end
+# {:lang=ruby}
+#
+#=end
 
 require 'nokogiri'
 
@@ -56,7 +56,7 @@ module MaRuKu
 
         # TODO: Warn here
         puts "A method called #{method} should be defined."
-        return convert_to_mathml_none(kind, tex)
+        convert_to_mathml_none(kind, tex)
       end
 
       # Renders a PNG image of this node's TeX code.
@@ -71,7 +71,7 @@ module MaRuKu
         return self.send(method, kind, tex) if self.respond_to? method
 
         puts "A method called #{method} should be defined."
-        return nil
+        nil
       end
 
       def pixels_per_ex
@@ -79,7 +79,6 @@ module MaRuKu
       end
 
       def adjust_png(png, use_depth)
-	    d = Nokogiri::XML::Document.new
         src = png.src
 
         height_in_px = png.height
@@ -91,7 +90,7 @@ module MaRuKu
         style << "vertical-align: -#{depth_in_ex}ex;" if use_depth
         style << "height: #{total_height_in_ex}ex;"
 
-        img = Nokogiri::XML::Element.new('img', d)
+        img = xelem('img')
         img['src'] = src
         img['style'] = style
         img['alt'] = "$#{self.math.strip}$"
@@ -120,7 +119,6 @@ module MaRuKu
       end
 
       def to_html_equation
-        d = Nokogiri::XML::Document.new
         mathml = get_setting(:html_math_output_mathml) && render_mathml(:equation, self.math)
         png    = get_setting(:html_math_output_png)    && render_png(:equation, self.math)
 
@@ -128,12 +126,12 @@ module MaRuKu
         div['class'] = 'maruku-equation'
         if mathml
           if self.label  # then numerate
-            span = Nokogiri::XML::Element.new('span', d)
+            span = xelem('span')
             span['class'] = 'maruku-eq-number'
-            span << Nokogiri::XML::Text.new("(#{self.num})", d)
+            span << xtext("(#{self.num})")
             div << span
             div['id'] = "eq:#{self.label}"
-          end	
+          end
           add_class_to(mathml, 'maruku-mathml')
           div << mathml
         end
@@ -143,15 +141,15 @@ module MaRuKu
           add_class_to(img, 'maruku-png')
           div << img
           if self.label  # then numerate
-            span = Nokogiri::XML::Element.new('span', d)
+            span = xelem('span')
             span['class'] = 'maruku-eq-number'
-            span << Nokogiri::XML::Text.new("(#{self.num})", d)
+            span << xtext("(#{self.num})")
             div << span
             div['id'] = "eq:#{self.label}"
-          end	
+          end
         end
 
-        source_span = Nokogiri::XML::Element.new('span', d)
+        source_span = xelem('span')
         add_class_to(source_span, 'maruku-eq-tex')
         code = convert_to_mathml_none(:equation, self.math.strip)
         code['style'] = 'display: none'
@@ -162,31 +160,29 @@ module MaRuKu
       end
 
       def to_html_eqref
-        d = Nokogiri::XML::Document.new
         unless eq = self.doc.eqid2eq[self.eqid]
           maruku_error "Cannot find equation #{self.eqid.inspect}"
-          return Nokogiri::XML::Text.new("(eq:#{self.eqid})", d)
+          return xtext("(eq:#{self.eqid})")
         end
 
-        a = Nokogiri::XML::Element.new('a', d)
+        a = xelem('a')
         a['class'] = 'maruku-eqref'
         a['href'] = "#eq:#{self.eqid}"
-        a << Nokogiri::XML::Text.new("(#{eq.num})", d)
+        a << xtext("(#{eq.num})")
         a
       end
 
       def to_html_divref
-        d = Nokogiri::XML::Document.new
         unless hash = self.doc.refid2ref.values.find {|h| h.has_key?(self.refid)}
           maruku_error "Cannot find div #{self.refid.inspect}"
-          return Nokogiri::XML::Text.new("\\ref{#{self.refid}}", d)
+          return xtext("\\ref{#{self.refid}}")
         end
         ref= hash[self.refid]
 
-        a = Nokogiri::XML::Element.new('a', d)
+        a = xelem('a')
         a['class'] = 'maruku-ref'
         a['href'] = "#" + self.refid
-        a << Nokogiri::XML::Text.new(ref.num.to_s, d)
+        a << xtext(ref.num.to_s)
         a
       end
     end

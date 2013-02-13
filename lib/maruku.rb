@@ -57,9 +57,9 @@ class Maruku < MaRuKu::MDDocument; end
 
 
 # Structures definition
-require 'maruku/structures'
+require 'maruku/element'
 require 'maruku/document'
-require 'maruku/structures_inspect'
+require 'maruku/inspect_element'
 
 require 'maruku/defaults'
 

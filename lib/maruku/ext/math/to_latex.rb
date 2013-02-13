@@ -1,5 +1,3 @@
-require 'maruku/ext/math/latex_fix'
-
 module MaRuKu
   module Out
     module Latex
