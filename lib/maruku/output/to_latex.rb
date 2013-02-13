@@ -121,7 +121,7 @@ module MaRuKu::Out::Latex
 
     user_preamble = (file = @doc.attributes[:latex_preamble]) ? "\\input{#{file}}\n" : ""
 
-"\\documentclass{article}
+    "\\documentclass{article}
 
 % Packages required to support encoding
 #{encoding}
@@ -144,7 +144,7 @@ module MaRuKu::Out::Latex
   end
 
   def render_latex_signature
-"\\vfill
+    "\\vfill
 \\hrule
 \\vspace{1.2mm}
 \\begin{tiny}
@@ -549,25 +549,63 @@ Created by \\href{#{MaRuKu::MARUKU_URL}}{Maruku} #{self.nice_date}.
   def array_to_latex(array, join_char='')
     e = []
     array.each do |c|
-      method = c.kind_of?(Maruku::MDElement) ? "to_latex_#{c.node_type}" : "to_latex"
-      next unless c.respond_to?(method)
+      if c.kind_of?(String)
+        e << string_to_latex(c)
+      else method = c.kind_of?(Maruku::MDElement) ? "to_latex_#{c.node_type}" : "to_latex"
+        next unless c.respond_to?(method)
 
-      h =  c.send(method)
+        h =  c.send(method)
 
-      unless h
-        raise "Nil latex for #{c.inspect} created with method #{method}"
-      end
+        unless h
+          raise "Nil latex for #{c.inspect} created with method #{method}"
+        end
 
-      if h.kind_of? Array
-        e.concat h
-      else
-        e << h
+        if h.kind_of? Array
+          e.concat h
+        else
+          e << h
+        end
       end
     end
-
     e.join(join_char)
   end
 
+  # These are TeX's special characters
+  LATEX_ADD_SLASH = %w({ } $ & # _ %)
+
+  # These, we transform to {\tt \char<ascii code>}
+  LATEX_TO_CHARCODE = %w(^ ~ > <)
+
+  # escapes special characters
+  def string_to_latex(s)
+    s = escape_to_latex(s)
+    OtherGoodies.each do |k, v|
+      s.gsub!(k, v)
+    end
+    s
+  end
+
+  # other things that are good on the eyes
+  OtherGoodies = {
+    /(\s)LaTeX/ => '\1\\LaTeX\\xspace ', # XXX not if already \LaTeX
+  }
+
+  private
+
+  def escape_to_latex(s)
+    s.chars.inject("") do |result, b|
+      if LATEX_TO_CHARCODE.include? b
+        result << "{\\tt \\symbol{#{b[0].ord}}}"
+      elsif LATEX_ADD_SLASH.include? b
+        result << '\\' << b
+      elsif b == '\\'
+        # there is no backslash in cmr10 fonts
+        result << "$\\backslash$"
+      else
+        result << b
+      end
+    end
+  end
 end
 
 module MaRuKu

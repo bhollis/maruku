@@ -72,7 +72,7 @@ require 'maruku/input/parse_doc'
 # Ugly things kept in a closet
 require 'maruku/string_utils'
 require 'maruku/input/linesource'
-require 'maruku/input/type_detection'
+require 'maruku/input/mdline'
 
 # A class for reading and sanitizing inline HTML
 require 'maruku/input/html_helper'
@@ -112,7 +112,6 @@ require 'maruku/output/to_html'
 
 # Exporting to latex
 require 'maruku/output/to_latex'
-require 'maruku/output/to_latex_strings'
 
 # Pretty print
 require 'maruku/output/to_markdown'
