@@ -71,7 +71,7 @@ EXPECTATIONS = Maruku.new.instance_eval do
     ["a _ b_", :raise, 'Unclosed emphasis'],
     ["_b_", [md_em('b')], 'Emphasis 7'],
     ["_b_ _c_", [md_em('b'),' ',md_em('c')], 'Emphasis 8'],
-    ["_b__c_", [md_em('b'),md_em('c')], 'Emphasis 9'],
+    ["_b__c_", [md_em('b'),md_em('c')], 'Emphasis 9', true],
     # underscores in word
     ["mod_ruby", ['mod_ruby'], 'Word with underscore'],
     # strong
@@ -85,7 +85,6 @@ EXPECTATIONS = Maruku.new.instance_eval do
     # strong (with underscore)
     ["__a_", :raise, 'Unclosed double __ 2'],
 
-    # ["\\__a_", ['_', md_em('a')], 'Escaping of _'],
     ["a __b__ ", ['a ', md_strong('b')], 'Emphasis 1'],
     ["a __b__", ['a ', md_strong('b')], 'Emphasis 2'],
     ["a __ b", ['a __ b'], 'Emphasis 3'],
@@ -102,7 +101,6 @@ EXPECTATIONS = Maruku.new.instance_eval do
     ["a *** b***", :raise, 'Unclosed emphasis'],
     # same with underscores
     ["___a__", :raise, 'Unclosed triple *** '],
-    # ["\\___a__", ['_', md_strong('a')], 'Escaping of _'],
     ["a ___b___ ", ['a ', md_emstrong('b')], 'Strong elements'],
     ["a ___b___", ['a ', md_emstrong('b')]],
     ["a ___ b", ['a ___ b']],
@@ -120,7 +118,7 @@ EXPECTATIONS = Maruku.new.instance_eval do
     ["\\[a]",  ["[a]"], 'Escaping 1'],
     ["\\[a\\]", ["[a]"], 'Escaping 2'],
     # This is valid in the new Markdown version
-    # ["[a]",   ["a"],   'Not a link'],
+    ["[a]",   ["[a]"],   'Not a link', true],
     ["[a]",   [ md_link(["a"],'a')], 'Empty link'],
     ["[a][]", [ md_link(["a"],'')] ],
     ["[a][]b",   [ md_link(["a"],''),'b'], 'Empty link'],
@@ -213,7 +211,7 @@ EXPECTATIONS = Maruku.new.instance_eval do
 
     ["&andrea", ["&andrea"], 'Parsing of entities'],
     # no escaping is allowed
-    # ["\\&andrea;", ["&andrea;"]],
+    ["\\&andrea;", ["\\", md_entity("andrea")]],
     ["l&andrea;", ["l", md_entity('andrea')] ],
     ["&&andrea;", ["&", md_entity('andrea')] ],
     ["&123;;&amp;",[md_entity('123'),';',md_entity('amp')]],
@@ -239,13 +237,15 @@ describe "The Maruku span parser" do
     @doc.attributes[:on_error] = :raise
   end
 
-  EXPECTATIONS.each do |md, res, comment|
+  EXPECTATIONS.each do |md, res, comment, pend|
     if res == :raise
       it "should raise an error (#{comment}) for \"#{md}\"" do
+        pending if pend
         lambda {@doc.parse_span(md)}.should raise_error(Maruku::Exception)
       end
     else
       it "should parse \"#{md}\" as #{res.inspect}" do
+        pending if pend
         @doc.parse_span(md).should == res
       end
     end
