@@ -230,7 +230,7 @@ module MaRuKu
   class MDDocument
     alias old_md to_md
     def to_md(context={})
-      warn "#to_md is deprecated and will be removed in a near-future version of Maruku."
+      warn "Maruku#to_md is deprecated and will be removed in a near-future version of Maruku."
       old_md(context)
     end
   end
