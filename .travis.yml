@@ -9,3 +9,7 @@ branches:
   only:
     - master
 script: "bundle exec rake spec"
+matrix:
+  allow_failures:
+    # The weekly rbx seems to have a bug that's fixed in HEAD
+    - rvm: rbx-18mode
