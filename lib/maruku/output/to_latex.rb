@@ -485,10 +485,8 @@ Created by \\href{#{MaRuKu::MARUKU_URL}}{Maruku} #{self.nice_date}.
   end
 
   def to_latex_definition
-    terms = self.terms
-    definitions = self.definitions
-
     s = ""
+
     self.terms.each do |t|
       s << "\n\\item[#{t.children_to_latex}] "
     end
