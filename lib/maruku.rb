@@ -46,7 +46,6 @@ module MaRuKu
     include Errors
   end
 
-
   class MDDocument < MDElement
     include In::Markdown
     include In::Markdown::SpanLevelParser
@@ -59,6 +58,7 @@ class Maruku < MaRuKu::MDDocument; end
 
 # Structures definition
 require 'maruku/structures'
+require 'maruku/document'
 require 'maruku/structures_inspect'
 
 require 'maruku/defaults'
@@ -88,8 +88,6 @@ require 'maruku/input/rubypants'
 require 'maruku/input/extensions'
 
 require 'maruku/attributes'
-
-require 'maruku/structures_iterators'
 
 require 'maruku/errors'
 
