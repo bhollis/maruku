@@ -155,7 +155,7 @@ module MaRuKu::In::Markdown::SpanLevelParser
     end
 
     def error(s)
-      raise Exception, "Error: #{s} \n"+ inspect, caller
+      raise  "Error: #{s} \n"+ inspect, caller
     end
 
     def inspect
