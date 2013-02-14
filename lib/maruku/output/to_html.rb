@@ -507,15 +507,15 @@ module MaRuKu::Out::HTML
   def to_html_code
     source = self.raw_code
 
-    lang = self.attributes[:lang] || @doc.attributes[:code_lang]
+    code_lang = self.lang || self.attributes[:lang] || @doc.attributes[:code_lang]
 
-    lang = 'xml' if lang == 'html'
-    lang = 'css21' if lang == 'css'
+    code_lang = 'xml' if code_lang == 'html'
+    code_lang = 'css21' if code_lang == 'css'
 
     use_syntax = get_setting :html_use_syntax
 
     element =
-      if use_syntax && lang
+      if use_syntax && code_lang
         begin
           unless $syntax_loaded
             require 'rubygems'
@@ -523,7 +523,7 @@ module MaRuKu::Out::HTML
             require 'syntax/convertors/html'
             $syntax_loaded = true
           end
-          convertor = Syntax::Convertors::HTML.for_syntax lang
+          convertor = Syntax::Convertors::HTML.for_syntax code_lang
 
           # eliminate trailing newlines otherwise Syntax crashes
           source = source.sub(/\n*\Z/, '')
@@ -535,28 +535,26 @@ module MaRuKu::Out::HTML
           d = Nokogiri::XML::Document.parse(html)
           code = d.root
           code.name = 'code'
-          code['lang'] = lang
-          code['xml:lang'] = lang
+          code['class'] = code_lang
 
           pre = xelem('pre')
-          pre['class'] = lang
           pre << code
           pre
         rescue LoadError => e
           maruku_error "Could not load package 'syntax'.\n" +
             "Please install it, for example using 'gem install syntax'."
-          to_html_code_using_pre(source)
+          to_html_code_using_pre(source, code_lang)
         rescue => e
           maruku_error "Error while using the syntax library for code:\n#{source.inspect}" +
-            "Lang is #{lang} object is: \n" +
+            "Lang is #{code_lang} object is: \n" +
             self.inspect +
             "\nException: #{e.class}: #{e.message}"
 
           tell_user("Using normal PRE because the syntax library did not work.")
-          to_html_code_using_pre(source)
+          to_html_code_using_pre(source, code_lang)
         end
       else
-        to_html_code_using_pre(source)
+        to_html_code_using_pre(source, code_lang)
       end
 
     color = get_setting(:code_background_color)
@@ -586,7 +584,7 @@ module MaRuKu::Out::HTML
   #=end
 
 
-  def to_html_code_using_pre(source)
+  def to_html_code_using_pre(source, code_lang=nil)
     pre = create_html_element('pre')
     code = xelem('code')
 
@@ -599,9 +597,9 @@ module MaRuKu::Out::HTML
 
     text = xtext(source)
 
-    if lang = self.attributes[:lang]
-      code['lang'] = lang
-      code['class'] = lang
+    code_lang ||= self.attributes[:lang]
+    if code_lang
+      code['class'] = code_lang
     end
 
     code << text

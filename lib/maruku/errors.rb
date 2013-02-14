@@ -75,7 +75,7 @@ module MaRuKu
 +#{"-" * FRAME_WIDTH}
 #{s.gsub(/^/, '| ').rstrip}
 +#{"-" * FRAME_WIDTH}
-#{caller[0...5].join("\n").gsub(/^/, '!')}
+#{caller[1...5].join("\n").gsub(/^/, '!')}
 \\#{"_" * FRAME_WIDTH}
 FRAME
     end

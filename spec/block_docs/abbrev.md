@@ -205,7 +205,7 @@ md_el(:document,[
 		md_code("font-weight:"),
 		", then it should use the heavier version of Diavlo. To place this example in code:"
 	]),
-	md_el(:code,[],{:raw_code=>"@font-face {\n  font-family: 'Diavlo';\n  src: url(./Diavlo/Diavlo_Book.otf) format(\"opentype\");\n}\n\n@font-face {\n  font-family: 'Diavlo';\n  font-weight: 900;\n  src: url(./Diavlo/Diavlo_Black.otf) format(\"opentype\");\n}\n\nh1, h2, h3, h4, h5, h6 {\n  font-family: 'Diavlo';\n  font-weight: 900;\n}\n\ndiv#content {\n  font-family: 'Diavlo';\n}"},[]),
+	md_el(:code,[],{:raw_code=>"@font-face {\n  font-family: 'Diavlo';\n  src: url(./Diavlo/Diavlo_Book.otf) format(\"opentype\");\n}\n\n@font-face {\n  font-family: 'Diavlo';\n  font-weight: 900;\n  src: url(./Diavlo/Diavlo_Black.otf) format(\"opentype\");\n}\n\nh1, h2, h3, h4, h5, h6 {\n  font-family: 'Diavlo';\n  font-weight: 900;\n}\n\ndiv#content {\n  font-family: 'Diavlo';\n}", :lang=>nil},[]),
 	md_par([
 		"As you can see, my headings should use the typeface defined in ",
 		md_code("Diavlo_Black.otf"),
@@ -238,7 +238,7 @@ md_el(:document,[
 		md_code("@font-face"),
 		":"
 	]),
-	md_el(:code,[],{:raw_code=>"@font-face {\n  font-family: 'Diavlo Book';\n  src: url(./Diavlo/Diavlo_Book.otf) format(\"opentype\");\n}\n\n@font-face {\n  font-family: 'Diavlo Black';\n  src: url(./Diavlo/Diavlo_Black.otf) format(\"opentype\");\n}\n\nh1, h2, h3, h4, h5, h6 {\n  font-family: 'Diavlo Black';\n}\n\ndiv#content {\n  font-family: 'Diavlo Book';\n}"},[]),
+	md_el(:code,[],{:raw_code=>"@font-face {\n  font-family: 'Diavlo Book';\n  src: url(./Diavlo/Diavlo_Book.otf) format(\"opentype\");\n}\n\n@font-face {\n  font-family: 'Diavlo Black';\n  src: url(./Diavlo/Diavlo_Black.otf) format(\"opentype\");\n}\n\nh1, h2, h3, h4, h5, h6 {\n  font-family: 'Diavlo Black';\n}\n\ndiv#content {\n  font-family: 'Diavlo Book';\n}", :lang=>nil},[]),
 	md_par([
 		"Isn",
 		md_entity("rsquo"),

@@ -60,8 +60,8 @@ module MaRuKu
     end
 
     # Code block
-    def md_codeblock(source, al = nil)
-      md_el(:code, [], { :raw_code => source }, al)
+    def md_codeblock(source, lang=nil, al=nil)
+      md_el(:code, [], { :raw_code => source, :lang => lang }, al)
     end
 
     def md_quote(children, al=nil)

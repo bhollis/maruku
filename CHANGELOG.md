@@ -15,6 +15,10 @@
 
 * Maruku no longer extends NilType or String with its own internal-use methods.
 
+* Backtick-style (```) and tilde-style (~~~) fenced code blocks are now supported, including the
+  language option (```ruby). They must be enabled using the
+  :fenced_code_blocks option.
+
 0.6.1
 -----
 

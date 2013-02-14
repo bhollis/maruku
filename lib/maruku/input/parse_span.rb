@@ -475,6 +475,12 @@ module MaRuKu::In::Markdown::SpanLevelParser
       con.push_element(end_string + (code || '')) and return
     end
 
+    # We didn't find a closing batch!
+    if !code || src.cur_char != '`'
+      con.push_element(end_string + (code || ''))
+      return
+    end
+
     #   puts "Now I expects #{num_ticks} ticks: #{src.cur_chars(10).inspect}"
     src.ignore_chars num_ticks
 

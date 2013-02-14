@@ -190,7 +190,7 @@ md_el(:document,[
 				md_link(["poignant"],"poignant"),
 				" guide). Python, you say? Python is too academic and snob:"
 			]),
-			md_el(:code,[],{:raw_code=>"$ python       \nPython 2.4.1 (\\#1, Jun  4 2005, 00:54:33) \nType \"help\", \"copyright\", \"credits\" or \"license\" for more information.\n>>> exit\n'Use Ctrl-D (i.e. EOF) to exit.'\n>>> quit\n'Use Ctrl-D (i.e. EOF) to exit.'"},[])
+			md_el(:code,[],{:raw_code=>"$ python       \nPython 2.4.1 (\\#1, Jun  4 2005, 00:54:33) \nType \"help\", \"copyright\", \"credits\" or \"license\" for more information.\n>>> exit\n'Use Ctrl-D (i.e. EOF) to exit.'\n>>> quit\n'Use Ctrl-D (i.e. EOF) to exit.'", :lang=>nil},[])
 		],{:want_my_paragraph=>true},[]),
 		md_el(:li,[
 			md_par([

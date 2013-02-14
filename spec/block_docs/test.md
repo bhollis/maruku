@@ -8,7 +8,7 @@ Write a comment abouth the test here.
 
 
 *** Output of inspect ***
-md_el(:document,[md_el(:code,[],{:raw_code=>"       $ python       "},[])],{},[])
+md_el(:document,[md_el(:code,[],{:raw_code=>"       $ python       ", :lang=>nil},[])],{},[])
 *** Output of to_html ***
 <pre><code>       $ python       </code></pre>
 *** Output of to_latex ***

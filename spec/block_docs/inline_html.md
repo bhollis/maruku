@@ -47,10 +47,10 @@ Without closing:
 *** Output of inspect ***
 md_el(:document,[
 	md_par(["Input:"]),
-	md_el(:code,[],{:raw_code=>"<em>Emphasis</em>"},[]),
+	md_el(:code,[],{:raw_code=>"<em>Emphasis</em>", :lang=>nil},[]),
 	md_par(["Result: ", md_html("<em>Emphasis</em>")]),
 	md_par(["Input:"]),
-	md_el(:code,[],{:raw_code=>"<img src=\"http://jigsaw.w3.org/css-validator/images/vcss\"/>"},[]),
+	md_el(:code,[],{:raw_code=>"<img src=\"http://jigsaw.w3.org/css-validator/images/vcss\"/>", :lang=>nil},[]),
 	md_par([
 		"Result on span: ",
 		md_html("<img src=\"http://jigsaw.w3.org/css-validator/images/vcss\" />")
