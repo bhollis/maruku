@@ -159,7 +159,7 @@ Disabled by default because of security concerns.
         until p.eos?
           o = ''
           o << p.getch until p.scan(reg) or p.eos?
-          a << o
+          a << o unless o.empty?
           a << md_abbr(abbrev.dup, title ? title.dup : nil) if p.matched == abbrev
         end
         a

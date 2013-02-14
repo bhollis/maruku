@@ -27,7 +27,8 @@ md_el(:document, [
      ])
 *** Output of to_html ***
 <h2 id="cool_title_1">Cool Title</h2>
-<ul><li>Cool Text yada yada</li>
+<ul>
+    <li>Cool Text yada yada</li>
     <li>ICool Tex 2 yada yada</li>
 </ul><p id="icons">
     <a href="" class="stumbleupon" target="_blank"></a>

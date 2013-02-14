@@ -80,7 +80,7 @@ describe "A Maruku document" do
           changed = false
           expdoc.diff(resdoc) do |change, node|
             diff << "#{change} #{node.inspect}\n"
-            changed = true unless change == ' '
+            changed = true unless change == ' ' || (node.text? && node.content =~ /\A\s*\Z/m)
           end
 
           if changed
