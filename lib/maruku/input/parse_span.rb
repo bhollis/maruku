@@ -77,7 +77,7 @@ module MaRuKu::In::Markdown::SpanLevelParser
         src.ignore_char
         con.push_space
       when '`'
-        read_inline_code(src,con)
+        read_inline_code(src, con)
       when '<'
         # It could be:
         # 1) HTML "<div ..."
@@ -364,20 +364,22 @@ module MaRuKu::In::Markdown::SpanLevelParser
   def read_simple(src, escaped, exit_on_chars=nil, exit_on_strings=nil, warn=true)
     text = ""
     escaped = Array(escaped)
+    exit_on_chars = Array(exit_on_chars)
+    exit_on_strings = Array(exit_on_strings)
     while true
       c = src.cur_char
 
-      break if Array(exit_on_chars).include?(c)
-      break if Array(exit_on_strings).any? {|x| src.cur_chars_are x }
+      break if exit_on_chars.include?(c)
+      break if exit_on_strings.any? {|x| src.cur_chars_are x }
 
       case c
       when nil
         if warn
-          s= "String finished while reading (break on " +
-            "#{Array(exit_on_chars).map {|x| "" << x }.inspect})" +
+          s = "String finished while reading (break on " +
+            "#{exit_on_chars.inspect})" +
             " already read: #{text.inspect}"
           maruku_error s, src
-          maruku_recover "I boldly continue", src
+          maruku_recover s, src
         end
         break
       when "\\"
@@ -531,7 +533,7 @@ module MaRuKu::In::Markdown::SpanLevelParser
       src.consume_whitespace
       closing = src.shift_char # closing )
       if closing != ')'
-        maruku_error 'Unclosed link',src,con
+        maruku_error 'Unclosed link', src, con
         maruku_recover "No closing ): I will not create" +
           " the link for #{children.inspect}", src, con
         con.push_elements children
