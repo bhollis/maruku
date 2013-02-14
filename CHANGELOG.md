@@ -14,3 +14,8 @@
 * Maruku now requires Ruby 1.8.7 or newer.
 
 * Maruku no longer extends NilType or String with its own internal-use methods.
+
+0.6.1
+-----
+
+* Fix iconv warning in Ruby 1.9.
