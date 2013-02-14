@@ -46,9 +46,9 @@ describe "A Maruku document" do
       input = File.read(md).split(/\n\*{3}[^*\n]+\*{3}\n/m)
       input = ["Write a comment here", "{}", input.first] if input.size == 1
       comment = input.shift.strip
-      params = input.shift
-      markdown = input.shift
-      ast = input.shift
+      params = input.shift || ''
+      markdown = input.shift || ''
+      ast = input.shift || ''
       expected = METHODS.zip(input).inject({}) {|h, (k, v)| h[k] = v ? v.strip : '' ; h}
 
       before(:each) do
