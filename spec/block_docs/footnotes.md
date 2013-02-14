@@ -69,11 +69,11 @@ md_el(:document,[
 <p>That’s the second paragraph of the footnote. <a href="#fnref:3" rev="footnote">&#8617;</a></p>
 </li></ol></div>
 *** Output of to_latex ***
-That'{}s some text with a footnote \footnote{And that'{}s the footnote. This is second sentence (same paragraph).}  and another \footnote{This is the very long one.
+That's some text with a footnote \footnote{And that's the footnote. This is second sentence (same paragraph).}  and another \footnote{This is the very long one.
 
-That'{}s the second paragraph.}  and another \footnote{And that'{}s the footnote.
+That's the second paragraph.}  and another \footnote{And that's the footnote.
 
-That'{}s the second paragraph of the footnote.} .
+That's the second paragraph of the footnote.} .
 
 This is not a footnote.
 *** Output of to_md ***

@@ -68,7 +68,7 @@ Please mouseover to see the title:
 
 Please mouseover to see the title: 
 
-I'{}ll say it one more time: this page does not use 
+I'll say it one more time: this page does not use 
 
 This is double size:
 *** Output of to_md ***

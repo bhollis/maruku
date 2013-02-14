@@ -49,45 +49,51 @@ describe "A Maruku document" do
       params = input.shift
       markdown = input.shift
       ast = input.shift
+      expected = METHODS.zip(input).inject({}) {|h, (k, v)| h[k] = v ? v.strip : '' ; h}
 
       before(:each) do
         pending "#{comment} - #{md}" if comment.start_with?("PENDING")
         pending "#{comment} - #{md}" if comment.start_with?("JRUBY PENDING") && RUBY_PLATFORM == 'java'
         $already_warned_itex2mml = false
         @doc = Maruku.new(markdown, eval(params))
-        @expected = METHODS.zip(input).inject({}) {|h, (k, v)| h[k] = v ? v.strip : '' ; h}
       end
 
       it "should read in the output of #inspect as the same document" do
         Maruku.new.instance_eval("#coding: utf-8\n#{@doc.inspect}").should == @doc
       end
 
-      it "should produce the given AST" do
-        @doc.should == Maruku.new.instance_eval(ast)
-      end
-
-      it "should have the expected to_html output" do
-        res = @doc.to_html.strip
-        pending "install itex2mml to run these tests" if $already_warned_itex2mml
-
-        resdoc = Nokogiri::XML("<dummy>#{res}</dummy>")
-        expdoc = Nokogiri::XML("<dummy>#{@expected[:to_html]}</dummy>")
-
-        diff = ""
-        changed = false
-        expdoc.diff(resdoc) do |change, node|
-          diff << "#{change} #{node.inspect}\n"
-          changed = true unless change == ' '
-        end
-
-        if changed
-          res.should == @expected[:to_html]
+      unless ast.strip.empty?
+        it "should produce the given AST" do
+          @doc.should == Maruku.new.instance_eval(ast)
         end
       end
 
-      it "should have the expected to_latex output" do
-        res = @doc.to_latex.strip
-        res.should == @expected[:to_latex]
+      unless expected[:to_html].strip.empty?
+        it "should have the expected to_html output" do
+          res = @doc.to_html.strip
+          pending "install itex2mml to run these tests" if $already_warned_itex2mml
+
+          resdoc = Nokogiri::XML("<dummy>#{res}</dummy>")
+          expdoc = Nokogiri::XML("<dummy>#{expected[:to_html]}</dummy>")
+
+          diff = ""
+          changed = false
+          expdoc.diff(resdoc) do |change, node|
+            diff << "#{change} #{node.inspect}\n"
+            changed = true unless change == ' '
+          end
+
+          if changed
+            res.should == expected[:to_html]
+          end
+        end
+      end
+      
+      unless expected[:to_latex].strip.empty?
+        it "should have the expected to_latex output" do
+          res = @doc.to_latex.strip
+          res.should == expected[:to_latex]
+        end
       end
     end
   end

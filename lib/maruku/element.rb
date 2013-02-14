@@ -94,47 +94,31 @@ module MaRuKu
         self.meta_priv == o.meta_priv &&
         self.children == o.children
     end
-  end
 
-  # This represents the whole document and holds global data.
-  class MDDocument # < MDElement
-    # @return [{String => {:url => String, :title => String}}]
-    attr_accessor :refs
+    # Iterates through each {MDElement} child node of this element.
+    # This includes deeply-nested child nodes.
+    # If `e_node_type` is specified, only yields nodes of that type.
+    def each_element(e_node_type=nil, &block)
+      @children.each do |c|
+        next unless c.is_a? MDElement
+        yield c if e_node_type.nil? || c.node_type == e_node_type
+        c.each_element(e_node_type, &block)
+      end
+    end
 
-    # @return [{String => MDElement}]
-    attr_accessor :footnotes
-
-    # @return [{String => String}]
-    attr_accessor :abbreviations
-
-    # Attribute definition lists.
+    # Iterates through each String child node of this element,
+    # replacing it with the result of the block.
+    # This includes deeply-nested child nodes.
     #
-    # @return [{String => AttributeList}]
-    attr_accessor :ald
-
-    # The order in which footnotes are used. Contains the id.
+    # This destructively modifies this node and its children.
     #
-    # @return [Array<String>]
-    attr_accessor :footnotes_order
-
-    # @return [{String => {String => MDElement}}]
-    attr_accessor :refid2ref
-
-    # A counter for generating unique IDs [Integer]
-    attr_accessor :id_counter
-
-    def initialize(s=nil)
-      super(:document)
-
-      self.doc = self
-      self.refs = {}
-      self.footnotes = {}
-      self.footnotes_order = []
-      self.abbreviations = {}
-      self.ald = {}
-      self.id_counter = 0
-
-      parse_doc(s) if s
+    # @todo Make this non-destructive
+    def replace_each_string(&block)
+      @children.map! do |c|
+        next yield c unless c.is_a?(MDElement)
+        c.replace_each_string(&block)
+        c
+      end.flatten!
     end
   end
 end

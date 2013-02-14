@@ -28,7 +28,8 @@
 # CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
-#
+
+
 # Fenced code blocks begin with three or more tildes and are terminated
 # by a closing line with at least as many tildes as the opening line.
 # Optionally, an attribute list may appear at the end of the opening
@@ -41,37 +42,36 @@
 OpenFence = /^(~~~+?)\s*(\{([^{}]*?|".*?"|'.*?')*\})?\s*$/
 
 MaRuKu::In::Markdown::register_block_extension(
-	:regexp  => OpenFence,
-	:handler => lambda { |doc, src, context|
+  :regexp  => OpenFence,
+  :handler => lambda do |doc, src, context|
+    first = src.shift_line
+    first =~ OpenFence
+    close_fence = /^#{$1}~*$/
+    ial = $2
 
-	first = src.shift_line
-	first =~ OpenFence
-	close_fence = /^#{$1}~*$/
-	ial = $2
+    lines = []
 
-	lines = []
+    # read until CloseFence
+    while src.cur_line
+      if src.cur_line =~ close_fence
+        src.shift_line
+        break
+      else
+        lines << src.shift_line
+      end
+    end
 
-	# read until CloseFence
-	while src.cur_line
-		if src.cur_line =~ close_fence
-			src.shift_line
-			break
-		else
-			lines.push src.shift_line
-		end
-	end
+    ial = nil unless ial && ial.size > 0
+    al = nil
 
-	ial = nil unless (ial && ial.size > 0)
-	al = nil
+    if ial =~ /^\{(.*?)\}\s*$/
+      inside = $1
+      cs = MaRuKu::In::Markdown::SpanLevelParser::CharSource
+      al = ial && doc.read_attribute_list(cs.new(inside))
+    end
 
-	if ial =~ /^\{(.*?)\}\s*$/
-		inside = $1
-		cs = MaRuKu::In::Markdown::SpanLevelParser::CharSource
-		al = ial &&
-			doc.read_attribute_list(cs.new(inside), nil, [nil])
-	end
-
-	source = lines.join("\n")
-	context.push doc.md_codeblock(source, al)
-	true
-})
+    source = lines.join("\n")
+    context.push doc.md_codeblock(source, al)
+    true
+  end
+)

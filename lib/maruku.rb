@@ -46,7 +46,6 @@ module MaRuKu
     include Errors
   end
 
-
   class MDDocument < MDElement
     include In::Markdown
     include In::Markdown::SpanLevelParser
@@ -58,8 +57,9 @@ class Maruku < MaRuKu::MDDocument; end
 
 
 # Structures definition
-require 'maruku/structures'
-require 'maruku/structures_inspect'
+require 'maruku/element'
+require 'maruku/document'
+require 'maruku/inspect_element'
 
 require 'maruku/defaults'
 
@@ -72,7 +72,7 @@ require 'maruku/input/parse_doc'
 # Ugly things kept in a closet
 require 'maruku/string_utils'
 require 'maruku/input/linesource'
-require 'maruku/input/type_detection'
+require 'maruku/input/mdline'
 
 # A class for reading and sanitizing inline HTML
 require 'maruku/input/html_helper'
@@ -89,8 +89,6 @@ require 'maruku/input/extensions'
 
 require 'maruku/attributes'
 
-require 'maruku/structures_iterators'
-
 require 'maruku/errors'
 
 # Code for creating a table of contents
@@ -104,14 +102,14 @@ require 'maruku/ext/fenced_code'
 # Version and URL
 require 'maruku/version'
 
+# Entity conversion for HTML and LaTeX
+require 'maruku/output/entity_table'
 
 # Exporting to html
 require 'maruku/output/to_html'
 
 # Exporting to latex
 require 'maruku/output/to_latex'
-require 'maruku/output/to_latex_strings'
-require 'maruku/output/to_latex_entities'
 
 # Pretty print
 require 'maruku/output/to_markdown'

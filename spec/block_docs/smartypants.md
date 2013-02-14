@@ -87,17 +87,17 @@ md_el(:document,[
 </blockquote>
 *** Output of to_latex ***
 \begin{verbatim}'Twas a "test" to 'remember' in the '90s.\end{verbatim}
-`{}Twas a ``{}test''{} to `{}remember'{} in the '{}90s.
+`Twas a ``test'' to `remember' in the '90s.
 
 \begin{verbatim}It was --- in a sense --- really... interesting.\end{verbatim}
-It was ---{} in a sense ---{} really\ldots{} interesting.
+It was --- in a sense --- really\ldots{} interesting.
 
 \begin{verbatim}I -- too -- met << some curly quotes >> there or <<here>>No space.\end{verbatim}
-I --{} too --{} met \guillemotleft{}~{}some curly quotes~{}\guillemotright{} there or \guillemotleft{}here\guillemotright{}No space.
+I -- too -- met \guillemotleft{}~some curly quotes~\guillemotright{} there or \guillemotleft{}here\guillemotright{}No space.
 
 \begin{verbatim}She was 6\"12\'.\end{verbatim}
 \begin{quote}%
-She was 6"{}12'{}.
+She was 6"12'.
 
 
 \end{quote}

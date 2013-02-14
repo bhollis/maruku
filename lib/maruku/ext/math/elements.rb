@@ -11,7 +11,7 @@ module MaRuKu
       if (label || numerate) && @doc # take number
         @doc.eqid2eq ||= {}
         num = @doc.eqid2eq.size + 1
-        label = "eq#{num}" if not label # TODO do id for document
+        label = "eq#{num}" unless label # TODO do id for document
       end
       e = self.md_el(:equation, [], :math => math, :label => label, :num => num)
       @doc.eqid2eq[label] = e if label && @doc # take number
