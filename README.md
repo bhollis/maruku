@@ -8,7 +8,7 @@ Maruku implements:
 * All the improvements in PHP Markdown Extra.
 * A new meta-data syntax.
 
-Read more about [http://rdoc.info/github/bhollis/maruku/master/file/docs/markdown_syntax.md](Maruku's Markdown Syntax). It also supports [http://rdoc.info/github/bhollis/maruku/master/file/docs/math.md](inline math). [http://rdoc.info/github/bhollis/maruku/master/](Maruku docs).
+Read more about [Maruku's Markdown syntax](http://rdoc.info/github/bhollis/maruku/master/file/docs/markdown_syntax.md). It also supports [inline math](http://rdoc.info/github/bhollis/maruku/master/file/docs/math.m). [Maruku docs](http://rdoc.info/github/bhollis/maruku/master/).
 
 News about Maruku is posted at [http://benhollis.net/blog/category/maruku/](http://benhollis.net/blog/category/maruku/)
 
