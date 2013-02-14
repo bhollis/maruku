@@ -28,6 +28,7 @@ EXPECTATIONS = Maruku.new.instance_eval do
     ["`` \\` ``" ,    [md_code('\\`')],   ],
     ["``a``" ,   [md_code('a')],    ],
     ["`` a ``" ,   [md_code('a')],    ],
+    ["``a", ["``a"], 'Unmatched double ticks are left alone', true ],
 
     # Newlines
     ["a  \n", ['a',md_el(:linebreak)], 'Two spaces give br.'],

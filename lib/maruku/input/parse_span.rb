@@ -474,6 +474,11 @@ module MaRuKu::In::Markdown::SpanLevelParser
     end_string = "`" * num_ticks
 
     code = read_simple(src, nil, nil, end_string)
+    
+    # We didn't find a closing batch!
+    if !code || src.cur_char != '`'
+      con.push_element(end_string + (code || '')) and return
+    end
 
     #   puts "Now I expects #{num_ticks} ticks: #{src.cur_chars(10).inspect}"
     src.ignore_chars num_ticks
