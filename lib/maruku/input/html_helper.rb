@@ -138,12 +138,12 @@ module MaRuKu::In::Markdown::SpanLevelParser
         if @tag_stack.empty?
           error "Malformed: closing tag #{tag.inspect} "+
             "in empty list"
+        elsif @tag_stack.last != tag
+          error "Malformed: closing </#{tag}> but no "+
+            "opening <#{tag}>"
+        else
+          @tag_stack.pop
         end
-        if @tag_stack.last != tag
-          error "Malformed: tag <#{tag}> "+
-            "closes <#{@tag_stack.last}>"
-        end
-        @tag_stack.pop
       else
         @already += @m.to_s
 
@@ -155,7 +155,7 @@ module MaRuKu::In::Markdown::SpanLevelParser
     end
 
     def error(s)
-      raise  "Error: #{s} \n"+ inspect, caller
+      raise "Error: #{s} \n"+ inspect, caller
     end
 
     def inspect
