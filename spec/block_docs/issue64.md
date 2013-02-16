@@ -15,7 +15,7 @@ A nested list with a single item (does not work)
   - item b
 
 *** Output of inspect ***
-
+md_el(:document,[],{},[])
 *** Output of to_html ***
 <p>A nested list with a single item (does not work)</p>
 
