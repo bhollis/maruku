@@ -1,6 +1,6 @@
 
 *** Parameters: ***
-require 'maruku/ext/math'; {}
+require 'maruku/ext/math'; {:html_math_engine => 'itex2mml'}
 *** Markdown input: ***
 Here are some formulas:
 
@@ -36,7 +36,7 @@ Here are some formulas:
 \item $x^{n}+y^{n} \neq z^{n}$
 
 \end{itemize}
-That'{}s it, nothing else is supported.
+That's it, nothing else is supported.
 *** Output of to_md ***
 Here are some formulas:
 

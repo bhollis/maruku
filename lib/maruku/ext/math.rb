@@ -8,30 +8,30 @@ require 'maruku/ext/math/mathml_engines/ritex'
 require 'maruku/ext/math/mathml_engines/itex2mml'
 require 'maruku/ext/math/mathml_engines/blahtex'
 
-=begin maruku_doc
-Attribute: math_enabled
-Scope: global, document
-Summary: Enables parsing of LaTeX math 
-
-To explicitly disable the math parsing:
-
-	Maruku.new(string, {:math_enabled => false})
-	{:ruby}
-	
-=end
+#=begin maruku_doc
+# Attribute: math_enabled
+# Scope: global, document
+# Summary: Enables parsing of LaTeX math
+#
+# To explicitly disable the math parsing:
+#
+# 	Maruku.new(string, {:math_enabled => false})
+# 	{:ruby}
+#
+#=end
 
 MaRuKu::Globals[:math_enabled] = true
 
 
-=begin maruku_doc
-Attribute: math_numbered
-Scope: global, document
-Summary: Math openings which should be numerated
+#=begin maruku_doc
+# Attribute: math_numbered
+# Scope: global, document
+# Summary: Math openings which should be numerated
+#
+# Array containing any of `'\\['`, `'\\begin{equation}'`, `'$$'`.
+#
+# 	MaRuKu::Globals[:math_numbered] = ['\\[']
+#
+#=end
 
-Array containing any of `'\\['`, `'\\begin{equation}'`, `'$$'`.
-
-	MaRuKu::Globals[:math_numbered] = ['\\[']
-	
-=end
-
-MaRuKu::Globals[:math_numbered] = [] 
+MaRuKu::Globals[:math_numbered] = []

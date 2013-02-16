@@ -1,5 +1,4 @@
-module MaRuKu; module Out; module HTML
-
+module MaRuKu::Out::HTML
 	def convert_to_mathml_ritex(kind, tex)
 		begin
 			if not $ritex_parser
@@ -20,5 +19,4 @@ module MaRuKu; module Out; module HTML
 		end
 		nil
 	end
-	
-end end end
+end

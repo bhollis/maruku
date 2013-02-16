@@ -1,20 +1,15 @@
-module MaRuKu; module Out; module HTML
+require 'maruku/string_utils'
+require 'nokogiri'
 
-  require 'maruku/string_utils'
-  require 'nokogiri'
-
-	def convert_to_mathml_none(kind, tex)
-    d = Nokogiri::XML::Document.new
-    code = Nokogiri::XML::Element.new('code', d)
-    tex_node = Nokogiri::XML::Text.new(tex, d)
+module MaRuKu::Out::HTML
+  def convert_to_mathml_none(kind, tex)
+    code = xelem('code')
+    tex_node = xtext(tex)
     code << tex_node
-    code
-	end
+  end
 
-	def convert_to_png_none(kind, tex)
-		return nil
-	end
-
-
-end end end
+  def convert_to_png_none(kind, tex)
+    nil
+  end
+end
 

@@ -1,6 +1,9 @@
 require 'rubygems'
 require 'bundler'
 
+# Turn on verbose warnings for tests
+ENV['RUBYOPT'] = '-w'
+
 begin
   Bundler.setup(:default, :development)
 rescue Bundler::BundlerError => e

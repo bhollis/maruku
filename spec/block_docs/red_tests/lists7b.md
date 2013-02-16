@@ -1,4 +1,4 @@
-Test case given by Scott.
+PENDING - Test case given by Scott.
 
 http://rubyforge.org/tracker/index.php?func=detail&aid=8862&group_id=2795&atid=10735
 
@@ -17,31 +17,28 @@ a should not be indented.
 md_el(:document,[
 	md_el(:ul,[
 		md_el(:li,[
-			md_par(["a"]),
+			"a",
 			md_el(:ul,[
 				md_el(:li_span,["a1"],{:want_my_paragraph=>false},[]),
 				md_el(:li_span,["a2"],{:want_my_paragraph=>false},[])
 			],{},[])
 		],{:want_my_paragraph=>true},[]),
-		md_el(:li,[md_par(["b"])],{:want_my_paragraph=>false},[])
+		md_el(:li,["b"],{:want_my_paragraph=>false},[])
 	],{},[])
 ],{},[])
 *** Output of to_html ***
 <ul>
-<li>
-<p>a</p>
+<ul>
+<li>a
 
 <ul>
 <li>a1</li>
-
 <li>a2</li>
 </ul>
 </li>
-
-<li>
-<p>b</p>
-</li>
+<li>b</li>
 </ul>
+
 *** Output of to_latex ***
 \begin{itemize}%
 \item a

@@ -835,16 +835,11 @@ module MaRuKu::Out::HTML
   end
 
   def to_html_entity
-    MaRuKu::Out::Latex.need_entity_table
-
     entity_name = self.entity_name
 
-    if (e = MaRuKu::Out::Latex::ENTITY_TABLE[entity_name]) && e.html_num
-      entity_name = e.html_num
+    if entity = MaRuKu::Out::EntityTable.instance.entity(entity_name)
+      entity_name = entity.html_num
     end
-
-    # Fix for Internet Explorer
-    entity_name = 39 if entity_name == 'apos'
 
     if entity_name.kind_of? Fixnum
       # Work around https://github.com/sparklemotion/nokogiri/issues/835

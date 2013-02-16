@@ -8,6 +8,8 @@ Maruku implements:
 * All the improvements in PHP Markdown Extra.
 * A new meta-data syntax.
 
+Read more about [Maruku's Markdown syntax](http://rdoc.info/github/bhollis/maruku/master/file/docs/markdown_syntax.md). It also supports [inline math](http://rdoc.info/github/bhollis/maruku/master/file/docs/math.m). [Maruku docs](http://rdoc.info/github/bhollis/maruku/master/).
+
 News about Maruku is posted at [http://benhollis.net/blog/category/maruku/](http://benhollis.net/blog/category/maruku/)
 
 ## Basic Use
@@ -31,8 +33,7 @@ use the `#to_html_document` method.
 
 ### Error Management
 
-Maruku has a real parser,
-so it warns you if something is wrong with the input.
+Maruku warns you if something is wrong with the input.
 The default behaviour is to print a warning on standard error,
 and then try to continue.
 
@@ -57,13 +58,11 @@ Maruku comes with two command-line programs: `maruku` and `marutex`.
 
 `maruku` converts Markdown to HTML:
 
-    !!!bash
     $ maruku file.md  # creates file.html
 
 `marutex` converts Markdown to LaTeX,
 then calls `pdflatex` to transform the LaTeX to a PDF:
 
-    !!!bash
     $ marutex file.md  # creates file.tex and file.pdf
 
 ## Code organization

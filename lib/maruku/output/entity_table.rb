@@ -18,37 +18,36 @@
 #   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #++
 
+require 'nokogiri'
+require 'singleton'
 
-module MaRuKu
+module MaRuKu::Out
+  Entity = Struct.new(:html_num, :html_entity, :latex_string, :latex_package)
 
-  class MDElement
+  class EntityTable
+    # Sad but true
+    include Singleton
 
-    # Strips all formatting from the string
-    def to_s
-      warn "Maruku#to_s is deprecated and will be removed or changed in a near-future version of Maruku."
-      children_to_s
-    end
+    def initialize
+      @entity_table = {}
 
-    def children_to_s
-      @children.join
-    end
+      xml = File.read(File.join(File.dirname(__FILE__), '..', '..', '..', 'data', 'entities.xml'))
+      doc = Nokogiri::XML::Document.parse(xml)
+      doc.xpath("//char").each do |c|
+        num = c['num'].to_i
+        name = c['name']
+        convert = c['convertTo']
+        package = c['package']
 
-    # Generate an id for headers. Assumes @children is set.
-    def generate_id
-      title = children_to_s
-      title.gsub!(/ /,'_')
-      title.downcase!
-      title.gsub!(/\W/,'')
-      title.strip!
-
-      if title.size == 0
-        $uid ||= 0
-        $uid += 1
-        title = "id#{$uid}"
+        e = Entity.new(num, name, convert, package)
+        @entity_table[name] = e
+        @entity_table[num] = e
       end
+    end
 
-      @doc.id_counter += 1
-      title << "_" + @doc.id_counter.to_s
+    def entity(name)
+      @entity_table[name]
     end
   end
 end
+

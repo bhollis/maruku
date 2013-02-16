@@ -1,4 +1,4 @@
-I'm not sure if this should work at all...
+PENDING - nested lists don't work I guess
 
 *** Parameters: ***
 {} # params 
@@ -12,20 +12,40 @@ Ciao
 *** Output of inspect ***
 md_el(:document,[
         md_par(["Ciao"]),
-        md_el(:ul,[md_el(:li_span,["Tab * Tab * Tab"],{:want_my_paragraph=>false},[])],{},[])
+        md_el(:ul,[md_el(:li,["Tab"
+          md_el(:ul,[md_el(:li,["Tab"
+            md_el(:ul,[md_el(:li,["Tab"],{:want_my_paragraph=>false},[])],{},[]),
+          {:want_my_paragraph=>false},[])],{},[]),
+        {:want_my_paragraph=>false},[])],{},[])
        ],{},[])
 *** Output of to_html ***
 <p>Ciao</p>
 
 <ul>
-<li>Tab * Tab * Tab</li>
+<li>Tab
+
+<ul>
+<li>Tab
+
+<ul>
+<li>Tab</li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 *** Output of to_latex ***
 Ciao
 
 \begin{itemize}%
-\item Tab * Tab * Tab
+\item Tab
+\begin{itemize}%
+\item Tab
+\begin{itemize}%
+\item Tab
 
+\end{itemize}
+\end{itemize}
 \end{itemize}
 *** Output of to_md ***
 Ciao

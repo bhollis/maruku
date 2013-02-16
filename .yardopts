@@ -6,3 +6,7 @@
 --hide-void-return
 --protected
 --no-private
+-
+CHANGELOG.md
+docs/markdown_syntax.md
+docs/math.md
