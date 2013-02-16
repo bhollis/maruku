@@ -1,6 +1,7 @@
 rvm:
   - 1.8.7
   - 1.9.3
+  - 2.0.0
   - jruby-18mode
   - jruby-19mode
   - rbx-18mode
@@ -9,7 +10,4 @@ branches:
   only:
     - master
 script: "bundle exec rake spec"
-matrix:
-  allow_failures:
-    # The weekly rbx seems to have a bug that's fixed in HEAD
-    - rvm: rbx-18mode
+
