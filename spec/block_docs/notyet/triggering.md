@@ -30,11 +30,11 @@ Paragraph with block quote:
 > Quoted
 
 Paragraph with header:
-### header ###
+### header 1 ###
 
 Paragraph with header on two lines:
-header
-------
+header 2
+--------
 
 *** Output of inspect ***
 md_el(:document,[
@@ -57,9 +57,9 @@ md_el(:document,[
 	md_par(["Paragraph with block quote:"]),
 	md_el(:quote,[md_par(["Quoted"])],{},[]),
 	md_par(["Paragraph with header:"]),
-	md_el(:header,["header"],{:level=>3},[]),
+	md_el(:header,["header 1"],{:level=>3},[]),
 	md_par(["Paragraph with header on two lines:"]),
-	md_el(:header,["header"],{:level=>2},[])
+	md_el(:header,["header 2"],{:level=>2},[])
 ],{},[])
 *** Output of to_html ***
 <p>Paragraph, list with no space: * ciao</p>
@@ -86,11 +86,11 @@ md_el(:document,[
 
 <p>Paragraph with header:</p>
 
-<h3 id="header_1">header</h3>
+<h3 id="header_1">header 1</h3>
 
 <p>Paragraph with header on two lines:</p>
 
-<h2 id="header_2">header</h2>
+<h2 id="header_2">header 2</h2>
 *** Output of to_latex ***
 Paragraph, list with no space: * ciao
 
@@ -117,11 +117,11 @@ Quoted
 \end{quote}
 Paragraph with header:
 
-\hypertarget{header_1}{}\subsubsection*{{header}}\label{header_1}
+\hypertarget{header_1}{}\subsubsection*{{header 1}}\label{header_1}
 
 Paragraph with header on two lines:
 
-\hypertarget{header_2}{}\subsection*{{header}}\label{header_2}
+\hypertarget{header_2}{}\subsection*{{header 2}}\label{header_2}
 *** Output of to_md ***
 Paragraph, list with no space: * ciao
 
