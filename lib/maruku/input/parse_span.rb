@@ -57,7 +57,7 @@ module MaRuKu::In::Markdown::SpanLevelParser
       if Array(exit_on_strings).any? {|x| src.cur_chars_are x }
         # Special case: bold nested in italic
         break unless !(['*', '_'] & Array(exit_on_strings)).empty? &&
-          ['**','__'].include?(src.cur_chars(2))
+          ['**', '__'].include?(src.cur_chars(2))
       end
 
       # check if there are extensions
