@@ -214,22 +214,16 @@ md_el(:document,[
 				"."
 			])
 		],{:want_my_paragraph=>false},[]),
-		md_el(:li,[
-			md_par([
-				md_em(["C++ libraries"]),
-				": * ",
-				md_link(["QT"],"qt"),
-				" for GUIs. * ",
-				md_link(["GSL"],"gsl"),
-				" for math. * ",
-				md_link(["Magick++"],"magick"),
-				" for manipulating images. * ",
-				md_link(["Cairo"],"cairo"),
-				" for creating PDFs. * ",
-				md_link(["Boost"],"boost"),
-				" for just about everything else."
-			])
-		],{:want_my_paragraph=>false},[])
+    md_li([
+       md_par([md_em("C++ libraries"), ":"]),
+       md_el(:ul, [
+         md_el(:li_span, [md_link("QT", "qt"), " for GUIs."], {:want_my_paragraph=>false}),
+         md_el(:li_span, [md_link("GSL", "gsl"), " for math."], {:want_my_paragraph=>false}),
+         md_el(:li_span, [md_link("Magick++", "magick"), " for manipulating images."], {:want_my_paragraph=>false}),
+         md_el(:li_span, [md_link("Cairo", "cairo"), " for creating PDFs."], {:want_my_paragraph=>false}),
+         md_el(:li_span, [md_link("Boost", "boost"), " for just about everything else."], {:want_my_paragraph=>false})
+       ])
+    ], true)
 	],{},[]),
 	md_el(:header,["Research"],{:level=>3},[]),
 	md_el(:ul,[
@@ -381,7 +375,19 @@ Type "help", "copyright", "credits" or "license" for more information.
 </li>
 
 <li>
-<p><em>C++ libraries</em>: * <a href="http://www.trolltech.no/">QT</a> for GUIs. * <a href="http://www.gnu.org/software/gsl/">GSL</a> for math. * <a href="http://www.imagemagick.org/Magick++/">Magick++</a> for manipulating images. * <a href="http://cairographics.org/">Cairo</a> for creating PDFs. * <a href="http://www.boost.org/">Boost</a> for just about everything else.</p>
+<p><em>C++ libraries</em>:</p>
+
+<ul>
+<li><a href="http://www.trolltech.no/">QT</a> for GUIs.</li>
+
+<li><a href="http://www.gnu.org/software/gsl/">GSL</a> for math.</li>
+
+<li><a href="http://www.imagemagick.org/Magick++/">Magick++</a> for manipulating images.</li>
+
+<li><a href="http://cairographics.org/">Cairo</a> for creating PDFs.</li>
+
+<li><a href="http://www.boost.org/">Boost</a> for just about everything else.</li>
+</ul>
 </li>
 </ul>
 
@@ -450,8 +456,16 @@ Type "help", "copyright", "credits" or "license" for more information.
 \item \emph{Mark-up language}: HTML is so 2001, why don't you take at look at \href{http://en.wikipedia.org/wiki/Markdown}{Markdown}? \href{data/misc_markdown.png}{Look at the source of this page}.
 
 
-\item \emph{C++ libraries}: * \href{http://www.trolltech.no/}{QT} for GUIs. * \href{http://www.gnu.org/software/gsl/}{GSL} for math. * \href{http://www.imagemagick.org/Magick++/}{Magick++} for manipulating images. * \href{http://cairographics.org/}{Cairo} for creating PDFs. * \href{http://www.boost.org/}{Boost} for just about everything else.
+\item \emph{C++ libraries}:
 
+\begin{itemize}%
+\item \href{http://www.trolltech.no/}{QT} for GUIs.
+\item \href{http://www.gnu.org/software/gsl/}{GSL} for math.
+\item \href{http://www.imagemagick.org/Magick++/}{Magick++} for manipulating images.
+\item \href{http://cairographics.org/}{Cairo} for creating PDFs.
+\item \href{http://www.boost.org/}{Boost} for just about everything else.
+
+\end{itemize}
 
 
 \end{itemize}

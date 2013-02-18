@@ -1,4 +1,4 @@
-PENDING - List markers typically start at the left margin, but may be indented by up to three spaces. https://github.com/bhollis/maruku/issues/30
+List markers typically start at the left margin, but may be indented by up to three spaces. https://github.com/bhollis/maruku/issues/30
 *** Parameters: ***
 {}
 *** Markdown input: ***
@@ -10,7 +10,12 @@ And this:
 
    * still a list
 *** Output of inspect ***
-md_el(:document, [])
+md_el(:document, [
+	md_par("This is a list:"),
+	md_el(:ul, md_el(:li_span, "a list", {:want_my_paragraph=>false})),
+	md_par("And this:"),
+	md_el(:ul, md_el(:li_span, "still a list", {:want_my_paragraph=>false}))
+])
 *** Output of to_html ***
 <p>This is a list:</p>
 

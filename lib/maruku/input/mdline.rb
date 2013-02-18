@@ -68,11 +68,8 @@ module MaRuKu
       return :header3        if self =~ /^(#)+\s*\S+/
       # at least three asterisks/hyphens/underscores on a line, and only whitespace
       return :hrule          if self =~ /^(\s*[\*\-_]\s*){3,}$/
-      # Something is wrong with how we parse lists! :-(
-      #return :ulist          if self =~ /^[ ]{0,3}([\*\-\+])\s+.*\w+/
-      #return :olist          if self =~ /^[ ]{0,3}\d+\..*\w+/
-      return :ulist          if self =~ /^[ ]{0,1}([\*\-\+])\s+.*/
-      return :olist          if self =~ /^[ ]{0,1}\d+\.\s+.*/
+      return :ulist          if self =~ /^[ ]{0,3}([\*\-\+])\s+.*/
+      return :olist          if self =~ /^[ ]{0,3}\d+\.\s+.*/
       return :quote          if self =~ /^>/
       return :metadata       if self =~ /^@/
       return :ald            if self =~ AttributeDefinitionList
