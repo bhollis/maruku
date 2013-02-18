@@ -189,7 +189,12 @@ module MaRuKu::Out::HTML
 
     # Create title element
     doc_title = self.attributes[:title] || self.attributes[:subject] || ""
-    title = xelem('title') << xtext(doc_title)
+    begin
+      title_content = Nokogiri::HTML::DocumentFragment.parse(doc_title)
+    rescue
+      title_content = xtext(doc_title)
+    end
+    title = xelem('title') << title_content
     head << title
     add_css_to(head)
 
