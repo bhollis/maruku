@@ -1,5 +1,4 @@
-PENDING - nested lists don't work I guess
-
+PENDING - Sub-lists should be indentable with a single tab.
 *** Parameters: ***
 {} # params 
 *** Markdown input: ***
