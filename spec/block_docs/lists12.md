@@ -1,4 +1,4 @@
-List Items with non alphanumeric content
+List Items with non alphanumeric content. https://github.com/bhollis/maruku/issues/1
 *** Parameters: ***
 {}
 *** Markdown input: ***
