@@ -214,22 +214,16 @@ md_el(:document,[
 				"."
 			])
 		],{:want_my_paragraph=>false},[]),
-		md_el(:li,[
-			md_par([
-				md_em(["C++ libraries"]),
-				": * ",
-				md_link(["QT"],"qt"),
-				" for GUIs. * ",
-				md_link(["GSL"],"gsl"),
-				" for math. * ",
-				md_link(["Magick++"],"magick"),
-				" for manipulating images. * ",
-				md_link(["Cairo"],"cairo"),
-				" for creating PDFs. * ",
-				md_link(["Boost"],"boost"),
-				" for just about everything else."
-			])
-		],{:want_my_paragraph=>false},[])
+    md_li([
+       md_par([md_em("C++ libraries"), ":"]),
+       md_el(:ul, [
+         md_el(:li_span, [md_link("QT", "qt"), " for GUIs."], {:want_my_paragraph=>false}),
+         md_el(:li_span, [md_link("GSL", "gsl"), " for math."], {:want_my_paragraph=>false}),
+         md_el(:li_span, [md_link("Magick++", "magick"), " for manipulating images."], {:want_my_paragraph=>false}),
+         md_el(:li_span, [md_link("Cairo", "cairo"), " for creating PDFs."], {:want_my_paragraph=>false}),
+         md_el(:li_span, [md_link("Boost", "boost"), " for just about everything else."], {:want_my_paragraph=>false})
+       ])
+    ], true)
 	],{},[]),
 	md_el(:header,["Research"],{:level=>3},[]),
 	md_el(:ul,[
@@ -333,7 +327,7 @@ md_el(:document,[
 	md_ref_def("java-generics", "http://java.sun.com/j2se/1.5.0/docs/guide/language/generics.html", {:title=>nil})
 ],{},[])
 *** Output of to_html ***
-<h3 id="general_1">General</h3>
+<h3 id="general">General</h3>
 
 <ul>
 <li><em>Operating System</em> : <a href="http://www.apple.com/getamac/">Mac OS X</a>: heaven, after the purgatory of Linux and the hell of Windows.</li>
@@ -345,7 +339,7 @@ md_el(:document,[
 <li><em>Text Editor</em>: <a href="http://www.apple.com/getamac/">TextMate</a>, you have to buy it, but it’s worth every penny. There are rumours that it’s been converting (recovering) Emacs users (addicts). Unfortunately, it’s Mac only. An alternative is <a href="http://www.jedit.org/">jedit</a> (GPL, Java).</li>
 </ul>
 
-<h3 id="development_2">Development</h3>
+<h3 id="development">Development</h3>
 
 <ul>
 <li>
@@ -381,11 +375,23 @@ Type "help", "copyright", "credits" or "license" for more information.
 </li>
 
 <li>
-<p><em>C++ libraries</em>: * <a href="http://www.trolltech.no/">QT</a> for GUIs. * <a href="http://www.gnu.org/software/gsl/">GSL</a> for math. * <a href="http://www.imagemagick.org/Magick++/">Magick++</a> for manipulating images. * <a href="http://cairographics.org/">Cairo</a> for creating PDFs. * <a href="http://www.boost.org/">Boost</a> for just about everything else.</p>
+<p><em>C++ libraries</em>:</p>
+
+<ul>
+<li><a href="http://www.trolltech.no/">QT</a> for GUIs.</li>
+
+<li><a href="http://www.gnu.org/software/gsl/">GSL</a> for math.</li>
+
+<li><a href="http://www.imagemagick.org/Magick++/">Magick++</a> for manipulating images.</li>
+
+<li><a href="http://cairographics.org/">Cairo</a> for creating PDFs.</li>
+
+<li><a href="http://www.boost.org/">Boost</a> for just about everything else.</li>
+</ul>
 </li>
 </ul>
 
-<h3 id="research_3">Research</h3>
+<h3 id="research">Research</h3>
 
 <ul>
 <li><em>Writing papers</em>: <a href="http://en.wikipedia.org/wiki/LaTeX">LaTeX</a></li>
@@ -401,7 +407,7 @@ Type "help", "copyright", "credits" or "license" for more information.
 <li><em>IEEExplore and BibTeX</em>: convert citations using <a href="http://www.bibconverter.net/ieeexplore/">BibConverter</a>.</li>
 </ul>
 
-<h3 id="cool_websites_4">Cool websites</h3>
+<h3 id="cool_websites">Cool websites</h3>
 
 <ul>
 <li><em>Best site in the wwworld</em>: <a href="http://en.wikipedia.org/">Wikipedia</a></li>
@@ -413,7 +419,7 @@ Type "help", "copyright", "credits" or "license" for more information.
 <li><em>Sharing photos</em>: <a href="http://www.flickr.com/">flickr</a> exposes an API you can use.</li>
 </ul>
 *** Output of to_latex ***
-\hypertarget{general_1}{}\subsubsection*{{General}}\label{general_1}
+\hypertarget{general}{}\subsubsection*{{General}}\label{general}
 
 \begin{itemize}%
 \item \emph{Operating System} : \href{http://www.apple.com/getamac/}{Mac OS X}: heaven, after the purgatory of Linux and the hell of Windows.
@@ -422,7 +428,7 @@ Type "help", "copyright", "credits" or "license" for more information.
 \item \emph{Text Editor}: \href{http://www.apple.com/getamac/}{TextMate}, you have to buy it, but it's worth every penny. There are rumours that it's been converting (recovering) Emacs users (addicts). Unfortunately, it's Mac only. An alternative is \href{http://www.jedit.org/}{jedit} (GPL, Java).
 
 \end{itemize}
-\hypertarget{development_2}{}\subsubsection*{{Development}}\label{development_2}
+\hypertarget{development}{}\subsubsection*{{Development}}\label{development}
 
 \begin{itemize}%
 \item \emph{Build system}: \href{http://www.cmake.org/}{cmake}, throw the \href{http://sources.redhat.com/autobook/}{autotools} away.
@@ -450,12 +456,20 @@ Type "help", "copyright", "credits" or "license" for more information.
 \item \emph{Mark-up language}: HTML is so 2001, why don't you take at look at \href{http://en.wikipedia.org/wiki/Markdown}{Markdown}? \href{data/misc_markdown.png}{Look at the source of this page}.
 
 
-\item \emph{C++ libraries}: * \href{http://www.trolltech.no/}{QT} for GUIs. * \href{http://www.gnu.org/software/gsl/}{GSL} for math. * \href{http://www.imagemagick.org/Magick++/}{Magick++} for manipulating images. * \href{http://cairographics.org/}{Cairo} for creating PDFs. * \href{http://www.boost.org/}{Boost} for just about everything else.
+\item \emph{C++ libraries}:
 
+\begin{itemize}%
+\item \href{http://www.trolltech.no/}{QT} for GUIs.
+\item \href{http://www.gnu.org/software/gsl/}{GSL} for math.
+\item \href{http://www.imagemagick.org/Magick++/}{Magick++} for manipulating images.
+\item \href{http://cairographics.org/}{Cairo} for creating PDFs.
+\item \href{http://www.boost.org/}{Boost} for just about everything else.
+
+\end{itemize}
 
 
 \end{itemize}
-\hypertarget{research_3}{}\subsubsection*{{Research}}\label{research_3}
+\hypertarget{research}{}\subsubsection*{{Research}}\label{research}
 
 \begin{itemize}%
 \item \emph{Writing papers}: \href{http://en.wikipedia.org/wiki/LaTeX}{LaTeX}
@@ -466,7 +480,7 @@ Type "help", "copyright", "credits" or "license" for more information.
 \item \emph{IEEExplore and BibTeX}: convert citations using \href{http://www.bibconverter.net/ieeexplore/}{BibConverter}.
 
 \end{itemize}
-\hypertarget{cool_websites_4}{}\subsubsection*{{Cool websites}}\label{cool_websites_4}
+\hypertarget{cool_websites}{}\subsubsection*{{Cool websites}}\label{cool_websites}
 
 \begin{itemize}%
 \item \emph{Best site in the wwworld}: \href{http://en.wikipedia.org/}{Wikipedia}

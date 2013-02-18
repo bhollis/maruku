@@ -32,23 +32,5 @@ module MaRuKu
     def children_to_s
       @children.join
     end
-
-    # Generate an id for headers. Assumes @children is set.
-    def generate_id
-      title = children_to_s
-      title.gsub!(/ /,'_')
-      title.downcase!
-      title.gsub!(/\W/,'')
-      title.strip!
-
-      if title.size == 0
-        $uid ||= 0
-        $uid += 1
-        title = "id#{$uid}"
-      end
-
-      @doc.id_counter += 1
-      title << "_" + @doc.id_counter.to_s
-    end
   end
 end

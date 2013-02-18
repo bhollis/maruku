@@ -265,7 +265,7 @@ module MaRuKu; module In; module Markdown; module BlockLevelParser
       when :quote, :header3, :empty, :ref_definition, :ial #,:xml_instr,:raw_html
         break
       when :olist, :ulist
-        break if src.next_line.md_type == t
+        break if src.next_line && src.next_line.md_type == t
       end
       break if src.cur_line.strip.empty?
       break if src.next_line && [:header1, :header2].include?(src.next_line.md_type)

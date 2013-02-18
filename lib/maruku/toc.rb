@@ -186,4 +186,12 @@ module MaRuKu
       s
     end
   end
+
+  class MDElement
+    # Generate an id for headers. Assumes @children is set.
+    def generate_id
+      raise "generate_id only makes sense for headers" unless node_type == :header
+      children_to_s.tr(' ', '_').downcase.gsub(/\W/, '').strip
+    end
+  end
 end

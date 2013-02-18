@@ -115,6 +115,8 @@ EXPECTATIONS = Maruku.new.instance_eval do
     ["__a**", :raise],
     ["___a***", :raise],
     ["***a___", :raise],
+    ["*This is in italic, and this is **bold**.*", [md_em(["This is in italic, and this is ", md_strong("bold"), "."])], 'Issue #23'],
+
     # links of the form [text][ref]
     ["\\[a]",  ["[a]"], 'Escaping 1'],
     ["\\[a\\]", ["[a]"], 'Escaping 2'],

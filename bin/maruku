@@ -86,7 +86,7 @@ begin
 rescue OptionParser::InvalidOption => e
   $stderr.puts e
   $stderr.puts opt
-  exit
+  exit 1
 end
 
 
