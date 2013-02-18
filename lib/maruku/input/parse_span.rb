@@ -557,8 +557,7 @@ module MaRuKu::In::Markdown::SpanLevelParser
         return
       end
     else # empty [link]
-      id = children.join
-      con.push_element md_link(children, id)
+      con.push_element md_link(children, nil)
     end
   end # read link
 

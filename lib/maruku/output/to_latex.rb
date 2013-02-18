@@ -409,7 +409,7 @@ Created by \\href{#{MaRuKu::MARUKU_URL}}{Maruku} #{self.nice_date}.
   end
 
   def to_latex_link
-    id = self.ref_id
+    id = self.ref_id || children_to_s
     ref = @doc.refs[sanitize_ref_id(id)] || @doc.refs[sanitize_ref_id(children_to_s)]
     if ref
       url = ref[:url]

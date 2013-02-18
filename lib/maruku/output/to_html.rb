@@ -643,7 +643,7 @@ module MaRuKu::Out::HTML
 
   def to_html_link
     a = wrap_as_element('a')
-    id = self.ref_id
+    id = self.ref_id || children_to_s
 
     if ref = @doc.refs[sanitize_ref_id(id)] || @doc.refs[sanitize_ref_id(children_to_s)]
       a['href'] = ref[:url] if ref[:url]
@@ -651,8 +651,12 @@ module MaRuKu::Out::HTML
     else
       maruku_error "Could not find ref_id = #{id.inspect} for #{self.inspect}\n" +
         "Available refs are #{@doc.refs.keys.inspect}"
-      tell_user "Not creating a link for ref_id = #{id.inspect}."
-      return "[#{children_to_s}][#{id}]"
+      tell_user "Not creating a link for ref_id = #{id.inspect}.\n"
+      if (self.ref_id)
+        return "[#{children_to_s}][#{id}]"
+      else
+        return "[#{children_to_s}]"
+      end
     end
 
     a
