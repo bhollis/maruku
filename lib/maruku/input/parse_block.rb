@@ -52,7 +52,7 @@ module MaRuKu; module In; module Markdown; module BlockLevelParser
       md_type = src.cur_line.md_type
 
       # Prints detected type (useful for debugging)
-      #  puts "#{md_type}|#{src.cur_line}"
+      #puts "parse_blocks #{md_type}|#{src.cur_line}"
       case md_type
       when :empty
         output << :empty
@@ -265,7 +265,7 @@ module MaRuKu; module In; module Markdown; module BlockLevelParser
       when :quote, :header3, :empty, :ref_definition, :ial #,:xml_instr,:raw_html
         break
       when :olist, :ulist
-        break if src.next_line && src.next_line.md_type == t
+        break if !src.next_line || src.next_line.md_type == t
       end
       break if src.cur_line.strip.empty?
       break if src.next_line && [:header1, :header2].include?(src.next_line.md_type)
@@ -287,7 +287,7 @@ module MaRuKu; module In; module Markdown; module BlockLevelParser
 
     indentation, ial = spaces_before_first_char(first)
     al = read_attribute_list(CharSource.new(ial, src)) if ial
-    # Ugly things going on inside `read_indented_content`
+
     lines, want_my_paragraph =
       read_indented_content(src, indentation, :ial, item_type)
 
@@ -296,9 +296,9 @@ module MaRuKu; module In; module Markdown; module BlockLevelParser
     stripped = first[indentation, first.size - 1]
     lines.unshift stripped
 
-
     src2 = LineSource.new(lines, src, parent_offset)
     children = parse_blocks(src2)
+
     with_par = want_my_paragraph || (children.size > 1)
 
     md_li(children, with_par, al)
@@ -333,7 +333,6 @@ module MaRuKu; module In; module Markdown; module BlockLevelParser
     id = $1
     text = $2 || ''
 
-    # Ugly things going on inside `read_indented_content`
     indentation = 4 #first.size-text.size
 
     #   puts "id =_#{id}_; text=_#{text}_ indent=#{indentation}"
@@ -585,8 +584,6 @@ module MaRuKu; module In; module Markdown; module BlockLevelParser
       first = src.shift_line
       first =~ Definition
       first = $1
-
-      # I know, it's ugly!!!
 
       lines, w_m_p = read_indented_content(src, 4, :definition, :definition)
       want_my_paragraph ||= w_m_p
