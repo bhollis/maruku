@@ -128,12 +128,12 @@ module MaRuKu
         when "\t"
           n -= TAB_SIZE
         else
-          return s
+          break
         end
         s = s[1..-1]
       end
 
-      s
+      MDLine.new(s)
     end
 
     private
