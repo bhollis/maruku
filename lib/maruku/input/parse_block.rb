@@ -287,10 +287,9 @@ module MaRuKu; module In; module Markdown; module BlockLevelParser
 
     indentation, ial = spaces_before_first_char(first)
     al = read_attribute_list(CharSource.new(ial, src)) if ial
-    break_list = [:ulist, :olist, :ial]
     # Ugly things going on inside `read_indented_content`
     lines, want_my_paragraph =
-      read_indented_content(src, indentation, break_list, item_type)
+      read_indented_content(src, indentation, :ial, item_type)
 
     # add first line
     # Strip first '*', '-', '+' from first line
@@ -362,41 +361,44 @@ module MaRuKu; module In; module Markdown; module BlockLevelParser
     # collect all indented lines
     saw_empty = false
     saw_anything_after = false
+    break_list = Array(break_list)
 
     while src.cur_line
-      #     puts "Reading indent = #{indentation} #{src.cur_line.inspect}"
-      #puts "#{src.cur_line.md_type} #{src.cur_line.inspect}"
-      if src.cur_line.md_type == :empty
+      num_leading_spaces = src.cur_line.number_of_leading_spaces
+      break if num_leading_spaces < indentation && ![:text, :empty].include?(src.cur_line.md_type)
+
+      line = strip_indent(src.cur_line, indentation)
+      md_type = line.md_type
+
+      if md_type == :empty
         saw_empty = true
-        lines << src.shift_line
+        lines << line
+        src.shift_line
         next
       end
 
       # after a white line
       if saw_empty
         # we expect things to be properly aligned
-        if src.cur_line.number_of_leading_spaces < indentation
-          #puts "breaking for spaces, only #{ns}: #{src.cur_line}"
-          break
-        end
+        break if num_leading_spaces < indentation
         saw_anything_after = true
       else
-        break if Array(break_list).include? src.cur_line.md_type
+        break if break_list.include?(md_type)
       end
 
-
-      stripped = strip_indent(src.shift_line, indentation)
-      lines << stripped
+      lines << line
+      src.shift_line
 
       # You are only required to indent the first line of
       # a child paragraph.
-      if stripped.md_type == :text
-        while src.cur_line && (src.cur_line.md_type == :text)
+      if md_type == :text
+        while src.cur_line && src.cur_line.md_type == :text
           lines << strip_indent(src.shift_line, indentation)
         end
       end
     end
 
+    # TODO fix this
     want_my_paragraph = saw_anything_after ||
       (saw_empty && src.cur_line && src.cur_line.md_type == item_type)
 

@@ -11,12 +11,12 @@ Ciao
 *** Output of inspect ***
 md_el(:document,[
         md_par(["Ciao"]),
-        md_el(:ul,[md_el(:li,["Tab"
-          md_el(:ul,[md_el(:li,["Tab"
-            md_el(:ul,[md_el(:li,["Tab"],{:want_my_paragraph=>false},[])],{},[]),
-          {:want_my_paragraph=>false},[])],{},[]),
-        {:want_my_paragraph=>false},[])],{},[])
-       ],{},[])
+        md_el(:ul,[md_el(:li,["Tab",
+          md_el(:ul,[md_el(:li,["Tab",
+            md_el(:ul,[md_el(:li,["Tab"],{:want_my_paragraph=>false})]),
+          {:want_my_paragraph=>false})]),
+        {:want_my_paragraph=>false})])
+       ])
 *** Output of to_html ***
 <p>Ciao</p>
 
