@@ -10,7 +10,7 @@ List:
 md_el(:document,[
 	md_par(["List:"]),
 	md_el(:ul,[
-		md_el(:li_span,["è", md_code("gcc")],{:want_my_paragraph=>false},[])
+		md_el(:li,["è", md_code("gcc")],{:want_my_paragraph=>false},[])
 	],{},[])
 ],{},[])
 *** Output of to_html ***

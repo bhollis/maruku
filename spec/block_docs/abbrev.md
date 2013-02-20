@@ -327,7 +327,7 @@ md_el(:document,[
 				md_entity("rsquo"),
 				", which no user in the entire world has installed on their computer."
 			])
-		],{:want_my_paragraph=>true},[])
+		],{:want_my_paragraph=>false},[])
 	],{},[]),
 	md_par([
 		"This whole thing is rather worrying - I",

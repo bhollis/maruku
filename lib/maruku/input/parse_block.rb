@@ -120,19 +120,22 @@ module MaRuKu; module In; module Markdown; module BlockLevelParser
     # get rid of empty line markers
     output.delete_if {|x| x == :empty }
 
-    # See for each list if we can omit the paragraphs and use li_span
+    # See for each list if we can omit the paragraphs
     # TODO: do this after
     output.each do |c|
       # Remove paragraphs that we can get rid of
       if [:ul, :ol].include?(c.node_type) && c.children.none?(&:want_my_paragraph)
         c.children.each do |d|
-          d.node_type = :li_span
-          d.children = d.children.first.children if d.children.first
+          if d.children.first.node_type == :paragraph
+            d.children = d.children.first.children + d.children[1..-1]
+          end
         end
       elsif c.node_type == :definition_list && c.children.none?(&:want_my_paragraph)
         c.children.each do |definition|
           definition.definitions.each do |dd|
-            dd.children = dd.children.first.children if dd.children.first
+            if dd.children.first.node_type == :paragraph
+              dd.children = dd.children.first.children + dd.children[1..-1]
+            end
           end
         end
       end
@@ -299,7 +302,7 @@ module MaRuKu; module In; module Markdown; module BlockLevelParser
     src2 = LineSource.new(lines, src, parent_offset)
     children = parse_blocks(src2)
 
-    with_par = want_my_paragraph || (children.size > 1)
+    with_par = want_my_paragraph
 
     md_li(children, with_par, al)
   end
@@ -371,6 +374,13 @@ module MaRuKu; module In; module Markdown; module BlockLevelParser
 
       if md_type == :empty
         saw_empty = true
+        lines << line
+        src.shift_line
+        next
+      end
+
+      # Unquestioningly grab anything that's deeper-indented
+      if md_type != :code && num_leading_spaces > indentation
         lines << line
         src.shift_line
         next

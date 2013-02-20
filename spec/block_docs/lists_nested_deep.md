@@ -1,9 +1,7 @@
-PENDING - Lists should be nestable to arbitrary depth.
+Lists should be nestable to arbitrary depth.
 *** Parameters: ***
 {}
 *** Markdown input: ***
-This is a list:
-
 * Space
   * Space
     * Space
@@ -11,20 +9,27 @@ This is a list:
         * Space
 
 *** Output of inspect ***
-md_el(:document, [])
+md_el(:document, [
+	md_el(:ul, md_li([
+	"Space",
+	md_el(:ul, md_li([
+	"Space",
+	md_el(:ul, md_li([
+	"Space",
+	md_el(:ul, md_li(["Space", md_el(:ul, md_li("Space", false))], false))
+], false))
+], false))
+], false))
+])
 *** Output of to_html ***
 <ul>
 <li>Space
-
 <ul>
 <li>Space
-
 <ul>
 <li>Space
-
 <ul>
 <li>Space
-
 <ul>
 <li>Space</li>
 </ul>

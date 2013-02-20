@@ -12,9 +12,9 @@ And this:
 *** Output of inspect ***
 md_el(:document, [
 	md_par("This is a list:"),
-	md_el(:ul, md_el(:li_span, "a list", {:want_my_paragraph=>false})),
+	md_el(:ul, md_el(:li, "a list", {:want_my_paragraph=>false})),
 	md_par("And this:"),
-	md_el(:ul, md_el(:li_span, "still a list", {:want_my_paragraph=>false}))
+	md_el(:ul, md_el(:li, "still a list", {:want_my_paragraph=>false}))
 ])
 *** Output of to_html ***
 <p>This is a list:</p>

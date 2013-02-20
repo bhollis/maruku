@@ -13,8 +13,8 @@ That's it, nothing else is supported.
 md_el(:document,[
 	md_par(["Here are some formulas:"]),
 	md_el(:ul,[
-		md_el(:li_span,[md_el(:inline_math,[],{:math=>"\\alpha"},[])],{:want_my_paragraph=>false},[]),
-		md_el(:li_span,[md_el(:inline_math,[],{:math=>"x^{n}+y^{n} \\neq z^{n}"},[])],{:want_my_paragraph=>false},[])
+		md_el(:li,[md_el(:inline_math,[],{:math=>"\\alpha"},[])],{:want_my_paragraph=>false},[]),
+		md_el(:li,[md_el(:inline_math,[],{:math=>"x^{n}+y^{n} \\neq z^{n}"},[])],{:want_my_paragraph=>false},[])
 	],{},[]),
 	md_par(["That", md_entity("rsquo"), "s it, nothing else is supported."])
 ],{},[])

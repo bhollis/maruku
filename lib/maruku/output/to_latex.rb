@@ -313,10 +313,6 @@ Created by \\href{#{MaRuKu::MARUKU_URL}}{Maruku} #{self.nice_date}.
     "\\item #{children_to_latex}\n"
   end
 
-  def to_latex_li_span
-    "\\item #{children_to_latex}\n"
-  end
-
   def to_latex_strong
     "\\textbf{#{children_to_latex}}"
   end

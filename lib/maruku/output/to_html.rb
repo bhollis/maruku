@@ -416,10 +416,6 @@ module MaRuKu::Out::HTML
     add_ws wrap_as_element('li')
   end
 
-  def to_html_li_span
-    add_ws wrap_as_element('li')
-  end
-
   def to_html_quote
     add_ws wrap_as_element('blockquote')
   end

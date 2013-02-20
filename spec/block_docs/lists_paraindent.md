@@ -1,4 +1,4 @@
-Nesting lists.
+PENDING - Indentation is weird...
 *** Parameters: ***
 {} # params 
 *** Markdown input: ***
@@ -6,7 +6,7 @@ Nesting lists.
     * Foo
     * Bar
       * Bax
-      * Bap
+    Bap
 *   Another list item
 *** Output of inspect ***
 md_el(:document, md_el(:ul, [
@@ -17,20 +17,23 @@ md_el(:document, md_el(:ul, [
 	md_li([
 	"Bar",
 	md_el(:ul, [
-	md_li("Bax", false),
-	md_li("Bap", false)
+	md_el(:li_span, "Bax", {:want_my_paragraph=>false}),
+	md_el(:li_span, "Bap", {:want_my_paragraph=>false})
 ])
-], false)
+], true)
 ])
-], false),
-	md_li("Another list item", false)
+], true),
+	md_li(md_par("Another list item"), false)
 ]))
 *** Output of to_html ***
 <ul>
 <li>A list item
+
 <ul>
 <li>Foo</li>
+
 <li>Bar
+
 <ul>
 <li>Bax</li>
 

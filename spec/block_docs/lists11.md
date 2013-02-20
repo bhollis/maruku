@@ -6,7 +6,7 @@ Write a comment here
 
 *** Output of inspect ***
 md_el(:document,[
-	md_el(:ul,[md_el(:li_span,["ένα"],{:want_my_paragraph=>false},[])],{},[])
+	md_el(:ul,[md_el(:li,["ένα"],{:want_my_paragraph=>false},[])],{},[])
 ],{},[])
 *** Output of to_html ***
 <ul>
