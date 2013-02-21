@@ -28,7 +28,7 @@ You don't say.
 
 *** Output of inspect ***
 md_el(:document,[
-    md_el(:ul, md_el(:li_span, "Table of Contents", {:want_my_paragraph=>false}), {}, [[:ref, "toc"]]),
+    md_el(:ul, md_el(:li, "Table of Contents", {:want_my_paragraph=>false}), {}, [[:ref, "toc"]]),
 	md_el(:header,["A title with ", md_em(["emphasis"])],{:level=>1},[]),
 	md_el(:header, "Try", {:level=>2}, [[:id, "try"]]),
 	md_el(:header, "First Subheader", {:level=>2}),

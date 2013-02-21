@@ -18,12 +18,12 @@ md_el(:document,[
 		"Lorem ipsum dolor amet. Lorem ipsum dolor amet. Lorem ipsum dolor amet. Lorem ipsum dolor amet."
 	]),
 	md_el(:ul,[
-		md_el(:li_span,[
+		md_el(:li,[
 			"Lorem ipsum dolor amet. Lorem ipsum dolor amet. Lorem ipsum dolor amet. Lorem ipsum dolor amet Lorem ipsum Break:",
 			md_el(:linebreak,[],{},[]),
 			"Lorem ipsum dolor amet. Lorem ipsum dolor amet. Lorem ipsum dolor amet"
 		],{:want_my_paragraph=>false},[]),
-		md_el(:li_span,[
+		md_el(:li,[
 			"Lorem ipsum dolor amet. Lorem ipsum dolor amet. Lorem ipsum dolor amet. Lorem ipsum dolor amet"
 		],{:want_my_paragraph=>false},[])
 	],{},[])

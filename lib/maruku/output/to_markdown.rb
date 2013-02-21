@@ -106,14 +106,6 @@ module MaRuKu::Out::Markdown
     "[#{@ref_id}] #{@url}#{" \"#{@title}\"" if @title}"
   end
 
-  def to_md_li_span(context)
-    len = (context[:line_length] || DefaultLineLength) - 2
-    #   s = wrap(@children, len-2, context).rstrip.gsub(/^/, '  ')
-    #   s[0] = ?*
-    #   s + "\n"
-    "* " + wrap(@children, len-2, context).rstrip + "\n"
-  end
-
   def to_md_abbr_def(context)
     "*[#{self.abbr}]: #{self.text}\n"
   end

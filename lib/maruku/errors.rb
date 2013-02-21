@@ -63,7 +63,7 @@ module MaRuKu
     end
 
     def tell_user(s)
-      (self.attributes[:error_stream] || $stderr) << s
+      (self.attributes[:error_stream] || $stderr) << s << "\n"
     end
 
     private

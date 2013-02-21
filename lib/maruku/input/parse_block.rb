@@ -52,7 +52,7 @@ module MaRuKu; module In; module Markdown; module BlockLevelParser
       md_type = src.cur_line.md_type
 
       # Prints detected type (useful for debugging)
-      #  puts "#{md_type}|#{src.cur_line}"
+      #puts "parse_blocks #{md_type}|#{src.cur_line}"
       case md_type
       when :empty
         output << :empty
@@ -120,19 +120,22 @@ module MaRuKu; module In; module Markdown; module BlockLevelParser
     # get rid of empty line markers
     output.delete_if {|x| x == :empty }
 
-    # See for each list if we can omit the paragraphs and use li_span
+    # See for each list if we can omit the paragraphs
     # TODO: do this after
     output.each do |c|
       # Remove paragraphs that we can get rid of
       if [:ul, :ol].include?(c.node_type) && c.children.none?(&:want_my_paragraph)
         c.children.each do |d|
-          d.node_type = :li_span
-          d.children = d.children.first.children if d.children.first
+          if d.children.first.node_type == :paragraph
+            d.children = d.children.first.children + d.children[1..-1]
+          end
         end
       elsif c.node_type == :definition_list && c.children.none?(&:want_my_paragraph)
         c.children.each do |definition|
           definition.definitions.each do |dd|
-            dd.children = dd.children.first.children if dd.children.first
+            if dd.children.first.node_type == :paragraph
+              dd.children = dd.children.first.children + dd.children[1..-1]
+            end
           end
         end
       end
@@ -265,7 +268,7 @@ module MaRuKu; module In; module Markdown; module BlockLevelParser
       when :quote, :header3, :empty, :ref_definition, :ial #,:xml_instr,:raw_html
         break
       when :olist, :ulist
-        break if src.next_line && src.next_line.md_type == t
+        break if !src.next_line || src.next_line.md_type == t
       end
       break if src.cur_line.strip.empty?
       break if src.next_line && [:header1, :header2].include?(src.next_line.md_type)
@@ -287,20 +290,19 @@ module MaRuKu; module In; module Markdown; module BlockLevelParser
 
     indentation, ial = spaces_before_first_char(first)
     al = read_attribute_list(CharSource.new(ial, src)) if ial
-    break_list = [:ulist, :olist, :ial]
-    # Ugly things going on inside `read_indented_content`
+
     lines, want_my_paragraph =
-      read_indented_content(src, indentation, break_list, item_type)
+      read_indented_content(src, indentation, :ial, item_type)
 
     # add first line
     # Strip first '*', '-', '+' from first line
     stripped = first[indentation, first.size - 1]
     lines.unshift stripped
 
-
     src2 = LineSource.new(lines, src, parent_offset)
     children = parse_blocks(src2)
-    with_par = want_my_paragraph || (children.size > 1)
+
+    with_par = want_my_paragraph
 
     md_li(children, with_par, al)
   end
@@ -334,7 +336,6 @@ module MaRuKu; module In; module Markdown; module BlockLevelParser
     id = $1
     text = $2 || ''
 
-    # Ugly things going on inside `read_indented_content`
     indentation = 4 #first.size-text.size
 
     #   puts "id =_#{id}_; text=_#{text}_ indent=#{indentation}"
@@ -362,41 +363,51 @@ module MaRuKu; module In; module Markdown; module BlockLevelParser
     # collect all indented lines
     saw_empty = false
     saw_anything_after = false
+    break_list = Array(break_list)
 
     while src.cur_line
-      #     puts "Reading indent = #{indentation} #{src.cur_line.inspect}"
-      #puts "#{src.cur_line.md_type} #{src.cur_line.inspect}"
-      if src.cur_line.md_type == :empty
+      num_leading_spaces = src.cur_line.number_of_leading_spaces
+      break if num_leading_spaces < indentation && ![:text, :empty].include?(src.cur_line.md_type)
+
+      line = strip_indent(src.cur_line, indentation)
+      md_type = line.md_type
+
+      if md_type == :empty
         saw_empty = true
-        lines << src.shift_line
+        lines << line
+        src.shift_line
+        next
+      end
+
+      # Unquestioningly grab anything that's deeper-indented
+      if md_type != :code && num_leading_spaces > indentation
+        lines << line
+        src.shift_line
         next
       end
 
       # after a white line
       if saw_empty
         # we expect things to be properly aligned
-        if src.cur_line.number_of_leading_spaces < indentation
-          #puts "breaking for spaces, only #{ns}: #{src.cur_line}"
-          break
-        end
+        break if num_leading_spaces < indentation
         saw_anything_after = true
       else
-        break if Array(break_list).include? src.cur_line.md_type
+        break if break_list.include?(md_type)
       end
 
-
-      stripped = strip_indent(src.shift_line, indentation)
-      lines << stripped
+      lines << line
+      src.shift_line
 
       # You are only required to indent the first line of
       # a child paragraph.
-      if stripped.md_type == :text
-        while src.cur_line && (src.cur_line.md_type == :text)
+      if md_type == :text
+        while src.cur_line && src.cur_line.md_type == :text
           lines << strip_indent(src.shift_line, indentation)
         end
       end
     end
 
+    # TODO fix this
     want_my_paragraph = saw_anything_after ||
       (saw_empty && src.cur_line && src.cur_line.md_type == item_type)
 
@@ -583,8 +594,6 @@ module MaRuKu; module In; module Markdown; module BlockLevelParser
       first = src.shift_line
       first =~ Definition
       first = $1
-
-      # I know, it's ugly!!!
 
       lines, w_m_p = read_indented_content(src, 4, :definition, :definition)
       want_my_paragraph ||= w_m_p

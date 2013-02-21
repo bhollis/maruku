@@ -11,11 +11,11 @@ List Items with non alphanumeric content
 *** Output of inspect ***
 md_el(:document,[
   md_el(:ul,[
-   md_el(:li_span,["A"],{:want_my_paragraph=>false},[[:id, "foo"]]),
-   md_el(:li_span,["?"],{:want_my_paragraph=>false},[[:id, "bar"]]),
-   md_el(:li_span,["B"],{:want_my_paragraph=>false},[[:id, "fubar"]]),
-   md_el(:li_span,["C"],{:want_my_paragraph=>false},[[:id, "fubar2"]]),
-   md_el(:li_span,["{Not an IAL}"],{:want_my_paragraph=>false},[])
+   md_el(:li,["A"],{:want_my_paragraph=>false},[[:id, "foo"]]),
+   md_el(:li,["?"],{:want_my_paragraph=>false},[[:id, "bar"]]),
+   md_el(:li,["B"],{:want_my_paragraph=>false},[[:id, "fubar"]]),
+   md_el(:li,["C"],{:want_my_paragraph=>false},[[:id, "fubar2"]]),
+   md_el(:li,["{Not an IAL}"],{:want_my_paragraph=>false},[])
    ],{},[]),
 ],{},[])
 

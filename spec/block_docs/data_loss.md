@@ -8,7 +8,7 @@ ijkl
 
 *** Output of inspect ***
 md_el(:document,[
-	md_el(:ol,[md_el(:li_span,["abcd efgh ijkl"],{:want_my_paragraph=>false},[])],{},[])
+	md_el(:ol,[md_el(:li,["abcd efgh ijkl"],{:want_my_paragraph=>false},[])],{},[])
 ],{},[])
 *** Output of to_html ***
 <ol>

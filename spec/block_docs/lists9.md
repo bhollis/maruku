@@ -1,4 +1,4 @@
-PENDING - Maruku should not unnecessarily wrap <li>'s in <p>
+Maruku should not unnecessarily wrap <li>'s in <p>
 *** Parameters: ***
 {} # params 
 *** Markdown input: ***
@@ -13,11 +13,11 @@ md_el(:document,[
 		md_el(:li,[
 			"Due",
 			md_el(:ol,[
-				md_el(:li_span,["tre"],{:want_my_paragraph=>false},[]),
-				md_el(:li_span,["tre"],{:want_my_paragraph=>false},[]),
-				md_el(:li_span,["tre"],{:want_my_paragraph=>false},[])
+				md_el(:li,["tre"],{:want_my_paragraph=>false},[]),
+				md_el(:li,["tre"],{:want_my_paragraph=>false},[]),
+				md_el(:li,["tre"],{:want_my_paragraph=>false},[])
 			],{},[])
-		],{:want_my_paragraph=>true},[]),
+		],{:want_my_paragraph=>false},[]),
 		md_el(:li,["Due"],{:want_my_paragraph=>false},[])
 	],{},[])
 ],{},[])
@@ -34,9 +34,7 @@ md_el(:document,[
 
 *** Output of to_latex ***
 \begin{itemize}%
-\item Due
-
-\begin{enumerate}%
+\item Due\begin{enumerate}%
 \item tre
 \item tre
 \item tre
@@ -44,8 +42,6 @@ md_el(:document,[
 \end{enumerate}
 
 \item Due
-
-
 
 \end{itemize}
 *** Output of to_md ***

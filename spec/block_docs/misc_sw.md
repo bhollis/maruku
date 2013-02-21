@@ -112,13 +112,13 @@ inMenu: true
 md_el(:document,[
 	md_el(:header,["General"],{:level=>3},[]),
 	md_el(:ul,[
-		md_el(:li_span,[
+		md_el(:li,[
 			md_em(["Operating System"]),
 			" : ",
 			md_link(["Mac OS X"],"switch"),
 			": heaven, after the purgatory of Linux and the hell of Windows."
 		],{:want_my_paragraph=>false},[]),
-		md_el(:li_span,[
+		md_el(:li,[
 			md_em(["Browser"]),
 			": ",
 			md_link(["Firefox"],"firefox"),
@@ -126,7 +126,7 @@ md_el(:document,[
 			md_link(["Camino"],"camino"),
 			"."
 		],{:want_my_paragraph=>false},[]),
-		md_el(:li_span,[
+		md_el(:li,[
 			md_em(["Email"]),
 			": ",
 			md_link(["GMail"],"gmail"),
@@ -138,7 +138,7 @@ md_el(:document,[
 			md_entity("rdquo"),
 			" really works."
 		],{:want_my_paragraph=>false},[]),
-		md_el(:li_span,[
+		md_el(:li,[
 			md_em(["Text Editor"]),
 			": ",
 			md_link(["TextMate"],"textmate"),
@@ -217,23 +217,23 @@ md_el(:document,[
     md_li([
        md_par([md_em("C++ libraries"), ":"]),
        md_el(:ul, [
-         md_el(:li_span, [md_link("QT", "qt"), " for GUIs."], {:want_my_paragraph=>false}),
-         md_el(:li_span, [md_link("GSL", "gsl"), " for math."], {:want_my_paragraph=>false}),
-         md_el(:li_span, [md_link("Magick++", "magick"), " for manipulating images."], {:want_my_paragraph=>false}),
-         md_el(:li_span, [md_link("Cairo", "cairo"), " for creating PDFs."], {:want_my_paragraph=>false}),
-         md_el(:li_span, [md_link("Boost", "boost"), " for just about everything else."], {:want_my_paragraph=>false})
+         md_el(:li, [md_link("QT", "qt"), " for GUIs."], {:want_my_paragraph=>false}),
+         md_el(:li, [md_link("GSL", "gsl"), " for math."], {:want_my_paragraph=>false}),
+         md_el(:li, [md_link("Magick++", "magick"), " for manipulating images."], {:want_my_paragraph=>false}),
+         md_el(:li, [md_link("Cairo", "cairo"), " for creating PDFs."], {:want_my_paragraph=>false}),
+         md_el(:li, [md_link("Boost", "boost"), " for just about everything else."], {:want_my_paragraph=>false})
        ])
-    ], true)
+    ], false)
 	],{},[]),
 	md_el(:header,["Research"],{:level=>3},[]),
 	md_el(:ul,[
-		md_el(:li_span,[md_em(["Writing papers"]), ": ", md_link(["LaTeX"],"latex")],{:want_my_paragraph=>false},[]),
-		md_el(:li_span,[
+		md_el(:li,[md_em(["Writing papers"]), ": ", md_link(["LaTeX"],"latex")],{:want_my_paragraph=>false},[]),
+		md_el(:li,[
 			md_em(["Writing papers & enjoying the process"]),
 			": ",
 			md_link(["LyX"],"lyx")
 		],{:want_my_paragraph=>false},[]),
-		md_el(:li_span,[
+		md_el(:li,[
 			md_em(["Handsome figures in your papers"]),
 			": ",
 			md_link(["xfig"],"xfig"),
@@ -241,7 +241,7 @@ md_el(:document,[
 			md_link(["jfig"],"jfig"),
 			"."
 		],{:want_my_paragraph=>false},[]),
-		md_el(:li_span,[
+		md_el(:li,[
 			md_em(["The occasional presentation with many graphical content"]),
 			": ",
 			md_link(["OpenOffice Impress"],"impress"),
@@ -251,13 +251,13 @@ md_el(:document,[
 			md_link(["TexPoint"],"texpoint"),
 			" plugin."
 		],{:want_my_paragraph=>false},[]),
-		md_el(:li_span,[
+		md_el(:li,[
 			md_em(["Managing BibTeX"]),
 			": ",
 			md_link(["jabref"],"jabref"),
 			": multi-platform, for all your bibtex needs."
 		],{:want_my_paragraph=>false},[]),
-		md_el(:li_span,[
+		md_el(:li,[
 			md_em(["IEEExplore and BibTeX"]),
 			": convert citations using ",
 			md_link(["BibConverter"],"bibconverter"),
@@ -266,12 +266,12 @@ md_el(:document,[
 	],{},[]),
 	md_el(:header,["Cool websites"],{:level=>3},[]),
 	md_el(:ul,[
-		md_el(:li_span,[
+		md_el(:li,[
 			md_em(["Best site in the wwworld"]),
 			": ",
 			md_link(["Wikipedia"],"wikipedia")
 		],{:want_my_paragraph=>false},[]),
-		md_el(:li_span,[
+		md_el(:li,[
 			md_link(["Mutopia"],"mutopia"),
 			" for sheet music; ",
 			md_link(["the Gutenberg Project"],"gutenberg"),
@@ -279,8 +279,8 @@ md_el(:document,[
 			md_link(["LiberLiber"],"liberliber"),
 			" for books in italian."
 		],{:want_my_paragraph=>false},[]),
-		md_el(:li_span,[md_em(["Blogs"]), ": ", md_link(["Bloglines"],"bloglines")],{:want_my_paragraph=>false},[]),
-		md_el(:li_span,[
+		md_el(:li,[md_em(["Blogs"]), ": ", md_link(["Bloglines"],"bloglines")],{:want_my_paragraph=>false},[]),
+		md_el(:li,[
 			md_em(["Sharing photos"]),
 			": ",
 			md_link(["flickr"],"flickr"),
