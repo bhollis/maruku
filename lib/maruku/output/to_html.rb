@@ -717,7 +717,7 @@ module MaRuKu::Out::HTML
       a
     else
       maruku_error "Image with no url: #{self.inspect}"
-      tell_user "Could not create image with ref_id = #{id.inspect};" +
+      tell_user "Could not create image without a source URL;" +
         " Using SPAN element as replacement."
       wrap_as_element('span')
     end
