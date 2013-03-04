@@ -5,22 +5,18 @@ The markdown="1" attribute does NOT get recursively applied
 <table markdown='1'>
 	Blah
 	<thead>
-		<td>*em*</td>
+		<tr><td>*em*</td></tr>
 	</thead>
 </table>
 
 *** Output of inspect ***
 md_el(:document,[
-	md_html("<table markdown='1'>\n\tBlah\n\t<thead>\n\t\t<td>*em*</td>\n\t</thead>\n</table>")
+	md_html("<table markdown='1'>\n\tBlah\n\t<thead>\n\t\t<tr><td>*em*</td></tr>\n\t</thead>\n</table>")
 ],{},[])
 *** Output of to_html ***
 <table>Blah<thead>
-		<td>*em*</td>
+		<tr><td>*em*</td></tr>
 	</thead>
 </table>
-*** Output of to_latex ***
 
-*** Output of to_md ***
-
-*** Output of to_s ***
 
