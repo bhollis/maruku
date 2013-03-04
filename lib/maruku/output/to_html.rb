@@ -738,7 +738,7 @@ module MaRuKu::Out::HTML
 
   def to_html_raw_html
     return [] if get_setting(:filter_html)
-    return @parsed_html if @parsed_html
+    return parsed_html if parsed_html
 
     # If there's no parsed HTML
     raw_html = self.raw_html

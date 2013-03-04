@@ -1,4 +1,4 @@
-PENDING - maruku treats all HTML as a block level element, but it should treat
+maruku treats all HTML as a block level element, but it should treat
 inline elements as part of a paragraph, even if they start the line.
 *** Parameters: ***
 {} # params 
@@ -6,9 +6,9 @@ inline elements as part of a paragraph, even if they start the line.
 <br/>123
 
 *** Output of inspect ***
-md_el(:document,[md_html("<br />123")],{},[])
+md_el(:document, md_par([md_html("<br />"), "123"]))
 *** Output of to_html ***
-<br/>123
+<p><br/>123</p>
 *** Output of to_latex ***
 
 *** Output of to_md ***

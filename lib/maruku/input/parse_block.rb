@@ -89,8 +89,21 @@ module MaRuKu; module In; module Markdown; module BlockLevelParser
         e = read_code(src)
         output << e if e
       when :raw_html
+        # More extra hacky stuff - if there's more than just HTML, we either wrap it
+        # in a paragraph or break it up depending on whether it's an inline element or not
         e = read_raw_html(src)
-        output << e if e
+        unless e.empty?
+          first_node = e.first.parsed_html.children.first
+          if first_node && HTML_INLINE_ELEMS.include?(first_node.name)
+            content = [e.first]
+            if e.size > 1
+              content.concat(e[1].children)
+            end
+            output << md_par(content)
+          else
+            output.concat(e)
+          end
+        end
       when :footnote_text
         output << read_footnote_text(src)
       when :ref_definition
@@ -236,7 +249,9 @@ module MaRuKu; module In; module Markdown; module BlockLevelParser
     end
   end
 
+  HTML_INLINE_ELEMS = %w(a abbr acronym b big bdo br button cite code del dfn em i img input ins kbd label option q rb rbc rp rt rtc ruby samp select small span strong sub sup textarea tt var)
   def read_raw_html(src)
+    extra_line = nil
     h = HTMLHelper.new
     begin
       l = src.shift_line
@@ -252,12 +267,19 @@ module MaRuKu; module In; module Markdown; module BlockLevelParser
       maruku_error "Bad block-level HTML:\n#{ex.gsub(/^/, '|')}\n", src
     end
     unless h.rest =~ /^\s*$/
-      maruku_error "Could you please format this better?\n"+
-        "I see that #{h.rest.inspect} is left after the raw HTML.", src
+      extra_line = h.rest
     end
     raw_html = h.stuff_you_read
 
-    md_html(raw_html)
+    if extra_line
+      remainder = parse_span(extra_line)
+      if extra_line.start_with?(' ')
+        remainder[0] = ' ' + remainder[0]
+      end
+      [md_html(raw_html), md_par(remainder)]
+    else
+      [md_html(raw_html)]
+    end
   end
 
   def read_paragraph(src)
@@ -265,10 +287,18 @@ module MaRuKu; module In; module Markdown; module BlockLevelParser
     while src.cur_line
       # :olist does not break
       case t = src.cur_line.md_type
-      when :quote, :header3, :empty, :ref_definition, :ial #,:xml_instr,:raw_html
+      when :quote, :header3, :empty, :ref_definition, :ial, :xml_instr
         break
       when :olist, :ulist
         break if !src.next_line || src.next_line.md_type == t
+      when :raw_html
+        # This is a pretty awful hack to handle inline HTML
+        # but it means double-parsing HMTL.
+        html = parse_span([src.cur_line], src)
+        unless html.empty?
+          first_node = html.first.parsed_html.children.first
+        end
+        break if first_node && !HTML_INLINE_ELEMS.include?(first_node.name)
       end
       break if src.cur_line.strip.empty?
       break if src.next_line && [:header1, :header2].include?(src.next_line.md_type)
