@@ -128,7 +128,7 @@ md_el(:document,[
 
 <p>Paragraph with html after, indented: <em>Emphasis</em> <em>tralla</em> <em>Emph</em></p>
 
-<p>Paragraph with html after, indented: <em>Emphasis *tralla* Emph</em></p>
+<p>Paragraph with html after, indented: <em>Emphasis <em>tralla</em> Emph</em></p>
 *** Output of to_latex ***
 Paragraph, list with no space: * ciao
 

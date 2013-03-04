@@ -179,8 +179,8 @@ Disabled by default because of security concerns.
       # parse block-level markdown elements in these HTML tags
       block_tags = ['div']
 
-      # find elements with 'markdown' attribute
-      doc.css("[markdown]").each do |e|
+      # find span elements or elements with 'markdown' attribute
+      doc.css((["[markdown]"] + HTML_INLINE_ELEMS).join(",")).each do |e|
         # should we parse block-level or span-level?
 
         how = e['markdown']
