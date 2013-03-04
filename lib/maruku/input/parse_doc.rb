@@ -108,9 +108,9 @@ Disabled by default because of security concerns.
             expand_attribute_list(self.ald[v], result)
           else
             already << v
-            maruku_error "Circular reference between labels.\n\n"+
-            "Label #{v.inspect} calls itself via recursion.\nThe recursion is "+
-              (already.map {|x| x.inspect }.join(' => '))
+            maruku_error "Circular reference between labels.\n\n" +
+            "Label #{v.inspect} calls itself via recursion.\nThe recursion is " +
+              already.map(&:inspect).join(' => ')
           end
         else
           if result[:unresolved_references]

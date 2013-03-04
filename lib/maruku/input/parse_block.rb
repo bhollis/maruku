@@ -200,6 +200,10 @@ module MaRuKu; module In; module Markdown; module BlockLevelParser
       al = read_attribute_list(CharSource.new(ial, src))
     end
     text = parse_span line
+    if text.empty?
+      text = "{#{ial}}"
+      al = nil
+    end
     level = src.cur_line.md_type == :header2 ? 2 : 1;
     src.shift_line
     md_header(level, text, al)
@@ -217,6 +221,10 @@ module MaRuKu; module In; module Markdown; module BlockLevelParser
     end
     level = line[/^#+/].size
     text = parse_span line.gsub(/\A#+|#+\Z/, '')
+    if text.empty?
+      text = "{#{ial}}"
+      al = nil
+    end
     md_header(level, text, al)
   end
 
