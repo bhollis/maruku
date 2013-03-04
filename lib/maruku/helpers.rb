@@ -98,11 +98,8 @@ module MaRuKu
         # in metadata comparisons
         e.parsed_html = Nokogiri::HTML::DocumentFragment.new(d, raw_html, d)
       rescue => ex
-        maruku_recover <<ERR
-Nokogiri cannot parse this block of HTML/XML:
-#{raw_html.gsub(/^/, '|').rstrip}
-#{ex.inspect}
-ERR
+        maruku_recover "Nokogiri cannot parse this block of HTML/XML:\n" +
+          raw_html.gsub(/^/, '|').rstrip + "\n" + ex.inspect
       end
       e
     end

@@ -38,24 +38,24 @@ module MaRuKu
     # @param s [String] The text of the error
     # @param src [#describe, nil] The source of the error
     # @param con [#describe, nil] The context of the error
+    # @param recover [String, nil] Recovery text
     # @raise [MaRuKu::Exception] If `:on_error` is set to `:raise`
-    def maruku_error(*args)
+    def maruku_error(s, src=nil, con=nil, recover=nil)
       policy = get_setting(:on_error)
 
       case policy
       when :ignore
       when :raise
-        raise_error create_frame(describe_error(*args))
+        raise_error create_frame(describe_error(s, src, con, recover))
       when :warning
-        tell_user create_frame(describe_error(*args))
+        tell_user create_frame(describe_error(s, src, con, recover))
       else
         raise "Unknown on_error policy: #{policy.inspect}"
       end
     end
-    alias error maruku_error
 
-    def maruku_recover(*args)
-      tell_user create_frame(describe_error(*args))
+    def maruku_recover(s, src=nil, con=nil, recover=nil)
+      tell_user create_frame(describe_error(s, src, con, recover))
     end
 
     def raise_error(s)
@@ -80,9 +80,10 @@ module MaRuKu
 FRAME
     end
 
-    def describe_error(s, src = nil, con = nil)
+    def describe_error(s, src=nil, con=nil, recover=nil)
       s += "\n#{src.describe}\n" if src
       s += "\n#{con.describe}\n" if con
+      s += "\nRecovering: #{recover}\n" if recover
       s
     end
   end

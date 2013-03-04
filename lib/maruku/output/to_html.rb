@@ -550,7 +550,7 @@ module MaRuKu::Out::HTML
           maruku_error "Error while using the syntax library for code:\n#{source.inspect}" +
             "Lang is #{lang} object is: \n" +
             self.inspect +
-            "\nException: #{e.class}: #{e.message}\n\t#{e.backtrace.join("\n\t")}"
+            "\nException: #{e.class}: #{e.message}"
 
           tell_user("Using normal PRE because the syntax library did not work.")
           to_html_code_using_pre(source)

@@ -85,7 +85,7 @@ module MaRuKu::In::Markdown::SpanLevelParser
             @rest = @m.post_match
             self.state = :inside_element
           else
-            error "Malformed HTML: not complete: #{@rest.inspect}"
+            maruku_error "Malformed HTML: not complete: #{@rest.inspect}"
           end
         when :inside_tag
           if @m = /^[^>]*>/.match(@rest) then
@@ -136,12 +136,10 @@ module MaRuKu::In::Markdown::SpanLevelParser
       elsif is_closing
         @already += @m.to_s
         if @tag_stack.empty?
-          error "Malformed: closing tag #{tag.inspect} "+
-            "in empty list"
+          error "Malformed: closing tag #{tag.inspect} in empty list"
         end
         if @tag_stack.last != tag
-          error "Malformed: tag <#{tag}> "+
-            "closes <#{@tag_stack.last}>"
+          error "Malformed: tag <#{tag}> closes <#{@tag_stack.last}>"
         end
         @tag_stack.pop
       else
@@ -155,7 +153,7 @@ module MaRuKu::In::Markdown::SpanLevelParser
     end
 
     def error(s)
-      raise  "Error: #{s} \n"+ inspect, caller
+      raise "Error: #{s} \n" + inspect, caller
     end
 
     def inspect
