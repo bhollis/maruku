@@ -22,6 +22,10 @@ Gem::Specification.new do |s|
   s.bindir = 'bin'
   s.executables = ['maruku','marutex']
 
+  # Sign the gem - http://docs.rubygems.org/read/chapter/21
+  s.cert_chain  = ['certs/bhollis.pem']
+  s.signing_key = File.expand_path("~/.gem/private_key.pem") if $0 =~ /gem\z/
+
   s.require_path = 'lib'
 
   s.required_ruby_version = '>= 1.8.7'
