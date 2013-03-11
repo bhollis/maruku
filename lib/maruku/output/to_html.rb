@@ -30,6 +30,10 @@ module MaRuKu::Out::HTML
       attributes[key.to_s] = value
     end
 
+    def add_class(class_name)
+      attributes['class'] = ((attributes['class']||'').split(' ') + [class_name]).join(' ')
+    end
+
     # These elements have no children and should be rendered with a self-closing tag.
     # It's not an exhaustive list, but they cover everything we use.
     SELF_CLOSING = Set.new %w[br hr img link meta]
@@ -587,7 +591,9 @@ module MaRuKu::Out::HTML
 
 
   def to_html_code_using_pre(source, code_lang=nil)
-    code_attrs = {}
+    code = xelem('code')
+    pre = xelem('pre')
+    pre << code
 
     if get_setting(:code_show_spaces)
       # 187 = raquo
@@ -596,15 +602,14 @@ module MaRuKu::Out::HTML
       source = source.gsub(/\t/,'&#187;' + '&#160;' * 3).gsub(/ /,'&#172;')
     end
 
-    text = xtext(source)
+    code << xtext(source)
 
     code_lang ||= self.attributes[:lang]
     if code_lang
-      code_attrs['class'] = code_lang
+      pre['class'] = code['class'] = code_lang
     end
 
-    code = html_element('code', text, code_attrs)
-    html_element('pre', code, code_attrs)
+    pre
   end
 
   def to_html_inline_code

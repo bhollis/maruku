@@ -22,12 +22,27 @@ CLEAN.replace %w(pkg doc .yardoc coverage)
 Bundler::GemHelper.install_tasks
 
 desc "Run RSpec"
-RSpec::Core::RakeTask.new do |t|
+RSpec::Core::RakeTask.new(:core_spec) do |t|
   t.verbose = false
   t.rspec_opts = '--color -f nested --tty'
 end
 
+task :nokogiri_spec do
+  ENV['HTML_PARSER'] = 'nokogiri'
+  Rake::Task[:core_spec].reenable
+  Rake::Task[:core_spec].invoke
+end
+
+task :rexml_spec do
+  ENV['HTML_PARSER'] = 'rexml'
+  Rake::Task[:core_spec].reenable
+  Rake::Task[:core_spec].invoke
+end
+
+task :spec => [:nokogiri_spec, :rexml_spec]
+
 task :default => :spec
+task :test => :spec
 
 YARD::Rake::YardocTask.new do |t|
   t.files = FileList["lib/maruku.rb", "lib/maruku/*.rb", "lib/maruku/ext/*.rb",

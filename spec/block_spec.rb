@@ -6,6 +6,11 @@ require 'rspec'
 require 'maruku'
 require 'nokogiri/diff'
 
+# Allow us to test both HTML parser backends
+MaRuKu::Globals[:html_parser] = ENV['HTML_PARSER'] if ENV['HTML_PARSER']
+
+puts "Using HTML parser: #{MaRuKu::Globals[:html_parser]}"
+
 # :to_md and :to_s tests are disabled for now
 METHODS = [:to_html, :to_latex]
 
@@ -42,7 +47,7 @@ describe "A Maruku doc" do
 
     md_pretty = md.sub(File.dirname(__FILE__) + '/', '')
 
-    describe md_pretty do
+    describe "#{md_pretty} (using #{MaRuKu::Globals[:html_parser]})" do
       input = File.read(md).split(/\n\*{3}[^*\n]+\*{3}\n/m)
       input = ["Write a comment here", "{}", input.first] if input.size == 1
       comment = input.shift.strip

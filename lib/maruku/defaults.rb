@@ -12,6 +12,8 @@ module MaRuKu
 
     :filter_html => false,
 
+    :html_parser => 'rexml', # or 'nokogiri'
+
     :html_math_output_mathml => true, # also set :html_math_engine
     :html_math_engine => 'none', # none, ritex, itex2mml, blahtex
 

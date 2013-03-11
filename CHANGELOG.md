@@ -11,8 +11,7 @@
 
 * Maruku has been relicensed under the MIT license.
 
-* Maruku now uses its own method to output HTML, fixing many bugs and
-  providing a big speedup.
+* Maruku now uses its own method to output HTML, fixing many bugs.
 	
 * Maruku produces unicode characters in the output HTML in many cases where
   before it produced XML entity references.

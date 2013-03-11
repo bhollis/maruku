@@ -1,4 +1,5 @@
-
+Support embedded SVG in LaTeX expressions.
+TODO: The LaTeX output does not look correct here!
 *** Parameters: ***
 require 'maruku/ext/math'; {:html_math_engine => 'itex2mml'}
 *** Markdown input: ***
