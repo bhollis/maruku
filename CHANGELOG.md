@@ -19,6 +19,18 @@
   language option (```ruby). They must be enabled using the
   :fenced_code_blocks option.
 
+* Parsing errors and warnings are less repetitive.
+
+* Markdown is parsed within span-level HTML elements.
+
+* Markdown content after HTML tags is no longer lost.
+
+* Maruku is now tested on MRI 2.0.0, MRI 1.9.3, MRI 1.8.7, Rubinius and JRuby.
+
+* Deeply nested lists work correctly in many more cases.
+
+* The maruku CLI exits with a nonzero exit code when given invalid options.
+
 0.6.1
 -----
 
