@@ -802,7 +802,9 @@ module MaRuKu::Out::HTML
   def to_html_table
     num_columns = self.align.size
 
-    head, *rows = @children.each_slice(num_columns).to_a
+    # The table data is passed as a multi-dimensional array
+    # we just need to split the head from the body
+    head, *rows = @children
 
     table = create_html_element('table')
     thead = xelem('thead')
