@@ -603,7 +603,7 @@ module MaRuKu; module In; module Markdown; module BlockLevelParser
           # empty cells increase the colspan of the previous cell
           found = false
           colspan +=  1
-          al = currElem.al || AttributeList.new
+          al = (currElem &&currElem.al) || AttributeList.new
           if (al.size>0)
              elem = find_colspan(al) 
              if (elem != nil)
