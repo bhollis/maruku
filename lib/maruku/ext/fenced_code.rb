@@ -38,16 +38,38 @@
 # ~~~~~~~~~~~~~ {: lang=ruby }
 # puts 'Hello world'
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#
+# Or:
+#
+# ```ruby
+# puts 'Hello world'
+# ```
+#
 
-OpenFence = /^(~~~+?)\s*(\{([^{}]*?|".*?"|'.*?')*\})?\s*$/
+#=begin maruku_doc
+# Attribute: :fenced_code_blocks
+# Scope: global, document
+# Summary: Enables fenced code blocks
+#=end
+
+MaRuKu::Globals[:fenced_code_blocks] = false
+
+module Maruku::In::Markdown
+  module FencedCode
+    OpenFence = /^([`~]{3,})(\w+)?\s*(\{([^{}]*?|".*?"|'.*?')*\})?\s*$/
+  end
+end
 
 MaRuKu::In::Markdown::register_block_extension(
-  :regexp  => OpenFence,
+  :regexp  => Maruku::In::Markdown::FencedCode::OpenFence,
   :handler => lambda do |doc, src, context|
+    return false unless doc.get_setting :fenced_code_blocks
+
     first = src.shift_line
-    first =~ OpenFence
-    close_fence = /^#{$1}~*$/
-    ial = $2
+    first =~ Maruku::In::Markdown::FencedCode::OpenFence
+    close_fence = /^#{$1}[`~]*$/
+    lang = $2
+    ial = $3
 
     lines = []
 
@@ -70,8 +92,8 @@ MaRuKu::In::Markdown::register_block_extension(
       al = ial && doc.read_attribute_list(cs.new(inside))
     end
 
-    source = lines.join("\n")
-    context.push doc.md_codeblock(source, al)
+    source = "\n" + lines.join("\n") + "\n"
+    context.push doc.md_codeblock(source, lang, al)
     true
   end
 )

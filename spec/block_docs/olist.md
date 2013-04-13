@@ -11,9 +11,9 @@ This is a list:
 md_el(:document,[
 	md_par(["This is a list:"]),
 	md_el(:ol,[
-		md_el(:li_span,["one"],{:want_my_paragraph=>false},[]),
-		md_el(:li_span,["two"],{:want_my_paragraph=>false},[]),
-		md_el(:li_span,["three"],{:want_my_paragraph=>false},[])
+		md_el(:li,["one"],{:want_my_paragraph=>false},[]),
+		md_el(:li,["two"],{:want_my_paragraph=>false},[]),
+		md_el(:li,["three"],{:want_my_paragraph=>false},[])
 	],{},[])
 ],{},[])
 *** Output of to_html ***

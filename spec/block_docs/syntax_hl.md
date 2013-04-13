@@ -17,10 +17,10 @@ This is ruby code:
 *** Output of inspect ***
 md_el(:document,[
 	md_par(["This is ruby code:"]),
-	md_el(:code,[],{:raw_code=>"require 'maruku'\n\nputs Maruku.new($stdin).to_html"},[]),
+	md_el(:code,[],{:raw_code=>"require 'maruku'\n\nputs Maruku.new($stdin).to_html", :lang=>nil},[]),
 	md_par(["This is ruby code:"]),
-	md_el(:code,[],{:raw_code=>"require 'maruku'"},[["lang", "ruby"], [:ref, "html_use_syntax"]]),
-	md_el(:code,[],{:raw_code=>"puts Maruku.new($stdin).to_html"},[])
+	md_el(:code,[],{:raw_code=>"require 'maruku'", :lang=>nil},[["lang", "ruby"], [:ref, "html_use_syntax"]]),
+	md_el(:code,[],{:raw_code=>"puts Maruku.new($stdin).to_html", :lang=>nil},[])
 ],{},[])
 *** Output of to_html ***
 <p>This is ruby code:</p>
@@ -31,7 +31,7 @@ puts Maruku.new($stdin).to_html</code></pre>
 
 <p>This is ruby code:</p>
 
-<pre class="ruby"><code lang="ruby" xml:lang="ruby"><span class="ident">require</span> <span class="punct">'</span><span class="string">maruku</span><span class="punct">'</span></code></pre>
+<pre><code class="ruby"><span class="ident">require</span> <span class="punct">'</span><span class="string">maruku</span><span class="punct">'</span></code></pre>
 
 <pre><code>puts Maruku.new($stdin).to_html</code></pre>
 *** Output of to_latex ***

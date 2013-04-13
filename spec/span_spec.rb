@@ -28,7 +28,6 @@ EXPECTATIONS = Maruku.new.instance_eval do
     ["`` \\` ``" ,    [md_code('\\`')],   ],
     ["``a``" ,   [md_code('a')],    ],
     ["`` a ``" ,   [md_code('a')],    ],
-    ["``a", ["``a"], 'Unmatched double ticks are left alone', true ],
 
     # Newlines
     ["a  \n", ['a',md_el(:linebreak)], 'Two spaces give br.'],
@@ -115,12 +114,13 @@ EXPECTATIONS = Maruku.new.instance_eval do
     ["__a**", :raise],
     ["___a***", :raise],
     ["***a___", :raise],
+    ["*This is in italic, and this is **bold**.*", [md_em(["This is in italic, and this is ", md_strong("bold"), "."])], 'Issue #23'],
+
     # links of the form [text][ref]
     ["\\[a]",  ["[a]"], 'Escaping 1'],
     ["\\[a\\]", ["[a]"], 'Escaping 2'],
     # This is valid in the new Markdown version
-    ["[a]",   ["[a]"],   'Not a link', true],
-    ["[a]",   [ md_link(["a"],'a')], 'Empty link'],
+    ["[a]",   [ md_link(["a"],nil)], 'Empty link'],
     ["[a][]", [ md_link(["a"],'')] ],
     ["[a][]b",   [ md_link(["a"],''),'b'], 'Empty link'],
     ["[a\\]][]", [ md_link(["a]"],'')], 'Escape inside link (throw ?] away)'],

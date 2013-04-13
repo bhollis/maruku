@@ -1,4 +1,4 @@
-Write a comment abouth the test here.
+Lists should be able to contain blockquotes and code.
 *** Parameters: ***
 {}
 *** Markdown input: ***
@@ -19,7 +19,7 @@ md_el(:document,[
 		],{:want_my_paragraph=>true},[]),
 		md_el(:li,[
 			md_par(["A list item with a code block:"]),
-			md_el(:code,[],{:raw_code=>"<code goes here>"},[])
+			md_el(:code,[],{:raw_code=>"<code goes here>", :lang=>nil},[])
 		],{:want_my_paragraph=>true},[])
 	],{},[])
 ],{},[])

@@ -1,4 +1,4 @@
-List Items with non alphanumeric content
+List Items with non alphanumeric content. https://github.com/bhollis/maruku/issues/1
 *** Parameters: ***
 {}
 *** Markdown input: ***
@@ -9,9 +9,9 @@ List Items with non alphanumeric content
 *** Output of inspect ***
 md_el(:document,[
   md_el(:ul,[
-    md_el(:li_span,["A"],{:want_my_paragraph=>false},[]),
-    md_el(:li_span,["?"],{:want_my_paragraph=>false},[]),
-    md_el(:li_span,["B"],{:want_my_paragraph=>false},[])
+    md_el(:li,["A"],{:want_my_paragraph=>false},[]),
+    md_el(:li,["?"],{:want_my_paragraph=>false},[]),
+    md_el(:li,["B"],{:want_my_paragraph=>false},[])
   ],{},[])
 ],{},[])
 

@@ -19,7 +19,7 @@ I -- too -- met << some curly quotes >> there or <<here>>No space.
 
 *** Output of inspect ***
 md_el(:document,[
-	md_el(:code,[],{:raw_code=>"'Twas a \"test\" to 'remember' in the '90s."},[]),
+	md_el(:code,[],{:raw_code=>"'Twas a \"test\" to 'remember' in the '90s.", :lang=>nil},[]),
 	md_par([
 		md_entity("lsquo"),
 		"Twas a ",
@@ -34,7 +34,7 @@ md_el(:document,[
 		md_entity("rsquo"),
 		"90s."
 	]),
-	md_el(:code,[],{:raw_code=>"It was --- in a sense --- really... interesting."},[]),
+	md_el(:code,[],{:raw_code=>"It was --- in a sense --- really... interesting.", :lang=>nil},[]),
 	md_par([
 		"It was ",
 		md_entity("mdash"),
@@ -44,7 +44,7 @@ md_el(:document,[
 		md_entity("hellip"),
 		" interesting."
 	]),
-	md_el(:code,[],{:raw_code=>"I -- too -- met << some curly quotes >> there or <<here>>No space."},[]),
+	md_el(:code,[],{:raw_code=>"I -- too -- met << some curly quotes >> there or <<here>>No space.", :lang=>nil},[]),
 	md_par([
 		"I ",
 		md_entity("ndash"),
@@ -62,7 +62,7 @@ md_el(:document,[
 		md_entity("raquo"),
 		"No space."
 	]),
-	md_el(:code,[],{:raw_code=>"She was 6\\\"12\\'."},[]),
+	md_el(:code,[],{:raw_code=>"She was 6\\\"12\\'.", :lang=>nil},[]),
 	md_el(:quote,[
 		md_par(["She was 6", md_entity("quot"), "12", md_entity("apos"), "."])
 	],{},[])

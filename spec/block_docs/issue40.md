@@ -1,5 +1,6 @@
-Script tags should be OK with unescaped ampersands. https://github.com/bhollis/maruku/issues/40
+JRUBY PENDING - Script tags should be OK with unescaped ampersands. https://github.com/bhollis/maruku/issues/40
 NOTE: CDATA is output because we use XHTML - for HTML mode it should be omitted.
+JRuby Nokogiri doesn't put the CDATA in.
 *** Parameters: ***
 {}
 *** Markdown input: ***

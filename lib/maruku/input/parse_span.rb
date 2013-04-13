@@ -1,23 +1,3 @@
-#--
-#   Copyright (C) 2006  Andrea Censi  <andrea (at) rubyforge.org>
-#
-# This file is part of Maruku.
-#
-#   Maruku is free software; you can redistribute it and/or modify
-#   it under the terms of the GNU General Public License as published by
-#   the Free Software Foundation; either version 2 of the License, or
-#   (at your option) any later version.
-#
-#   Maruku is distributed in the hope that it will be useful,
-#   but WITHOUT ANY WARRANTY; without even the implied warranty of
-#   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#   GNU General Public License for more details.
-#
-#   You should have received a copy of the GNU General Public License
-#   along with Maruku; if not, write to the Free Software
-#   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
-#++
-
 module MaRuKu::In::Markdown::SpanLevelParser
   include MaRuKu::Helpers
 
@@ -57,7 +37,7 @@ module MaRuKu::In::Markdown::SpanLevelParser
       if Array(exit_on_strings).any? {|x| src.cur_chars_are x }
         # Special case: bold nested in italic
         break unless !(['*', '_'] & Array(exit_on_strings)).empty? &&
-          ['**','__'].include?(src.cur_chars(2))
+          ['**', '__'].include?(src.cur_chars(2))
       end
 
       # check if there are extensions
@@ -158,8 +138,7 @@ module MaRuKu::In::Markdown::SpanLevelParser
         end
       when '*'
         if !src.next_char
-          maruku_error "Opening * as last char.", src, con
-          maruku_recover "Treating as literal"
+          maruku_error "Opening * as last char.", src, con, 'Treating as literal'
           con.push_char src.shift_char
         else
           follows = src.cur_chars(4)
@@ -175,8 +154,7 @@ module MaRuKu::In::Markdown::SpanLevelParser
         end
       when '_'
         if !src.next_char
-          maruku_error "Opening _ as last char", src, con
-          maruku_recover "Treating as literal", src, con
+          maruku_error "Opening _ as last char", src, con, 'Treating as literal'
           con.push_char src.shift_char
         else
           # we don't want "mod_ruby" to start an emphasis
@@ -279,7 +257,7 @@ module MaRuKu::In::Markdown::SpanLevelParser
       if stuff =~ /^(\w+\s|[^\w])/
         extension_id = $1.strip
 
-        maruku_recover "I don't know what to do with extension '#{extension_id}'\n"+
+        maruku_recover "I don't know what to do with extension '#{extension_id}'\n" +
           "I will treat this:\n\t{#{stuff}} \n as meta-data.\n", src, con
       else
         maruku_recover "I will treat this:\n\t{#{stuff}} \n as meta-data.\n", src, con
@@ -319,7 +297,7 @@ module MaRuKu::In::Markdown::SpanLevelParser
 
   def read_url(src, break_on)
     if ["'", '"'].include? src.cur_char
-      error 'Invalid char for url', src
+      maruku_error 'Invalid char for url', src
     end
 
     url = read_simple(src, nil, break_on) || ''
@@ -375,11 +353,9 @@ module MaRuKu::In::Markdown::SpanLevelParser
       case c
       when nil
         if warn
-          s = "String finished while reading (break on " +
+          maruku_error "String finished while reading (break on " +
             "#{exit_on_chars.inspect})" +
-            " already read: #{text.inspect}"
-          maruku_error s, src
-          maruku_recover s, src
+            " already read: #{text.inspect}", src
         end
         break
       when "\\"
@@ -457,8 +433,7 @@ module MaRuKu::In::Markdown::SpanLevelParser
       con.push_element md_html(h.stuff_you_read)
     rescue => e
       maruku_error "Bad html: \n" +
-        (e.inspect + e.backtrace.join("\n")).gsub(/^/, '>'), src, con
-      maruku_recover "I will try to continue after bad HTML.", src, con
+        e.inspect.gsub(/^/, '>'), src, con, "I will try to continue after bad HTML."
       con.push_char src.shift_char
     end
   end
@@ -478,6 +453,12 @@ module MaRuKu::In::Markdown::SpanLevelParser
     # We didn't find a closing batch!
     if !code || src.cur_char != '`'
       con.push_element(end_string + (code || '')) and return
+    end
+
+    # We didn't find a closing batch!
+    if !code || src.cur_char != '`'
+      con.push_element(end_string + (code || ''))
+      return
     end
 
     #   puts "Now I expects #{num_ticks} ticks: #{src.cur_chars(10).inspect}"
@@ -538,9 +519,8 @@ module MaRuKu::In::Markdown::SpanLevelParser
       src.consume_whitespace
       closing = src.shift_char # closing )
       if closing != ')'
-        maruku_error 'Unclosed link', src, con
-        maruku_recover "No closing ): I will not create" +
-          " the link for #{children.inspect}", src, con
+        maruku_error 'Unclosed link', src, con, "No closing ): I will not create" +
+          " the link for #{children.inspect}"
         con.push_elements children
         return
       end
@@ -550,15 +530,13 @@ module MaRuKu::In::Markdown::SpanLevelParser
       if ref_id
         con.push_element md_link(children, ref_id)
       else
-        maruku_error "Could not read ref_id", src, con
-        maruku_recover "I will not create the link for " +
-          "#{children.inspect}", src, con
+        maruku_error "Could not read ref_id", src, con, "I will not create the link for " +
+          "#{children.inspect}"
         con.push_elements children
         return
       end
     else # empty [link]
-      id = children.join
-      con.push_element md_link(children, id)
+      con.push_element md_link(children, nil)
     end
   end # read link
 
@@ -576,7 +554,7 @@ module MaRuKu::In::Markdown::SpanLevelParser
       src.consume_whitespace
       url = read_url(src, [' ', "\t", ')'])
       unless url
-        error "Could not read url from #{src.cur_chars(10).inspect}", src, con
+        maruku_error "Could not read url from #{src.cur_chars(10).inspect}", src, con
       end
       src.consume_whitespace
       title = nil
@@ -601,14 +579,14 @@ module MaRuKu::In::Markdown::SpanLevelParser
       src.consume_whitespace
       closing = src.shift_char # closing )
       if closing != ')'
-        error( ("Unclosed link: '" << closing << "'") +
-               " Read url=#{url.inspect} title=#{title.inspect}", src, con)
+        maruku_error "Unclosed link: '#{closing}'" +
+          " Read url=#{url.inspect} title=#{title.inspect}", src, con
       end
       con.push_element md_im_image(alt_text, url, title)
     when '[' # link ref
       ref_id = read_ref_id(src, con)
       if !ref_id # TODO: check around
-        error('Reference not closed.', src, con)
+        maruku_error 'Reference not closed.', src, con
         ref_id = ""
       end
 

@@ -43,7 +43,7 @@ md_el(:document,[
 		"Entity-substitution does not happen in code blocks or inline code."
 	]),
 	md_par(["The following should not be translated:"]),
-	md_el(:code,[],{:raw_code=>"&copy;"},[]),
+	md_el(:code,[],{:raw_code=>"&copy;", :lang=>nil},[]),
 	md_par(["It should read like this: ", md_code("&copy;"), "."])
 ],{},[])
 *** Output of to_html ***

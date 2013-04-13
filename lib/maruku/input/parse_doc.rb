@@ -1,29 +1,11 @@
-#--
-#   Copyright (C) 2006  Andrea Censi  <andrea (at) rubyforge.org>
-#
-# This file is part of Maruku.
-#
-#   Maruku is free software; you can redistribute it and/or modify
-#   it under the terms of the GNU General Public License as published by
-#   the Free Software Foundation; either version 2 of the License, or
-#   (at your option) any later version.
-#
-#   Maruku is distributed in the hope that it will be useful,
-#   but WITHOUT ANY WARRANTY; without even the implied warranty of
-#   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#   GNU General Public License for more details.
-#
-#   You should have received a copy of the GNU General Public License
-#   along with Maruku; if not, write to the Free Software
-#   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
-#++
-
 require 'nokogiri'
 require 'strscan'
 
 module MaRuKu::In::Markdown::BlockLevelParser
 
   def parse_doc(s)
+    # Remove BOM if it is present
+    s = s.sub(/^\xEF\xBB\xBF/u, '')
     meta2 = parse_email_headers(s)
     data = meta2.delete :data
 
@@ -106,9 +88,9 @@ Disabled by default because of security concerns.
             expand_attribute_list(self.ald[v], result)
           else
             already << v
-            maruku_error "Circular reference between labels.\n\n"+
-            "Label #{v.inspect} calls itself via recursion.\nThe recursion is "+
-              (already.map {|x| x.inspect }.join(' => '))
+            maruku_error "Circular reference between labels.\n\n" +
+            "Label #{v.inspect} calls itself via recursion.\nThe recursion is " +
+              already.map(&:inspect).join(' => ')
           end
         else
           if result[:unresolved_references]
@@ -171,14 +153,14 @@ Disabled by default because of security concerns.
   # markdown=1 or markdown=block defined
   def substitute_markdown_inside_raw_html
     each_element(:raw_html) do |_e|
-      doc = _e.instance_variable_get :@parsed_html
+      doc = _e.parsed_html
       next unless doc # valid html
 
       # parse block-level markdown elements in these HTML tags
       block_tags = ['div']
 
-      # find elements with 'markdown' attribute
-      doc.css("[markdown]").each do |e|
+      # find span elements or elements with 'markdown' attribute
+      doc.css((["[markdown]"] + HTML_INLINE_ELEMS).join(",")).each do |e|
         # should we parse block-level or span-level?
 
         how = e['markdown']

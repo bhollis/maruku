@@ -4,10 +4,10 @@ puts "Maruku:"
 puts `ruby -Ilib bin/maruku -o - --html-frag #{ARGV[0]}`
 
 puts "Old Maruku:"
-puts `maruku -o - --html-frag #{ARGV[0]}`
+puts `ruby -S maruku -o - --html-frag #{ARGV[0]}`
 
 puts "\n\nRedcarpet:"
-puts `redcarpet #{ARGV[0]}`
+puts `redcarpet --smarty #{ARGV[0]}`
 
 puts "\n\nKramdown:"
 puts `kramdown #{ARGV[0]}`

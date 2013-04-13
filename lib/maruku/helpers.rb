@@ -1,24 +1,10 @@
-#   Copyright (C) 2006  Andrea Censi  <andrea (at) rubyforge.org>
-#
-# This file is part of Maruku.
-#
-#   Maruku is free software; you can redistribute it and/or modify
-#   it under the terms of the GNU General Public License as published by
-#   the Free Software Foundation; either version 2 of the License, or
-#   (at your option) any later version.
-#
-#   Maruku is distributed in the hope that it will be useful,
-#   but WITHOUT ANY WARRANTY; without even the implied warranty of
-#   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#   GNU General Public License for more details.
-#
-#   You should have received a copy of the GNU General Public License
-#   along with Maruku; if not, write to the Free Software
-#   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
-
 require 'nokogiri'
 
 module MaRuKu
+  # This gets mixed into HTML elements to hold the parsed document fragment
+  module HTMLElement
+    attr_accessor :parsed_html
+  end
 
   # A collection of helper functions for creating Markdown elements.
   # They hide the particular internal representations.
@@ -56,8 +42,8 @@ module MaRuKu
     end
 
     # Code block
-    def md_codeblock(source, al = nil)
-      md_el(:code, [], { :raw_code => source }, al)
+    def md_codeblock(source, lang=nil, al=nil)
+      md_el(:code, [], { :raw_code => source, :lang => lang }, al)
     end
 
     def md_quote(children, al=nil)
@@ -82,25 +68,20 @@ module MaRuKu
 
     def md_html(raw_html, al=nil)
       e = md_el(:raw_html, [], :raw_html => raw_html)
+      e.extend HTMLElement
       begin
-        d = Nokogiri::XML::Document.new
+        d = Nokogiri::HTML::Document.new
 
         # Make sure the SVG namespace is known
         root = Nokogiri::XML::Element.new('html', d)
         root.add_namespace('svg', "http://www.w3.org/2000/svg" )
 
-        parsed_html = Nokogiri::HTML::DocumentFragment.new(d, raw_html, d)
-
-        # Set this as an instance variable so it doesn't get included
+        # Set this as an attribute so it doesn't get included
         # in metadata comparisons
-        e.instance_variable_set("@parsed_html", parsed_html)
+        e.parsed_html = Nokogiri::HTML::DocumentFragment.new(d, raw_html, d)
       rescue => ex
-        e.instance_variable_set "@parsed_html", nil
-        maruku_recover <<ERR
-Nokogiri cannot parse this block of HTML/XML:
-#{raw_html.gsub(/^/, '|').rstrip}
-#{ex.inspect}
-ERR
+        maruku_recover "Nokogiri cannot parse this block of HTML/XML:\n" +
+          raw_html.gsub(/^/, '|').rstrip + "\n" + ex.inspect
       end
       e
     end

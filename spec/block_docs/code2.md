@@ -7,7 +7,7 @@ Write a comment abouth the test here.
 >     Ciao
 *** Output of inspect ***
 md_el(:document,[
-	md_el(:quote,[md_par(["Code"]), md_el(:code,[],{:raw_code=>"Ciao"},[])],{},[])
+	md_el(:quote,[md_par(["Code"]), md_el(:code,[],{:raw_code=>"Ciao", :lang=>nil},[])],{},[])
 ],{},[])
 *** Output of to_html ***
 <blockquote>

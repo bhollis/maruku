@@ -1,24 +1,3 @@
-#--
-#   Copyright (C) 2006  Andrea Censi  <andrea (at) rubyforge.org>
-#
-# This file is part of Maruku.
-#
-#   Maruku is free software; you can redistribute it and/or modify
-#   it under the terms of the GNU General Public License as published by
-#   the Free Software Foundation; either version 2 of the License, or
-#   (at your option) any later version.
-#
-#   Maruku is distributed in the hope that it will be useful,
-#   but WITHOUT ANY WARRANTY; without even the implied warranty of
-#   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#   GNU General Public License for more details.
-#
-#   You should have received a copy of the GNU General Public License
-#   along with Maruku; if not, write to the Free Software
-#   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
-#++
-
-
 module MaRuKu; module In; module Markdown; module BlockLevelParser
 
   include Helpers
@@ -52,7 +31,7 @@ module MaRuKu; module In; module Markdown; module BlockLevelParser
       md_type = src.cur_line.md_type
 
       # Prints detected type (useful for debugging)
-      #  puts "#{md_type}|#{src.cur_line}"
+      #puts "parse_blocks #{md_type}|#{src.cur_line}"
       case md_type
       when :empty
         output << :empty
@@ -89,8 +68,21 @@ module MaRuKu; module In; module Markdown; module BlockLevelParser
         e = read_code(src)
         output << e if e
       when :raw_html
+        # More extra hacky stuff - if there's more than just HTML, we either wrap it
+        # in a paragraph or break it up depending on whether it's an inline element or not
         e = read_raw_html(src)
-        output << e if e
+        unless e.empty?
+          first_node = e.first.parsed_html.children.first
+          if first_node && HTML_INLINE_ELEMS.include?(first_node.name)
+            content = [e.first]
+            if e.size > 1
+              content.concat(e[1].children)
+            end
+            output << md_par(content)
+          else
+            output.concat(e)
+          end
+        end
       when :footnote_text
         output << read_footnote_text(src)
       when :ref_definition
@@ -120,19 +112,22 @@ module MaRuKu; module In; module Markdown; module BlockLevelParser
     # get rid of empty line markers
     output.delete_if {|x| x == :empty }
 
-    # See for each list if we can omit the paragraphs and use li_span
+    # See for each list if we can omit the paragraphs
     # TODO: do this after
     output.each do |c|
       # Remove paragraphs that we can get rid of
       if [:ul, :ol].include?(c.node_type) && c.children.none?(&:want_my_paragraph)
         c.children.each do |d|
-          d.node_type = :li_span
-          d.children = d.children.first.children if d.children.first
+          if d.children.first.node_type == :paragraph
+            d.children = d.children.first.children + d.children[1..-1]
+          end
         end
       elsif c.node_type == :definition_list && c.children.none?(&:want_my_paragraph)
         c.children.each do |definition|
           definition.definitions.each do |dd|
-            dd.children = dd.children.first.children if dd.children.first
+            if dd.children.first.node_type == :paragraph
+              dd.children = dd.children.first.children + dd.children[1..-1]
+            end
           end
         end
       end
@@ -184,6 +179,10 @@ module MaRuKu; module In; module Markdown; module BlockLevelParser
       al = read_attribute_list(CharSource.new(ial, src))
     end
     text = parse_span line
+    if text.empty?
+      text = "{#{ial}}"
+      al = nil
+    end
     level = src.cur_line.md_type == :header2 ? 2 : 1;
     src.shift_line
     md_header(level, text, al)
@@ -201,6 +200,10 @@ module MaRuKu; module In; module Markdown; module BlockLevelParser
     end
     level = line[/^#+/].size
     text = parse_span line.gsub(/\A#+|#+\Z/, '')
+    if text.empty?
+      text = "{#{ial}}"
+      al = nil
+    end
     md_header(level, text, al)
   end
 
@@ -233,7 +236,9 @@ module MaRuKu; module In; module Markdown; module BlockLevelParser
     end
   end
 
+  HTML_INLINE_ELEMS = %w(a abbr acronym b big bdo br button cite code del dfn em i img input ins kbd label option q rb rbc rp rt rtc ruby samp select small span strong sub sup textarea tt var)
   def read_raw_html(src)
+    extra_line = nil
     h = HTMLHelper.new
     begin
       l = src.shift_line
@@ -245,16 +250,22 @@ module MaRuKu; module In; module Markdown; module BlockLevelParser
         h.eat_this "\n" + l
       end
     rescue => e
-      ex = e.inspect + e.backtrace.join("\n")
-      maruku_error "Bad block-level HTML:\n#{ex.gsub(/^/, '|')}\n", src
+      maruku_error "Bad block-level HTML:\n#{e.inspect.gsub(/^/, '|')}\n", src
     end
     unless h.rest =~ /^\s*$/
-      maruku_error "Could you please format this better?\n"+
-        "I see that #{h.rest.inspect} is left after the raw HTML.", src
+      extra_line = h.rest
     end
     raw_html = h.stuff_you_read
 
-    md_html(raw_html)
+    if extra_line
+      remainder = parse_span(extra_line)
+      if extra_line.start_with?(' ')
+        remainder[0] = ' ' + remainder[0]
+      end
+      [md_html(raw_html), md_par(remainder)]
+    else
+      [md_html(raw_html)]
+    end
   end
 
   def read_paragraph(src)
@@ -262,10 +273,18 @@ module MaRuKu; module In; module Markdown; module BlockLevelParser
     while src.cur_line
       # :olist does not break
       case t = src.cur_line.md_type
-      when :quote, :header3, :empty, :ref_definition, :ial #,:xml_instr,:raw_html
+      when :quote, :header3, :empty, :ref_definition, :ial, :xml_instr
         break
       when :olist, :ulist
-        break if src.next_line && src.next_line.md_type == t
+        break if !src.next_line || src.next_line.md_type == t
+      when :raw_html
+        # This is a pretty awful hack to handle inline HTML
+        # but it means double-parsing HMTL.
+        html = parse_span([src.cur_line], src)
+        unless html.empty?
+          first_node = html.first.parsed_html.children.first
+        end
+        break if first_node && !HTML_INLINE_ELEMS.include?(first_node.name)
       end
       break if src.cur_line.strip.empty?
       break if src.next_line && [:header1, :header2].include?(src.next_line.md_type)
@@ -287,20 +306,19 @@ module MaRuKu; module In; module Markdown; module BlockLevelParser
 
     indentation, ial = spaces_before_first_char(first)
     al = read_attribute_list(CharSource.new(ial, src)) if ial
-    break_list = [:ulist, :olist, :ial]
-    # Ugly things going on inside `read_indented_content`
+
     lines, want_my_paragraph =
-      read_indented_content(src, indentation, break_list, item_type)
+      read_indented_content(src, indentation, :ial, item_type)
 
     # add first line
     # Strip first '*', '-', '+' from first line
     stripped = first[indentation, first.size - 1]
     lines.unshift stripped
 
-
     src2 = LineSource.new(lines, src, parent_offset)
     children = parse_blocks(src2)
-    with_par = want_my_paragraph || (children.size > 1)
+
+    with_par = want_my_paragraph
 
     md_li(children, with_par, al)
   end
@@ -334,7 +352,6 @@ module MaRuKu; module In; module Markdown; module BlockLevelParser
     id = $1
     text = $2 || ''
 
-    # Ugly things going on inside `read_indented_content`
     indentation = 4 #first.size-text.size
 
     #   puts "id =_#{id}_; text=_#{text}_ indent=#{indentation}"
@@ -362,41 +379,51 @@ module MaRuKu; module In; module Markdown; module BlockLevelParser
     # collect all indented lines
     saw_empty = false
     saw_anything_after = false
+    break_list = Array(break_list)
 
     while src.cur_line
-      #     puts "Reading indent = #{indentation} #{src.cur_line.inspect}"
-      #puts "#{src.cur_line.md_type} #{src.cur_line.inspect}"
-      if src.cur_line.md_type == :empty
+      num_leading_spaces = src.cur_line.number_of_leading_spaces
+      break if num_leading_spaces < indentation && ![:text, :empty].include?(src.cur_line.md_type)
+
+      line = strip_indent(src.cur_line, indentation)
+      md_type = line.md_type
+
+      if md_type == :empty
         saw_empty = true
-        lines << src.shift_line
+        lines << line
+        src.shift_line
+        next
+      end
+
+      # Unquestioningly grab anything that's deeper-indented
+      if md_type != :code && num_leading_spaces > indentation
+        lines << line
+        src.shift_line
         next
       end
 
       # after a white line
       if saw_empty
         # we expect things to be properly aligned
-        if src.cur_line.number_of_leading_spaces < indentation
-          #puts "breaking for spaces, only #{ns}: #{src.cur_line}"
-          break
-        end
+        break if num_leading_spaces < indentation
         saw_anything_after = true
       else
-        break if Array(break_list).include? src.cur_line.md_type
+        break if break_list.include?(md_type)
       end
 
-
-      stripped = strip_indent(src.shift_line, indentation)
-      lines << stripped
+      lines << line
+      src.shift_line
 
       # You are only required to indent the first line of
       # a child paragraph.
-      if stripped.md_type == :text
-        while src.cur_line && (src.cur_line.md_type == :text)
+      if md_type == :text
+        while src.cur_line && src.cur_line.md_type == :text
           lines << strip_indent(src.shift_line, indentation)
         end
       end
     end
 
+    # TODO fix this
     want_my_paragraph = saw_anything_after ||
       (saw_empty && src.cur_line && src.cur_line.md_type == item_type)
 
@@ -583,8 +610,6 @@ module MaRuKu; module In; module Markdown; module BlockLevelParser
       first = src.shift_line
       first =~ Definition
       first = $1
-
-      # I know, it's ugly!!!
 
       lines, w_m_p = read_indented_content(src, 4, :definition, :definition)
       want_my_paragraph ||= w_m_p

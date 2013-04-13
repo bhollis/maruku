@@ -1,7 +1,6 @@
-Test backtick fenced code blocks - right now just test that we don't fail hard
-on them, but in the future test that they're supported.
+Fenced code blocks
 *** Parameters: ***
-{}
+{ :fenced_code_blocks => true }
 *** Markdown input: ***
 ```ruby
 john = Twitter::Client.new(
@@ -16,6 +15,52 @@ john = Twitter::Client.new(
   :oauth_token_secret => "John's access secret"
 )
 ```
-*** Output of inspect ***
 
+~~~~~ruby
+john = Twitter::Client.new(
+  :oauth_token => "John's access token",
+  :oauth_token_secret => "John's access secret"
+)
+~~~~~~~
+
+~~~~~
+john = Twitter::Client.new(
+  :oauth_token => "John's access token",
+  :oauth_token_secret => "John's access secret"
+)
+~~~~~
+*** Output of inspect ***
+md_el(:document, [
+	md_el(:code, [], {:raw_code=>"\njohn = Twitter::Client.new(\n  :oauth_token => \"John's access token\",\n  :oauth_token_secret => \"John's access secret\"\n)\n", :lang=>"ruby"}),
+	md_el(:code, [], {:raw_code=>"\njohn = Twitter::Client.new(\n  :oauth_token => \"John's access token\",\n  :oauth_token_secret => \"John's access secret\"\n)\n", :lang=>nil}),
+	md_el(:code, [], {:raw_code=>"\njohn = Twitter::Client.new(\n  :oauth_token => \"John's access token\",\n  :oauth_token_secret => \"John's access secret\"\n)\n", :lang=>"ruby"}),
+	md_el(:code, [], {:raw_code=>"\njohn = Twitter::Client.new(\n  :oauth_token => \"John's access token\",\n  :oauth_token_secret => \"John's access secret\"\n)\n", :lang=>nil})
+])
 *** Output of to_html ***
+<pre><code class="ruby">
+john = Twitter::Client.new(
+  :oauth_token =&gt; "John's access token",
+  :oauth_token_secret =&gt; "John's access secret"
+)
+</code></pre>
+
+<pre><code>
+john = Twitter::Client.new(
+  :oauth_token =&gt; "John's access token",
+  :oauth_token_secret =&gt; "John's access secret"
+)
+</code></pre>
+
+<pre><code class="ruby">
+john = Twitter::Client.new(
+  :oauth_token =&gt; "John's access token",
+  :oauth_token_secret =&gt; "John's access secret"
+)
+</code></pre>
+
+<pre><code>
+john = Twitter::Client.new(
+  :oauth_token =&gt; "John's access token",
+  :oauth_token_secret =&gt; "John's access secret"
+)
+</code></pre>

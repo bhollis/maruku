@@ -1,23 +1,3 @@
-#--
-#   Copyright (C) 2006  Andrea Censi  <andrea (at) rubyforge.org>
-#
-# This file is part of Maruku.
-#
-#   Maruku is free software; you can redistribute it and/or modify
-#   it under the terms of the GNU General Public License as published by
-#   the Free Software Foundation; either version 2 of the License, or
-#   (at your option) any later version.
-#
-#   Maruku is distributed in the hope that it will be useful,
-#   but WITHOUT ANY WARRANTY; without even the implied warranty of
-#   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#   GNU General Public License for more details.
-#
-#   You should have received a copy of the GNU General Public License
-#   along with Maruku; if not, write to the Free Software
-#   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
-#++
-
 require 'nokogiri'
 require 'maruku/string_utils'
 
@@ -189,7 +169,12 @@ module MaRuKu::Out::HTML
 
     # Create title element
     doc_title = self.attributes[:title] || self.attributes[:subject] || ""
-    title = xelem('title') << xtext(doc_title)
+    begin
+      title_content = Nokogiri::HTML::DocumentFragment.parse(doc_title)
+    rescue
+      title_content = xtext(doc_title)
+    end
+    title = xelem('title') << title_content
     head << title
     add_css_to(head)
 
@@ -411,10 +396,6 @@ module MaRuKu::Out::HTML
     add_ws wrap_as_element('li')
   end
 
-  def to_html_li_span
-    add_ws wrap_as_element('li')
-  end
-
   def to_html_quote
     add_ws wrap_as_element('blockquote')
   end
@@ -506,15 +487,15 @@ module MaRuKu::Out::HTML
   def to_html_code
     source = self.raw_code
 
-    lang = self.attributes[:lang] || @doc.attributes[:code_lang]
+    code_lang = self.lang || self.attributes[:lang] || @doc.attributes[:code_lang]
 
-    lang = 'xml' if lang == 'html'
-    lang = 'css21' if lang == 'css'
+    code_lang = 'xml' if code_lang == 'html'
+    code_lang = 'css21' if code_lang == 'css'
 
     use_syntax = get_setting :html_use_syntax
 
     element =
-      if use_syntax && lang
+      if use_syntax && code_lang
         begin
           unless $syntax_loaded
             require 'rubygems'
@@ -522,7 +503,7 @@ module MaRuKu::Out::HTML
             require 'syntax/convertors/html'
             $syntax_loaded = true
           end
-          convertor = Syntax::Convertors::HTML.for_syntax lang
+          convertor = Syntax::Convertors::HTML.for_syntax code_lang
 
           # eliminate trailing newlines otherwise Syntax crashes
           source = source.sub(/\n*\Z/, '')
@@ -534,28 +515,26 @@ module MaRuKu::Out::HTML
           d = Nokogiri::XML::Document.parse(html)
           code = d.root
           code.name = 'code'
-          code['lang'] = lang
-          code['xml:lang'] = lang
+          code['class'] = code_lang
 
           pre = xelem('pre')
-          pre['class'] = lang
           pre << code
           pre
         rescue LoadError => e
           maruku_error "Could not load package 'syntax'.\n" +
             "Please install it, for example using 'gem install syntax'."
-          to_html_code_using_pre(source)
+          to_html_code_using_pre(source, code_lang)
         rescue => e
           maruku_error "Error while using the syntax library for code:\n#{source.inspect}" +
-            "Lang is #{lang} object is: \n" +
+            "Lang is #{code_lang} object is: \n" +
             self.inspect +
-            "\nException: #{e.class}: #{e.message}\n\t#{e.backtrace.join("\n\t")}"
+            "\nException: #{e.class}: #{e.message}"
 
           tell_user("Using normal PRE because the syntax library did not work.")
-          to_html_code_using_pre(source)
+          to_html_code_using_pre(source, code_lang)
         end
       else
-        to_html_code_using_pre(source)
+        to_html_code_using_pre(source, code_lang)
       end
 
     color = get_setting(:code_background_color)
@@ -585,7 +564,7 @@ module MaRuKu::Out::HTML
   #=end
 
 
-  def to_html_code_using_pre(source)
+  def to_html_code_using_pre(source, code_lang=nil)
     pre = create_html_element('pre')
     code = xelem('code')
 
@@ -598,9 +577,9 @@ module MaRuKu::Out::HTML
 
     text = xtext(source)
 
-    if lang = self.attributes[:lang]
-      code['lang'] = lang
-      code['class'] = lang
+    code_lang ||= self.attributes[:lang]
+    if code_lang
+      code['class'] = code_lang
     end
 
     code << text
@@ -638,7 +617,7 @@ module MaRuKu::Out::HTML
 
   def to_html_link
     a = wrap_as_element('a')
-    id = self.ref_id
+    id = self.ref_id || children_to_s
 
     if ref = @doc.refs[sanitize_ref_id(id)] || @doc.refs[sanitize_ref_id(children_to_s)]
       a['href'] = ref[:url] if ref[:url]
@@ -646,8 +625,12 @@ module MaRuKu::Out::HTML
     else
       maruku_error "Could not find ref_id = #{id.inspect} for #{self.inspect}\n" +
         "Available refs are #{@doc.refs.keys.inspect}"
-      tell_user "Not creating a link for ref_id = #{id.inspect}."
-      return "[#{children_to_s}][#{id}]"
+      tell_user "Not creating a link for ref_id = #{id.inspect}.\n"
+      if (self.ref_id)
+        return "[#{children_to_s}][#{id}]"
+      else
+        return "[#{children_to_s}]"
+      end
     end
 
     a
@@ -733,7 +716,7 @@ module MaRuKu::Out::HTML
 
   def to_html_raw_html
     return [] if get_setting(:filter_html)
-    return @parsed_html if @parsed_html
+    return parsed_html if parsed_html
 
     # If there's no parsed HTML
     raw_html = self.raw_html

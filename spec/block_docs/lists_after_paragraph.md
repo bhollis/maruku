@@ -33,8 +33,8 @@ Paragraph with header:
 ### header ###
 
 Paragraph with header on two lines:
-header
-------
+header 2
+--------
 
 
 Paragraph with html after
@@ -70,8 +70,9 @@ md_el(:document,[
 	md_par(["Paragraph with header:"]),
 	md_el(:header,["header"],{:level=>3},[]),
 	md_par(["Paragraph with header on two lines:"]),
-	md_el(:header,["header"],{:level=>2},[]),
-	md_par(["Paragraph with html after ", md_html("<div></div>")]),
+	md_el(:header,["header 2"],{:level=>2},[]),
+	md_par("Paragraph with html after"),
+  md_html("<div></div>"),
 	md_par([
 		"Paragraph with html after, indented: ",
 		md_html("<em>Emphasis</em>")
@@ -114,19 +115,20 @@ md_el(:document,[
 
 <p>Paragraph with header:</p>
 
-<h3 id="header_1">header</h3>
+<h3 id="header">header</h3>
 
 <p>Paragraph with header on two lines:</p>
 
-<h2 id="header_2">header</h2>
+<h2 id="header_2">header 2</h2>
 
-<p>Paragraph with html after <div></div></p>
+<p>Paragraph with html after</p>
+<div></div>
 
 <p>Paragraph with html after, indented: <em>Emphasis</em></p>
 
 <p>Paragraph with html after, indented: <em>Emphasis</em> <em>tralla</em> <em>Emph</em></p>
 
-<p>Paragraph with html after, indented: <em>Emphasis *tralla* Emph</em></p>
+<p>Paragraph with html after, indented: <em>Emphasis <em>tralla</em> Emph</em></p>
 *** Output of to_latex ***
 Paragraph, list with no space: * ciao
 
@@ -153,13 +155,13 @@ Quoted
 \end{quote}
 Paragraph with header:
 
-\hypertarget{header_1}{}\subsubsection*{{header}}\label{header_1}
+\hypertarget{header}{}\subsubsection*{{header}}\label{header}
 
 Paragraph with header on two lines:
 
-\hypertarget{header_2}{}\subsection*{{header}}\label{header_2}
+\hypertarget{header_2}{}\subsection*{{header 2}}\label{header_2}
 
-Paragraph with html after 
+Paragraph with html after
 
 Paragraph with html after, indented: 
 

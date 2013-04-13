@@ -4,7 +4,7 @@ Write a comment here
 *** Markdown input: ***
 	@articles.map(&:title)
 *** Output of inspect ***
-md_el(:document,[md_el(:code,[],{:raw_code=>"@articles.map(&:title)"},[])],{},[])
+md_el(:document,[md_el(:code,[],{:raw_code=>"@articles.map(&:title)", :lang=>nil},[])],{},[])
 *** Output of to_html ***
 <pre><code>@articles.map(&amp;:title)</code></pre>
 *** Output of to_latex ***

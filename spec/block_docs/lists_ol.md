@@ -1,4 +1,4 @@
-PENDING - Maruku should not unnecessarily wrap <li>'s in <p>
+PENDING - Maruku should handle weirdly indented lists and paragraphs within lists.
 *** Parameters: ***
 {}
 *** Markdown input: ***
@@ -44,19 +44,19 @@ sit amet, consectetuer adipiscing elit.
 *** Output of inspect ***
 md_el(:document,[
 	md_el(:ol,[
-		md_el(:li_span,[
+		md_el(:li,[
 			"Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aliquam hendrerit mi posuere lectus. Vestibulum enim wisi, viverra nec, fringilla in, laoreet vitae, risus."
 		],{:want_my_paragraph=>false},[]),
-		md_el(:li_span,[
+		md_el(:li,[
 			"Donec sit amet nisl. Aliquam semper ipsum sit amet velit. Suspendisse id sem consectetuer libero luctus adipiscing."
 		],{:want_my_paragraph=>false},[]),
-		md_el(:li_span,[
+		md_el(:li,[
 			"Donec sit amet nisl. Aliquam semper ipsum sit amet velit. Suspendisse id sem consectetuer libero luctus adipiscing."
 		],{:want_my_paragraph=>false},[]),
-		md_el(:li_span,[
+		md_el(:li,[
 			"Donec sit amet nisl. Aliquam semper ipsum sit amet velit. Suspendisse id sem consectetuer libero luctus adipiscing."
 		],{:want_my_paragraph=>false},[]),
-		md_el(:li_span,[
+		md_el(:li,[
 			"Donec sit amet nisl. Aliquam semper ipsum sit amet velit. Suspendisse id sem consectetuer libero luctus adipiscing."
 		],{:want_my_paragraph=>false},[])
 	],{},[]),
@@ -68,15 +68,15 @@ md_el(:document,[
 			]),
 			md_par(["ATTENZIONE!"]),
 			md_el(:ul,[
-				md_el(:li,["Uno"],{},[]),
+				md_el(:li,["Uno"],{:want_my_paragraph=>false},[]),
 				md_el(:li,["Due",
 					md_el(:ol,[
-						md_el(:li_span,["tre"],{:want_my_paragraph=>false},[]),
-						md_el(:li_span,["tre"],{:want_my_paragraph=>false},[]),
-						md_el(:li_span,["tre"],{:want_my_paragraph=>false},[])
-					],{},[])
+						md_el(:li,["tre"],{:want_my_paragraph=>false},[]),
+						md_el(:li,["tre"],{:want_my_paragraph=>false},[]),
+						md_el(:li,["tre"],{:want_my_paragraph=>false},[])
+					],{:want_my_paragraph=>false},[])
 				],{},[]),
-				md_el(:li,["Due"],{},[])
+				md_el(:li,["Due"],{:want_my_paragraph=>false},[])
 			],{},[])
 		],{:want_my_paragraph=>true},[]),
 		md_el(:li,[

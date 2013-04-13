@@ -37,19 +37,19 @@ sit amet, consectetuer adipiscing elit.
 *** Output of inspect ***
 md_el(:document,[
 	md_el(:ul,[
-		md_el(:li_span,[
+		md_el(:li,[
 			"Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aliquam hendrerit mi posuere lectus. Vestibulum enim wisi, viverra nec, fringilla in, laoreet vitae, risus."
 		],{:want_my_paragraph=>false},[]),
-		md_el(:li_span,[
+		md_el(:li,[
 			"Donec sit amet nisl. Aliquam semper ipsum sit amet velit. Suspendisse id sem consectetuer libero luctus adipiscing."
 		],{:want_my_paragraph=>false},[]),
-		md_el(:li_span,[
+		md_el(:li,[
 			"Donec sit amet nisl. Aliquam semper ipsum sit amet velit. Suspendisse id sem consectetuer libero luctus adipiscing."
 		],{:want_my_paragraph=>false},[]),
-		md_el(:li_span,[
+		md_el(:li,[
 			"Donec sit amet nisl. Aliquam semper ipsum sit amet velit. Suspendisse id sem consectetuer libero luctus adipiscing."
 		],{:want_my_paragraph=>false},[]),
-		md_el(:li_span,[
+		md_el(:li,[
 			"Donec sit amet nisl. Aliquam semper ipsum sit amet velit. Suspendisse id sem consectetuer libero luctus adipiscing."
 		],{:want_my_paragraph=>false},[])
 	],{},[]),

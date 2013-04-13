@@ -1,23 +1,3 @@
-#--
-#   Copyright (C) 2006  Andrea Censi  <andrea (at) rubyforge.org>
-#
-# This file is part of Maruku.
-#
-#   Maruku is free software; you can redistribute it and/or modify
-#   it under the terms of the GNU General Public License as published by
-#   the Free Software Foundation; either version 2 of the License, or
-#   (at your option) any later version.
-#
-#   Maruku is distributed in the hope that it will be useful,
-#   but WITHOUT ANY WARRANTY; without even the implied warranty of
-#   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#   GNU General Public License for more details.
-#
-#   You should have received a copy of the GNU General Public License
-#   along with Maruku; if not, write to the Free Software
-#   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
-#++
-
 # This code does the classification of lines for block-level parsing.
 module MaRuKu
 
@@ -68,11 +48,8 @@ module MaRuKu
       return :header3        if self =~ /^(#)+\s*\S+/
       # at least three asterisks/hyphens/underscores on a line, and only whitespace
       return :hrule          if self =~ /^(\s*[\*\-_]\s*){3,}$/
-      # Something is wrong with how we parse lists! :-(
-      #return :ulist          if self =~ /^[ ]{0,3}([\*\-\+])\s+.*\w+/
-      #return :olist          if self =~ /^[ ]{0,3}\d+\..*\w+/
-      return :ulist          if self =~ /^[ ]{0,1}([\*\-\+])\s+.*/
-      return :olist          if self =~ /^[ ]{0,1}\d+\.\s+.*/
+      return :ulist          if self =~ /^[ ]{0,3}([\*\-\+])\s+.*/
+      return :olist          if self =~ /^[ ]{0,3}\d+\.\s+.*/
       return :quote          if self =~ /^>/
       return :metadata       if self =~ /^@/
       return :ald            if self =~ AttributeDefinitionList
