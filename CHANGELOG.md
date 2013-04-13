@@ -1,6 +1,8 @@
 0.7.0
 -----
 
+* Maruku has been relicensed under the MIT license.
+
 * Maruku now uses Nokogiri to parse and output HTML, fixing many bugs and
   providing a big speedup.
 	

@@ -7,7 +7,7 @@ Gem::Specification.new do |s|
   s.description = "Maruku is a Markdown interpreter in Ruby.
 	It features native export to HTML and PDF (via Latex). The
 	output is really beautiful!"
-  s.license = 'GPL-2'
+  s.license = 'MIT'
   s.authors = ["Andrea Censi", "Nathan Weizenbaum", "Ben Hollis"]
   s.email = "ben@benhollis.net"
   s.homepage = "http://github.com/bhollis/maruku"
@@ -17,7 +17,7 @@ Gem::Specification.new do |s|
                 'spec/**/*.{rb,md}',
                 'data/*',
                 'bin/*',
-                'LICENSE']
+                'MIT-LICENSE.txt']
 
   s.bindir = 'bin'
   s.executables = ['maruku','marutex']
