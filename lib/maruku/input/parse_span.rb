@@ -599,7 +599,7 @@ module MaRuKu::In::Markdown::SpanLevelParser
       src.consume_whitespace
       closing = src.shift_char # closing )
       if closing != ')'
-        maruku_error ("Unclosed link: '" << closing << "'") +
+        maruku_error "Unclosed link: '#{closing}'" +
           " Read url=#{url.inspect} title=#{title.inspect}", src, con
       end
       con.push_element md_im_image(alt_text, url, title)
