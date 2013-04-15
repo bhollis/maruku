@@ -409,7 +409,8 @@ Created by \\href{#{MaRuKu::MARUKU_URL}}{Maruku} #{self.nice_date}.
   def to_latex_table
     num_columns = self.align.size
 
-    head, *rows = @children.each_slice(num_columns).to_a
+#    head, *rows = @children.each_slice(num_columns).to_a
+    head, *rows = @children
 
     h = { :center => 'c' , :left => 'l' , :right => 'r'}
     align_string = self.align.map {|a| h[a] }.join('|')
@@ -432,11 +433,17 @@ Created by \\href{#{MaRuKu::MARUKU_URL}}{Maruku} #{self.nice_date}.
 
 
   def to_latex_head_cell
-    children_to_latex
+    to_latex_cell
   end
 
   def to_latex_cell
-    children_to_latex
+    s=""
+    if @attributes.has_key?(:colspan) 
+      # TODO figure out how to set the alignment (defaulting to left for now)
+      s="\\multicolumn {"<< @attributes[:colspan]<<"}{|l|}{"<<children_to_latex<<"}"  
+    else
+      children_to_latex
+    end
   end
 
   def to_latex_footnote_reference
