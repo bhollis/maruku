@@ -6,4 +6,4 @@ Just an attribute list on its own in a header is probably really content. https:
 *** Output of inspect ***
 md_el(:document, md_el(:header, "{hi}", {:level=>1}))
 *** Output of to_html ***
-<h1 id="hi">{hi}</h1>
+<h1 id="hi_1">{hi}</h1>

@@ -70,7 +70,9 @@ module MaRuKu
       e = md_el(:raw_html, [], :raw_html => raw_html)
       e.extend HTMLElement
       begin
-        d = Nokogiri::HTML::Document.new
+        # Some might prefer an HTML::Document here. Alas, we need to preserve case
+        # on element names, so that's not suitable.
+        d = Nokogiri::XML::Document.new
 
         # Make sure the SVG namespace is known
         root = Nokogiri::XML::Element.new('html', d)
@@ -78,7 +80,7 @@ module MaRuKu
 
         # Set this as an attribute so it doesn't get included
         # in metadata comparisons
-        e.parsed_html = Nokogiri::HTML::DocumentFragment.new(d, raw_html, d)
+        e.parsed_html = Nokogiri::XML::DocumentFragment.new(d, raw_html, d)
       rescue => ex
         maruku_recover "Nokogiri cannot parse this block of HTML/XML:\n" +
           raw_html.gsub(/^/, '|').rstrip + "\n" + ex.inspect

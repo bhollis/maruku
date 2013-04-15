@@ -173,7 +173,10 @@ module MaRuKu
     # Generate an id for headers. Assumes @children is set.
     def generate_id
       raise "generate_id only makes sense for headers" unless node_type == :header
-      children_to_s.tr(' ', '_').downcase.gsub(/\W/, '').strip
+      #The generated id must be unique; not just because non-unique id's are invalid,
+      #but because the are functionally-broken (don't work as link targets).
+      @doc.id_counter += 1
+      children_to_s.tr(' ', '_').downcase.gsub(/\W/, '').strip + "_" + @doc.id_counter.to_s
     end
   end
 end

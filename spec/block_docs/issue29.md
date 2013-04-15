@@ -6,4 +6,4 @@ Generating ids for unicode headers. Other markdown implementations drop the non-
 *** Output of inspect ***
 md_el(:document, md_el(:header, "Übersicht", {:level=>1}))
 *** Output of to_html ***
-<h1 id='bersicht'>Übersicht</h1>
+<h1 id='bersicht_1'>Übersicht</h1>

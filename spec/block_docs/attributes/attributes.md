@@ -34,7 +34,7 @@ md_el(:document,[
 
 <h3 id="header2">Header with attributes</h3>
 
-<h3 id="header_no_attributes">Header no attributes</h3>
+<h3 id="header_no_attributes_3">Header no attributes</h3>
 
 <p id="par1">Paragraph with a.</p>
 
@@ -44,7 +44,7 @@ md_el(:document,[
 
 \hypertarget{header2}{}\subsubsection*{{Header with attributes}}\label{header2}
 
-\hypertarget{header_no_attributes}{}\subsubsection*{{Header no attributes}}\label{header_no_attributes}
+\hypertarget{header_no_attributes_3}{}\subsubsection*{{Header no attributes}}\label{header_no_attributes_3}
 
 Paragraph with a.
 

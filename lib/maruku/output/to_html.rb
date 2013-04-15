@@ -700,7 +700,7 @@ module MaRuKu::Out::HTML
       a
     else
       maruku_error "Image with no url: #{self.inspect}"
-      tell_user "Could not create image with ref_id = #{id.inspect};" +
+      tell_user "Could not create image without a source URL;" +
         " Using SPAN element as replacement."
       wrap_as_element('span')
     end
@@ -782,7 +782,9 @@ module MaRuKu::Out::HTML
   def to_html_table
     num_columns = self.align.size
 
-    head, *rows = @children.each_slice(num_columns).to_a
+    # The table data is passed as a multi-dimensional array
+    # we just need to split the head from the body
+    head, *rows = @children
 
     table = create_html_element('table')
     thead = xelem('thead')

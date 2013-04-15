@@ -1,6 +1,6 @@
 module MaRuKu
   # The Maruku version.
-  VERSION = '0.7.0.beta1'
+  VERSION = '0.7.1.beta1'
 
   # @deprecated Exists for backwards compatibility. Use {VERSION}
   # @private
