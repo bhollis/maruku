@@ -25,11 +25,11 @@ md_el(:document,[
 	md_par([md_url("http://www.bb.com")]),
 	md_par([md_url("http://www.cc.com")]),
 	md_par([md_url("http://www.dd.com")]),
-	md_el(:code,[],{:raw_code=>"<http://www.dd.com>"},[]),
+	md_el(:code,[],{:raw_code=>"<http://www.dd.com>", :lang=>nil},[]),
 	md_par([md_email("a@invalid.it")]),
 	md_par([md_email("a@invalid.it")]),
 	md_par([md_email("a@invalid.it")]),
-	md_el(:code,[],{:raw_code=>"<a@invalid.it>"},[])
+	md_el(:code,[],{:raw_code=>"<a@invalid.it>", :lang=>nil},[])
 ],{},[])
 *** Output of to_html ***
 <p><a href="http://www.aa.com">http://www.aa.com</a></p>

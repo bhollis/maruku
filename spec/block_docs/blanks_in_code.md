@@ -27,11 +27,11 @@ This block is composed of 2
 *** Output of inspect ***
 md_el(:document,[
 	md_par(["This block is composed of three lines:"]),
-	md_el(:code,[],{:raw_code=>"one\n\nthree"},[]),
+	md_el(:code,[],{:raw_code=>"one\n\nthree", :lang=>nil},[]),
 	md_par(["This block is composed of 5"]),
-	md_el(:code,[],{:raw_code=>"one\n\n\nfour"},[]),
+	md_el(:code,[],{:raw_code=>"one\n\n\nfour", :lang=>nil},[]),
 	md_par(["This block is composed of 2"]),
-	md_el(:code,[],{:raw_code=>"two"},[])
+	md_el(:code,[],{:raw_code=>"two", :lang=>nil},[])
 ],{},[])
 *** Output of to_html ***
 <p>This block is composed of three lines:</p>

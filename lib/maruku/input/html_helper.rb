@@ -1,24 +1,3 @@
-#--
-#   Copyright (C) 2006  Andrea Censi  <andrea (at) rubyforge.org>
-#
-# This file is part of Maruku.
-#
-#   Maruku is free software; you can redistribute it and/or modify
-#   it under the terms of the GNU General Public License as published by
-#   the Free Software Foundation; either version 2 of the License, or
-#   (at your option) any later version.
-#
-#   Maruku is distributed in the hope that it will be useful,
-#   but WITHOUT ANY WARRANTY; without even the implied warranty of
-#   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#   GNU General Public License for more details.
-#
-#   You should have received a copy of the GNU General Public License
-#   along with Maruku; if not, write to the Free Software
-#   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
-#++
-
-
 module MaRuKu::In::Markdown::SpanLevelParser
 
   # This class helps me read and sanitize HTML blocks
@@ -85,7 +64,7 @@ module MaRuKu::In::Markdown::SpanLevelParser
             @rest = @m.post_match
             self.state = :inside_element
           else
-            error "Malformed HTML: not complete: #{@rest.inspect}"
+            maruku_error "Malformed HTML: not complete: #{@rest.inspect}"
           end
         when :inside_tag
           if @m = /^[^>]*>/.match(@rest) then
@@ -136,14 +115,12 @@ module MaRuKu::In::Markdown::SpanLevelParser
       elsif is_closing
         @already += @m.to_s
         if @tag_stack.empty?
-          error "Malformed: closing tag #{tag.inspect} "+
-            "in empty list"
-        elsif @tag_stack.last != tag
-          error "Malformed: closing </#{tag}> but no "+
-            "opening <#{tag}>"
-        else
-          @tag_stack.pop
+          error "Malformed: closing tag #{tag.inspect} in empty list"
         end
+        if @tag_stack.last != tag
+          error "Malformed: tag <#{tag}> closes <#{@tag_stack.last}>"
+        end
+        @tag_stack.pop
       else
         @already += @m.to_s
 
@@ -155,7 +132,7 @@ module MaRuKu::In::Markdown::SpanLevelParser
     end
 
     def error(s)
-      raise "Error: #{s} \n"+ inspect, caller
+      raise "Error: #{s} \n" + inspect, caller
     end
 
     def inspect

@@ -47,18 +47,18 @@ Without closing:
 *** Output of inspect ***
 md_el(:document,[
 	md_par(["Input:"]),
-	md_el(:code,[],{:raw_code=>"<em>Emphasis</em>"},[]),
+	md_el(:code,[],{:raw_code=>"<em>Emphasis</em>", :lang=>nil},[]),
 	md_par(["Result: ", md_html("<em>Emphasis</em>")]),
 	md_par(["Input:"]),
-	md_el(:code,[],{:raw_code=>"<img src=\"http://jigsaw.w3.org/css-validator/images/vcss\"/>"},[]),
+	md_el(:code,[],{:raw_code=>"<img src=\"http://jigsaw.w3.org/css-validator/images/vcss\"/>", :lang=>nil},[]),
 	md_par([
 		"Result on span: ",
 		md_html("<img src=\"http://jigsaw.w3.org/css-validator/images/vcss\" />")
 	]),
 	md_par(["Result alone:"]),
-	md_html("<img src=\"http://jigsaw.w3.org/css-validator/images/vcss\" />"),
+	md_par(md_html("<img src=\"http://jigsaw.w3.org/css-validator/images/vcss\" />")),
 	md_par(["Without closing:"]),
-	md_html("<img src=\"http://jigsaw.w3.org/css-validator/images/vcss\" />"),
+	md_par(md_html("<img src=\"http://jigsaw.w3.org/css-validator/images/vcss\" />")),
 	md_html("<div markdown=\"1\">\n   This is *true* markdown text (paragraph)\n\n   <p markdown=\"1\">\n   This is *true* markdown text (no paragraph)\n   </p>\n   <p markdown=\"block\">\n   This is *true* markdown text (block paragraph)\n   </p>\n</div>"),
 	md_html("<table>\n<tr>\n<td markdown=\"1\">This is a *true* markdown text. (no par)</td>\n<td markdown=\"block\">This is *true* markdown text. (par)</td>\n</tr>\n</table>")
 ],{},[])
@@ -76,9 +76,9 @@ md_el(:document,[
 <p>Result on span: <img src="http://jigsaw.w3.org/css-validator/images/vcss" /></p>
 
 <p>Result alone:</p>
-<img src="http://jigsaw.w3.org/css-validator/images/vcss" />
+<p><img src="http://jigsaw.w3.org/css-validator/images/vcss" /></p>
 <p>Without closing:</p>
-<img src="http://jigsaw.w3.org/css-validator/images/vcss" /><div>
+<p><img src="http://jigsaw.w3.org/css-validator/images/vcss" /></p><div>
 <p>This is <em>true</em> markdown text (paragraph)</p>
 <p>This is <em>true</em> markdown text (no paragraph)</p>
    <p>
@@ -105,6 +105,8 @@ Input:
 Result on span: 
 
 Result alone:
+
+
 
 Without closing:
 *** Output of to_md ***

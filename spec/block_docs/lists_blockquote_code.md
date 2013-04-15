@@ -19,7 +19,7 @@ md_el(:document,[
 		],{:want_my_paragraph=>true},[]),
 		md_el(:li,[
 			md_par(["A list item with a code block:"]),
-			md_el(:code,[],{:raw_code=>"<code goes here>"},[])
+			md_el(:code,[],{:raw_code=>"<code goes here>", :lang=>nil},[])
 		],{:want_my_paragraph=>true},[])
 	],{},[])
 ],{},[])

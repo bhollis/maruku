@@ -76,6 +76,6 @@ Everything else is in the module `MaRuKu`.
 
 ## License
 
-Copyright (c) 2006 Andrea Censi. GPLv2 Licensed, see [LICENSE] for details.
+Copyright (c) 2006 Andrea Censi. MIT license, see [MIT-LICENSE.txt] for details.
 
-[LICENSE]: https://github.com/bhollis/maruku/blob/master/LICENSE
+[MIT-LICENSE.txt]: https://github.com/bhollis/maruku/blob/master/MIT-LICENSE.txt

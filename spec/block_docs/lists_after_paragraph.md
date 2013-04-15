@@ -71,7 +71,8 @@ md_el(:document,[
 	md_el(:header,["header"],{:level=>3},[]),
 	md_par(["Paragraph with header on two lines:"]),
 	md_el(:header,["header 2"],{:level=>2},[]),
-	md_par(["Paragraph with html after ", md_html("<div></div>")]),
+	md_par("Paragraph with html after"),
+  md_html("<div></div>"),
 	md_par([
 		"Paragraph with html after, indented: ",
 		md_html("<em>Emphasis</em>")
@@ -120,13 +121,14 @@ md_el(:document,[
 
 <h2 id="header_2">header 2</h2>
 
-<p>Paragraph with html after <div></div></p>
+<p>Paragraph with html after</p>
+<div></div>
 
 <p>Paragraph with html after, indented: <em>Emphasis</em></p>
 
 <p>Paragraph with html after, indented: <em>Emphasis</em> <em>tralla</em> <em>Emph</em></p>
 
-<p>Paragraph with html after, indented: <em>Emphasis *tralla* Emph</em></p>
+<p>Paragraph with html after, indented: <em>Emphasis <em>tralla</em> Emph</em></p>
 *** Output of to_latex ***
 Paragraph, list with no space: * ciao
 
@@ -159,7 +161,7 @@ Paragraph with header on two lines:
 
 \hypertarget{header_2}{}\subsection*{{header 2}}\label{header_2}
 
-Paragraph with html after 
+Paragraph with html after
 
 Paragraph with html after, indented: 
 

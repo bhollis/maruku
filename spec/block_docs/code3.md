@@ -22,13 +22,13 @@ This is not code
 *** Output of inspect ***
 md_el(:document,[
 	md_par(["This is code (4 spaces):"]),
-	md_el(:code,[],{:raw_code=>"Code"},[]),
+	md_el(:code,[],{:raw_code=>"Code", :lang=>nil},[]),
 	md_par(["This is not code"]),
-	md_el(:code,[],{:raw_code=>"Code"},[]),
+	md_el(:code,[],{:raw_code=>"Code", :lang=>nil},[]),
 	md_par(["This is code (1 tab):"]),
-	md_el(:code,[],{:raw_code=>"Code"},[]),
+	md_el(:code,[],{:raw_code=>"Code", :lang=>nil},[]),
 	md_par(["This is not code"]),
-	md_el(:code,[],{:raw_code=>"Code"},[])
+	md_el(:code,[],{:raw_code=>"Code", :lang=>nil},[])
 ],{},[])
 *** Output of to_html ***
 <p>This is code (4 spaces):</p>

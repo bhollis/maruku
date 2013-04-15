@@ -1,22 +1,3 @@
-#   Copyright (C) 2006  Andrea Censi  <andrea (at) rubyforge.org>
-#
-# This file is part of Maruku.
-#
-#   Maruku is free software; you can redistribute it and/or modify
-#   it under the terms of the GNU General Public License as published by
-#   the Free Software Foundation; either version 2 of the License, or
-#   (at your option) any later version.
-#
-#   Maruku is distributed in the hope that it will be useful,
-#   but WITHOUT ANY WARRANTY; without even the implied warranty of
-#   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#   GNU General Public License for more details.
-#
-#   You should have received a copy of the GNU General Public License
-#   along with Maruku; if not, write to the Free Software
-#   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
-
-
 module MaRuKu
   class Exception < RuntimeError; end
 
@@ -38,24 +19,24 @@ module MaRuKu
     # @param s [String] The text of the error
     # @param src [#describe, nil] The source of the error
     # @param con [#describe, nil] The context of the error
+    # @param recover [String, nil] Recovery text
     # @raise [MaRuKu::Exception] If `:on_error` is set to `:raise`
-    def maruku_error(*args)
+    def maruku_error(s, src=nil, con=nil, recover=nil)
       policy = get_setting(:on_error)
 
       case policy
       when :ignore
       when :raise
-        raise_error create_frame(describe_error(*args))
+        raise_error create_frame(describe_error(s, src, con, recover))
       when :warning
-        tell_user create_frame(describe_error(*args))
+        tell_user create_frame(describe_error(s, src, con, recover))
       else
         raise "Unknown on_error policy: #{policy.inspect}"
       end
     end
-    alias error maruku_error
 
-    def maruku_recover(*args)
-      tell_user create_frame(describe_error(*args))
+    def maruku_recover(s, src=nil, con=nil, recover=nil)
+      tell_user create_frame(describe_error(s, src, con, recover))
     end
 
     def raise_error(s)
@@ -75,14 +56,15 @@ module MaRuKu
 +#{"-" * FRAME_WIDTH}
 #{s.gsub(/^/, '| ').rstrip}
 +#{"-" * FRAME_WIDTH}
-#{caller[0...5].join("\n").gsub(/^/, '!')}
+#{caller[1...5].join("\n").gsub(/^/, '!')}
 \\#{"_" * FRAME_WIDTH}
 FRAME
     end
 
-    def describe_error(s, src = nil, con = nil)
+    def describe_error(s, src=nil, con=nil, recover=nil)
       s += "\n#{src.describe}\n" if src
       s += "\n#{con.describe}\n" if con
+      s += "\nRecovering: #{recover}\n" if recover
       s
     end
   end
