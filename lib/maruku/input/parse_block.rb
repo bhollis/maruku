@@ -1,3 +1,5 @@
+require 'set'
+
 module MaRuKu; module In; module Markdown; module BlockLevelParser
 
   include Helpers
@@ -236,7 +238,8 @@ module MaRuKu; module In; module Markdown; module BlockLevelParser
     end
   end
 
-  HTML_INLINE_ELEMS = %w(a abbr acronym b big bdo br button cite code del dfn em i img input ins kbd label option q rb rbc rp rt rtc ruby samp select small span strong sub sup textarea tt var)
+  HTML_INLINE_ELEMS = Set.new %w[a abbr acronym b big bdo br button canvas cite code del dfn em i img input ins
+    kbd label option q rb rbc rp rt rtc ruby samp select small span strong sub sup textarea tt var] 
   def read_raw_html(src)
     extra_line = nil
     h = HTMLHelper.new
@@ -306,9 +309,9 @@ module MaRuKu; module In; module Markdown; module BlockLevelParser
 
     indentation, ial = spaces_before_first_char(first)
     al = read_attribute_list(CharSource.new(ial, src)) if ial
-
+    ial_offset = ial ? ial.length + 3 : 0
     lines, want_my_paragraph =
-      read_indented_content(src, indentation, :ial, item_type)
+      read_indented_content(src, indentation, [], item_type, ial_offset)
 
     # add first line
     # Strip first '*', '-', '+' from first line
@@ -318,9 +321,7 @@ module MaRuKu; module In; module Markdown; module BlockLevelParser
     src2 = LineSource.new(lines, src, parent_offset)
     children = parse_blocks(src2)
 
-    with_par = want_my_paragraph
-
-    md_li(children, with_par, al)
+    md_li(children, want_my_paragraph, al)
   end
 
   def read_abbreviation(src)
@@ -374,16 +375,17 @@ module MaRuKu; module In; module Markdown; module BlockLevelParser
 
   # This is the only ugly function in the code base.
   # It is used to read list items, descriptions, footnote text
-  def read_indented_content(src, indentation, break_list, item_type)
+  def read_indented_content(src, indentation, break_list, item_type, ial_offset=0)
     lines = []
     # collect all indented lines
     saw_empty = false
     saw_anything_after = false
     break_list = Array(break_list)
+    len = indentation - ial_offset
 
     while src.cur_line
       num_leading_spaces = src.cur_line.number_of_leading_spaces
-      break if num_leading_spaces < indentation && ![:text, :empty].include?(src.cur_line.md_type)
+      break if num_leading_spaces < len && ![:text, :empty].include?(src.cur_line.md_type)
 
       line = strip_indent(src.cur_line, indentation)
       md_type = line.md_type
@@ -396,7 +398,7 @@ module MaRuKu; module In; module Markdown; module BlockLevelParser
       end
 
       # Unquestioningly grab anything that's deeper-indented
-      if md_type != :code && num_leading_spaces > indentation
+      if md_type != :code && num_leading_spaces > len
         lines << line
         src.shift_line
         next
@@ -405,7 +407,7 @@ module MaRuKu; module In; module Markdown; module BlockLevelParser
       # after a white line
       if saw_empty
         # we expect things to be properly aligned
-        break if num_leading_spaces < indentation
+        break if num_leading_spaces < len
         saw_anything_after = true
       else
         break if break_list.include?(md_type)

@@ -41,6 +41,8 @@ module MaRuKu
         break if break_on_chars.include? src.cur_char
 
         case src.cur_char
+        when ':'
+          src.ignore_char
         when nil
           break      # we're done here.
         when '='     # error
@@ -69,7 +71,7 @@ module MaRuKu
             next
           end
 
-          if src.cur_char != '='
+          if src.cur_char != '=' && key.length > 0
             al << [:ref, key]
             next
           end

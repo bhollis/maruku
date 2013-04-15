@@ -1,6 +1,6 @@
 Fenced code blocks
 *** Parameters: ***
-{ :fenced_code_blocks => true }
+{ :fenced_code_blocks => true, :html_use_syntax => false }
 *** Markdown input: ***
 ```ruby
 john = Twitter::Client.new(
