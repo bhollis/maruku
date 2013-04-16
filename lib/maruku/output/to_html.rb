@@ -518,6 +518,8 @@ module MaRuKu::Out::HTML
           code['class'] = code_lang
 
           pre = xelem('pre')
+          # add a class here, too, for compatibility with existing implementations
+          pre['class'] = code_lang
           pre << code
           pre
         rescue LoadError => e
