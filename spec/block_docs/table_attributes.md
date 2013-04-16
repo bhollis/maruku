@@ -3,8 +3,8 @@ Write a comment here
 {} # params 
 *** Markdown input: ***
 
-h         | h 
-----------|---
+h         | h
+----------|--
 {:t}  c1  | c2
 {: summary="Table summary" .class1 style="color:red" border=3 width="50%" frame=lhs rules=cols  cellspacing=2em cellpadding=4px}
 
@@ -12,8 +12,10 @@ h         | h
 *** Output of inspect ***
 md_el(:document,[
 	md_el(:table,[
-		[md_el(:head_cell,["h"],{},[]),md_el(:head_cell,["h"],{},[])],
-		[md_el(:cell,[" c1"],{},[[:ref, "t"]]),md_el(:cell,["c2"],{},[])]
+		md_el(:head_cell,["h"],{},[]),
+		md_el(:head_cell,["h"],{},[]),
+		md_el(:cell,[" c1"],{},[[:ref, "t"]]),
+		md_el(:cell,["c2"],{},[])
 	],{:align=>[:left, :left]},[["summary", "Table summary"], [:class, "class1"], ["style", "color:red"], ["border", "3"], ["width", "50%"], ["frame", "lhs"], ["rules", "cols"], ["cellspacing", "2em"], ["cellpadding", "4px"]]),
 	md_el(:ald,[],{:ald=>[["scope", "row"]],:ald_id=>"t"},[])
 ],{},[])

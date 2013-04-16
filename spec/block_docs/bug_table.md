@@ -19,10 +19,10 @@ h         | h
 md_el(:document,[
 	md_par(["hello"], [["summary", "Table summary"], [:class, "class1"], ["style", "color:red"]]),
 	md_el(:table,[
-		[md_el(:head_cell,["h"],{},[]),
-		md_el(:head_cell,["h"],{},[])],
-		[md_el(:cell,[" c1"],{},[[:ref, "t"]]),
-		md_el(:cell,["c2"],{},[])]
+		md_el(:head_cell,["h"],{},[]),
+		md_el(:head_cell,["h"],{},[]),
+		md_el(:cell,[" c1"],{},[[:ref, "t"]]),
+		md_el(:cell,["c2"],{},[])
 	],{:align=>[:left, :left]},[["summary", "Table summary"], [:class, "class1"], ["style", "color:red"]]),
 	md_el(:ald,[],{:ald=>[["scope", "row"]],:ald_id=>"t"},[])
 ],{},[])

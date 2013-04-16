@@ -26,12 +26,18 @@ It should read like this: `&copy;`.
 md_el(:document,[
 	md_par(["Maruku translates HTML entities to the equivalent in LaTeX:"]),
 	md_el(:table,[
-		[md_el(:head_cell,["Entity"],{},[]),md_el(:head_cell,["Result"],{},[])],
-		[md_el(:cell,[md_code("&copy;")],{},[]),md_el(:cell,[md_entity("copy")],{},[])],
-		[md_el(:cell,[md_code("&pound;")],{},[]),md_el(:cell,[md_entity("pound")],{},[])],
-		[md_el(:cell,[md_code("a&nbsp;b")],{},[]),md_el(:cell,["a", md_entity("nbsp"), "b"],{},[])],
-		[md_el(:cell,[md_code("&lambda;")],{},[]),md_el(:cell,[md_entity("lambda")],{},[])],
-		[md_el(:cell,[md_code("&mdash;")],{},[]),md_el(:cell,[md_entity("mdash")],{},[])]
+		md_el(:head_cell,["Entity"],{},[]),
+		md_el(:head_cell,["Result"],{},[]),
+		md_el(:cell,[md_code("&copy;")],{},[]),
+		md_el(:cell,[md_entity("copy")],{},[]),
+		md_el(:cell,[md_code("&pound;")],{},[]),
+		md_el(:cell,[md_entity("pound")],{},[]),
+		md_el(:cell,[md_code("a&nbsp;b")],{},[]),
+		md_el(:cell,["a", md_entity("nbsp"), "b"],{},[]),
+		md_el(:cell,[md_code("&lambda;")],{},[]),
+		md_el(:cell,[md_entity("lambda")],{},[]),
+		md_el(:cell,[md_code("&mdash;")],{},[]),
+		md_el(:cell,[md_entity("mdash")],{},[])
 	],{:align=>[:left, :left]},[]),
 	md_par([
 		"Entity-substitution does not happen in code blocks or inline code."
