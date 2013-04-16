@@ -21,6 +21,7 @@ module MaRuKu
     :html_png_url => 'pngs/',
     :html_png_resolution => 200,
 
+    :fenced_code_blocks => true, 
     :html_use_syntax => true,
 
     :latex_use_listings => false,
