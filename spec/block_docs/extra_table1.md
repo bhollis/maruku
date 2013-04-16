@@ -12,12 +12,12 @@ Content Cell  | Content Cell
 *** Output of inspect ***
 md_el(:document,[
 	md_el(:table,[
-		md_el(:head_cell,["First Header"],{},[]),
-		md_el(:head_cell,["Second Header"],{},[]),
-		md_el(:cell,["Content Cell"],{},[]),
-		md_el(:cell,["Content Cell"],{},[]),
-		md_el(:cell,["Content Cell"],{},[]),
-		md_el(:cell,["Content Cell"],{},[])
+		[md_el(:head_cell,["First Header"],{},[]),
+		md_el(:head_cell,["Second Header"],{},[])],
+		[md_el(:cell,["Content Cell"],{},[]),
+		md_el(:cell,["Content Cell"],{},[])],
+		[md_el(:cell,["Content Cell"],{},[]),
+		md_el(:cell,["Content Cell"],{},[])]
 	],{:align=>[:left, :left]},[])
 ],{},[])
 *** Output of to_html ***
