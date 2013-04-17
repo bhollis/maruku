@@ -75,7 +75,7 @@ module MaRuKu; module In; module Markdown; module BlockLevelParser
         e = read_raw_html(src)
         unless e.empty?
           first_node = e.first.parsed_html.children.first
-          if first_node && HTML_INLINE_ELEMS.include?(first_node.name)
+          if first_node && HTML_INLINE_ELEMS.include?(first_node.name) && first_node.name != 'svg'
             content = [e.first]
             if e.size > 1
               content.concat(e[1].children)
@@ -239,7 +239,11 @@ module MaRuKu; module In; module Markdown; module BlockLevelParser
   end
 
   HTML_INLINE_ELEMS = Set.new %w[a abbr acronym b big bdo br button canvas cite code del dfn em i img input ins
-    kbd label option q rb rbc rp rt rtc ruby samp select small span strong sub sup textarea tt var] 
+    kbd label option q rb rbc rp rt rtc ruby samp select small span strong sub sup textarea tt var
+    animate animateColor animateMotion animateTransform circle clipPath defs desc ellipse
+    feGaussianBlur filter font-face font-face-name font-face-src foreignObject g glyph hkern
+    linearGradient line marker mask metadata missing-glyph mpath path pattern polygon polyline
+    radialGradient rect set stop svg switch text textPath title tspan use] 
   def read_raw_html(src)
     extra_line = nil
     h = HTMLHelper.new
@@ -284,7 +288,7 @@ module MaRuKu; module In; module Markdown; module BlockLevelParser
         # This is a pretty awful hack to handle inline HTML
         # but it means double-parsing HMTL.
         html = parse_span([src.cur_line], src)
-        unless html.empty?
+        unless html.empty? || html.first.is_a?(String)
           first_node = html.first.parsed_html.children.first
         end
         break if first_node && !HTML_INLINE_ELEMS.include?(first_node.name)
