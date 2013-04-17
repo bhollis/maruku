@@ -413,7 +413,7 @@ md_el(:document,[
 		md_ref_def("jos", "jos", {:title=>nil})
 ],{},[])
 *** Output of to_html ***
-<h1 id="webkit_safari_31_and_the_css_fontface_declaration_1">WebKit (Safari 3.1) and the <abbr title="Cascading Style Sheets">CSS</abbr> @font-face declaration</h1>
+<h1 id="webkit_safari_31_and_the_css_fontface_declaration">WebKit (Safari 3.1) and the <abbr title="Cascading Style Sheets">CSS</abbr> @font-face declaration</h1>
 
 <p>I&#8217;m a big fan of typography in general. If you check out <a href="http://elliottcable.name">my homepage</a> or my <a href="http://elliottcable.name/contact.xhtml">contact elliottcable</a> page, and you&#8217;re using Safari/WebKit or Opera/Kestrel, you&#8217;ll notice the typefaces (fonts, as colloquialized) are <em>very</em> non-standard. (As of this writing, I&#8217;m using <a href="http://www.josbuivenga.demon.nl/museo.html" title="Jos Buivenga's Museo free typeface">Museo</a> and <a href="http://www.josbuivenga.demon.nl/diavlo.html" title="Jos Buivenga's free Diavlo typeface">Diavlo</a><sup id="fnref:1"><a href="#fn:1" rel="footnote">1</a></sup> heavily on both.)</p>
 
@@ -508,7 +508,7 @@ div#content {
 <p>To give Microsoft a little credit, something I rarely do&#8230; Yes, I&#8217;m aware Microsoft submitted EOT to the <abbr title="World Wide Web Consortium">W3C</abbr> as a proposal - the problem isn&#8217;t with their attempts to make it non-proprietary, but with the basic concept of making typefaces on the web DRMed. Look what such attempts have done to the music and video industry - simply decimated it. Do we really want to see the same thing happen to our beloved medium as typography moves into the 21st century? <a href="#fnref:2" rev="footnote">&#8617;</a></p>
 </li></ol></div>
 *** Output of to_latex ***
-\hypertarget{webkit_safari_31_and_the_css_fontface_declaration_1}{}\section*{{WebKit (Safari 3.1) and the CSS @font-face declaration}}\label{webkit_safari_31_and_the_css_fontface_declaration_1}
+\hypertarget{webkit_safari_31_and_the_css_fontface_declaration}{}\section*{{WebKit (Safari 3.1) and the CSS @font-face declaration}}\label{webkit_safari_31_and_the_css_fontface_declaration}
 
 I'm a big fan of typography in general. If you check out \href{http://elliottcable.name}{my homepage} or my \href{http://elliottcable.name/contact.xhtml}{contact elliottcable} page, and you're using Safari/WebKit or Opera/Kestrel, you'll notice the typefaces (fonts, as colloquialized) are \emph{very} non-standard. (As of this writing, I'm using \href{http://www.josbuivenga.demon.nl/museo.html}{Museo} and \href{http://www.josbuivenga.demon.nl/diavlo.html}{Diavlo}\footnote{These are fonts by \href{jos}{Jos Buivenga}, quite the amazing person. His (free) fonts are, uniquely, released for use on the web in {\colorbox[rgb]{1.00,0.93,1.00}{\tt \char64font\char45face}} declarations - unlike the vast majority of other (even free to download) typefaces, which have ridiculously restricting licenses and terms of use statements. Props, Jos - you're a pioneer, and deserve recognition as such.}  heavily on both.)
 

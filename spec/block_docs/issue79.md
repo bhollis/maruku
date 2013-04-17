@@ -1,4 +1,3 @@
-Encoding: utf-8
 Non-ASCII characters in a PRE tag. See https://github.com/bhollis/maruku/issues/79
 *** Parameters: ***
 {}
