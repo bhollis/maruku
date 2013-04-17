@@ -120,7 +120,7 @@ module MaRuKu; module In; module Markdown; module BlockLevelParser
       # Remove paragraphs that we can get rid of
       if [:ul, :ol].include?(c.node_type) && c.children.none?(&:want_my_paragraph)
         c.children.each do |d|
-          if d.children.first.node_type == :paragraph
+          if d.children.first && d.children.first.node_type == :paragraph
             d.children = d.children.first.children + d.children[1..-1]
           end
         end
