@@ -132,7 +132,14 @@ module MaRuKu
     # @return [Section]
     attr_accessor :toc
 
+    # A map of header IDs to a count of how many times they've occurred in the document.
+    #
+    # @return [Hash<String, Number>]
+    attr_accessor :header_ids
+    
     def create_toc
+      self.header_ids = Hash.new(0)
+
       each_element(:header) {|h| h.attributes[:id] ||= h.generate_id }
 
 
@@ -173,10 +180,10 @@ module MaRuKu
     # Generate an id for headers. Assumes @children is set.
     def generate_id
       raise "generate_id only makes sense for headers" unless node_type == :header
-      #The generated id must be unique; not just because non-unique id's are invalid,
-      #but because the are functionally-broken (don't work as link targets).
-      @doc.id_counter += 1
-      children_to_s.tr(' ', '_').downcase.gsub(/\W/, '').strip + "_" + @doc.id_counter.to_s
+      generated_id = children_to_s.tr(' ', '_').downcase.gsub(/\W/, '').strip
+      num_occurs = (@doc.header_ids[generated_id] += 1)
+      generated_id += "_#{num_occurs}" if num_occurs > 1
+      generated_id
     end
   end
 end

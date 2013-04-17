@@ -115,11 +115,11 @@ md_el(:document,[
 
 <p>Paragraph with header:</p>
 
-<h3 id="header_1">header</h3>
+<h3 id="header">header</h3>
 
 <p>Paragraph with header on two lines:</p>
 
-<h2 id="header_2_2">header 2</h2>
+<h2 id="header_2">header 2</h2>
 
 <p>Paragraph with html after</p>
 <div></div>
@@ -155,11 +155,11 @@ Quoted
 \end{quote}
 Paragraph with header:
 
-\hypertarget{header_1}{}\subsubsection*{{header}}\label{header_1}
+\hypertarget{header}{}\subsubsection*{{header}}\label{header}
 
 Paragraph with header on two lines:
 
-\hypertarget{header_2_2}{}\subsection*{{header 2}}\label{header_2_2}
+\hypertarget{header_2}{}\subsection*{{header 2}}\label{header_2}
 
 Paragraph with html after
 

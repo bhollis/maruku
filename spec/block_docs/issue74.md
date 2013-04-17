@@ -26,7 +26,7 @@ md_el(:document, [
      	md_el(:header, "Recents Post", {:level=>2})
      ])
 *** Output of to_html ***
-<h2 id="cool_title_1">Cool Title</h2>
+<h2 id="cool_title">Cool Title</h2>
 <ul>
     <li>Cool Text yada yada</li>
     <li>ICool Tex 2 yada yada</li>
@@ -35,4 +35,4 @@ md_el(:document, [
     <a href="" class="stumbleupon" target="_blank"></a>
     <a href="" class="stumbleupon" target="_blank"></a>
 </p>
-<h2 id="recents_post_2">Recents Post</h2>
+<h2 id="recents_post">Recents Post</h2>
