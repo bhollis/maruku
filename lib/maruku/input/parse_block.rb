@@ -242,7 +242,7 @@ module MaRuKu; module In; module Markdown; module BlockLevelParser
   HTML_INLINE_ELEMS = Set.new %w[a abbr acronym audio b bdi bdo big br button canvas caption cite code
     col colgroup command datalist del details dfn dir em fieldset font form i img input ins
     kbd label legend mark meter optgroup option progress q rp rt ruby s samp section select small
-    source span strike strong sub summary sup tbody tfoot th thead time tr track tt u var video wbr
+    source span strike strong sub summary sup tbody td tfoot th thead time tr track tt u var video wbr
     animate animateColor animateMotion animateTransform circle clipPath defs desc ellipse
     feGaussianBlur filter font-face font-face-name font-face-src foreignObject g glyph hkern
     linearGradient line marker mask metadata missing-glyph mpath path pattern polygon polyline
