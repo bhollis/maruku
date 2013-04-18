@@ -160,7 +160,10 @@ Disabled by default because of security concerns.
       block_tags = ['div']
 
       # find span elements or elements with 'markdown' attribute
-      doc.css((["[markdown]"] + HTML_INLINE_ELEMS.to_a).join(",")).each do |e|
+      elts = doc.css((["[markdown]"]).join(","))
+      d = doc.children.first
+      elts << d if HTML_INLINE_ELEMS.include?(d.name) && !d.attribute('markdown')
+      elts.each do |e|
         # should we parse block-level or span-level?
 
         how = e['markdown']

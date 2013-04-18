@@ -75,7 +75,8 @@ module MaRuKu; module In; module Markdown; module BlockLevelParser
         e = read_raw_html(src)
         unless e.empty?
           first_node = e.first.parsed_html.children.first
-          if first_node && HTML_INLINE_ELEMS.include?(first_node.name) && first_node.name != 'svg'
+          if first_node && HTML_INLINE_ELEMS.include?(first_node.name) &&
+              !['svg', 'math'].include?(first_node.name)
             content = [e.first]
             if e.size > 1
               content.concat(e[1].children)
@@ -238,12 +239,17 @@ module MaRuKu; module In; module Markdown; module BlockLevelParser
     end
   end
 
-  HTML_INLINE_ELEMS = Set.new %w[a abbr acronym b big bdo br button canvas cite code del dfn em i img input ins
-    kbd label option q rb rbc rp rt rtc ruby samp select small span strong sub sup textarea tt var
+  HTML_INLINE_ELEMS = Set.new %w[a abbr acronym audio b bdi bdo big br button canvas caption cite code
+    col colgroup command datalist del details dfn dir em fieldset font form i img input ins
+    kbd label legend mark meter optgroup option progress q rp rt ruby s samp section select small
+    source span strike strong sub summary sup tbody tfoot th thead time tr track tt u var video wbr
     animate animateColor animateMotion animateTransform circle clipPath defs desc ellipse
     feGaussianBlur filter font-face font-face-name font-face-src foreignObject g glyph hkern
     linearGradient line marker mask metadata missing-glyph mpath path pattern polygon polyline
-    radialGradient rect set stop svg switch text textPath title tspan use] 
+    radialGradient rect set stop svg switch text textPath title tspan use
+    annotation annotation-xml maction math menclose merror mfrac mfenced mi mmultiscripts mn mo
+    mover mpadded mphantom mprescripts mroot mrow mspace msqrt mstyle msub msubsup msup mtable
+    mtd mtext mtr munder munderover none semantics] 
   def read_raw_html(src)
     extra_line = nil
     h = HTMLHelper.new
