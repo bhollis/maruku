@@ -270,12 +270,14 @@ module MaRuKu; module In; module Markdown; module BlockLevelParser
     end
     raw_html = h.stuff_you_read
 
+    is_inline = HTML_INLINE_ELEMS.include?(h.first_tag)
+    
     if extra_line
-      remainder = parse_span(extra_line)
+      remainder = is_inline ? parse_span(extra_line) : parse_text_as_markdown(extra_line)
       if extra_line.start_with?(' ')
-        remainder[0] = ' ' + remainder[0]
+        remainder[0] = ' ' + remainder[0] if remainder[0].is_a?(String)
       end
-      [md_html(raw_html), md_par(remainder)]
+      is_inline ? [md_html(raw_html), md_par(remainder)] : [md_html(raw_html)] + remainder
     else
       [md_html(raw_html)]
     end
