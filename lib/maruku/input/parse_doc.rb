@@ -149,6 +149,17 @@ Disabled by default because of security concerns.
     end
   end
 
+  def span_descendents(e)
+    descendents =  Nokogiri::XML::NodeSet.new(xdoc)
+    e.children.collect do |c|
+      if HTML_INLINE_ELEMS.include?(c.name)
+        descendents << c
+        descendents += span_descendents(c)
+      end
+    end
+    descendents
+  end
+
   # (PHP Markdown extra) Search for elements that have
   # markdown=1 or markdown=block defined
   def substitute_markdown_inside_raw_html
@@ -162,7 +173,10 @@ Disabled by default because of security concerns.
       # find span elements or elements with 'markdown' attribute
       elts = doc.css((["[markdown]"]).join(","))
       d = doc.children.first
-      elts << d if HTML_INLINE_ELEMS.include?(d.name) && !d.attribute('markdown')
+      if HTML_INLINE_ELEMS.include?(d.name)
+        elts << d unless d.attribute('markdown')
+        elts = elts + span_descendents(d)
+      end
       elts.each do |e|
         # should we parse block-level or span-level?
 
@@ -174,8 +188,9 @@ Disabled by default because of security concerns.
           s = original_text.text
           if s.strip.size > 0
 
-            el = md_el(:dummy,
-                       parse_blocks ? parse_text_as_markdown(s) : parse_span(s))
+            parsed = parse_blocks ? parse_text_as_markdown(s) : parse_span(s)
+            parsed[parsed.length] = ' ' if s =~ /\s\z/
+            el = md_el(:dummy, parsed)
 
             #Nokogiri collapses consecutive Text nodes, so replace it by a dummy element
             guard = Nokogiri::XML::Element.new('guard', doc)
