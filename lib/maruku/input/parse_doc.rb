@@ -189,7 +189,8 @@ Disabled by default because of security concerns.
           if s.strip.size > 0
 
             parsed = parse_blocks ? parse_text_as_markdown(s) : parse_span(s)
-            parsed[parsed.length] = ' ' if s =~ /\s\z/
+            trailing = /(\s+)\z/.match(s)
+            parsed[parsed.length] = trailing[1] if trailing
             el = md_el(:dummy, parsed)
 
             #Nokogiri collapses consecutive Text nodes, so replace it by a dummy element

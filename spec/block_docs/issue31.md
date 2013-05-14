@@ -21,4 +21,5 @@ md_el(:document, [
 <p><span><em>hello</em></span></p>
 <p><span>*hello*</span></p>
 <p><span>hello <span><em>there</em></span></span></p>
-<p><span>hello <span><em>there</em></span></span></p>
+<p><span>hello
+<span><em>there</em></span></span></p>

@@ -84,10 +84,14 @@ md_el(:document,[
 <p><img src="http://jigsaw.w3.org/css-validator/images/vcss" /></p>
 <div>
 <p>This is <em>true</em> markdown text (paragraph)</p>
- <p>This is <em>true</em> markdown text (no paragraph) </p>
+
+
+   <p>This is <em>true</em> markdown text (no paragraph)
+   </p>
    <p>
 <p>This is <em>true</em> markdown text (block paragraph)</p>
- </p>
+
+</p>
 </div><table>
 <tr>
 <td>This is a <em>true</em> markdown text. (no par)</td>
