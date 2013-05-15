@@ -98,10 +98,6 @@ module MaRuKu; module In; module Markdown; module BlockLevelParser
         output << read_abbreviation(src)
       when :xml_instr
         read_xml_instruction(src, output)
-      when :metadata
-        maruku_error "Please use the new meta-data syntax: \n"+
-          "  http://maruku.rubyforge.org/proposal.html\n", src
-        src.ignore_line
       else # warn if we forgot something
         line = src.cur_line
         maruku_error "Ignoring line '#{line}' type = #{md_type}", src
@@ -487,22 +483,6 @@ module MaRuKu; module In; module Markdown; module BlockLevelParser
 
     md_codeblock(source)
   end
-
-  # Reads a series of metadata lines with empty lines in between
-  def read_metadata(src)
-    hash = {}
-    while src.cur_line
-      case src.cur_line.md_type
-      when :empty
-        src.shift_line
-      when :metadata
-        hash.merge! parse_metadata(src.shift_line)
-      else break
-      end
-    end
-    hash
-  end
-
 
   def read_ref_definition(src, out)
     line = src.shift_line

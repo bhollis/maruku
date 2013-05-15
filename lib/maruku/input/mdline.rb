@@ -51,7 +51,6 @@ module MaRuKu
       return :ulist          if self =~ /^[ ]{0,3}([\*\-\+])\s+.*/
       return :olist          if self =~ /^[ ]{0,3}\d+\.\s+.*/
       return :quote          if self =~ /^>/
-      return :metadata       if self =~ /^@/
       return :ald            if self =~ AttributeDefinitionList
       return :ial            if self =~ InlineAttributeList
       return :text # else, it's just text
