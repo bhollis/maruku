@@ -1,5 +1,6 @@
 require 'nokogiri'
 require 'strscan'
+require 'cgi'
 
 module MaRuKu::In::Markdown::BlockLevelParser
 
@@ -151,7 +152,7 @@ Disabled by default because of security concerns.
 
   def span_descendents(e)
     descendents =  Nokogiri::XML::NodeSet.new(xdoc)
-    e.children.collect do |c|
+    e.element_children.collect do |c|
       if HTML_INLINE_ELEMS.include?(c.name)
         descendents << c
         descendents += span_descendents(c)
@@ -175,7 +176,7 @@ Disabled by default because of security concerns.
       d = doc.children.first
       if HTML_INLINE_ELEMS.include?(d.name)
         elts << d unless d.attribute('markdown')
-        elts = elts + span_descendents(d)
+        elts += span_descendents(d)
       end
       elts.each do |e|
         # should we parse block-level or span-level?
@@ -185,7 +186,7 @@ Disabled by default because of security concerns.
 
         # Select all text children of e
         e.xpath("./text()").each do |original_text|
-          s = original_text.text
+          s = CGI.escapeHTML(original_text.text)
           if s.strip.size > 0
 
             parsed = parse_blocks ? parse_text_as_markdown(s) : parse_span(s)
