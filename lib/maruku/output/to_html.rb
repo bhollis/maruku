@@ -53,7 +53,7 @@ module MaRuKu::Out::HTML
           "<img#{$1} />"
         end
       end
-      doc = doc.gsub(/<(\w+)([^>]*?)\s*\/><\/\1>/, '<\1\2></\1>')
+      doc = doc.gsub(/<([\w:]+)([^>]*?)\s*\/><\/\1>/, '<\1\2></\1>')
     end
 
     doc.strip
