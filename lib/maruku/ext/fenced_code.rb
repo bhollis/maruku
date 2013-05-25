@@ -52,8 +52,6 @@
 # Summary: Enables fenced code blocks
 #=end
 
-MaRuKu::Globals[:fenced_code_blocks] = false
-
 module Maruku::In::Markdown
   module FencedCode
     OpenFence = /^([`~]{3,})(\w+)?\s*(\{([^{}]*?|".*?"|'.*?')*\})?\s*$/
