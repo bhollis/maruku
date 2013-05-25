@@ -9,11 +9,7 @@ Math support in Maruku
 
 This document describes Maruku's support of inline LaTeX-style math.
 
-At the moment, **these features are experimental**, are probably
-buggy and the syntax and implementation are bound to change in
-the near future.
-
-Also, there are many subtleties of which one must care for 
+There are many subtleties of which one must care for 
 correctly serving the XHTML+MathML document to browsers.
 In fact, *this documentation is __not__ enough to get you started*, 
 unless you feel very adventurous.
@@ -118,7 +114,7 @@ You have to enable the math extension like this:
 
 Use the following to choose the engine:
 
-	MaRuKu::Globals[:html_math_engine] = 'ritex'
+	MaRuKu::Globals[:html_math_engine] = 'itex2mml'
 	MaRuKu::Globals[:html_png_engine] =  'blahtex'
 	
 Available MathML engines are 'none', 'itex2mml', 'blahtex'.
@@ -129,21 +125,13 @@ External libraries needed
 
 To output MathML or PNGs, it is needed to install one of the following libraries
 
-### Using `ritex` ### {#using_ritex}
-
-Install with 
-
-	$ gem install ritex
-
-ritex's abilities are very limited, but it is the easiest to install.
-
 ### Using `itex2mml` ### {#using_itex2mml}
 
 itex2mml supports much more LaTeX commands/environments than ritex.
 
-Install itex2mml using the instructions at:
+Install itextomml with 
 
-> <http://golem.ph.utexas.edu/~distler/blog/itex2MML.html> 
+	$ gem install itextomml
 
 This is a summary of the available LaTeX commands:
 
@@ -152,10 +140,18 @@ This is a summary of the available LaTeX commands:
 Moreover, [Jacques Distler] is integrating Maruku+itex2mml+[Instiki].
 You can find more information here:
 
-> <http://golem.ph.utexas.edu/~distler/blog/archives/001111.html>
+> <http://golem.ph.utexas.edu/wiki/instiki/show/HomePage>
 
 [Jacques Distler]: http://golem.ph.utexas.edu/~distler
-[instiki]: http://www.instiki.org
+[instiki]: http://golem.ph.utexas.edu/wiki/instiki/show/HomePage
+
+### Using `ritex` ### {#using_ritex}
+
+Install with 
+
+	$ gem install ritex
+
+ritex's abilities are very limited, but it is the easiest to install since, unlike `itextomml`, it is a pure-ruby implementation.
 
 ### Using `blahtex` ### {#using_blahtex}
 
