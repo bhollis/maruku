@@ -56,7 +56,7 @@ module MaRuKu::Out::HTML
       doc = doc.gsub(/<([\w:]+)([^>]*?)\s*\/><\/\1>/, '<\1\2></\1>')
     end
 
-    doc.strip
+    doc
   end
 
   # Create an empty XML document to attach nodes to
