@@ -583,6 +583,7 @@ module MaRuKu::Out::HTML
     code_lang ||= self.attributes[:lang]
     if code_lang
       code['class'] = code_lang
+      pre['class'] = code_lang
     end
 
     code << text
