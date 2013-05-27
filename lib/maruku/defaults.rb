@@ -13,7 +13,7 @@ module MaRuKu
     :filter_html => false,
 
     :html_math_output_mathml => true, # also set :html_math_engine
-    :html_math_engine => 'itex2mml', # none, ritex, itex2mml
+    :html_math_engine => 'none', # none, ritex, itex2mml
 
     :html_math_output_png => false,
     :html_png_engine => 'none',
@@ -21,8 +21,8 @@ module MaRuKu
     :html_png_url => 'pngs/',
     :html_png_resolution => 200,
 
-    :fenced_code_blocks => true, 
-    :html_use_syntax => true,
+    :fenced_code_blocks => false, 
+    :html_use_syntax => false,
 
     :latex_use_listings => false,
     :latex_cjk => false,
