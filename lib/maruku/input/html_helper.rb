@@ -10,7 +10,7 @@ module MaRuKu::In::Markdown::SpanLevelParser
     CommentEnd = %r{^.*?-->}
     TO_SANITIZE = ['img','hr','br']
 
-    attr_reader :rest
+    attr_reader :rest, :first_tag
 
     def my_debug(s)
       #     puts "---"*10+"\n"+inspect+"\t>>>\t"s
@@ -93,6 +93,7 @@ module MaRuKu::In::Markdown::SpanLevelParser
 
       is_closing = !!@m[1]
       tag = @m[2]
+      @first_tag ||= tag
       attributes = @m[3].to_s
 
       is_single = false

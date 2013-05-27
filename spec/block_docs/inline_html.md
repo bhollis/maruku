@@ -76,13 +76,21 @@ md_el(:document,[
 <p>Result on span: <img src="http://jigsaw.w3.org/css-validator/images/vcss" /></p>
 
 <p>Result alone:</p>
+
 <p><img src="http://jigsaw.w3.org/css-validator/images/vcss" /></p>
+
 <p>Without closing:</p>
-<p><img src="http://jigsaw.w3.org/css-validator/images/vcss" /></p><div>
+
+<p><img src="http://jigsaw.w3.org/css-validator/images/vcss" /></p>
+<div>
 <p>This is <em>true</em> markdown text (paragraph)</p>
-<p>This is <em>true</em> markdown text (no paragraph)</p>
+
+
+   <p>This is <em>true</em> markdown text (no paragraph)
+   </p>
    <p>
 <p>This is <em>true</em> markdown text (block paragraph)</p>
+
 </p>
 </div><table>
 <tr>

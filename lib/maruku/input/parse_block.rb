@@ -75,7 +75,8 @@ module MaRuKu; module In; module Markdown; module BlockLevelParser
         e = read_raw_html(src)
         unless e.empty?
           first_node = e.first.parsed_html.children.first
-          if first_node && HTML_INLINE_ELEMS.include?(first_node.name)
+          if first_node && HTML_INLINE_ELEMS.include?(first_node.name) &&
+              !['svg', 'math'].include?(first_node.name)
             content = [e.first]
             if e.size > 1
               content.concat(e[1].children)
@@ -97,10 +98,6 @@ module MaRuKu; module In; module Markdown; module BlockLevelParser
         output << read_abbreviation(src)
       when :xml_instr
         read_xml_instruction(src, output)
-      when :metadata
-        maruku_error "Please use the new meta-data syntax: \n"+
-          "  http://maruku.rubyforge.org/proposal.html\n", src
-        src.ignore_line
       else # warn if we forgot something
         line = src.cur_line
         maruku_error "Ignoring line '#{line}' type = #{md_type}", src
@@ -120,7 +117,7 @@ module MaRuKu; module In; module Markdown; module BlockLevelParser
       # Remove paragraphs that we can get rid of
       if [:ul, :ol].include?(c.node_type) && c.children.none?(&:want_my_paragraph)
         c.children.each do |d|
-          if d.children.first.node_type == :paragraph
+          if d.children.first && d.children.first.node_type == :paragraph
             d.children = d.children.first.children + d.children[1..-1]
           end
         end
@@ -238,8 +235,17 @@ module MaRuKu; module In; module Markdown; module BlockLevelParser
     end
   end
 
-  HTML_INLINE_ELEMS = Set.new %w[a abbr acronym b big bdo br button canvas cite code del dfn em i img input ins
-    kbd label option q rb rbc rp rt rtc ruby samp select small span strong sub sup textarea tt var] 
+  HTML_INLINE_ELEMS = Set.new %w[a abbr acronym audio b bdi bdo big br button canvas caption cite code
+    col colgroup command datalist del details dfn dir em fieldset font form i img input ins
+    kbd label legend mark meter optgroup option progress q rp rt ruby s samp section select small
+    source span strike strong sub summary sup tbody td tfoot th thead time tr track tt u var video wbr
+    animate animateColor animateMotion animateTransform circle clipPath defs desc ellipse
+    feGaussianBlur filter font-face font-face-name font-face-src foreignObject g glyph hkern
+    linearGradient line marker mask metadata missing-glyph mpath path pattern polygon polyline
+    radialGradient rect set stop svg switch text textPath title tspan use
+    annotation annotation-xml maction math menclose merror mfrac mfenced mi mmultiscripts mn mo
+    mover mpadded mphantom mprescripts mroot mrow mspace msqrt mstyle msub msubsup msup mtable
+    mtd mtext mtr munder munderover none semantics] 
   def read_raw_html(src)
     extra_line = nil
     h = HTMLHelper.new
@@ -260,12 +266,14 @@ module MaRuKu; module In; module Markdown; module BlockLevelParser
     end
     raw_html = h.stuff_you_read
 
+    is_inline = HTML_INLINE_ELEMS.include?(h.first_tag)
+    
     if extra_line
-      remainder = parse_span(extra_line)
+      remainder = is_inline ? parse_span(extra_line) : parse_text_as_markdown(extra_line)
       if extra_line.start_with?(' ')
-        remainder[0] = ' ' + remainder[0]
+        remainder[0] = ' ' + remainder[0] if remainder[0].is_a?(String)
       end
-      [md_html(raw_html), md_par(remainder)]
+      is_inline ? [md_html(raw_html), md_par(remainder)] : [md_html(raw_html)] + remainder
     else
       [md_html(raw_html)]
     end
@@ -284,7 +292,7 @@ module MaRuKu; module In; module Markdown; module BlockLevelParser
         # This is a pretty awful hack to handle inline HTML
         # but it means double-parsing HMTL.
         html = parse_span([src.cur_line], src)
-        unless html.empty?
+        unless html.empty? || html.first.is_a?(String)
           first_node = html.first.parsed_html.children.first
         end
         break if first_node && !HTML_INLINE_ELEMS.include?(first_node.name)
@@ -475,22 +483,6 @@ module MaRuKu; module In; module Markdown; module BlockLevelParser
 
     md_codeblock(source)
   end
-
-  # Reads a series of metadata lines with empty lines in between
-  def read_metadata(src)
-    hash = {}
-    while src.cur_line
-      case src.cur_line.md_type
-      when :empty
-        src.shift_line
-      when :metadata
-        hash.merge! parse_metadata(src.shift_line)
-      else break
-      end
-    end
-    hash
-  end
-
 
   def read_ref_definition(src, out)
     line = src.shift_line
