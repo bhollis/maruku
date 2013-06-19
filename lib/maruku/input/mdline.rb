@@ -29,7 +29,6 @@ module MaRuKu
     def line_md_type
       # The order of evaluation is important (:text is a catch-all)
       return :text           if self =~ /^[a-zA-Z]/
-      return :code           if number_of_leading_spaces >= 4
       return :empty          if self =~ /^\s*$/
       return :footnote_text  if self =~ FootnoteText
       return :ref_definition if self =~ LinkRegex || self =~ IncompleteLink
@@ -48,8 +47,9 @@ module MaRuKu
       return :header3        if self =~ /^(#)+\s*\S+/
       # at least three asterisks/hyphens/underscores on a line, and only whitespace
       return :hrule          if self =~ /^(\s*[\*\-_]\s*){3,}$/
-      return :ulist          if self =~ /^[ ]{0,3}([\*\-\+])\s+.*/
-      return :olist          if self =~ /^[ ]{0,3}\d+\.\s+.*/
+      return :ulist          if self =~ /^([ ]{0,3}|\t)([\*\-\+])\s+.*/
+      return :olist          if self =~ /^([ ]{0,3}|\t)\d+\.\s+.*/
+      return :code           if number_of_leading_spaces >= 4
       return :quote          if self =~ /^>/
       return :ald            if self =~ AttributeDefinitionList
       return :ial            if self =~ InlineAttributeList
