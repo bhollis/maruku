@@ -539,12 +539,13 @@ module MaRuKu; module In; module Markdown; module BlockLevelParser
     if isMultiline
       cells = []
 
-      while src.cur_line && src.cur_line !~ /^(\s*-+\s*\+)+/
+      while src.cur_line && src.cur_line =~ /\|/ && src.cur_line !~ MultilineTableSeparatorNoAlignment
         l = src.shift_line.split('|').reject(&:empty?).map(&:strip)
         cells = distribute!(cells, l)
       end
 
-      src.shift_line if src.cur_line # We stopped on a --+--+-- line, discard it
+      # If we stopped on a --+--+-- line, discard it
+      src.shift_line if src.cur_line && src.cur_line =~ MultilineTableSeparatorNoAlignment
 
       cells.map { |a| a.join(' ') }
     else

@@ -132,6 +132,8 @@ module MaRuKu
   TableSeparator = /^(\|?#{Sep}\|?)+?\s*$/
   # + -------------:+ ------------------------------ +
   MultilineTableSeparator = /^(\+?#{Sep}\+?)+?\s*$/
+  # + ------------- + ------------------------------ +
+  MultilineTableSeparatorNoAlignment = /^\s*\+?(\s*-+\s*\+?)+?\s*$/
 
   EMailAddress = /<([^:@>]+?@[^:@>]+?)>/
 end
