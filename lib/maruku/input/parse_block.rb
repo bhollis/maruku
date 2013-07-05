@@ -136,10 +136,16 @@ module MaRuKu; module In; module Markdown; module BlockLevelParser
   end
 
   def read_text_material(src, output)
-    if src.cur_line =~ MightBeTableHeader &&
+    maybeTableHeader = src.cur_line =~ MightBeTableHeader
+
+    if maybeTableHeader &&
         src.next_line &&
         src.next_line =~ TableSeparator
-      output << read_table(src)
+      output << read_table(src, false)
+    elsif maybeTableHeader &&
+        src.next_line &&
+        src.next_line =~ MultilineTableSeparator
+      output << read_table(src, true)
     elsif src.next_line && [:header1, :header2].include?(src.next_line.md_type)
       output << read_header12(src)
     elsif eventually_comes_a_def_list(src)
@@ -520,16 +526,40 @@ module MaRuKu; module In; module Markdown; module BlockLevelParser
     out << md_ref_def(id, url, :title => title)
   end
 
-  def split_cells(s)
-    s.split('|').reject(&:empty?).map(&:strip)
+  def distribute!(a, b)
+    diff = [0, b.size - a.size].max
+    a.concat(Array.new(diff) { Array.new })
+    0.upto a.size - 1 do |i|
+      a[i] << b[i]
+    end
+    a
+  end
+  
+  def split_cells(src, isMultiline)
+    if isMultiline
+      cells = []
+
+      while src.cur_line && src.cur_line =~ /\|/ && src.cur_line !~ MultilineTableSeparatorNoAlignment
+        l = src.shift_line.split('|').reject(&:empty?).map(&:strip)
+        cells = distribute!(cells, l)
+      end
+
+      # If we stopped on a --+--+-- line, discard it
+      src.shift_line if src.cur_line && src.cur_line =~ MultilineTableSeparatorNoAlignment
+
+      cells.map { |a| a.join(' ') }
+    else
+      sep = src.cur_line =~ /\|/ ? '|' : '+'
+      src.shift_line.split(sep).reject(&:empty?).map(&:strip)
+    end
   end
 
-  def read_table(src)
-    head = split_cells(src.shift_line).map do |s|
+  def read_table(src, isMultiline)
+    head = split_cells(src, false).map do |s|
       md_el(:head_cell, parse_span(s))
     end
 
-    separator = split_cells(src.shift_line)
+    separator = split_cells(src, false)
 
     align = separator.map do |s|
       s =~ Sep
@@ -554,7 +584,7 @@ module MaRuKu; module In; module Markdown; module BlockLevelParser
     rows = []
 
     while src.cur_line && src.cur_line =~ /\|/
-      row = split_cells(src.shift_line).map do |s|
+      row = split_cells(src, isMultiline).map do |s|
         md_el(:cell, parse_span(s))
       end
 
