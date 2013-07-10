@@ -86,7 +86,8 @@ md_el(:document,[
 <p>This is <em>true</em> markdown text (paragraph)</p>
 
 
-   <p>This is <em>true</em> markdown text (no paragraph)
+   <p>
+   This is <em>true</em> markdown text (no paragraph)
    </p>
    <p>
 <p>This is <em>true</em> markdown text (block paragraph)</p>
