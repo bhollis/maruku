@@ -74,9 +74,10 @@ module MaRuKu; module In; module Markdown; module BlockLevelParser
         # in a paragraph or break it up depending on whether it's an inline element or not
         e = read_raw_html(src)
         unless e.empty?
-          first_node = e.first.parsed_html.children.first
-          if first_node && HTML_INLINE_ELEMS.include?(first_node.name) &&
-              !['svg', 'math'].include?(first_node.name)
+          if e.first.parsed_html &&
+              (first_node_name = e.first.parsed_html.first_node_name) &&
+              HTML_INLINE_ELEMS.include?(first_node_name) &&
+              !%w(svg math).include?(first_node_name)
             content = [e.first]
             if e.size > 1
               content.concat(e[1].children)
@@ -235,17 +236,6 @@ module MaRuKu; module In; module Markdown; module BlockLevelParser
     end
   end
 
-  HTML_INLINE_ELEMS = Set.new %w[a abbr acronym audio b bdi bdo big br button canvas caption cite code
-    col colgroup command datalist del details dfn dir em fieldset font form i img input ins
-    kbd label legend mark meter optgroup option progress q rp rt ruby s samp section select small
-    source span strike strong sub summary sup tbody td tfoot th thead time tr track tt u var video wbr
-    animate animateColor animateMotion animateTransform circle clipPath defs desc ellipse
-    feGaussianBlur filter font-face font-face-name font-face-src foreignObject g glyph hkern
-    linearGradient line marker mask metadata missing-glyph mpath path pattern polygon polyline
-    radialGradient rect set stop svg switch text textPath title tspan use
-    annotation annotation-xml maction math menclose merror mfrac mfenced mi mmultiscripts mn mo
-    mover mpadded mphantom mprescripts mroot mrow mspace msqrt mstyle msub msubsup msup mtable
-    mtd mtext mtr munder munderover none semantics] 
   def read_raw_html(src)
     extra_line = nil
     h = HTMLHelper.new
@@ -293,9 +283,11 @@ module MaRuKu; module In; module Markdown; module BlockLevelParser
         # but it means double-parsing HMTL.
         html = parse_span([src.cur_line], src)
         unless html.empty? || html.first.is_a?(String)
-          first_node = html.first.parsed_html.children.first
+          if html.first.parsed_html
+            first_node_name = html.first.parsed_html.first_node_name
+          end
         end
-        break if first_node && !HTML_INLINE_ELEMS.include?(first_node.name)
+        break if first_node_name && !HTML_INLINE_ELEMS.include?(first_node_name)
       end
       break if src.cur_line.strip.empty?
       break if src.next_line && [:header1, :header2].include?(src.next_line.md_type)
