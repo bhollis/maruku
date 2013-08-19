@@ -70,6 +70,27 @@ then calls `pdflatex` to transform the LaTeX to a PDF:
 The public interface is the `Maruku` class.
 Everything else is in the module `MaRuKu`.
 
+## Ruby 1.8.7
+
+The maintainers of this project, in concert with the maintainers of Ruby,
+**strongly** recommend using the latest patchlevel of Ruby 1.9.2 or later.
+[As of July 1, 2013, Ruby 1.8.7 is no longer officially maintained.][retired]
+This means fixes will no longer be provided, even for known security
+vulnerabilities.
+
+[retired]: http://www.ruby-lang.org/en/news/2013/06/30/we-retire-1-8-7/
+
+With this caveat, if you wish to bundle `maruku` into your application on Ruby
+1.8.7, you must add the following line to your `Gemfile`.
+
+    gem 'nokogiri', '~> 1.5.0'
+
+Also, ensure that you are using LibXML version 2.8.0, since there is an
+[issue with LibXML version 2.9.0][issue829] ([and 2.9.1][issue904]).
+
+[issue829]: https://github.com/sparklemotion/nokogiri/issues/829
+[issue904]: https://github.com/sparklemotion/nokogiri/issues/904
+
 # Build Status
 
 [![Build Status](https://travis-ci.org/bhollis/maruku.png)](http://travis-ci.org/bhollis/maruku)

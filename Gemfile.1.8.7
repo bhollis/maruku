@@ -4,6 +4,9 @@ source "https://rubygems.org"
 
 gemspec
 
+# nokogiri 1.6.0 drops Ruby 1.8.7 support
+gem 'nokogiri', '~> 1.5.6' 
+
 # itextomml won't build for jRuby, but we should test with it otherwise
 if RUBY_PLATFORM != 'java'
   gem "itextomml", '~> 1.4.6'
