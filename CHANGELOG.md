@@ -1,6 +1,8 @@
 0.7.0
 -----
 
+* HTML output is no longer "pretty". This will be fixed in a future release.
+
 * Maruku has been relicensed under the MIT license.
 
 * Maruku now uses Nokogiri to parse and output HTML, fixing many bugs and

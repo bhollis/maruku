@@ -38,14 +38,12 @@
 #
 #=end
 
-require 'nokogiri'
-
 module MaRuKu
   module Out
     module HTML
       # Creates an xml Mathml document of this node's TeX code.
       #
-      # @return Nokogiri::XML::Document]
+      # @return [MaRuKu::Out::HTML::HTMLElement]
       def render_mathml(kind, tex)
         engine = get_setting(:html_math_engine)
         method = "convert_to_mathml_#{engine}"
@@ -94,35 +92,32 @@ module MaRuKu
         img['src'] = src
         img['style'] = style
         img['alt'] = "$#{self.math.strip}$"
+        img['class'] = 'maruku-png'
         img
       end
 
       def to_html_inline_math
         mathml = get_setting(:html_math_output_mathml) && render_mathml(:inline, self.math)
-        png    = get_setting(:html_math_output_png)    && render_png(:inline, self.math)
-
-        span = create_html_element 'span'
-        span['class'] = 'maruku-inline'
-
         if mathml
           mathml['class'] = 'maruku-mathml'
           return mathml
         end
 
-        if png
-          img = adjust_png(png, true)
-          add_class_to(img, 'maruku-png')
-          span << img
-        end
+        png = get_setting(:html_math_output_png) && render_png(:inline, self.math)
 
-        span
+        HTMLElement.new 'span', 'class' => 'maruku-inline' do
+          # TODO: It seems weird that we output an empty span if there's no PNG
+          if png
+            adjust_png(png, true)
+          end
+        end
       end
 
       def to_html_equation
         mathml = get_setting(:html_math_output_mathml) && render_mathml(:equation, self.math)
         png    = get_setting(:html_math_output_png)    && render_png(:equation, self.math)
 
-        div = create_html_element 'div'
+        div = xelem('div')
         div['class'] = 'maruku-equation'
         if mathml
           if self.label  # then numerate
@@ -138,7 +133,6 @@ module MaRuKu
 
         if png
           img = adjust_png(png, false)
-          add_class_to(img, 'maruku-png')
           div << img
           if self.label  # then numerate
             span = xelem('span')
