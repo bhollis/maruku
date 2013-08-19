@@ -1,5 +1,3 @@
-require 'nokogiri'
-
 module MaRuKu
   # A section in the table of contents of a document.
   class Section
@@ -73,11 +71,7 @@ module MaRuKu
     #
     # This should only be called on the root section.
     def to_html
-      d = Nokogiri::XML::Document.new
-      div = Nokogiri::XML::Element.new('div', d)
-      div['class'] = 'maruku_toc'
-      div << _to_html
-      div
+      MaRuKu::Out::HTML::HTMLElement.new('div', { 'class' => 'maruku_toc' }, _to_html)
     end
 
     # Returns a LaTeX representation of the table of contents.
@@ -90,16 +84,15 @@ module MaRuKu
     protected
 
     def _to_html
-      d = Nokogiri::XML::Document.new
-      ul = Nokogiri::XML::Element.new('ul', d)
+      ul = MaRuKu::Out::HTML::HTMLElement.new('ul')
       @section_children.each do |c|
-        li = Nokogiri::XML::Element.new('li', d)
+        li = MaRuKu::Out::HTML::HTMLElement.new('li')
         if span = c.header_element.render_section_number
           li << span
         end
 
         a = c.header_element.wrap_as_element('a')
-        a.delete('id')
+        a.attributes.delete('id')
         a['href'] = "##{c.header_element.attributes[:id]}"
 
         li << a

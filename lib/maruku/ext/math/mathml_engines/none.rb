@@ -1,6 +1,3 @@
-require 'maruku/string_utils'
-require 'nokogiri'
-
 module MaRuKu::Out::HTML
   def convert_to_mathml_none(kind, tex)
     code = xelem('code')

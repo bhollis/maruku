@@ -1,26 +1,70 @@
-require 'nokogiri'
 require 'maruku/string_utils'
+require 'cgi'
 
 # This module groups all functions related to HTML export.
 module MaRuKu::Out::HTML
-  # We don't want indentation because it messes up "pre" and makes
-  # things inconsistent between MRI and JRuby
-  OUTPUT_OPTIONS = Nokogiri::XML::Node::SaveOptions::DEFAULT_XHTML ^
-    Nokogiri::XML::Node::SaveOptions::FORMAT
+
+  # A simple class to represent an HTML element for output.
+  class HTMLElement
+    attr_accessor :name
+    attr_accessor :attributes
+    attr_accessor :children
+
+    def initialize(name, attr={}, children=[])
+      self.name = name
+      self.attributes = attr || {}
+      self.children = Array(children)
+      children << yield if block_given?
+    end
+
+    def <<(child)
+      children << child if children
+      self
+    end
+
+    def [](key)
+      attributes[key.to_s]
+    end
+
+    def []=(key, value)
+      attributes[key.to_s] = value
+    end
+
+    # These elements have no children and should be rendered with a self-closing tag.
+    # It's not an exhaustive list, but they cover everything we use.
+    SELF_CLOSING = Set.new %w[br hr img link meta]
+
+    def to_html
+      m = "<#{name}"
+      attributes.each do |k, v|
+        m << " #{k.to_s}=\"#{v.to_s}\""
+      end
+
+      if SELF_CLOSING.include? name
+        m << " />"
+      else
+        content = children.map(&:to_s)
+        m << ">" << content.join('') << "</#{name}>"
+      end
+    end
+
+    alias :to_str :to_html
+    alias :to_s :to_html
+  end
 
   # Render as an HTML fragment (no head, just the content of BODY). (returns a string)
   def to_html(context={})
-    d = Nokogiri::XML::DocumentFragment.new(xdoc)
+    output = ""
     children_to_html.each do |e|
-      d << e
+      output << e.to_s
     end
 
     # render footnotes
     unless @doc.footnotes_order.empty?
-      d << render_footnotes
+      output << render_footnotes
     end
 
-    correct_document(d.to_xml(:save_with => OUTPUT_OPTIONS, :encoding => 'UTF-8'))
+    output
   end
 
   Xhtml11_mathml2_svg11 =
@@ -34,48 +78,22 @@ module MaRuKu::Out::HTML
   def to_html_document(context={})
     doc = to_html_document_tree
 
-    xml = correct_document(doc.to_xml(:save_with => OUTPUT_OPTIONS, :encoding => 'UTF-8'))
+    xml = doc.to_s
     Xhtml11_mathml2_svg11 + xml
-  end
-
-  # Correct for bugs in JRuby nokogiri
-  def correct_document(doc)
-    if RUBY_PLATFORM == 'java'
-      doc = doc.
-        gsub(/<br>/, '<br />'). # JRuby nokogiri bug https://github.com/sparklemotion/nokogiri/issues/834
-        gsub(/<hr>/, '<hr />')
-
-      # Fix more JRuby Nokogiri closing slash awfulness
-      doc = doc.gsub(/<img(.*?)>/) do |match|
-        if ($1.end_with?('/'))
-          "<img#{$1}>"
-        else
-          "<img#{$1} />"
-        end
-      end
-      doc = doc.gsub(/<([\w:]+)([^>]*?)\s*\/><\/\1>/, '<\1\2></\1>')
-    end
-
-    doc.strip
-  end
-
-  # Create an empty XML document to attach nodes to
-  def xdoc
-    @xdoc ||= Nokogiri::XML::Document.new
   end
 
   # Helper to create a text node
   def xtext(text)
-    Nokogiri::XML::Text.new(text, xdoc)
+    CGI.escapeHTML(text)
   end
 
   # Helper to create an element
   def xelem(type)
-    Nokogiri::XML::Element.new(type, xdoc)
+    HTMLElement.new(type)
   end
 
   def xml_newline
-    xtext "\n"
+    "\n"
   end
 
   #=begin maruku_doc
@@ -130,15 +148,12 @@ module MaRuKu::Out::HTML
   #
   #=end
 
-  # Render to a complete HTML document (returns a Nokogiri document tree)
+  # Render to a complete HTML document (returns an HTMLElement document tree)
   def to_html_document_tree
-    doc = Nokogiri::XML::Document.new
-
     root = xelem('html')
-    root.add_namespace(nil, 'http://www.w3.org/1999/xhtml')
-    root.add_namespace('svg', "http://www.w3.org/2000/svg")
+    root['xmlns'] = 'http://www.w3.org/1999/xhtml'
+    root['xmlns:svg'] = "http://www.w3.org/2000/svg"
     root['xml:lang'] = self.attributes[:lang] || 'en'
-    doc << root
 
     root << xml_newline
     head = xelem('head')
@@ -253,7 +268,7 @@ module MaRuKu::Out::HTML
   def render_footnotes
     div = xelem('div')
     div['class'] = 'footnotes'
-    div <<  xelem('hr')
+    div << xelem('hr')
     ol = xelem('ol')
 
     @doc.footnotes_order.each_with_index do |fid, i|
@@ -269,7 +284,7 @@ module MaRuKu::Out::HTML
 
         last = nil
         li.children.reverse_each do |child|
-          unless child.text?
+          if child.is_a?(HTMLElement)
             last = child
             break
           end
@@ -278,7 +293,7 @@ module MaRuKu::Out::HTML
         if last && last.name == "p"
           last << xtext(' ') << a
         else
-          li.children.last.add_next_sibling(a)
+          li.children << a
         end
         ol << li
       else
@@ -290,19 +305,18 @@ module MaRuKu::Out::HTML
   end
 
   def to_html_hrule
-    create_html_element 'hr'
+    xelem('hr')
   end
 
   def to_html_linebreak
-    create_html_element 'br'
+    xelem('br')
   end
 
   # renders children as html and wraps into an element of given name
   #
   # Sets 'id' if meta is set
-  def wrap_as_element(name, attributes_to_copy=[])
-    m = create_html_element(name, attributes_to_copy)
-    children_to_html.inject(m, &:<<)
+  def wrap_as_element(name, attributes={})
+    html_element name, children_to_html, attributes
   end
 
   #=begin maruku_doc
@@ -365,14 +379,21 @@ module MaRuKu::Out::HTML
     end
   end
 
-  def create_html_element(name, attributes_to_copy=[])
-    m = xelem(name)
+  # Pretty much the same as the HTMLElement constructor except it
+  # copies standard attributes out of the Maruku Element's attributes hash.
+  def html_element(name, content="", attributes={})
+    if attributes.empty? && content.is_a?(Hash)
+      attributes = content
+    end
+
     Array(HTML4Attributes[name]).each do |att|
       if v = @attributes[att]
-        m[att.to_s] = v.to_s
+        attributes[att.to_s] = v.to_s
       end
     end
-    m
+    content = yield if block_given?
+
+    HTMLElement.new(name, attributes, content)
   end
 
   def to_html_ul
@@ -444,7 +465,7 @@ module MaRuKu::Out::HTML
     h = wrap_as_element element_name
 
     if span = render_section_number
-      h.children.first.before(span)
+      h.children.unshift(span)
     end
 
     add_ws h
@@ -514,10 +535,7 @@ module MaRuKu::Out::HTML
 
           d = MaRuKu::HTMLFragment.new(html)
           highlighted = d.to_html.sub(/\A<pre>(.*)<\/pre>\z/m, '\1')
-          code = xelem('code')
-          code['class'] = code_lang
-
-          code << highlighted
+          code = HTMLElement.new('code', { :class => code_lang }, highlighted)
 
           pre = xelem('pre')
           # add a class here, too, for compatibility with existing implementations
@@ -569,8 +587,7 @@ module MaRuKu::Out::HTML
 
 
   def to_html_code_using_pre(source, code_lang=nil)
-    pre = create_html_element('pre')
-    code = xelem('code')
+    code_attrs = {}
 
     if get_setting(:code_show_spaces)
       # 187 = raquo
@@ -583,25 +600,23 @@ module MaRuKu::Out::HTML
 
     code_lang ||= self.attributes[:lang]
     if code_lang
-      code['class'] = code_lang
-      pre['class'] = code_lang
+      code_attrs['class'] = code_lang
     end
 
-    code << text
-    pre << code
+    code = html_element('code', text, code_attrs)
+    html_element('pre', code, code_attrs)
   end
 
   def to_html_inline_code
-    pre = create_html_element('code')
-    source = self.raw_code
-    pre << xtext(source)
+    code_attrs = {}
+    source = xtext(self.raw_code)
 
     color = get_setting(:code_background_color)
     if color != MaRuKu::Globals[:code_background_color]
-      pre['style'] = "background-color: #{color};" + (pre['style'] || "")
+      code_attrs['style'] = "background-color: #{color};" + (code_attrs['style'] || "")
     end
 
-    pre
+    html_element('code', source, code_attrs)
   end
 
   def add_class_to(el, cl)
@@ -614,14 +629,12 @@ module MaRuKu::Out::HTML
   end
 
   def to_html_immediate_link
-    a = create_html_element('a')
-    a['href'] = self.url
     text = self.url.gsub(/^mailto:/, '') # don't show mailto
-    a << xtext(text)
+    html_element('a', text, 'href' => self.url)
   end
 
   def to_html_link
-    a = wrap_as_element('a')
+    a = {}
     id = self.ref_id || children_to_s
 
     if ref = @doc.refs[sanitize_ref_id(id)] || @doc.refs[sanitize_ref_id(children_to_s)]
@@ -638,15 +651,15 @@ module MaRuKu::Out::HTML
       end
     end
 
-    a
+    wrap_as_element('a', a)
   end
 
   def to_html_im_link
     if self.url
-      a = wrap_as_element('a')
+      a = {}
       a['href'] = self.url
       a['title'] = self.title if self.title
-      a
+      wrap_as_element('a', a)
     else
       maruku_error "Could not find url in #{self.inspect}"
       tell_user "Not creating a link for ref_id = #{id.inspect}."
@@ -661,33 +674,25 @@ module MaRuKu::Out::HTML
   ##### Email address
 
   def obfuscate(s)
-    # Because of https://github.com/sparklemotion/nokogiri/issues/835
-    # we can't print entity references correctly in JRuby
-    return s if RUBY_PLATFORM == 'java'
-
-    s.bytes.inject(Nokogiri::XML::NodeSet.new(xdoc)) do |res, char|
-      res << Nokogiri::XML::EntityReference.new(xdoc, "#%03d" % char)
+    s.bytes.inject('') do |res, char|
+      res << "&#%03d;" % char
     end
   end
 
   def to_html_email_address
-    a = create_html_element('a')
-    # Obfuscation via entity references is dubious, especially now that
-    # Nokogiri can't put entity references into attributes.
-    a['href'] = "mailto:#{self.email}"
-    a << obfuscate(self.email)
+    html_element('a', obfuscate(self.email), :href => "mailto:#{self.email}")
   end
 
   ##### Images
 
   def to_html_image
-    a = create_html_element('img')
+    a = {}
     id = self.ref_id
     if ref = @doc.refs[sanitize_ref_id(id)] || @doc.refs[sanitize_ref_id(children_to_s)]
       a['src'] = ref[:url].to_s
       a['alt'] = children_to_s
       a['title'] = ref[:title].to_s if ref[:title]
-      a
+      html_element('img', nil, a)
     else
       maruku_error "Could not find id = #{id.inspect} for\n #{self.inspect}"
       tell_user "Could not create image with ref_id = #{id.inspect};" +
@@ -698,11 +703,11 @@ module MaRuKu::Out::HTML
 
   def to_html_im_image
     if self.url
-      a = create_html_element('img')
-      a['src'] = self.url.to_s
-      a['alt'] = children_to_s
-      a['title'] = self.title.to_s if self.title
-      a
+      attrs = {}
+      attrs['src'] = self.url.to_s
+      attrs['alt'] = children_to_s
+      attrs['title'] = self.title.to_s if self.title
+      html_element('img', nil, attrs)
     else
       maruku_error "Image with no url: #{self.inspect}"
       tell_user "Could not create image without a source URL;" +
@@ -789,7 +794,7 @@ module MaRuKu::Out::HTML
 
     head, *rows = @children.each_slice(num_columns).to_a
 
-    table = create_html_element('table')
+    table = html_element('table')
     thead = xelem('thead')
     tr = xelem('tr')
     array_to_html(head).inject(tr, &:<<)
@@ -816,7 +821,7 @@ module MaRuKu::Out::HTML
 
   def to_html_cell
     if @attributes[:scope]
-      wrap_as_element('th', [:scope])
+      wrap_as_element('th')
     else
       wrap_as_element('td')
     end
@@ -830,11 +835,10 @@ module MaRuKu::Out::HTML
     end
 
     if entity_name.kind_of? Fixnum
-      # Work around https://github.com/sparklemotion/nokogiri/issues/835
-      # by simply converting numeric entities to unicode characters
+      # Convert numeric entities to unicode characters
       xtext([entity_name].pack('U*'))
     else
-      Nokogiri::XML::EntityReference.new(xdoc, entity_name)
+      "&#{entity_name}"
     end
   end
 
@@ -846,7 +850,7 @@ module MaRuKu::Out::HTML
     if target.empty?
       xtext("<?#{code}?>")
     else
-      Nokogiri::XML::ProcessingInstruction.new(xdoc, target, code)
+      "<?#{target} #{code}?>"
     end
   end
 
@@ -861,6 +865,11 @@ module MaRuKu::Out::HTML
       if c.kind_of?(String)
         e << xtext(c)
       else
+        if c.kind_of?(HTMLElement)
+          e << c
+          next
+        end
+
         method = c.kind_of?(MaRuKu::MDElement) ? "to_html_#{c.node_type}" : "to_html"
         next unless c.respond_to?(method)
 
