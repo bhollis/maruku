@@ -171,7 +171,7 @@ module MaRuKu::Out::HTML
     # Create title element
     doc_title = self.attributes[:title] || self.attributes[:subject] || ""
     begin
-      title_content = Nokogiri::HTML::DocumentFragment.parse(doc_title)
+      title_content = MaRuKu::HTMLFragment.new(doc_title).to_html
     rescue
       title_content = xtext(doc_title)
     end
@@ -184,7 +184,7 @@ module MaRuKu::Out::HTML
     body = xelem('body')
 
     children_to_html.each do |e|
-      body << e
+      body << e.to_s
     end
 
     # render footnotes
@@ -199,7 +199,6 @@ module MaRuKu::Out::HTML
     end
 
     root << body
-    doc
   end
 
   def add_css_to(head)
@@ -513,10 +512,12 @@ module MaRuKu::Out::HTML
 
           html.gsub!(/\&apos;|'/,'&#39;') # IE bug
 
-          d = Nokogiri::XML::Document.parse(html)
-          code = d.root
-          code.name = 'code'
+          d = MaRuKu::HTMLFragment.new(html)
+          highlighted = d.to_html.sub(/\A<pre>(.*)<\/pre>\z/m, '\1')
+          code = xelem('code')
           code['class'] = code_lang
+
+          code << highlighted
 
           pre = xelem('pre')
           # add a class here, too, for compatibility with existing implementations
@@ -583,10 +584,13 @@ module MaRuKu::Out::HTML
     code_lang ||= self.attributes[:lang]
     if code_lang
       code['class'] = code_lang
+      pre['class'] = code_lang
     end
 
     code << text
     pre << code
+    pre.remove_attribute('lang')
+    pre
   end
 
   def to_html_inline_code
@@ -719,7 +723,7 @@ module MaRuKu::Out::HTML
 
   def to_html_raw_html
     return [] if get_setting(:filter_html)
-    return parsed_html if parsed_html
+    return parsed_html.to_html if parsed_html
 
     # If there's no parsed HTML
     raw_html = self.raw_html
@@ -730,7 +734,7 @@ module MaRuKu::Out::HTML
     pre = xelem('pre')
     pre['style'] = 'border: solid 3px red; background-color: pink'
     pre['class'] = 'markdown-html-error'
-    pre << xtext("Nokogiri could not parse this XML/HTML: \n#{raw_html}")
+    pre << xtext("Maruku could not parse this XML/HTML: \n#{raw_html}")
   end
 
   def to_html_abbr

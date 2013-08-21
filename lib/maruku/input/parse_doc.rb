@@ -1,4 +1,3 @@
-require 'nokogiri'
 require 'strscan'
 require 'cgi'
 
@@ -150,64 +149,14 @@ Disabled by default because of security concerns.
     end
   end
 
-  def span_descendents(e)
-    descendents =  Nokogiri::XML::NodeSet.new(xdoc)
-    e.element_children.collect do |c|
-      if HTML_INLINE_ELEMS.include?(c.name)
-        descendents << c
-        descendents += span_descendents(c)
-      end
-    end
-    descendents
-  end
-
   # (PHP Markdown extra) Search for elements that have
   # markdown=1 or markdown=block defined
   def substitute_markdown_inside_raw_html
-    each_element(:raw_html) do |_e|
-      doc = _e.parsed_html
-      next unless doc # valid html
+    each_element(:raw_html) do |e|
+      html = e.parsed_html
+      next unless html
 
-      # parse block-level markdown elements in these HTML tags
-      block_tags = ['div']
-
-      # find span elements or elements with 'markdown' attribute
-      elts = doc.css((["[markdown]"]).join(","))
-      d = doc.children.first
-      if HTML_INLINE_ELEMS.include?(d.name)
-        elts << d unless d.attribute('markdown')
-        elts += span_descendents(d)
-      end
-      elts.each do |e|
-        # should we parse block-level or span-level?
-
-        how = e['markdown']
-        parse_blocks = (how == 'block') || block_tags.include?(e.name)
-
-        # Select all text children of e
-        e.xpath("./text()").each do |original_text|
-          s = CGI.escapeHTML(original_text.text)
-          if s.strip.size > 0
-
-            parsed = parse_blocks ? parse_text_as_markdown(s) : parse_span(s)
-            # restore leading and trailing spaces
-            padding = /\A(\s*).*?(\s*)\z/.match(s)
-            parsed = [padding[1]] + parsed + [padding[2]] if padding
-            el = md_el(:dummy, parsed)
-
-            #Nokogiri collapses consecutive Text nodes, so replace it by a dummy element
-            guard = Nokogiri::XML::Element.new('guard', doc)
-            original_text.replace(guard)
-            el.children_to_html.each do |x|
-              guard.before(x)
-            end
-            guard.remove
-          end
-        end
-
-        # remove 'markdown' attribute
-        e.delete('markdown')
-      end
+      html.process_markdown_inside_elements(self)
     end
   end
 end

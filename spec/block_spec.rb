@@ -5,32 +5,10 @@ require 'rspec'
 require 'maruku'
 require 'nokogiri/diff'
 
-# Fix nokogiri-diff to understand comments (until they release a fixed version):
-class Nokogiri::XML::Node
-  def tdiff_equal(node)
-    if (self.class == node.class)
-      case node
-      when Nokogiri::XML::Attr
-        (self.name == node.name && self.value == node.value)
-      when Nokogiri::XML::Element, Nokogiri::XML::DTD
-        self.name == node.name
-      when Nokogiri::XML::Text, Nokogiri::XML::Comment
-        self.text == node.text
-      when Nokogiri::XML::ProcessingInstruction
-        (self.name == node.name && self.content = self.content)
-      else
-        false
-      end
-    else
-      false
-    end
-  end
-end
-
 # :to_md and :to_s tests are disabled for now
 METHODS = [:to_html, :to_latex]
 
-describe "A Maruku document" do
+describe "A Maruku doc" do
   before(:all) do
     @old_stderr = $stderr
     $stderr = StringIO.new
@@ -41,8 +19,9 @@ describe "A Maruku document" do
   end
 
   Dir[File.dirname(__FILE__) + "/block_docs/**/*.md"].each do |md|
+    md_pretty = md.sub(File.dirname(__FILE__) + '/', '')
 
-    describe " for the #{md} file" do
+    describe md_pretty do
       input = File.read(md).split(/\n\*{3}[^*\n]+\*{3}\n/m)
       input = ["Write a comment here", "{}", input.first] if input.size == 1
       comment = input.shift.strip
@@ -52,8 +31,8 @@ describe "A Maruku document" do
       expected = METHODS.zip(input).inject({}) {|h, (k, v)| h[k] = v ? v.strip : '' ; h}
 
       before(:each) do
-        pending "#{comment} - #{md}" if comment.start_with?("PENDING")
-        pending "#{comment} - #{md}" if comment.start_with?("JRUBY PENDING") && RUBY_PLATFORM == 'java'
+        pending "#{comment} - #{md_pretty}" if comment.start_with?("PENDING")
+        pending "#{comment} - #{md_pretty}" if comment.start_with?("JRUBY PENDING") && RUBY_PLATFORM == 'java'
         $already_warned_itex2mml = false
         @doc = Maruku.new(markdown, eval(params))
       end

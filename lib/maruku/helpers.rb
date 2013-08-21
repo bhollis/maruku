@@ -1,11 +1,6 @@
-require 'nokogiri'
+require 'maruku/html'
 
 module MaRuKu
-  # This gets mixed into HTML elements to hold the parsed document fragment
-  module HTMLElement
-    attr_accessor :parsed_html
-  end
-
   # A collection of helper functions for creating Markdown elements.
   # They hide the particular internal representations.
   #
@@ -70,20 +65,12 @@ module MaRuKu
       e = md_el(:raw_html, [], :raw_html => raw_html)
       e.extend HTMLElement
       begin
-        # Some might prefer an HTML::Document here. Alas, we need to preserve case
-        # on element names, so that's not suitable.
-        d = Nokogiri::XML::Document.new
-
-        # Make sure the SVG namespace is known
-        root = Nokogiri::XML::Element.new('html', d)
-        root.add_namespace('svg', "http://www.w3.org/2000/svg" )
-
         # Set this as an attribute so it doesn't get included
         # in metadata comparisons
-        e.parsed_html = Nokogiri::XML::DocumentFragment.new(d, raw_html, d)
+        e.parsed_html = MaRuKu::HTMLFragment.new(raw_html)
       rescue => ex
-        maruku_recover "Nokogiri cannot parse this block of HTML/XML:\n" +
-          raw_html.gsub(/^/, '|').rstrip + "\n" + ex.inspect
+        maruku_recover "Maruku cannot parse this block of HTML/XML:\n" +
+          raw_html.gsub(/^/, '|').rstrip + "\n" + ex.to_s
       end
       e
     end
