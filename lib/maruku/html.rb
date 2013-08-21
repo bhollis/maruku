@@ -1,3 +1,4 @@
+require 'set'
 require 'nokogiri'
 
 module MaRuKu
@@ -56,7 +57,7 @@ module MaRuKu
       elts = @fragment.css("[markdown]")
 
       d = @fragment.children.first
-      if HTML_INLINE_ELEMS.include?(d.name)
+      if d && HTML_INLINE_ELEMS.include?(d.name)
         elts << d unless d.attribute('markdown')
         elts += span_descendents(d)
       end

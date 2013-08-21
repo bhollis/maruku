@@ -513,7 +513,7 @@ module MaRuKu::Out::HTML
           html.gsub!(/\&apos;|'/,'&#39;') # IE bug
 
           d = MaRuKu::HTMLFragment.new(html)
-          highlighted = d.to_html.sub(/\A<pre>(.*)<\/pre>\Z/, '\1')
+          highlighted = d.to_html.sub(/\A<pre>(.*)<\/pre>\z/m, '\1')
           code = xelem('code')
           code['class'] = code_lang
 
