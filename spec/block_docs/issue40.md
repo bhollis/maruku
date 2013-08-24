@@ -6,6 +6,8 @@ NOTE: CDATA is output because we use XHTML - for HTML mode it should be omitted.
 <script>
   var x = true && true;
 </script>
+
+<script>foo && bar</script>
 *** Output of inspect ***
 
 *** Output of to_html ***
@@ -13,6 +15,5 @@ NOTE: CDATA is output because we use XHTML - for HTML mode it should be omitted.
   var x = true && true;
 ]]></script>
 
-
-
+<script><![CDATA[foo && bar]]></script>
 
