@@ -99,8 +99,8 @@ module MaRuKu
       def to_html_inline_math
         mathml = get_setting(:html_math_output_mathml) && render_mathml(:inline, self.math)
         if mathml
-          mathml['class'] = 'maruku-mathml'
-          return mathml
+          mathml.add_class('maruku-mathml')
+          return mathml.to_html
         end
 
         png = get_setting(:html_math_output_png) && render_png(:inline, self.math)
@@ -127,8 +127,8 @@ module MaRuKu
             div << span
             div['id'] = "eq:#{self.label}"
           end
-          add_class_to(mathml, 'maruku-mathml')
-          div << mathml
+          mathml.add_class('maruku-mathml')
+          div << mathml.to_html
         end
 
         if png

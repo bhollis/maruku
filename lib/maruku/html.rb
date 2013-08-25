@@ -43,6 +43,13 @@ module MaRuKu
       first_child ? first_child.name : nil
     end
 
+    # Add a class to the children of this fragment
+    def add_class(class_name)
+      @fragment.children.each do |c|
+        c['class'] = ((c['class']||'').split(' ') + [class_name]).join(' ')
+      end
+    end
+
     # Process markdown within the contents of some elements and
     # replace their contents with the processed version.
     #
