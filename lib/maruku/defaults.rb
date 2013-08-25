@@ -13,7 +13,7 @@ module MaRuKu
     :filter_html => false,
 
     :html_math_output_mathml => true, # also set :html_math_engine
-    :html_math_engine => 'none', # none, ritex, itex2mml
+    :html_math_engine => 'none', # none, ritex, itex2mml, blahtex
 
     :html_math_output_png => false,
     :html_png_engine => 'none',
@@ -26,7 +26,6 @@ module MaRuKu
 
     :latex_use_listings => false,
     :latex_cjk => false,
-    :latex_cache_file  => "blahtex_cache.pstore", # cache file for blahtex filter
 
     :debug_keep_ials => false,
     :doc_prefix => '',

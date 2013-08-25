@@ -8,6 +8,24 @@ require 'nokogiri/diff'
 # :to_md and :to_s tests are disabled for now
 METHODS = [:to_html, :to_latex]
 
+def which(cmd)
+  exts = ENV['PATHEXT'] ? ENV['PATHEXT'].split(';') : ['']
+  ENV['PATH'].split(File::PATH_SEPARATOR).each do |path|
+    exts.each { |ext|
+      exe = File.join(path, "#{cmd}#{ext}")
+      return exe if File.executable? exe
+    }
+  end
+  return nil
+end
+
+if which('blahtex')
+  HAS_BLAHTEX = true
+else
+  HAS_BLAHTEX = false
+  puts "Install 'blahtex' to run blahtex math tests"
+end
+
 describe "A Maruku doc" do
   before(:all) do
     @old_stderr = $stderr
@@ -19,6 +37,8 @@ describe "A Maruku doc" do
   end
 
   Dir[File.dirname(__FILE__) + "/block_docs/**/*.md"].each do |md|
+    next if md =~ /blahtex/ && !HAS_BLAHTEX
+
     md_pretty = md.sub(File.dirname(__FILE__) + '/', '')
 
     describe md_pretty do
@@ -76,4 +96,6 @@ describe "A Maruku doc" do
       end
     end
   end
+
+  
 end
