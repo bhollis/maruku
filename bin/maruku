@@ -141,7 +141,7 @@ end.each do |filename, input|
       out = doc.to_md
     when :s5
       suffix = '_s5slides.html'
-      out = doc.to_s5(:content_only => false)
+      out = doc.to_s5(:content_only => false, :print_slides => true)
     end
   end
 
