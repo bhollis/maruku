@@ -30,6 +30,10 @@ module MaRuKu::Out::HTML
       attributes[key.to_s] = value
     end
 
+    def add_class(class_name)
+      attributes['class'] = ((attributes['class']||'').split(' ') + [class_name]).join(' ')
+    end
+
     # These elements have no children and should be rendered with a self-closing tag.
     # It's not an exhaustive list, but they cover everything we use.
     SELF_CLOSING = Set.new %w[br hr img link meta]
