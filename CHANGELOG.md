@@ -3,6 +3,8 @@
 
 * HTML output is no longer "pretty". This will be fixed in a future release.
 
+* Table of contents no longer includes inline styles.
+
 * Maruku has been relicensed under the MIT license.
 
 * Maruku now uses Nokogiri to parse and output HTML, fixing many bugs and

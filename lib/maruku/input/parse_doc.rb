@@ -42,7 +42,7 @@ will be converted from the specified encoding to UTF-8.
     self.toc = create_toc
 
     # use title if not set
-    self.attributes[:title] ||= toc.header_element.to_s if toc.header_element
+    self.attributes[:title] ||= toc.header_element.children.join if toc.header_element
 
     # Now do the attributes magic
     each_element do |e|
