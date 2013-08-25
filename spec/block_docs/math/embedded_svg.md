@@ -3,7 +3,7 @@
 require 'maruku/ext/math'; {:html_math_engine => 'itex2mml'}
 *** Markdown input: ***
  In $SU(3)$, $\begin{svg}
-<svg xmlns="http://www.w3.org/2000/svg" width="30" height="16" viewBox="0 0 30 16">
+<svg xmlns="http://www.w3.org/2000/svg" width="30" height="16" viewbox="0 0 30 16">
   <desc>Rank-2 Symmetric Tensor Representation</desc>
   <g transform="translate(5,5)" fill="#FCC" stroke="#000" stroke-width="2">
     <rect width="10" height="10"/>
@@ -13,7 +13,7 @@ require 'maruku/ext/math'; {:html_math_engine => 'itex2mml'}
 \end{svg}\includegraphics[width=2em]{young1}
  \otimes
 \begin{svg}
-<svg xmlns="http://www.w3.org/2000/svg" width="20" height="16" viewBox="0 0 20 16">
+<svg xmlns="http://www.w3.org/2000/svg" width="20" height="16" viewbox="0 0 20 16">
   <desc>Fundamental Representation</desc>
   <g transform="translate(5,5)" fill="#FCC" stroke="#000" stroke-width="2">
     <rect width="10" height="10"/>
@@ -22,7 +22,7 @@ require 'maruku/ext/math'; {:html_math_engine => 'itex2mml'}
 \end{svg}\includegraphics[width=1em]{young2}
  =
 \begin{svg}
-<svg xmlns="http://www.w3.org/2000/svg" width="30" height="26" viewBox="0 0 30 26">
+<svg xmlns="http://www.w3.org/2000/svg" width="30" height="26" viewbox="0 0 30 26">
   <desc>Adjoint Representation</desc>
   <g transform="translate(5,5)" fill="#FCC" stroke="#000" stroke-width="2">
     <rect width="10" height="10"/>
@@ -33,7 +33,7 @@ require 'maruku/ext/math'; {:html_math_engine => 'itex2mml'}
 \end{svg}\includegraphics[width=2em]{young3}
  \oplus
 \begin{svg}
-<svg xmlns="http://www.w3.org/2000/svg" width="40" height="16" viewBox="0 0 40 16">
+<svg xmlns="http://www.w3.org/2000/svg" width="40" height="16" viewbox="0 0 40 16">
   <desc>Rank-3 Symmetric Tensor Representation</desc>
   <g transform="translate(5,5)" fill="#FCC" stroke="#000" stroke-width="2">
     <rect width="10" height="10"/>
@@ -47,13 +47,13 @@ md_el(:document,[
 	md_par(["In ",
 	  md_el(:inline_math, [], {:math=>"SU(3)"}),
 	  ", ",
-	  md_el(:inline_math, [], {:math=>"\\begin{svg}\n<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"30\" height=\"16\" viewBox=\"0 0 30 16\">\n  <desc>Rank-2 Symmetric Tensor Representation</desc>\n  <g transform=\"translate(5,5)\" fill=\"#FCC\" stroke=\"#000\" stroke-width=\"2\">\n    <rect width=\"10\" height=\"10\"/>\n    <rect width=\"10\" height=\"10\" x=\"10\"/>\n  </g>\n</svg>\n\\end{svg}\\includegraphics[width=2em]{young1}\n \\otimes\n\\begin{svg}\n<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"20\" height=\"16\" viewBox=\"0 0 20 16\">\n  <desc>Fundamental Representation</desc>\n  <g transform=\"translate(5,5)\" fill=\"#FCC\" stroke=\"#000\" stroke-width=\"2\">\n    <rect width=\"10\" height=\"10\"/>\n  </g>\n</svg>\n\\end{svg}\\includegraphics[width=1em]{young2}\n =\n\\begin{svg}\n<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"30\" height=\"26\" viewBox=\"0 0 30 26\">\n  <desc>Adjoint Representation</desc>\n  <g transform=\"translate(5,5)\" fill=\"#FCC\" stroke=\"#000\" stroke-width=\"2\">\n    <rect width=\"10\" height=\"10\"/>\n    <rect width=\"10\" height=\"10\" x=\"10\"/>\n    <rect width=\"10\" height=\"10\" y=\"10\"/>\n  </g>\n</svg>\n\\end{svg}\\includegraphics[width=2em]{young3}\n \\oplus\n\\begin{svg}\n<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"40\" height=\"16\" viewBox=\"0 0 40 16\">\n  <desc>Rank-3 Symmetric Tensor Representation</desc>\n  <g transform=\"translate(5,5)\" fill=\"#FCC\" stroke=\"#000\" stroke-width=\"2\">\n    <rect width=\"10\" height=\"10\"/>\n    <rect width=\"10\" height=\"10\" x=\"10\"/>\n    <rect width=\"10\" height=\"10\" x=\"20\"/>\n  </g>\n</svg>\n\\end{svg}\\includegraphics[width=3em]{young4}"}),
+	  md_el(:inline_math, [], {:math=>"\\begin{svg}\n<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"30\" height=\"16\" viewbox=\"0 0 30 16\">\n  <desc>Rank-2 Symmetric Tensor Representation</desc>\n  <g transform=\"translate(5,5)\" fill=\"#FCC\" stroke=\"#000\" stroke-width=\"2\">\n    <rect width=\"10\" height=\"10\"/>\n    <rect width=\"10\" height=\"10\" x=\"10\"/>\n  </g>\n</svg>\n\\end{svg}\\includegraphics[width=2em]{young1}\n \\otimes\n\\begin{svg}\n<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"20\" height=\"16\" viewbox=\"0 0 20 16\">\n  <desc>Fundamental Representation</desc>\n  <g transform=\"translate(5,5)\" fill=\"#FCC\" stroke=\"#000\" stroke-width=\"2\">\n    <rect width=\"10\" height=\"10\"/>\n  </g>\n</svg>\n\\end{svg}\\includegraphics[width=1em]{young2}\n =\n\\begin{svg}\n<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"30\" height=\"26\" viewbox=\"0 0 30 26\">\n  <desc>Adjoint Representation</desc>\n  <g transform=\"translate(5,5)\" fill=\"#FCC\" stroke=\"#000\" stroke-width=\"2\">\n    <rect width=\"10\" height=\"10\"/>\n    <rect width=\"10\" height=\"10\" x=\"10\"/>\n    <rect width=\"10\" height=\"10\" y=\"10\"/>\n  </g>\n</svg>\n\\end{svg}\\includegraphics[width=2em]{young3}\n \\oplus\n\\begin{svg}\n<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"40\" height=\"16\" viewbox=\"0 0 40 16\">\n  <desc>Rank-3 Symmetric Tensor Representation</desc>\n  <g transform=\"translate(5,5)\" fill=\"#FCC\" stroke=\"#000\" stroke-width=\"2\">\n    <rect width=\"10\" height=\"10\"/>\n    <rect width=\"10\" height=\"10\" x=\"10\"/>\n    <rect width=\"10\" height=\"10\" x=\"20\"/>\n  </g>\n</svg>\n\\end{svg}\\includegraphics[width=3em]{young4}"}),
 	  "."
 	  ])
 ],{},[])
 *** Output of to_html ***
 <p>In <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline" class="maruku-mathml"><mi>SU</mi><mo stretchy="false">(</mo><mn>3</mn><mo stretchy="false">)</mo></math>, <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline" class="maruku-mathml"><semantics><annotation-xml encoding="SVG1.1">
-<svg xmlns="http://www.w3.org/2000/svg" width="30" height="16" viewBox="0 0 30 16">
+<svg xmlns="http://www.w3.org/2000/svg" width="30" height="16" viewbox="0 0 30 16">
   <desc>Rank-2 Symmetric Tensor Representation</desc>
   <g transform="translate(5,5)" fill="#FCC" stroke="#000" stroke-width="2">
     <rect width="10" height="10"></rect>
@@ -61,14 +61,14 @@ md_el(:document,[
   </g>
 </svg>
 </annotation-xml></semantics><mo>⊗</mo><semantics><annotation-xml encoding="SVG1.1">
-<svg xmlns="http://www.w3.org/2000/svg" width="20" height="16" viewBox="0 0 20 16">
+<svg xmlns="http://www.w3.org/2000/svg" width="20" height="16" viewbox="0 0 20 16">
   <desc>Fundamental Representation</desc>
   <g transform="translate(5,5)" fill="#FCC" stroke="#000" stroke-width="2">
     <rect width="10" height="10"></rect>
   </g>
 </svg>
 </annotation-xml></semantics><mo>=</mo><semantics><annotation-xml encoding="SVG1.1">
-<svg xmlns="http://www.w3.org/2000/svg" width="30" height="26" viewBox="0 0 30 26">
+<svg xmlns="http://www.w3.org/2000/svg" width="30" height="26" viewbox="0 0 30 26">
   <desc>Adjoint Representation</desc>
   <g transform="translate(5,5)" fill="#FCC" stroke="#000" stroke-width="2">
     <rect width="10" height="10"></rect>
@@ -77,7 +77,7 @@ md_el(:document,[
   </g>
 </svg>
 </annotation-xml></semantics><mo>⊕</mo><semantics><annotation-xml encoding="SVG1.1">
-<svg xmlns="http://www.w3.org/2000/svg" width="40" height="16" viewBox="0 0 40 16">
+<svg xmlns="http://www.w3.org/2000/svg" width="40" height="16" viewbox="0 0 40 16">
   <desc>Rank-3 Symmetric Tensor Representation</desc>
   <g transform="translate(5,5)" fill="#FCC" stroke="#000" stroke-width="2">
     <rect width="10" height="10"></rect>
