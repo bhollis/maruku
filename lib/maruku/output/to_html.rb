@@ -589,8 +589,6 @@ module MaRuKu::Out::HTML
 
     code << text
     pre << code
-    pre.remove_attribute('lang')
-    pre
   end
 
   def to_html_inline_code

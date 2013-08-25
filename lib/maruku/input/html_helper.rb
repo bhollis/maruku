@@ -110,9 +110,6 @@ module MaRuKu::In::Markdown::SpanLevelParser
             tag = @m[2]
             if is_closing && tag == @tag_stack.last
               my_debug "#{@state}: matched #{@m.to_s.inspect}"
-              # TODO: This is necessary for REXML to properly parse
-              # script tags
-              @already << @m.pre_match << "]]>"
               @rest = @m.post_match
               self.state = :inside_element
               handle_tag
@@ -177,9 +174,6 @@ module MaRuKu::In::Markdown::SpanLevelParser
         end
 
         if %w(script style).include?(@tag_stack.last)
-          # TODO: This is necessary for REXML to properly parse
-          # script tags
-          @already << "<![CDATA["
           self.state = :inside_script_style
         end
       end

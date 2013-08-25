@@ -7,12 +7,17 @@ JRuby Nokogiri doesn't put the CDATA in.
 <script>
   var x = true && true;
 </script>
+
+<script>var x = true && true;</script>
 *** Output of inspect ***
-md_el(:document, md_html("<script><![CDATA[\n  var x = true && true;\n]]>\n</script>"))
+md_el(:document, [
+     md_html("<script>\n  var x = true && true;\n</script>"),
+     md_html("<script>var x = true && true;</script>")])
 *** Output of to_html ***
 <script><![CDATA[
   var x = true && true;
-]]></script>
+]]>
+</script><script><![CDATA[var x = true && true;]]></script>
 
 
 
