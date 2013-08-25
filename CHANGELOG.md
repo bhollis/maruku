@@ -1,17 +1,19 @@
 0.7.0
 -----
 
+* Many small bug fixes.
+
+* Non-ASCII text is generally handled better.
+
 * HTML output is no longer "pretty". This will be fixed in a future release.
 
 * Table of contents no longer includes inline styles.
 
 * Maruku has been relicensed under the MIT license.
 
-* Maruku now uses Nokogiri to parse and output HTML, fixing many bugs and
+* Maruku now uses its own method to output HTML, fixing many bugs and
   providing a big speedup.
 	
-* JRuby no longer obfuscates email addresses due to a Nokogiri bug.
-
 * Maruku produces unicode characters in the output HTML in many cases where
   before it produced XML entity references.
 

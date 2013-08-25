@@ -684,7 +684,8 @@ module MaRuKu::Out::HTML
   end
 
   def to_html_email_address
-    html_element('a', obfuscate(self.email), :href => "mailto:#{self.email}")
+    obfuscated = obfuscate(self.email)
+    html_element('a', obfuscated, :href => "mailto:#{obfuscated}")
   end
 
   ##### Images
