@@ -1,8 +1,6 @@
-require 'tempfile'
 require 'fileutils'
 require 'digest/md5'
-require 'pstore'
-require 'nokogiri'
+require 'rexml/document'
 
 module MaRuKu::Out::HTML
   PNG = Struct.new(:src, :depth, :height)
@@ -14,32 +12,28 @@ module MaRuKu::Out::HTML
     md5sum = Digest::MD5.hexdigest(tex + " params: ")
     result_file = File.join(get_setting(:html_png_dir), md5sum + ".txt")
 
-    unless File.exists?(result_file)
-      Tempfile.open('maruku_blahtex') do |tmp_in|
-        tmp_in.write tex
-        tmp_in.close
+    if File.exists?(result_file)
+      result = File.read(result_file)
+    else
+      args = [
+              '--png',
+              '--use-preview-package',
+              '--shell-dvipng',
+              "dvipng -D #{Shellwords.shellescape(get_setting(:html_png_resolution).to_s)}",
+              "--temp-directory #{Shellwords.shellescape(get_setting(:html_png_dir))}",
+              "--png-directory #{Shellwords.shellescape(get_setting(:html_png_dir))}"
+             ]
+      args << '--displaymath' if kind == :equation
 
-        # It's important taht we don't replace *all* newlines,
-        # because newlines in arguments get escaped as "'\n'".
-        system <<COMMAND.gsub("\n  ", " ")
-blahtex --png --use-preview-package
-  --shell-dvipng #{Shellwords.shellescape("dvipng -D #{Shellwords.shellescape(get_setting(:html_png_resolution).to_s)}")}
-  #{'--displaymath' if kind == :equation}
-  --temp-directory #{Shellwords.shellescape(get_setting(:html_png_dir))}
-  --png-directory #{Shellwords.shellescape(get_setting(:html_png_dir))}
-  < #{Shellwords.shellescape(tmp_in.path)}
-  > #{Shellwords.shellescape(result_file)}
-COMMAND
-      end
+      result = run_blahtex(tex, args)
     end
 
-    result = File.read(result_file)
     if result.nil? || result.empty?
       maruku_error "Blahtex error: empty output"
       return
     end
 
-    doc = Nokogiri::XML::Document.parse(result)
+    doc = REXML::Document.new(result)
     png = doc.root.elements.to_a.first
     if png.name != 'png'
       maruku_error "Blahtex error: \n#{doc}"
@@ -51,39 +45,51 @@ COMMAND
     raise "No md5 element in:\n #{doc}" unless md5 = png.xpath('//md5')[0]
 
     depth = depth.text.to_f
-    height = height.text.to_f # TODO: check != 0
+    height = height.text.to_f
+    raise "Height or depth was 0! in \n #{doc}" if height == 0 || depth == 0
+
     md5 = md5.text
 
     PNG.new("#{get_setting(:html_png_url)}#{md5}.png", depth, height)
-  rescue x=> e
+  rescue => e
     maruku_error "Error: #{e}"
+    nil
   end
 
   def convert_to_mathml_blahtex(kind, tex)
-    @@BlahtexCache ||= PStore.new(get_setting(:latex_cache_file))
+    result = run_blahtex(tex, %w[--mathml])
 
-    @@BlahtexCache.transaction do
-      if @@BlahtexCache[tex].nil?
-        Tempfile.open('maruku_blahtex') do |tmp_in|
-          tmp_in.write tex
-
-          Tempfile.new('maruku_blahtex') do |tmp_out|
-            system "blahtex --mathml < #{Shellwords.shellescape(tmp_in.path)} > #{Shellwords.shellescape(tmp_out.path)}"
-            @@BlahtexCache[tex] = tmp_out.read
-          end
-        end
-      end
-
-      blahtex = @@BlahtexCache[tex]
-      doc = Nokogiri::XML::Document.parse(result)
-      unless mathml = doc.css('mathml').first
-        maruku_error "Blahtex error: \n#{doc}"
-        return
-      end
-
-      return mathml
+    doc = REXML::Document.new(result)
+    mathml = doc.get_elements('//markup').to_a.first
+    unless mathml
+      maruku_error "Blahtex error: \n#{doc}"
+      return nil
     end
+
+    mathml.name = 'math'
+    mathml.attributes['xmlns'] = "http://www.w3.org/1998/Math/MathML"
+    mathml.attributes['display'] = (kind == :inline) ? :inline : :block
+
+    MaRuKu::HTMLFragment.new(mathml.to_s)
   rescue => e
     maruku_error "Error: #{e}"
+    nil
+  end
+
+  private
+
+  # Run blahtex, return output
+  def run_blahtex(tex, args)
+    IO.popen(['blahtex', *args], 'w+') do |blahtex|
+      blahtex.write tex
+      blahtex.close_write
+
+      output = blahtex.read
+      blahtex.close_read
+
+      raise "Error running blahtex" unless $?.success?
+
+      output
+    end
   end
 end
