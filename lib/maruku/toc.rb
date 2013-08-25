@@ -162,6 +162,12 @@ module MaRuKu
         i += 1
       end
 
+      # If there is only one big header, then assume
+      # it is the master
+      if s.section_children.size == 1
+        s = s.section_children.first
+      end
+
       # Assign section numbers
       s.numerate
 

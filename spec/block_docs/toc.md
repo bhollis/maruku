@@ -39,43 +39,42 @@ md_el(:document,[
 	md_par(["You don", md_entity("rsquo"), "t say."])
 ],{},[])
 *** Output of to_html ***
-<div class="maruku_toc"><ul><li><span class="maruku_section_number">1. </span><a href="#a_title_with_emphasis">A title with <em>emphasis</em></a><ul><li><span class="maruku_section_number">1.1. </span><a href="#try">Try</a></li><li><span class="maruku_section_number">1.2. </span><a href="#foo">First Subheader</a><ul><li><span class="maruku_section_number">1.2.1. </span><a href="#a_title_with_emphasis_2">A title with <em>emphasis</em></a></li></ul></li><li><span class="maruku_section_number">1.3. </span><a href="#second_subheader">Second Subheader</a></li></ul></li></ul></div>
-<h1 id="a_title_with_emphasis"><span class="maruku_section_number">1. </span>A title with <em>emphasis</em></h1>
+<div class="maruku_toc"><ul><li><span class="maruku_section_number">1. </span><a href="#try">Try</a></li><li><span class="maruku_section_number">2. </span><a href="#foo">First Subheader</a><ul><li><span class="maruku_section_number">2.1. </span><a href="#a_title_with_emphasis_2">A title with <em>emphasis</em></a></li></ul></li><li><span class="maruku_section_number">3. </span><a href="#second_subheader">Second Subheader</a></li></ul></div>
+<h1 id="a_title_with_emphasis">A title with <em>emphasis</em></h1>
 
-<h2 id="try"><span class="maruku_section_number">1.1. </span>Try</h2>
+<h2 id="try"><span class="maruku_section_number">1. </span>Try</h2>
 
-<h2 id="foo"><span class="maruku_section_number">1.2. </span>First Subheader</h2>
+<h2 id="foo"><span class="maruku_section_number">2. </span>First Subheader</h2>
 
 <p>Say something.</p>
 
-<h3 id="a_title_with_emphasis_2"><span class="maruku_section_number">1.2.1. </span>A title with <em>emphasis</em></h3>
+<h3 id="a_title_with_emphasis_2"><span class="maruku_section_number">2.1. </span>A title with <em>emphasis</em></h3>
 
 <p>Say something else.</p>
 
-<h2 id="second_subheader"><span class="maruku_section_number">1.3. </span>Second Subheader</h2>
+<h2 id="second_subheader"><span class="maruku_section_number">3. </span>Second Subheader</h2>
 
 <p>You don’t say.</p>
 *** Output of to_latex ***
-\noindent1. \hyperlink{a_title_with_emphasis}{A title with \emph{emphasis}}\dotfill \pageref*{a_title_with_emphasis} \linebreak
-\noindent1.1. \hyperlink{try}{Try}\dotfill \pageref*{try} \linebreak
-\noindent1.2. \hyperlink{foo}{First Subheader}\dotfill \pageref*{foo} \linebreak
-\noindent1.2.1. \hyperlink{a_title_with_emphasis_2}{A title with \emph{emphasis}}\dotfill \pageref*{a_title_with_emphasis_2} \linebreak
-\noindent1.3. \hyperlink{second_subheader}{Second Subheader}\dotfill \pageref*{second_subheader} \linebreak
+\noindent1. \hyperlink{try}{Try}\dotfill \pageref*{try} \linebreak
+\noindent2. \hyperlink{foo}{First Subheader}\dotfill \pageref*{foo} \linebreak
+\noindent2.1. \hyperlink{a_title_with_emphasis_2}{A title with \emph{emphasis}}\dotfill \pageref*{a_title_with_emphasis_2} \linebreak
+\noindent3. \hyperlink{second_subheader}{Second Subheader}\dotfill \pageref*{second_subheader} \linebreak
 
 
-\hypertarget{a_title_with_emphasis}{}\section*{{1. A title with \emph{emphasis}}}\label{a_title_with_emphasis}
+\hypertarget{a_title_with_emphasis}{}\section*{{A title with \emph{emphasis}}}\label{a_title_with_emphasis}
 
-\hypertarget{try}{}\subsection*{{1.1. Try}}\label{try}
+\hypertarget{try}{}\subsection*{{1. Try}}\label{try}
 
-\hypertarget{foo}{}\subsection*{{1.2. First Subheader}}\label{foo}
+\hypertarget{foo}{}\subsection*{{2. First Subheader}}\label{foo}
 
 Say something.
 
-\hypertarget{a_title_with_emphasis_2}{}\subsubsection*{{1.2.1. A title with \emph{emphasis}}}\label{a_title_with_emphasis_2}
+\hypertarget{a_title_with_emphasis_2}{}\subsubsection*{{2.1. A title with \emph{emphasis}}}\label{a_title_with_emphasis_2}
 
 Say something else.
 
-\hypertarget{second_subheader}{}\subsection*{{1.3. Second Subheader}}\label{second_subheader}
+\hypertarget{second_subheader}{}\subsection*{{3. Second Subheader}}\label{second_subheader}
 
 You don't say.
 *** Output of to_md ***
