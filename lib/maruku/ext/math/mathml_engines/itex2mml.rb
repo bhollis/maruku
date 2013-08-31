@@ -9,6 +9,12 @@ module MaRuKu::Out::HTML
       return nil
     end
 
+    begin
+      require 'instiki_stringsupport'
+    rescue LoadError
+      require 'itex_stringsupport'
+    end
+
     parser = Itex2MML::Parser.new
     mathml =
       case kind
@@ -20,12 +26,8 @@ module MaRuKu::Out::HTML
         maruku_error "Unknown itex2mml kind: #{kind}"
         return
       end
-    
-    if mathml.respond_to?(:force_encoding)
-      mathml = mathml.force_encoding("UTF-8")
-    end
 
-    MaRuKu::HTMLFragment.new(mathml)
+    MaRuKu::HTMLFragment.new(mathml.to_utf8)
   rescue => e
     maruku_error "Invalid MathML TeX: \n#{tex.gsub(/^/, 'tex>')}\n\n #{e.inspect}"
     nil

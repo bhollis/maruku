@@ -43,7 +43,30 @@ md_el(:document,[
 	  ])
 ],{},[])
 *** Output of to_html ***
-<p>In <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline" class="maruku-mathml"><mi>SU</mi><mo stretchy="false">(</mo><mn>3</mn><mo stretchy="false">)</mo></math>, <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline" class="maruku-mathml"><semantics><annotation-xml encoding="SVG1.1"><svg xmlns="http://www.w3.org/2000/svg" width="30" height="16" viewBox="0 0 30 16"><g></g></svg></annotation-xml></semantics><mo>⊗</mo><semantics><annotation-xml encoding="SVG1.1"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="16" viewBox="0 0 20 16"><desc>Fundamental Representation</desc><g></g></svg></annotation-xml></semantics><mo>=</mo><semantics><annotation-xml encoding="SVG1.1"><svg xmlns="http://www.w3.org/2000/svg" width="30" height="26" viewBox="0 0 30 26"><desc>Adjoint Representation</desc></svg></annotation-xml></semantics><mo>⊕</mo><semantics><annotation-xml encoding="SVG1.1"><svg xmlns="http://www.w3.org/2000/svg" width="40" height="16" viewBox="0 0 40 16"><desc>Rank-3 Symmetric Tensor Representation</desc><g transform="translate(5,5)" fill="#FCC" stroke="#000" stroke-width="2"><rect width="10" height="10"></rect><rect width="10" height="10" x="10"></rect><rect width="10" height="10" x="20"></rect></g></svg></annotation-xml></semantics></math>.</p>
+<p>In <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline" class="maruku-mathml"><mi>SU</mi><mo stretchy="false">(</mo><mn>3</mn><mo stretchy="false">)</mo></math>, <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline" class="maruku-mathml"><semantics><annotation-xml encoding="SVG1.1">
+<svg xmlns="http://www.w3.org/2000/svg" width="30" height="16" viewBox="0 0 30 16">
+  <g></g>
+</svg>
+</annotation-xml></semantics><mo>⊗</mo><semantics><annotation-xml encoding="SVG1.1">
+<svg xmlns="http://www.w3.org/2000/svg" width="20" height="16" viewBox="0 0 20 16">
+  <desc>Fundamental Representation</desc>
+  <g>
+</g>
+</svg></annotation-xml><mo>=</mo><semantics><annotation-xml encoding="SVG1.1">
+<svg xmlns="http://www.w3.org/2000/svg" width="30" height="26" viewBox="0 0 30 26">
+  <desc>Adjoint Representation</desc>
+  </svg>
+</annotation-xml>
+</semantics></semantics><mo>⊕</mo><semantics><annotation-xml encoding="SVG1.1">
+<svg xmlns="http://www.w3.org/2000/svg" width="40" height="16" viewBox="0 0 40 16">
+  <desc>Rank-3 Symmetric Tensor Representation</desc>
+  <g transform="translate(5,5)" fill="#FCC" stroke="#000" stroke-width="2">
+    <rect width="10" height="10"></rect>
+    <rect width="10" height="10" x="10"></rect>
+    <rect width="10" height="10" x="20"></rect>
+  </g>
+</svg>
+</annotation-xml></semantics></math>.</p>
 *** Output of to_latex ***
 In $SU(3)$, $ \includegraphics[width=2em]{young1}
  \otimes
