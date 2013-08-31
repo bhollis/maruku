@@ -33,13 +33,15 @@ module MaRuKu
     # 
     # @param raw_html [String] HTML as a string.
     def initialize(raw_html)
-      d = Nokogiri::XML::Document.new
+      # Wrap our HTML in a dummy document with a doctype (just
+      # for the entity references)
+      wrapped = '<!DOCTYPE html PUBLIC
+  "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN"
+  "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html>' + raw_html.strip + '</html>'
 
-      # Make sure the SVG namespace is known
-      root = Nokogiri::XML::Element.new('html', d)
-      root.add_namespace('svg', "http://www.w3.org/2000/svg" )
-
-      @fragment = Nokogiri::XML::DocumentFragment.new(d, raw_html, d)
+      d = Nokogiri::XML::Document.parse(wrapped) {|c| c.nonet }
+      @fragment = d.root
     end
 
     # @return The name of the first child element in the fragment.
@@ -105,7 +107,9 @@ module MaRuKu
     def to_html
       output_options = Nokogiri::XML::Node::SaveOptions::DEFAULT_XHTML ^
         Nokogiri::XML::Node::SaveOptions::FORMAT
-      @fragment.to_xml(:save_with => output_options, :encoding => 'UTF-8')
+      @fragment.children.inject("") do |out, child|
+        out << child.serialize(:save_with => output_options, :encoding => 'UTF-8')
+      end
     end
 
     private
