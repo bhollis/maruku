@@ -1,7 +1,9 @@
 0.7.0
 -----
 
-* Many small bug fixes.
+* Many bug fixes.
+
+* Maruku now has an optional Nokogiri-based HTML parser that can be enabled by setting :html_parser => 'nokogiri'.
 
 * Non-ASCII text is generally handled better.
 
@@ -12,7 +14,7 @@
 * Maruku has been relicensed under the MIT license.
 
 * Maruku now uses its own method to output HTML, fixing many bugs.
-	
+
 * Maruku produces unicode characters in the output HTML in many cases where
   before it produced XML entity references.
 

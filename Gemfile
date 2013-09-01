@@ -1,11 +1,15 @@
 source "https://rubygems.org"
 
-# dependencies are specified in maruku.gemspec
+# Required dependencies are specified in maruku.gemspec
 
 gemspec
 
-# itextomml won't build for jRuby, but we should test with it otherwise
+# Optional dependencies that we want to test with
+gem 'syntax', '~> 1.0.0'
+gem 'nokogiri', '~> 1.5'
+
 if RUBY_PLATFORM != 'java'
+   # itextomml won't build for jRuby, but we should test with it otherwise
   gem "itextomml", '~> 1.4.6'
 end
 
