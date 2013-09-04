@@ -62,8 +62,8 @@ module MaRuKu
     end
 
     def md_html(raw_html, al=nil)
-      e = md_el(:raw_html, [], :raw_html => raw_html)
-      e.extend HTMLElement
+      e = MDHTMLElement.new(:raw_html, [], :raw_html => raw_html)
+      e.doc = @doc
       begin
         # Set this as an attribute so it doesn't get included
         # in metadata comparisons

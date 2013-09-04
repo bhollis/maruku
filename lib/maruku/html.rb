@@ -17,11 +17,6 @@ module MaRuKu
   # Parse block-level markdown elements in these HTML tags
   BLOCK_TAGS = %w(div)
 
-  # This gets mixed into HTML MDElement nodes to hold the parsed document fragment
-  module HTMLElement
-    attr_accessor :parsed_html
-  end
-  
   class NokogiriHTMLFragment; end
 
   HTMLFragment = NokogiriHTMLFragment
