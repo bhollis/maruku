@@ -137,9 +137,9 @@ module MaRuKu; module In; module Markdown; module BlockLevelParser
   end
 
   def read_text_material(src, output)
-    if src.cur_line =~ MightBeTableHeader &&
+    if src.cur_line.include?('|') && # if contains a pipe, it could be a table header
         src.next_line &&
-        src.next_line =~ TableSeparator
+        src.next_line.rstrip =~ TableSeparator
       output << read_table(src)
     elsif src.next_line && [:header1, :header2].include?(src.next_line.md_type)
       output << read_header12(src)
@@ -524,10 +524,15 @@ module MaRuKu; module In; module Markdown; module BlockLevelParser
     separator = split_cells(src.shift_line)
 
     align = separator.map do |s|
-      s =~ Sep
-      if $1 && $2
+      # ex: :-------------------:
+      # If the separator starts and ends with a colon,
+      # center the cell. If it's on the right, right-align,
+      # otherwise left-align.
+      starts = s.start_with? ':'
+      ends = s.end_with? ':'
+      if starts && ends
         :center
-      elsif $2
+      elsif ends
         :right
       else
         :left

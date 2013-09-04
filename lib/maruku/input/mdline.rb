@@ -123,14 +123,9 @@ module MaRuKu
 
   HeaderWithAttributes = /^(.*?)\{(.*?)\}\s*$/
 
-
-  # if contains a pipe, it could be a table header
-  MightBeTableHeader = /\|/
-  # -------------:
-  Sep = /\s*(\:)?\s*-+\s*(\:)?\s*/
+  # Table syntax: http://michelf.ca/projects/php-markdown/extra/#table
   # | -------------:| ------------------------------ |
-  TableSeparator = /^(\|?#{Sep}\|?)+?\s*$/
-
+  TableSeparator = /\A(?>\|?\s*\:?\-+\:?\s*\|?)+?\z/
 
   EMailAddress = /<([^:@>]+?@[^:@>]+?)>/
 end
