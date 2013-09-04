@@ -267,7 +267,7 @@ module MaRuKu::In::Markdown::SpanLevelParser
   end
 
   def extension_meta(src, con, break_on_chars=nil)
-    if m = src.read_regexp(/([^\s\:\"\']+?):/)
+    if m = src.read_regexp(/([^\s\:\"\'}]+?):/)
       name = m[1]
       al = read_attribute_list(src, con, break_on_chars)
       self.doc.ald[name] = al
@@ -395,12 +395,10 @@ module MaRuKu::In::Markdown::SpanLevelParser
     md_emstrong(children)
   end
 
-  R_REF_ID = Regexp.compile(/([^\]]*?)\]/)
-
   # Reads a bracketed id "[refid]". Consumes also both brackets.
   def read_ref_id(src, con)
     src.ignore_char # [
-    if m = src.read_regexp(R_REF_ID)
+    if m = src.read_regexp(/([^\]]*?)\]/)
       m[1]
     else
       nil
