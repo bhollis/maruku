@@ -15,9 +15,9 @@ end
 require 'rake/clean'
 require 'rspec/core/rake_task'
 require 'yard'
+require 'coveralls/rake/task'
 
-task :default => :spec
-CLEAN.replace %w(pkg doc .yardoc)
+CLEAN.replace %w(pkg doc .yardoc coverage)
 
 Bundler::GemHelper.install_tasks
 
@@ -33,3 +33,7 @@ YARD::Rake::YardocTask.new do |t|
   t.files = FileList["lib/maruku.rb", "lib/maruku/*.rb", "lib/maruku/ext/*.rb",
     "lib/maruku/ext/math/*.rb"]
 end
+
+Coveralls::RakeTask.new
+# Travis runs this task
+task :test_with_coveralls => [:spec, 'coveralls:push']

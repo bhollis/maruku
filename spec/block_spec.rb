@@ -1,6 +1,7 @@
 # encoding: UTF-8
 Encoding.default_external=('UTF-8') if ''.respond_to?(:force_encoding)
 
+require File.dirname(__FILE__) + '/spec_helper'
 require 'rspec'
 require 'maruku'
 require 'nokogiri/diff'
@@ -87,7 +88,7 @@ describe "A Maruku doc" do
           end
         end
       end
-      
+
       unless expected[:to_latex].strip.empty?
         it "should have the expected to_latex output" do
           res = @doc.to_latex.strip
@@ -97,5 +98,5 @@ describe "A Maruku doc" do
     end
   end
 
-  
+
 end
