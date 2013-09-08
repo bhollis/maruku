@@ -1,7 +1,7 @@
 # This code does the classification of lines for block-level parsing.
 module MaRuKu
 
-  # Represents a single line in a Markdown source file, as produced by 
+  # Represents a single line in a Markdown source file, as produced by
   # LineSource.
   class MDLine < String
     def md_type
@@ -14,7 +14,7 @@ module MaRuKu
     # @param s [String]
     # @return [Fixnum]
     def number_of_leading_spaces
-      if self =~ /\A\s*/
+      if self =~ /\A\s+/
         spaces = $&
         spaces.count(" ") + spaces.count("\t") * MaRuKu::Strings::TAB_SIZE
       else
@@ -28,7 +28,7 @@ module MaRuKu
       super
     end
 
-    private 
+    private
 
     def line_md_type
       # The order of evaluation is important (:text is a catch-all)
