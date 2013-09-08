@@ -16,13 +16,14 @@ News about Maruku is posted at [http://benhollis.net/blog/category/maruku/](http
 [![Gem Version](https://fury-badge.herokuapp.com/rb/maruku.png)](http://badge.fury.io/rb/maruku)
 [![Dependency Status](https://gemnasium.com/bhollis/maruku.png)](https://gemnasium.com/bhollis/maruku)
 [![Code Climate](https://codeclimate.com/github/bhollis/maruku.png)](https://codeclimate.com/github/bhollis/maruku)
+[![Coverage Status](https://coveralls.io/repos/bhollis/maruku/badge.png)](https://coveralls.io/r/bhollis/maruku)
 
 ## Installing
 
 Make sure you have Ruby and RubyGems, then run:
 
     gem install maruku
-    
+
 ## Basic use
 
 To convert Markdown from your Ruby programs, first create a new document and then get
