@@ -159,7 +159,7 @@ Created by \\href{#{MaRuKu::MARUKU_URL}}{Maruku} #{self.nice_date}.
   # \color{name}
   # \color[rgb]{1,0.2,0.3}
   def latex_color(s, command='color')
-    if s =~ /\A\#([1-9A-F]{1,2})([1-9A-F]{1,2})([1-9A-F]{1,2})\Z/i
+    if s =~ /\A\#([1-9A-F]{1,2})([1-9A-F]{1,2})([1-9A-F]{1,2})\z/i
       # convert from 0-255 or 0-15 to 0.0-1.0
       r, g, b = [$1, $2, $3].map {|c| c.hex / (c.length == 1 ? 15.0 : 255.0) }
       "\\#{command}[rgb]{%0.2f,%0.2f,%0.2f}" % [r, g, b]
@@ -340,7 +340,7 @@ Created by \\href{#{MaRuKu::MARUKU_URL}}{Maruku} #{self.nice_date}.
     @doc.latex_require_package entity.latex_package if entity.latex_package
 
     if replace
-      if replace.start_with?("\\") && replace !~ /[\$\}]\Z/
+      if replace.start_with?("\\") && !replace.end_with?('$', '}')
         replace + "{}"
       else
         replace

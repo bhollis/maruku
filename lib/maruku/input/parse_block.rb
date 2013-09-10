@@ -199,7 +199,7 @@ module MaRuKu; module In; module Markdown; module BlockLevelParser
       al = read_attribute_list(CharSource.new(ial, src))
     end
     level = line[/^#+/].size
-    text = parse_span line.gsub(/\A#+|#+\Z/, '')
+    text = parse_span line.gsub(/\A#+|#+\z/, '')
     if text.empty?
       text = "{#{ial}}"
       al = nil
@@ -212,7 +212,7 @@ module MaRuKu; module In; module Markdown; module BlockLevelParser
     raise "BugBug" unless m
     target = m[2] || ''
     code = m[3]
-    until code =~ /\?>/
+    until code.include?('?>')
       code << "\n" << src.shift_line
     end
     unless code =~ /\?>\s*$/
@@ -257,7 +257,7 @@ module MaRuKu; module In; module Markdown; module BlockLevelParser
     raw_html = h.stuff_you_read
 
     is_inline = HTML_INLINE_ELEMS.include?(h.first_tag)
-    
+
     if extra_line
       remainder = is_inline ? parse_span(extra_line) : parse_text_as_markdown(extra_line)
       if extra_line.start_with?(' ')

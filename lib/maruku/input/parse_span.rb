@@ -447,7 +447,7 @@ module MaRuKu::In::Markdown::SpanLevelParser
     end_string = "`" * num_ticks
 
     code = read_simple(src, nil, nil, end_string)
-    
+
     # We didn't find a closing batch!
     if !code || src.cur_char != '`'
       con.push_element(end_string + (code || '')) and return
@@ -625,7 +625,7 @@ module MaRuKu::In::Markdown::SpanLevelParser
     end
 
     def is_end?
-      @cur_string.empty? || @cur_string =~ /\s\Z/
+      @cur_string.empty? || @cur_string =~ /\s\z/
     end
 
     def push_string_if_present
@@ -655,4 +655,3 @@ module MaRuKu::In::Markdown::SpanLevelParser
     end
   end
 end
-
