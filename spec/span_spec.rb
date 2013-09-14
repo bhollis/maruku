@@ -72,7 +72,7 @@ EXPECTATIONS = Maruku.new.instance_eval do
     ["a _ b_", :raise, 'Unclosed emphasis'],
     ["_b_", [md_em('b')], 'Emphasis 7'],
     ["_b_ _c_", [md_em('b'),' ',md_em('c')], 'Emphasis 8'],
-    ["_b__c_", [md_em('b'),md_em('c')], 'Emphasis 9', true],
+    ["_b__c_", [md_em('b'),md_em('c')], 'Emphasis 9', true], # PENDING
     # underscores in word
     ["mod_ruby", ['mod_ruby'], 'Word with underscore'],
     # strong
@@ -83,6 +83,7 @@ EXPECTATIONS = Maruku.new.instance_eval do
     ["a ** b", ['a ** b'], 'Emphasis 3'],
     ["a ** b**", :raise, 'Unclosed emphasis'],
     ["**b****c**", [md_strong('b'),md_strong('c')], 'Emphasis 9'],
+    ["*italic***bold***italic*", [md_em('italic'), md_strong('bold'), md_strong('italic')], 'Bold inbetween italics', true], # Issue #103
     # strong (with underscore)
     ["__a_", :raise, 'Unclosed double __ 2'],
 
