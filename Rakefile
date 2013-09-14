@@ -39,7 +39,7 @@ task :rexml_spec do
   Rake::Task[:core_spec].invoke
 end
 
-task :spec => [:nokogiri_spec, :rexml_spec]
+task :spec => [:rexml_spec, :nokogiri_spec]
 
 task :default => :spec
 task :test => :spec

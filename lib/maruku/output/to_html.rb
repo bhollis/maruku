@@ -844,7 +844,7 @@ module MaRuKu::Out::HTML
       # Convert numeric entities to unicode characters
       xtext([entity_name].pack('U*'))
     else
-      "&#{entity_name}"
+      "&#{entity_name};"
     end
   end
 

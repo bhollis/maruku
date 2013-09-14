@@ -1,6 +1,6 @@
-JRUBY PENDING - https://github.com/sparklemotion/nokogiri/issues/835
+
 *** Parameters: ***
-{} # params 
+{} # params
 *** Markdown input: ***
 <http://www.aa.com>
 
@@ -85,4 +85,3 @@ md_el(:document,[
 
     <a@invalid.it>
 *** Output of to_s ***
-

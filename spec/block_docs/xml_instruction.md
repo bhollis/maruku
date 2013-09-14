@@ -1,14 +1,14 @@
-JRUBY PENDING (nokogiri puts newlines after xml instructions) - Directives should be preserved.
+Directives should be preserved.
 *** Parameters: ***
 {}
 *** Markdown input: ***
 
-<? noTarget?> 
-<?php ?> 
-<?xml ?> 
+<? noTarget?>
+<?php ?>
+<?xml ?>
 <?mrk ?>
 
-Targets <? noTarget?> <?php ?> <?xml ?> <?mrk ?>
+Targets <? noTarget?> <?php ?> <?xml ?> <?mrk ?> !
 
 Inside: <?mrk puts "Inside: Hello" ?> last
 
@@ -27,7 +27,8 @@ md_el(:document,[
 		" ",
 		md_el(:xml_instr,[],{:code=>"",:target=>"xml"},[]),
 		" ",
-		md_el(:xml_instr,[],{:code=>"",:target=>"mrk"},[])
+		md_el(:xml_instr,[],{:code=>"",:target=>"mrk"},[]),
+    " !"
 	]),
 	md_par([
 		"Inside: ",
@@ -37,11 +38,11 @@ md_el(:document,[
 ],{},[])
 *** Output of to_html ***
 &lt;? noTarget?&gt;<?php ?><?xml ?><?mrk ?>
-<p>Targets &lt;?noTarget?&gt; <?php ?> <?xml ?> <?mrk ?></p>
+<p>Targets &lt;?noTarget?&gt; <?php ?> <?xml ?> <?mrk ?> !</p>
 
 <p>Inside: <?mrk puts "Inside: Hello"?> last</p>
 *** Output of to_latex ***
-Targets    
+Targets     !
 
 Inside:  last
 *** Output of to_md ***

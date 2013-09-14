@@ -1,4 +1,4 @@
-JRUBY PENDING - https://github.com/sparklemotion/nokogiri/issues/835
+
 *** Parameters: ***
 {}
 *** Markdown input: ***

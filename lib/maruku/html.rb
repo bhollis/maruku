@@ -1,5 +1,7 @@
 require 'set'
 
+$warned_nokogiri = false
+
 module MaRuKu
   HTML_INLINE_ELEMS = Set.new %w[a abbr acronym audio b bdi bdo big br button canvas caption cite code
     col colgroup command datalist del details dfn dir em fieldset font form i img input ins
