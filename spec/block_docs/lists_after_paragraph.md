@@ -38,7 +38,7 @@ header 2
 
 
 Paragraph with html after
-<div></div>
+<div>Woo</div>
 
 Paragraph with html after, indented:
      <em>Emphasis</em>
@@ -72,7 +72,7 @@ md_el(:document,[
 	md_par(["Paragraph with header on two lines:"]),
 	md_el(:header,["header 2"],{:level=>2},[]),
 	md_par("Paragraph with html after"),
-  md_html("<div></div>"),
+  md_html("<div>Woo</div>"),
 	md_par([
 		"Paragraph with html after, indented: ",
 		md_html("<em>Emphasis</em>")
@@ -122,7 +122,7 @@ md_el(:document,[
 <h2 id="header_2">header 2</h2>
 
 <p>Paragraph with html after</p>
-<div></div>
+<div>Woo</div>
 
 <p>Paragraph with html after, indented: <em>Emphasis</em></p>
 

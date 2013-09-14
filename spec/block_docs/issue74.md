@@ -12,9 +12,9 @@ https://github.com/bhollis/maruku/issues/74
 
 
 <p id="icons">
-    <a href="" class="stumbleupon" target="_blank"></a>
-    <a href="" class="stumbleupon" target="_blank"></a>
-    <a href="" class="stumbleupon" target="_blank"></a>
+    <a href="" class="stumbleupon" target="_blank">a</a>
+    <a href="" class="stumbleupon" target="_blank">a</a>
+    <a href="" class="stumbleupon" target="_blank">a</a>
 </p>
 
 ## Recents Post
@@ -22,7 +22,7 @@ https://github.com/bhollis/maruku/issues/74
 md_el(:document, [
      	md_el(:header, "Cool Title", {:level=>2}),
      	md_html("<ul>\n    <li>Cool Text yada yada</li>\n    <li>ICool Tex 2 yada yada</li>\n</ul>"),
-     	md_html("<p id=\"icons\">\n    <a href=\"\" class=\"stumbleupon\" target=\"_blank\"></a>\n    <a href=\"\" class=\"stumbleupon\" target=\"_blank\"></a>\n    <a href=\"\" class=\"stumbleupon\" target=\"_blank\"></a>\n</p>"),
+     	md_html("<p id=\"icons\">\n    <a href=\"\" class=\"stumbleupon\" target=\"_blank\">a</a>\n    <a href=\"\" class=\"stumbleupon\" target=\"_blank\">a</a>\n    <a href=\"\" class=\"stumbleupon\" target=\"_blank\">a</a>\n</p>"),
      	md_el(:header, "Recents Post", {:level=>2})
      ])
 *** Output of to_html ***
@@ -31,8 +31,8 @@ md_el(:document, [
     <li>Cool Text yada yada</li>
     <li>ICool Tex 2 yada yada</li>
 </ul><p id="icons">
-    <a href="" class="stumbleupon" target="_blank"></a>
-    <a href="" class="stumbleupon" target="_blank"></a>
-    <a href="" class="stumbleupon" target="_blank"></a>
+    <a href="" class="stumbleupon" target="_blank">a</a>
+    <a href="" class="stumbleupon" target="_blank">a</a>
+    <a href="" class="stumbleupon" target="_blank">a</a>
 </p>
 <h2 id="recents_post">Recents Post</h2>

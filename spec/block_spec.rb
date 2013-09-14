@@ -56,9 +56,12 @@ describe "A Maruku doc" do
       ast = input.shift || ''
       expected = METHODS.zip(input).inject({}) {|h, (k, v)| h[k] = v ? v.strip : '' ; h}
 
+      pending "#{comment} - #{md_pretty}" and next if comment.start_with?("PENDING")
+      pending "#{comment} - #{md_pretty}" and next if comment.start_with?("REXML PENDING") && MaRuKu::Globals[:html_parser] == 'rexml'
+      pending "#{comment} - #{md_pretty}" and next if comment.start_with?("JRUBY PENDING") && RUBY_PLATFORM == 'java'
+      pending "#{comment} - #{md_pretty}" and next if comment.start_with?("JRUBY NOKOGIRI PENDING") && RUBY_PLATFORM == 'java' && MaRuKu::Globals[:html_parser] == 'nokogiri'
+
       before(:each) do
-        pending "#{comment} - #{md_pretty}" if comment.start_with?("PENDING")
-        pending "#{comment} - #{md_pretty}" if comment.start_with?("JRUBY PENDING") && RUBY_PLATFORM == 'java'
         $already_warned_itex2mml = false
         @doc = Maruku.new(markdown, eval(params))
       end

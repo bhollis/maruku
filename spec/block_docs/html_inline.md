@@ -1,6 +1,7 @@
-Maruku should nest inline-level HTML inside a paragraph
+JRUBY NOKOGIRI PENDING - Maruku should nest inline-level HTML inside a paragraph
+(JRuby Nokogiri is broken for empty tags: https://github.com/sparklemotion/nokogiri/issues/971)
 *** Parameters: ***
-{} # params 
+{} # params
 *** Markdown input: ***
 One
 <span></span>123

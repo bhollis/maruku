@@ -1,4 +1,5 @@
-Write a comment here
+JRUBY NOKOGIRI PENDING - Write a comment here
+(JRuby Nokogiri is broken for empty tags: https://github.com/sparklemotion/nokogiri/issues/971)
 *** Parameters: ***
 {:on_error=>:raise}
 *** Markdown input: ***
@@ -30,4 +31,3 @@ md_el(:document,[
 *** Output of to_md ***
 
 *** Output of to_s ***
-

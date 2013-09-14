@@ -1,4 +1,4 @@
-PENDING - This tests that invalid SVG within LaTeX gets corrected and still output. I'm not sure why it should do that.
+REXML PENDING - This tests that invalid SVG within LaTeX gets corrected and still output. I'm not sure why it should do that.
 Pending because Nokogiri will handle the tagsoup but REXML won't.
 TODO: The LaTeX output does not look correct here!
 *** Parameters: ***

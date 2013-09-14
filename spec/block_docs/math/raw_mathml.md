@@ -1,6 +1,7 @@
-
+JRUBY NOKOGIRI PENDING - MathML inline with HTML
+(JRuby Nokogiri is broken for empty tags: https://github.com/sparklemotion/nokogiri/issues/971)
 *** Parameters: ***
-require 'maruku/ext/math'; {:html_math_engine => 'itex2mml'}
+{}
 *** Markdown input: ***
 In <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline" class="maruku-mathml"><mi>SU</mi><mo stretchy="false">(</mo><mn>3</mn><mo stretchy="false">)</mo></math>, <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline" class="maruku-mathml"><semantics><annotation-xml encoding="SVG1.1">
 <svg xmlns="http://www.w3.org/2000/svg" width="30" height="16" viewBox="0 0 30 16">
