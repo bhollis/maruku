@@ -8,11 +8,11 @@ Maruku implements:
 * All the improvements in PHP Markdown Extra.
 * A new meta-data syntax.
 
-Read more about [Maruku's Markdown syntax](http://rdoc.info/github/bhollis/maruku/master/file/docs/markdown_syntax.md). It also supports [inline math](http://rdoc.info/github/bhollis/maruku/master/file/docs/math.md). [Maruku docs](http://rdoc.info/github/bhollis/maruku/master/).
+Read more about [Maruku's Markdown syntax](https://github.com/bhollis/maruku/blob/master/docs/markdown_syntax.md). It also supports [inline math](https://github.com/bhollis/maruku/blob/master/docs/math.md). [Maruku docs](http://rdoc.info/github/bhollis/maruku/master/).
 
 News about Maruku is posted at [http://benhollis.net/blog/category/maruku/](http://benhollis.net/blog/category/maruku/)
 
-[![Build Status](https://api.travis-ci.org/bhollis/maruku.png?branch=master)](http://travis-ci.org/bhollis/maruku)
+[![Build Status](https://api.travis-ci.org/bhollis/maruku.png?branch=master)][travis]
 [![Gem Version](https://fury-badge.herokuapp.com/rb/maruku.png)](http://badge.fury.io/rb/maruku)
 [![Dependency Status](https://gemnasium.com/bhollis/maruku.png)](https://gemnasium.com/bhollis/maruku)
 [![Code Climate](https://codeclimate.com/github/bhollis/maruku.png)](https://codeclimate.com/github/bhollis/maruku)
@@ -79,35 +79,32 @@ then calls `pdflatex` to transform the LaTeX to a PDF:
 The public interface is the `Maruku` class.
 Everything else is in the module `MaRuKu`.
 
-## Ruby 1.8.7
+## Dependencies
 
-The maintainers of this project, in concert with the maintainers of Ruby,
-**strongly** recommend using the latest patchlevel of Ruby 1.9.2 or later.
-[As of July 1, 2013, Ruby 1.8.7 is no longer officially maintained.][retired]
-This means fixes will no longer be provided, even for known security
-vulnerabilities.
+Maruku will not depend on any gem that is not pure-Ruby. This helps maximize compatibility across Ruby implementations and make Maruku easy to use. Beyond that, Maruku should not depend on any other gem unless absolutely necessary - this make Maruku easy to consume and avoids dependency version conflicts.
 
-[retired]: http://www.ruby-lang.org/en/news/2013/06/30/we-retire-1-8-7/
+## Supported Ruby Versions
 
-With this caveat, if you wish to bundle `maruku` into your application on Ruby
-1.8.7, you must add the following line to your `Gemfile`.
+This library aims to support and is [tested against][travis] the following Ruby
+implementations:
 
-    gem 'nokogiri', '~> 1.5.0'
+* Ruby 1.8.7
+* Ruby 1.9.2
+* Ruby 1.9.3
+* Ruby 2.0.0
+* JRuby (Travis' version, 1.8 and 1.9 modes)
+* Rubinius (Travis' version, 1.8 and 1.9 modes)
 
-Also, ensure that you are using LibXML version 2.8.0, since there is an
-[issue with LibXML version 2.9.0][issue829] ([and 2.9.1][issue904]).
-
-[issue829]: https://github.com/sparklemotion/nokogiri/issues/829
-[issue904]: https://github.com/sparklemotion/nokogiri/issues/904
+If something doesn't work on one of these interpreters, it's a bug.
 
 ## Contributing
 
 * Find something you would like to work on.
   * Look for anything you can help with in the [issue tracker](https://github.com/bhollis/maruku/issues).
-  * Look at the [code quality metrics](https://codeclimate.com/github/bhollis/maruku) for anything you can help clean up.
+  * Look at the [code quality metrics](https://codeclimate.com/github/bhollis/maruku) or [code coverage report](https://coveralls.io/r/bhollis/maruku) for anything you can help clean up or add tests for.
   * Or anything else!
 * Fork the project and do your work in a topic branch.
-  * Make sure your changes will work on both Ruby 1.8.7 and Ruby 1.9
+  * Make sure your changes will work on all the Rubies we test on.
 * Add tests in `spec/block_docs` for the behavior you want to test.
 * Run all the tests using `bundle exec rake`.
 * Rebase your branch against `bhollis/maruku` to make sure everything is up to date.
@@ -118,3 +115,4 @@ Also, ensure that you are using LibXML version 2.8.0, since there is an
 Copyright (c) 2006 Andrea Censi. MIT license, see [MIT-LICENSE.txt] for details.
 
 [MIT-LICENSE.txt]: https://github.com/bhollis/maruku/blob/master/MIT-LICENSE.txt
+[travis]: http://travis-ci.org/bhollis/maruku
