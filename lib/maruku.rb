@@ -62,6 +62,7 @@ class Maruku < MaRuKu::MDDocument; end
 
 
 # Structures definition
+require 'maruku/attributes'
 require 'maruku/element'
 require 'maruku/document'
 require 'maruku/inspect_element'
@@ -91,8 +92,6 @@ require 'maruku/input/parse_span'
 require 'maruku/input/rubypants'
 
 require 'maruku/input/extensions'
-
-require 'maruku/attributes'
 
 require 'maruku/errors'
 
