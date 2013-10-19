@@ -310,12 +310,11 @@ module MaRuKu; module In; module Markdown; module BlockLevelParser
     indentation, ial = spaces_before_first_char(first)
     al = read_attribute_list(CharSource.new(ial, src)) if ial
     ial_offset = ial ? ial.length + 3 : 0
-    lines, want_my_paragraph =
-      read_indented_content(src, indentation, [], item_type, ial_offset)
+    lines, want_my_paragraph = read_indented_content(src, indentation, [], item_type, ial_offset)
 
     # in case there is a second line and this line starts a new list, format it.
-    if lines.length>0 and [:ulist, :olist].include?((MaRuKu::MDLine.new(lines[0])).md_type) then
-      lines.unshift("")
+    if !lines.empty? && [:ulist, :olist].include?(MaRuKu::MDLine.new(lines.first).md_type)
+      lines.unshift ""
     end
 
     # add first line

@@ -57,9 +57,21 @@ module MaRuKu
     # @param s [String]
     # @return [Fixnum]
     def spaces_before_first_char(s)
-      sd=s.gsub(/([^\t]*)(\t)/) { $1 + " " * (TAB_SIZE - $1.length % TAB_SIZE) }
-      match =
-          sd[/^\s*(\*|\+|\-|\d+.)\s*(\{[:#\.].*?\})?\s*/]
+      s = MaRuKu::MDLine.new(s.gsub(/([^\t]*)(\t)/) { $1 + " " * (TAB_SIZE - $1.length % TAB_SIZE) })
+      match = case s.md_type
+        when :ulist
+          # whitespace, followed by ('*'|'+'|'-') followed by
+          # more whitespace, followed by an optional IAL, followed
+          # by yet more whitespace
+          s[/^\s*(\*|\+|\-)\s*(\{[:#\.].*?\})?\s*/]
+        when :olist
+          # whitespace, followed by a number, followed by a period,
+          # more whitespace, an optional IAL, and more whitespace
+          s[/^\s*\d+\.\s*(\{[:#\.].*?\})?\s*/]
+        else
+          tell_user "BUG (my bad): '#{s}' is not a list"
+          ''
+        end
       f = /\{(.*?)\}/.match(match)
       ial = f[1] if f
       [match.length, ial]

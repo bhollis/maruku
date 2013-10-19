@@ -1,4 +1,4 @@
-Codes which look like lists
+Code with list-delimiters in it - https://github.com/bhollis/maruku/issues/106
 *** Parameters: ***
 {}
 *** Markdown input: ***
