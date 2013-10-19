@@ -313,9 +313,15 @@ module MaRuKu; module In; module Markdown; module BlockLevelParser
     lines, want_my_paragraph =
       read_indented_content(src, indentation, [], item_type, ial_offset)
 
+    # in case there is a second line and this line starts a new list, format it.
+    if lines.length>0 and [:ulist, :olist].include?((MaRuKu::MDLine.new(lines[0])).md_type) then
+      lines.unshift("")
+    end
+
     # add first line
     # Strip first '*', '-', '+' from first line
-    stripped = first[indentation, first.size - 1]
+    first_changed = first.gsub(/([^\t]*)(\t)/) { $1 + " " * (TAB_SIZE - $1.length % TAB_SIZE) }
+    stripped = first_changed[indentation, first_changed.size - 1]
     lines.unshift stripped
 
     src2 = LineSource.new(lines, src, parent_offset)
