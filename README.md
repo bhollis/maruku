@@ -18,6 +18,8 @@ News about Maruku is posted at [http://benhollis.net/blog/category/maruku/](http
 [![Code Climate](https://codeclimate.com/github/bhollis/maruku.png)](https://codeclimate.com/github/bhollis/maruku)
 [![Coverage Status](https://coveralls.io/repos/bhollis/maruku/badge.png)](https://coveralls.io/r/bhollis/maruku)
 
+**Note**: [Maruku should be considered obsolete](http://benhollis.net/blog/2013/10/20/maruku-is-obsolete/), as it has been superceded by better libraries like Kramdown.
+
 ## Installing
 
 Make sure you have Ruby and RubyGems, then run:
