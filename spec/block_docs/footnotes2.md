@@ -61,7 +61,7 @@ md_el(:document,[
 </ol>
 <a href="#fnref:3" rev="footnote">↩</a></li><li id="fn:4">
 <p>Like this:</p>
-<div class="maruku-equation"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block" class="maruku-mathml"><mi>x</mi><mo>=</mo><mi>r</mi><mi>cos</mi><mi>θ</mi></math><span class="maruku-eq-tex"><code style="display: none">x = r\cos\theta</code></span></div><a href="#fnref:4" rev="footnote">↩</a></li></ol></div>
+<div class="maruku-equation"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block" class="maruku-mathml"><mi>x</mi><mo>=</mo><mi>r</mi><mi>cos</mi><mi>θ</mi></math></div><a href="#fnref:4" rev="footnote">↩</a></li></ol></div>
 *** Output of to_latex ***
 Ruby on Rails is a web-framework\footnote{a reusable set of libraries} . It uses the MVC\footnote{Model View Controller}  architecture pattern. It has its good points\footnote{Here are its good points
 

@@ -6,5 +6,5 @@ gemspec
 
 # itextomml won't build for jRuby, but we should test with it otherwise
 if RUBY_PLATFORM != 'java'
-  gem "itextomml", '~> 1.4.6'
+  gem "itextomml", '~> 1.5.0'
 end
