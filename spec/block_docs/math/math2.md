@@ -25,7 +25,15 @@ md_el(:document,[
 	md_el(:equation,[],{:label=>nil,:math=>" \\gamma ",:num=>nil},[])
 ],{},[])
 *** Output of to_html ***
-<div class="maruku-equation" id="eq:eq1"><span class="maruku-eq-number">(1)</span><math xmlns="http://www.w3.org/1998/Math/MathML" display="block" class="maruku-mathml"><mi>α</mi></math></div><div class="maruku-equation"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block" class="maruku-mathml"><mi>α</mi></math></div><div class="maruku-equation"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block" class="maruku-mathml"><mi>β</mi></math></div><div class="maruku-equation"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block" class="maruku-mathml"><mi>γ</mi></math></div>
+<div class="maruku-equation" id="eq:eq1"><span class="maruku-eq-number">(1)</span><math xmlns="http://www.w3.org/1998/Math/MathML" display="block" class="maruku-mathml"><semantics><mrow><mi>α</mi></mrow><annotation encoding="application/x-tex">
+	\alpha
+
+</annotation></semantics></math></div><div class="maruku-equation"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block" class="maruku-mathml"><semantics><mrow><mi>α</mi></mrow><annotation encoding="application/x-tex">
+	\alpha
+
+</annotation></semantics></math></div><div class="maruku-equation"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block" class="maruku-mathml"><semantics><mrow><mi>β</mi></mrow><annotation encoding="application/x-tex"> \beta
+
+</annotation></semantics></math></div><div class="maruku-equation"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block" class="maruku-mathml"><semantics><mrow><mi>γ</mi></mrow><annotation encoding="application/x-tex"> \gamma </annotation></semantics></math></div>
 *** Output of to_latex ***
 \begin{equation}
 \alpha

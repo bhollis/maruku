@@ -22,9 +22,9 @@ md_el(:document,[
 <p>Here are some formulas:</p>
 
 <ul>
-<li><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline" class="maruku-mathml"><mi>α</mi></math></li>
+<li><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline" class="maruku-mathml"><semantics><mrow><mi>α</mi></mrow><annotation encoding="application/x-tex">\alpha</annotation></semantics></math></li>
 
-<li><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline" class="maruku-mathml"><msup><mi>x</mi> <mi>n</mi></msup><mo>+</mo><msup><mi>y</mi> <mi>n</mi></msup><mo>≠</mo><msup><mi>z</mi> <mi>n</mi></msup></math></li>
+<li><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline" class="maruku-mathml"><semantics><mrow><msup><mi>x</mi> <mi>n</mi></msup><mo>+</mo><msup><mi>y</mi> <mi>n</mi></msup><mo>≠</mo><msup><mi>z</mi> <mi>n</mi></msup></mrow><annotation encoding="application/x-tex">x^{n}+y^{n} \neq z^{n}</annotation></semantics></math></li>
 </ul>
 
 <p>That’s it, nothing else is supported.</p>
