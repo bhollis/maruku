@@ -11,8 +11,7 @@ john = Twitter::Client.new(
 *** Output of inspect ***
 
 *** Output of to_html ***
-<pre class="ruby"><code class="ruby">
-<span class="ident">john</span> <span class="punct">=</span> <span class="constant">Twitter</span><span class="punct">::</span><span class="constant">Client</span><span class="punct">.</span><span class="ident">new</span><span class="punct">(</span>
+<pre class="ruby"><code class="ruby"><span class="ident">john</span> <span class="punct">=</span> <span class="constant">Twitter</span><span class="punct">::</span><span class="constant">Client</span><span class="punct">.</span><span class="ident">new</span><span class="punct">(</span>
   <span class="symbol">:oauth_token</span> <span class="punct">=&gt;</span> <span class="punct">"</span><span class="string">John's access token</span><span class="punct">",</span>
   <span class="symbol">:oauth_token_secret</span> <span class="punct">=&gt;</span> <span class="punct">"</span><span class="string">John's access secret</span><span class="punct">"</span>
 <span class="punct">)</span></code></pre>

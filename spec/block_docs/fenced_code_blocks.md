@@ -31,36 +31,28 @@ john = Twitter::Client.new(
 ~~~~~
 *** Output of inspect ***
 md_el(:document, [
-	md_el(:code, [], {:raw_code=>"\njohn = Twitter::Client.new(\n  :oauth_token => \"John's access token\",\n  :oauth_token_secret => \"John's access secret\"\n)\n", :lang=>"ruby"}),
-	md_el(:code, [], {:raw_code=>"\njohn = Twitter::Client.new(\n  :oauth_token => \"John's access token\",\n  :oauth_token_secret => \"John's access secret\"\n)\n", :lang=>nil}),
-	md_el(:code, [], {:raw_code=>"\njohn = Twitter::Client.new(\n  :oauth_token => \"John's access token\",\n  :oauth_token_secret => \"John's access secret\"\n)\n", :lang=>"ruby"}),
-	md_el(:code, [], {:raw_code=>"\njohn = Twitter::Client.new(\n  :oauth_token => \"John's access token\",\n  :oauth_token_secret => \"John's access secret\"\n)\n", :lang=>nil})
+	md_el(:code, [], {:raw_code=>"john = Twitter::Client.new(\n  :oauth_token => \"John's access token\",\n  :oauth_token_secret => \"John's access secret\"\n)", :lang=>"ruby"}),
+	md_el(:code, [], {:raw_code=>"john = Twitter::Client.new(\n  :oauth_token => \"John's access token\",\n  :oauth_token_secret => \"John's access secret\"\n)", :lang=>nil}),
+	md_el(:code, [], {:raw_code=>"john = Twitter::Client.new(\n  :oauth_token => \"John's access token\",\n  :oauth_token_secret => \"John's access secret\"\n)", :lang=>"ruby"}),
+	md_el(:code, [], {:raw_code=>"john = Twitter::Client.new(\n  :oauth_token => \"John's access token\",\n  :oauth_token_secret => \"John's access secret\"\n)", :lang=>nil})
 ])
 *** Output of to_html ***
-<pre class="ruby"><code class="ruby">
-john = Twitter::Client.new(
+<pre class="ruby"><code class="ruby">john = Twitter::Client.new(
   :oauth_token =&gt; "John's access token",
   :oauth_token_secret =&gt; "John's access secret"
-)
-</code></pre>
+)</code></pre>
 
-<pre><code>
-john = Twitter::Client.new(
+<pre><code>john = Twitter::Client.new(
   :oauth_token =&gt; "John's access token",
   :oauth_token_secret =&gt; "John's access secret"
-)
-</code></pre>
+)</code></pre>
 
-<pre class="ruby"><code class="ruby">
-john = Twitter::Client.new(
+<pre class="ruby"><code class="ruby">john = Twitter::Client.new(
   :oauth_token =&gt; "John's access token",
   :oauth_token_secret =&gt; "John's access secret"
-)
-</code></pre>
+)</code></pre>
 
-<pre><code>
-john = Twitter::Client.new(
+<pre><code>john = Twitter::Client.new(
   :oauth_token =&gt; "John's access token",
   :oauth_token_secret =&gt; "John's access secret"
-)
-</code></pre>
+)</code></pre>
