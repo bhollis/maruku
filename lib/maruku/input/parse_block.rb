@@ -135,9 +135,9 @@ module MaRuKu; module In; module Markdown; module BlockLevelParser
   end
 
   def read_text_material(src, output)
-    if src.cur_line =~ MightBeTableHeader &&
+    if src.cur_line.include?('|') && # if contains a pipe, it could be a table header
         src.next_line &&
-        src.next_line =~ TableSeparator
+        src.next_line.rstrip =~ TableSeparator
       output << read_table(src)
     elsif src.next_line && [:header1, :header2].include?(src.next_line.md_type)
       output << read_header12(src)
@@ -197,7 +197,7 @@ module MaRuKu; module In; module Markdown; module BlockLevelParser
       al = read_attribute_list(CharSource.new(ial, src))
     end
     level = line[/^#+/].size
-    text = parse_span line.gsub(/\A#+|#+\Z/, '')
+    text = parse_span line.gsub(/\A#+|#+\z/, '')
     if text.empty?
       text = "{#{ial}}"
       al = nil
@@ -210,7 +210,7 @@ module MaRuKu; module In; module Markdown; module BlockLevelParser
     raise "BugBug" unless m
     target = m[2] || ''
     code = m[3]
-    until code =~ /\?>/
+    until code.include?('?>')
       code << "\n" << src.shift_line
     end
     unless code =~ /\?>\s*$/
@@ -255,7 +255,7 @@ module MaRuKu; module In; module Markdown; module BlockLevelParser
     raw_html = h.stuff_you_read
 
     is_inline = HTML_INLINE_ELEMS.include?(h.first_tag)
-    
+
     if extra_line
       remainder = is_inline ? parse_span(extra_line) : parse_text_as_markdown(extra_line)
       if extra_line.start_with?(' ')
@@ -514,6 +514,8 @@ module MaRuKu; module In; module Markdown; module BlockLevelParser
     if (allowBlank)
       if (/^[|].*[|]$/ =~ s) # handle the simple and decorated table cases
         s.split('|',-1)[1..-2]   # allow blank cells, but only keep the inner elements of the cells
+      elsif (/^.*[|]$/ =~ s)
+        s.split('|',-1)[0..-2]   # allow blank cells, but only keep the inner elements of the cells        
       else
         s.split('|',-1)
       end
@@ -530,10 +532,15 @@ module MaRuKu; module In; module Markdown; module BlockLevelParser
     separator = split_cells(src.shift_line)
 
     align = separator.map do |s|
-      s =~ Sep
-      if $1 && $2
+      # ex: :-------------------:
+      # If the separator starts and ends with a colon,
+      # center the cell. If it's on the right, right-align,
+      # otherwise left-align.
+      starts = s.start_with? ':'
+      ends = s.end_with? ':'
+      if starts && ends
         :center
-      elsif $2
+      elsif ends
         :right
       else
         :left
@@ -550,7 +557,7 @@ module MaRuKu; module In; module Markdown; module BlockLevelParser
     end
 
     rows = []
-    while src.cur_line && src.cur_line =~ /\|/ 
+    while src.cur_line && src.cur_line.include?('|') 
         row = []
         colCount=0 
         colspan=1

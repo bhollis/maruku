@@ -80,7 +80,7 @@ module MaRuKu::In::Markdown::BlockLevelParser
             when :definition; "d"
             else "o"
             end
-        s += c
+        s << c
         break if c == "d" or num_e > 1
       end
       s

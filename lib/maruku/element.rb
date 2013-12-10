@@ -120,4 +120,10 @@ module MaRuKu
       end.flatten!
     end
   end
+
+  # A specialization of Element that can keep track of
+  # its parsed HTML as an attribute (rather than metadata)
+  class MDHTMLElement < MDElement
+    attr_accessor :parsed_html # HTMLFragment
+  end
 end

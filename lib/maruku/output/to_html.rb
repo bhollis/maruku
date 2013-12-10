@@ -160,7 +160,7 @@ module MaRuKu::Out::HTML
     end
 
     self.attributes.each do |k,v|
-      if k.to_s =~ /\Ameta-(.*)\Z/
+      if k.to_s =~ /\Ameta-(.*)\z/
         meta = xelem('meta')
         meta['name'] = $1
         meta['content'] = v.to_s
@@ -506,7 +506,7 @@ module MaRuKu::Out::HTML
           convertor = Syntax::Convertors::HTML.for_syntax code_lang
 
           # eliminate trailing newlines otherwise Syntax crashes
-          source = source.sub(/\n*\Z/, '')
+          source = source.sub(/\n*\z/, '')
 
           html = convertor.convert(source)
 

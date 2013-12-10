@@ -37,7 +37,8 @@ module MaRuKu::In::Markdown::SpanLevelParser
       if Array(exit_on_strings).any? {|x| src.cur_chars_are x }
         # Special case: bold nested in italic
         break unless !(['*', '_'] & Array(exit_on_strings)).empty? &&
-          ['**', '__'].include?(src.cur_chars(2))
+          ['**', '__'].include?(src.cur_chars(2)) &&
+          !['***', '___'].include?(src.cur_chars(3))
       end
 
       # check if there are extensions
@@ -267,7 +268,7 @@ module MaRuKu::In::Markdown::SpanLevelParser
   end
 
   def extension_meta(src, con, break_on_chars=nil)
-    if m = src.read_regexp(/([^\s\:\"\']+?):/)
+    if m = src.read_regexp(/([^\s\:\"\'}]+?):/)
       name = m[1]
       al = read_attribute_list(src, con, break_on_chars)
       self.doc.ald[name] = al
@@ -449,7 +450,7 @@ module MaRuKu::In::Markdown::SpanLevelParser
     end_string = "`" * num_ticks
 
     code = read_simple(src, nil, nil, end_string)
-    
+
     # We didn't find a closing batch!
     if !code || src.cur_char != '`'
       con.push_element(end_string + (code || '')) and return
@@ -627,7 +628,7 @@ module MaRuKu::In::Markdown::SpanLevelParser
     end
 
     def is_end?
-      @cur_string.empty? || @cur_string =~ /\s\Z/
+      @cur_string.empty? || @cur_string =~ /\s\z/
     end
 
     def push_string_if_present

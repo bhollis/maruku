@@ -119,30 +119,120 @@
 
 module MaRuKu::In::Markdown::SpanLevelParser
   Punct_class = '[!"#\$\%\'()*+,\-.\/:;<=>?\@\[\\\\\]\^_`{|}~]'
-  Close_class = %![^\ \t\r\n\\[\{\(\-]!
+  Close_class = "[^\ \t\r\n\\[\{\(\-]"
 
+  # A rule to apply a particular pattern (like double quotes)
+  # against a list of strings and MDElements, replacing that
+  # pattern with the smartypants version.
+  class Rule
+    # The pattern to search for
+    attr_accessor :pattern
+
+    # The replacement tokens (entities or other instructions)
+    attr_accessor :replacement
+
+    # This is a hack to allow us to build entities.
+    attr_accessor :doc
+
+    def initialize(pattern, replacement)
+      @pattern = pattern
+      @replacement = replacement
+    end
+
+    private
+
+    # Add something to the output array. If it's
+    # not a string (like an MDElement) just add it direcltly,
+    # otherwise attempt to add on to the last element in the
+    # output if it's a string.
+    def append_to_output(output, str)
+      if !str.kind_of?(String)
+        output << str
+        return
+      end
+      return if str.empty?
+      if output.last.kind_of?(String)
+        output.last << str
+      else
+        output << str
+      end
+    end
+  end
+
+  # Simple rule that says "Replace this pattern with these entities"
+  class ReplaceRule < Rule
+    # Replace all matches in the input at once with the
+    # same elements from "replacement".
+    def apply(first, input, output)
+      intersperse(first.split(pattern), replacement).each do |x|
+        append_to_output(output, x)
+      end
+    end
+
+    private
+
+    # Sort of like "join" - places the elements in "elem"
+    # between each adjacent element in the array.
+    def intersperse(ary, elem)
+      return ary if ary.length <= 1
+      h, *t = ary
+      t.inject([h]) do |r, e|
+        entities = elem.map do |el|
+          en = el.clone
+          en.doc = doc
+          en
+        end
+        r.concat entities
+        r << e
+      end
+    end
+  end
+
+  # A more complex rule that uses a capture group from the
+  # pattern in its replacement.
+  class CaptureRule < Rule
+    # One at a time, replace each match, including
+    # some part of the match, and put the rest back into
+    # input to be processed next.
+    def apply(first, input, output)
+      if pattern =~ first
+        m = Regexp.last_match
+        append_to_output(output, m.pre_match)
+        input.unshift m.post_match unless m.post_match.empty?
+        replacement.reverse_each do |sub|
+          if sub == :one
+            input.unshift m[1]
+          else
+            entity = sub.clone
+            sub.doc = doc
+            input.unshift entity
+          end
+        end
+      else
+        append_to_output(output, first)
+      end
+    end
+  end
+
+  # All the rules that will be applied (in order) to smarten the document.
   Rules =
     [
-     [/---/,   :mdash          ],
-     [/--/,    :ndash          ],
+     ['---',   :mdash          ],
+     ['--',    :ndash          ],
      ['...',   :hellip         ],
      ['. . .', :hellip         ],
      ["``",    :ldquo          ],
      ["''",    :rdquo          ],
      [/<<\s/,  [:laquo, :nbsp] ],
      [/\s>>/,  [:nbsp, :raquo] ],
-     [/<</,    :laquo          ],
-     [/>>/,    :raquo          ],
-
-     #    def educate_single_backticks(str)
-     #    ["`", :lsquo]
-     #    ["'", :rsquo]
+     ['<<',    :laquo          ],
+     ['>>',    :raquo          ],
 
      # Special case if the very first character is a quote followed by
      # punctuation at a non-word-break. Close the quotes by brute
      # force:
-     [/^'(?=#{Punct_class}\B)/, :rsquo],
-     [/^"(?=#{Punct_class}\B)/, :rdquo],
+     [/\A'(?=#{Punct_class}\B)/, :rsquo],
+     [/\A"(?=#{Punct_class}\B)/, :rdquo],
      # Special case for double sets of quotes, e.g.:
      #   <p>He said, "'Quoted' words in a larger quote."</p>
      [/"'(?=\w)/, [:ldquo, :lsquo]    ],
@@ -155,53 +245,53 @@ module MaRuKu::In::Markdown::SpanLevelParser
      [/(#{Close_class})'/, [:one, :rsquo]],
      [/'(\s|s\b|$)/, [:rsquo, :one]],
      # Any remaining single quotes should be opening ones:
-     [/'/, :lsquo],
+     ["'", :lsquo],
      # Get most opening double quotes:
      [/(\s)"(?=\w)/, [:one, :ldquo]],
      # Double closing quotes:
      [/(#{Close_class})"/, [:one, :rdquo]],
      [/"(\s|s\b|$)/, [:rdquo, :one]],
      # Any remaining quotes should be opening ones:
-     [/"/, :ldquo]
+     ['"', :ldquo]
     ].
   map do |reg, subst| # People should do the thinking, machines should do the work.
-    reg = Regexp.new(Regexp.escape(reg)) unless reg.kind_of? Regexp
-    [reg, Array(subst)]
+    captures = false
+    subst = Array(subst).map do |s|
+      if s == :one
+        captures = true
+        s
+      else
+        MaRuKu::MDElement.new(:entity, [], { :entity_name => s.to_s.freeze }, nil)
+      end
+    end.freeze
+
+    if captures
+      CaptureRule.new reg, subst
+    else
+      ReplaceRule.new reg, subst
+    end
   end
 
-  # note: input will be destroyed
-  def apply_one_rule!(reg, subst, input)
+  # Fully apply a single rule to an entire array
+  # of elements.
+  # note: input will be modified in place
+  def apply_one_rule!(rule, input)
     output = []
     while first = input.shift
-      if first.kind_of?(String) && (m = reg.match(first))
-        output << m.pre_match unless m.pre_match.empty?
-        input.unshift m.post_match unless m.post_match.empty?
-        subst.reverse.each do |x|
-          input.unshift( x == :one ? m[1] : md_entity(x.to_s) )
-        end
+      if first.kind_of?(String)
+        rule.doc = @doc
+        rule.apply(first, input, output)
       else
-        output.push first
+        output << first
       end
     end
-    return output
+    output
   end
 
+  # Transform elements to have SmartyPants punctuation.
   def educate(elements)
-    Rules.each do |reg, subst|
-      elements = apply_one_rule!(reg, subst, elements)
+    Rules.inject(elements) do |elems, rule|
+      apply_one_rule!(rule, elems)
     end
-    # strips empty strings
-    elements.delete_if {|x| x.kind_of?(String) && x.empty? }
-
-    # join consecutive strings
-    final = []
-    elements.each do |x|
-      if x.kind_of?(String) && final.last.kind_of?(String)
-        final.last << x
-      else
-        final << x
-      end
-    end
-    final
   end
 end
