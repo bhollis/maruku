@@ -57,8 +57,8 @@ module MaRuKu
     # @param s [String]
     # @return [Fixnum]
     def spaces_before_first_char(s)
-      match =
-        case s.md_type
+      s = MaRuKu::MDLine.new(s.gsub(/([^\t]*)(\t)/) { $1 + " " * (TAB_SIZE - $1.length % TAB_SIZE) })
+      match = case s.md_type
         when :ulist
           # whitespace, followed by ('*'|'+'|'-') followed by
           # more whitespace, followed by an optional IAL, followed
