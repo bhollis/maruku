@@ -431,7 +431,7 @@ module MaRuKu::Out::HTML
 
   # nil if not applicable, else SPAN element
   def render_section_number
-    return nil unless section_number
+    return nil unless section_number  && !section_number.empty?
 
     # if we are bound to a section, add section number
     span = xelem('span')
