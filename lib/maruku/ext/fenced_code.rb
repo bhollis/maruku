@@ -90,7 +90,7 @@ MaRuKu::In::Markdown::register_block_extension(
       al = ial && doc.read_attribute_list(cs.new(inside))
     end
 
-    source =  lines.join("\n")
+    source = lines.join("\n")
     context.push doc.md_codeblock(source, lang, al)
     true
   end

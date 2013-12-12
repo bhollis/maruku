@@ -81,7 +81,6 @@ module MaRuKu
     # This includes deeply-nested child nodes.
     # If `e_node_type` is specified, only yields nodes of that type.
     def each_element(e_node_type=nil, &block)
- #     puts "Called each_element on #{self.inspect}"
       @children.each do |c|
         if c.is_a? MDElement then
           yield c if e_node_type.nil? || c.node_type == e_node_type
@@ -91,7 +90,6 @@ module MaRuKu
         # element are arranged in a multi-dimensional array 
         # (as in the case of a table)
         elsif c.is_a? Array then
- #         puts c.inspect
           c.each do |cc|
             # A recursive call to each_element will ignore the current element
             # so we handle this case inline
