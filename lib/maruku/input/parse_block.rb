@@ -543,7 +543,9 @@ module MaRuKu; module In; module Markdown; module BlockLevelParser
       # otherwise left-align.
       starts = s.start_with? ':'
       ends = s.end_with? ':'
-      if starts && ends
+      if s.empty?  # blank
+        nil
+      elsif starts && ends
         :center
       elsif ends
         :right
@@ -552,7 +554,10 @@ module MaRuKu; module In; module Markdown; module BlockLevelParser
       end
     end
 
+    align.pop if align[-1].nil? #trailing blank
     num_columns = align.size
+    
+    head.pop if head.size == num_columns + 1 && head[-1].al.size == 0 # trailing blank
 
     if head.size != num_columns
       maruku_error "Table head does not have #{num_columns} columns: \n#{head.inspect}"
@@ -596,6 +601,10 @@ module MaRuKu; module In; module Markdown; module BlockLevelParser
    #                If not, dump the table and return a break
    #
       num_columns = count_columns(row)
+      if num_columns == head.size + 1 && row[-1].al.size == 0 #trailing blank cell
+        row.pop
+        num_columns -= 1
+      end
       if head.size != num_columns
         maruku_error  "Row does not have #{head.size} columns: \n#{row.inspect} - #{num_columns}"
         tell_user "I will ignore this table."
