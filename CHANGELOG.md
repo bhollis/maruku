@@ -1,3 +1,9 @@
+0.7.1
+-----
+
+* Removed extraneous newlines from around the output of fenced code blocks. #112
+
+
 0.7.0
 -----
 
@@ -337,7 +343,7 @@ Immediate TODO-list:
 
 	For example: in the HTML version, you should see accented characters in this
 	parenthesis:
-	
+
 	> (àèìòù)
 
 	and Japanese text in these other parentheses:
@@ -345,7 +351,7 @@ Immediate TODO-list:
 	> (カタカナで 私の 名前は アンドレア チェンシ です).
 	>
 	> (日本のガルは 大好き、でも、日本語は難しですから、そうぞ 英語話すガルを おしえてください).
-	
+
 	In the LaTeX version, these do not appear. I know how to do LaTeX with
 	ISO-8859-1 encoding (European characters), but I'm struggling with half-baked
 	solutions for UTF-8 encoded documents.
