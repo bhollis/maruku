@@ -2,7 +2,7 @@
 -----
 
 * Removed extraneous newlines from around the output of fenced code blocks. #112
-
+* Properly handle empty code blocks (``). #108
 
 0.7.0
 -----

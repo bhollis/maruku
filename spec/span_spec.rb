@@ -23,7 +23,7 @@ EXPECTATIONS = Maruku.new.instance_eval do
 
     # Code blocks
     ["`" ,   :raise,  'Unclosed single ticks'],
-    ["``" ,  :raise,  'Unclosed double ticks'],
+    ["``" ,  [md_entity("ldquo")],  'Empty code block'],
     ["`a`" ,     [md_code('a')],    'Simple inline code'],
     ["`` ` ``" ,    [md_code('`')],   ],
     ["`` \\` ``" ,    [md_code('\\`')],   ],

@@ -335,7 +335,7 @@ module MaRuKu::In::Markdown::SpanLevelParser
     end
   end
 
-  # Reads a simple string (no formatting) until one of break_on_chars,
+  # Reads a simple string (no formatting) until one of exit_on_chars,
   # while escaping the escaped.
   # If the string is empty, it returns nil.
   # By default, raises on error if the string terminates unexpectedly. This can be
@@ -355,7 +355,7 @@ module MaRuKu::In::Markdown::SpanLevelParser
       when nil
         if warn
           maruku_error "String finished while reading (break on " +
-            "#{exit_on_chars.inspect})" +
+            "#{(exit_on_chars + exit_on_strings).inspect})" +
             " already read: #{text.inspect}", src
         end
         break
@@ -447,17 +447,16 @@ module MaRuKu::In::Markdown::SpanLevelParser
     # We will read until this string
     end_string = "`" * num_ticks
 
+    # Try to handle empty single-ticks
+    if num_ticks > 1 && !src.next_matches(/.*#{Regexp.escape(end_string)}/)
+      con.push_element(end_string) and return
+    end
+
     code = read_simple(src, nil, nil, end_string)
 
     # We didn't find a closing batch!
     if !code || src.cur_char != '`'
       con.push_element(end_string + (code || '')) and return
-    end
-
-    # We didn't find a closing batch!
-    if !code || src.cur_char != '`'
-      con.push_element(end_string + (code || ''))
-      return
     end
 
     #   puts "Now I expects #{num_ticks} ticks: #{src.cur_chars(10).inspect}"
