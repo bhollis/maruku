@@ -13,6 +13,8 @@ if RUBY_PLATFORM != 'java'
   gem "itextomml", '~> 1.4.6'
 end
 
+gem 'rubysl', '~> 2.0', :platform => :rbx
+
 # Development tools
 gem 'rake', '~> 10.1.0'
 gem 'rspec', '~> 2.14.1'
