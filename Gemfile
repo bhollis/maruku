@@ -5,7 +5,7 @@ source "https://rubygems.org"
 gemspec
 
 # Optional dependencies that we want to test with
-gem 'syntax', '~> 1.0.0'
+gem 'syntax', '~> 1.1.0'
 gem 'nokogiri', '~> 1.5'
 
 if RUBY_PLATFORM != 'java'
