@@ -13,7 +13,9 @@ if RUBY_PLATFORM != 'java'
   gem "itextomml", '~> 1.4.6'
 end
 
+# Rubinius is gemifying the standard library
 gem 'rubysl', '~> 2.0', :platform => :rbx
+gem 'racc', :platform => :rbx
 
 # Development tools
 gem 'rake', '~> 10.1.0'
