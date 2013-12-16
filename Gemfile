@@ -16,6 +16,7 @@ end
 # Rubinius is gemifying the standard library
 gem 'rubysl', '~> 2.0', :platform => :rbx
 gem 'racc', :platform => :rbx
+gem 'json', :platform => :rbx
 
 # Development tools
 gem 'rake', '~> 10.1.0'
