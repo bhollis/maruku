@@ -392,7 +392,7 @@ module MaRuKu::Out::HTML
 
     Array(HTML4Attributes[name]).each do |att|
       if v = @attributes[att]
-        attributes[att.to_s] = v.to_s
+        attributes[CGI.escapeHTML(att.to_s)] = CGI.escapeHTML(v.to_s)
       end
     end
     content = yield if block_given?
