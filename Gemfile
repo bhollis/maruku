@@ -14,9 +14,12 @@ if RUBY_PLATFORM != 'java'
 end
 
 # Rubinius is gemifying the standard library
-gem 'rubysl', '~> 2.0', :platform => :rbx
-gem 'racc', :platform => :rbx
-gem 'json', :platform => :rbx
+platforms :rbx do
+  gem 'rubysl', '~> 2.0'
+  gem 'racc'
+  gem 'json'
+  gem 'rubinius-coverage'
+end
 
 # Development tools
 gem 'rake', '~> 10.1.0'
