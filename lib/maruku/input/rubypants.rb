@@ -164,8 +164,17 @@ module MaRuKu::In::Markdown::SpanLevelParser
     # Replace all matches in the input at once with the
     # same elements from "replacement".
     def apply(first, input, output)
-      intersperse(first.split(pattern), replacement).each do |x|
-        append_to_output(output, x)
+      split = first.split(pattern)
+      if split.empty?
+        first.scan(pattern).size.times do
+          clone_elems(replacement).each do |x|
+            append_to_output(output, x)
+          end
+        end
+      else
+        intersperse(first.split(pattern), replacement).each do |x|
+          append_to_output(output, x)
+        end
       end
     end
 
@@ -174,17 +183,21 @@ module MaRuKu::In::Markdown::SpanLevelParser
     # Sort of like "join" - places the elements in "elem"
     # between each adjacent element in the array.
     def intersperse(ary, elem)
-      return ary if ary.length <= 1
+      return clone_elems(elem) if ary.empty?
+      return ary if ary.length == 1
       h, *t = ary
       t.inject([h]) do |r, e|
-        entities = elem.map do |el|
+        r.concat clone_elems(elem)
+        r << e
+      end
+    end
+
+    def clone_elems(elems)
+      elems.map do |el|
           en = el.clone
           en.doc = doc
           en
         end
-        r.concat entities
-        r << e
-      end
     end
   end
 

@@ -367,10 +367,8 @@ module MaRuKu::Out::HTML
 
   def create_html_element(name, attributes_to_copy=[])
     m = xelem(name)
-    Array(HTML4Attributes[name]).each do |att|
-      if v = @attributes[att]
-        m[att.to_s] = v.to_s
-      end
+    @attributes.each do |att,val|
+      m[att.to_s] = val if HTML4Attributes[name].include?(att)
     end
     m
   end
@@ -579,22 +577,19 @@ module MaRuKu::Out::HTML
       source = source.gsub(/\t/,'&#187;' + '&#160;' * 3).gsub(/ /,'&#172;')
     end
 
-    text = xtext(source)
+    code << xtext(source)
 
     code_lang ||= self.attributes[:lang]
     if code_lang
-      code['class'] = code_lang
-      pre['class'] = code_lang
+      pre['class'] = code['class'] = code_lang
     end
 
-    code << text
     pre << code
   end
 
   def to_html_inline_code
     pre = create_html_element('code')
-    source = self.raw_code
-    pre << xtext(source)
+    pre << xtext(self.raw_code)
 
     color = get_setting(:code_background_color)
     if color != MaRuKu::Globals[:code_background_color]

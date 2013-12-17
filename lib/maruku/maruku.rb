@@ -9,4 +9,9 @@ class Maruku < MaRuKu::MDDocument
     self.attributes.merge! meta
     parse_doc(s) if s
   end
+
+  def to_s
+    warn "Maruku#to_s is deprecated and will be removed or changed in a near-future version of Maruku."
+    super
+  end
 end

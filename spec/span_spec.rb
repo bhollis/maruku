@@ -1,3 +1,4 @@
+require File.dirname(__FILE__) + '/spec_helper'
 require 'rspec'
 require 'maruku'
 
@@ -22,7 +23,7 @@ EXPECTATIONS = Maruku.new.instance_eval do
 
     # Code blocks
     ["`" ,   :raise,  'Unclosed single ticks'],
-    ["``" ,  :raise,  'Unclosed double ticks'],
+    ["``" ,  [md_entity("ldquo")],  'Empty code block'],
     ["`a`" ,     [md_code('a')],    'Simple inline code'],
     ["`` ` ``" ,    [md_code('`')],   ],
     ["`` \\` ``" ,    [md_code('\\`')],   ],
@@ -71,7 +72,7 @@ EXPECTATIONS = Maruku.new.instance_eval do
     ["a _ b_", :raise, 'Unclosed emphasis'],
     ["_b_", [md_em('b')], 'Emphasis 7'],
     ["_b_ _c_", [md_em('b'),' ',md_em('c')], 'Emphasis 8'],
-    ["_b__c_", [md_em('b'),md_em('c')], 'Emphasis 9', true],
+    ["_b__c_", [md_em('b'),md_em('c')], 'Emphasis 9', true], # PENDING
     # underscores in word
     ["mod_ruby", ['mod_ruby'], 'Word with underscore'],
     # strong
