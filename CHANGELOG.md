@@ -5,6 +5,7 @@
 * Properly handle empty code blocks (``). #108
 * No longer print a warning when headers have entities in them. #113
 * Remove non-printable control characters when sanitizing text.
+* Work around REXML bug https://bugs.ruby-lang.org/issues/9277 that disallows multiple dashes in comments. #115
 
 0.7.0
 -----

@@ -36,11 +36,12 @@ module MaRuKu::In::Markdown::SpanLevelParser
         when :inside_comment
           if @m = CommentEnd.match(@rest)
             my_debug "#{@state}: Comment End: #{@m.to_s.inspect}"
-            @already << @m.pre_match << @m.to_s
+            # Workaround for https://bugs.ruby-lang.org/issues/9277
+            @already << @m.pre_match.gsub(/-{2,}/, '-') << @m.to_s
             @rest = @m.post_match
             self.state = :inside_element
           else
-            @already << @rest
+            @already << @rest.gsub(/-{2,}/, '-') # Workaround for https://bugs.ruby-lang.org/issues/9277
             @rest = ""
             self.state = :inside_comment
           end
