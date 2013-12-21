@@ -4,6 +4,7 @@
 * Removed extraneous newlines from around the output of fenced code blocks. #112
 * Properly handle empty code blocks (``). #108
 * No longer print a warning when headers have entities in them. #113
+* Remove non-printable control characters when sanitizing text.
 
 0.7.0
 -----

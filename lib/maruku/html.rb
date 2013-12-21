@@ -94,7 +94,7 @@ module MaRuKu
 
         # Select all text children of e
         e.xpath("./text()").each do |original_text|
-          s = CGI.escapeHTML(original_text.text)
+          s = MaRuKu::Out::HTML.escapeHTML(original_text.text)
           unless s.strip.empty?
             parsed = parse_blocks ? doc.parse_text_as_markdown(s) : doc.parse_span(s)
 
@@ -197,7 +197,7 @@ module MaRuKu
 
         # Select all text children of e
         e.texts.each do |original_text|
-          s = CGI.escapeHTML(original_text.value)
+          s = MaRuKu::Out::HTML.escapeHTML(original_text.value)
           unless s.strip.empty?
             # TODO extract common functionality
             parsed = parse_blocks ? doc.parse_text_as_markdown(s) : doc.parse_span(s)

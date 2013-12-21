@@ -4,6 +4,13 @@ require 'cgi'
 # This module groups all functions related to HTML export.
 module MaRuKu::Out::HTML
 
+  # Escape text for use in HTML (content or attributes) by running it through
+  # standard XML escaping (quotes and angle brackets and ampersands) then
+  # getting rid of any non-printable control characters besides whitespace.
+  def self.escapeHTML(text)
+    CGI.escapeHTML(text).gsub(/[^[:print:]\n\r\t]/, '')
+  end
+
   # A simple class to represent an HTML element for output.
   class HTMLElement
     attr_accessor :name
@@ -88,7 +95,7 @@ module MaRuKu::Out::HTML
 
   # Helper to create a text node
   def xtext(text)
-    CGI.escapeHTML(text)
+    MaRuKu::Out::HTML.escapeHTML(text)
   end
 
   # Helper to create an element
@@ -392,7 +399,7 @@ module MaRuKu::Out::HTML
 
     Array(HTML4Attributes[name]).each do |att|
       if v = @attributes[att]
-        attributes[CGI.escapeHTML(att.to_s)] = CGI.escapeHTML(v.to_s)
+        attributes[MaRuKu::Out::HTML.escapeHTML(att.to_s)] = MaRuKu::Out::HTML.escapeHTML(v.to_s)
       end
     end
     content = yield if block_given?
