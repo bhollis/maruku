@@ -80,7 +80,7 @@ module MaRuKu::Out::HTML
 
   # Run blahtex, return output
   def run_blahtex(tex, args)
-    IO.popen(['blahtex', *args], 'w+') do |blahtex|
+    IO.popen(['blahtex', *args].join(' '), 'w+') do |blahtex|
       blahtex.write tex
       blahtex.close_write
 

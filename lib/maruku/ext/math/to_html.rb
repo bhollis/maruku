@@ -53,7 +53,7 @@ module MaRuKu
         end
 
         # TODO: Warn here
-        puts "A method called #{method} should be defined."
+        raise "A method called #{method} should be defined."
         convert_to_mathml_none(kind, tex)
       end
 
@@ -68,7 +68,7 @@ module MaRuKu
         method = "convert_to_png_#{engine}".to_sym
         return self.send(method, kind, tex) if self.respond_to? method
 
-        puts "A method called #{method} should be defined."
+        raise "A method called #{method} should be defined."
         nil
       end
 

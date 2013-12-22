@@ -8,6 +8,7 @@
 * No longer print source of math expressions (hidden) into HTML.
 * More robust table handling.
 * Better handling of lists.
+* Fix the "blahtex" math engine on 1.8.7.
 
 0.7.0
 -----
