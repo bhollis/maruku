@@ -5,10 +5,11 @@ require 'cgi'
 module MaRuKu::Out::HTML
 
   # Escape text for use in HTML (content or attributes) by running it through
-  # standard XML escaping (quotes and angle brackets and ampersands) then
-  # getting rid of any non-printable control characters besides whitespace.
+  # standard XML escaping (quotes and angle brackets and ampersands)
   def self.escapeHTML(text)
-    CGI.escapeHTML(text).gsub(/[^[:print:]\n\r\t]/, '')
+    CGI.escapeHTML(text)
+    # TODO: When we drop Rubies < 1.9.3, re-add .gsub(/[^[:print:]\n\r\t]/, '') to
+    # get rid of non-printable control characters.
   end
 
   # A simple class to represent an HTML element for output.
