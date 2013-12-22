@@ -36,12 +36,13 @@ module MaRuKu::In::Markdown::SpanLevelParser
         when :inside_comment
           if @m = CommentEnd.match(@rest)
             my_debug "#{@state}: Comment End: #{@m.to_s.inspect}"
-            # Workaround for https://bugs.ruby-lang.org/issues/9277
-            @already << @m.pre_match.gsub(/-{2,}/, '-') << @m.to_s
+            # Workaround for https://bugs.ruby-lang.org/issues/9277 and another bug in 1.9.2 where even a
+            # single dash in a comment will cause REXML to error.
+            @already << @m.pre_match.gsub(/-(?![^\-])/, '- ') << @m.to_s
             @rest = @m.post_match
             self.state = :inside_element
           else
-            @already << @rest.gsub(/-{2,}/, '-') # Workaround for https://bugs.ruby-lang.org/issues/9277
+            @already << @rest.gsub(/-(?![^\-])/, '- ') # Workaround for https://bugs.ruby-lang.org/issues/9277
             @rest = ""
             self.state = :inside_comment
           end

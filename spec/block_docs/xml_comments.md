@@ -17,8 +17,8 @@ invalid -->
 *** Output of inspect ***
 md_el(:document,[md_html("<!--\n&rsquo;\n-->"),
 	md_html("<!-- declarations for <head> & <body> -->"),
-	md_html("<!-- - is invalid -->"),
-	md_html("<!-- - is\ninvalid -->")])
+	md_html("<!-- - - is invalid -->"),
+	md_html("<!-- - - is\ninvalid -->")])
 *** Output of to_html ***
 <!--
 &rsquo;
@@ -26,7 +26,7 @@ md_el(:document,[md_html("<!--\n&rsquo;\n-->"),
 
 <!-- declarations for <head> & <body> -->
 
-<!-- - is invalid -->
+<!-- - - is invalid -->
 
-<!-- - is
+<!-- - - is
 invalid -->

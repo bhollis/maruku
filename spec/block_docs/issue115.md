@@ -10,11 +10,11 @@ Header
 
 <!-- -- -->
 *** Output of inspect ***
-md_el(:document,[md_html("<!--\nHeader\n-\n-->"), md_html("<!-- - -->")])
+md_el(:document,[md_html("<!--\nHeader\n- - - - - - \n-->"), md_html("<!-- - - -->")])
 *** Output of to_html ***
 <!--
 Header
--
+- - - - - - 
 -->
 
-<!-- - -->
+<!-- - - -->
