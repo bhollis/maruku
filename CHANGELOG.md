@@ -6,6 +6,9 @@
 * No longer print a warning when headers have entities in them. #113
 * Remove non-printable control characters when sanitizing text.
 * Work around REXML bug https://bugs.ruby-lang.org/issues/9277 that disallows multiple dashes in comments. #115
+* No longer print source of math expressions (hidden) into HTML.
+* More robust table handling.
+* Better handling of lists.
 
 0.7.0
 -----
