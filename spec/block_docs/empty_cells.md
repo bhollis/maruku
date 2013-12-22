@@ -9,15 +9,9 @@ Write a comment here
 *** Output of inspect ***
 md_el(:document,[
 	md_el(:table,[
-		md_el(:head_cell,[],{},[]),
-		md_el(:head_cell,["1"],{},[]),
-		md_el(:head_cell,["2"],{},[]),
-		md_el(:cell,["A"],{},[]),
-		md_el(:cell,["X"],{},[]),
-		md_el(:cell,[],{},[]),
-		md_el(:cell,["B"],{},[]),
-		md_el(:cell,[],{},[]),
-		md_el(:cell,["X"],{},[])
+		[md_el(:head_cell,[],{},[]),md_el(:head_cell,["1"],{},[]),md_el(:head_cell,["2"],{},[])],
+		[md_el(:cell,["A"],{},[]),md_el(:cell,["X"],{},[]),md_el(:cell,[],{},[])],
+		[md_el(:cell,["B"],{},[]),md_el(:cell,[],{},[]),md_el(:cell,["X"],{},[])]
 	],{:align=>[:left, :left, :left]},[])
 ],{},[])
 *** Output of to_html ***

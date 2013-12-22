@@ -393,15 +393,14 @@ module MaRuKu::Out::HTML
   # Pretty much the same as the HTMLElement constructor except it
   # copies standard attributes out of the Maruku Element's attributes hash.
   def html_element(name, content="", attributes={})
-    if attributes.empty? && content.is_a?(Hash)
-      attributes = content
-    end
+    attributes = content if attributes.empty? && content.is_a?(Hash)
 
     Array(HTML4Attributes[name]).each do |att|
       if v = @attributes[att]
-        attributes[MaRuKu::Out::HTML.escapeHTML(att.to_s)] = MaRuKu::Out::HTML.escapeHTML(v.to_s)
+        attributes[att.to_s] = MaRuKu::Out::HTML.escapeHTML(v.to_s)
       end
     end
+
     content = yield if block_given?
 
     HTMLElement.new(name, attributes, content)
@@ -805,7 +804,9 @@ module MaRuKu::Out::HTML
   def to_html_table
     num_columns = self.align.size
 
-    head, *rows = @children.each_slice(num_columns).to_a
+    # The table data is passed as a multi-dimensional array
+    # we just need to split the head from the body
+    head, *rows = @children
 
     table = html_element('table')
     thead = xelem('thead')

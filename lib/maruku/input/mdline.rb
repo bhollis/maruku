@@ -40,11 +40,11 @@ module MaRuKu
       return :definition     if self =~ Definition
       # I had a bug with emails and urls at the beginning of the
       # line that were mistaken for raw_html
-      return :text           if self =~ /\A[ ]{0,3}<([^:@>]+?@[^:@>]+?)>/
+      return :text           if self =~ /\A[ ]{0,3}#{EMailAddress}/
       return :text           if self =~ /\A[ ]{0,3}<http:/
       # raw html is like PHP Markdown Extra: at most three spaces before
       return :xml_instr      if self =~ /\A\s*<\?/
-      return :raw_html       if self =~ %r{^[ ]{0,3}</?\s*\w+}
+      return :raw_html       if self =~ %r{\A[ ]{0,3}</?\s*\w+}
       return :raw_html       if self =~ /\A[ ]{0,3}<\!\-\-/
       return :header1        if self =~ /\A(=)+/
       return :header2        if self =~ /\A([-\s])+\z/
@@ -126,4 +126,6 @@ module MaRuKu
   # Table syntax: http://michelf.ca/projects/php-markdown/extra/#table
   # | -------------:| ------------------------------ |
   TableSeparator = /\A(?>\|?\s*\:?\-+\:?\s*\|?)+?\z/
+
+  EMailAddress = /<([^:@>]+?@[^:@>]+?)>/
 end

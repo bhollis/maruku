@@ -1,21 +1,32 @@
-PHP Markdown Extra table syntax
+Trailing blanks in table rows
 *** Parameters: ***
 {} # params 
 *** Markdown input: ***
 
-Col1    | Very very long head | Very very long head|
+Col1    | Very very long head | Very very long head| 
 ------- |:-------------------:|-------------------:|
 cell    | center-align        | right-align        |
 another | cell                | here               |
 
 | First Header  | Second Header |
+| ------------- | ------------- | 
+| Content Cell  | Content Cell  |
+| Content Cell  | Content Cell  |
+
+| First Header  | Second Header |
 | ------------- | ------------- |
+| Content Cell  | Content Cell  | 
 | Content Cell  | Content Cell  |
-| Content Cell  | Content Cell  |
+
+First Header  | Second Header|
+------------- | -------------|
+Content Cell  | Content Cell| 
+Content Cell  | Content Cell|
 
 First Header  | Second Header
 ------------- | -------------
 Content Cell  | Content Cell
+Content Cell  |  
 Content Cell  | Content Cell
 
 *** Output of inspect ***
@@ -34,6 +45,17 @@ md_el(:document, [
 	[md_el(:head_cell, "First Header"), md_el(:head_cell, "Second Header")],
 	[md_el(:cell, "Content Cell"), md_el(:cell, "Content Cell")],
 	[md_el(:cell, "Content Cell"), md_el(:cell, "Content Cell")]
+], {:align=>[:left, :left]}),
+	md_el(:table, [
+	[md_el(:head_cell, "First Header"), md_el(:head_cell, "Second Header")],
+	[md_el(:cell, "Content Cell"), md_el(:cell, "Content Cell")],
+	[md_el(:cell, "Content Cell"), md_el(:cell, "Content Cell")]
+], {:align=>[:left, :left]}),
+	md_el(:table, [
+	[md_el(:head_cell, "First Header"), md_el(:head_cell, "Second Header")],
+	[md_el(:cell, "Content Cell"), md_el(:cell, "Content Cell")],
+	[md_el(:cell, "Content Cell"), md_el(:cell, [])],
+	[md_el(:cell, "Content Cell"), md_el(:cell, "Content Cell")]
 ], {:align=>[:left, :left]})
 ])
 *** Output of to_html ***
@@ -42,6 +64,11 @@ md_el(:document, [
 </tbody></table><table><thead><tr><th>First Header</th><th>Second Header</th></tr></thead><tbody><tr><td style="text-align: left;">Content Cell</td><td style="text-align: left;">Content Cell</td></tr>
 <tr><td style="text-align: left;">Content Cell</td><td style="text-align: left;">Content Cell</td></tr>
 </tbody></table><table><thead><tr><th>First Header</th><th>Second Header</th></tr></thead><tbody><tr><td style="text-align: left;">Content Cell</td><td style="text-align: left;">Content Cell</td></tr>
+<tr><td style="text-align: left;">Content Cell</td><td style="text-align: left;">Content Cell</td></tr>
+</tbody></table><table><thead><tr><th>First Header</th><th>Second Header</th></tr></thead><tbody><tr><td style="text-align: left;">Content Cell</td><td style="text-align: left;">Content Cell</td></tr>
+<tr><td style="text-align: left;">Content Cell</td><td style="text-align: left;">Content Cell</td></tr>
+</tbody></table><table><thead><tr><th>First Header</th><th>Second Header</th></tr></thead><tbody><tr><td style="text-align: left;">Content Cell</td><td style="text-align: left;">Content Cell</td></tr>
+<tr><td style="text-align: left;">Content Cell</td><td style="text-align: left;"></td></tr>
 <tr><td style="text-align: left;">Content Cell</td><td style="text-align: left;">Content Cell</td></tr>
 </tbody></table>
 

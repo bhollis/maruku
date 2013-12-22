@@ -5,26 +5,25 @@ require 'maruku/ext/math';{:html_math_engine => 'blahtex'}
 
 $$ x = y $$
 
-$$ x 
+$$ x
 = y $$
 
-$$ 
+$$
 x = y $$
 
-$$ x = y 
+$$ x = y
 $$
 
 *** Output of inspect ***
 
 *** Output of to_html ***
-<div class="maruku-equation"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block" class="maruku-mathml">
-<mrow><mi>x</mi><mo lspace="0.278em" rspace="0.278em">=</mo><mi>y</mi></mrow>
-</math><span class="maruku-eq-tex"><code style="display: none">x = y</code></span></div><div class="maruku-equation"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block" class="maruku-mathml">
-<mrow><mi>x</mi><mo lspace="0.278em" rspace="0.278em">=</mo><mi>y</mi></mrow>
-</math><span class="maruku-eq-tex"><code style="display: none">x 
-= y</code></span></div><div class="maruku-equation"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block" class="maruku-mathml">
-<mrow><mi>x</mi><mo lspace="0.278em" rspace="0.278em">=</mo><mi>y</mi></mrow>
-</math><span class="maruku-eq-tex"><code style="display: none">x = y</code></span></div><div class="maruku-equation"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block" class="maruku-mathml">
-<mrow><mi>x</mi><mo lspace="0.278em" rspace="0.278em">=</mo><mi>y</mi></mrow>
-</math><span class="maruku-eq-tex"><code style="display: none">x = y</code></span></div>
+<div class="maruku-equation"><math class='maruku-mathml' display='block' xmlns='http://www.w3.org/1998/Math/MathML'>
+<mrow><mi>x</mi><mo lspace='0.278em' rspace='0.278em'>=</mo><mi>y</mi></mrow>
+</math></div><div class="maruku-equation"><math class='maruku-mathml' display='block' xmlns='http://www.w3.org/1998/Math/MathML'>
+<mrow><mi>x</mi><mo lspace='0.278em' rspace='0.278em'>=</mo><mi>y</mi></mrow>
+</math></div><div class="maruku-equation"><math class='maruku-mathml' display='block' xmlns='http://www.w3.org/1998/Math/MathML'>
+<mrow><mi>x</mi><mo lspace='0.278em' rspace='0.278em'>=</mo><mi>y</mi></mrow>
+</math></div><div class="maruku-equation"><math class='maruku-mathml' display='block' xmlns='http://www.w3.org/1998/Math/MathML'>
+<mrow><mi>x</mi><mo lspace='0.278em' rspace='0.278em'>=</mo><mi>y</mi></mrow>
+</math></div>
 *** Output of to_latex ***

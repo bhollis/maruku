@@ -25,7 +25,15 @@ md_el(:document,[
 	md_el(:equation,[],{:label=>nil,:math=>" \\gamma ",:num=>nil},[])
 ],{},[])
 *** Output of to_html ***
-<div class="maruku-equation" id="eq:eq1"><span class="maruku-eq-number">(1)</span><math xmlns="http://www.w3.org/1998/Math/MathML" display="block" class="maruku-mathml"><mi>α</mi></math><span class="maruku-eq-tex"><code style="display: none">\alpha</code></span></div><div class="maruku-equation"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block" class="maruku-mathml"><mi>α</mi></math><span class="maruku-eq-tex"><code style="display: none">\alpha</code></span></div><div class="maruku-equation"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block" class="maruku-mathml"><mi>β</mi></math><span class="maruku-eq-tex"><code style="display: none">\beta</code></span></div><div class="maruku-equation"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block" class="maruku-mathml"><mi>γ</mi></math><span class="maruku-eq-tex"><code style="display: none">\gamma</code></span></div>
+<div class="maruku-equation" id="eq:eq1"><span class="maruku-eq-number">(1)</span><math class='maruku-mathml' display='block' xmlns='http://www.w3.org/1998/Math/MathML'>
+<mi>&#x3b1;</mi>
+</math></div><div class="maruku-equation"><math class='maruku-mathml' display='block' xmlns='http://www.w3.org/1998/Math/MathML'>
+<mi>&#x3b1;</mi>
+</math></div><div class="maruku-equation"><math class='maruku-mathml' display='block' xmlns='http://www.w3.org/1998/Math/MathML'>
+<mi>&#x3b2;</mi>
+</math></div><div class="maruku-equation"><math class='maruku-mathml' display='block' xmlns='http://www.w3.org/1998/Math/MathML'>
+<mi>&#x3b3;</mi>
+</math></div>
 *** Output of to_latex ***
 \begin{equation}
 \alpha
@@ -42,4 +50,3 @@ md_el(:document,[
 *** Output of to_md ***
 
 *** Output of to_s ***
-

@@ -143,13 +143,6 @@ module MaRuKu
           end
         end
 
-        source_span = xelem('span')
-        add_class_to(source_span, 'maruku-eq-tex')
-        code = convert_to_mathml_none(:equation, self.math.strip)
-        code['style'] = 'display: none'
-        source_span << code
-        div << source_span
-
         div
       end
 

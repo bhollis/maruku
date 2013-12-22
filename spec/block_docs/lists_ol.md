@@ -145,7 +145,7 @@ md_el(:document,[
 <li>
 <p>This is a list item with two paragraphs.</p>
 
-<p>This is the second paragraph in the list item. You&#8217;re only required to indent the first line. Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</p>
+<p>This is the second paragraph in the list item. You’re only required to indent the first line. Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</p>
 </li>
 
 <li>
@@ -225,7 +225,7 @@ This is the second paragraph in the list item. You're only required to indent th
 
 Ancora
 
-1.  
+1.
     This is a list item with two
     paragraphs. Lorem ipsum dolor sit amet,
     consectetuer adipiscing elit. Aliquam
@@ -233,18 +233,18 @@ Ancora
     ATTENZIONE!
     - Uno
     - Due
-    
+
     1.  tre
     2.  tre
     3.  tre
     - Due
-2.  
+2.
     Suspendisse id sem consectetuer libero
     luctus adipiscing.
 
 Ancora
 
-- 
+-
 This is a list item with two
 paragraphs.
 This is the second paragraph in the

@@ -10,7 +10,7 @@ gem 'nokogiri', '~> 1.5'
 
 if RUBY_PLATFORM != 'java'
    # itextomml won't build for jRuby, but we should test with it otherwise
-  gem "itextomml", '~> 1.4.6'
+  gem "itextomml", '~> 1.5.0'
 end
 
 # Rubinius is gemifying the standard library

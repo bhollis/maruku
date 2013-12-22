@@ -13,15 +13,15 @@
 *** Output of inspect ***
 md_el(:document,[
 	md_el(:table,[
-		md_el(:head_cell,["Symbol"],{},[]),
+		[md_el(:head_cell,["Symbol"],{},[]),
 		md_el(:head_cell,["Meaning"],{},[]),
-		md_el(:head_cell,["comments"],{},[]),
-		md_el(:cell,[" ", md_entity("alpha")],{},[[:ref, "r"]]),
+		md_el(:head_cell,["comments"],{},[])],
+		[md_el(:cell,[" ", md_entity("alpha")],{},[[:ref, "r"]]),
 		md_el(:cell,["The first"],{},[]),
-		md_el(:cell,["I like it."],{},[]),
-		md_el(:cell,[" ", md_entity("aleph")],{},[[:ref, "r"]]),
+		md_el(:cell,["I like it."],{},[])],
+		[md_el(:cell,[" ", md_entity("aleph")],{},[[:ref, "r"]]),
 		md_el(:cell,["The first"],{},[]),
-		md_el(:cell,["I like it."],{},[])
+		md_el(:cell,["I like it."],{},[])]
 	],{:align=>[:left, :left, :left]},[]),
 	md_el(:ald,[],{:ald=>[["scope", "row"]],:ald_id=>"r"},[])
 ],{},[])
