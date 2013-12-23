@@ -5,7 +5,7 @@ $warned_nokogiri = false
 module MaRuKu
   HTML_INLINE_ELEMS = Set.new %w[a abbr acronym audio b bdi bdo big br button canvas caption cite code
     col colgroup command datalist del details dfn dir em fieldset font form i img input ins
-    kbd label legend mark meter optgroup option progress q rp rt ruby s samp section select small
+    kbd label legend mark meter optgroup option progress q rp rt ruby s samp select small
     source span strike strong sub summary sup tbody td tfoot th thead time tr track tt u var video wbr
     animate animateColor animateMotion animateTransform circle clipPath defs desc ellipse
     feGaussianBlur filter font-face font-face-name font-face-src foreignObject g glyph hkern
@@ -16,7 +16,7 @@ module MaRuKu
     mtd mtext mtr munder munderover none semantics]
 
   # Parse block-level markdown elements in these HTML tags
-  BLOCK_TAGS = %w(div)
+  BLOCK_TAGS = %w(div section)
 
   # This gets mixed into HTML MDElement nodes to hold the parsed document fragment
   module HTMLElement
@@ -84,8 +84,9 @@ module MaRuKu
         elts << d unless d.attribute('markdown')
         elts += span_descendents(d)
       end
-
+      
       elts.each do |e|
+
         how = e['markdown']
         e.remove_attribute('markdown')
 
@@ -172,15 +173,14 @@ module MaRuKu
     # Process markdown within the contents of some elements and
     # replace their contents with the processed version.
     def process_markdown_inside_elements(doc)
-      # parse block-level markdown elements in these HTML tags
-      block_tags = ['div']
-
       elts = []
       @fragment.each_element('//*[@markdown]') do |e|
         elts << e
       end
 
       d = @fragment.children.first
+
+
       if d && HTML_INLINE_ELEMS.include?(first_node_name)
         elts << d unless d.attributes['markdown']
         elts += span_descendents(d)
@@ -191,10 +191,10 @@ module MaRuKu
         # should we parse block-level or span-level?
         how = e.attributes['markdown']
         e.attributes.delete('markdown')
-
+        
         next if "0" == how # user requests no markdown parsing inside
-        parse_blocks = (how == 'block') || block_tags.include?(e.name)
-
+        parse_blocks = (how == 'block') || BLOCK_TAGS.include?(e.name)
+        
         # Select all text children of e
         e.texts.each do |original_text|
           s = MaRuKu::Out::HTML.escapeHTML(original_text.value)
