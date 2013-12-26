@@ -16,7 +16,7 @@ module MaRuKu
     mtd mtext mtr munder munderover none semantics]
 
   # Parse block-level markdown elements in these HTML tags
-  BLOCK_TAGS = %w(div)
+  BLOCK_TAGS = Set.new %w[div]
 
   # This gets mixed into HTML MDElement nodes to hold the parsed document fragment
   module HTMLElement
@@ -172,9 +172,6 @@ module MaRuKu
     # Process markdown within the contents of some elements and
     # replace their contents with the processed version.
     def process_markdown_inside_elements(doc)
-      # parse block-level markdown elements in these HTML tags
-      block_tags = ['div']
-
       elts = []
       @fragment.each_element('//*[@markdown]') do |e|
         elts << e
@@ -193,7 +190,7 @@ module MaRuKu
         e.attributes.delete('markdown')
 
         next if "0" == how # user requests no markdown parsing inside
-        parse_blocks = (how == 'block') || block_tags.include?(e.name)
+        parse_blocks = (how == 'block') || BLOCK_TAGS.include?(e.name)
 
         # Select all text children of e
         e.texts.each do |original_text|
