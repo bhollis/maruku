@@ -10,6 +10,7 @@
 * Better handling of lists.
 * Fix the "blahtex" math engine on 1.8.7.
 * "script" and "style" tags now have their generated CDATA tags escaped so the scripts/styles actually work. #120
+* "section" tags are now equivalent to "div" tags - they won't get wrapped in a "p" tag and they can have markdown processing turned on with a "markdown" attribute. #117
 
 0.7.0
 -----

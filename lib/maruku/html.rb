@@ -5,7 +5,7 @@ $warned_nokogiri = false
 module MaRuKu
   HTML_INLINE_ELEMS = Set.new %w[a abbr acronym audio b bdi bdo big br button canvas caption cite code
     col colgroup command datalist del details dfn dir em fieldset font form i img input ins
-    kbd label legend mark meter optgroup option progress q rp rt ruby s samp section select small
+    kbd label legend mark meter optgroup option progress q rp rt ruby s samp select small
     source span strike strong sub summary sup tbody td tfoot th thead time tr track tt u var video wbr
     animate animateColor animateMotion animateTransform circle clipPath defs desc ellipse
     feGaussianBlur filter font-face font-face-name font-face-src foreignObject g glyph hkern
@@ -16,7 +16,7 @@ module MaRuKu
     mtd mtext mtr munder munderover none semantics]
 
   # Parse block-level markdown elements in these HTML tags
-  BLOCK_TAGS = Set.new %w[div]
+  BLOCK_TAGS = Set.new %w[div section]
 
   # This gets mixed into HTML MDElement nodes to hold the parsed document fragment
   module HTMLElement
