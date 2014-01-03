@@ -20,21 +20,44 @@ NOTE: CDATA is output because we use XHTML - for HTML mode it should be omitted.
   var x = true && true;
 ]]>
 </script>
+
+<script>//<![CDATA[
+  var x = true && true;
+//]]></script>
+
+<script>
+//<![CDATA[
+  var x = true && true;
+//]]>
+</script>
 *** Output of inspect ***
 
 *** Output of to_html ***
-<script><![CDATA[
+<script>//<![CDATA[
+
   var x = true && true;
-]]></script>
 
-<script><![CDATA[foo && bar]]></script>
+//]]></script><script>//<![CDATA[
+foo && bar
+//]]></script><script>//<![CDATA[
 
-<script><![CDATA[
   var x = true && true;
-]]></script>
 
-<script><![CDATA[foo && bar]]></script>
+//]]></script><script>//<![CDATA[
+foo && bar
+//]]></script><script>//<![CDATA[
 
-<script><![CDATA[
   var x = true && true;
-]]></script>
+
+
+//]]></script><script>//<![CDATA[
+//<![CDATA[
+  var x = true && true;
+//
+//]]></script><script>//<![CDATA[
+
+//<![CDATA[
+  var x = true && true;
+//
+
+//]]></script>

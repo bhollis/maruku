@@ -93,9 +93,10 @@ module MaRuKu::In::Markdown::SpanLevelParser
         when :inside_cdata
           if @m = CDataEnd.match(@rest)
             my_debug "#{@state}: matched #{@m.to_s.inspect}"
-            @already << @m.pre_match << @m.to_s
-            @rest = @m.post_match
             self.state = %(script style).include?(@tag_stack.last) ? :inside_script_style : :inside_element
+            @already << @m.pre_match
+            @already << @m.to_s unless self.state == :inside_script_style
+            @rest = @m.post_match
           else
             @already << @rest
             @rest = ""
@@ -110,8 +111,8 @@ module MaRuKu::In::Markdown::SpanLevelParser
               my_debug "#{@state}: CDATA: #{@m.to_s.inspect}"
               @already << @m.pre_match << @m.to_s
               @rest = @m.post_match
-              self.state = :inside_cdata
             end
+            self.state = :inside_cdata
           elsif @m = Tag.match(@rest)
             is_closing = !!@m[1]
             tag = @m[2]
@@ -121,7 +122,7 @@ module MaRuKu::In::Markdown::SpanLevelParser
               @rest = @m.post_match
               # This is necessary to properly parse
               # script tags
-              @already << "]]>" unless @already.rstrip.end_with?("]]>")
+              @already << script_style_cdata_end(tag) unless @already.rstrip.end_with?(']]>')
               self.state = :inside_element
               handle_tag false # don't double-add pre_match
             else
@@ -191,7 +192,7 @@ module MaRuKu::In::Markdown::SpanLevelParser
         if %w(script style).include?(@tag_stack.last)
           # This is necessary to properly parse
           # script tags
-          @already << "<![CDATA["
+          @already << script_style_cdata_start(@tag_stack.last)
           self.state = :inside_script_style
         end
       end
@@ -217,6 +218,14 @@ module MaRuKu::In::Markdown::SpanLevelParser
 
     def is_finished?
       (self.state == :inside_element) and @tag_stack.empty?
+    end
+
+    def script_style_cdata_start(tag)
+      (tag == 'script') ? "//<![CDATA[\n" : "/*<![CDATA[*/\n"
+    end
+
+    def script_style_cdata_end(tag)
+      (tag == 'script') ? "\n//]]>" : "\n/*]]>*/"
     end
   end # html helper
 end

@@ -9,6 +9,7 @@
 * More robust table handling.
 * Better handling of lists.
 * Fix the "blahtex" math engine on 1.8.7.
+* "script" and "style" tags now have their generated CDATA tags escaped so the scripts/styles actually work. #120
 
 0.7.0
 -----
