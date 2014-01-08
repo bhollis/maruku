@@ -13,7 +13,8 @@
 * CDATA escaping is only added to "script" and "style" tags if it is necessary, rather than all the time.
 * "section" tags are now equivalent to "div" tags - they won't get wrapped in a "p" tag and they can have markdown processing turned on with a "markdown" attribute. #117
 * In some situations where Maruku might detect invalid Markdown and omit it from the output, it will now simply pass through the input as if it were regular text. Discovered in #124.
-* HTML like <script> tags will no longer cause errors if they don't have a newline separating them from other text. #123
+* HTML like <script> tags will no longer cause errors if they don't have a newline separating them from other text. #123, #124. #125
+* Remove an ineffective hack to handle inline HTML that involved parsing the HTML twice.
 
 0.7.0
 -----

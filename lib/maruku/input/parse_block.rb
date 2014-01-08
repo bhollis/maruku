@@ -151,7 +151,7 @@ module MaRuKu; module In; module Markdown; module BlockLevelParser
         output << md_el(:definition_list, definition)
       end
     else # Start of a paragraph
-      output << read_paragraph(src)
+      output.concat read_paragraph(src)
     end
   end
 
@@ -277,16 +277,6 @@ module MaRuKu; module In; module Markdown; module BlockLevelParser
         break
       when :olist, :ulist
         break if !src.next_line || src.next_line.md_type == t
-      when :raw_html
-        # This is a pretty awful hack to handle inline HTML
-        # but it means double-parsing HMTL.
-        html = parse_span([src.cur_line], src)
-        unless html.empty? || html.first.is_a?(String)
-          if html.first.parsed_html
-            first_node_name = html.first.parsed_html.first_node_name
-          end
-        end
-        break if first_node_name && !HTML_INLINE_ELEMS.include?(first_node_name)
       end
       break if src.cur_line.strip.empty?
       break if src.next_line && [:header1, :header2].include?(src.next_line.md_type)
@@ -296,7 +286,41 @@ module MaRuKu; module In; module Markdown; module BlockLevelParser
     end
     children = parse_span(lines, src)
 
-    md_par(children)
+    pick_apart_non_inline_html(children)
+  end
+
+  # If there are non-inline HTML tags in the paragraph, break them out into
+  # their own elements and make paragraphs out of everything else.
+  def pick_apart_non_inline_html(children)
+    children.chunk do |child|
+      element_is_non_inline_html?(child)
+    end.map do |non_inline_html, chunk|
+      if non_inline_html
+        chunk
+      else
+        md_par(chunk)
+      end
+    end.flatten.tap do |elems|
+      # Fix up paragraphs before non-inline elements having an extra space
+      elems.each_cons(2) do |first, _|
+        if first.node_type == :paragraph
+          last_child = first.children.last
+          if last_child.is_a?(String) && !last_child.empty?
+            last_child.replace last_child[0..-2]
+          end
+        end
+      end
+    end
+  end
+
+  # Is the given element an HTML element whose root is not an inline element?
+  def element_is_non_inline_html?(elem)
+    if elem.is_a?(MDElement) && elem.node_type == :raw_html && elem.parsed_html
+      first_node_name = elem.parsed_html.first_node_name
+      first_node_name && !HTML_INLINE_ELEMS.include?(elem.parsed_html.first_node_name)
+    else
+      false
+    end
   end
 
   # Reads one list item, either ordered or unordered.
