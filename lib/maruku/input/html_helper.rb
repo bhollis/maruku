@@ -85,6 +85,10 @@ module MaRuKu::In::Markdown::SpanLevelParser
             @rest = @partial_tag + @m.post_match
             @partial_tag = nil
             self.state = :inside_element
+            if @m = Tag.match(@rest)
+              things_read += 1
+              handle_tag
+            end
           else
             @partial_tag << @rest
             @rest = ""
@@ -120,15 +124,18 @@ module MaRuKu::In::Markdown::SpanLevelParser
               my_debug "#{@state}: matched #{@m.to_s.inspect}"
               @already << @m.pre_match
               @rest = @m.post_match
-              # This is necessary to properly parse
-              # script tags
-              @already << script_style_cdata_end(tag) unless @already.rstrip.end_with?(']]>')
               self.state = :inside_element
               handle_tag false # don't double-add pre_match
             else
               @already << @rest
               @rest = ""
             end
+          elsif @m = PartialTag.match(@rest)
+            my_debug "#{@state}: PartialTag: #{@m.to_s.inspect}"
+            @already << @m.pre_match
+            @rest = @m.post_match
+            @partial_tag = @m.to_s
+            self.state = :inside_tag
           elsif @m = EverythingElse.match(@rest)
             my_debug "#{@state}: Everything: #{@m.to_s.inspect}"
             @already << @m.pre_match << @m.to_s
@@ -179,12 +186,18 @@ module MaRuKu::In::Markdown::SpanLevelParser
           error "Malformed: tag <#{tag}> closes <#{@tag_stack.last}>"
         end
 
+        if %w(script style).include?(@tag_stack.last)
+          # This is necessary to properly parse
+          # script tags
+          @already << script_style_cdata_end(tag) unless @already.rstrip.end_with?(']]>')
+        end
+
         @already << @m.to_s
         @tag_stack.pop
       else
         @already << @m.to_s
 
-        if not is_single
+        unless is_single
           @tag_stack.push(tag)
           my_debug "Pushing #{tag.inspect} when read #{@m.to_s.inspect}"
         end
