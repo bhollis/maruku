@@ -97,18 +97,19 @@ module MaRuKu; module In; module Markdown; module BlockLevelParser
         output << read_abbreviation(src)
       when :xml_instr
         read_xml_instruction(src, output)
-      else # warn if we forgot something
-        line = src.cur_line
-        maruku_error "Ignoring line '#{line}' type = #{md_type}", src
-        src.shift_line
+      else # unhandled line type at this level
+        # Just treat it as raw text
+        read_text_material(src, output)
       end
     end
 
     merge_ial(output, src, output)
-    output.delete_if {|x| x.kind_of?(MDElement) && x.node_type == :ial }
-
-    # get rid of empty line markers
-    output.delete_if {|x| x == :empty }
+    output.delete_if do |x|
+      # Strip out IAL
+      (x.kind_of?(MDElement) && x.node_type == :ial) ||
+      # get rid of empty line markers
+      x == :empty
+    end
 
     # See for each list if we can omit the paragraphs
     # TODO: do this after
