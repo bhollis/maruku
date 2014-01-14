@@ -109,8 +109,8 @@ module MaRuKu::In::Markdown::SpanLevelParser
       end
     end
 
-    def handle_tag(add_pre_match = true)
-      @already << @m.pre_match if add_pre_match
+    def handle_tag
+      @already << @m.pre_match
       @rest = @m.post_match
 
       is_closing = !!@m[1]
@@ -129,11 +129,10 @@ module MaRuKu::In::Markdown::SpanLevelParser
 
       if TO_SANITIZE.include? tag
         attributes.strip!
-        #   puts "Attributes: #{attributes.inspect}"
         if attributes.size > 0
-          @already <<  '<%s %s />' % [tag, attributes]
+          @already << '<%s %s />' % [tag, attributes]
         else
-          @already <<  '<%s />' % [tag]
+          @already << '<%s />' % [tag]
         end
       elsif is_closing
         if @tag_stack.empty?
