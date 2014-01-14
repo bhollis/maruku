@@ -87,7 +87,7 @@ Maruku will not depend on any gem that is not pure-Ruby. This helps maximize com
 
 ## Versioning
 
-Maruku follows [Semantic Versioning](http://semver.org/) for release versioning, starting around version 0.6.0. One caveat is that, because even the most minor bug fixes are likely to change the output of some documents, some of the patch-level changesare not strictly backwards compatible. This usually shows up as test breakages, and one suggestion is to use a tool like [nokogiri-diff](https://github.com/postmodern/nokogiri-diff) to compare output to the expected structure as XML rather than simply comparing strings.
+Maruku follows [Semantic Versioning](http://semver.org/) for release versioning, starting around version 0.6.0. One caveat is that, because even the most minor bug fixes are likely to change the output of some documents, some of the patch-level changes are not strictly backwards compatible. This usually shows up as test breakages, and one suggestion is to use a tool like [nokogiri-diff](https://github.com/postmodern/nokogiri-diff) to compare output to the expected structure as XML rather than simply comparing strings.
 
 ## Supported Ruby Versions
 
