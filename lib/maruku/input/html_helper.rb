@@ -124,9 +124,6 @@ module MaRuKu::In::Markdown::SpanLevelParser
         is_single = true
       end
 
-      my_debug "Attributes: #{attributes.inspect}"
-      my_debug "READ TAG #{@m.to_s.inspect} tag = #{tag} closing? #{is_closing} single = #{is_single}"
-
       if TO_SANITIZE.include? tag
         attributes.strip!
         if attributes.size > 0
@@ -147,11 +144,7 @@ module MaRuKu::In::Markdown::SpanLevelParser
         @tag_stack.pop
       else
         @already << @m.to_s
-
-        unless is_single
-          @tag_stack.push(tag)
-          my_debug "Pushing #{tag.inspect} when read #{@m.to_s.inspect}"
-        end
+        @tag_stack.push(tag) unless is_single
 
         start_script_style if script_style?
       end
