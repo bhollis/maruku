@@ -8,6 +8,4 @@ Lets add Jade to our dependencies:
 
 *** Output of to_html ***
 <p>Lets add Jade to our dependencies:</p>
-<script src='https://gist.github.com/7360992.js'>//<![CDATA[
- 
-//]]></script>
+<script src='https://gist.github.com/7360992.js'> </script>

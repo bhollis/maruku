@@ -34,30 +34,19 @@ NOTE: CDATA is output because we use XHTML - for HTML mode it should be omitted.
 
 *** Output of to_html ***
 <script>//<![CDATA[
-
   var x = true && true;
-
 //]]></script><script>//<![CDATA[
 foo && bar
-//]]></script><script>//<![CDATA[
-
+//]]></script><script><![CDATA[
   var x = true && true;
-
-//]]></script><script>//<![CDATA[
-foo && bar
-//]]></script><script>//<![CDATA[
-
+]]></script><script><![CDATA[foo && bar]]></script><script>
+<![CDATA[
   var x = true && true;
-
-
-//]]></script><script>//<![CDATA[
+]]>
+</script><script>//<![CDATA[
+  var x = true && true;
+//]]></script><script>
 //<![CDATA[
   var x = true && true;
-//
-//]]></script><script>//<![CDATA[
-
-//<![CDATA[
-  var x = true && true;
-//
-
-//]]></script>
+//]]>
+</script>

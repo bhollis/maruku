@@ -29,26 +29,20 @@ NOTE: Commented CDATA is output because we use XHTML - for HTML mode it should b
 
 *** Output of to_html ***
 <style type='text/css'>/*<![CDATA[*/
-
   p > .highlight {
     color: red;
     background-image: url('/foo?bar&baz');
   }
-
 /*]]>*/</style><style type='text/css'>/*<![CDATA[*/
+  p > .highlight {
+    color: red;
+    background-image: url('/foo?bar&baz');
+  }
+/*]]>*/</style><style type='text/css'>
 /*<![CDATA[*/
   p > .highlight {
     color: red;
     background-image: url('/foo?bar&baz');
   }
-/**/
-/*]]>*/</style><style type='text/css'>/*<![CDATA[*/
-
-/*<![CDATA[*/
-  p > .highlight {
-    color: red;
-    background-image: url('/foo?bar&baz');
-  }
-/**/
-
-/*]]>*/</style>
+/*]]>*/
+</style>
