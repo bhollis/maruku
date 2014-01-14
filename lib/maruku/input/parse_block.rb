@@ -292,25 +292,32 @@ module MaRuKu; module In; module Markdown; module BlockLevelParser
   # If there are non-inline HTML tags in the paragraph, break them out into
   # their own elements and make paragraphs out of everything else.
   def pick_apart_non_inline_html(children)
-    children.chunk do |child|
-      element_is_non_inline_html?(child)
-    end.map do |non_inline_html, chunk|
-      if non_inline_html
-        chunk
-      else
-        md_par(chunk)
-      end
-    end.flatten.tap do |elems|
-      # Fix up paragraphs before non-inline elements having an extra space
-      elems.each_cons(2) do |first, _|
-        if first.node_type == :paragraph
-          last_child = first.children.last
+    output = []
+    para_children = []
+
+    children.each do |child|
+      if element_is_non_inline_html?(child)
+        unless para_children.empty?
+          # Fix up paragraphs before non-inline elements having an extra space
+          last_child = para_children.last
           if last_child.is_a?(String) && !last_child.empty?
             last_child.replace last_child[0..-2]
           end
+
+          output << md_par(para_children)
+          para_children = []
         end
+        output << child
+      else
+        para_children << child
       end
     end
+
+    unless para_children.empty?
+      output << md_par(para_children)
+    end
+
+    output
   end
 
   # Is the given element an HTML element whose root is not an inline element?
