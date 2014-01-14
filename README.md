@@ -18,7 +18,7 @@ News about Maruku is posted at [http://benhollis.net/blog/category/maruku/](http
 [![Code Climate](https://codeclimate.com/github/bhollis/maruku.png)](https://codeclimate.com/github/bhollis/maruku)
 [![Coverage Status](https://coveralls.io/repos/bhollis/maruku/badge.png)](https://coveralls.io/r/bhollis/maruku)
 
-**Note**: [Maruku should be considered obsolete](http://benhollis.net/blog/2013/10/20/maruku-is-obsolete/), as it has been superceded by better libraries like Kramdown.
+**Note**: [Maruku should be considered obsolete](http://benhollis.net/blog/2013/10/20/maruku-is-obsolete/), as it has been superceded by better libraries like Kramdown. It is still supported, so feel free to continue filing bug reports.
 
 ## Installing
 
@@ -85,6 +85,10 @@ Everything else is in the module `MaRuKu`.
 
 Maruku will not depend on any gem that is not pure-Ruby. This helps maximize compatibility across Ruby implementations and make Maruku easy to use. Beyond that, Maruku should not depend on any other gem unless absolutely necessary - this make Maruku easy to consume and avoids dependency version conflicts.
 
+## Versioning
+
+Maruku follows [Semantic Versioning](http://semver.org/) for release versioning, starting around version 0.6.0. One caveat is that, because even the most minor bug fixes are likely to change the output of some documents, some of the patch-level changesare not strictly backwards compatible. This usually shows up as test breakages, and one suggestion is to use a tool like [nokogiri-diff](https://github.com/postmodern/nokogiri-diff) to compare output to the expected structure as XML rather than simply comparing strings.
+
 ## Supported Ruby Versions
 
 This library aims to support and is [tested against][travis] the following Ruby
@@ -94,8 +98,9 @@ implementations:
 * Ruby 1.9.2
 * Ruby 1.9.3
 * Ruby 2.0.0
+* Ruby 2.1.0
 * JRuby (Travis' version, 1.8 and 1.9 modes)
-* Rubinius (Travis' version, 1.8 and 1.9 modes)
+* Rubinius (Travis' version)
 
 If something doesn't work on one of these interpreters, it's a bug.
 
