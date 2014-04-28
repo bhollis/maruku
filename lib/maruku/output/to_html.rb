@@ -216,7 +216,7 @@ module MaRuKu::Out::HTML
 
     # render footnotes
     unless @doc.footnotes_order.empty?
-      body << render_footnotes(@doc)
+      body << render_footnotes
     end
 
     # When we are rendering a whole document, we add a signature
