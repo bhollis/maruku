@@ -172,7 +172,7 @@ module MaRuKu::In::Markdown::SpanLevelParser
           end
         end
       else
-        intersperse(first.split(pattern), replacement).each do |x|
+        intersperse(first.split(pattern, -1), replacement).each do |x|
           append_to_output(output, x)
         end
       end
