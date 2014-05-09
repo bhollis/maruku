@@ -22,14 +22,16 @@ module MaRuKu::In::Markdown::SpanLevelParser
   def read_span(src, escaped, exit_on_chars=nil, exit_on_strings=nil)
     escaped = Array(escaped)
     con = SpanContext.new
-    c = d = nil
+    dquote_state = squote_state = :closed
+    c = d = prev_char = nil
     while true
       c = src.cur_char
 
       # This is only an optimization which cuts 50% of the time used.
       # (but you can't use a-zA-z in exit_on_chars)
-      if c && c =~ /a-zA-Z0-9/
+      if c && c =~  /[[:alnum:]]/
         con.push_char src.shift_char
+        prev_char = c
         next
       end
 
@@ -49,7 +51,21 @@ module MaRuKu::In::Markdown::SpanLevelParser
         if src.cur_chars_are "  \n"
           src.ignore_chars(3)
           con.push_element md_br
+          prev_char = ' '
           next
+        elsif src.cur_chars_are ' >>' # closing guillemettes
+          src.ignore_chars(3)
+          con.push_element md_entity('nbsp')
+          con.push_element md_entity('raquo')
+        elsif src.cur_chars(5) =~ / '\d\ds/ # special case: '80s
+          src.ignore_chars(2)
+          con.push_space
+          con.push_element md_entity('rsquo')
+        elsif src.cur_chars_are " '" # opening single-quote
+          src.ignore_chars(2)
+          con.push_space
+          con.push_element md_entity('lsquo')
+          squote_state = :open
         else
           src.ignore_char
           con.push_space
@@ -70,9 +86,14 @@ module MaRuKu::In::Markdown::SpanLevelParser
 
         case d = src.next_char
         when '<'  # guillemettes
-          src.ignore_chars(2)
-          con.push_char '<'
-          con.push_char '<'
+          if src.cur_chars_are '<< '
+            src.ignore_chars(3)
+            con.push_element md_entity('laquo')
+            con.push_element md_entity('nbsp')
+          else
+            src.ignore_chars(2)
+            con.push_element md_entity('laquo')
+          end
         when '!'
           if src.cur_chars_are '<!--'
             read_inline_html(src, con)
@@ -96,6 +117,13 @@ module MaRuKu::In::Markdown::SpanLevelParser
             #puts "This is NOT HTML: #{src.cur_chars(20)}"
             con.push_char src.shift_char
           end
+        end
+      when '>'
+        if src.next_char == '>'
+          src.ignore_chars(2)
+          con.push_element md_entity('raquo')
+        else
+          con.push_char src.shift_char
         end
       when "\\"
         d = src.next_char
@@ -195,9 +223,60 @@ module MaRuKu::In::Markdown::SpanLevelParser
                       [ exit_on_chars ? "#{exit_on_chars.inspect} or" : "" ],
                       src, con)
         break
+      when '-' # dashes
+        if src.next_char == '-'
+          if src.cur_chars_are '---'
+            src.ignore_chars(3)
+            con.push_element md_entity('mdash')
+          else
+            src.ignore_chars(2)
+            con.push_element md_entity('ndash')
+          end
+        else
+          con.push_char src.shift_char
+        end
+      when '.' # ellipses
+        if src.cur_chars_are '...'
+          src.ignore_chars(3)
+          con.push_element md_entity('hellip')
+        elsif src.cur_chars_are '. . .'
+          src.ignore_chars(5)
+          con.push_element md_entity('hellip')
+        else
+          con.push_char src.shift_char
+        end
+      when '"'
+        if dquote_state == :closed
+          dquote_state = :open
+          src.ignore_char
+          con.push_element md_entity('ldquo')
+        else
+          dquote_state = :closed
+          src.ignore_char
+          con.push_element md_entity('rdquo')
+        end
+      when "'"
+        if src.cur_chars(4) =~ /'\d\ds/ # special case: '80s
+          src.ignore_char
+          con.push_element md_entity('rsquo')
+        elsif squote_state == :open
+          squote_state = :closed unless src.next_char =~ /[[:alpha:]]/
+          src.ignore_char
+          con.push_element md_entity('rsquo')
+        else
+          if prev_char =~ /[[:alpha:]]/
+            src.ignore_char
+            con.push_element md_entity('rsquo')
+          else
+            src.ignore_char
+            con.push_element md_entity('lsquo')
+            squote_state = :open
+          end
+        end
       else # normal text
         con.push_char src.shift_char
       end # end case
+      prev_char = c
     end # end while true
 
     con.push_string_if_present
@@ -212,6 +291,8 @@ module MaRuKu::In::Markdown::SpanLevelParser
       end
       con.elements.shift if s.empty?
     end
+    
+    con.elements.shift if (con.elements.first.kind_of?(String) && con.elements.first.empty?)
 
     # Remove final spaces
     if (s = con.elements.last).kind_of? String
@@ -219,7 +300,7 @@ module MaRuKu::In::Markdown::SpanLevelParser
       con.elements.pop if s.empty?
     end
 
-    educate(con.elements)
+    con.elements
   end
 
 
@@ -449,7 +530,9 @@ module MaRuKu::In::Markdown::SpanLevelParser
 
     # Try to handle empty single-ticks
     if num_ticks > 1 && !src.next_matches(/.*#{Regexp.escape(end_string)}/)
-      con.push_element(end_string) and return
+      con.push_element md_entity('ldquo')
+      src.ignore_chars(2)
+      return
     end
 
     code = read_simple(src, nil, nil, end_string)
