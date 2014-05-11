@@ -16,6 +16,10 @@ matrix:
       gemfile: Gemfile
     - rvm: rbx
       gemfile: Gemfile
+  fast_finish: true
+  allow_failures:
+    # rbx is broken on Travis right now
+    - rvm: rbx
 
 branches:
   only:
