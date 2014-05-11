@@ -162,6 +162,11 @@ EXPECTATIONS = Maruku.new.instance_eval do
     ["[a](#url)", [md_im_link(['a'],'#url')]],
     ["[a](</script?foo=1&bar=2>)", [md_im_link(['a'],'/script?foo=1&bar=2')]],
 
+    # Links to URLs that contain closing parentheses. #128
+    ['[a](url())', [md_im_link(['a'],'url()')], 'Link with parentheses 1', true], # PENDING
+    ['[a](url\(\))', [md_im_link(['a'],'url()')], 'Link with parentheses 2', true], # PENDING
+    ['[a](url()foo)', [md_im_link(['a'],'url()foo')], 'Link with parentheses 3', true], # PENDING
+    ['[a](url(foo))', [md_im_link(['a'],'url(foo)')], 'Link with parentheses 4', true], # PENDING
 
     # Images
     ["\\![a](url)",  ['!', md_im_link(['a'],'url') ], 'Escaping images'],
