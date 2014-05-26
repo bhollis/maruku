@@ -35,8 +35,17 @@ module MaRuKu
       end
     end
 
+    # This is like {#maruku_error} but will never raise.
     def maruku_recover(s, src=nil, con=nil, recover=nil)
-      tell_user create_frame(describe_error(s, src, con, recover))
+      policy = get_setting(:on_error)
+
+      case policy
+      when :ignore
+      when :raise, :warning
+        tell_user create_frame(describe_error(s, src, con, recover))
+      else
+        raise "Unknown on_error policy: #{policy.inspect}"
+      end
     end
 
     def raise_error(s)
