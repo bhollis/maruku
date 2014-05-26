@@ -1,10 +1,11 @@
-0.7.2 (master)
+0.7.2
 -----
 
 * Fix angle-bracket links starting with https:// at the beginning of a line. #126
 * Fix error in footnote generation. #129
 * Fix for ellipses dissapearing at the end of a line. #131
 * Reimplement smartypants for a large overall speed improvement. #132
+* `#maruku_error` will now respect `:on_error => :ignore`. #133
 
 0.7.1
 -----
