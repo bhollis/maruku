@@ -478,7 +478,8 @@ module MaRuKu; module In; module Markdown; module BlockLevelParser
 
     lines = []
     # collect all indented lines
-    while src.cur_line && src.cur_line.md_type == :quote
+    while src.cur_line &&  ( [:text, :quote].include?(src.cur_line.md_type) or
+        src.cur_line.md_type == :empty && ( src.next_line && src.next_line.md_type == :quote ) )
       lines << unquote(src.shift_line)
     end
 
