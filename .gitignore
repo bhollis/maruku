@@ -1,0 +1,6 @@
+/pkg
+/doc
+/.yardoc
+/coverage
+Gemfile.lock
+/.rbx
