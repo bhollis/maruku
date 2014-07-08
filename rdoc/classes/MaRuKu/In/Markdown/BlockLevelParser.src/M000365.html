@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>read_ref_definition (MaRuKu::In::Markdown::BlockLevelParser)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/maruku/input/parse_block.rb, line 455</span>
+        <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">read_ref_definition</span>(<span class="ruby-identifier">src</span>, <span class="ruby-identifier">out</span>)      
+                <span class="ruby-identifier">line</span> = <span class="ruby-identifier">src</span>.<span class="ruby-identifier">shift_line</span>
+                
+                <span class="ruby-comment cmt"># if link is incomplete, shift next line</span>
+                <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">src</span>.<span class="ruby-identifier">cur_line</span> <span class="ruby-operator">&amp;&amp;</span> (<span class="ruby-identifier">src</span>.<span class="ruby-identifier">cur_line</span>.<span class="ruby-identifier">md_type</span> <span class="ruby-operator">!=</span> <span class="ruby-identifier">:ref_definition</span>) <span class="ruby-operator">&amp;&amp;</span> 
+                        ([<span class="ruby-value">1</span>,<span class="ruby-value">2</span>,<span class="ruby-value">3</span>].<span class="ruby-identifier">include?</span> <span class="ruby-identifier">number_of_leading_spaces</span>(<span class="ruby-identifier">src</span>.<span class="ruby-identifier">cur_line</span>) )
+                        <span class="ruby-identifier">line</span> <span class="ruby-operator">+=</span> <span class="ruby-value str">&quot; &quot;</span><span class="ruby-operator">+</span> <span class="ruby-identifier">src</span>.<span class="ruby-identifier">shift_line</span>
+                <span class="ruby-keyword kw">end</span>
+                
+<span class="ruby-comment cmt">#               puts &quot;total= #{line}&quot;</span>
+                
+                <span class="ruby-identifier">match</span> = <span class="ruby-constant">LinkRegex</span>.<span class="ruby-identifier">match</span>(<span class="ruby-identifier">line</span>)
+                <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">not</span> <span class="ruby-identifier">match</span>
+                        <span class="ruby-identifier">maruku_error</span> <span class="ruby-node">&quot;Link does not respect format: '#{line}'&quot;</span>
+                        <span class="ruby-keyword kw">return</span>
+                <span class="ruby-keyword kw">end</span>
+                
+                <span class="ruby-identifier">id</span> = <span class="ruby-identifier">match</span>[<span class="ruby-value">1</span>]; <span class="ruby-identifier">url</span> = <span class="ruby-identifier">match</span>[<span class="ruby-value">2</span>]; <span class="ruby-identifier">title</span> = <span class="ruby-identifier">match</span>[<span class="ruby-value">3</span>]; 
+                <span class="ruby-identifier">id</span> = <span class="ruby-identifier">id</span>.<span class="ruby-identifier">strip</span>.<span class="ruby-identifier">downcase</span>.<span class="ruby-identifier">gsub</span>(<span class="ruby-value str">' '</span>,<span class="ruby-value str">'_'</span>)
+                
+                <span class="ruby-identifier">hash</span> = <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">refs</span>[<span class="ruby-identifier">id</span>] = {<span class="ruby-identifier">:url=</span><span class="ruby-operator">&gt;</span><span class="ruby-identifier">url</span>,<span class="ruby-identifier">:title=</span><span class="ruby-operator">&gt;</span><span class="ruby-identifier">title</span>}
+                
+                <span class="ruby-identifier">stuff</span>=<span class="ruby-identifier">match</span>[<span class="ruby-value">4</span>]
+                
+                <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">stuff</span>
+                        <span class="ruby-identifier">stuff</span>.<span class="ruby-identifier">split</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">couple</span><span class="ruby-operator">|</span>
+<span class="ruby-comment cmt">#                                       puts &quot;found #{couple}&quot;</span>
+                                <span class="ruby-identifier">k</span>, <span class="ruby-identifier">v</span> = <span class="ruby-identifier">couple</span>.<span class="ruby-identifier">split</span>(<span class="ruby-value str">'='</span>)
+                                <span class="ruby-identifier">v</span> <span class="ruby-operator">||=</span> <span class="ruby-value str">&quot;&quot;</span>
+                                <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">v</span>[<span class="ruby-value">0</span>,<span class="ruby-value">1</span>]<span class="ruby-operator">==</span><span class="ruby-value str">'&quot;'</span> <span class="ruby-keyword kw">then</span> <span class="ruby-identifier">v</span> = <span class="ruby-identifier">v</span>[<span class="ruby-value">1</span>, <span class="ruby-identifier">v</span>.<span class="ruby-identifier">size</span><span class="ruby-operator">-</span><span class="ruby-value">2</span>] <span class="ruby-keyword kw">end</span>
+<span class="ruby-comment cmt">#                                       puts &quot;key:_#{k}_ value=_#{v}_&quot;</span>
+                                <span class="ruby-identifier">hash</span>[<span class="ruby-identifier">k</span>.<span class="ruby-identifier">to_sym</span>] = <span class="ruby-identifier">v</span>
+                        <span class="ruby-keyword kw">end</span>
+                <span class="ruby-keyword kw">end</span>
+<span class="ruby-comment cmt">#                       puts hash.inspect</span>
+                
+                <span class="ruby-identifier">out</span>.<span class="ruby-identifier">push</span> <span class="ruby-identifier">md_ref_def</span>(<span class="ruby-identifier">id</span>, <span class="ruby-identifier">url</span>, <span class="ruby-identifier">meta</span>={<span class="ruby-identifier">:title=</span><span class="ruby-operator">&gt;</span><span class="ruby-identifier">title</span>})
+        <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>replace_each_string (MaRuKu::MDElement)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/maruku/structures_iterators.rb, line 40</span>
+        <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">replace_each_string</span>(<span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
+                <span class="ruby-keyword kw">for</span> <span class="ruby-identifier">c</span> <span class="ruby-keyword kw">in</span> <span class="ruby-ivar">@children</span>
+                        <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">c</span>.<span class="ruby-identifier">kind_of?</span> <span class="ruby-constant">MDElement</span>
+                                <span class="ruby-identifier">c</span>.<span class="ruby-identifier">replace_each_string</span>(<span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
+                        <span class="ruby-keyword kw">end</span>
+                <span class="ruby-keyword kw">end</span>
+
+                <span class="ruby-identifier">processed</span> = []
+                <span class="ruby-keyword kw">until</span> <span class="ruby-ivar">@children</span>.<span class="ruby-identifier">empty?</span>
+                        <span class="ruby-identifier">c</span> = <span class="ruby-ivar">@children</span>.<span class="ruby-identifier">shift</span>
+                        <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">c</span>.<span class="ruby-identifier">kind_of?</span> <span class="ruby-constant">String</span>
+                                <span class="ruby-identifier">result</span> = <span class="ruby-identifier">block</span>.<span class="ruby-identifier">call</span>(<span class="ruby-identifier">c</span>)
+                                [<span class="ruby-operator">*</span><span class="ruby-identifier">result</span>].<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">e</span><span class="ruby-operator">|</span> <span class="ruby-identifier">processed</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">e</span> <span class="ruby-keyword kw">end</span>
+                        <span class="ruby-keyword kw">else</span>
+                                <span class="ruby-identifier">processed</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">c</span>
+                        <span class="ruby-keyword kw">end</span>
+                <span class="ruby-keyword kw">end</span>
+                <span class="ruby-ivar">@children</span> = <span class="ruby-identifier">processed</span>
+        <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

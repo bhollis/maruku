@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>go_up_parallel (Diagrams::Layout)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/maruku/ext/diagrams/layout.rb, line 237</span>
+                        <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">go_up_parallel</span>(<span class="ruby-identifier">par</span>)
+                                <span class="ruby-identifier">final</span> = <span class="ruby-identifier">par</span>[<span class="ruby-value">0</span>]
+                                <span class="ruby-keyword kw">for</span> <span class="ruby-identifier">i</span> <span class="ruby-keyword kw">in</span> <span class="ruby-value">1</span><span class="ruby-operator">..</span>(<span class="ruby-identifier">par</span>.<span class="ruby-identifier">size</span><span class="ruby-operator">-</span><span class="ruby-value">1</span>)
+                                        <span class="ruby-identifier">final</span> = <span class="ruby-constant">Spring</span>.<span class="ruby-identifier">parallel</span>(<span class="ruby-identifier">final</span>, <span class="ruby-identifier">par</span>[<span class="ruby-identifier">i</span>])
+                                <span class="ruby-keyword kw">end</span>
+                                <span class="ruby-identifier">final</span>
+                        <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

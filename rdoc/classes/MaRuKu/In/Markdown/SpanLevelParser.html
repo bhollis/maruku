@@ -1,0 +1,686 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>Module: MaRuKu::In::Markdown::SpanLevelParser</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <link rel="stylesheet" href="../../../.././rdoc-style.css" type="text/css" media="screen" />
+  <script type="text/javascript">
+  // <![CDATA[
+
+  function popupCode( url ) {
+    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+  }
+
+  function toggleCode( id ) {
+    if ( document.getElementById )
+      elem = document.getElementById( id );
+    else if ( document.all )
+      elem = eval( "document.all." + id );
+    else
+      return false;
+
+    elemStyle = elem.style;
+    
+    if ( elemStyle.display != "block" ) {
+      elemStyle.display = "block"
+    } else {
+      elemStyle.display = "none"
+    }
+
+    return true;
+  }
+  
+  // Make codeblocks hidden by default
+  document.writeln( "<style type=\"text/css\">div.method-source-code { display: none }</style>" )
+  
+  // ]]>
+  </script>
+
+</head>
+<body>
+
+
+
+    <div id="classHeader">
+        <table class="header-table">
+        <tr class="top-aligned-row">
+          <td><strong>Module</strong></td>
+          <td class="class-name-in-header">MaRuKu::In::Markdown::SpanLevelParser</td>
+        </tr>
+        <tr class="top-aligned-row">
+            <td><strong>In:</strong></td>
+            <td>
+                <a href="../../../../files/lib/maruku/attributes_rb.html">
+                lib/maruku/attributes.rb
+                </a>
+        <br />
+                <a href="../../../../files/lib/maruku/input/charsource_rb.html">
+                lib/maruku/input/charsource.rb
+                </a>
+        <br />
+                <a href="../../../../files/lib/maruku/input/html_helper_rb.html">
+                lib/maruku/input/html_helper.rb
+                </a>
+        <br />
+                <a href="../../../../files/lib/maruku/input/parse_span_better_rb.html">
+                lib/maruku/input/parse_span_better.rb
+                </a>
+        <br />
+                <a href="../../../../files/lib/maruku/input/rubypants_rb.html">
+                lib/maruku/input/rubypants.rb
+                </a>
+        <br />
+                <a href="../../../../files/lib/maruku_rb.html">
+                lib/maruku.rb
+                </a>
+        <br />
+            </td>
+        </tr>
+
+        </table>
+    </div>
+  <!-- banner header -->
+
+  <div id="bodyContent">
+
+
+
+  <div id="contextContent">
+
+
+
+   </div>
+
+    <div id="method-list">
+      <h3 class="section-bar">Methods</h3>
+
+      <div class="name-list">
+      <a href="#M000303">apply_one_rule</a>&nbsp;&nbsp;
+      <a href="#M000281">describe_pos</a>&nbsp;&nbsp;
+      <a href="#M000304">educate</a>&nbsp;&nbsp;
+      <a href="#M000287">extension_meta</a>&nbsp;&nbsp;
+      <a href="#M000286">interpret_extension</a>&nbsp;&nbsp;
+      <a href="#M000279">is_ial</a>&nbsp;&nbsp;
+      <a href="#M000277">md_al</a>&nbsp;&nbsp;
+      <a href="#M000280">merge_ial</a>&nbsp;&nbsp;
+      <a href="#M000282">parse_lines_as_span</a>&nbsp;&nbsp;
+      <a href="#M000283">parse_span_better</a>&nbsp;&nbsp;
+      <a href="#M000278">read_attribute_list</a>&nbsp;&nbsp;
+      <a href="#M000294">read_em</a>&nbsp;&nbsp;
+      <a href="#M000289">read_email_el</a>&nbsp;&nbsp;
+      <a href="#M000296">read_emstrong</a>&nbsp;&nbsp;
+      <a href="#M000298">read_footnote_ref</a>&nbsp;&nbsp;
+      <a href="#M000302">read_image</a>&nbsp;&nbsp;
+      <a href="#M000300">read_inline_code</a>&nbsp;&nbsp;
+      <a href="#M000299">read_inline_html</a>&nbsp;&nbsp;
+      <a href="#M000301">read_link</a>&nbsp;&nbsp;
+      <a href="#M000292">read_quoted</a>&nbsp;&nbsp;
+      <a href="#M000291">read_quoted_or_unquoted</a>&nbsp;&nbsp;
+      <a href="#M000297">read_ref_id</a>&nbsp;&nbsp;
+      <a href="#M000293">read_simple</a>&nbsp;&nbsp;
+      <a href="#M000284">read_span</a>&nbsp;&nbsp;
+      <a href="#M000295">read_strong</a>&nbsp;&nbsp;
+      <a href="#M000290">read_url</a>&nbsp;&nbsp;
+      <a href="#M000288">read_url_el</a>&nbsp;&nbsp;
+      <a href="#M000285">read_xml_instr_span</a>&nbsp;&nbsp;
+      <a href="#M000276">unit_tests_for_attribute_lists</a>&nbsp;&nbsp;
+      </div>
+    </div>
+
+  </div>
+
+
+    <!-- if includes -->
+    <div id="includes">
+      <h3 class="section-bar">Included Modules</h3>
+
+      <div id="includes-list">
+        <span class="include-name"><a href="../../Helpers.html">MaRuKu::Helpers</a></span>
+      </div>
+    </div>
+
+    <div id="section">
+
+    <div id="class-list">
+      <h3 class="section-bar">Classes and Modules</h3>
+
+      Class <a href="SpanLevelParser/CharSourceDebug.html" class="link">MaRuKu::In::Markdown::SpanLevelParser::CharSourceDebug</a><br />
+Class <a href="SpanLevelParser/CharSourceManual.html" class="link">MaRuKu::In::Markdown::SpanLevelParser::CharSourceManual</a><br />
+Class <a href="SpanLevelParser/CharSourceStrscan.html" class="link">MaRuKu::In::Markdown::SpanLevelParser::CharSourceStrscan</a><br />
+Class <a href="SpanLevelParser/HTMLHelper.html" class="link">MaRuKu::In::Markdown::SpanLevelParser::HTMLHelper</a><br />
+Class <a href="SpanLevelParser/SpanContext.html" class="link">MaRuKu::In::Markdown::SpanLevelParser::SpanContext</a><br />
+
+    </div>
+
+    <div id="constants-list">
+      <h3 class="section-bar">Constants</h3>
+
+      <div class="name-list">
+        <table summary="Constants">
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">CharSource</td>
+          <td>=</td>
+          <td class="context-item-value">CharSourceManual     # faster! 58ms vs. 65ms</td>
+          <td width="3em">&nbsp;</td>
+          <td class="context-item-desc">
+Choose!
+
+</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">EscapedCharInText</td>
+          <td>=</td>
+          <td class="context-item-value">Set.new [?\\,?`,?*,?_,?{,?},?[,?],?(,?),?#,?.,?!,?|,?:,?+,?-,?&gt;]</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">EscapedCharInQuotes</td>
+          <td>=</td>
+          <td class="context-item-value">Set.new [?\\,?`,?*,?_,?{,?},?[,?],?(,?),?#,?.,?!,?|,?:,?+,?-,?&gt;,?',?&quot;]</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">EscapedCharInInlineCode</td>
+          <td>=</td>
+          <td class="context-item-value">[?\\,?`]</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">SPACE</td>
+          <td>=</td>
+          <td class="context-item-value">?\</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">R_REF_ID</td>
+          <td>=</td>
+          <td class="context-item-value">Regexp.compile(/([^\]\s]*)(\s*\])/)</td>
+          <td width="3em">&nbsp;</td>
+          <td class="context-item-desc">
+R_REF_ID = Regexp.compile(/([^\]\s]*)(\s*\])/)
+
+</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">Punct_class</td>
+          <td>=</td>
+          <td class="context-item-value">'[!&quot;#\$\%\'()*+,\-.\/:;&lt;=&gt;?\@\[\\\\\]\^_`{|}~]'</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">Close_class</td>
+          <td>=</td>
+          <td class="context-item-value">%![^\ \t\r\n\\[\{\(\-]!</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">Rules</td>
+          <td>=</td>
+          <td class="context-item-value">[                 [/---/,   :mdash          ],                 [/--/,    :ndash          ],                 ['...',   :hellip         ],                 ['. . .', :hellip         ],                 [&quot;``&quot;,    :ldquo          ],                 [&quot;''&quot;,    :rdquo          ],                 [/&lt;&lt;\s/,  [:laquo, :nbsp] ],                 [/\s&gt;&gt;/,  [:nbsp, :raquo] ],                 [/&lt;&lt;/,    :laquo          ],                 [/&gt;&gt;/,    :raquo          ],                  #               def educate_single_backticks(str) #               [&quot;`&quot;, :lsquo] #               [&quot;'&quot;, :rsquo]                  # Special case if the very first character is a quote followed by                 # punctuation at a non-word-break. Close the quotes by brute                 # force:                 [/^'(?=#{Punct_class}\B)/, :rsquo],                 [/^&quot;(?=#{Punct_class}\B)/, :rdquo],                 # Special case for double sets of quotes, e.g.:                 #   &lt;p&gt;He said, &quot;'Quoted' words in a larger quote.&quot;&lt;/p&gt;                 [/&quot;'(?=\w)/, [:ldquo, :lsquo]    ],                 [/'&quot;(?=\w)/, [:lsquo, :ldquo]    ],                 # Special case for decade abbreviations (the '80s):                 [/'(?=\d\ds)/, :rsquo            ],                 # Get most opening single quotes:                 [/(\s)'(?=\w)/, [:one, :lsquo]   ],                 # Single closing quotes:                 [/(#{Close_class})'/, [:one, :rsquo]],                 [/'(\s|s\b|$)/, [:rsquo, :one]],                 # Any remaining single quotes should be opening ones:                 [/'/, :lsquo],                 # Get most opening double quotes:                 [/(\s)&quot;(?=\w)/, [:one, :ldquo]],                 # Double closing quotes:                 [/(#{Close_class})&quot;/, [:one, :rdquo]],                 [/&quot;(\s|s\b|$)/, [:rdquo, :one]],                 # Any remaining quotes should be opening ones:                 [/&quot;/, :ldquo]</td>
+        </tr>
+        </table>
+      </div>
+    </div>
+
+
+
+      
+
+
+    <!-- if method_list -->
+    <div id="methods">
+      <h3 class="section-bar">Public Instance methods</h3>
+
+      <div id="method-M000303" class="method-detail">
+        <a name="M000303"></a>
+
+        <div class="method-heading">
+          <a href="SpanLevelParser.src/M000303.html" target="Code" class="method-signature"
+            onclick="popupCode('SpanLevelParser.src/M000303.html');return false;">
+          <span class="method-name">apply_one_rule</span><span class="method-args">(reg, subst, input)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+note: input will be destroyed
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000281" class="method-detail">
+        <a name="M000281"></a>
+
+        <div class="method-heading">
+          <a href="SpanLevelParser.src/M000281.html" target="Code" class="method-signature"
+            onclick="popupCode('SpanLevelParser.src/M000281.html');return false;">
+          <span class="method-name">describe_pos</span><span class="method-args">(buffer, buffer_index)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000304" class="method-detail">
+        <a name="M000304"></a>
+
+        <div class="method-heading">
+          <a href="SpanLevelParser.src/M000304.html" target="Code" class="method-signature"
+            onclick="popupCode('SpanLevelParser.src/M000304.html');return false;">
+          <span class="method-name">educate</span><span class="method-args">(elements)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000287" class="method-detail">
+        <a name="M000287"></a>
+
+        <div class="method-heading">
+          <a href="SpanLevelParser.src/M000287.html" target="Code" class="method-signature"
+            onclick="popupCode('SpanLevelParser.src/M000287.html');return false;">
+          <span class="method-name">extension_meta</span><span class="method-args">(src, con, break_on_chars)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000286" class="method-detail">
+        <a name="M000286"></a>
+
+        <div class="method-heading">
+          <a href="SpanLevelParser.src/M000286.html" target="Code" class="method-signature"
+            onclick="popupCode('SpanLevelParser.src/M000286.html');return false;">
+          <span class="method-name">interpret_extension</span><span class="method-args">(src, con, break_on_chars)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Start: cursor on character *<b>after</b>* &#8217;{&#8217; End: curson on
+&#8217;}&#8217; or EOF
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000279" class="method-detail">
+        <a name="M000279"></a>
+
+        <div class="method-heading">
+          <a href="SpanLevelParser.src/M000279.html" target="Code" class="method-signature"
+            onclick="popupCode('SpanLevelParser.src/M000279.html');return false;">
+          <span class="method-name">is_ial</span><span class="method-args">(e)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+We need a helper
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000277" class="method-detail">
+        <a name="M000277"></a>
+
+        <div class="method-heading">
+          <a href="SpanLevelParser.src/M000277.html" target="Code" class="method-signature"
+            onclick="popupCode('SpanLevelParser.src/M000277.html');return false;">
+          <span class="method-name">md_al</span><span class="method-args">(s=[])</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000280" class="method-detail">
+        <a name="M000280"></a>
+
+        <div class="method-heading">
+          <a href="SpanLevelParser.src/M000280.html" target="Code" class="method-signature"
+            onclick="popupCode('SpanLevelParser.src/M000280.html');return false;">
+          <span class="method-name">merge_ial</span><span class="method-args">(elements, src, con)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000282" class="method-detail">
+        <a name="M000282"></a>
+
+        <div class="method-heading">
+          <a href="SpanLevelParser.src/M000282.html" target="Code" class="method-signature"
+            onclick="popupCode('SpanLevelParser.src/M000282.html');return false;">
+          <span class="method-name">parse_lines_as_span</span><span class="method-args">(lines, parent=nil)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000283" class="method-detail">
+        <a name="M000283"></a>
+
+        <div class="method-heading">
+          <a href="SpanLevelParser.src/M000283.html" target="Code" class="method-signature"
+            onclick="popupCode('SpanLevelParser.src/M000283.html');return false;">
+          <span class="method-name">parse_span_better</span><span class="method-args">(string, parent=nil)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000278" class="method-detail">
+        <a name="M000278"></a>
+
+        <div class="method-heading">
+          <a href="SpanLevelParser.src/M000278.html" target="Code" class="method-signature"
+            onclick="popupCode('SpanLevelParser.src/M000278.html');return false;">
+          <span class="method-name">read_attribute_list</span><span class="method-args">(src, con, break_on_chars)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+returns nil or an <a href="../../AttributeList.html">AttributeList</a>
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000294" class="method-detail">
+        <a name="M000294"></a>
+
+        <div class="method-heading">
+          <a href="SpanLevelParser.src/M000294.html" target="Code" class="method-signature"
+            onclick="popupCode('SpanLevelParser.src/M000294.html');return false;">
+          <span class="method-name">read_em</span><span class="method-args">(src, delim)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000289" class="method-detail">
+        <a name="M000289"></a>
+
+        <div class="method-heading">
+          <a href="SpanLevelParser.src/M000289.html" target="Code" class="method-signature"
+            onclick="popupCode('SpanLevelParser.src/M000289.html');return false;">
+          <span class="method-name">read_email_el</span><span class="method-args">(src,con)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000296" class="method-detail">
+        <a name="M000296"></a>
+
+        <div class="method-heading">
+          <a href="SpanLevelParser.src/M000296.html" target="Code" class="method-signature"
+            onclick="popupCode('SpanLevelParser.src/M000296.html');return false;">
+          <span class="method-name">read_emstrong</span><span class="method-args">(src, delim)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000298" class="method-detail">
+        <a name="M000298"></a>
+
+        <div class="method-heading">
+          <a href="SpanLevelParser.src/M000298.html" target="Code" class="method-signature"
+            onclick="popupCode('SpanLevelParser.src/M000298.html');return false;">
+          <span class="method-name">read_footnote_ref</span><span class="method-args">(src,con)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000302" class="method-detail">
+        <a name="M000302"></a>
+
+        <div class="method-heading">
+          <a href="SpanLevelParser.src/M000302.html" target="Code" class="method-signature"
+            onclick="popupCode('SpanLevelParser.src/M000302.html');return false;">
+          <span class="method-name">read_image</span><span class="method-args">(src, con)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000300" class="method-detail">
+        <a name="M000300"></a>
+
+        <div class="method-heading">
+          <a href="SpanLevelParser.src/M000300.html" target="Code" class="method-signature"
+            onclick="popupCode('SpanLevelParser.src/M000300.html');return false;">
+          <span class="method-name">read_inline_code</span><span class="method-args">(src, con)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000299" class="method-detail">
+        <a name="M000299"></a>
+
+        <div class="method-heading">
+          <a href="SpanLevelParser.src/M000299.html" target="Code" class="method-signature"
+            onclick="popupCode('SpanLevelParser.src/M000299.html');return false;">
+          <span class="method-name">read_inline_html</span><span class="method-args">(src, con)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000301" class="method-detail">
+        <a name="M000301"></a>
+
+        <div class="method-heading">
+          <a href="SpanLevelParser.src/M000301.html" target="Code" class="method-signature"
+            onclick="popupCode('SpanLevelParser.src/M000301.html');return false;">
+          <span class="method-name">read_link</span><span class="method-args">(src, con)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000292" class="method-detail">
+        <a name="M000292"></a>
+
+        <div class="method-heading">
+          <a href="SpanLevelParser.src/M000292.html" target="Code" class="method-signature"
+            onclick="popupCode('SpanLevelParser.src/M000292.html');return false;">
+          <span class="method-name">read_quoted</span><span class="method-args">(src, con)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Tries to read a quoted value. If stream does not start with &#8217; or
+&quot;, returns nil.
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000291" class="method-detail">
+        <a name="M000291"></a>
+
+        <div class="method-heading">
+          <a href="SpanLevelParser.src/M000291.html" target="Code" class="method-signature"
+            onclick="popupCode('SpanLevelParser.src/M000291.html');return false;">
+          <span class="method-name">read_quoted_or_unquoted</span><span class="method-args">(src, con, escaped, exit_on_chars)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000297" class="method-detail">
+        <a name="M000297"></a>
+
+        <div class="method-heading">
+          <a href="SpanLevelParser.src/M000297.html" target="Code" class="method-signature"
+            onclick="popupCode('SpanLevelParser.src/M000297.html');return false;">
+          <span class="method-name">read_ref_id</span><span class="method-args">(src, con)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Reads a bracketed id &quot;[refid]&quot;. Consumes also both brackets.
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000293" class="method-detail">
+        <a name="M000293"></a>
+
+        <div class="method-heading">
+          <a href="SpanLevelParser.src/M000293.html" target="Code" class="method-signature"
+            onclick="popupCode('SpanLevelParser.src/M000293.html');return false;">
+          <span class="method-name">read_simple</span><span class="method-args">(src, escaped, exit_on_chars, exit_on_strings=nil)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Reads a simple string (no formatting) until one of break_on_chars, while
+escaping the escaped. If the string is empty, it returns nil. Raises on
+error if the string terminates unexpectedly.
+</p>
+<pre>
+      # If eat_delim is true, and if the delim is not the EOF, then the delim
+      # gets eaten from the stream.
+</pre>
+        </div>
+      </div>
+
+      <div id="method-M000284" class="method-detail">
+        <a name="M000284"></a>
+
+        <div class="method-heading">
+          <a href="SpanLevelParser.src/M000284.html" target="Code" class="method-signature"
+            onclick="popupCode('SpanLevelParser.src/M000284.html');return false;">
+          <span class="method-name">read_span</span><span class="method-args">(src, escaped, exit_on_chars, exit_on_strings=nil)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+This is the main loop for reading span elements
+</p>
+<p>
+It&#8217;s long, but not <b>complex</b> or difficult to understand.
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000295" class="method-detail">
+        <a name="M000295"></a>
+
+        <div class="method-heading">
+          <a href="SpanLevelParser.src/M000295.html" target="Code" class="method-signature"
+            onclick="popupCode('SpanLevelParser.src/M000295.html');return false;">
+          <span class="method-name">read_strong</span><span class="method-args">(src, delim)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000290" class="method-detail">
+        <a name="M000290"></a>
+
+        <div class="method-heading">
+          <a href="SpanLevelParser.src/M000290.html" target="Code" class="method-signature"
+            onclick="popupCode('SpanLevelParser.src/M000290.html');return false;">
+          <span class="method-name">read_url</span><span class="method-args">(src, break_on)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000288" class="method-detail">
+        <a name="M000288"></a>
+
+        <div class="method-heading">
+          <a href="SpanLevelParser.src/M000288.html" target="Code" class="method-signature"
+            onclick="popupCode('SpanLevelParser.src/M000288.html');return false;">
+          <span class="method-name">read_url_el</span><span class="method-args">(src,con)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000285" class="method-detail">
+        <a name="M000285"></a>
+
+        <div class="method-heading">
+          <a href="SpanLevelParser.src/M000285.html" target="Code" class="method-signature"
+            onclick="popupCode('SpanLevelParser.src/M000285.html');return false;">
+          <span class="method-name">read_xml_instr_span</span><span class="method-args">(src, con)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000276" class="method-detail">
+        <a name="M000276"></a>
+
+        <div class="method-heading">
+          <a href="SpanLevelParser.src/M000276.html" target="Code" class="method-signature"
+            onclick="popupCode('SpanLevelParser.src/M000276.html');return false;">
+          <span class="method-name">unit_tests_for_attribute_lists</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+
+    </div>
+
+
+  </div>
+
+
+<div id="validator-badges">
+  <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+</div>
+
+</body>
+</html>

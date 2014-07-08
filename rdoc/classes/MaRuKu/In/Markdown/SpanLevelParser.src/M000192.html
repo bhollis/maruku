@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>interpret_extension (MaRuKu::In::Markdown::SpanLevelParser)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/maruku/input/parse_span_better.rb, line 256</span>
+        <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">interpret_extension</span>(<span class="ruby-identifier">src</span>, <span class="ruby-identifier">con</span>, <span class="ruby-identifier">break_on_chars</span>)
+                <span class="ruby-keyword kw">case</span> <span class="ruby-identifier">src</span>.<span class="ruby-identifier">cur_char</span>
+                <span class="ruby-keyword kw">when</span> <span class="ruby-value">?:</span>
+                        <span class="ruby-identifier">src</span>.<span class="ruby-identifier">ignore_char</span> <span class="ruby-comment cmt"># :</span>
+                        <span class="ruby-identifier">extension_meta</span>(<span class="ruby-identifier">src</span>, <span class="ruby-identifier">con</span>, <span class="ruby-identifier">break_on_chars</span>)
+                <span class="ruby-keyword kw">when</span> <span class="ruby-value">?#</span>, <span class="ruby-value">?.</span>
+                        <span class="ruby-identifier">extension_meta</span>(<span class="ruby-identifier">src</span>, <span class="ruby-identifier">con</span>, <span class="ruby-identifier">break_on_chars</span>)
+                <span class="ruby-keyword kw">else</span>
+                        <span class="ruby-identifier">stuff</span> = <span class="ruby-identifier">read_simple</span>(<span class="ruby-identifier">src</span>, <span class="ruby-identifier">escaped</span>=[<span class="ruby-value">?}</span>], <span class="ruby-identifier">break_on_chars</span>, [])
+                        <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">stuff</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp re">/^(\w+\s|[^\w])/</span>
+                                <span class="ruby-identifier">extension_id</span> = <span class="ruby-identifier">$1</span>.<span class="ruby-identifier">strip</span>
+                                <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">false</span>
+                                <span class="ruby-keyword kw">else</span>
+                                        <span class="ruby-identifier">maruku_recover</span> <span class="ruby-node">&quot;I don't know what to do with extension '#{extension_id}'\n&quot;</span><span class="ruby-operator">+</span>
+                                                <span class="ruby-node">&quot;I will threat this:\n\t{#{stuff}} \n as meta-data.\n&quot;</span>, <span class="ruby-identifier">src</span>, <span class="ruby-identifier">con</span>
+                                        <span class="ruby-identifier">extension_meta</span>(<span class="ruby-identifier">src</span>, <span class="ruby-identifier">con</span>, <span class="ruby-identifier">break_on_chars</span>)
+                                <span class="ruby-keyword kw">end</span>
+                        <span class="ruby-keyword kw">else</span> 
+                                <span class="ruby-identifier">maruku_recover</span> <span class="ruby-node">&quot;I will threat this:\n\t{#{stuff}} \n as meta-data.\n&quot;</span>, <span class="ruby-identifier">src</span>, <span class="ruby-identifier">con</span>
+                                <span class="ruby-identifier">extension_meta</span>(<span class="ruby-identifier">src</span>, <span class="ruby-identifier">con</span>, <span class="ruby-identifier">break_on_chars</span>)
+                        <span class="ruby-keyword kw">end</span>
+                <span class="ruby-keyword kw">end</span>
+        <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

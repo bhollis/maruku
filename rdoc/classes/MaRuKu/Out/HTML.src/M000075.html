@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>to_html_im_image (MaRuKu::Out::HTML)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/maruku/output/to_html.rb, line 632</span>
+        <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_html_im_image</span>
+                <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">not</span> <span class="ruby-identifier">url</span> = <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">url</span>
+                        <span class="ruby-identifier">maruku_error</span><span class="ruby-node">&quot;Image with no url: #{self.inspect}&quot;</span>
+                        <span class="ruby-identifier">tell_user</span> <span class="ruby-node">&quot;Could not create image with ref_id = #{id.inspect};&quot;</span><span class="ruby-operator">+</span>
+                         <span class="ruby-operator">+</span><span class="ruby-value str">&quot; Using SPAN element as replacement.&quot;</span>
+                        <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">wrap_as_element</span>(<span class="ruby-value str">'span'</span>)
+                <span class="ruby-keyword kw">end</span>
+                <span class="ruby-identifier">title</span> = <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">title</span>
+                <span class="ruby-identifier">a</span> =  <span class="ruby-identifier">create_html_element</span> <span class="ruby-value str">'img'</span>
+                        <span class="ruby-identifier">a</span>.<span class="ruby-identifier">attributes</span>[<span class="ruby-value str">'src'</span>] = <span class="ruby-identifier">url</span>
+                        <span class="ruby-identifier">a</span>.<span class="ruby-identifier">attributes</span>[<span class="ruby-value str">'alt'</span>] = <span class="ruby-identifier">title</span>.<span class="ruby-identifier">to_s</span>
+                <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">a</span>
+        <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

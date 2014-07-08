@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>Module: Diagrams</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <link rel="stylesheet" href=".././rdoc-style.css" type="text/css" media="screen" />
+  <script type="text/javascript">
+  // <![CDATA[
+
+  function popupCode( url ) {
+    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+  }
+
+  function toggleCode( id ) {
+    if ( document.getElementById )
+      elem = document.getElementById( id );
+    else if ( document.all )
+      elem = eval( "document.all." + id );
+    else
+      return false;
+
+    elemStyle = elem.style;
+    
+    if ( elemStyle.display != "block" ) {
+      elemStyle.display = "block"
+    } else {
+      elemStyle.display = "none"
+    }
+
+    return true;
+  }
+  
+  // Make codeblocks hidden by default
+  document.writeln( "<style type=\"text/css\">div.method-source-code { display: none }</style>" )
+  
+  // ]]>
+  </script>
+
+</head>
+<body>
+
+
+
+    <div id="classHeader">
+        <table class="header-table">
+        <tr class="top-aligned-row">
+          <td><strong>Module</strong></td>
+          <td class="class-name-in-header">Diagrams</td>
+        </tr>
+        <tr class="top-aligned-row">
+            <td><strong>In:</strong></td>
+            <td>
+                <a href="../files/lib/maruku/ext/diagrams/grid_rb.html">
+                lib/maruku/ext/diagrams/grid.rb
+                </a>
+        <br />
+                <a href="../files/lib/maruku/ext/diagrams/inspect_rb.html">
+                lib/maruku/ext/diagrams/inspect.rb
+                </a>
+        <br />
+                <a href="../files/lib/maruku/ext/diagrams/layout_rb.html">
+                lib/maruku/ext/diagrams/layout.rb
+                </a>
+        <br />
+                <a href="../files/lib/maruku/ext/diagrams/parser_rb.html">
+                lib/maruku/ext/diagrams/parser.rb
+                </a>
+        <br />
+                <a href="../files/lib/maruku/ext/diagrams/structures_rb.html">
+                lib/maruku/ext/diagrams/structures.rb
+                </a>
+        <br />
+                <a href="../files/lib/maruku/ext/diagrams/to_html_rb.html">
+                lib/maruku/ext/diagrams/to_html.rb
+                </a>
+        <br />
+                <a href="../files/lib/maruku/ext/diagrams/to_latex_rb.html">
+                lib/maruku/ext/diagrams/to_latex.rb
+                </a>
+        <br />
+            </td>
+        </tr>
+
+        </table>
+    </div>
+  <!-- banner header -->
+
+  <div id="bodyContent">
+
+
+
+  <div id="contextContent">
+
+
+
+   </div>
+
+
+  </div>
+
+
+    <!-- if includes -->
+
+    <div id="section">
+
+    <div id="class-list">
+      <h3 class="section-bar">Classes and Modules</h3>
+
+      Class <a href="Diagrams/Arrow.html" class="link">Diagrams::Arrow</a><br />
+Class <a href="Diagrams/Box.html" class="link">Diagrams::Box</a><br />
+Class <a href="Diagrams/Diagram.html" class="link">Diagrams::Diagram</a><br />
+Class <a href="Diagrams/Grid.html" class="link">Diagrams::Grid</a><br />
+Class <a href="Diagrams/Layout.html" class="link">Diagrams::Layout</a><br />
+Class <a href="Diagrams/Point.html" class="link">Diagrams::Point</a><br />
+Class <a href="Diagrams/SParallel.html" class="link">Diagrams::SParallel</a><br />
+Class <a href="Diagrams/SSimple.html" class="link">Diagrams::SSimple</a><br />
+Class <a href="Diagrams/Sized.html" class="link">Diagrams::Sized</a><br />
+Class <a href="Diagrams/Spring.html" class="link">Diagrams::Spring</a><br />
+Class <a href="Diagrams/VarGraph.html" class="link">Diagrams::VarGraph</a><br />
+
+    </div>
+
+    <div id="constants-list">
+      <h3 class="section-bar">Constants</h3>
+
+      <div class="name-list">
+        <table summary="Constants">
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">DIAG_TL</td>
+          <td>=</td>
+          <td class="context-item-value">&quot;tl&quot;</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">DIAG_BR</td>
+          <td>=</td>
+          <td class="context-item-value">&quot;br&quot;</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">Reverse</td>
+          <td>=</td>
+          <td class="context-item-value">{:N=&gt;:S,:S=&gt;:N,:W=&gt;:E,:E=&gt;:W}</td>
+        </tr>
+        </table>
+      </div>
+    </div>
+
+
+
+      
+
+
+    <!-- if method_list -->
+
+
+  </div>
+
+
+<div id="validator-badges">
+  <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+</div>
+
+</body>
+</html>

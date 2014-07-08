@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>read_indented_content (MaRuKu::In::Markdown::BlockLevelParser)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/maruku/input/parse_block.rb, line 347</span>
+        <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">read_indented_content</span>(<span class="ruby-identifier">src</span>, <span class="ruby-identifier">indentation</span>, <span class="ruby-identifier">break_list</span>, <span class="ruby-identifier">item_type</span>)
+                <span class="ruby-identifier">lines</span> =[]
+                <span class="ruby-comment cmt"># collect all indented lines</span>
+                <span class="ruby-identifier">saw_empty</span> = <span class="ruby-keyword kw">false</span>; <span class="ruby-identifier">saw_anything_after</span> = <span class="ruby-keyword kw">false</span>
+                <span class="ruby-keyword kw">while</span> <span class="ruby-identifier">src</span>.<span class="ruby-identifier">cur_line</span> 
+                        <span class="ruby-comment cmt">#puts &quot;#{src.cur_line.md_type} #{src.cur_line.inspect}&quot;</span>
+                        <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">src</span>.<span class="ruby-identifier">cur_line</span>.<span class="ruby-identifier">md_type</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">:empty</span>
+                                <span class="ruby-identifier">saw_empty</span> = <span class="ruby-keyword kw">true</span>
+                                <span class="ruby-identifier">lines</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">src</span>.<span class="ruby-identifier">shift_line</span>
+                                <span class="ruby-keyword kw">next</span>
+                        <span class="ruby-keyword kw">end</span>
+                
+                        <span class="ruby-comment cmt"># after a white line</span>
+                        <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">saw_empty</span>
+                                <span class="ruby-comment cmt"># we expect things to be properly aligned</span>
+                                <span class="ruby-keyword kw">if</span> (<span class="ruby-identifier">ns</span>=<span class="ruby-identifier">number_of_leading_spaces</span>(<span class="ruby-identifier">src</span>.<span class="ruby-identifier">cur_line</span>)) <span class="ruby-operator">&lt;</span> <span class="ruby-identifier">indentation</span>
+                                        <span class="ruby-comment cmt">#puts &quot;breaking for spaces, only #{ns}: #{src.cur_line}&quot;</span>
+                                        <span class="ruby-keyword kw">break</span>
+                                <span class="ruby-keyword kw">end</span>
+                                <span class="ruby-identifier">saw_anything_after</span> = <span class="ruby-keyword kw">true</span>
+                        <span class="ruby-keyword kw">else</span>
+                                <span class="ruby-keyword kw">break</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">break_list</span>.<span class="ruby-identifier">include?</span> <span class="ruby-identifier">src</span>.<span class="ruby-identifier">cur_line</span>.<span class="ruby-identifier">md_type</span>
+<span class="ruby-comment cmt">#                               break if src.cur_line.md_type != :text</span>
+                        <span class="ruby-keyword kw">end</span>
+                
+
+                        <span class="ruby-identifier">stripped</span> = <span class="ruby-identifier">strip_indent</span>(<span class="ruby-identifier">src</span>.<span class="ruby-identifier">shift_line</span>, <span class="ruby-identifier">indentation</span>)
+                        <span class="ruby-identifier">lines</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">stripped</span>
+
+                        <span class="ruby-comment cmt">#puts &quot;Accepted as #{stripped.inspect}&quot;</span>
+                
+                        <span class="ruby-comment cmt"># You are only required to indent the first line of </span>
+                        <span class="ruby-comment cmt"># a child paragraph.</span>
+                        <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">stripped</span>.<span class="ruby-identifier">md_type</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">:text</span>
+                                <span class="ruby-keyword kw">while</span> <span class="ruby-identifier">src</span>.<span class="ruby-identifier">cur_line</span> <span class="ruby-operator">&amp;&amp;</span> (<span class="ruby-identifier">src</span>.<span class="ruby-identifier">cur_line</span>.<span class="ruby-identifier">md_type</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">:text</span>)
+                                        <span class="ruby-identifier">lines</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">strip_indent</span>(<span class="ruby-identifier">src</span>.<span class="ruby-identifier">shift_line</span>, <span class="ruby-identifier">indentation</span>)
+                                <span class="ruby-keyword kw">end</span>
+                        <span class="ruby-keyword kw">end</span>
+                <span class="ruby-keyword kw">end</span>
+
+                <span class="ruby-identifier">want_my_paragraph</span> = <span class="ruby-identifier">saw_anything_after</span> <span class="ruby-operator">||</span> 
+                        (<span class="ruby-identifier">saw_empty</span> <span class="ruby-operator">&amp;&amp;</span> (<span class="ruby-identifier">src</span>.<span class="ruby-identifier">cur_line</span>  <span class="ruby-operator">&amp;&amp;</span> (<span class="ruby-identifier">src</span>.<span class="ruby-identifier">cur_line</span>.<span class="ruby-identifier">md_type</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">item_type</span>))) 
+        
+<span class="ruby-comment cmt">#               dbg_describe_ary(lines, 'LI')</span>
+                <span class="ruby-comment cmt"># create a new context </span>
+        
+                <span class="ruby-keyword kw">while</span> <span class="ruby-identifier">lines</span>.<span class="ruby-identifier">last</span> <span class="ruby-operator">&amp;&amp;</span> (<span class="ruby-identifier">lines</span>.<span class="ruby-identifier">last</span>.<span class="ruby-identifier">md_type</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">:empty</span>)
+                        <span class="ruby-identifier">lines</span>.<span class="ruby-identifier">pop</span>
+                <span class="ruby-keyword kw">end</span>
+                
+                <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">lines</span>, <span class="ruby-identifier">want_my_paragraph</span>
+        <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

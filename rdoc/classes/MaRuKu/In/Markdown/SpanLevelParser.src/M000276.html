@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>unit_tests_for_attribute_lists (MaRuKu::In::Markdown::SpanLevelParser)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/maruku/attributes.rb, line 80</span>
+        <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">unit_tests_for_attribute_lists</span>
+                [
+                        [ <span class="ruby-value str">&quot;&quot;</span>,     [], <span class="ruby-value str">&quot;Empty lists are allowed&quot;</span> ], 
+                        [ <span class="ruby-value str">&quot;=&quot;</span>,    <span class="ruby-identifier">:throw</span>, <span class="ruby-value str">&quot;Bad char to begin a list with.&quot;</span> ], 
+                        [ <span class="ruby-value str">&quot;a =b&quot;</span>, <span class="ruby-identifier">:throw</span>, <span class="ruby-value str">&quot;No whitespace before `=`.&quot;</span> ], 
+                        [ <span class="ruby-value str">&quot;a= b&quot;</span>, <span class="ruby-identifier">:throw</span>, <span class="ruby-value str">&quot;No whitespace after `=`.&quot;</span> ], 
+
+                        [ <span class="ruby-value str">&quot;a b&quot;</span>, [[<span class="ruby-identifier">:ref</span>, <span class="ruby-value str">'a'</span>],[<span class="ruby-identifier">:ref</span>, <span class="ruby-value str">'b'</span>]], <span class="ruby-value str">&quot;More than one ref&quot;</span> ], 
+                        [ <span class="ruby-value str">&quot;a b c&quot;</span>, [[<span class="ruby-identifier">:ref</span>, <span class="ruby-value str">'a'</span>],[<span class="ruby-identifier">:ref</span>, <span class="ruby-value str">'b'</span>],[<span class="ruby-identifier">:ref</span>, <span class="ruby-value str">'c'</span>]], <span class="ruby-value str">&quot;More than one ref&quot;</span> ], 
+                        [ <span class="ruby-value str">&quot;hello notfound&quot;</span>, [[<span class="ruby-identifier">:ref</span>, <span class="ruby-value str">'hello'</span>],[<span class="ruby-identifier">:ref</span>, <span class="ruby-value str">'notfound'</span>]]], 
+
+                        [ <span class="ruby-value str">&quot;'a'&quot;</span>,  [[<span class="ruby-identifier">:ref</span>, <span class="ruby-value str">'a'</span>]], <span class="ruby-value str">&quot;Quoted value.&quot;</span> ], 
+                        [ <span class="ruby-value str">'&quot;a&quot;'</span>   ], 
+
+                        [ <span class="ruby-value str">&quot;a=b&quot;</span>,  [[<span class="ruby-value str">'a'</span>,<span class="ruby-value str">'b'</span>]], <span class="ruby-value str">&quot;Simple key/val&quot;</span> ], 
+                        [ <span class="ruby-value str">&quot;'a'=b&quot;</span>   ], 
+                        [ <span class="ruby-value str">&quot;'a'='b'&quot;</span> ], 
+                        [ <span class="ruby-value str">&quot;a='b'&quot;</span>   ], 
+
+                        [ <span class="ruby-value str">'a=&quot;b\'&quot;'</span>,  [[<span class="ruby-value str">'a'</span>,<span class="ruby-value str">&quot;b\'&quot;</span>]], <span class="ruby-value str">&quot;Key/val with quotes&quot;</span> ],
+                        [ <span class="ruby-value str">'a=b\''</span>],
+                        [ <span class="ruby-value str">'a=&quot;\\\'b\'&quot;'</span>,  [[<span class="ruby-value str">'a'</span>,<span class="ruby-value str">&quot;\'b\'&quot;</span>]], <span class="ruby-value str">&quot;Key/val with quotes&quot;</span> ], 
+                        
+                        [<span class="ruby-value str">'&quot;'</span>, <span class="ruby-identifier">:throw</span>, <span class="ruby-value str">&quot;Unclosed quotes&quot;</span>],
+                        [<span class="ruby-value str">&quot;'&quot;</span>],
+                        [<span class="ruby-value str">&quot;'a &quot;</span>],
+                        [<span class="ruby-value str">'&quot;a '</span>],
+                        
+                        [ <span class="ruby-value str">&quot;#a&quot;</span>,  [[<span class="ruby-identifier">:id</span>, <span class="ruby-value str">'a'</span>]], <span class="ruby-value str">&quot;Simple ID&quot;</span> ], 
+                        [ <span class="ruby-value str">&quot;#'a'&quot;</span> ], 
+                        [ <span class="ruby-value str">'#&quot;a&quot;'</span> ], 
+
+                        [ <span class="ruby-value str">&quot;#&quot;</span>,  <span class="ruby-identifier">:throw</span>, <span class="ruby-value str">&quot;Unfinished '#'.&quot;</span> ], 
+                        [ <span class="ruby-value str">&quot;.&quot;</span>,  <span class="ruby-identifier">:throw</span>, <span class="ruby-value str">&quot;Unfinished '.'.&quot;</span> ], 
+                        [ <span class="ruby-value str">&quot;# a&quot;</span>,  <span class="ruby-identifier">:throw</span>, <span class="ruby-value str">&quot;No white-space after '#'.&quot;</span> ], 
+                        [ <span class="ruby-value str">&quot;. a&quot;</span>,  <span class="ruby-identifier">:throw</span>, <span class="ruby-value str">&quot;No white-space after '.' .&quot;</span> ], 
+                        
+                        [ <span class="ruby-value str">&quot;a=b c=d&quot;</span>,  [[<span class="ruby-value str">'a'</span>,<span class="ruby-value str">'b'</span>],[<span class="ruby-value str">'c'</span>,<span class="ruby-value str">'d'</span>]], <span class="ruby-value str">&quot;Tabbing&quot;</span> ], 
+                        [ <span class="ruby-value str">&quot; \ta=b \tc='d' &quot;</span>],
+                        [ <span class="ruby-value str">&quot;\t a=b\t c='d'\t\t&quot;</span>],
+                        
+                        [ <span class="ruby-value str">&quot;.\&quot;a'&quot;</span>,  <span class="ruby-identifier">:throw</span>, <span class="ruby-value str">&quot;Mixing quotes is bad.&quot;</span> ], 
+                        
+                ].<span class="ruby-identifier">map</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">s</span>, <span class="ruby-identifier">expected</span>, <span class="ruby-identifier">comment</span><span class="ruby-operator">|</span> 
+                        <span class="ruby-ivar">@expected</span> = (<span class="ruby-identifier">expected</span> <span class="ruby-operator">||=</span> <span class="ruby-ivar">@expected</span>)
+                        <span class="ruby-ivar">@comment</span>  = (<span class="ruby-identifier">comment</span>  <span class="ruby-operator">||=</span> (<span class="ruby-identifier">last</span>=<span class="ruby-ivar">@comment</span>) )
+                        (<span class="ruby-identifier">comment</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">last</span> <span class="ruby-operator">&amp;&amp;</span> (<span class="ruby-identifier">comment</span> <span class="ruby-operator">+=</span> (<span class="ruby-ivar">@count</span><span class="ruby-operator">+=</span><span class="ruby-value">1</span>).<span class="ruby-identifier">to_s</span>)) <span class="ruby-operator">||</span> <span class="ruby-ivar">@count</span> = <span class="ruby-value">1</span>
+                        <span class="ruby-identifier">expected</span> = [<span class="ruby-identifier">md_ial</span>(<span class="ruby-identifier">expected</span>)] <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">expected</span>.<span class="ruby-identifier">kind_of?</span> <span class="ruby-constant">Array</span>
+                        [<span class="ruby-node">&quot;{#{MagicChar}#{s}}&quot;</span>, <span class="ruby-identifier">expected</span>, <span class="ruby-node">&quot;Attributes: #{comment}&quot;</span>]
+                }
+        <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

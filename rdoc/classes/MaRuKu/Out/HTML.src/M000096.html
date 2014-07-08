@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>convert_to_mathml_blahtex (MaRuKu::Out::HTML)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/maruku/ext/math/mathml_engines/blahtex.rb, line 68</span>
+        <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">convert_to_mathml_blahtex</span>(<span class="ruby-identifier">kind</span>, <span class="ruby-identifier">tex</span>)
+                <span class="ruby-keyword kw">begin</span>
+                        <span class="ruby-constant">BlahtexCache</span>.<span class="ruby-identifier">transaction</span> <span class="ruby-keyword kw">do</span> 
+                                <span class="ruby-keyword kw">if</span> <span class="ruby-constant">BlahtexCache</span>[<span class="ruby-identifier">tex</span>].<span class="ruby-identifier">nil?</span>
+                                        <span class="ruby-identifier">tmp_in</span> = <span class="ruby-constant">Tempfile</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value str">'maruku_blahtex'</span>)
+                                                <span class="ruby-identifier">f</span> = <span class="ruby-identifier">tmp_in</span>.<span class="ruby-identifier">open</span>
+                                                <span class="ruby-identifier">f</span>.<span class="ruby-identifier">write</span> <span class="ruby-identifier">tex</span>
+                                                <span class="ruby-identifier">f</span>.<span class="ruby-identifier">close</span>
+                                        <span class="ruby-identifier">tmp_out</span> = <span class="ruby-constant">Tempfile</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value str">'maruku_blahtex'</span>)
+        
+                                        <span class="ruby-identifier">options</span> = <span class="ruby-value str">&quot;--mathml&quot;</span>
+                                        <span class="ruby-identifier">cmd</span> = <span class="ruby-node">&quot;blahtex #{options} &lt; #{tmp_in.path} &gt; #{tmp_out.path}&quot;</span>
+                                        <span class="ruby-identifier">$stderr</span>.<span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;$ #{cmd}&quot;</span>
+                                        <span class="ruby-identifier">system</span> <span class="ruby-identifier">cmd</span>
+                                        <span class="ruby-identifier">tmp_in</span>.<span class="ruby-identifier">delete</span>
+                                        
+                                        <span class="ruby-identifier">result</span> = <span class="ruby-keyword kw">nil</span>
+                                        <span class="ruby-constant">File</span>.<span class="ruby-identifier">open</span>(<span class="ruby-identifier">tmp_out</span>.<span class="ruby-identifier">path</span>) <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">f</span><span class="ruby-operator">|</span> <span class="ruby-identifier">result</span>=<span class="ruby-identifier">f</span>.<span class="ruby-identifier">read</span> <span class="ruby-keyword kw">end</span>
+                                                <span class="ruby-identifier">puts</span> <span class="ruby-identifier">result</span>
+                                        
+                                        <span class="ruby-constant">BlahtexCache</span>[<span class="ruby-identifier">tex</span>] = <span class="ruby-identifier">result</span>
+                                <span class="ruby-keyword kw">end</span>
+                        
+                                <span class="ruby-identifier">blahtex</span> = <span class="ruby-constant">BlahtexCache</span>[<span class="ruby-identifier">tex</span>]
+                                <span class="ruby-identifier">doc</span> = <span class="ruby-constant">Document</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">blahtex</span>, {<span class="ruby-identifier">:respect_whitespace</span> =<span class="ruby-operator">&gt;</span><span class="ruby-identifier">:all</span>})
+                                <span class="ruby-identifier">mathml</span> = <span class="ruby-identifier">doc</span>.<span class="ruby-identifier">root</span>.<span class="ruby-identifier">elements</span>[<span class="ruby-value str">'mathml'</span>]
+                                <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">not</span> <span class="ruby-identifier">mathml</span>
+                                        <span class="ruby-identifier">maruku_error</span> <span class="ruby-node">&quot;Blahtex error: \n#{doc}&quot;</span>
+                                        <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">nil</span>
+                                <span class="ruby-keyword kw">else</span>
+                                        <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">mathml</span>
+                                <span class="ruby-keyword kw">end</span>
+                        <span class="ruby-keyword kw">end</span>
+                        
+                <span class="ruby-keyword kw">rescue</span> <span class="ruby-constant">Exception</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
+                        <span class="ruby-identifier">maruku_error</span> <span class="ruby-node">&quot;Error: #{e}&quot;</span>
+                <span class="ruby-keyword kw">end</span>
+                <span class="ruby-keyword kw">nil</span>
+        <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>read_definition (MaRuKu::In::Markdown::BlockLevelParser)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/maruku/input/parse_block.rb, line 544</span>
+        <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">read_definition</span>(<span class="ruby-identifier">src</span>)
+                <span class="ruby-comment cmt"># Read one or more terms</span>
+                <span class="ruby-identifier">terms</span> = []
+                <span class="ruby-keyword kw">while</span>  <span class="ruby-identifier">src</span>.<span class="ruby-identifier">cur_line</span> <span class="ruby-operator">&amp;&amp;</span>  <span class="ruby-identifier">src</span>.<span class="ruby-identifier">cur_line</span>.<span class="ruby-identifier">md_type</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">:text</span>
+                        <span class="ruby-identifier">terms</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">md_el</span>(<span class="ruby-identifier">:definition_term</span>, <span class="ruby-identifier">parse_lines_as_span</span>([<span class="ruby-identifier">src</span>.<span class="ruby-identifier">shift_line</span>]))
+                <span class="ruby-keyword kw">end</span>
+<span class="ruby-comment cmt">#               dbg_describe_ary(terms, 'DT')</span>
+
+                <span class="ruby-identifier">want_my_paragraph</span> = <span class="ruby-keyword kw">false</span>
+
+                <span class="ruby-identifier">raise</span> <span class="ruby-value str">&quot;Chunky Bacon!&quot;</span> <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">not</span> <span class="ruby-identifier">src</span>.<span class="ruby-identifier">cur_line</span>
+
+                <span class="ruby-comment cmt"># one optional empty</span>
+                <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">src</span>.<span class="ruby-identifier">cur_line</span>.<span class="ruby-identifier">md_type</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">:empty</span>
+                        <span class="ruby-identifier">want_my_paragraph</span> = <span class="ruby-keyword kw">true</span>
+                        <span class="ruby-identifier">src</span>.<span class="ruby-identifier">shift_line</span>
+                <span class="ruby-keyword kw">end</span>
+                
+                <span class="ruby-identifier">raise</span> <span class="ruby-value str">&quot;Chunky Bacon!&quot;</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">src</span>.<span class="ruby-identifier">cur_line</span>.<span class="ruby-identifier">md_type</span> <span class="ruby-operator">!=</span> <span class="ruby-identifier">:definition</span>
+                
+                <span class="ruby-comment cmt"># Read one or more definitions</span>
+                <span class="ruby-identifier">definitions</span> = []
+                <span class="ruby-keyword kw">while</span> <span class="ruby-identifier">src</span>.<span class="ruby-identifier">cur_line</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">src</span>.<span class="ruby-identifier">cur_line</span>.<span class="ruby-identifier">md_type</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">:definition</span>
+                        <span class="ruby-identifier">parent_offset</span> = <span class="ruby-identifier">src</span>.<span class="ruby-identifier">cur_index</span>
+                                
+                        <span class="ruby-identifier">first</span> = <span class="ruby-identifier">src</span>.<span class="ruby-identifier">shift_line</span>
+                        <span class="ruby-identifier">first</span> <span class="ruby-operator">=~</span> <span class="ruby-constant">Definition</span>
+                        <span class="ruby-identifier">first</span> = <span class="ruby-identifier">$1</span>
+                        
+                        <span class="ruby-comment cmt"># I know, it's ugly!!!</span>
+
+                        <span class="ruby-identifier">lines</span>, <span class="ruby-identifier">w_m_p</span> = 
+                                <span class="ruby-identifier">read_indented_content</span>(<span class="ruby-identifier">src</span>,<span class="ruby-value">4</span>, [<span class="ruby-identifier">:definition</span>], <span class="ruby-identifier">:definition</span>)
+                        <span class="ruby-identifier">want_my_paragraph</span> <span class="ruby-operator">||=</span> <span class="ruby-identifier">w_m_p</span>
+                
+                        <span class="ruby-identifier">lines</span>.<span class="ruby-identifier">unshift</span> <span class="ruby-identifier">first</span>
+                        
+<span class="ruby-comment cmt">#                       dbg_describe_ary(lines, 'DD')</span>
+                        <span class="ruby-identifier">src2</span> = <span class="ruby-constant">LineSource</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">lines</span>, <span class="ruby-identifier">src</span>, <span class="ruby-identifier">parent_offset</span>)
+                        <span class="ruby-identifier">children</span> = <span class="ruby-identifier">parse_blocks</span>(<span class="ruby-identifier">src2</span>)
+                        <span class="ruby-identifier">definitions</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">md_el</span>(<span class="ruby-identifier">:definition_data</span>, <span class="ruby-identifier">children</span>)
+                <span class="ruby-keyword kw">end</span>
+                
+                <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">md_el</span>(<span class="ruby-identifier">:definition</span>, <span class="ruby-identifier">terms</span><span class="ruby-operator">+</span><span class="ruby-identifier">definitions</span>, {        
+                        <span class="ruby-identifier">:terms</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">terms</span>, 
+                        <span class="ruby-identifier">:definitions</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">definitions</span>, 
+                        <span class="ruby-identifier">:want_my_paragraph</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">want_my_paragraph</span>})
+        <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

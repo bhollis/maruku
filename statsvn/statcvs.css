@@ -1,0 +1,196 @@
+body {
+  margin: 1.5em 2em 0;
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 90%;
+  color: black;
+  background-color: #ccccbb;
+}
+h1 {
+  border-bottom: 6px solid #91AB67;
+  font-size: 180%;
+  font-weight: bold;
+  margin-bottom: 0.1em;
+}
+h2 {
+  font-size: 120%;
+  font-weight: bold;
+  margin-top: 2em;
+  border-bottom: 3px solid #91AB67;
+}
+ul {
+  padding-left: 2em;
+}
+a:link {
+  color: #00c;
+}
+a:visited {
+  color: #808;
+}
+a:hover {
+  color: red;
+}
+a:link img {
+  border: 1px solid #00c;
+}
+a:visited img {
+  border: 1px solid #808;
+}
+a:hover img {
+  border: 1px solid #f00;
+}
+table {
+  border-collapse: collapse;
+}
+table, thead, tfoot, tbody, colgroup, col, tr, th, td {
+  border: none;
+}
+td, th {
+  padding: 0.1em 1em 0.3em;
+}
+td {
+  text-align: right;
+}
+th {
+  text-align: left;
+}
+thead th, tfoot th {
+  text-align: center;
+}
+thead {
+  color: #000;
+  background-color: #DFDFC6;
+}
+tfoot {
+  color: #000;
+  background-color: #DFDFC6;
+}
+.odd {
+  color: #000;
+  background-color: #D2D2C1;
+}
+.even {
+  color: #000;
+  background-color: #D8D8C8;
+}
+dl.attributes dt {
+  float: left;
+  font-weight: bold;
+  margin-right: 0.3em;
+}
+.comment, #nav {
+  background-color: #DFDFC6;
+}
+a.webrepository {
+  text-decoration: none;
+  font-weight: normal;
+}
+a.webrepository:hover {
+  text-decoration: underline;
+  font-weight: normal;
+}
+strong a.webrepository {
+  font-weight: bold;
+}
+.commitlist dt {
+  float: left;
+  margin: 0;
+  text-align: right;
+  width: 8em;
+}
+.commitlist dt a {
+  font-weight: bold;
+}
+.commitlist .date {
+  font-size: 75%;
+  white-space: nowrap;
+}
+.commitlist dt.tag {
+  border-bottom: 3px solid #91AB67;
+  float: none;
+  margin: 3em 11em 2em 0;
+  text-align: center;
+  width: auto;
+}
+.commitlist dd {
+  margin: 0 11em 1em 8.8em;
+}
+.comment {
+  margin: 0 0 0.5em;
+  padding: 0.6em;
+  color: #000;
+}
+.commitdetails {
+  margin: 0;
+  font-size: 75%;
+}
+ul.commitdetails {
+  margin-top: 0.2em;
+}
+.commitdetails li {
+  margin: 0 0 0 5em;
+  list-style-type: none;
+  text-indent: -5em;
+}
+.comment a {
+  font-weight: normal;
+}
+.comment a img {
+  border: none;
+  vertical-align: -30%;
+}
+.new {
+  color: #4a4;
+  background-color: #CCCCBB;
+}
+.del {
+  color: #c44;
+  background-color: #CCCCBB;
+}
+.change {
+  color: #777;
+  background-color: #CCCCBB;
+}
+.permalink {
+  font-size: 75%;
+  text-decoration: none;
+}
+#parentlink {
+  margin-bottom: 1.6em;
+}
+#nav {
+  float: right;
+  padding: 0.5em;
+  width: 9em;
+  white-space: nowrap;
+}
+#nav h2 {
+  font-size: 100%;
+  margin: 0 0 0.5em;
+  padding: 0;
+  text-align: center;
+}
+#nav ul {
+  margin: 0;
+  padding: 0;
+}
+#nav li {
+  list-style-type: none;
+  text-align: right;
+}
+#nav li a {
+  text-decoration: none;
+}
+#nav .here:before {
+  content: '\bb  ';
+}
+#generatedby {
+  clear: both;
+  color: #667;
+  font-size: 75%;
+  margin: 0 -2em 0.5em 0;
+  padding-top: 2em;
+  text-align: right;
+}
+#generatedby a:link, #generatedby a:visited, a.permalink:link, a.permalink:visited {
+  color: #559;
+}

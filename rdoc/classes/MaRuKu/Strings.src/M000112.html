@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>line_md_type (MaRuKu::Strings)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/maruku/input/type_detection.rb, line 36</span>
+        <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">line_md_type</span>(<span class="ruby-identifier">l</span>)
+                <span class="ruby-comment cmt"># The order of evaluation is important (:text is a catch-all)</span>
+                <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">:text</span>   <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">l</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp re">/^[a-zA-Z]/</span>
+                <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">:code</span>             <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">number_of_leading_spaces</span>(<span class="ruby-identifier">l</span>)<span class="ruby-operator">&gt;=</span><span class="ruby-value">4</span>
+                <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">:empty</span>    <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">l</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp re">/^\s*$/</span>
+                <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">:footnote_text</span>    <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">l</span> <span class="ruby-operator">=~</span> <span class="ruby-constant">FootnoteText</span>
+                <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">:ref_definition</span>   <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">l</span> <span class="ruby-operator">=~</span> <span class="ruby-constant">LinkRegex</span> <span class="ruby-keyword kw">or</span> <span class="ruby-identifier">l</span><span class="ruby-operator">=~</span> <span class="ruby-constant">IncompleteLink</span>
+                <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">:abbreviation</span>     <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">l</span> <span class="ruby-operator">=~</span> <span class="ruby-constant">Abbreviation</span>
+                <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">:definition</span>       <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">l</span> <span class="ruby-operator">=~</span> <span class="ruby-constant">Definition</span>
+                <span class="ruby-comment cmt"># I had a bug with emails and urls at the beginning of the </span>
+                <span class="ruby-comment cmt"># line that were mistaken for raw_html</span>
+                <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">:text</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">l</span><span class="ruby-operator">=~</span> <span class="ruby-node">/^#{EMailAddress}/</span>
+                <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">:text</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">l</span><span class="ruby-operator">=~</span> <span class="ruby-regexp re">/^&lt;http:/</span>
+                <span class="ruby-comment cmt"># raw html is like PHP Markdown Extra: at most three spaces before</span>
+                <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">:xml_instr</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">l</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp re">%r{^\s*&lt;\?}</span>
+                <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">:raw_html</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">l</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp re">%r{^[ ]?[ ]?[ ]?&lt;/?\s*\w+}</span>
+                <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">:raw_html</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">l</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp re">%r{^[ ]?[ ]?[ ]?&lt;\!\-\-}</span>
+                <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">:ulist</span>    <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">l</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp re">/^\s?([\*\-\+])\s+.*\w+/</span>
+                <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">:olist</span>    <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">l</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp re">/^\s?\d+\..*\w+/</span>
+                <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">:header1</span>  <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">l</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp re">/^(=)+/</span> 
+                <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">:header2</span>  <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">l</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp re">/^([-\s])+$/</span> 
+                <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">:header3</span>  <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">l</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp re">/^(#)+\s*\S+/</span> 
+                <span class="ruby-comment cmt"># at least three asterisks on a line, and only whitespace</span>
+                <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">:hrule</span>    <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">l</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp re">/^(\s*\*\s*){3,1000}$/</span> 
+                <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">:hrule</span>    <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">l</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp re">/^(\s*-\s*){3,1000}$/</span> <span class="ruby-comment cmt"># or hyphens</span>
+                <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">:hrule</span>    <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">l</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp re">/^(\s*_\s*){3,1000}$/</span> <span class="ruby-comment cmt"># or underscores       </span>
+                <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">:quote</span>    <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">l</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp re">/^&gt;/</span>
+                <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">:metadata</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">l</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp re">/^@/</span>
+<span class="ruby-comment cmt">#               if @@new_meta_data?</span>
+                        <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">:ald</span>   <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">l</span> <span class="ruby-operator">=~</span> <span class="ruby-constant">AttributeDefinitionList</span>
+                        <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">:ial</span>   <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">l</span> <span class="ruby-operator">=~</span> <span class="ruby-constant">InlineAttributeList</span>
+<span class="ruby-comment cmt">#               end</span>
+<span class="ruby-comment cmt">#               return :equation_end if l =~ EquationEnd</span>
+                <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">:text</span> <span class="ruby-comment cmt"># else, it's just text</span>
+        <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

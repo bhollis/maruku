@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>apply_one_rule (MaRuKu::In::Markdown::SpanLevelParser)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/maruku/input/rubypants.rb, line 192</span>
+<span class="ruby-keyword kw">def</span> <span class="ruby-identifier">apply_one_rule</span>(<span class="ruby-identifier">reg</span>, <span class="ruby-identifier">subst</span>, <span class="ruby-identifier">input</span>)
+        <span class="ruby-identifier">output</span> = []
+        <span class="ruby-keyword kw">while</span> <span class="ruby-identifier">first</span> = <span class="ruby-identifier">input</span>.<span class="ruby-identifier">shift</span>
+                <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">first</span>.<span class="ruby-identifier">kind_of?</span>(<span class="ruby-constant">String</span>) <span class="ruby-operator">&amp;&amp;</span> (<span class="ruby-identifier">m</span> = <span class="ruby-identifier">reg</span>.<span class="ruby-identifier">match</span>(<span class="ruby-identifier">first</span>))
+                        <span class="ruby-identifier">output</span>.<span class="ruby-identifier">push</span>    <span class="ruby-identifier">m</span>. <span class="ruby-identifier">pre_match</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">m</span>. <span class="ruby-identifier">pre_match</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>
+                         <span class="ruby-identifier">input</span>.<span class="ruby-identifier">unshift</span> <span class="ruby-identifier">m</span>.<span class="ruby-identifier">post_match</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">m</span>.<span class="ruby-identifier">post_match</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>
+                        <span class="ruby-identifier">subst</span>.<span class="ruby-identifier">reverse</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">x</span><span class="ruby-operator">|</span>
+                                <span class="ruby-identifier">input</span>.<span class="ruby-identifier">unshift</span>( <span class="ruby-identifier">x</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">:one</span> <span class="ruby-operator">?</span> <span class="ruby-identifier">m</span>[<span class="ruby-value">1</span>] <span class="ruby-operator">:</span> <span class="ruby-identifier">md_entity</span>(<span class="ruby-identifier">x</span>.<span class="ruby-identifier">to_s</span>) ) <span class="ruby-keyword kw">end</span>
+                <span class="ruby-keyword kw">else</span>
+                        <span class="ruby-identifier">output</span>.<span class="ruby-identifier">push</span> <span class="ruby-identifier">first</span>
+                <span class="ruby-keyword kw">end</span>
+        <span class="ruby-keyword kw">end</span>
+        <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">output</span>
+<span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC
+    "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN"
+    "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns:svg='http://www.w3.org/2000/svg' xml:lang='en' xmlns='http://www.w3.org/1999/xhtml'>
+<head><meta content='application/xhtml+xml;charset=utf-8' http-equiv='Content-type' /><title>Math support in Maruku</title><link href='math.css' rel='stylesheet' type='text/css' />
+<link href='style.css' rel='stylesheet' type='text/css' />
+</head>
+<body>
+<h1 id='math_support_in_maruku'>Math support in Maruku</h1>
+
+<p>This document describes Maruku&#8217;s support of inline LaTeX-style math.</p>
+
+<p>At the moment, <strong>these features are experimental</strong>, are probably buggy and the syntax and implementation are bound to change in the near future.</p>
+
+<p>Also, there are many subtleties of which one must care for correctly serving the XHTML+MathML document to browsers. In fact, <em>this documentation is <strong>not</strong> enough to get you started</em>, unless you feel very adventurous.</p>
+<div class='maruku_toc'><ul style='list-style: none;'><li><span class='maruku_section_number'>1. </span><a href='#syntax'>Syntax</a><ul style='list-style: none;'><li><span class='maruku_section_number'>1.1. </span><a href='#inline_math'>Inline math</a></li><li><span class='maruku_section_number'>1.2. </span><a href='#equations'>Equations</a></li></ul></li><li><span class='maruku_section_number'>2. </span><a href='#cross'>Cross references</a></li><li><span class='maruku_section_number'>3. </span><a href='#enabling_the_extension'>Enabling the extension</a><ul style='list-style: none;'><li><span class='maruku_section_number'>3.1. </span><a href='#on_the_command_line'>On the command line</a></li><li><span class='maruku_section_number'>3.2. </span><a href='#with_embedded_maruku'>With embedded Maruku</a></li></ul></li><li><span class='maruku_section_number'>4. </span><a href='#external_libraries_needed'>External libraries needed</a><ul style='list-style: none;'><li><span class='maruku_section_number'>4.1. </span><a href='#using_ritex'>Using <code>ritex</code></a></li><li><span class='maruku_section_number'>4.2. </span><a href='#using_itex2mml'>Using <code>itex2mml</code></a></li><li><span class='maruku_section_number'>4.3. </span><a href='#using_blahtex'>Using <code>blahtex</code></a></li></ul></li><li><span class='maruku_section_number'>5. </span><a href='#subtleties'>Subtleties</a><ul style='list-style: none;'><li><span class='maruku_section_number'>5.1. </span><a href='#serving_the_right_contenttype'>Serving the right content/type</a></li><li><span class='maruku_section_number'>5.2. </span><a href='#where_pngs_are_put'>Where PNGS are put</a></li><li><span class='maruku_section_number'>5.3. </span><a href='#styling_equations'>Styling equations</a></li><li><span class='maruku_section_number'>5.4. </span><a href='#aligning_pngs'>Aligning PNGs</a></li></ul></li></ul></div>
+<h2 id='syntax'><span class='maruku_section_number'>1. </span>Syntax</h2>
+
+<h3 id='inline_math'><span class='maruku_section_number'>1.1. </span>Inline math</h3>
+
+<p>Inline math is contained inside couples of <code>$</code>.</p>
+
+<p>Everything inside will be passed as-is to LaTeX: no Markdown interpretation will take place.</p>
+
+<pre><code>Example: $x^{n}+y^{n} \neq z^{n}$ for $n \geq 3$</code></pre>
+
+<blockquote>
+<p>Example: <span class='maruku-inline'><math class='maruku-mathml' display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><msup><mi>x</mi> <mi>n</mi></msup><mo>+</mo><msup><mi>y</mi> <mi>n</mi></msup><mo>&ne;</mo><msup><mi>z</mi> <mi>n</mi></msup></math></span> for <span class='maruku-inline'><math class='maruku-mathml' display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mi>n</mi><mo>&geq;</mo><mn>3 </mn></math></span></p>
+</blockquote>
+
+<h3 id='equations'><span class='maruku_section_number'>1.2. </span>Equations</h3>
+
+<p>Equations are specified using either the <code>$$ ... $$</code> or <code>\[ ... \]</code> LaTeX notation. Equations can span multiple lines.</p>
+
+<pre><code>\[ 
+\sum_{n=1}^\infty \frac{1}{n} 
+\text{ is divergent, but } 
+\lim_{n \to \infty} \sum_{i=1}^n \frac{1}{i} - \ln n \text{exists.} 
+\]</code></pre>
+
+<blockquote><div class='maruku-equation'><math class='maruku-mathml' display='block' xmlns='http://www.w3.org/1998/Math/MathML'><munderover><mo rspace='thinmathspace' lspace='thinmathspace'>&Sum;</mo> <mrow><mi>n</mi><mo>=</mo><mn>1 </mn></mrow> <mn>&infin;</mn></munderover><mfrac><mn>1 </mn><mi>n</mi></mfrac><mtext> is divergent, but </mtext><munder><mi>lim</mi> <mrow><mi>n</mi><mo>&rightarrow;</mo><mn>&infin;</mn></mrow></munder><munderover><mo rspace='thinmathspace' lspace='thinmathspace'>&Sum;</mo> <mrow><mi>i</mi><mo>=</mo><mn>1 </mn></mrow> <mi>n</mi></munderover><mfrac><mn>1 </mn><mi>i</mi></mfrac><mo>&minus;</mo><mi>ln</mi><mi>n</mi><mspace width='1em' /><mtext>exists.</mtext></math><div class='maruku-eq-tex'><code style='display: none'> 	\sum_{n=1}^\infty \frac{1}{n} 
+	\text{ is divergent, but } 
+	\lim_{n \to \infty} \sum_{i=1}^n \frac{1}{i} - \ln n \quad \text{exists.} 
+
+</code></div></div></blockquote>
+
+<p>Some random AMSTeX symbols:</p>
+
+<pre><code>$$ \beth \Subset \bigtriangleup \bumpeq \ggg \pitchfork $$ </code></pre>
+<div class='maruku-equation'><math class='maruku-mathml' display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mi>&beth;</mi><mo>&Subset;</mo><mo>&bigtriangleup;</mo><mo>&bumpeq;</mo><mo>&ggg;</mo><mo>&pitchfork;</mo></math><div class='maruku-eq-tex'><code style='display: none'> \beth \Subset \bigtriangleup \bumpeq \ggg \pitchfork </code></div></div>
+<h2 id='cross'><span class='maruku_section_number'>2. </span>Cross references</h2>
+
+<p>Create a label for an equation in two ways:</p>
+
+<ul>
+<li>
+<p>LaTeX style:</p>
+
+<pre><code>Consider \eqref{a}:
+
+$$ \alpha = \beta  \label{a} $$</code></pre>
+</li>
+
+<li>
+<p>More readable style:</p>
+
+<pre><code>Consider (eq:a):
+
+$$ \alpha = \beta $$        (a)</code></pre>
+</li>
+</ul>
+
+<p>You can mix the two.</p>
+
+<p>Labels will work as expected also in the PDF output, whatever style you use: Maruku will insert the necessary <code>\label</code> commands.</p>
+
+<p>The following are 4 equations, labeled A,B,C,D:</p>
+<div class='maruku-equation' id='eq:A'><span class='maruku-eq-number'>(1)</span><math class='maruku-mathml' display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mi>&alpha;</mi></math><div class='maruku-eq-tex'><code style='display: none'> \alpha </code></div></div><div class='maruku-equation' id='eq:B'><span class='maruku-eq-number'>(2)</span><math class='maruku-mathml' display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mi>&beta;</mi></math><div class='maruku-eq-tex'><code style='display: none'> 	\beta
+
+</code></div></div><div class='maruku-equation' id='eq:C'><span class='maruku-eq-number'>(3)</span><math class='maruku-mathml' display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mi>&gamma;</mi></math><div class='maruku-eq-tex'><code style='display: none'> \gamma  </code></div></div><div class='maruku-equation' id='eq:D'><span class='maruku-eq-number'>(4)</span><math class='maruku-mathml' display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mi>&delta;</mi></math><div class='maruku-eq-tex'><code style='display: none'> 	\delta 
+
+</code></div></div>
+<p>You can now refer to <a href='#eq:A' class='maruku-eqref'>(1)</a>, <a href='#eq:B' class='maruku-eqref'>(2)</a>, <a href='#eq:C' class='maruku-eqref'>(3)</a>, <a href='#eq:D' class='maruku-eqref'>(4)</a>.</p>
+
+<h2 id='enabling_the_extension'><span class='maruku_section_number'>3. </span>Enabling the extension</h2>
+
+<h3 id='on_the_command_line'><span class='maruku_section_number'>3.1. </span>On the command line</h3>
+
+<p>Use the <code>-m</code> option to choose the kind of output. Possible choices are:</p>
+
+<p><code>--math-engine itex2mml</code> : Outputs MathML using <a href='#using_itex2mml'>itex2mml</a>.<br /><code>--math-engine ritex</code> : Outputs MathML using <a href='#using_ritex'>ritex</a>.<br /><code>--math-engine blahtex</code> : Outputs MathML using <a href='#using_blahtex'>blahtex</a>.<br /><code>--math-images blahtex</code> : Outputs PNGs using <a href='#using_blahtex'>blahtex</a>.</p>
+
+<h3 id='with_embedded_maruku'><span class='maruku_section_number'>3.2. </span>With embedded Maruku</h3>
+
+<p>You have to enable the math extension like this:</p>
+
+<pre><code>require &#39;maruku&#39;          # loads maruku
+require &#39;maruku/ext/math&#39; # loads the math extension</code></pre>
+
+<p>Use the following to choose the engine:</p>
+
+<pre><code>MaRuKu::Globals[:html_math_engine] = &#39;ritex&#39;
+MaRuKu::Globals[:html_png_engine] =  &#39;blahtex&#39;</code></pre>
+
+<p>Available MathML engines are &#8216;none&#8217;, &#8216;itex2mml&#8217;, &#8216;blahtex&#8217;. &#8216;blahtex&#8217; is the only PNG engine available.</p>
+
+<h2 id='external_libraries_needed'><span class='maruku_section_number'>4. </span>External libraries needed</h2>
+
+<p>To output MathML or PNGs, it is needed to install one of the following libraries</p>
+
+<h3 id='using_ritex'><span class='maruku_section_number'>4.1. </span>Using <code>ritex</code></h3>
+
+<p>Install with</p>
+
+<pre><code>$ gem install ritex</code></pre>
+
+<p>ritex&#8217;s abilities are very limited, but it is the easiest to install.</p>
+
+<h3 id='using_itex2mml'><span class='maruku_section_number'>4.2. </span>Using <code>itex2mml</code></h3>
+
+<p>itex2mml supports much more LaTeX commands/environments than ritex.</p>
+
+<p>Install itex2mml using the instructions at:</p>
+
+<blockquote>
+<p><a href='http://golem.ph.utexas.edu/~distler/blog/itex2MML.html'>http://golem.ph.utexas.edu/~distler/blog/itex2MML.html</a></p>
+</blockquote>
+
+<p>This is a summary of the available LaTeX commands:</p>
+
+<blockquote>
+<p><a href='http://golem.ph.utexas.edu/~distler/blog/itex2MMLcommands.html'>http://golem.ph.utexas.edu/~distler/blog/itex2MMLcommands.html</a></p>
+</blockquote>
+
+<p>Moreover, <a href='http://golem.ph.utexas.edu/~distler'>Jacques Distler</a> is integrating Maruku+itex2mml+<a href='http://www.instiki.org'>Instiki</a>. You can find more information here:</p>
+
+<blockquote>
+<p><a href='http://golem.ph.utexas.edu/~distler/blog/archives/001111.html'>http://golem.ph.utexas.edu/~distler/blog/archives/001111.html</a></p>
+</blockquote>
+
+<h3 id='using_blahtex'><span class='maruku_section_number'>4.3. </span>Using <code>blahtex</code></h3>
+
+<p>Download from <a href='http://www.blahtex.org'>http://www.blahtex.org</a>. Make sure you have the command-line <code>blahtex</code> in your path.</p>
+
+<h2 id='subtleties'><span class='maruku_section_number'>5. </span>Subtleties</h2>
+
+<h3 id='serving_the_right_contenttype'><span class='maruku_section_number'>5.1. </span>Serving the right content/type</h3>
+
+<ul>
+<li>Mozilla wants files to have the <code>.xhtml</code> extension.</li>
+</ul>
+
+<p>&#8230;</p>
+
+<h3 id='where_pngs_are_put'><span class='maruku_section_number'>5.2. </span>Where PNGS are put</h3>
+
+<ul>
+<li>
+<p><code>Globals[:math_png_dir]</code></p>
+</li>
+
+<li>
+<p><code>Globals[:math_png_dir_url]</code></p>
+</li>
+</ul>
+
+<h3 id='styling_equations'><span class='maruku_section_number'>5.3. </span>Styling equations</h3>
+
+<p>&#8230;</p>
+
+<h3 id='aligning_pngs'><span class='maruku_section_number'>5.4. </span>Aligning PNGs</h3>
+
+<ul>
+<li>
+<p>using <code>ex</code></p>
+</li>
+
+<li>
+<p><strong>IE7 bug</strong></p>
+</li>
+</ul>
+
+<p>&#8230;</p>
+<div class='maruku_signature'><hr /><span style='font-size: small; font-style: italic'>Created by <a href='http://maruku.rubyforge.org' title='Maruku: a Markdown-superset interpreter for Ruby'>Maruku</a> at 13:32 on Sunday, February 18th, 2007.</span></div></body></html>

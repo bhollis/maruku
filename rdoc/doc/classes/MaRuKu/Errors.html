@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <head>
+    <title>Module: MaRuKu::Errors</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+    <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+
+    <script language="JavaScript" type="text/javascript">
+    // <![CDATA[
+
+        function toggleSource( id )
+        {
+          var elem
+          var link
+
+          if( document.getElementById )
+          {
+            elem = document.getElementById( id )
+            link = document.getElementById( "l_" + id )
+          }
+          else if ( document.all )
+          {
+            elem = eval( "document.all." + id )
+            link = eval( "document.all.l_" + id )
+          }
+          else
+            return false;
+
+          if( elem.style.display == "block" )
+          {
+            elem.style.display = "none"
+            link.innerHTML = "show source"
+          }
+          else
+          {
+            elem.style.display = "block"
+            link.innerHTML = "hide source"
+          }
+        }
+
+        function openCode( url )
+        {
+          window.open( url, "SOURCE_CODE", "width=400,height=400,scrollbars=yes" )
+        }
+      // ]]>
+    </script>
+  </head>
+
+  <body>
+  <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'><tr>
+  <td class="file-title"><span class="file-title-prefix">Module</span><br />MaRuKu::Errors</td>
+  <td align="right">
+    <table cellspacing=0 cellpadding=2>
+      <tr valign="top">
+        <td>In:</td>
+        <td>
+<a href="../../files/lib/maruku_rb.html">lib/maruku.rb</a>
+<a href="../../files/lib/maruku/errors_management_rb.html">lib/maruku/errors_management.rb</a>
+        </td>
+      </tr>
+         </table>
+        </td>
+        </tr>
+      </table>
+ <!-- banner header -->
+
+  <div id="bodyContent">
+      <div id="content">
+
+
+
+
+  <div class="sectiontitle">Methods</div>
+  <ul>
+  <li><a href="#M000023">create_frame</a></li>
+  <li><a href="#M000024">describe_error</a></li>
+  <li><a href="#M000020">error</a></li>
+  <li><a href="#M000018">maruku_error</a></li>
+  <li><a href="#M000019">maruku_recover</a></li>
+  <li><a href="#M000021">raise_error</a></li>
+  <li><a href="#M000022">tell_user</a></li>
+  </ul>
+
+
+
+
+  <div class="sectiontitle">Constants</div>
+  <table border='0' cellpadding='5'>
+  <tr valign='top'>
+    <td class="attr-name">Default_on_error</td>
+    <td>=</td>
+    <td class="attr-value">:warning</td>
+  </tr>
+  </table>
+
+
+<div class="sectiontitle">Public Instance methods</div>
+<div class="method">
+  <div class="title">
+    <a name="M000023"></a><b>create_frame</b>(s)
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000023_source')" id="l_M000023_source">show source</a> ]</p>
+  <div id="M000023_source" class="dyn-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/maruku/errors_management.rb, line 69</span>
+69:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">create_frame</span>(<span class="ruby-identifier">s</span>)
+70:                 <span class="ruby-identifier">n</span> = <span class="ruby-value">75</span>
+71:                 <span class="ruby-value str">&quot;\n&quot;</span> <span class="ruby-operator">+</span>
+72:                 <span class="ruby-value str">&quot; &quot;</span><span class="ruby-operator">+</span><span class="ruby-value str">&quot;_&quot;</span><span class="ruby-operator">*</span><span class="ruby-identifier">n</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-value str">&quot;\n&quot;</span><span class="ruby-operator">&lt;&lt;</span>
+73:                 <span class="ruby-value str">&quot;| Maruku tells you:\n&quot;</span> <span class="ruby-operator">&lt;&lt;</span> 
+74:                 <span class="ruby-value str">&quot;+&quot;</span><span class="ruby-operator">+</span><span class="ruby-value str">&quot;-&quot;</span><span class="ruby-operator">*</span><span class="ruby-identifier">n</span> <span class="ruby-operator">+</span><span class="ruby-value str">&quot;\n&quot;</span><span class="ruby-operator">+</span>
+75:                 <span class="ruby-identifier">add_tabs</span>(<span class="ruby-identifier">s</span>,<span class="ruby-value">1</span>,<span class="ruby-value str">'| '</span>) <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-value str">&quot;\n&quot;</span> <span class="ruby-operator">&lt;&lt;</span>
+76:                 <span class="ruby-value str">&quot;+&quot;</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-value str">&quot;-&quot;</span><span class="ruby-operator">*</span><span class="ruby-identifier">n</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-value str">&quot;\n&quot;</span> <span class="ruby-operator">&lt;&lt;</span>
+77:                 <span class="ruby-identifier">add_tabs</span>(<span class="ruby-identifier">caller</span>[<span class="ruby-value">0</span>, <span class="ruby-value">5</span>].<span class="ruby-identifier">join</span>(<span class="ruby-value str">&quot;\n&quot;</span>),<span class="ruby-value">1</span>,<span class="ruby-value str">'!'</span>) <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-value str">&quot;\n&quot;</span> <span class="ruby-operator">&lt;&lt;</span>
+78:                 <span class="ruby-value str">&quot;\\&quot;</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-value str">&quot;_&quot;</span><span class="ruby-operator">*</span><span class="ruby-identifier">n</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-value str">&quot;\n&quot;</span>
+79:         <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000024"></a><b>describe_error</b>(s,src,con)
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000024_source')" id="l_M000024_source">show source</a> ]</p>
+  <div id="M000024_source" class="dyn-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/maruku/errors_management.rb, line 81</span>
+81:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">describe_error</span>(<span class="ruby-identifier">s</span>,<span class="ruby-identifier">src</span>,<span class="ruby-identifier">con</span>)
+82:                 <span class="ruby-identifier">t</span> = <span class="ruby-identifier">s</span>
+83:                 <span class="ruby-identifier">src</span> <span class="ruby-operator">&amp;&amp;</span> (<span class="ruby-identifier">t</span> <span class="ruby-operator">+=</span> <span class="ruby-node">&quot;\n#{src.describe}\n&quot;</span>)
+84:                 <span class="ruby-identifier">con</span> <span class="ruby-operator">&amp;&amp;</span> (<span class="ruby-identifier">t</span> <span class="ruby-operator">+=</span> <span class="ruby-node">&quot;\n#{con.describe}\n&quot;</span>)
+85:                 <span class="ruby-identifier">t</span>
+86:         <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000020"></a><b>error</b>(s,src=nil,con=nil)
+  </div>
+  <div class="description">
+  <p>
+Alias for <a href="Errors.html#M000018">maruku_error</a>
+</p>
+  </div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000018"></a><b>maruku_error</b>(s,src=nil,con=nil)
+  </div>
+<div class="aka">
+  This method is also aliased as
+  <a href="Errors.html#M000020">error</a>
+</div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000018_source')" id="l_M000018_source">show source</a> ]</p>
+  <div id="M000018_source" class="dyn-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/maruku/errors_management.rb, line 42</span>
+42:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">maruku_error</span>(<span class="ruby-identifier">s</span>,<span class="ruby-identifier">src</span>=<span class="ruby-keyword kw">nil</span>,<span class="ruby-identifier">con</span>=<span class="ruby-keyword kw">nil</span>)
+43:                 <span class="ruby-identifier">policy</span> = <span class="ruby-ivar">@doc</span> <span class="ruby-operator">?</span> (<span class="ruby-ivar">@doc</span>.<span class="ruby-identifier">attributes</span>[<span class="ruby-identifier">:on_error</span>] <span class="ruby-operator">||</span> <span class="ruby-constant">Default_on_error</span>) <span class="ruby-operator">:</span> <span class="ruby-identifier">:raise</span>
+44:                 
+45:                 <span class="ruby-keyword kw">case</span> <span class="ruby-identifier">policy</span>
+46:                 <span class="ruby-keyword kw">when</span> <span class="ruby-identifier">:ignore</span> 
+47:                 <span class="ruby-keyword kw">when</span> <span class="ruby-identifier">:raise</span>
+48:                         <span class="ruby-identifier">raise_error</span> <span class="ruby-identifier">create_frame</span>(<span class="ruby-identifier">describe_error</span>(<span class="ruby-identifier">s</span>,<span class="ruby-identifier">src</span>,<span class="ruby-identifier">con</span>))
+49:                 <span class="ruby-keyword kw">when</span> <span class="ruby-identifier">:warning</span>
+50:                         <span class="ruby-identifier">tell_user</span> <span class="ruby-identifier">create_frame</span>(<span class="ruby-identifier">describe_error</span>(<span class="ruby-identifier">s</span>,<span class="ruby-identifier">src</span>,<span class="ruby-identifier">con</span>))
+51:                 <span class="ruby-keyword kw">end</span>
+52:         <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000019"></a><b>maruku_recover</b>(s,src=nil,con=nil)
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000019_source')" id="l_M000019_source">show source</a> ]</p>
+  <div id="M000019_source" class="dyn-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/maruku/errors_management.rb, line 54</span>
+54:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">maruku_recover</span>(<span class="ruby-identifier">s</span>,<span class="ruby-identifier">src</span>=<span class="ruby-keyword kw">nil</span>,<span class="ruby-identifier">con</span>=<span class="ruby-keyword kw">nil</span>)
+55:                 <span class="ruby-identifier">tell_user</span> <span class="ruby-identifier">create_frame</span>(<span class="ruby-identifier">describe_error</span>(<span class="ruby-identifier">s</span>,<span class="ruby-identifier">src</span>,<span class="ruby-identifier">con</span>))
+56:         <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000021"></a><b>raise_error</b>(s)
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000021_source')" id="l_M000021_source">show source</a> ]</p>
+  <div id="M000021_source" class="dyn-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/maruku/errors_management.rb, line 60</span>
+60:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">raise_error</span>(<span class="ruby-identifier">s</span>)
+61:                 <span class="ruby-identifier">raise</span> <span class="ruby-constant">MaRuKu</span><span class="ruby-operator">::</span><span class="ruby-constant">Exception</span>, <span class="ruby-identifier">s</span>, <span class="ruby-identifier">caller</span>
+62:         <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000022"></a><b>tell_user</b>(s)
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000022_source')" id="l_M000022_source">show source</a> ]</p>
+  <div id="M000022_source" class="dyn-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/maruku/errors_management.rb, line 64</span>
+64:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">tell_user</span>(<span class="ruby-identifier">s</span>)
+65:                 <span class="ruby-identifier">error_stream</span> = <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">attributes</span>[<span class="ruby-identifier">:error_stream</span>] <span class="ruby-operator">||</span> <span class="ruby-identifier">$stderr</span>
+66:                 <span class="ruby-identifier">error_stream</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">s</span> 
+67:         <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+</div>
+
+  </div>
+
+    </body>
+</html>

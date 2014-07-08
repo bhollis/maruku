@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>read_url (MaRuKu::In::Markdown::SpanLevelParser)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/maruku/input/parse_span_better.rb, line 311</span>
+        <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">read_url</span>(<span class="ruby-identifier">src</span>, <span class="ruby-identifier">break_on</span>)
+                <span class="ruby-keyword kw">if</span> [<span class="ruby-value">?'</span>,<span class="ruby-value">?&quot;</span>].<span class="ruby-identifier">include?</span> <span class="ruby-identifier">src</span>.<span class="ruby-identifier">cur_char</span> 
+                        <span class="ruby-identifier">error</span> <span class="ruby-value str">'Invalid char for url'</span>, <span class="ruby-identifier">src</span>
+                <span class="ruby-keyword kw">end</span>
+                
+                <span class="ruby-identifier">url</span> = <span class="ruby-identifier">read_simple</span>(<span class="ruby-identifier">src</span>, [], <span class="ruby-identifier">break_on</span>)
+                <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">not</span> <span class="ruby-identifier">url</span> <span class="ruby-comment cmt"># empty url</span>
+                        <span class="ruby-identifier">url</span> = <span class="ruby-value str">&quot;&quot;</span>
+                <span class="ruby-keyword kw">end</span>
+                
+                <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">url</span>[<span class="ruby-value">0</span>] <span class="ruby-operator">==</span> <span class="ruby-value">?&lt;</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">url</span>[<span class="ruby-value">-1</span>] <span class="ruby-operator">==</span> <span class="ruby-value">?&gt;</span>
+                        <span class="ruby-identifier">url</span> = <span class="ruby-identifier">url</span>[<span class="ruby-value">1</span>, <span class="ruby-identifier">url</span>.<span class="ruby-identifier">size</span><span class="ruby-operator">-</span><span class="ruby-value">2</span>]
+                <span class="ruby-keyword kw">end</span>
+                
+                <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">url</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">==</span> <span class="ruby-value">0</span> 
+                        <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">nil</span>
+                <span class="ruby-keyword kw">end</span>
+                
+                <span class="ruby-identifier">url</span>
+        <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

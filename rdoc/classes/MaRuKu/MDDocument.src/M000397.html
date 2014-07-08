@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>to_s5 (MaRuKu::MDDocument)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/maruku/output/s5/to_s5.rb, line 7</span>
+        <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_s5</span>(<span class="ruby-identifier">context</span>={})
+                <span class="ruby-identifier">indent</span> = <span class="ruby-identifier">context</span>[<span class="ruby-identifier">:indent</span>] <span class="ruby-operator">||</span> <span class="ruby-value">-1</span>
+                <span class="ruby-identifier">ie_hack</span> = <span class="ruby-identifier">context</span>[<span class="ruby-identifier">:ie_hack</span>] <span class="ruby-operator">||</span><span class="ruby-keyword kw">true</span>
+
+                <span class="ruby-identifier">doc</span> = <span class="ruby-constant">Document</span>.<span class="ruby-identifier">new</span>(<span class="ruby-keyword kw">nil</span>,{<span class="ruby-identifier">:respect_whitespace</span> =<span class="ruby-operator">&gt;</span><span class="ruby-identifier">:all</span>})
+                <span class="ruby-identifier">html</span> = <span class="ruby-constant">Element</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value str">'html'</span>, <span class="ruby-identifier">doc</span>)
+                <span class="ruby-identifier">html</span>.<span class="ruby-identifier">add_namespace</span>(<span class="ruby-value str">'http://www.w3.org/1999/xhtml'</span>)
+                <span class="ruby-identifier">html</span>.<span class="ruby-identifier">add_namespace</span>(<span class="ruby-value str">'svg'</span>, <span class="ruby-value str">&quot;http://www.w3.org/2000/svg&quot;</span> )
+                
+                <span class="ruby-identifier">head</span> = <span class="ruby-constant">Element</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value str">'head'</span>, <span class="ruby-identifier">html</span>)
+                        <span class="ruby-identifier">me</span> = <span class="ruby-constant">Element</span>.<span class="ruby-identifier">new</span> <span class="ruby-value str">'meta'</span>, <span class="ruby-identifier">head</span>
+                        <span class="ruby-identifier">me</span>.<span class="ruby-identifier">attributes</span>[<span class="ruby-value str">'http-equiv'</span>] = <span class="ruby-value str">'Content-type'</span>
+                        <span class="ruby-identifier">me</span>.<span class="ruby-identifier">attributes</span>[<span class="ruby-value str">'content'</span>] = <span class="ruby-value str">'text/html;charset=utf-8'</span> 
+
+
+                        <span class="ruby-comment cmt"># Create title element</span>
+                        <span class="ruby-identifier">doc_title</span> = <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">attributes</span>[<span class="ruby-identifier">:title</span>] <span class="ruby-operator">||</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">attributes</span>[<span class="ruby-identifier">:subject</span>] <span class="ruby-operator">||</span> <span class="ruby-value str">&quot;&quot;</span>
+                        <span class="ruby-identifier">title</span> = <span class="ruby-constant">Element</span>.<span class="ruby-identifier">new</span> <span class="ruby-value str">'title'</span>, <span class="ruby-identifier">head</span>
+                                <span class="ruby-identifier">title</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">Text</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">doc_title</span>)
+                
+                
+                <span class="ruby-identifier">body</span> = <span class="ruby-constant">Element</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value str">'body'</span>, <span class="ruby-identifier">html</span>)
+                
+                <span class="ruby-identifier">slide_header</span> = <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">attributes</span>[<span class="ruby-identifier">:slide_header</span>]
+                <span class="ruby-identifier">slide_footer</span> = <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">attributes</span>[<span class="ruby-identifier">:slide_footer</span>]
+                <span class="ruby-identifier">slide_topleft</span>  = <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">attributes</span>[<span class="ruby-identifier">:slide_topleft</span>]
+                <span class="ruby-identifier">slide_topright</span>  = <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">attributes</span>[<span class="ruby-identifier">:slide_topright</span>]
+                <span class="ruby-identifier">slide_bottomleft</span>  = <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">attributes</span>[<span class="ruby-identifier">:slide_bottomleft</span>]
+                <span class="ruby-identifier">slide_bottomright</span>  = <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">attributes</span>[<span class="ruby-identifier">:slide_bottomright</span>]
+
+                <span class="ruby-identifier">dummy_layout_slide</span> = 
+                <span class="ruby-node">&quot;&lt;div class='layout'&gt;
+                        &lt;div id='controls'&gt;&lt;!-- DO NOT EDIT --&gt;&lt;/div&gt;
+                        &lt;div id='currentSlide'&gt;&lt;!-- DO NOT EDIT --&gt;&lt;/div&gt;
+                        &lt;div id='header'&gt; #{slide_header}&lt;/div&gt;
+                        &lt;div id='footer'&gt; #{slide_footer}&lt;/div&gt;
+                  &lt;div class='topleft'&gt; #{slide_topleft}&lt;/div&gt;
+                  &lt;div class='topright'&gt; #{slide_topright}&lt;/div&gt;
+                  &lt;div class='bottomleft'&gt; #{slide_bottomleft}&lt;/div&gt;
+                  &lt;div class='bottomright'&gt; #{slide_bottomright}&lt;/div&gt;
+                &lt;/div&gt;&quot;</span>
+                <span class="ruby-identifier">body</span>.<span class="ruby-identifier">add_element</span> <span class="ruby-constant">Document</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">dummy_layout_slide</span>, {<span class="ruby-identifier">:respect_whitespace</span> =<span class="ruby-operator">&gt;</span><span class="ruby-identifier">:all</span>}).<span class="ruby-identifier">root</span>
+
+                <span class="ruby-identifier">presentation</span> = <span class="ruby-constant">Element</span>.<span class="ruby-identifier">new</span> <span class="ruby-value str">'div'</span>, <span class="ruby-identifier">body</span>
+                <span class="ruby-identifier">presentation</span>.<span class="ruby-identifier">attributes</span>[<span class="ruby-value str">'class'</span>] = <span class="ruby-value str">'presentation'</span>
+                
+                <span class="ruby-identifier">first_slide</span>=<span class="ruby-node">&quot;
+          &lt;div class='slide'&gt;
+          &lt;h1&gt; #{self.attributes[:title]}&lt;/h1&gt;
+          &lt;h2&gt; #{self.attributes[:subtitle]}&lt;/h2&gt;
+          &lt;h3&gt; #{self.attributes[:author]}&lt;/h3&gt;
+          &lt;h4&gt; #{self.attributes[:company]}&lt;/h4&gt;
+          &lt;/div&gt;
+                &quot;</span>
+                <span class="ruby-identifier">presentation</span>.<span class="ruby-identifier">add_element</span> <span class="ruby-constant">Document</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">first_slide</span>).<span class="ruby-identifier">root</span>
+
+                <span class="ruby-identifier">slide_num</span> = <span class="ruby-value">0</span>
+                <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">toc</span>.<span class="ruby-identifier">section_children</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">slide</span><span class="ruby-operator">|</span>
+                        <span class="ruby-identifier">slide_num</span> <span class="ruby-operator">+=</span> <span class="ruby-value">1</span>
+                        <span class="ruby-ivar">@doc</span>.<span class="ruby-identifier">attributes</span>[<span class="ruby-identifier">:doc_prefix</span>] = <span class="ruby-node">&quot;s#{slide_num}&quot;</span>
+                        
+                        <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;Slide #{slide_num}: &quot;</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">slide</span>.<span class="ruby-identifier">header_element</span>.<span class="ruby-identifier">to_s</span>
+                        <span class="ruby-identifier">div</span> = <span class="ruby-constant">Element</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value str">'div'</span>, <span class="ruby-identifier">presentation</span>)
+                        <span class="ruby-identifier">div</span>.<span class="ruby-identifier">attributes</span>[<span class="ruby-value str">'class'</span>] = <span class="ruby-value str">'slide'</span>
+                        
+                        <span class="ruby-identifier">h1</span> = <span class="ruby-constant">Element</span>.<span class="ruby-identifier">new</span> <span class="ruby-value str">'h1'</span>, <span class="ruby-identifier">div</span>
+                        <span class="ruby-identifier">slide</span>.<span class="ruby-identifier">header_element</span>.<span class="ruby-identifier">children_to_html</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">e</span><span class="ruby-operator">|</span> <span class="ruby-identifier">h1</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">e</span>; <span class="ruby-keyword kw">end</span>
+
+                        
+                        <span class="ruby-identifier">array_to_html</span>(<span class="ruby-identifier">slide</span>.<span class="ruby-identifier">immediate_children</span>).<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">e</span><span class="ruby-operator">|</span>  <span class="ruby-identifier">div</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">e</span>  <span class="ruby-keyword kw">end</span>
+                                
+                        <span class="ruby-comment cmt"># render footnotes</span>
+                        <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@doc</span>.<span class="ruby-identifier">footnotes_order</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>
+                                <span class="ruby-identifier">div</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">render_footnotes</span>
+                                <span class="ruby-ivar">@doc</span>.<span class="ruby-identifier">footnotes_order</span> = []
+                        <span class="ruby-keyword kw">end</span>
+                <span class="ruby-keyword kw">end</span>
+
+
+                <span class="ruby-identifier">doc2</span> = <span class="ruby-constant">Document</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value str">&quot;&lt;div&gt;&quot;</span><span class="ruby-operator">+</span><span class="ruby-constant">S5_external</span><span class="ruby-operator">+</span><span class="ruby-value str">&quot;&lt;/div&gt;&quot;</span>,{<span class="ruby-identifier">:respect_whitespace</span> =<span class="ruby-operator">&gt;</span><span class="ruby-identifier">:all</span>})
+                <span class="ruby-identifier">doc2</span>.<span class="ruby-identifier">root</span>.<span class="ruby-identifier">children</span>.<span class="ruby-identifier">each</span>{ <span class="ruby-operator">|</span><span class="ruby-identifier">child</span><span class="ruby-operator">|</span> <span class="ruby-identifier">head</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">child</span> }
+
+        
+                <span class="ruby-identifier">add_css_to</span>(<span class="ruby-identifier">head</span>)
+
+                <span class="ruby-identifier">xml</span>  = <span class="ruby-value str">&quot;&quot;</span> 
+
+                <span class="ruby-comment cmt"># REXML Bug? if indent!=-1 whitespace is not respected for 'pre' elements</span>
+                <span class="ruby-comment cmt"># containing code.</span>
+                <span class="ruby-identifier">html</span>.<span class="ruby-identifier">write</span>(<span class="ruby-identifier">xml</span>,<span class="ruby-identifier">indent</span>,<span class="ruby-identifier">transitive</span>=<span class="ruby-keyword kw">true</span>,<span class="ruby-identifier">ie_hack</span>);
+
+                <span class="ruby-constant">Xhtml10strict</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">xml</span>
+        <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

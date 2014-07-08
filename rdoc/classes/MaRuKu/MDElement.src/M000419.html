@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>new (MaRuKu::MDElement)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/maruku/structures.rb, line 96</span>
+        <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">node_type</span>=<span class="ruby-identifier">:unset</span>, <span class="ruby-identifier">children</span>=[], <span class="ruby-identifier">meta</span>={}, 
+                        <span class="ruby-identifier">al</span>=<span class="ruby-constant">MaRuKu</span><span class="ruby-operator">::</span><span class="ruby-constant">AttributeList</span>.<span class="ruby-identifier">new</span> )
+                <span class="ruby-keyword kw">super</span>(); 
+                <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">children</span> = <span class="ruby-identifier">children</span>
+                <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">node_type</span> = <span class="ruby-identifier">node_type</span>
+                
+                <span class="ruby-ivar">@attributes</span> = {}
+                
+                <span class="ruby-identifier">meta</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">symbol</span>, <span class="ruby-identifier">value</span><span class="ruby-operator">|</span>
+                        <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">instance_eval</span> <span class="ruby-node">&quot;
+                          def #{symbol}; @#{symbol}; end
+                          def #{symbol}=(val); @#{symbol}=val; end&quot;</span>
+                        <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">send</span> <span class="ruby-node">&quot;#{symbol}=&quot;</span>, <span class="ruby-identifier">value</span>
+                <span class="ruby-keyword kw">end</span>
+                
+                <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">al</span> = <span class="ruby-identifier">al</span> <span class="ruby-operator">||</span> <span class="ruby-constant">AttributeList</span>.<span class="ruby-identifier">new</span>
+
+                <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">meta_priv</span> = <span class="ruby-identifier">meta</span>
+        <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

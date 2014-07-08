@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>parse_blocks (MaRuKu::In::Markdown::BlockLevelParser)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/maruku/input/parse_block.rb, line 45</span>
+        <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">parse_blocks</span>(<span class="ruby-identifier">src</span>)
+                <span class="ruby-identifier">output</span> = <span class="ruby-constant">BlockContext</span>.<span class="ruby-identifier">new</span>
+                
+                <span class="ruby-comment cmt"># run state machine</span>
+                <span class="ruby-keyword kw">while</span> <span class="ruby-identifier">src</span>.<span class="ruby-identifier">cur_line</span>
+                        
+                        <span class="ruby-keyword kw">next</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">check_block_extensions</span>(<span class="ruby-identifier">src</span>, <span class="ruby-identifier">output</span>, <span class="ruby-identifier">src</span>.<span class="ruby-identifier">cur_line</span>)
+                        
+<span class="ruby-comment cmt">#  Prints detected type (useful for debugging)</span>
+<span class="ruby-comment cmt">#                       puts &quot;#{src.cur_line.md_type}|#{src.cur_line}&quot;</span>
+                        <span class="ruby-keyword kw">case</span> <span class="ruby-identifier">src</span>.<span class="ruby-identifier">cur_line</span>.<span class="ruby-identifier">md_type</span>
+                                <span class="ruby-keyword kw">when</span> <span class="ruby-identifier">:empty</span>; 
+                                        <span class="ruby-identifier">output</span>.<span class="ruby-identifier">push</span> <span class="ruby-identifier">:empty</span>
+                                        <span class="ruby-identifier">src</span>.<span class="ruby-identifier">ignore_line</span>
+                                <span class="ruby-keyword kw">when</span> <span class="ruby-identifier">:ial</span>
+                                        <span class="ruby-identifier">m</span> =  <span class="ruby-constant">InlineAttributeList</span>.<span class="ruby-identifier">match</span> <span class="ruby-identifier">src</span>.<span class="ruby-identifier">shift_line</span>
+                                        <span class="ruby-identifier">content</span> = <span class="ruby-identifier">m</span>[<span class="ruby-value">1</span>] <span class="ruby-operator">||</span>  <span class="ruby-value str">&quot;&quot;</span> 
+<span class="ruby-comment cmt">#                                       puts &quot;Content: #{content.inspect}&quot;</span>
+                                        <span class="ruby-identifier">src2</span> = <span class="ruby-constant">CharSource</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">content</span>, <span class="ruby-identifier">src</span>)
+                                        <span class="ruby-identifier">interpret_extension</span>(<span class="ruby-identifier">src2</span>, <span class="ruby-identifier">output</span>, [<span class="ruby-keyword kw">nil</span>])
+                                <span class="ruby-keyword kw">when</span> <span class="ruby-identifier">:ald</span>
+                                        <span class="ruby-identifier">output</span>.<span class="ruby-identifier">push</span> <span class="ruby-identifier">read_ald</span>(<span class="ruby-identifier">src</span>)
+                                <span class="ruby-keyword kw">when</span> <span class="ruby-identifier">:text</span>
+                                        <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">src</span>.<span class="ruby-identifier">cur_line</span> <span class="ruby-operator">=~</span> <span class="ruby-constant">MightBeTableHeader</span> <span class="ruby-keyword kw">and</span> 
+                                                (<span class="ruby-identifier">src</span>.<span class="ruby-identifier">next_line</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">src</span>.<span class="ruby-identifier">next_line</span> <span class="ruby-operator">=~</span> <span class="ruby-constant">TableSeparator</span>)
+                                                <span class="ruby-identifier">output</span>.<span class="ruby-identifier">push</span> <span class="ruby-identifier">read_table</span>(<span class="ruby-identifier">src</span>)
+                                        <span class="ruby-keyword kw">elsif</span> [<span class="ruby-identifier">:header1</span>,<span class="ruby-identifier">:header2</span>].<span class="ruby-identifier">include?</span> <span class="ruby-identifier">src</span>.<span class="ruby-identifier">next_line</span>.<span class="ruby-identifier">md_type</span>
+                                                <span class="ruby-identifier">output</span>.<span class="ruby-identifier">push</span> <span class="ruby-identifier">read_header12</span>(<span class="ruby-identifier">src</span>)
+                                        <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">eventually_comes_a_def_list</span>(<span class="ruby-identifier">src</span>)
+                                           <span class="ruby-identifier">definition</span> = <span class="ruby-identifier">read_definition</span>(<span class="ruby-identifier">src</span>)
+                                                <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">output</span>.<span class="ruby-identifier">last</span>.<span class="ruby-identifier">kind_of?</span>(<span class="ruby-constant">MDElement</span>) <span class="ruby-operator">&amp;&amp;</span> 
+                                                        <span class="ruby-identifier">output</span>.<span class="ruby-identifier">last</span>.<span class="ruby-identifier">node_type</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">:definition_list</span> <span class="ruby-keyword kw">then</span>
+                                                        <span class="ruby-identifier">output</span>.<span class="ruby-identifier">last</span>.<span class="ruby-identifier">children</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">definition</span>
+                                                <span class="ruby-keyword kw">else</span>
+                                                        <span class="ruby-identifier">output</span>.<span class="ruby-identifier">push</span> <span class="ruby-identifier">md_el</span>(<span class="ruby-identifier">:definition_list</span>, [<span class="ruby-identifier">definition</span>])
+                                                <span class="ruby-keyword kw">end</span>
+                                        <span class="ruby-keyword kw">else</span> <span class="ruby-comment cmt"># Start of a paragraph</span>
+                                                <span class="ruby-identifier">output</span>.<span class="ruby-identifier">push</span> <span class="ruby-identifier">read_paragraph</span>(<span class="ruby-identifier">src</span>)
+                                        <span class="ruby-keyword kw">end</span>
+                                <span class="ruby-keyword kw">when</span> <span class="ruby-identifier">:header2</span>, <span class="ruby-identifier">:hrule</span>
+                                        <span class="ruby-comment cmt"># hrule</span>
+                                        <span class="ruby-identifier">src</span>.<span class="ruby-identifier">shift_line</span>
+                                        <span class="ruby-identifier">output</span>.<span class="ruby-identifier">push</span> <span class="ruby-identifier">md_hrule</span>()
+                                <span class="ruby-keyword kw">when</span> <span class="ruby-identifier">:header3</span>
+                                        <span class="ruby-identifier">output</span>.<span class="ruby-identifier">push</span> <span class="ruby-identifier">read_header3</span>(<span class="ruby-identifier">src</span>)
+                                <span class="ruby-keyword kw">when</span> <span class="ruby-identifier">:ulist</span>, <span class="ruby-identifier">:olist</span>
+                                        <span class="ruby-identifier">list_type</span> = <span class="ruby-identifier">src</span>.<span class="ruby-identifier">cur_line</span>.<span class="ruby-identifier">md_type</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">:ulist</span> <span class="ruby-operator">?</span> <span class="ruby-identifier">:ul</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">:ol</span>
+                                        <span class="ruby-identifier">li</span> = <span class="ruby-identifier">read_list_item</span>(<span class="ruby-identifier">src</span>)
+                                        <span class="ruby-comment cmt"># append to current list if we have one</span>
+                                        <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">output</span>.<span class="ruby-identifier">last</span>.<span class="ruby-identifier">kind_of?</span>(<span class="ruby-constant">MDElement</span>) <span class="ruby-operator">&amp;&amp;</span> 
+                                                <span class="ruby-identifier">output</span>.<span class="ruby-identifier">last</span>.<span class="ruby-identifier">node_type</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">list_type</span> <span class="ruby-keyword kw">then</span>
+                                                <span class="ruby-identifier">output</span>.<span class="ruby-identifier">last</span>.<span class="ruby-identifier">children</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">li</span>
+                                        <span class="ruby-keyword kw">else</span>
+                                                <span class="ruby-identifier">output</span>.<span class="ruby-identifier">push</span> <span class="ruby-identifier">md_el</span>(<span class="ruby-identifier">list_type</span>, [<span class="ruby-identifier">li</span>])
+                                        <span class="ruby-keyword kw">end</span>
+                                <span class="ruby-keyword kw">when</span> <span class="ruby-identifier">:quote</span>;    <span class="ruby-identifier">output</span>.<span class="ruby-identifier">push</span> <span class="ruby-identifier">read_quote</span>(<span class="ruby-identifier">src</span>)
+                                <span class="ruby-keyword kw">when</span> <span class="ruby-identifier">:code</span>;     <span class="ruby-identifier">e</span> = <span class="ruby-identifier">read_code</span>(<span class="ruby-identifier">src</span>); <span class="ruby-identifier">output</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">e</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">e</span>
+                                <span class="ruby-keyword kw">when</span> <span class="ruby-identifier">:raw_html</span>; <span class="ruby-identifier">e</span> = <span class="ruby-identifier">read_raw_html</span>(<span class="ruby-identifier">src</span>); <span class="ruby-identifier">output</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">e</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">e</span>
+
+                                <span class="ruby-keyword kw">when</span> <span class="ruby-identifier">:footnote_text</span>;   <span class="ruby-identifier">output</span>.<span class="ruby-identifier">push</span> <span class="ruby-identifier">read_footnote_text</span>(<span class="ruby-identifier">src</span>)
+                                <span class="ruby-keyword kw">when</span> <span class="ruby-identifier">:ref_definition</span>;  <span class="ruby-identifier">read_ref_definition</span>(<span class="ruby-identifier">src</span>, <span class="ruby-identifier">output</span>)
+                                <span class="ruby-keyword kw">when</span> <span class="ruby-identifier">:abbreviation</span>;    <span class="ruby-identifier">output</span>.<span class="ruby-identifier">push</span> <span class="ruby-identifier">read_abbreviation</span>(<span class="ruby-identifier">src</span>)
+                                <span class="ruby-keyword kw">when</span> <span class="ruby-identifier">:xml_instr</span>;       <span class="ruby-identifier">read_xml_instruction</span>(<span class="ruby-identifier">src</span>, <span class="ruby-identifier">output</span>)
+                                <span class="ruby-keyword kw">when</span> <span class="ruby-identifier">:metadata</span>;        
+                                        <span class="ruby-identifier">maruku_error</span> <span class="ruby-value str">&quot;Please use the new meta-data syntax: \n&quot;</span><span class="ruby-operator">+</span>
+                                        <span class="ruby-value str">&quot;  http://maruku.rubyforge.org/proposal.html\n&quot;</span>, <span class="ruby-identifier">src</span>
+                                        <span class="ruby-identifier">src</span>.<span class="ruby-identifier">ignore_line</span>
+                                <span class="ruby-keyword kw">else</span> <span class="ruby-comment cmt"># warn if we forgot something</span>
+                                        <span class="ruby-identifier">md_type</span> = <span class="ruby-identifier">src</span>.<span class="ruby-identifier">cur_line</span>.<span class="ruby-identifier">md_type</span>
+                                        <span class="ruby-identifier">line</span> = <span class="ruby-identifier">src</span>.<span class="ruby-identifier">cur_line</span>
+                                        <span class="ruby-identifier">maruku_error</span> <span class="ruby-node">&quot;Ignoring line '#{line}' type = #{md_type}&quot;</span>, <span class="ruby-identifier">src</span>
+                                        <span class="ruby-identifier">src</span>.<span class="ruby-identifier">shift_line</span>
+                        <span class="ruby-keyword kw">end</span>
+                <span class="ruby-keyword kw">end</span>
+
+                <span class="ruby-identifier">merge_ial</span>(<span class="ruby-identifier">output</span>, <span class="ruby-identifier">src</span>, <span class="ruby-identifier">output</span>)
+                <span class="ruby-identifier">output</span>.<span class="ruby-identifier">delete_if</span> {<span class="ruby-operator">|</span><span class="ruby-identifier">x</span><span class="ruby-operator">|</span> <span class="ruby-identifier">x</span>.<span class="ruby-identifier">kind_of?</span>(<span class="ruby-constant">MDElement</span>) <span class="ruby-operator">&amp;&amp;</span>
+                        <span class="ruby-identifier">x</span>.<span class="ruby-identifier">node_type</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">:ial</span>}
+                
+                <span class="ruby-comment cmt"># get rid of empty line markers</span>
+                <span class="ruby-identifier">output</span>.<span class="ruby-identifier">delete_if</span> {<span class="ruby-operator">|</span><span class="ruby-identifier">x</span><span class="ruby-operator">|</span> <span class="ruby-identifier">x</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">:empty</span>}
+                <span class="ruby-comment cmt"># See for each list if we can omit the paragraphs and use li_span</span>
+                <span class="ruby-comment cmt"># TODO: do this after</span>
+                <span class="ruby-identifier">output</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">c</span><span class="ruby-operator">|</span> 
+                        <span class="ruby-comment cmt"># Remove paragraphs that we can get rid of</span>
+                        <span class="ruby-keyword kw">if</span> [<span class="ruby-identifier">:ul</span>,<span class="ruby-identifier">:ol</span>].<span class="ruby-identifier">include?</span> <span class="ruby-identifier">c</span>.<span class="ruby-identifier">node_type</span> 
+                                <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">c</span>.<span class="ruby-identifier">children</span>.<span class="ruby-identifier">all?</span> {<span class="ruby-operator">|</span><span class="ruby-identifier">li</span><span class="ruby-operator">|</span> <span class="ruby-operator">!</span><span class="ruby-identifier">li</span>.<span class="ruby-identifier">want_my_paragraph</span>} <span class="ruby-keyword kw">then</span>
+                                        <span class="ruby-identifier">c</span>.<span class="ruby-identifier">children</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">d</span><span class="ruby-operator">|</span>
+                                                <span class="ruby-identifier">d</span>.<span class="ruby-identifier">node_type</span> = <span class="ruby-identifier">:li_span</span>
+                                                <span class="ruby-identifier">d</span>.<span class="ruby-identifier">children</span> = <span class="ruby-identifier">d</span>.<span class="ruby-identifier">children</span>[<span class="ruby-value">0</span>].<span class="ruby-identifier">children</span> 
+                                        <span class="ruby-keyword kw">end</span>
+                                <span class="ruby-keyword kw">end</span>
+                        <span class="ruby-keyword kw">end</span> 
+                        <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">c</span>.<span class="ruby-identifier">node_type</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">:definition_list</span>
+                                <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">c</span>.<span class="ruby-identifier">children</span>.<span class="ruby-identifier">all?</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">defi</span><span class="ruby-operator">|</span> <span class="ruby-operator">!</span><span class="ruby-identifier">defi</span>.<span class="ruby-identifier">want_my_paragraph</span>} <span class="ruby-keyword kw">then</span>
+                                        <span class="ruby-identifier">c</span>.<span class="ruby-identifier">children</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">definition</span><span class="ruby-operator">|</span> 
+                                                <span class="ruby-identifier">definition</span>.<span class="ruby-identifier">definitions</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">dd</span><span class="ruby-operator">|</span>
+                                                        <span class="ruby-identifier">dd</span>.<span class="ruby-identifier">children</span> = <span class="ruby-identifier">dd</span>.<span class="ruby-identifier">children</span>[<span class="ruby-value">0</span>].<span class="ruby-identifier">children</span> 
+                                                <span class="ruby-keyword kw">end</span>
+                                        <span class="ruby-keyword kw">end</span>
+                                <span class="ruby-keyword kw">end</span>
+                        <span class="ruby-keyword kw">end</span> 
+                <span class="ruby-keyword kw">end</span>
+                
+                <span class="ruby-identifier">output</span>
+        <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

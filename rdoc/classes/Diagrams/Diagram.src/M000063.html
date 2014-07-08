@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>read_tex_discovery (Diagrams::Diagram)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/maruku/ext/diagrams/to_latex.rb, line 41</span>
+                <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">read_tex_discovery</span>(<span class="ruby-identifier">my_diag_id</span>, <span class="ruby-identifier">s</span>)
+                        <span class="ruby-identifier">s</span>.<span class="ruby-identifier">split</span>(<span class="ruby-value str">&quot;\n&quot;</span>).<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">l</span><span class="ruby-operator">|</span>
+                                <span class="ruby-identifier">diag_id</span>, <span class="ruby-identifier">box_index</span>, <span class="ruby-identifier">wd</span>, <span class="ruby-identifier">ht</span>, <span class="ruby-identifier">dp</span>, <span class="ruby-identifier">text</span> = <span class="ruby-identifier">l</span>.<span class="ruby-identifier">split</span>(<span class="ruby-value str">&quot;,&quot;</span>)
+                                <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">diag_id</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">my_diag_id</span>
+                                        <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;found box #{box_index}: #{wd} #{ht} #{dp}&quot;</span>
+                                        <span class="ruby-identifier">wd</span>,<span class="ruby-identifier">ht</span>,<span class="ruby-identifier">dp</span> = <span class="ruby-identifier">wd</span>.<span class="ruby-identifier">to_f</span>,<span class="ruby-identifier">ht</span>.<span class="ruby-identifier">to_f</span>,<span class="ruby-identifier">dp</span>.<span class="ruby-identifier">to_f</span>
+                                        <span class="ruby-identifier">width</span> = <span class="ruby-identifier">wd</span>
+                                        <span class="ruby-identifier">height</span> = <span class="ruby-identifier">ht</span><span class="ruby-operator">+</span><span class="ruby-identifier">dp</span>
+                                        <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;found box #{box_index}: #{width}x#{height}&quot;</span>
+                                        <span class="ruby-identifier">i</span> = <span class="ruby-identifier">box_index</span>.<span class="ruby-identifier">to_i</span>
+                                        <span class="ruby-ivar">@boxes</span>[<span class="ruby-identifier">i</span>].<span class="ruby-identifier">hs</span>.<span class="ruby-identifier">min</span> = <span class="ruby-identifier">width</span>
+                                        <span class="ruby-ivar">@boxes</span>[<span class="ruby-identifier">i</span>].<span class="ruby-identifier">hs</span>.<span class="ruby-identifier">shrink</span> = <span class="ruby-value">1</span>
+                                        <span class="ruby-ivar">@boxes</span>[<span class="ruby-identifier">i</span>].<span class="ruby-identifier">hs</span>.<span class="ruby-identifier">pref</span> = <span class="ruby-identifier">width</span><span class="ruby-operator">*</span><span class="ruby-value">1.2</span>
+                                        <span class="ruby-ivar">@boxes</span>[<span class="ruby-identifier">i</span>].<span class="ruby-identifier">hs</span>.<span class="ruby-identifier">stretch</span> = <span class="ruby-value">0</span><span class="ruby-value">.1</span>
+                                        <span class="ruby-ivar">@boxes</span>[<span class="ruby-identifier">i</span>].<span class="ruby-identifier">hs</span>.<span class="ruby-identifier">max</span> = <span class="ruby-value">1000</span>
+                                        <span class="ruby-ivar">@boxes</span>[<span class="ruby-identifier">i</span>].<span class="ruby-identifier">vs</span>.<span class="ruby-identifier">min</span> = <span class="ruby-identifier">height</span>
+                                        <span class="ruby-ivar">@boxes</span>[<span class="ruby-identifier">i</span>].<span class="ruby-identifier">vs</span>.<span class="ruby-identifier">shrink</span> = <span class="ruby-value">1</span>
+                                        <span class="ruby-ivar">@boxes</span>[<span class="ruby-identifier">i</span>].<span class="ruby-identifier">vs</span>.<span class="ruby-identifier">pref</span> = <span class="ruby-identifier">height</span><span class="ruby-operator">*</span><span class="ruby-value">1.2</span>
+                                        <span class="ruby-ivar">@boxes</span>[<span class="ruby-identifier">i</span>].<span class="ruby-identifier">vs</span>.<span class="ruby-identifier">stretch</span> = <span class="ruby-value">0</span><span class="ruby-value">.1</span>
+                                        <span class="ruby-ivar">@boxes</span>[<span class="ruby-identifier">i</span>].<span class="ruby-identifier">vs</span>.<span class="ruby-identifier">max</span> = <span class="ruby-value">1000</span>
+                                <span class="ruby-keyword kw">end</span>
+                        <span class="ruby-keyword kw">end</span>
+                <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

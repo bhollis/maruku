@@ -1,0 +1,531 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <head>
+    <title>Class: MaRuKu::MDElement</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+    <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+
+    <script language="JavaScript" type="text/javascript">
+    // <![CDATA[
+
+        function toggleSource( id )
+        {
+          var elem
+          var link
+
+          if( document.getElementById )
+          {
+            elem = document.getElementById( id )
+            link = document.getElementById( "l_" + id )
+          }
+          else if ( document.all )
+          {
+            elem = eval( "document.all." + id )
+            link = eval( "document.all.l_" + id )
+          }
+          else
+            return false;
+
+          if( elem.style.display == "block" )
+          {
+            elem.style.display = "none"
+            link.innerHTML = "show source"
+          }
+          else
+          {
+            elem.style.display = "block"
+            link.innerHTML = "hide source"
+          }
+        }
+
+        function openCode( url )
+        {
+          window.open( url, "SOURCE_CODE", "width=400,height=400,scrollbars=yes" )
+        }
+      // ]]>
+    </script>
+  </head>
+
+  <body>
+  <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'><tr>
+  <td class="file-title"><span class="file-title-prefix">Class</span><br />MaRuKu::MDElement</td>
+  <td align="right">
+    <table cellspacing=0 cellpadding=2>
+      <tr valign="top">
+        <td>In:</td>
+        <td>
+<a href="../../files/lib/maruku_rb.html">lib/maruku.rb</a>
+<a href="../../files/lib/maruku/helpers_rb.html">lib/maruku/helpers.rb</a>
+<a href="../../files/lib/maruku/structures_rb.html">lib/maruku/structures.rb</a>
+<a href="../../files/lib/maruku/structures_inspect_rb.html">lib/maruku/structures_inspect.rb</a>
+<a href="../../files/lib/maruku/structures_iterators_rb.html">lib/maruku/structures_iterators.rb</a>
+<a href="../../files/lib/maruku/output/to_s_rb.html">lib/maruku/output/to_s.rb</a>
+        </td>
+      </tr>
+    <tr>
+      <td>Parent:</td>
+      <td>
+Object
+     </td>
+   </tr>
+         </table>
+        </td>
+        </tr>
+      </table>
+ <!-- banner header -->
+
+  <div id="bodyContent">
+      <div id="content">
+
+  <div class="description"><p>
+I did not want to have a class for each possible element. Instead I opted
+to have only the class &quot;<a href="MDElement.html">MDElement</a>&quot;
+that represents eveything in the document (paragraphs, headers, etc).
+</p>
+<p>
+You can tell what it is by the variable `node_type`.
+</p>
+<p>
+<a href="In.html">In</a> the instance-variable `children` there are the
+children. These can be of class 1) <a href="../String.html">String</a> or
+2) <a href="MDElement.html">MDElement</a>.
+</p>
+<p>
+The @doc variable points to the document to which the <a
+href="MDElement.html">MDElement</a> belongs (which is an instance of <a
+href="../Maruku.html">Maruku</a>, subclass of <a
+href="MDElement.html">MDElement</a>).
+</p>
+<p>
+Meta data is specified the hash `meta`. Keys are symbols (downcased, with
+spaces substituted by underscores)
+</p>
+<p>
+For example, if you write in the source document.
+</p>
+<pre>
+    Title: test document
+    My property: value
+
+    content content
+</pre>
+<p>
+You can access `value` by writing:
+</p>
+<pre>
+    @doc.meta[:my_property] # =&gt; 'value'
+</pre>
+<p>
+from whichever <a href="MDElement.html">MDElement</a> in the hierarchy.
+</p>
+</div>
+
+
+
+  <div class="sectiontitle">Methods</div>
+  <ul>
+  <li><a href="#M000282">==</a></li>
+  <li><a href="#M000284">children_inspect</a></li>
+  <li><a href="#M000289">children_to_s</a></li>
+  <li><a href="#M000285">each_element</a></li>
+  <li><a href="#M000290">generate_id</a></li>
+  <li><a href="#M000287">init_tables</a></li>
+  <li><a href="#M000283">inspect</a></li>
+  <li><a href="#M000280">inspect2</a></li>
+  <li><a href="#M000281">new</a></li>
+  <li><a href="#M000286">replace_each_string</a></li>
+  <li><a href="#M000288">to_s</a></li>
+  </ul>
+
+<div class="sectiontitle">Included Modules</div>
+<ul>
+  <li><a href="Defaults.html">Defaults</a></li>
+  <li><a href="../MaRuKu.html">MaRuKu</a></li>
+  <li><a href="Out/Markdown.html">Out::Markdown</a></li>
+  <li><a href="Out/HTML.html">Out::HTML</a></li>
+  <li><a href="Out/Latex.html">Out::Latex</a></li>
+  <li><a href="Strings.html">Strings</a></li>
+  <li><a href="Helpers.html">Helpers</a></li>
+  <li><a href="Errors.html">Errors</a></li>
+</ul>
+
+
+
+
+  <div class="sectiontitle">Attributes</div>
+  <table border='0' cellpadding='5'>
+  <tr valign='top'>
+    <td class='attr-rw'>
+[RW]
+    </td>
+    <td class='attr-name'>doc</td>
+    <td class='attr-desc'>
+Reference of the document (which is of class <a
+href="../Maruku.html">Maruku</a>)
+
+</td>
+  </tr>
+  <tr valign='top'>
+    <td class='attr-rw'>
+[RW]
+    </td>
+    <td class='attr-name'>meta_priv</td>
+    <td class='attr-desc'></td>
+  </tr>
+  </table>
+
+<div class="sectiontitle">Public Class methods</div>
+<div class="method">
+  <div class="title">
+    <a name="M000287"></a><b>init_tables</b>()
+  </div>
+  <div class="description">
+  <p>
+create hash @@entity_to_latex
+</p>
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000287_source')" id="l_M000287_source">show source</a> ]</p>
+  <div id="M000287_source" class="dyn-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/maruku/output/to_latex_entities.rb, line 45</span>
+45:         <span class="ruby-keyword kw">def</span> <span class="ruby-constant">MDElement</span>.<span class="ruby-identifier">init_tables</span>
+46:                 <span class="ruby-comment cmt">## why can't I use a class variable?</span>
+47:                 <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">not</span> <span class="ruby-identifier">$conversion_table_inited</span>
+48:                         <span class="ruby-identifier">doc</span> = <span class="ruby-constant">Document</span>.<span class="ruby-identifier">new</span> <span class="ruby-constant">XML_TABLE</span>
+49:                         <span class="ruby-ivar">@@entity_to_latex</span> = {}
+50:                         <span class="ruby-identifier">doc</span>.<span class="ruby-identifier">elements</span>.<span class="ruby-identifier">each</span>(<span class="ruby-value str">&quot;//char&quot;</span>) <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">c</span><span class="ruby-operator">|</span> 
+51:                                 <span class="ruby-identifier">num</span> =  <span class="ruby-identifier">c</span>.<span class="ruby-identifier">attributes</span>[<span class="ruby-value str">'num'</span>]
+52:                                 <span class="ruby-identifier">name</span> =  <span class="ruby-identifier">c</span>.<span class="ruby-identifier">attributes</span>[<span class="ruby-value str">'name'</span>]
+53:                                 <span class="ruby-identifier">convert</span> =  <span class="ruby-identifier">c</span>.<span class="ruby-identifier">attributes</span>[<span class="ruby-value str">'convertTo'</span>]
+54:                                 <span class="ruby-ivar">@@entity_to_latex</span>[<span class="ruby-node">&quot;#{num}&quot;</span>] = <span class="ruby-identifier">convert</span>
+55:                                 <span class="ruby-ivar">@@entity_to_latex</span>[<span class="ruby-node">&quot;#{name}&quot;</span>] = <span class="ruby-identifier">convert</span>
+56:                         <span class="ruby-keyword kw">end</span>
+57: <span class="ruby-comment cmt">#                       puts @@entity_to_latex.inspect</span>
+58:                         <span class="ruby-identifier">$conversion_table_inited</span> = <span class="ruby-keyword kw">true</span>
+59:                 <span class="ruby-keyword kw">end</span>
+60:         <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000281"></a><b>new</b>(node_type=:unset, children=[], meta={}, al=MaRuKu::AttributeList.new )
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000281_source')" id="l_M000281_source">show source</a> ]</p>
+  <div id="M000281_source" class="dyn-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/maruku/structures.rb, line 95</span>
+ 95:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">node_type</span>=<span class="ruby-identifier">:unset</span>, <span class="ruby-identifier">children</span>=[], <span class="ruby-identifier">meta</span>={}, 
+ 96:                         <span class="ruby-identifier">al</span>=<span class="ruby-constant">MaRuKu</span><span class="ruby-operator">::</span><span class="ruby-constant">AttributeList</span>.<span class="ruby-identifier">new</span> )
+ 97:                 <span class="ruby-keyword kw">super</span>(); 
+ 98:                 <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">children</span> = <span class="ruby-identifier">children</span>
+ 99:                 <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">node_type</span> = <span class="ruby-identifier">node_type</span>
+100:                 
+101:                 <span class="ruby-ivar">@attributes</span> = {}
+102:                 
+103:                 <span class="ruby-identifier">meta</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">symbol</span>, <span class="ruby-identifier">value</span><span class="ruby-operator">|</span>
+104:                         <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">instance_eval</span> <span class="ruby-node">&quot;
+105:                           def #{symbol}; @#{symbol}; end
+106:                           def #{symbol}=(val); @#{symbol}=val; end&quot;</span>
+107:                         <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">send</span> <span class="ruby-node">&quot;#{symbol}=&quot;</span>, <span class="ruby-identifier">value</span>
+108:                 <span class="ruby-keyword kw">end</span>
+109:                 
+110:                 <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">al</span> = <span class="ruby-identifier">al</span> <span class="ruby-operator">||</span> <span class="ruby-constant">AttributeList</span>.<span class="ruby-identifier">new</span>
+111: 
+112:                 <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">meta_priv</span> = <span class="ruby-identifier">meta</span>
+113:         <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="sectiontitle">Public Instance methods</div>
+<div class="method">
+  <div class="title">
+    <a name="M000282"></a><b>==</b>(o)
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000282_source')" id="l_M000282_source">show source</a> ]</p>
+  <div id="M000282_source" class="dyn-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/maruku/structures.rb, line 117</span>
+117:         <span class="ruby-keyword kw">def</span> <span class="ruby-operator">==</span>(<span class="ruby-identifier">o</span>)
+118:                 <span class="ruby-identifier">ok</span> = <span class="ruby-identifier">o</span>.<span class="ruby-identifier">kind_of?</span>(<span class="ruby-constant">MDElement</span>) <span class="ruby-operator">&amp;&amp;</span>
+119:                 (<span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">node_type</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">o</span>.<span class="ruby-identifier">node_type</span>) <span class="ruby-operator">&amp;&amp;</span>
+120:                 (<span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">meta_priv</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">o</span>.<span class="ruby-identifier">meta_priv</span>) <span class="ruby-operator">&amp;&amp;</span>
+121:                 (<span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">children</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">o</span>.<span class="ruby-identifier">children</span>)
+122:                 
+123:                 <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">not</span> <span class="ruby-identifier">ok</span>
+124: <span class="ruby-comment cmt">#                       puts &quot;This:\n&quot;+self.inspect+&quot;\nis different from\n&quot;+o.inspect+&quot;\n\n&quot;</span>
+125:                 <span class="ruby-keyword kw">end</span>
+126:                 <span class="ruby-identifier">ok</span>
+127:         <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000284"></a><b>children_inspect</b>(compact=true)
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000284_source')" id="l_M000284_source">show source</a> ]</p>
+  <div id="M000284_source" class="dyn-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/maruku/structures_inspect.rb, line 62</span>
+62:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">children_inspect</span>(<span class="ruby-identifier">compact</span>=<span class="ruby-keyword kw">true</span>)
+63:                 <span class="ruby-identifier">s</span> = <span class="ruby-ivar">@children</span>.<span class="ruby-identifier">inspect_more</span>(<span class="ruby-identifier">compact</span>,<span class="ruby-value str">', '</span>)
+64:                 <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@children</span>.<span class="ruby-identifier">empty?</span>
+65:                         <span class="ruby-value str">&quot;[]&quot;</span>
+66:                 <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">s</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">&lt;</span> <span class="ruby-value">70</span>
+67:                         <span class="ruby-identifier">s</span>
+68:                 <span class="ruby-keyword kw">else</span>
+69:                         <span class="ruby-value str">&quot;[\n&quot;</span><span class="ruby-operator">+</span>
+70:                         <span class="ruby-identifier">add_tabs</span>(<span class="ruby-ivar">@children</span>.<span class="ruby-identifier">inspect_more</span>(<span class="ruby-identifier">compact</span>,<span class="ruby-value str">&quot;,\n&quot;</span>,<span class="ruby-keyword kw">false</span>))<span class="ruby-operator">+</span>
+71:                         <span class="ruby-value str">&quot;\n]&quot;</span>
+72:                 <span class="ruby-keyword kw">end</span>
+73:         <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000289"></a><b>children_to_s</b>()
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000289_source')" id="l_M000289_source">show source</a> ]</p>
+  <div id="M000289_source" class="dyn-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/maruku/output/to_s.rb, line 31</span>
+31:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">children_to_s</span>
+32:                 <span class="ruby-ivar">@children</span>.<span class="ruby-identifier">join</span>
+33:         <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000285"></a><b>each_element</b>(e_node_type=nil, &amp;block)
+  </div>
+  <div class="description">
+  <p>
+Yields to each element of specified node_type All elements if e_node_type
+is nil.
+</p>
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000285_source')" id="l_M000285_source">show source</a> ]</p>
+  <div id="M000285_source" class="dyn-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/maruku/structures_iterators.rb, line 28</span>
+28:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">each_element</span>(<span class="ruby-identifier">e_node_type</span>=<span class="ruby-keyword kw">nil</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>) 
+29:                 <span class="ruby-ivar">@children</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">c</span><span class="ruby-operator">|</span> 
+30:                         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">c</span>.<span class="ruby-identifier">kind_of?</span> <span class="ruby-constant">MDElement</span>
+31:                                 <span class="ruby-keyword kw">if</span> (<span class="ruby-keyword kw">not</span> <span class="ruby-identifier">e_node_type</span>) <span class="ruby-operator">||</span> (<span class="ruby-identifier">e_node_type</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">c</span>.<span class="ruby-identifier">node_type</span>)
+32:                                         <span class="ruby-identifier">block</span>.<span class="ruby-identifier">call</span> <span class="ruby-identifier">c</span>
+33:                                 <span class="ruby-keyword kw">end</span>
+34:                                 <span class="ruby-identifier">c</span>.<span class="ruby-identifier">each_element</span>(<span class="ruby-identifier">e_node_type</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
+35:                         <span class="ruby-keyword kw">end</span>
+36:                 <span class="ruby-keyword kw">end</span>
+37:         <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000290"></a><b>generate_id</b>()
+  </div>
+  <div class="description">
+  <p>
+Generate an id for headers. Assumes @children is set.
+</p>
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000290_source')" id="l_M000290_source">show source</a> ]</p>
+  <div id="M000290_source" class="dyn-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/maruku/output/to_s.rb, line 36</span>
+36:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">generate_id</span>
+37:                 <span class="ruby-identifier">title</span> = <span class="ruby-identifier">children_to_s</span>
+38:                 <span class="ruby-identifier">title</span>.<span class="ruby-identifier">gsub!</span>(<span class="ruby-regexp re">/ /</span>,<span class="ruby-value str">'_'</span>)
+39:                 <span class="ruby-identifier">title</span>.<span class="ruby-identifier">downcase!</span>
+40:                 <span class="ruby-identifier">title</span>.<span class="ruby-identifier">gsub!</span>(<span class="ruby-regexp re">/[^\w_]/</span>,<span class="ruby-value str">''</span>)
+41:                 <span class="ruby-identifier">title</span>
+42:         <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000283"></a><b>inspect</b>(compact=true)
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000283_source')" id="l_M000283_source">show source</a> ]</p>
+  <div id="M000283_source" class="dyn-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/maruku/structures_inspect.rb, line 47</span>
+47:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">inspect</span>(<span class="ruby-identifier">compact</span>=<span class="ruby-keyword kw">true</span>)
+48:                 <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">compact</span>
+49:                         <span class="ruby-identifier">i2</span> = <span class="ruby-identifier">inspect2</span>
+50:                         <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">i2</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">i2</span>
+51:                 <span class="ruby-keyword kw">end</span>
+52:                 
+53:                 <span class="ruby-value str">&quot;md_el(:%s,%s,%s,%s)&quot;</span> <span class="ruby-operator">%</span>
+54:                 [
+55:                         <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">node_type</span>,
+56:                         <span class="ruby-identifier">children_inspect</span>(<span class="ruby-identifier">compact</span>), 
+57:                         <span class="ruby-ivar">@meta_priv</span>.<span class="ruby-identifier">inspect_ordered</span>,
+58:                         <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">al</span>.<span class="ruby-identifier">inspect</span>
+59:                 ]
+60:         <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000280"></a><b>inspect2</b>()
+  </div>
+  <div class="description">
+  <p>
+outputs abbreviated form (this should be eval()uable to get the document)
+</p>
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000280_source')" id="l_M000280_source">show source</a> ]</p>
+  <div id="M000280_source" class="dyn-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/maruku/helpers.rb, line 183</span>
+183:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">inspect2</span> 
+184:                 <span class="ruby-identifier">s</span> = 
+185:                 <span class="ruby-keyword kw">case</span> <span class="ruby-ivar">@node_type</span>
+186:                 <span class="ruby-keyword kw">when</span> <span class="ruby-identifier">:paragraph</span>
+187:                         <span class="ruby-value str">&quot;md_par(%s)&quot;</span> <span class="ruby-operator">%</span> <span class="ruby-identifier">children_inspect</span>
+188:                 <span class="ruby-keyword kw">when</span> <span class="ruby-identifier">:footnote_reference</span>
+189:                         <span class="ruby-value str">&quot;md_foot_ref(%s)&quot;</span> <span class="ruby-operator">%</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">footnote_id</span>.<span class="ruby-identifier">inspect</span>
+190:                 <span class="ruby-keyword kw">when</span> <span class="ruby-identifier">:entity</span>
+191:                         <span class="ruby-value str">&quot;md_entity(%s)&quot;</span> <span class="ruby-operator">%</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">entity_name</span>.<span class="ruby-identifier">inspect</span>
+192:                 <span class="ruby-keyword kw">when</span> <span class="ruby-identifier">:email_address</span>
+193:                         <span class="ruby-value str">&quot;md_email(%s)&quot;</span> <span class="ruby-operator">%</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">email</span>.<span class="ruby-identifier">inspect</span>
+194:                 <span class="ruby-keyword kw">when</span> <span class="ruby-identifier">:inline_code</span>
+195:                         <span class="ruby-value str">&quot;md_code(%s)&quot;</span> <span class="ruby-operator">%</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">raw_code</span>.<span class="ruby-identifier">inspect</span>
+196:                 <span class="ruby-keyword kw">when</span> <span class="ruby-identifier">:raw_html</span>
+197:                         <span class="ruby-value str">&quot;md_html(%s)&quot;</span> <span class="ruby-operator">%</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">raw_html</span>.<span class="ruby-identifier">inspect</span>
+198:                 <span class="ruby-keyword kw">when</span> <span class="ruby-identifier">:emphasis</span> 
+199:                         <span class="ruby-value str">&quot;md_em(%s)&quot;</span> <span class="ruby-operator">%</span> <span class="ruby-identifier">children_inspect</span>
+200:                 <span class="ruby-keyword kw">when</span> <span class="ruby-identifier">:strong</span>
+201:                         <span class="ruby-value str">&quot;md_strong(%s)&quot;</span> <span class="ruby-operator">%</span> <span class="ruby-identifier">children_inspect</span>
+202:                 <span class="ruby-keyword kw">when</span> <span class="ruby-identifier">:immediate_link</span>
+203:                         <span class="ruby-value str">&quot;md_url(%s)&quot;</span> <span class="ruby-operator">%</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">url</span>.<span class="ruby-identifier">inspect</span>
+204:                 <span class="ruby-keyword kw">when</span> <span class="ruby-identifier">:image</span>
+205:                         <span class="ruby-value str">&quot;md_image(%s, %s)&quot;</span> <span class="ruby-operator">%</span> [
+206:                                 <span class="ruby-identifier">children_inspect</span>, 
+207:                                 <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">ref_id</span>.<span class="ruby-identifier">inspect</span>]
+208:                 <span class="ruby-keyword kw">when</span> <span class="ruby-identifier">:im_image</span>
+209:                         <span class="ruby-value str">&quot;md_im_image(%s, %s, %s)&quot;</span> <span class="ruby-operator">%</span> [
+210:                                 <span class="ruby-identifier">children_inspect</span>, 
+211:                                 <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">url</span>.<span class="ruby-identifier">inspect</span>,
+212:                                 <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">title</span>.<span class="ruby-identifier">inspect</span>]
+213:                 <span class="ruby-keyword kw">when</span> <span class="ruby-identifier">:link</span>
+214:                                 <span class="ruby-value str">&quot;md_link(%s,%s)&quot;</span> <span class="ruby-operator">%</span> [
+215:                                         <span class="ruby-identifier">children_inspect</span>, <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">ref_id</span>.<span class="ruby-identifier">inspect</span>]
+216:                 <span class="ruby-keyword kw">when</span> <span class="ruby-identifier">:im_link</span>
+217:                                 <span class="ruby-value str">&quot;md_im_link(%s, %s, %s)&quot;</span> <span class="ruby-operator">%</span> [
+218:                                         <span class="ruby-identifier">children_inspect</span>, 
+219:                                         <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">url</span>.<span class="ruby-identifier">inspect</span>,
+220:                                         <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">title</span>.<span class="ruby-identifier">inspect</span>,
+221:                                 ]
+222:                 <span class="ruby-keyword kw">when</span> <span class="ruby-identifier">:ref_definition</span>
+223:                         <span class="ruby-value str">&quot;md_ref_def(%s, %s, %s)&quot;</span> <span class="ruby-operator">%</span> [
+224:                                         <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">ref_id</span>.<span class="ruby-identifier">inspect</span>, 
+225:                                         <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">url</span>.<span class="ruby-identifier">inspect</span>,
+226:                                         <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">title</span>.<span class="ruby-identifier">inspect</span>
+227:                                 ]
+228:                 <span class="ruby-keyword kw">when</span> <span class="ruby-identifier">:ial</span>
+229:                         <span class="ruby-value str">&quot;md_ial(%s)&quot;</span> <span class="ruby-operator">%</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">ial</span>.<span class="ruby-identifier">inspect</span>
+230:                 <span class="ruby-keyword kw">else</span>
+231:                         <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">nil</span>
+232:                 <span class="ruby-keyword kw">end</span>
+233:                 <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@al</span> <span class="ruby-keyword kw">and</span> <span class="ruby-keyword kw">not</span> <span class="ruby-ivar">@al</span>.<span class="ruby-identifier">empty?</span> <span class="ruby-keyword kw">then</span> 
+234:                         <span class="ruby-identifier">s</span> = <span class="ruby-identifier">s</span>.<span class="ruby-identifier">chop</span> <span class="ruby-operator">+</span> <span class="ruby-node">&quot;, #{@al.inspect})&quot;</span>
+235:                 <span class="ruby-keyword kw">end</span>
+236:                 <span class="ruby-identifier">s</span>
+237:         <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000286"></a><b>replace_each_string</b>(&amp;block)
+  </div>
+  <div class="description">
+  <p>
+Apply passed block to each <a href="../String.html">String</a> in the
+hierarchy.
+</p>
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000286_source')" id="l_M000286_source">show source</a> ]</p>
+  <div id="M000286_source" class="dyn-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/maruku/structures_iterators.rb, line 40</span>
+40:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">replace_each_string</span>(<span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
+41:                 <span class="ruby-keyword kw">for</span> <span class="ruby-identifier">c</span> <span class="ruby-keyword kw">in</span> <span class="ruby-ivar">@children</span>
+42:                         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">c</span>.<span class="ruby-identifier">kind_of?</span> <span class="ruby-constant">MDElement</span>
+43:                                 <span class="ruby-identifier">c</span>.<span class="ruby-identifier">replace_each_string</span>(<span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
+44:                         <span class="ruby-keyword kw">end</span>
+45:                 <span class="ruby-keyword kw">end</span>
+46: 
+47:                 <span class="ruby-identifier">processed</span> = []
+48:                 <span class="ruby-keyword kw">until</span> <span class="ruby-ivar">@children</span>.<span class="ruby-identifier">empty?</span>
+49:                         <span class="ruby-identifier">c</span> = <span class="ruby-ivar">@children</span>.<span class="ruby-identifier">shift</span>
+50:                         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">c</span>.<span class="ruby-identifier">kind_of?</span> <span class="ruby-constant">String</span>
+51:                                 <span class="ruby-identifier">result</span> = <span class="ruby-identifier">block</span>.<span class="ruby-identifier">call</span>(<span class="ruby-identifier">c</span>)
+52:                                 [<span class="ruby-operator">*</span><span class="ruby-identifier">result</span>].<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">e</span><span class="ruby-operator">|</span> <span class="ruby-identifier">processed</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">e</span> <span class="ruby-keyword kw">end</span>
+53:                         <span class="ruby-keyword kw">else</span>
+54:                                 <span class="ruby-identifier">processed</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">c</span>
+55:                         <span class="ruby-keyword kw">end</span>
+56:                 <span class="ruby-keyword kw">end</span>
+57:                 <span class="ruby-ivar">@children</span> = <span class="ruby-identifier">processed</span>
+58:         <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000288"></a><b>to_s</b>()
+  </div>
+  <div class="description">
+  <p>
+Strips all formatting from the string
+</p>
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000288_source')" id="l_M000288_source">show source</a> ]</p>
+  <div id="M000288_source" class="dyn-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/maruku/output/to_s.rb, line 27</span>
+27:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_s</span>
+28:                  <span class="ruby-identifier">children_to_s</span>
+29:         <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+</div>
+
+  </div>
+
+    </body>
+</html>

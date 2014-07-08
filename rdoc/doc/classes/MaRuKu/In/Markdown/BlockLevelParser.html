@@ -1,0 +1,1101 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <head>
+    <title>Module: MaRuKu::In::Markdown::BlockLevelParser</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+    <link rel="stylesheet" href="../../../.././rdoc-style.css" type="text/css" media="screen" />
+
+    <script language="JavaScript" type="text/javascript">
+    // <![CDATA[
+
+        function toggleSource( id )
+        {
+          var elem
+          var link
+
+          if( document.getElementById )
+          {
+            elem = document.getElementById( id )
+            link = document.getElementById( "l_" + id )
+          }
+          else if ( document.all )
+          {
+            elem = eval( "document.all." + id )
+            link = eval( "document.all.l_" + id )
+          }
+          else
+            return false;
+
+          if( elem.style.display == "block" )
+          {
+            elem.style.display = "none"
+            link.innerHTML = "show source"
+          }
+          else
+          {
+            elem.style.display = "block"
+            link.innerHTML = "hide source"
+          }
+        }
+
+        function openCode( url )
+        {
+          window.open( url, "SOURCE_CODE", "width=400,height=400,scrollbars=yes" )
+        }
+      // ]]>
+    </script>
+  </head>
+
+  <body>
+  <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'><tr>
+  <td class="file-title"><span class="file-title-prefix">Module</span><br />MaRuKu::In::Markdown::BlockLevelParser</td>
+  <td align="right">
+    <table cellspacing=0 cellpadding=2>
+      <tr valign="top">
+        <td>In:</td>
+        <td>
+<a href="../../../../files/lib/maruku_rb.html">lib/maruku.rb</a>
+<a href="../../../../files/lib/maruku/input/linesource_rb.html">lib/maruku/input/linesource.rb</a>
+<a href="../../../../files/lib/maruku/input/parse_block_rb.html">lib/maruku/input/parse_block.rb</a>
+<a href="../../../../files/lib/maruku/input/parse_doc_rb.html">lib/maruku/input/parse_doc.rb</a>
+        </td>
+      </tr>
+         </table>
+        </td>
+        </tr>
+      </table>
+ <!-- banner header -->
+
+  <div id="bodyContent">
+      <div id="content">
+
+
+
+
+  <div class="sectiontitle">Methods</div>
+  <ul>
+  <li><a href="#M000246">eventually_comes_a_def_list</a></li>
+  <li><a href="#M000249">expand_attribute_list</a></li>
+  <li><a href="#M000230">parse_blocks</a></li>
+  <li><a href="#M000248">parse_doc</a></li>
+  <li><a href="#M000229">parse_text_as_markdown</a></li>
+  <li><a href="#M000237">read_abbreviation</a></li>
+  <li><a href="#M000231">read_ald</a></li>
+  <li><a href="#M000241">read_code</a></li>
+  <li><a href="#M000247">read_definition</a></li>
+  <li><a href="#M000238">read_footnote_text</a></li>
+  <li><a href="#M000232">read_header12</a></li>
+  <li><a href="#M000233">read_header3</a></li>
+  <li><a href="#M000239">read_indented_content</a></li>
+  <li><a href="#M000236">read_list_item</a></li>
+  <li><a href="#M000242">read_metadata</a></li>
+  <li><a href="#M000235">read_paragraph</a></li>
+  <li><a href="#M000240">read_quote</a></li>
+  <li><a href="#M000234">read_raw_html</a></li>
+  <li><a href="#M000243">read_ref_definition</a></li>
+  <li><a href="#M000244">read_table</a></li>
+  <li><a href="#M000250">search_abbreviations</a></li>
+  <li><a href="#M000245">split_cells</a></li>
+  <li><a href="#M000251">substitute_markdown_inside_raw_html</a></li>
+  </ul>
+
+<div class="sectiontitle">Included Modules</div>
+<ul>
+  <li><a href="../../Helpers.html">Helpers</a></li>
+  <li><a href="../../Strings.html">MaRuKu::Strings</a></li>
+  <li><a href="SpanLevelParser.html">MaRuKu::In::Markdown::SpanLevelParser</a></li>
+</ul>
+
+
+  <div class="sectiontitle">Classes and Modules</div>
+  Class <a href="BlockLevelParser/LineSource.html" class="link">MaRuKu::In::Markdown::BlockLevelParser::LineSource</a><br />
+
+
+
+
+<div class="sectiontitle">Public Instance methods</div>
+<div class="method">
+  <div class="title">
+    <a name="M000246"></a><b>eventually_comes_a_def_list</b>(src)
+  </div>
+  <div class="description">
+  <p>
+If current line is text, a definition list is coming if 1)
+text,empty,[text,empty]*,definition
+</p>
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000246_source')" id="l_M000246_source">show source</a> ]</p>
+  <div id="M000246_source" class="dyn-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/maruku/input/parse_block.rb, line 503</span>
+503:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">eventually_comes_a_def_list</span>(<span class="ruby-identifier">src</span>)
+504:                 <span class="ruby-identifier">future</span> = <span class="ruby-identifier">src</span>.<span class="ruby-identifier">tell_me_the_future</span>
+505:                 <span class="ruby-identifier">ok</span> = <span class="ruby-identifier">future</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp re">%r{^t+e?d}</span><span class="ruby-identifier">x</span>
+506: <span class="ruby-comment cmt">#               puts &quot;future: #{future} - #{ok}&quot;</span>
+507:                 <span class="ruby-identifier">ok</span>
+508:         <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000249"></a><b>expand_attribute_list</b>(al, result)
+  </div>
+  <div class="description">
+  <p>
+Expands an attribute list in an <a href="../../../Hash.html">Hash</a>
+</p>
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000249_source')" id="l_M000249_source">show source</a> ]</p>
+  <div id="M000249_source" class="dyn-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/maruku/input/parse_doc.rb, line 79</span>
+ 79:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">expand_attribute_list</span>(<span class="ruby-identifier">al</span>, <span class="ruby-identifier">result</span>)
+ 80:                 <span class="ruby-identifier">al</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">k</span>, <span class="ruby-identifier">v</span><span class="ruby-operator">|</span>
+ 81:                         <span class="ruby-keyword kw">case</span> <span class="ruby-identifier">k</span>
+ 82:                         <span class="ruby-keyword kw">when</span> <span class="ruby-identifier">:class</span>
+ 83:                                 <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">not</span> <span class="ruby-identifier">result</span>[<span class="ruby-identifier">:class</span>]
+ 84:                                         <span class="ruby-identifier">result</span>[<span class="ruby-identifier">:class</span>] = <span class="ruby-identifier">v</span>
+ 85:                                 <span class="ruby-keyword kw">else</span>
+ 86:                                         <span class="ruby-identifier">result</span>[<span class="ruby-identifier">:class</span>] <span class="ruby-operator">+=</span> <span class="ruby-value str">&quot; &quot;</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">v</span>
+ 87:                                 <span class="ruby-keyword kw">end</span>
+ 88:                         <span class="ruby-keyword kw">when</span> <span class="ruby-identifier">:id</span>; <span class="ruby-identifier">result</span>[<span class="ruby-identifier">:id</span>] = <span class="ruby-identifier">v</span>
+ 89:                         <span class="ruby-keyword kw">when</span> <span class="ruby-identifier">:ref</span>; 
+ 90:                                 <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">ald</span>[<span class="ruby-identifier">v</span>]
+ 91:                                         <span class="ruby-identifier">already</span> = (<span class="ruby-identifier">result</span>[<span class="ruby-identifier">:expanded_references</span>] <span class="ruby-operator">||=</span> [])
+ 92:                                         <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">not</span> <span class="ruby-identifier">already</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">v</span>)
+ 93:                                                 <span class="ruby-identifier">already</span>.<span class="ruby-identifier">push</span> <span class="ruby-identifier">v</span>
+ 94:                                                 <span class="ruby-identifier">expand_attribute_list</span>(<span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">ald</span>[<span class="ruby-identifier">v</span>], <span class="ruby-identifier">result</span>)
+ 95:                                         <span class="ruby-keyword kw">else</span>
+ 96:                                                 <span class="ruby-identifier">maruku_error</span> <span class="ruby-node">&quot;Circular reference: #{v} already seen\n&quot;</span><span class="ruby-operator">+</span>
+ 97:                                                         <span class="ruby-identifier">already</span>.<span class="ruby-identifier">inspect</span>
+ 98:                                         <span class="ruby-keyword kw">end</span>
+ 99:                                 <span class="ruby-keyword kw">else</span>
+100:                                         <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">not</span> <span class="ruby-identifier">result</span>[<span class="ruby-identifier">:unresolved_references</span>]
+101:                                                 <span class="ruby-identifier">result</span>[<span class="ruby-identifier">:unresolved_references</span>] = <span class="ruby-identifier">v</span>
+102:                                         <span class="ruby-keyword kw">else</span>
+103:                                                 <span class="ruby-identifier">result</span>[<span class="ruby-identifier">:unresolved_references</span>] <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-node">&quot; #{v}&quot;</span>
+104:                                         <span class="ruby-keyword kw">end</span>
+105:                                         
+106:                                         <span class="ruby-identifier">result</span>[<span class="ruby-identifier">v</span>.<span class="ruby-identifier">to_sym</span>] = <span class="ruby-keyword kw">true</span>
+107:                                 <span class="ruby-keyword kw">end</span>
+108:                         <span class="ruby-keyword kw">else</span>
+109:                                 <span class="ruby-identifier">result</span>[<span class="ruby-identifier">k</span>.<span class="ruby-identifier">to_sym</span>]=<span class="ruby-identifier">v</span>
+110:                         <span class="ruby-keyword kw">end</span>
+111:                 <span class="ruby-keyword kw">end</span>
+112:         <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000230"></a><b>parse_blocks</b>(src)
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000230_source')" id="l_M000230_source">show source</a> ]</p>
+  <div id="M000230_source" class="dyn-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/maruku/input/parse_block.rb, line 35</span>
+ 35:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">parse_blocks</span>(<span class="ruby-identifier">src</span>)
+ 36:                 <span class="ruby-identifier">output</span> = [];
+ 37:                 
+ 38:                 <span class="ruby-comment cmt"># run state machine</span>
+ 39:                 <span class="ruby-keyword kw">while</span> <span class="ruby-identifier">src</span>.<span class="ruby-identifier">cur_line</span>
+ 40: <span class="ruby-comment cmt">#  Prints detected type (useful for debugging)</span>
+ 41:                         <span class="ruby-comment cmt">#puts &quot;#{src.cur_line.md_type}|#{src.cur_line}&quot;</span>
+ 42:                         <span class="ruby-keyword kw">case</span> <span class="ruby-identifier">src</span>.<span class="ruby-identifier">cur_line</span>.<span class="ruby-identifier">md_type</span>
+ 43:                                 <span class="ruby-keyword kw">when</span> <span class="ruby-identifier">:empty</span>; 
+ 44:                                         <span class="ruby-identifier">src</span>.<span class="ruby-identifier">ignore_line</span>
+ 45:                                 <span class="ruby-keyword kw">when</span> <span class="ruby-identifier">:ial</span>
+ 46:                                         <span class="ruby-identifier">src</span>.<span class="ruby-identifier">shift_line</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp re">/\s*\{([^\}]*)\}\s*/</span> 
+ 47:                                         <span class="ruby-identifier">al</span> = <span class="ruby-identifier">$1</span>
+ 48:                                         <span class="ruby-identifier">al</span> = <span class="ruby-identifier">read_attribute_list</span>(<span class="ruby-constant">CharSource</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">al</span>), <span class="ruby-identifier">context</span>=<span class="ruby-keyword kw">nil</span>, <span class="ruby-identifier">break_on</span>=[<span class="ruby-keyword kw">nil</span>])
+ 49:                                         <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">not</span> <span class="ruby-identifier">output</span>.<span class="ruby-identifier">empty?</span> 
+ 50:                                                 <span class="ruby-identifier">output</span>.<span class="ruby-identifier">last</span>.<span class="ruby-identifier">al</span> = <span class="ruby-identifier">al</span>
+ 51:                                         <span class="ruby-keyword kw">else</span>
+ 52:                                                 <span class="ruby-identifier">maruku_error</span> <span class="ruby-node">&quot;An attribute list at beginning of context {#{al.to_md}}&quot;</span>
+ 53:                                                 <span class="ruby-identifier">tell_user</span> <span class="ruby-node">&quot;I will ignore this AL: {#{al.to_md}}&quot;</span>
+ 54:                                         <span class="ruby-keyword kw">end</span>
+ 55:                                 <span class="ruby-keyword kw">when</span> <span class="ruby-identifier">:ald</span>
+ 56:                                         <span class="ruby-identifier">output</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">read_ald</span>(<span class="ruby-identifier">src</span>)
+ 57:                                 <span class="ruby-keyword kw">when</span> <span class="ruby-identifier">:text</span>
+ 58:                                         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">src</span>.<span class="ruby-identifier">cur_line</span> <span class="ruby-operator">=~</span> <span class="ruby-constant">MightBeTableHeader</span> <span class="ruby-keyword kw">and</span> 
+ 59:                                                 (<span class="ruby-identifier">src</span>.<span class="ruby-identifier">next_line</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">src</span>.<span class="ruby-identifier">next_line</span> <span class="ruby-operator">=~</span> <span class="ruby-constant">TableSeparator</span>)
+ 60:                                                 <span class="ruby-identifier">output</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">read_table</span>(<span class="ruby-identifier">src</span>)
+ 61:                                         <span class="ruby-keyword kw">elsif</span> [<span class="ruby-identifier">:header1</span>,<span class="ruby-identifier">:header2</span>].<span class="ruby-identifier">include?</span> <span class="ruby-identifier">src</span>.<span class="ruby-identifier">next_line</span>.<span class="ruby-identifier">md_type</span>
+ 62:                                                 <span class="ruby-identifier">output</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">read_header12</span>(<span class="ruby-identifier">src</span>)
+ 63:                                         <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">eventually_comes_a_def_list</span>(<span class="ruby-identifier">src</span>)
+ 64:                                            <span class="ruby-identifier">definition</span> = <span class="ruby-identifier">read_definition</span>(<span class="ruby-identifier">src</span>)
+ 65:                                                 <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">output</span>.<span class="ruby-identifier">last</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">output</span>.<span class="ruby-identifier">last</span>.<span class="ruby-identifier">node_type</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">:definition_list</span>
+ 66:                                                         <span class="ruby-identifier">output</span>.<span class="ruby-identifier">last</span>.<span class="ruby-identifier">children</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">definition</span>
+ 67:                                                 <span class="ruby-keyword kw">else</span>
+ 68:                                                         <span class="ruby-identifier">output</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">md_el</span>(<span class="ruby-identifier">:definition_list</span>, [<span class="ruby-identifier">definition</span>])
+ 69:                                                 <span class="ruby-keyword kw">end</span>
+ 70:                                         <span class="ruby-keyword kw">else</span> <span class="ruby-comment cmt"># Start of a paragraph</span>
+ 71:                                                 <span class="ruby-identifier">output</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">read_paragraph</span>(<span class="ruby-identifier">src</span>)
+ 72:                                         <span class="ruby-keyword kw">end</span>
+ 73:                                 <span class="ruby-keyword kw">when</span> <span class="ruby-identifier">:header2</span>, <span class="ruby-identifier">:hrule</span>
+ 74:                                         <span class="ruby-comment cmt"># hrule</span>
+ 75:                                         <span class="ruby-identifier">src</span>.<span class="ruby-identifier">shift_line</span>
+ 76:                                         <span class="ruby-identifier">output</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">md_hrule</span>()
+ 77:                                 <span class="ruby-keyword kw">when</span> <span class="ruby-identifier">:header3</span>
+ 78:                                         <span class="ruby-identifier">output</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">read_header3</span>(<span class="ruby-identifier">src</span>)
+ 79:                                 <span class="ruby-keyword kw">when</span> <span class="ruby-identifier">:ulist</span>, <span class="ruby-identifier">:olist</span>
+ 80:                                         <span class="ruby-identifier">list_type</span> = <span class="ruby-identifier">src</span>.<span class="ruby-identifier">cur_line</span>.<span class="ruby-identifier">md_type</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">:ulist</span> <span class="ruby-operator">?</span> <span class="ruby-identifier">:ul</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">:ol</span>
+ 81:                                         <span class="ruby-identifier">li</span> = <span class="ruby-identifier">read_list_item</span>(<span class="ruby-identifier">src</span>)
+ 82:                                         <span class="ruby-comment cmt"># append to current list if we have one</span>
+ 83:                                         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">output</span>.<span class="ruby-identifier">last</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">output</span>.<span class="ruby-identifier">last</span>.<span class="ruby-identifier">node_type</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">list_type</span>
+ 84:                                                 <span class="ruby-identifier">output</span>.<span class="ruby-identifier">last</span>.<span class="ruby-identifier">children</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">li</span>
+ 85:                                         <span class="ruby-keyword kw">else</span>
+ 86:                                                 <span class="ruby-identifier">output</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">md_el</span>(<span class="ruby-identifier">list_type</span>, [<span class="ruby-identifier">li</span>])
+ 87:                                         <span class="ruby-keyword kw">end</span>
+ 88:                                 <span class="ruby-keyword kw">when</span> <span class="ruby-identifier">:quote</span>;    <span class="ruby-identifier">output</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">read_quote</span>(<span class="ruby-identifier">src</span>)
+ 89:                                 <span class="ruby-keyword kw">when</span> <span class="ruby-identifier">:code</span>;     <span class="ruby-identifier">e</span> = <span class="ruby-identifier">read_code</span>(<span class="ruby-identifier">src</span>); <span class="ruby-identifier">output</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">e</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">e</span>
+ 90:                                 <span class="ruby-keyword kw">when</span> <span class="ruby-identifier">:raw_html</span>; <span class="ruby-identifier">e</span> = <span class="ruby-identifier">read_raw_html</span>(<span class="ruby-identifier">src</span>); <span class="ruby-identifier">output</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">e</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">e</span>
+ 91: 
+ 92:                                 <span class="ruby-keyword kw">when</span> <span class="ruby-identifier">:footnote_text</span>;   <span class="ruby-identifier">output</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">read_footnote_text</span>(<span class="ruby-identifier">src</span>)
+ 93:                                 <span class="ruby-keyword kw">when</span> <span class="ruby-identifier">:ref_definition</span>;  <span class="ruby-identifier">output</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">read_ref_definition</span>(<span class="ruby-identifier">src</span>)
+ 94:                                 <span class="ruby-keyword kw">when</span> <span class="ruby-identifier">:abbreviation</span>;    <span class="ruby-identifier">output</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">read_abbreviation</span>(<span class="ruby-identifier">src</span>)
+ 95: 
+ 96: <span class="ruby-comment cmt">#                               # these do not produce output</span>
+ 97:                                 <span class="ruby-keyword kw">when</span> <span class="ruby-identifier">:metadata</span>;        
+ 98:                                         <span class="ruby-identifier">maruku_error</span> <span class="ruby-value str">&quot;Please use the new meta-data syntax: \n&quot;</span><span class="ruby-operator">+</span>
+ 99:                                         <span class="ruby-value str">&quot;  http://maruku.rubyforge.org/proposal.html\n&quot;</span>, <span class="ruby-identifier">src</span>
+100:                                         <span class="ruby-identifier">src</span>.<span class="ruby-identifier">ignore_line</span>
+101:                                 <span class="ruby-comment cmt"># warn if we forgot something</span>
+102:                                 <span class="ruby-keyword kw">else</span>
+103:                                         <span class="ruby-identifier">md_type</span> = <span class="ruby-identifier">src</span>.<span class="ruby-identifier">cur_line</span>.<span class="ruby-identifier">md_type</span>
+104:                                         <span class="ruby-identifier">line</span> = <span class="ruby-identifier">src</span>.<span class="ruby-identifier">cur_line</span>
+105:                                         <span class="ruby-identifier">maruku_error</span> <span class="ruby-node">&quot;Ignoring line '#{line}' type = #{md_type}&quot;</span>, <span class="ruby-identifier">src</span>
+106:                                         <span class="ruby-identifier">src</span>.<span class="ruby-identifier">shift_line</span>
+107:                         <span class="ruby-keyword kw">end</span>
+108: 
+109: <span class="ruby-comment cmt"># FIXME                 </span>
+110: <span class="ruby-comment cmt">#                       if current_metadata and output.last</span>
+111: <span class="ruby-comment cmt">#                               output.last.meta.merge! current_metadata</span>
+112: <span class="ruby-comment cmt">#                               current_metadata = nil</span>
+113: <span class="ruby-comment cmt">#                               puts &quot;meta for #{output.last.node_type}\n #{output.last.meta.inspect}&quot;</span>
+114: <span class="ruby-comment cmt">#                       end</span>
+115: <span class="ruby-comment cmt">#                       current_metadata = just_read_metadata</span>
+116: <span class="ruby-comment cmt">#                       just_read_metadata = nil</span>
+117:                 <span class="ruby-keyword kw">end</span>
+118:                 
+119:                 <span class="ruby-comment cmt"># See for each list if we can omit the paragraphs and use li_span</span>
+120:                 <span class="ruby-comment cmt"># TODO: do this after</span>
+121:                 <span class="ruby-identifier">output</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">c</span><span class="ruby-operator">|</span> 
+122:                         <span class="ruby-comment cmt"># Remove paragraphs that we can get rid of</span>
+123:                         <span class="ruby-keyword kw">if</span> [<span class="ruby-identifier">:ul</span>,<span class="ruby-identifier">:ol</span>].<span class="ruby-identifier">include?</span> <span class="ruby-identifier">c</span>.<span class="ruby-identifier">node_type</span> 
+124:                                 <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">c</span>.<span class="ruby-identifier">children</span>.<span class="ruby-identifier">all?</span> {<span class="ruby-operator">|</span><span class="ruby-identifier">li</span><span class="ruby-operator">|</span> <span class="ruby-operator">!</span><span class="ruby-identifier">li</span>.<span class="ruby-identifier">want_my_paragraph</span>} <span class="ruby-keyword kw">then</span>
+125:                                         <span class="ruby-identifier">c</span>.<span class="ruby-identifier">children</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">d</span><span class="ruby-operator">|</span>
+126:                                                 <span class="ruby-identifier">d</span>.<span class="ruby-identifier">node_type</span> = <span class="ruby-identifier">:li_span</span>
+127:                                                 <span class="ruby-identifier">d</span>.<span class="ruby-identifier">children</span> = <span class="ruby-identifier">d</span>.<span class="ruby-identifier">children</span>[<span class="ruby-value">0</span>].<span class="ruby-identifier">children</span> 
+128:                                         <span class="ruby-keyword kw">end</span>
+129:                                 <span class="ruby-keyword kw">end</span>
+130:                         <span class="ruby-keyword kw">end</span> 
+131:                         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">c</span>.<span class="ruby-identifier">node_type</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">:definition_list</span>
+132:                                 <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">c</span>.<span class="ruby-identifier">children</span>.<span class="ruby-identifier">all?</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">defi</span><span class="ruby-operator">|</span> <span class="ruby-operator">!</span><span class="ruby-identifier">defi</span>.<span class="ruby-identifier">want_my_paragraph</span>} <span class="ruby-keyword kw">then</span>
+133:                                         <span class="ruby-identifier">c</span>.<span class="ruby-identifier">children</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">definition</span><span class="ruby-operator">|</span> 
+134:                                                 <span class="ruby-identifier">definition</span>.<span class="ruby-identifier">definitions</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">dd</span><span class="ruby-operator">|</span>
+135:                                                         <span class="ruby-identifier">dd</span>.<span class="ruby-identifier">children</span> = <span class="ruby-identifier">dd</span>.<span class="ruby-identifier">children</span>[<span class="ruby-value">0</span>].<span class="ruby-identifier">children</span> 
+136:                                                 <span class="ruby-keyword kw">end</span>
+137:                                         <span class="ruby-keyword kw">end</span>
+138:                                 <span class="ruby-keyword kw">end</span>
+139:                         <span class="ruby-keyword kw">end</span> 
+140:                 <span class="ruby-keyword kw">end</span>
+141:                 
+142:                 <span class="ruby-identifier">output</span>
+143:         <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000248"></a><b>parse_doc</b>(s)
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000248_source')" id="l_M000248_source">show source</a> ]</p>
+  <div id="M000248_source" class="dyn-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/maruku/input/parse_doc.rb, line 26</span>
+26:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">parse_doc</span>(<span class="ruby-identifier">s</span>)
+27:                 
+28:                 <span class="ruby-identifier">meta2</span> =  <span class="ruby-identifier">parse_email_headers</span>(<span class="ruby-identifier">s</span>)
+29:                 <span class="ruby-identifier">data</span> = <span class="ruby-identifier">meta2</span>[<span class="ruby-identifier">:data</span>]
+30:                 <span class="ruby-identifier">meta2</span>.<span class="ruby-identifier">delete</span> <span class="ruby-identifier">:data</span>
+31:                 
+32:                 <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">attributes</span>.<span class="ruby-identifier">merge!</span> <span class="ruby-identifier">meta2</span>
+33:                 
+34:                 <span class="ruby-identifier">enc</span> = <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">attributes</span>[<span class="ruby-identifier">:encoding</span>]
+35:                 <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">attributes</span>.<span class="ruby-identifier">delete</span> <span class="ruby-identifier">:encoding</span>
+36:                 <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">enc</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">enc</span>.<span class="ruby-identifier">downcase</span> <span class="ruby-operator">!=</span> <span class="ruby-value str">'utf-8'</span>
+37: <span class="ruby-comment cmt">#                       puts &quot;Converting from #{enc} to UTF-8.&quot;</span>
+38:                         <span class="ruby-identifier">converted</span> = <span class="ruby-constant">Iconv</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value str">'utf-8'</span>, <span class="ruby-identifier">enc</span>).<span class="ruby-identifier">iconv</span>(<span class="ruby-identifier">data</span>)
+39:                         
+40: <span class="ruby-comment cmt">#                       puts &quot;Data: #{data.inspect}: #{data}&quot;</span>
+41: <span class="ruby-comment cmt">#                       puts &quot;Conv: #{converted.inspect}: #{converted}&quot;</span>
+42:                         
+43:                         <span class="ruby-identifier">data</span> = <span class="ruby-identifier">converted</span>
+44:                 <span class="ruby-keyword kw">end</span>
+45:                 
+46:                 <span class="ruby-ivar">@children</span> = <span class="ruby-identifier">parse_text_as_markdown</span>(<span class="ruby-identifier">data</span>)
+47:                 
+48:                 <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">true</span> <span class="ruby-comment cmt">#markdown_extra? </span>
+49:                         <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">search_abbreviations</span>
+50:                         <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">substitute_markdown_inside_raw_html</span>
+51:                 <span class="ruby-keyword kw">end</span>
+52:                 
+53:                 <span class="ruby-identifier">toc</span> = <span class="ruby-identifier">create_toc</span>
+54: 
+55:                 <span class="ruby-comment cmt"># use title if not set</span>
+56:                 <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">not</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">attributes</span>[<span class="ruby-identifier">:title</span>] <span class="ruby-keyword kw">and</span> <span class="ruby-identifier">toc</span>.<span class="ruby-identifier">header_element</span>
+57:                         <span class="ruby-identifier">title</span> = <span class="ruby-identifier">toc</span>.<span class="ruby-identifier">header_element</span>.<span class="ruby-identifier">to_s</span>
+58:                         <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">attributes</span>[<span class="ruby-identifier">:title</span>]  = <span class="ruby-identifier">title</span>
+59: <span class="ruby-comment cmt">#                       puts &quot;Set document title to #{title}&quot;</span>
+60:                 <span class="ruby-keyword kw">end</span>
+61:                 
+62:                 <span class="ruby-comment cmt"># save for later use</span>
+63:                 <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">toc</span> = <span class="ruby-identifier">toc</span>
+64:                 
+65:                 <span class="ruby-comment cmt"># Now do the attributes magic</span>
+66:                 <span class="ruby-identifier">each_element</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">e</span><span class="ruby-operator">|</span>
+67:                         <span class="ruby-comment cmt"># default attribute list</span>
+68:                         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">default</span> = <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">ald</span>[<span class="ruby-identifier">e</span>.<span class="ruby-identifier">node_type</span>.<span class="ruby-identifier">to_s</span>]
+69:                                 <span class="ruby-identifier">expand_attribute_list</span>(<span class="ruby-identifier">default</span>, <span class="ruby-identifier">e</span>.<span class="ruby-identifier">attributes</span>)
+70:                         <span class="ruby-keyword kw">end</span>
+71:                         <span class="ruby-identifier">expand_attribute_list</span>(<span class="ruby-identifier">e</span>.<span class="ruby-identifier">al</span>, <span class="ruby-identifier">e</span>.<span class="ruby-identifier">attributes</span>)
+72: <span class="ruby-comment cmt">#                       puts &quot;#{e.node_type}: #{e.attributes.inspect}&quot;</span>
+73:                 <span class="ruby-keyword kw">end</span>
+74:                 
+75: <span class="ruby-comment cmt">#               puts self.inspect</span>
+76:         <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000229"></a><b>parse_text_as_markdown</b>(text)
+  </div>
+  <div class="description">
+  <p>
+Splits the string and calls parse_lines_as_markdown
+</p>
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000229_source')" id="l_M000229_source">show source</a> ]</p>
+  <div id="M000229_source" class="dyn-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/maruku/input/parse_block.rb, line 29</span>
+29:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">parse_text_as_markdown</span>(<span class="ruby-identifier">text</span>)
+30:                 <span class="ruby-identifier">lines</span> =  <span class="ruby-identifier">split_lines</span>(<span class="ruby-identifier">text</span>)
+31:                 <span class="ruby-identifier">src</span> = <span class="ruby-constant">LineSource</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">lines</span>)
+32:                 <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">parse_blocks</span>(<span class="ruby-identifier">src</span>)
+33:         <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000237"></a><b>read_abbreviation</b>(src)
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000237_source')" id="l_M000237_source">show source</a> ]</p>
+  <div id="M000237_source" class="dyn-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/maruku/input/parse_block.rb, line 260</span>
+260:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">read_abbreviation</span>(<span class="ruby-identifier">src</span>)
+261:                 <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">not</span> (<span class="ruby-identifier">l</span>=<span class="ruby-identifier">src</span>.<span class="ruby-identifier">shift_line</span>) <span class="ruby-operator">=~</span> <span class="ruby-constant">Abbreviation</span>
+262:                         <span class="ruby-identifier">maruku_error</span> <span class="ruby-node">&quot;Bug: it's Andrea's fault. Tell him.\n#{l.inspect}&quot;</span>
+263:                 <span class="ruby-keyword kw">end</span>
+264:                 
+265:                 <span class="ruby-identifier">abbr</span> = <span class="ruby-identifier">$1</span>
+266:                 <span class="ruby-identifier">desc</span> = <span class="ruby-identifier">$2</span>
+267:                 
+268:                 <span class="ruby-keyword kw">if</span> (<span class="ruby-keyword kw">not</span> <span class="ruby-identifier">abbr</span>) <span class="ruby-keyword kw">or</span> (<span class="ruby-identifier">abbr</span>.<span class="ruby-identifier">size</span><span class="ruby-operator">==</span><span class="ruby-value">0</span>)
+269:                         <span class="ruby-identifier">maruku_error</span> <span class="ruby-node">&quot;Bad abbrev. abbr=#{abbr.inspect} desc=#{desc.inspect}&quot;</span>
+270:                 <span class="ruby-keyword kw">end</span>
+271:                 
+272:                 <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">abbreviations</span>[<span class="ruby-identifier">abbr</span>] = <span class="ruby-identifier">desc</span>
+273:                 
+274:                 <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">md_abbr_def</span>(<span class="ruby-identifier">abbr</span>, <span class="ruby-identifier">desc</span>)
+275:         <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000231"></a><b>read_ald</b>(src)
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000231_source')" id="l_M000231_source">show source</a> ]</p>
+  <div id="M000231_source" class="dyn-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/maruku/input/parse_block.rb, line 146</span>
+146:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">read_ald</span>(<span class="ruby-identifier">src</span>)
+147:                 <span class="ruby-keyword kw">if</span> (<span class="ruby-identifier">l</span>=<span class="ruby-identifier">src</span>.<span class="ruby-identifier">shift_line</span>) <span class="ruby-operator">=~</span> <span class="ruby-constant">AttributeDefinitionList</span>
+148:                         <span class="ruby-identifier">id</span> = <span class="ruby-identifier">$1</span>;   <span class="ruby-identifier">al</span>=<span class="ruby-identifier">$2</span>;
+149:                         <span class="ruby-identifier">al</span> = <span class="ruby-identifier">read_attribute_list</span>(<span class="ruby-constant">CharSource</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">al</span>), <span class="ruby-identifier">context</span>=<span class="ruby-keyword kw">nil</span>, <span class="ruby-identifier">break_on</span>=[<span class="ruby-keyword kw">nil</span>])
+150:                         <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">ald</span>[<span class="ruby-identifier">id</span>] = <span class="ruby-identifier">al</span>;
+151:                         <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">md_ald</span>(<span class="ruby-identifier">id</span>, <span class="ruby-identifier">al</span>)
+152:                 <span class="ruby-keyword kw">else</span>
+153:                         <span class="ruby-identifier">maruku_error</span> <span class="ruby-node">&quot;Bug Bug:\n#{l.inspect}&quot;</span>
+154:                         <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">nil</span>
+155:                 <span class="ruby-keyword kw">end</span>
+156:         <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000241"></a><b>read_code</b>(src)
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000241_source')" id="l_M000241_source">show source</a> ]</p>
+  <div id="M000241_source" class="dyn-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/maruku/input/parse_block.rb, line 383</span>
+383:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">read_code</span>(<span class="ruby-identifier">src</span>)
+384:                 <span class="ruby-comment cmt"># collect all indented lines</span>
+385:                 <span class="ruby-identifier">lines</span> = []
+386:                 <span class="ruby-keyword kw">while</span> <span class="ruby-identifier">src</span>.<span class="ruby-identifier">cur_line</span> <span class="ruby-operator">&amp;&amp;</span> ([<span class="ruby-identifier">:code</span>, <span class="ruby-identifier">:empty</span>].<span class="ruby-identifier">include?</span> <span class="ruby-identifier">src</span>.<span class="ruby-identifier">cur_line</span>.<span class="ruby-identifier">md_type</span>)
+387:                         <span class="ruby-identifier">lines</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">strip_indent</span>(<span class="ruby-identifier">src</span>.<span class="ruby-identifier">shift_line</span>, <span class="ruby-value">4</span>)
+388:                 <span class="ruby-keyword kw">end</span>
+389:                 
+390:                 <span class="ruby-comment cmt">#while lines.last &amp;&amp; (lines.last.md_type == :empty )</span>
+391:                 <span class="ruby-keyword kw">while</span> <span class="ruby-identifier">lines</span>.<span class="ruby-identifier">last</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">lines</span>.<span class="ruby-identifier">last</span>.<span class="ruby-identifier">strip</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">==</span> <span class="ruby-value">0</span>
+392:                         <span class="ruby-identifier">lines</span>.<span class="ruby-identifier">pop</span> 
+393:                 <span class="ruby-keyword kw">end</span>
+394: 
+395:                 <span class="ruby-keyword kw">while</span> <span class="ruby-identifier">lines</span>.<span class="ruby-identifier">first</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">lines</span>.<span class="ruby-identifier">first</span>.<span class="ruby-identifier">strip</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">==</span> <span class="ruby-value">0</span>
+396:                         <span class="ruby-identifier">lines</span>.<span class="ruby-identifier">shift</span> 
+397:                 <span class="ruby-keyword kw">end</span>
+398:                 
+399:                 <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">nil</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">lines</span>.<span class="ruby-identifier">empty?</span>
+400: 
+401:                 <span class="ruby-identifier">source</span> = <span class="ruby-identifier">lines</span>.<span class="ruby-identifier">join</span>(<span class="ruby-value str">&quot;\n&quot;</span>)
+402:                 
+403: <span class="ruby-comment cmt">#               dbg_describe_ary(lines, 'CODE')</span>
+404: 
+405:                 <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">md_codeblock</span>(<span class="ruby-identifier">source</span>)
+406:         <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000247"></a><b>read_definition</b>(src)
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000247_source')" id="l_M000247_source">show source</a> ]</p>
+  <div id="M000247_source" class="dyn-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/maruku/input/parse_block.rb, line 511</span>
+511:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">read_definition</span>(<span class="ruby-identifier">src</span>)
+512:                 <span class="ruby-comment cmt"># Read one or more terms</span>
+513:                 <span class="ruby-identifier">terms</span> = []
+514:                 <span class="ruby-keyword kw">while</span>  <span class="ruby-identifier">src</span>.<span class="ruby-identifier">cur_line</span> <span class="ruby-operator">&amp;&amp;</span>  <span class="ruby-identifier">src</span>.<span class="ruby-identifier">cur_line</span>.<span class="ruby-identifier">md_type</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">:text</span>
+515:                         <span class="ruby-identifier">terms</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">md_el</span>(<span class="ruby-identifier">:definition_term</span>, <span class="ruby-identifier">parse_lines_as_span</span>([<span class="ruby-identifier">src</span>.<span class="ruby-identifier">shift_line</span>]))
+516:                 <span class="ruby-keyword kw">end</span>
+517: <span class="ruby-comment cmt">#               dbg_describe_ary(terms, 'DT')</span>
+518: 
+519:                 <span class="ruby-identifier">want_my_paragraph</span> = <span class="ruby-keyword kw">false</span>
+520: 
+521:                 <span class="ruby-identifier">raise</span> <span class="ruby-value str">&quot;Chunky Bacon!&quot;</span> <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">not</span> <span class="ruby-identifier">src</span>.<span class="ruby-identifier">cur_line</span>
+522: 
+523:                 <span class="ruby-comment cmt"># one optional empty</span>
+524:                 <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">src</span>.<span class="ruby-identifier">cur_line</span>.<span class="ruby-identifier">md_type</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">:empty</span>
+525:                         <span class="ruby-identifier">want_my_paragraph</span> = <span class="ruby-keyword kw">true</span>
+526:                         <span class="ruby-identifier">src</span>.<span class="ruby-identifier">shift_line</span>
+527:                 <span class="ruby-keyword kw">end</span>
+528:                 
+529:                 <span class="ruby-identifier">raise</span> <span class="ruby-value str">&quot;Chunky Bacon!&quot;</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">src</span>.<span class="ruby-identifier">cur_line</span>.<span class="ruby-identifier">md_type</span> <span class="ruby-operator">!=</span> <span class="ruby-identifier">:definition</span>
+530:                 
+531:                 <span class="ruby-comment cmt"># Read one or more definitions</span>
+532:                 <span class="ruby-identifier">definitions</span> = []
+533:                 <span class="ruby-keyword kw">while</span> <span class="ruby-identifier">src</span>.<span class="ruby-identifier">cur_line</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">src</span>.<span class="ruby-identifier">cur_line</span>.<span class="ruby-identifier">md_type</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">:definition</span>
+534:                         <span class="ruby-identifier">parent_offset</span> = <span class="ruby-identifier">src</span>.<span class="ruby-identifier">cur_index</span>
+535:                                 
+536:                         <span class="ruby-identifier">first</span> = <span class="ruby-identifier">src</span>.<span class="ruby-identifier">shift_line</span>
+537:                         <span class="ruby-identifier">first</span> <span class="ruby-operator">=~</span> <span class="ruby-constant">Definition</span>
+538:                         <span class="ruby-identifier">first</span> = <span class="ruby-identifier">$1</span>
+539:                         
+540:                         <span class="ruby-comment cmt"># I know, it's ugly!!!</span>
+541: 
+542:                         <span class="ruby-identifier">lines</span>, <span class="ruby-identifier">w_m_p</span> = 
+543:                                 <span class="ruby-identifier">read_indented_content</span>(<span class="ruby-identifier">src</span>,<span class="ruby-value">4</span>, [<span class="ruby-identifier">:definition</span>], <span class="ruby-identifier">:definition</span>)
+544:                         <span class="ruby-identifier">want_my_paragraph</span> <span class="ruby-operator">||=</span> <span class="ruby-identifier">w_m_p</span>
+545:                 
+546:                         <span class="ruby-identifier">lines</span>.<span class="ruby-identifier">unshift</span> <span class="ruby-identifier">first</span>
+547:                         
+548: <span class="ruby-comment cmt">#                       dbg_describe_ary(lines, 'DD')</span>
+549:                         <span class="ruby-identifier">src2</span> = <span class="ruby-constant">LineSource</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">lines</span>, <span class="ruby-identifier">src</span>, <span class="ruby-identifier">parent_offset</span>)
+550:                         <span class="ruby-identifier">children</span> = <span class="ruby-identifier">parse_blocks</span>(<span class="ruby-identifier">src2</span>)
+551:                         <span class="ruby-identifier">definitions</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">md_el</span>(<span class="ruby-identifier">:definition_data</span>, <span class="ruby-identifier">children</span>)
+552:                 <span class="ruby-keyword kw">end</span>
+553:                 
+554:                 <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">md_el</span>(<span class="ruby-identifier">:definition</span>, <span class="ruby-identifier">terms</span><span class="ruby-operator">+</span><span class="ruby-identifier">definitions</span>, {        
+555:                         <span class="ruby-identifier">:terms</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">terms</span>, 
+556:                         <span class="ruby-identifier">:definitions</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">definitions</span>, 
+557:                         <span class="ruby-identifier">:want_my_paragraph</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">want_my_paragraph</span>})
+558:         <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000238"></a><b>read_footnote_text</b>(src)
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000238_source')" id="l_M000238_source">show source</a> ]</p>
+  <div id="M000238_source" class="dyn-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/maruku/input/parse_block.rb, line 277</span>
+277:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">read_footnote_text</span>(<span class="ruby-identifier">src</span>)
+278:                 <span class="ruby-identifier">parent_offset</span> = <span class="ruby-identifier">src</span>.<span class="ruby-identifier">cur_index</span>
+279:                         
+280:                 <span class="ruby-identifier">first</span> = <span class="ruby-identifier">src</span>.<span class="ruby-identifier">shift_line</span>
+281:                 
+282:                 <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">not</span> <span class="ruby-identifier">first</span> <span class="ruby-operator">=~</span> <span class="ruby-constant">FootnoteText</span> 
+283:                         <span class="ruby-identifier">maruku_error</span> <span class="ruby-value str">&quot;Bug (it's Andrea's fault)&quot;</span>
+284:                 <span class="ruby-keyword kw">end</span>
+285:                 
+286:                 <span class="ruby-identifier">id</span> = <span class="ruby-identifier">$1</span>
+287:                 <span class="ruby-identifier">text</span> = <span class="ruby-identifier">$2</span>
+288: 
+289:                 <span class="ruby-comment cmt"># Ugly things going on inside `read_indented_content`</span>
+290:                 <span class="ruby-identifier">indentation</span> = <span class="ruby-value">4</span> <span class="ruby-comment cmt">#first.size-text.size</span>
+291:                 
+292: <span class="ruby-comment cmt">#               puts &quot;id =_#{id}_; text=_#{text}_ indent=#{indentation}&quot;</span>
+293:                 
+294:                 <span class="ruby-identifier">break_list</span> = [<span class="ruby-identifier">:footnote_text</span>]
+295:                 <span class="ruby-identifier">item_type</span> = <span class="ruby-identifier">:footnote_text</span>
+296:                 <span class="ruby-identifier">lines</span>, <span class="ruby-identifier">want_my_paragraph</span> = 
+297:                         <span class="ruby-identifier">read_indented_content</span>(<span class="ruby-identifier">src</span>,<span class="ruby-identifier">indentation</span>, <span class="ruby-identifier">break_list</span>, <span class="ruby-identifier">item_type</span>)
+298: 
+299:                 <span class="ruby-comment cmt"># add first line</span>
+300:                 <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">text</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">text</span>.<span class="ruby-identifier">strip</span> <span class="ruby-operator">!=</span> <span class="ruby-value str">&quot;&quot;</span> <span class="ruby-keyword kw">then</span> <span class="ruby-identifier">lines</span>.<span class="ruby-identifier">unshift</span> <span class="ruby-identifier">text</span> <span class="ruby-keyword kw">end</span>
+301:                 
+302: <span class="ruby-comment cmt">#               dbg_describe_ary(lines, 'FOOTNOTE')</span>
+303:                 <span class="ruby-identifier">src2</span> = <span class="ruby-constant">LineSource</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">lines</span>, <span class="ruby-identifier">src</span>, <span class="ruby-identifier">parent_offset</span>)
+304:                 <span class="ruby-identifier">children</span> = <span class="ruby-identifier">parse_blocks</span>(<span class="ruby-identifier">src2</span>)
+305:                 
+306:                 <span class="ruby-identifier">e</span> = <span class="ruby-identifier">md_footnote</span>(<span class="ruby-identifier">id</span>, <span class="ruby-identifier">children</span>)
+307:                 <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">footnotes</span>[<span class="ruby-identifier">id</span>] = <span class="ruby-identifier">e</span>
+308:                 <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">e</span>
+309:         <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000232"></a><b>read_header12</b>(src)
+  </div>
+  <div class="description">
+  <p>
+reads a header (with &#8212;&#8212; or ========)
+</p>
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000232_source')" id="l_M000232_source">show source</a> ]</p>
+  <div id="M000232_source" class="dyn-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/maruku/input/parse_block.rb, line 159</span>
+159:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">read_header12</span>(<span class="ruby-identifier">src</span>)
+160:                 <span class="ruby-identifier">line</span> = <span class="ruby-identifier">src</span>.<span class="ruby-identifier">shift_line</span>.<span class="ruby-identifier">strip</span>
+161:                 <span class="ruby-identifier">al</span> = <span class="ruby-keyword kw">nil</span>
+162:                 <span class="ruby-comment cmt"># Check if there is an IAL</span>
+163:                 <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">new_meta_data?</span> <span class="ruby-keyword kw">and</span> <span class="ruby-identifier">line</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp re">/^(.*)\{(.*)\}\s*$/</span>
+164:                         <span class="ruby-identifier">line</span> = <span class="ruby-identifier">$1</span>.<span class="ruby-identifier">strip</span>
+165:                         <span class="ruby-identifier">ial</span> = <span class="ruby-identifier">$2</span>
+166:                         <span class="ruby-identifier">al</span>  = <span class="ruby-identifier">read_attribute_list</span>(<span class="ruby-constant">CharSource</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">ial</span>), <span class="ruby-identifier">context</span>=<span class="ruby-keyword kw">nil</span>, <span class="ruby-identifier">break_on</span>=[<span class="ruby-keyword kw">nil</span>])
+167:                 <span class="ruby-keyword kw">end</span>
+168:                 <span class="ruby-identifier">text</span> = <span class="ruby-identifier">parse_lines_as_span</span> [ <span class="ruby-identifier">line</span> ]
+169:                 <span class="ruby-identifier">level</span> = <span class="ruby-identifier">src</span>.<span class="ruby-identifier">cur_line</span>.<span class="ruby-identifier">md_type</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">:header2</span> <span class="ruby-operator">?</span> <span class="ruby-value">2</span> <span class="ruby-operator">:</span> <span class="ruby-value">1</span>;  
+170:                 <span class="ruby-identifier">src</span>.<span class="ruby-identifier">shift_line</span>
+171:                 <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">md_header</span>(<span class="ruby-identifier">level</span>, <span class="ruby-identifier">text</span>, <span class="ruby-identifier">al</span>)
+172:         <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000233"></a><b>read_header3</b>(src)
+  </div>
+  <div class="description">
+  <p>
+reads a header like &#8217;#### header ####&#8217;
+</p>
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000233_source')" id="l_M000233_source">show source</a> ]</p>
+  <div id="M000233_source" class="dyn-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/maruku/input/parse_block.rb, line 175</span>
+175:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">read_header3</span>(<span class="ruby-identifier">src</span>)
+176:                 <span class="ruby-identifier">line</span> = <span class="ruby-identifier">src</span>.<span class="ruby-identifier">shift_line</span>.<span class="ruby-identifier">strip</span>
+177:                 <span class="ruby-identifier">al</span> = <span class="ruby-keyword kw">nil</span>
+178:                 <span class="ruby-comment cmt"># Check if there is an IAL</span>
+179:                 <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">new_meta_data?</span> <span class="ruby-keyword kw">and</span> <span class="ruby-identifier">line</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp re">/^(.*)\{(.*)\}\s*$/</span>
+180:                         <span class="ruby-identifier">line</span> = <span class="ruby-identifier">$1</span>.<span class="ruby-identifier">strip</span>
+181:                         <span class="ruby-identifier">ial</span> = <span class="ruby-identifier">$2</span>
+182:                         <span class="ruby-identifier">al</span>  = <span class="ruby-identifier">read_attribute_list</span>(<span class="ruby-constant">CharSource</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">ial</span>), <span class="ruby-identifier">context</span>=<span class="ruby-keyword kw">nil</span>, <span class="ruby-identifier">break_on</span>=[<span class="ruby-keyword kw">nil</span>])
+183:                 <span class="ruby-keyword kw">end</span>
+184:                 <span class="ruby-identifier">level</span> = <span class="ruby-identifier">num_leading_hashes</span>(<span class="ruby-identifier">line</span>)
+185:                 <span class="ruby-identifier">text</span> = <span class="ruby-identifier">parse_lines_as_span</span> [<span class="ruby-identifier">strip_hashes</span>(<span class="ruby-identifier">line</span>)] 
+186:                 <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">md_header</span>(<span class="ruby-identifier">level</span>, <span class="ruby-identifier">text</span>, <span class="ruby-identifier">al</span>)
+187:         <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000239"></a><b>read_indented_content</b>(src, indentation, break_list, item_type)
+  </div>
+  <div class="description">
+  <p>
+This is the only ugly function in the code base. It is used to read list
+items, descriptions, footnote text
+</p>
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000239_source')" id="l_M000239_source">show source</a> ]</p>
+  <div id="M000239_source" class="dyn-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/maruku/input/parse_block.rb, line 314</span>
+314:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">read_indented_content</span>(<span class="ruby-identifier">src</span>, <span class="ruby-identifier">indentation</span>, <span class="ruby-identifier">break_list</span>, <span class="ruby-identifier">item_type</span>)
+315:                 <span class="ruby-identifier">lines</span> =[]
+316:                 <span class="ruby-comment cmt"># collect all indented lines</span>
+317:                 <span class="ruby-identifier">saw_empty</span> = <span class="ruby-keyword kw">false</span>; <span class="ruby-identifier">saw_anything_after</span> = <span class="ruby-keyword kw">false</span>
+318:                 <span class="ruby-keyword kw">while</span> <span class="ruby-identifier">src</span>.<span class="ruby-identifier">cur_line</span> 
+319:                         <span class="ruby-comment cmt">#puts &quot;#{src.cur_line.md_type} #{src.cur_line.inspect}&quot;</span>
+320:                         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">src</span>.<span class="ruby-identifier">cur_line</span>.<span class="ruby-identifier">md_type</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">:empty</span>
+321:                                 <span class="ruby-identifier">saw_empty</span> = <span class="ruby-keyword kw">true</span>
+322:                                 <span class="ruby-identifier">lines</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">src</span>.<span class="ruby-identifier">shift_line</span>
+323:                                 <span class="ruby-keyword kw">next</span>
+324:                         <span class="ruby-keyword kw">end</span>
+325:                 
+326:                         <span class="ruby-comment cmt"># after a white line</span>
+327:                         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">saw_empty</span>
+328:                                 <span class="ruby-comment cmt"># we expect things to be properly aligned</span>
+329:                                 <span class="ruby-keyword kw">if</span> (<span class="ruby-identifier">ns</span>=<span class="ruby-identifier">number_of_leading_spaces</span>(<span class="ruby-identifier">src</span>.<span class="ruby-identifier">cur_line</span>)) <span class="ruby-operator">&lt;</span> <span class="ruby-identifier">indentation</span>
+330:                                         <span class="ruby-comment cmt">#puts &quot;breaking for spaces, only #{ns}: #{src.cur_line}&quot;</span>
+331:                                         <span class="ruby-keyword kw">break</span>
+332:                                 <span class="ruby-keyword kw">end</span>
+333:                                 <span class="ruby-identifier">saw_anything_after</span> = <span class="ruby-keyword kw">true</span>
+334:                         <span class="ruby-keyword kw">else</span>
+335:                                 <span class="ruby-keyword kw">break</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">break_list</span>.<span class="ruby-identifier">include?</span> <span class="ruby-identifier">src</span>.<span class="ruby-identifier">cur_line</span>.<span class="ruby-identifier">md_type</span>
+336: <span class="ruby-comment cmt">#                               break if src.cur_line.md_type != :text</span>
+337:                         <span class="ruby-keyword kw">end</span>
+338:                 
+339: 
+340:                         <span class="ruby-identifier">stripped</span> = <span class="ruby-identifier">strip_indent</span>(<span class="ruby-identifier">src</span>.<span class="ruby-identifier">shift_line</span>, <span class="ruby-identifier">indentation</span>)
+341:                         <span class="ruby-identifier">lines</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">stripped</span>
+342: 
+343:                         <span class="ruby-comment cmt">#puts &quot;Accepted as #{stripped.inspect}&quot;</span>
+344:                 
+345:                         <span class="ruby-comment cmt"># You are only required to indent the first line of </span>
+346:                         <span class="ruby-comment cmt"># a child paragraph.</span>
+347:                         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">stripped</span>.<span class="ruby-identifier">md_type</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">:text</span>
+348:                                 <span class="ruby-keyword kw">while</span> <span class="ruby-identifier">src</span>.<span class="ruby-identifier">cur_line</span> <span class="ruby-operator">&amp;&amp;</span> (<span class="ruby-identifier">src</span>.<span class="ruby-identifier">cur_line</span>.<span class="ruby-identifier">md_type</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">:text</span>)
+349:                                         <span class="ruby-identifier">lines</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">strip_indent</span>(<span class="ruby-identifier">src</span>.<span class="ruby-identifier">shift_line</span>, <span class="ruby-identifier">indentation</span>)
+350:                                 <span class="ruby-keyword kw">end</span>
+351:                         <span class="ruby-keyword kw">end</span>
+352:                 <span class="ruby-keyword kw">end</span>
+353: 
+354:                 <span class="ruby-identifier">want_my_paragraph</span> = <span class="ruby-identifier">saw_anything_after</span> <span class="ruby-operator">||</span> 
+355:                         (<span class="ruby-identifier">saw_empty</span> <span class="ruby-operator">&amp;&amp;</span> (<span class="ruby-identifier">src</span>.<span class="ruby-identifier">cur_line</span>  <span class="ruby-operator">&amp;&amp;</span> (<span class="ruby-identifier">src</span>.<span class="ruby-identifier">cur_line</span>.<span class="ruby-identifier">md_type</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">item_type</span>))) 
+356:         
+357: <span class="ruby-comment cmt">#               dbg_describe_ary(lines, 'LI')</span>
+358:                 <span class="ruby-comment cmt"># create a new context </span>
+359:         
+360:                 <span class="ruby-keyword kw">while</span> <span class="ruby-identifier">lines</span>.<span class="ruby-identifier">last</span> <span class="ruby-operator">&amp;&amp;</span> (<span class="ruby-identifier">lines</span>.<span class="ruby-identifier">last</span>.<span class="ruby-identifier">md_type</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">:empty</span>)
+361:                         <span class="ruby-identifier">lines</span>.<span class="ruby-identifier">pop</span>
+362:                 <span class="ruby-keyword kw">end</span>
+363:                 
+364:                 <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">lines</span>, <span class="ruby-identifier">want_my_paragraph</span>
+365:         <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000236"></a><b>read_list_item</b>(src)
+  </div>
+  <div class="description">
+  <p>
+Reads one list item, either ordered or unordered.
+</p>
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000236_source')" id="l_M000236_source">show source</a> ]</p>
+  <div id="M000236_source" class="dyn-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/maruku/input/parse_block.rb, line 234</span>
+234:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">read_list_item</span>(<span class="ruby-identifier">src</span>)
+235:                 <span class="ruby-identifier">parent_offset</span> = <span class="ruby-identifier">src</span>.<span class="ruby-identifier">cur_index</span>
+236:                 
+237:                 <span class="ruby-identifier">item_type</span> = <span class="ruby-identifier">src</span>.<span class="ruby-identifier">cur_line</span>.<span class="ruby-identifier">md_type</span>
+238:                 <span class="ruby-identifier">first</span> = <span class="ruby-identifier">src</span>.<span class="ruby-identifier">shift_line</span>
+239: 
+240:                 <span class="ruby-comment cmt"># Ugly things going on inside `read_indented_content`</span>
+241:                 <span class="ruby-identifier">indentation</span> = <span class="ruby-identifier">spaces_before_first_char</span>(<span class="ruby-identifier">first</span>)
+242:                 <span class="ruby-identifier">break_list</span> = [<span class="ruby-identifier">:ulist</span>, <span class="ruby-identifier">:olist</span>, <span class="ruby-identifier">:ial</span>]
+243:                 <span class="ruby-identifier">lines</span>, <span class="ruby-identifier">want_my_paragraph</span> = 
+244:                         <span class="ruby-identifier">read_indented_content</span>(<span class="ruby-identifier">src</span>,<span class="ruby-identifier">indentation</span>, <span class="ruby-identifier">break_list</span>, <span class="ruby-identifier">item_type</span>)
+245: 
+246:                 <span class="ruby-comment cmt"># add first line</span>
+247:                         <span class="ruby-comment cmt"># Strip first '*', '-', '+' from first line</span>
+248:                         <span class="ruby-identifier">stripped</span> = <span class="ruby-identifier">first</span>[<span class="ruby-identifier">indentation</span>, <span class="ruby-identifier">first</span>.<span class="ruby-identifier">size</span><span class="ruby-operator">-</span><span class="ruby-value">1</span>]
+249:                 <span class="ruby-identifier">lines</span>.<span class="ruby-identifier">unshift</span> <span class="ruby-identifier">stripped</span>
+250:                 
+251:                 <span class="ruby-comment cmt">#dbg_describe_ary(lines, 'LIST ITEM ')</span>
+252: 
+253:                 <span class="ruby-identifier">src2</span> = <span class="ruby-constant">LineSource</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">lines</span>, <span class="ruby-identifier">src</span>, <span class="ruby-identifier">parent_offset</span>)
+254:                 <span class="ruby-identifier">children</span> = <span class="ruby-identifier">parse_blocks</span>(<span class="ruby-identifier">src2</span>)
+255:                 <span class="ruby-identifier">with_par</span> = <span class="ruby-identifier">want_my_paragraph</span> <span class="ruby-operator">||</span> (<span class="ruby-identifier">children</span>.<span class="ruby-identifier">size</span><span class="ruby-operator">&gt;</span><span class="ruby-value">1</span>)
+256:                 
+257:                 <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">md_li</span>(<span class="ruby-identifier">children</span>, <span class="ruby-identifier">with_par</span>)
+258:         <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000242"></a><b>read_metadata</b>(src)
+  </div>
+  <div class="description">
+  <p>
+Reads a series of metadata lines with empty lines in between
+</p>
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000242_source')" id="l_M000242_source">show source</a> ]</p>
+  <div id="M000242_source" class="dyn-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/maruku/input/parse_block.rb, line 409</span>
+409:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">read_metadata</span>(<span class="ruby-identifier">src</span>)
+410:                 <span class="ruby-identifier">hash</span> = {}
+411:                 <span class="ruby-keyword kw">while</span> <span class="ruby-identifier">src</span>.<span class="ruby-identifier">cur_line</span> 
+412:                         <span class="ruby-keyword kw">case</span> <span class="ruby-identifier">src</span>.<span class="ruby-identifier">cur_line</span>.<span class="ruby-identifier">md_type</span>
+413:                                 <span class="ruby-keyword kw">when</span> <span class="ruby-identifier">:empty</span>;  <span class="ruby-identifier">src</span>.<span class="ruby-identifier">shift_line</span>
+414:                                 <span class="ruby-keyword kw">when</span> <span class="ruby-identifier">:metadata</span>; <span class="ruby-identifier">hash</span>.<span class="ruby-identifier">merge!</span> <span class="ruby-identifier">parse_metadata</span>(<span class="ruby-identifier">src</span>.<span class="ruby-identifier">shift_line</span>)
+415:                                 <span class="ruby-keyword kw">else</span> <span class="ruby-keyword kw">break</span>
+416:                         <span class="ruby-keyword kw">end</span>
+417:                 <span class="ruby-keyword kw">end</span>
+418:                 <span class="ruby-identifier">hash</span>
+419:         <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000235"></a><b>read_paragraph</b>(src)
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000235_source')" id="l_M000235_source">show source</a> ]</p>
+  <div id="M000235_source" class="dyn-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/maruku/input/parse_block.rb, line 208</span>
+208:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">read_paragraph</span>(<span class="ruby-identifier">src</span>)
+209:                 <span class="ruby-identifier">lines</span> = []
+210:                 <span class="ruby-keyword kw">while</span> <span class="ruby-identifier">src</span>.<span class="ruby-identifier">cur_line</span> 
+211:                         <span class="ruby-comment cmt"># :olist does not break</span>
+212:                         <span class="ruby-keyword kw">case</span> <span class="ruby-identifier">t</span> = <span class="ruby-identifier">src</span>.<span class="ruby-identifier">cur_line</span>.<span class="ruby-identifier">md_type</span>
+213:                                 <span class="ruby-keyword kw">when</span> <span class="ruby-identifier">:quote</span>,<span class="ruby-identifier">:header3</span>,<span class="ruby-identifier">:empty</span>,<span class="ruby-identifier">:raw_html</span>,<span class="ruby-identifier">:ref_definition</span>,<span class="ruby-identifier">:ial</span>
+214:                                         <span class="ruby-keyword kw">break</span>
+215:                                 <span class="ruby-keyword kw">when</span> <span class="ruby-identifier">:olist</span>,<span class="ruby-identifier">:ulist</span>
+216:                                         <span class="ruby-keyword kw">break</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">src</span>.<span class="ruby-identifier">next_line</span>.<span class="ruby-identifier">md_type</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">t</span>
+217:                                 <span class="ruby-keyword kw">else</span>
+218:                                         <span class="ruby-keyword kw">true</span>
+219:                         <span class="ruby-keyword kw">end</span>
+220:                         
+221:                         <span class="ruby-keyword kw">break</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">src</span>.<span class="ruby-identifier">cur_line</span>.<span class="ruby-identifier">strip</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">==</span> <span class="ruby-value">0</span>
+222:                         
+223:                         <span class="ruby-keyword kw">break</span> <span class="ruby-keyword kw">if</span> [<span class="ruby-identifier">:header1</span>,<span class="ruby-identifier">:header2</span>].<span class="ruby-identifier">include?</span> <span class="ruby-identifier">src</span>.<span class="ruby-identifier">next_line</span>.<span class="ruby-identifier">md_type</span>
+224:                         
+225:                         <span class="ruby-identifier">lines</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">src</span>.<span class="ruby-identifier">shift_line</span>
+226:                 <span class="ruby-keyword kw">end</span>
+227: <span class="ruby-comment cmt">#               dbg_describe_ary(lines, 'PAR')</span>
+228:                 <span class="ruby-identifier">children</span> = <span class="ruby-identifier">parse_lines_as_span</span>(<span class="ruby-identifier">lines</span>)
+229: 
+230:                 <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">md_par</span>(<span class="ruby-identifier">children</span>)
+231:         <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000240"></a><b>read_quote</b>(src)
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000240_source')" id="l_M000240_source">show source</a> ]</p>
+  <div id="M000240_source" class="dyn-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/maruku/input/parse_block.rb, line 368</span>
+368:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">read_quote</span>(<span class="ruby-identifier">src</span>)
+369:                 <span class="ruby-identifier">parent_offset</span> = <span class="ruby-identifier">src</span>.<span class="ruby-identifier">cur_index</span>
+370:                         
+371:                 <span class="ruby-identifier">lines</span> = []
+372:                 <span class="ruby-comment cmt"># collect all indented lines</span>
+373:                 <span class="ruby-keyword kw">while</span> <span class="ruby-identifier">src</span>.<span class="ruby-identifier">cur_line</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">src</span>.<span class="ruby-identifier">cur_line</span>.<span class="ruby-identifier">md_type</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">:quote</span>
+374:                         <span class="ruby-identifier">lines</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">unquote</span>(<span class="ruby-identifier">src</span>.<span class="ruby-identifier">shift_line</span>)
+375:                 <span class="ruby-keyword kw">end</span>
+376: <span class="ruby-comment cmt">#               dbg_describe_ary(lines, 'QUOTE')</span>
+377: 
+378:                 <span class="ruby-identifier">src2</span> = <span class="ruby-constant">LineSource</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">lines</span>, <span class="ruby-identifier">src</span>, <span class="ruby-identifier">parent_offset</span>)
+379:                 <span class="ruby-identifier">children</span> = <span class="ruby-identifier">parse_blocks</span>(<span class="ruby-identifier">src2</span>)
+380:                 <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">md_quote</span>(<span class="ruby-identifier">children</span>)
+381:         <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000234"></a><b>read_raw_html</b>(src)
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000234_source')" id="l_M000234_source">show source</a> ]</p>
+  <div id="M000234_source" class="dyn-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/maruku/input/parse_block.rb, line 190</span>
+190:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">read_raw_html</span>(<span class="ruby-identifier">src</span>)
+191:                 <span class="ruby-identifier">h</span> = <span class="ruby-constant">HTMLHelper</span>.<span class="ruby-identifier">new</span>
+192:                 <span class="ruby-keyword kw">begin</span> 
+193:                         <span class="ruby-identifier">h</span>.<span class="ruby-identifier">eat_this</span>(<span class="ruby-identifier">l</span>=<span class="ruby-identifier">src</span>.<span class="ruby-identifier">shift_line</span>)
+194: <span class="ruby-comment cmt">#                       puts &quot;\nBLOCK:\nhtml -&gt; #{l.inspect}&quot;</span>
+195:                         <span class="ruby-keyword kw">while</span> <span class="ruby-identifier">src</span>.<span class="ruby-identifier">cur_line</span> <span class="ruby-keyword kw">and</span> <span class="ruby-keyword kw">not</span> <span class="ruby-identifier">h</span>.<span class="ruby-identifier">is_finished?</span> 
+196:                                 <span class="ruby-identifier">l</span>=<span class="ruby-identifier">src</span>.<span class="ruby-identifier">shift_line</span>
+197: <span class="ruby-comment cmt">#                               puts &quot;html -&gt; #{l.inspect}&quot;</span>
+198:                                 <span class="ruby-identifier">h</span>.<span class="ruby-identifier">eat_this</span> <span class="ruby-value str">&quot;\n&quot;</span><span class="ruby-operator">+</span><span class="ruby-identifier">l</span>
+199:                         <span class="ruby-keyword kw">end</span>
+200:                 <span class="ruby-keyword kw">rescue</span> <span class="ruby-constant">Exception</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
+201:                         <span class="ruby-identifier">ex</span> = <span class="ruby-identifier">e</span>.<span class="ruby-identifier">inspect</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">e</span>.<span class="ruby-identifier">backtrace</span>.<span class="ruby-identifier">join</span>(<span class="ruby-value str">&quot;\n&quot;</span>)
+202:                         <span class="ruby-identifier">maruku_error</span> <span class="ruby-node">&quot;Bad block-level HTML:\n#{add_tabs(ex,1,'|')}\n&quot;</span>, <span class="ruby-identifier">src</span>
+203:                 <span class="ruby-keyword kw">end</span>
+204:                 <span class="ruby-identifier">raw_html</span> = <span class="ruby-identifier">h</span>.<span class="ruby-identifier">stuff_you_read</span>
+205:                 <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">md_html</span>(<span class="ruby-identifier">raw_html</span>)
+206:         <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000243"></a><b>read_ref_definition</b>(src)
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000243_source')" id="l_M000243_source">show source</a> ]</p>
+  <div id="M000243_source" class="dyn-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/maruku/input/parse_block.rb, line 422</span>
+422:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">read_ref_definition</span>(<span class="ruby-identifier">src</span>)
+423:                 <span class="ruby-identifier">line</span> = <span class="ruby-identifier">src</span>.<span class="ruby-identifier">shift_line</span>
+424:                 
+425:                 <span class="ruby-comment cmt"># if link is incomplete, shift next line</span>
+426:                 <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">src</span>.<span class="ruby-identifier">cur_line</span> <span class="ruby-operator">&amp;&amp;</span> (<span class="ruby-identifier">src</span>.<span class="ruby-identifier">cur_line</span>.<span class="ruby-identifier">md_type</span> <span class="ruby-operator">!=</span> <span class="ruby-identifier">:ref_definition</span>) <span class="ruby-operator">&amp;&amp;</span> 
+427:                         ([<span class="ruby-value">1</span>,<span class="ruby-value">2</span>,<span class="ruby-value">3</span>].<span class="ruby-identifier">include?</span> <span class="ruby-identifier">number_of_leading_spaces</span>(<span class="ruby-identifier">src</span>.<span class="ruby-identifier">cur_line</span>) )
+428:                         <span class="ruby-identifier">line</span> <span class="ruby-operator">+=</span> <span class="ruby-value str">&quot; &quot;</span><span class="ruby-operator">+</span> <span class="ruby-identifier">src</span>.<span class="ruby-identifier">shift_line</span>
+429:                 <span class="ruby-keyword kw">end</span>
+430:                 
+431: <span class="ruby-comment cmt">#               puts &quot;total= #{line}&quot;</span>
+432:                 
+433:                 <span class="ruby-identifier">match</span> = <span class="ruby-constant">LinkRegex</span>.<span class="ruby-identifier">match</span>(<span class="ruby-identifier">line</span>)
+434:                 <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">not</span> <span class="ruby-identifier">match</span>
+435:                         <span class="ruby-identifier">error</span> <span class="ruby-node">&quot;Link does not respect format: '#{line}'&quot;</span>
+436:                 <span class="ruby-keyword kw">end</span>
+437:                 
+438:                 <span class="ruby-identifier">id</span> = <span class="ruby-identifier">match</span>[<span class="ruby-value">1</span>]; <span class="ruby-identifier">url</span> = <span class="ruby-identifier">match</span>[<span class="ruby-value">2</span>]; <span class="ruby-identifier">title</span> = <span class="ruby-identifier">match</span>[<span class="ruby-value">3</span>]; 
+439:                 <span class="ruby-identifier">id</span> = <span class="ruby-identifier">id</span>.<span class="ruby-identifier">strip</span>.<span class="ruby-identifier">downcase</span>
+440:                 
+441:                 <span class="ruby-identifier">hash</span> = <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">refs</span>[<span class="ruby-identifier">id</span>] = {<span class="ruby-identifier">:url=</span><span class="ruby-operator">&gt;</span><span class="ruby-identifier">url</span>,<span class="ruby-identifier">:title=</span><span class="ruby-operator">&gt;</span><span class="ruby-identifier">title</span>}
+442:                 
+443:                 <span class="ruby-identifier">stuff</span>=<span class="ruby-identifier">match</span>[<span class="ruby-value">4</span>]
+444:                 
+445:                 <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">stuff</span>
+446:                         <span class="ruby-identifier">stuff</span>.<span class="ruby-identifier">split</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">couple</span><span class="ruby-operator">|</span>
+447: <span class="ruby-comment cmt">#                                       puts &quot;found #{couple}&quot;</span>
+448:                                 <span class="ruby-identifier">k</span>, <span class="ruby-identifier">v</span> = <span class="ruby-identifier">couple</span>.<span class="ruby-identifier">split</span>(<span class="ruby-value str">'='</span>)
+449:                                 <span class="ruby-identifier">v</span> <span class="ruby-operator">||=</span> <span class="ruby-value str">&quot;&quot;</span>
+450:                                 <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">v</span>[<span class="ruby-value">0</span>,<span class="ruby-value">1</span>]<span class="ruby-operator">==</span><span class="ruby-value str">'&quot;'</span> <span class="ruby-keyword kw">then</span> <span class="ruby-identifier">v</span> = <span class="ruby-identifier">v</span>[<span class="ruby-value">1</span>, <span class="ruby-identifier">v</span>.<span class="ruby-identifier">size</span><span class="ruby-operator">-</span><span class="ruby-value">2</span>] <span class="ruby-keyword kw">end</span>
+451: <span class="ruby-comment cmt">#                                       puts &quot;key:_#{k}_ value=_#{v}_&quot;</span>
+452:                                 <span class="ruby-identifier">hash</span>[<span class="ruby-identifier">k</span>.<span class="ruby-identifier">to_sym</span>] = <span class="ruby-identifier">v</span>
+453:                         <span class="ruby-keyword kw">end</span>
+454:                 <span class="ruby-keyword kw">end</span>
+455: <span class="ruby-comment cmt">#                       puts hash.inspect</span>
+456:                 
+457:                 <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">md_ref_def</span>(<span class="ruby-identifier">id</span>, <span class="ruby-identifier">url</span>, <span class="ruby-identifier">meta</span>={<span class="ruby-identifier">:title=</span><span class="ruby-operator">&gt;</span><span class="ruby-identifier">title</span>})
+458:         <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000244"></a><b>read_table</b>(src)
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000244_source')" id="l_M000244_source">show source</a> ]</p>
+  <div id="M000244_source" class="dyn-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/maruku/input/parse_block.rb, line 460</span>
+460:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">read_table</span>(<span class="ruby-identifier">src</span>)
+461:                 
+462:                 <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">split_cells</span>(<span class="ruby-identifier">s</span>)
+463:                         <span class="ruby-identifier">s</span>.<span class="ruby-identifier">strip</span>.<span class="ruby-identifier">split</span>(<span class="ruby-value str">'|'</span>).<span class="ruby-identifier">select</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">x</span><span class="ruby-operator">|</span><span class="ruby-identifier">x</span>.<span class="ruby-identifier">strip</span>.<span class="ruby-identifier">size</span><span class="ruby-operator">&gt;</span><span class="ruby-value">0</span>}.<span class="ruby-identifier">map</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">x</span><span class="ruby-operator">|</span><span class="ruby-identifier">x</span>.<span class="ruby-identifier">strip</span>}
+464:                 <span class="ruby-keyword kw">end</span>
+465:                 
+466:                 <span class="ruby-identifier">head</span> = <span class="ruby-identifier">split_cells</span>(<span class="ruby-identifier">src</span>.<span class="ruby-identifier">shift_line</span>).<span class="ruby-identifier">map</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">s</span><span class="ruby-operator">|</span> <span class="ruby-identifier">md_el</span>(<span class="ruby-identifier">:head_cell</span>, <span class="ruby-identifier">parse_lines_as_span</span>([<span class="ruby-identifier">s</span>])) }
+467:                         
+468:                 <span class="ruby-identifier">separator</span>=<span class="ruby-identifier">split_cells</span>(<span class="ruby-identifier">src</span>.<span class="ruby-identifier">shift_line</span>)
+469: 
+470:                 <span class="ruby-identifier">align</span> = <span class="ruby-identifier">separator</span>.<span class="ruby-identifier">map</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">s</span><span class="ruby-operator">|</span>  <span class="ruby-identifier">s</span> <span class="ruby-operator">=~</span> <span class="ruby-constant">Sep</span>
+471:                         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">$1</span> <span class="ruby-keyword kw">and</span> <span class="ruby-identifier">$2</span> <span class="ruby-keyword kw">then</span> <span class="ruby-identifier">:center</span> <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">$2</span> <span class="ruby-keyword kw">then</span> <span class="ruby-identifier">:right</span> <span class="ruby-keyword kw">else</span> <span class="ruby-identifier">:left</span> <span class="ruby-keyword kw">end</span> }
+472:                                 
+473:                 <span class="ruby-identifier">num_columns</span> = <span class="ruby-identifier">align</span>.<span class="ruby-identifier">size</span>
+474:                 
+475:                 <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">head</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">!=</span> <span class="ruby-identifier">num_columns</span>
+476:                         <span class="ruby-identifier">maruku_error</span> <span class="ruby-node">&quot;Table head does not have #{num_columns} columns: \n#{head.inspect}&quot;</span>
+477:                         <span class="ruby-identifier">tell_user</span> <span class="ruby-value str">&quot;I will ignore this table.&quot;</span>
+478:                         <span class="ruby-comment cmt"># XXX try to recover</span>
+479:                         <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">md_br</span>()
+480:                 <span class="ruby-keyword kw">end</span>
+481:                                 
+482:                 <span class="ruby-identifier">rows</span> = []
+483:                 
+484:                 <span class="ruby-keyword kw">while</span> <span class="ruby-identifier">src</span>.<span class="ruby-identifier">cur_line</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">src</span>.<span class="ruby-identifier">cur_line</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp re">/\|/</span>
+485:                         <span class="ruby-identifier">row</span> = <span class="ruby-identifier">split_cells</span>(<span class="ruby-identifier">src</span>.<span class="ruby-identifier">shift_line</span>).<span class="ruby-identifier">map</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">s</span><span class="ruby-operator">|</span>
+486:                                 <span class="ruby-identifier">md_el</span>(<span class="ruby-identifier">:cell</span>, <span class="ruby-identifier">parse_lines_as_span</span>([<span class="ruby-identifier">s</span>]))}
+487:                         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">head</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">!=</span> <span class="ruby-identifier">num_columns</span>
+488:                                 <span class="ruby-identifier">maruku_error</span>  <span class="ruby-node">&quot;Row does not have #{num_columns} columns: \n#{row.inspect}&quot;</span>
+489:                                 <span class="ruby-identifier">tell_user</span> <span class="ruby-value str">&quot;I will ignore this table.&quot;</span>
+490:                                 <span class="ruby-comment cmt"># XXX try to recover</span>
+491:                                 <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">md_br</span>()
+492:                         <span class="ruby-keyword kw">end</span>
+493:                         <span class="ruby-identifier">rows</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">row</span>
+494:                 <span class="ruby-keyword kw">end</span>
+495: 
+496:                 <span class="ruby-identifier">children</span> = (<span class="ruby-identifier">head</span><span class="ruby-operator">+</span><span class="ruby-identifier">rows</span>).<span class="ruby-identifier">flatten</span>
+497:                 <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">md_el</span>(<span class="ruby-identifier">:table</span>, <span class="ruby-identifier">children</span>, {<span class="ruby-identifier">:align</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">align</span>})
+498:         <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000250"></a><b>search_abbreviations</b>()
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000250_source')" id="l_M000250_source">show source</a> ]</p>
+  <div id="M000250_source" class="dyn-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/maruku/input/parse_doc.rb, line 114</span>
+114:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">search_abbreviations</span>
+115:                 <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">abbreviations</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">abbrev</span>, <span class="ruby-identifier">title</span><span class="ruby-operator">|</span>
+116:                         <span class="ruby-identifier">reg</span> = <span class="ruby-constant">Regexp</span>.<span class="ruby-identifier">new</span>(<span class="ruby-constant">Regexp</span>.<span class="ruby-identifier">escape</span>(<span class="ruby-identifier">abbrev</span>))
+117:                         <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">replace_each_string</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">s</span><span class="ruby-operator">|</span>
+118:                                 <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">m</span> = <span class="ruby-identifier">reg</span>.<span class="ruby-identifier">match</span>(<span class="ruby-identifier">s</span>)
+119:                                         <span class="ruby-identifier">e</span> = <span class="ruby-identifier">md_abbr</span>(<span class="ruby-identifier">abbrev</span>.<span class="ruby-identifier">dup</span>, <span class="ruby-identifier">title</span> <span class="ruby-value">? </span><span class="ruby-identifier">title</span>.<span class="ruby-identifier">dup</span> <span class="ruby-operator">:</span> <span class="ruby-keyword kw">nil</span>)
+120:                                         [<span class="ruby-identifier">m</span>.<span class="ruby-identifier">pre_match</span>, <span class="ruby-identifier">e</span>, <span class="ruby-identifier">m</span>.<span class="ruby-identifier">post_match</span>]
+121:                                 <span class="ruby-keyword kw">else</span>
+122:                                         <span class="ruby-identifier">s</span>
+123:                                 <span class="ruby-keyword kw">end</span>
+124:                         <span class="ruby-keyword kw">end</span>
+125:                 <span class="ruby-keyword kw">end</span>
+126:         <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000245"></a><b>split_cells</b>(s)
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000245_source')" id="l_M000245_source">show source</a> ]</p>
+  <div id="M000245_source" class="dyn-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/maruku/input/parse_block.rb, line 462</span>
+462:                 <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">split_cells</span>(<span class="ruby-identifier">s</span>)
+463:                         <span class="ruby-identifier">s</span>.<span class="ruby-identifier">strip</span>.<span class="ruby-identifier">split</span>(<span class="ruby-value str">'|'</span>).<span class="ruby-identifier">select</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">x</span><span class="ruby-operator">|</span><span class="ruby-identifier">x</span>.<span class="ruby-identifier">strip</span>.<span class="ruby-identifier">size</span><span class="ruby-operator">&gt;</span><span class="ruby-value">0</span>}.<span class="ruby-identifier">map</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">x</span><span class="ruby-operator">|</span><span class="ruby-identifier">x</span>.<span class="ruby-identifier">strip</span>}
+464:                 <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000251"></a><b>substitute_markdown_inside_raw_html</b>()
+  </div>
+  <div class="description">
+  <p>
+(PHP <a href="../Markdown.html">Markdown</a> extra) Search for elements
+that have markdown=1 or markdown=block defined
+</p>
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000251_source')" id="l_M000251_source">show source</a> ]</p>
+  <div id="M000251_source" class="dyn-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/maruku/input/parse_doc.rb, line 130</span>
+130:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">substitute_markdown_inside_raw_html</span>
+131:                 <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">each_element</span>(<span class="ruby-identifier">:raw_html</span>) <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">e</span><span class="ruby-operator">|</span>
+132:                         <span class="ruby-identifier">doc</span> = <span class="ruby-identifier">e</span>.<span class="ruby-identifier">instance_variable_get</span> <span class="ruby-identifier">:@parsed_html</span>
+133:                         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">doc</span> <span class="ruby-comment cmt"># valid html</span>
+134:                                 <span class="ruby-comment cmt"># parse block-level markdown elements in these HTML tags</span>
+135:                                 <span class="ruby-identifier">block_tags</span> = [<span class="ruby-value str">'div'</span>]
+136:                                 <span class="ruby-comment cmt"># use xpath to find elements with 'markdown' attribute</span>
+137:                                 <span class="ruby-identifier">doc</span>.<span class="ruby-identifier">elements</span>.<span class="ruby-identifier">to_a</span>( <span class="ruby-value str">&quot;//*[attribute::markdown]&quot;</span> ).<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">e</span><span class="ruby-operator">|</span>
+138:                                         <span class="ruby-comment cmt"># should we parse block-level or span-level?</span>
+139:                                         <span class="ruby-identifier">parse_blocks</span> = (<span class="ruby-identifier">e</span>.<span class="ruby-identifier">attributes</span>[<span class="ruby-value str">'markdown'</span>] <span class="ruby-operator">==</span> <span class="ruby-value str">'block'</span>) <span class="ruby-operator">||</span> 
+140:                                                        <span class="ruby-identifier">block_tags</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">e</span>.<span class="ruby-identifier">name</span>)
+141:                                         <span class="ruby-comment cmt"># remove 'markdown' attribute</span>
+142:                                         <span class="ruby-identifier">e</span>.<span class="ruby-identifier">delete_attribute</span> <span class="ruby-value str">'markdown'</span>
+143:                                         <span class="ruby-comment cmt"># Select all text elements of e</span>
+144:                                         <span class="ruby-identifier">e</span>.<span class="ruby-identifier">texts</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">original_text</span><span class="ruby-operator">|</span>
+145: <span class="ruby-comment cmt">#                                               puts &quot;parse_blocks = #{parse_blocks} found = #{original_text} &quot;</span>
+146:                                                 <span class="ruby-identifier">s</span> = <span class="ruby-identifier">original_text</span>.<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">strip</span> <span class="ruby-comment cmt"># XXX</span>
+147:                                                 <span class="ruby-identifier">el</span> = <span class="ruby-identifier">md_el</span>(<span class="ruby-identifier">:dummy</span>,
+148:                                                   <span class="ruby-identifier">parse_blocks</span> <span class="ruby-value">? </span><span class="ruby-identifier">parse_text_as_markdown</span>(<span class="ruby-identifier">s</span>) <span class="ruby-operator">:</span>
+149:                                                                   <span class="ruby-identifier">parse_lines_as_span</span>([<span class="ruby-identifier">s</span>]) )
+150:                                                 <span class="ruby-identifier">el</span>.<span class="ruby-identifier">children_to_html</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">x</span><span class="ruby-operator">|</span>
+151:                                                         <span class="ruby-identifier">e</span>.<span class="ruby-identifier">insert_before</span>(<span class="ruby-identifier">original_text</span>, <span class="ruby-identifier">x</span>)
+152:                                                 <span class="ruby-keyword kw">end</span>
+153:                                                 <span class="ruby-identifier">e</span>.<span class="ruby-identifier">delete</span>(<span class="ruby-identifier">original_text</span>)
+154:                                         <span class="ruby-keyword kw">end</span>
+155:                                         
+156:                                 <span class="ruby-keyword kw">end</span>
+157:                         <span class="ruby-keyword kw">end</span>
+158:                 <span class="ruby-keyword kw">end</span>
+159:         <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+</div>
+
+  </div>
+
+    </body>
+</html>

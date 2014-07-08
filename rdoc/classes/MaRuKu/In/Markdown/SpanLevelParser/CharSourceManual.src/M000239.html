@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>read_regexp3 (MaRuKu::In::Markdown::SpanLevelParser::CharSourceManual)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../../../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/maruku/input/charsource.rb, line 96</span>
+        <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">read_regexp3</span>(<span class="ruby-identifier">r</span>)
+                <span class="ruby-identifier">r2</span> = <span class="ruby-node">/^.{#{@buffer_index}}#{r}/</span><span class="ruby-identifier">m</span>
+                <span class="ruby-identifier">m</span> = <span class="ruby-identifier">r2</span>.<span class="ruby-identifier">match</span> <span class="ruby-ivar">@buffer</span>
+                <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">m</span>
+                        <span class="ruby-identifier">consumed</span> = <span class="ruby-identifier">m</span>.<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">-</span> <span class="ruby-ivar">@buffer_index</span>
+<span class="ruby-comment cmt">#                       puts &quot;Consumed #{consumed} chars (entire is #{m.to_s.inspect})&quot;</span>
+                        <span class="ruby-identifier">ignore_chars</span> <span class="ruby-identifier">consumed</span>
+                <span class="ruby-keyword kw">else</span>
+<span class="ruby-comment cmt">#                       puts &quot;Could not read regexp #{r2.inspect} from buffer &quot;+</span>
+<span class="ruby-comment cmt">#                       &quot; index=#{@buffer_index}&quot;</span>
+<span class="ruby-comment cmt">#                       puts &quot;Cur chars = #{cur_chars(20).inspect}&quot;</span>
+<span class="ruby-comment cmt">#                       puts &quot;Matches? = #{cur_chars(20) =~ r}&quot;</span>
+                <span class="ruby-keyword kw">end</span>
+                <span class="ruby-identifier">m</span>
+        <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

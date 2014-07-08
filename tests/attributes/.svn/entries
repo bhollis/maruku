@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wc-entries
+   xmlns="svn:">
+<entry
+   committed-rev="112"
+   name=""
+   committed-date="2007-01-24T12:55:22.283644Z"
+   url="svn+ssh://rubyforge.org/var/svn/maruku/trunk/tests/unittest/attributes"
+   last-author="andrea"
+   kind="dir"
+   uuid="7e2f57f0-5a75-4fd6-9797-5817c466b243"
+   repos="svn+ssh://rubyforge.org/var/svn/maruku"
+   prop-time="2007-01-23T18:33:58.000000Z"
+   revision="117"/>
+<entry
+   committed-rev="93"
+   name="circular.md"
+   text-time="2007-02-16T13:21:59.000000Z"
+   committed-date="2007-01-22T23:43:49.690114Z"
+   checksum="ae2d646af5b16b6d840f0276edd250e1"
+   last-author="andrea"
+   kind="file"/>
+<entry
+   committed-rev="64"
+   name="default.md"
+   text-time="2007-02-16T13:22:00.000000Z"
+   committed-date="2007-01-07T19:37:36.404416Z"
+   checksum="ceb48619c012bfbacc62019a19ca4f2c"
+   last-author="andrea"
+   kind="file"/>
+<entry
+   committed-rev="112"
+   name="attributes.md"
+   text-time="2007-02-16T13:21:59.000000Z"
+   committed-date="2007-01-24T12:55:22.283644Z"
+   checksum="90a7695c98c1425c98de0010dcbc7d2c"
+   last-author="andrea"
+   kind="file"/>
+<entry
+   committed-rev="72"
+   name="att2.md"
+   text-time="2007-02-16T13:21:59.000000Z"
+   committed-date="2007-01-11T12:45:32.812469Z"
+   checksum="a4eaf1ca50c2be84e4713bf833452f66"
+   last-author="andrea"
+   kind="file"/>
+<entry
+   committed-rev="72"
+   name="att3.md"
+   text-time="2007-02-16T13:21:59.000000Z"
+   committed-date="2007-01-11T12:45:32.812469Z"
+   checksum="e093f89b93cd47a3b6e4b6eaca47cc64"
+   last-author="andrea"
+   kind="file"/>
+</wc-entries>

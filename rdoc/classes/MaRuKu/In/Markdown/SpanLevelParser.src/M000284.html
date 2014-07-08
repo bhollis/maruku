@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>read_span (MaRuKu::In::Markdown::SpanLevelParser)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/maruku/input/parse_span_better.rb, line 54</span>
+        <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">read_span</span>(<span class="ruby-identifier">src</span>, <span class="ruby-identifier">escaped</span>, <span class="ruby-identifier">exit_on_chars</span>, <span class="ruby-identifier">exit_on_strings</span>=<span class="ruby-keyword kw">nil</span>)
+                <span class="ruby-identifier">con</span> = <span class="ruby-constant">SpanContext</span>.<span class="ruby-identifier">new</span>
+                <span class="ruby-identifier">c</span> = <span class="ruby-identifier">d</span> = <span class="ruby-keyword kw">nil</span>
+                <span class="ruby-keyword kw">while</span> <span class="ruby-keyword kw">true</span>
+                        <span class="ruby-identifier">c</span> = <span class="ruby-identifier">src</span>.<span class="ruby-identifier">cur_char</span>
+
+                        <span class="ruby-comment cmt"># This is only an optimization which cuts 50% of the time used.</span>
+                        <span class="ruby-comment cmt"># (but you can't use a-zA-z in exit_on_chars)</span>
+                        <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">c</span> <span class="ruby-operator">&amp;&amp;</span> ((<span class="ruby-identifier">c</span><span class="ruby-operator">&gt;=</span><span class="ruby-value">?a</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">c</span><span class="ruby-operator">&lt;=</span><span class="ruby-value">?z</span>) <span class="ruby-operator">||</span> ((<span class="ruby-identifier">c</span><span class="ruby-operator">&gt;=</span><span class="ruby-value">?A</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">c</span><span class="ruby-operator">&lt;=</span><span class="ruby-value">?Z</span>)))
+                                <span class="ruby-identifier">con</span>.<span class="ruby-identifier">cur_string</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">src</span>.<span class="ruby-identifier">shift_char</span>
+                                <span class="ruby-keyword kw">next</span>
+                        <span class="ruby-keyword kw">end</span>
+
+                        <span class="ruby-keyword kw">break</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">exit_on_chars</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">exit_on_chars</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">c</span>)
+                        <span class="ruby-keyword kw">break</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">exit_on_strings</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">exit_on_strings</span>.<span class="ruby-identifier">any?</span> {<span class="ruby-operator">|</span><span class="ruby-identifier">x</span><span class="ruby-operator">|</span> <span class="ruby-identifier">src</span>.<span class="ruby-identifier">cur_chars_are</span> <span class="ruby-identifier">x</span>}
+                        
+                        <span class="ruby-comment cmt"># check if there are extensions</span>
+                        <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">check_span_extensions</span>(<span class="ruby-identifier">src</span>, <span class="ruby-identifier">con</span>)
+                                <span class="ruby-keyword kw">next</span>
+                        <span class="ruby-keyword kw">end</span>
+                        
+                        <span class="ruby-keyword kw">case</span> <span class="ruby-identifier">c</span> = <span class="ruby-identifier">src</span>.<span class="ruby-identifier">cur_char</span>        
+                        <span class="ruby-keyword kw">when</span> <span class="ruby-value">?\ </span><span class="ruby-comment cmt"># it's space (32)</span>
+                                <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">src</span>.<span class="ruby-identifier">cur_chars_are</span> <span class="ruby-value str">&quot;  \n&quot;</span>
+                                        <span class="ruby-identifier">src</span>.<span class="ruby-identifier">ignore_chars</span>(<span class="ruby-value">3</span>)
+                                        <span class="ruby-identifier">con</span>.<span class="ruby-identifier">push_element</span>  <span class="ruby-identifier">md_br</span>()
+                                        <span class="ruby-keyword kw">next</span>
+                                <span class="ruby-keyword kw">else</span>
+                                        <span class="ruby-identifier">src</span>.<span class="ruby-identifier">ignore_char</span>
+                                        <span class="ruby-identifier">con</span>.<span class="ruby-identifier">push_space</span> 
+                                <span class="ruby-keyword kw">end</span>
+                        <span class="ruby-keyword kw">when</span> <span class="ruby-value">?\n</span>, <span class="ruby-value">?\t</span> 
+                                <span class="ruby-identifier">src</span>.<span class="ruby-identifier">ignore_char</span>
+                                <span class="ruby-identifier">con</span>.<span class="ruby-identifier">push_space</span> 
+                        <span class="ruby-keyword kw">when</span> <span class="ruby-value">?`</span>
+                                <span class="ruby-identifier">read_inline_code</span>(<span class="ruby-identifier">src</span>,<span class="ruby-identifier">con</span>)
+                        <span class="ruby-keyword kw">when</span> <span class="ruby-value">?&lt;</span>
+                                <span class="ruby-comment cmt"># It could be:</span>
+                                <span class="ruby-comment cmt"># 1) HTML &quot;&lt;div ...&quot;</span>
+                                <span class="ruby-comment cmt"># 2) HTML &quot;&lt;!-- ...&quot;</span>
+                                <span class="ruby-comment cmt"># 3) url &quot;&lt;http:// &quot;, &quot;&lt;ftp:// ...&quot;</span>
+                                <span class="ruby-comment cmt"># 4) email &quot;&lt;andrea@... &quot;, &quot;&lt;mailto:andrea@...&quot;</span>
+                                <span class="ruby-comment cmt"># 5) on itself! &quot;a &lt; b      &quot;</span>
+                                <span class="ruby-comment cmt"># 6) Start of &lt;&lt;guillemettes&gt;&gt;</span>
+                                
+                                <span class="ruby-keyword kw">case</span> <span class="ruby-identifier">d</span> = <span class="ruby-identifier">src</span>.<span class="ruby-identifier">next_char</span>
+                                        <span class="ruby-keyword kw">when</span> <span class="ruby-value">?&lt;</span>;  <span class="ruby-comment cmt"># guillemettes</span>
+                                                <span class="ruby-identifier">src</span>.<span class="ruby-identifier">ignore_chars</span>(<span class="ruby-value">2</span>)
+                                                <span class="ruby-identifier">con</span>.<span class="ruby-identifier">push_char</span> <span class="ruby-operator">?</span><span class="ruby-operator">&lt;</span>
+                                                <span class="ruby-identifier">con</span>.<span class="ruby-identifier">push_char</span> <span class="ruby-operator">?</span><span class="ruby-operator">&lt;</span>
+                                        <span class="ruby-keyword kw">when</span> <span class="ruby-value">?!</span>; 
+                                                <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">src</span>.<span class="ruby-identifier">cur_chars_are</span> <span class="ruby-value str">'&lt;!--'</span>
+                                                        <span class="ruby-identifier">read_inline_html</span>(<span class="ruby-identifier">src</span>, <span class="ruby-identifier">con</span>)
+                                                <span class="ruby-keyword kw">else</span> 
+                                                        <span class="ruby-identifier">con</span>.<span class="ruby-identifier">push_char</span> <span class="ruby-identifier">src</span>.<span class="ruby-identifier">shift_char</span>
+                                                <span class="ruby-keyword kw">end</span>
+                                        <span class="ruby-keyword kw">when</span> <span class="ruby-value">??</span> 
+                                                <span class="ruby-identifier">read_xml_instr_span</span>(<span class="ruby-identifier">src</span>, <span class="ruby-identifier">con</span>) 
+                                        <span class="ruby-keyword kw">when</span> <span class="ruby-value">?\ </span>, <span class="ruby-value">?\t</span> 
+                                                <span class="ruby-identifier">con</span>.<span class="ruby-identifier">push_char</span> <span class="ruby-identifier">src</span>.<span class="ruby-identifier">shift_char</span>
+                                        <span class="ruby-keyword kw">else</span>
+                                                <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">src</span>.<span class="ruby-identifier">next_matches</span>(<span class="ruby-regexp re">/&lt;mailto:/</span>) <span class="ruby-keyword kw">or</span>
+                                                   <span class="ruby-identifier">src</span>.<span class="ruby-identifier">next_matches</span>(<span class="ruby-regexp re">/&lt;[\w\.]+\@/</span>)
+                                                        <span class="ruby-identifier">read_email_el</span>(<span class="ruby-identifier">src</span>, <span class="ruby-identifier">con</span>)
+                                                <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">src</span>.<span class="ruby-identifier">next_matches</span>(<span class="ruby-regexp re">/&lt;\w+:/</span>)
+                                                        <span class="ruby-identifier">read_url_el</span>(<span class="ruby-identifier">src</span>, <span class="ruby-identifier">con</span>)
+                                                <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">src</span>.<span class="ruby-identifier">next_matches</span>(<span class="ruby-regexp re">/&lt;\w/</span>)
+                                                        <span class="ruby-comment cmt">#puts &quot;This is HTML: #{src.cur_chars(20)}&quot;</span>
+                                                        <span class="ruby-identifier">read_inline_html</span>(<span class="ruby-identifier">src</span>, <span class="ruby-identifier">con</span>)
+                                                <span class="ruby-keyword kw">else</span> 
+                                                        <span class="ruby-comment cmt">#puts &quot;This is NOT HTML: #{src.cur_chars(20)}&quot;</span>
+                                                        <span class="ruby-identifier">con</span>.<span class="ruby-identifier">push_char</span> <span class="ruby-identifier">src</span>.<span class="ruby-identifier">shift_char</span>
+                                                <span class="ruby-keyword kw">end</span>
+                                <span class="ruby-keyword kw">end</span>
+                        <span class="ruby-keyword kw">when</span> <span class="ruby-value">?\\</span>
+                                <span class="ruby-identifier">d</span> = <span class="ruby-identifier">src</span>.<span class="ruby-identifier">next_char</span>
+                                <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">d</span> <span class="ruby-operator">==</span> <span class="ruby-value">?'</span>
+                                        <span class="ruby-identifier">src</span>.<span class="ruby-identifier">ignore_chars</span>(<span class="ruby-value">2</span>)
+                                        <span class="ruby-identifier">con</span>.<span class="ruby-identifier">push_element</span> <span class="ruby-identifier">md_entity</span>(<span class="ruby-value str">'apos'</span>)
+                                <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">d</span> <span class="ruby-operator">==</span> <span class="ruby-value">?&quot;</span>
+                                        <span class="ruby-identifier">src</span>.<span class="ruby-identifier">ignore_chars</span>(<span class="ruby-value">2</span>)
+                                        <span class="ruby-identifier">con</span>.<span class="ruby-identifier">push_element</span> <span class="ruby-identifier">md_entity</span>(<span class="ruby-value str">'quot'</span>)
+                                <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">escaped</span>.<span class="ruby-identifier">include?</span> <span class="ruby-identifier">d</span>
+                                        <span class="ruby-identifier">src</span>.<span class="ruby-identifier">ignore_chars</span>(<span class="ruby-value">2</span>)
+                                        <span class="ruby-identifier">con</span>.<span class="ruby-identifier">push_char</span> <span class="ruby-identifier">d</span>
+                                <span class="ruby-keyword kw">else</span>
+                                        <span class="ruby-identifier">con</span>.<span class="ruby-identifier">push_char</span> <span class="ruby-identifier">src</span>.<span class="ruby-identifier">shift_char</span>
+                                <span class="ruby-keyword kw">end</span>
+                        <span class="ruby-keyword kw">when</span> <span class="ruby-value">?[</span>
+                                <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">markdown_extra?</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">src</span>.<span class="ruby-identifier">next_char</span> <span class="ruby-operator">==</span> <span class="ruby-value">?^</span>
+                                        <span class="ruby-identifier">read_footnote_ref</span>(<span class="ruby-identifier">src</span>,<span class="ruby-identifier">con</span>)
+                                <span class="ruby-keyword kw">else</span>
+                                        <span class="ruby-identifier">read_link</span>(<span class="ruby-identifier">src</span>, <span class="ruby-identifier">con</span>)
+                                <span class="ruby-keyword kw">end</span>
+                        <span class="ruby-keyword kw">when</span> <span class="ruby-value">?!</span>
+                                <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">src</span>.<span class="ruby-identifier">next_char</span> <span class="ruby-operator">==</span> <span class="ruby-value">?[</span>
+                                        <span class="ruby-identifier">read_image</span>(<span class="ruby-identifier">src</span>, <span class="ruby-identifier">con</span>)
+                                <span class="ruby-keyword kw">else</span>
+                                        <span class="ruby-identifier">con</span>.<span class="ruby-identifier">push_char</span> <span class="ruby-identifier">src</span>.<span class="ruby-identifier">shift_char</span>
+                                <span class="ruby-keyword kw">end</span>
+                        <span class="ruby-keyword kw">when</span> <span class="ruby-value">?&amp;</span>
+                                <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">m</span> = <span class="ruby-identifier">src</span>.<span class="ruby-identifier">read_regexp</span>(<span class="ruby-regexp re">/\&amp;([\w\d]+);/</span>)
+                                        <span class="ruby-identifier">con</span>.<span class="ruby-identifier">push_element</span> <span class="ruby-identifier">md_entity</span>(<span class="ruby-identifier">m</span>[<span class="ruby-value">1</span>])
+                                <span class="ruby-keyword kw">else</span>
+                                        <span class="ruby-identifier">con</span>.<span class="ruby-identifier">push_char</span> <span class="ruby-identifier">src</span>.<span class="ruby-identifier">shift_char</span>
+                                <span class="ruby-keyword kw">end</span>
+                        <span class="ruby-keyword kw">when</span> <span class="ruby-value">?*</span>
+                                <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">not</span> <span class="ruby-identifier">src</span>.<span class="ruby-identifier">next_char</span>
+                                        <span class="ruby-identifier">maruku_error</span> <span class="ruby-value str">&quot;Opening * as last char.&quot;</span>, <span class="ruby-identifier">src</span>, <span class="ruby-identifier">con</span>
+                                        <span class="ruby-identifier">maruku_recover</span> <span class="ruby-value str">&quot;Threating as literal&quot;</span>
+                                        <span class="ruby-identifier">con</span>.<span class="ruby-identifier">push_char</span> <span class="ruby-identifier">src</span>.<span class="ruby-identifier">shift_char</span>
+                                <span class="ruby-keyword kw">else</span>
+                                        <span class="ruby-identifier">follows</span> = <span class="ruby-identifier">src</span>.<span class="ruby-identifier">cur_chars</span>(<span class="ruby-value">4</span>)
+                                        <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">follows</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp re">/^\*\*\*[^\s\*]/</span>
+                                                <span class="ruby-identifier">con</span>.<span class="ruby-identifier">push_element</span> <span class="ruby-identifier">read_emstrong</span>(<span class="ruby-identifier">src</span>,<span class="ruby-value str">'***'</span>)
+                                        <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">follows</span>  <span class="ruby-operator">=~</span> <span class="ruby-regexp re">/^\*\*[^\s\*]/</span>
+                                                <span class="ruby-identifier">con</span>.<span class="ruby-identifier">push_element</span> <span class="ruby-identifier">read_strong</span>(<span class="ruby-identifier">src</span>,<span class="ruby-value str">'**'</span>)
+                                        <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">follows</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp re">/^\*[^\s\*]/</span>
+                                                <span class="ruby-identifier">con</span>.<span class="ruby-identifier">push_element</span> <span class="ruby-identifier">read_em</span>(<span class="ruby-identifier">src</span>,<span class="ruby-value str">'*'</span>)
+                                        <span class="ruby-keyword kw">else</span> <span class="ruby-comment cmt"># * is just a normal char</span>
+                                                <span class="ruby-identifier">con</span>.<span class="ruby-identifier">push_char</span> <span class="ruby-identifier">src</span>.<span class="ruby-identifier">shift_char</span>
+                                        <span class="ruby-keyword kw">end</span>
+                                <span class="ruby-keyword kw">end</span>
+                        <span class="ruby-keyword kw">when</span> <span class="ruby-value">?_</span>
+                                <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">not</span> <span class="ruby-identifier">src</span>.<span class="ruby-identifier">next_char</span>
+                                        <span class="ruby-identifier">maruku_error</span> <span class="ruby-value str">&quot;Opening _ as last char&quot;</span>, <span class="ruby-identifier">src</span>, <span class="ruby-identifier">con</span>
+                                        <span class="ruby-identifier">maruku_recover</span> <span class="ruby-value str">&quot;Threating as literal&quot;</span>, <span class="ruby-identifier">src</span>, <span class="ruby-identifier">con</span>
+                                        <span class="ruby-identifier">con</span>.<span class="ruby-identifier">push_char</span> <span class="ruby-identifier">src</span>.<span class="ruby-identifier">shift_char</span>
+                                <span class="ruby-keyword kw">else</span>
+                                        <span class="ruby-identifier">follows</span> = <span class="ruby-identifier">src</span>.<span class="ruby-identifier">cur_chars</span>(<span class="ruby-value">4</span>)
+                                        <span class="ruby-keyword kw">if</span>  <span class="ruby-identifier">follows</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp re">/^\_\_\_[^\s\_]/</span>
+                                                <span class="ruby-identifier">con</span>.<span class="ruby-identifier">push_element</span> <span class="ruby-identifier">read_emstrong</span>(<span class="ruby-identifier">src</span>,<span class="ruby-value str">'___'</span>)
+                                        <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">follows</span>  <span class="ruby-operator">=~</span> <span class="ruby-regexp re">/^\_\_[^\s\_]/</span>
+                                                <span class="ruby-identifier">con</span>.<span class="ruby-identifier">push_element</span> <span class="ruby-identifier">read_strong</span>(<span class="ruby-identifier">src</span>,<span class="ruby-value str">'__'</span>)
+                                        <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">follows</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp re">/^\_[^\s\_]/</span>
+                                                <span class="ruby-identifier">con</span>.<span class="ruby-identifier">push_element</span> <span class="ruby-identifier">read_em</span>(<span class="ruby-identifier">src</span>,<span class="ruby-value str">'_'</span>)
+                                        <span class="ruby-keyword kw">else</span> <span class="ruby-comment cmt"># _ is just a normal char</span>
+                                                <span class="ruby-identifier">con</span>.<span class="ruby-identifier">push_char</span> <span class="ruby-identifier">src</span>.<span class="ruby-identifier">shift_char</span>
+                                        <span class="ruby-keyword kw">end</span>
+                                <span class="ruby-keyword kw">end</span>
+                        <span class="ruby-keyword kw">when</span> <span class="ruby-value">?{</span> <span class="ruby-comment cmt"># extension</span>
+                                <span class="ruby-identifier">src</span>.<span class="ruby-identifier">ignore_char</span> <span class="ruby-comment cmt"># {</span>
+                                <span class="ruby-identifier">interpret_extension</span>(<span class="ruby-identifier">src</span>, <span class="ruby-identifier">con</span>, [<span class="ruby-value">?}</span>])
+                                <span class="ruby-identifier">src</span>.<span class="ruby-identifier">ignore_char</span> <span class="ruby-comment cmt"># }</span>
+                        <span class="ruby-keyword kw">when</span> <span class="ruby-keyword kw">nil</span>
+                                <span class="ruby-identifier">maruku_error</span>( (<span class="ruby-value str">&quot;Unclosed span (waiting for %s&quot;</span><span class="ruby-operator">+</span>
+                                 <span class="ruby-node">&quot;#{exit_on_strings.inspect})&quot;</span>) <span class="ruby-operator">%</span> [
+                                                <span class="ruby-identifier">exit_on_chars</span> <span class="ruby-value">? </span><span class="ruby-node">&quot;#{exit_on_chars.inspect} or&quot;</span> <span class="ruby-operator">:</span> <span class="ruby-value str">&quot;&quot;</span>],
+                                                <span class="ruby-identifier">src</span>,<span class="ruby-identifier">con</span>)
+                                <span class="ruby-keyword kw">break</span>
+                        <span class="ruby-keyword kw">else</span> <span class="ruby-comment cmt"># normal text</span>
+                                <span class="ruby-identifier">con</span>.<span class="ruby-identifier">push_char</span> <span class="ruby-identifier">src</span>.<span class="ruby-identifier">shift_char</span>
+                        <span class="ruby-keyword kw">end</span> <span class="ruby-comment cmt"># end case</span>
+                <span class="ruby-keyword kw">end</span> <span class="ruby-comment cmt"># end while true</span>
+                <span class="ruby-identifier">con</span>.<span class="ruby-identifier">push_string_if_present</span> 
+
+                <span class="ruby-comment cmt"># Assign IAL to elements</span>
+                <span class="ruby-identifier">merge_ial</span>(<span class="ruby-identifier">con</span>.<span class="ruby-identifier">elements</span>, <span class="ruby-identifier">src</span>, <span class="ruby-identifier">con</span>)
+                
+                
+                <span class="ruby-comment cmt"># Remove leading space</span>
+                <span class="ruby-keyword kw">if</span> (<span class="ruby-identifier">s</span> = <span class="ruby-identifier">con</span>.<span class="ruby-identifier">elements</span>.<span class="ruby-identifier">first</span>).<span class="ruby-identifier">kind_of?</span> <span class="ruby-constant">String</span>
+                        <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">s</span>[<span class="ruby-value">0</span>] <span class="ruby-operator">==</span> <span class="ruby-value">?\ </span><span class="ruby-keyword kw">then</span> <span class="ruby-identifier">con</span>.<span class="ruby-identifier">elements</span>[<span class="ruby-value">0</span>] = <span class="ruby-identifier">s</span>[<span class="ruby-value">1</span>, <span class="ruby-identifier">s</span>.<span class="ruby-identifier">size</span><span class="ruby-operator">-</span><span class="ruby-value">1</span>] <span class="ruby-keyword kw">end</span>
+                        <span class="ruby-identifier">con</span>.<span class="ruby-identifier">elements</span>.<span class="ruby-identifier">shift</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">s</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">==</span> <span class="ruby-value">0</span> 
+                <span class="ruby-keyword kw">end</span>
+                
+                <span class="ruby-comment cmt"># Remove final spaces</span>
+                <span class="ruby-keyword kw">if</span> (<span class="ruby-identifier">s</span> = <span class="ruby-identifier">con</span>.<span class="ruby-identifier">elements</span>.<span class="ruby-identifier">last</span>).<span class="ruby-identifier">kind_of?</span> <span class="ruby-constant">String</span>
+                        <span class="ruby-identifier">s</span>.<span class="ruby-identifier">chop!</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">s</span>[<span class="ruby-value">-1</span>] <span class="ruby-operator">==</span> <span class="ruby-value">?\ </span>
+                        <span class="ruby-identifier">con</span>.<span class="ruby-identifier">elements</span>.<span class="ruby-identifier">pop</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">s</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">==</span> <span class="ruby-value">0</span> 
+                <span class="ruby-keyword kw">end</span>
+                
+                <span class="ruby-identifier">educated</span> = <span class="ruby-identifier">educate</span>(<span class="ruby-identifier">con</span>.<span class="ruby-identifier">elements</span>)
+
+                <span class="ruby-identifier">educated</span>
+        <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

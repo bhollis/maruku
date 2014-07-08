@@ -1,0 +1,1248 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>Module: MaRuKu::Out::HTML</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+  <script type="text/javascript">
+  // <![CDATA[
+
+  function popupCode( url ) {
+    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+  }
+
+  function toggleCode( id ) {
+    if ( document.getElementById )
+      elem = document.getElementById( id );
+    else if ( document.all )
+      elem = eval( "document.all." + id );
+    else
+      return false;
+
+    elemStyle = elem.style;
+    
+    if ( elemStyle.display != "block" ) {
+      elemStyle.display = "block"
+    } else {
+      elemStyle.display = "none"
+    }
+
+    return true;
+  }
+  
+  // Make codeblocks hidden by default
+  document.writeln( "<style type=\"text/css\">div.method-source-code { display: none }</style>" )
+  
+  // ]]>
+  </script>
+
+</head>
+<body>
+
+
+
+    <div id="classHeader">
+        <table class="header-table">
+        <tr class="top-aligned-row">
+          <td><strong>Module</strong></td>
+          <td class="class-name-in-header">MaRuKu::Out::HTML</td>
+        </tr>
+        <tr class="top-aligned-row">
+            <td><strong>In:</strong></td>
+            <td>
+                <a href="../../../files/lib/maruku/ext/math/mathml_engines/blahtex_rb.html">
+                lib/maruku/ext/math/mathml_engines/blahtex.rb
+                </a>
+        <br />
+                <a href="../../../files/lib/maruku/ext/math/mathml_engines/itex2mml_rb.html">
+                lib/maruku/ext/math/mathml_engines/itex2mml.rb
+                </a>
+        <br />
+                <a href="../../../files/lib/maruku/ext/math/mathml_engines/none_rb.html">
+                lib/maruku/ext/math/mathml_engines/none.rb
+                </a>
+        <br />
+                <a href="../../../files/lib/maruku/ext/math/mathml_engines/ritex_rb.html">
+                lib/maruku/ext/math/mathml_engines/ritex.rb
+                </a>
+        <br />
+                <a href="../../../files/lib/maruku/ext/math/to_html_rb.html">
+                lib/maruku/ext/math/to_html.rb
+                </a>
+        <br />
+                <a href="../../../files/lib/maruku/output/to_html_rb.html">
+                lib/maruku/output/to_html.rb
+                </a>
+        <br />
+                <a href="../../../files/lib/maruku_rb.html">
+                lib/maruku.rb
+                </a>
+        <br />
+            </td>
+        </tr>
+
+        </table>
+    </div>
+  <!-- banner header -->
+
+  <div id="bodyContent">
+
+
+
+  <div id="contextContent">
+
+    <div id="description">
+      <p>
+Functions for exporting to <a href="HTML.html">HTML</a>.
+</p>
+
+    </div>
+
+
+   </div>
+
+    <div id="method-list">
+      <h3 class="section-bar">Methods</h3>
+
+      <div class="name-list">
+      <a href="#M000166">add_class_to</a>&nbsp;&nbsp;
+      <a href="#M000167">add_class_to_link</a>&nbsp;&nbsp;
+      <a href="#M000142">add_css_to</a>&nbsp;&nbsp;
+      <a href="#M000171">add_ws</a>&nbsp;&nbsp;
+      <a href="#M000134">adjust_png</a>&nbsp;&nbsp;
+      <a href="#M000189">array_to_html</a>&nbsp;&nbsp;
+      <a href="#M000188">children_to_html</a>&nbsp;&nbsp;
+      <a href="#M000126">convert_to_mathml_blahtex</a>&nbsp;&nbsp;
+      <a href="#M000127">convert_to_mathml_itex2mml</a>&nbsp;&nbsp;
+      <a href="#M000128">convert_to_mathml_none</a>&nbsp;&nbsp;
+      <a href="#M000130">convert_to_mathml_ritex</a>&nbsp;&nbsp;
+      <a href="#M000125">convert_to_png_blahtex</a>&nbsp;&nbsp;
+      <a href="#M000129">convert_to_png_none</a>&nbsp;&nbsp;
+      <a href="#M000150">create_html_element</a>&nbsp;&nbsp;
+      <a href="#M000143">day_suffix</a>&nbsp;&nbsp;
+      <a href="#M000145">maruku_html_signature</a>&nbsp;&nbsp;
+      <a href="#M000144">nice_date</a>&nbsp;&nbsp;
+      <a href="#M000172">obfuscate</a>&nbsp;&nbsp;
+      <a href="#M000133">pixels_per_ex</a>&nbsp;&nbsp;
+      <a href="#M000146">render_footnotes</a>&nbsp;&nbsp;
+      <a href="#M000131">render_mathml</a>&nbsp;&nbsp;
+      <a href="#M000132">render_png</a>&nbsp;&nbsp;
+      <a href="#M000160">render_section_number</a>&nbsp;&nbsp;
+      <a href="#M000159">section_number</a>&nbsp;&nbsp;
+      <a href="#M000162">source2html</a>&nbsp;&nbsp;
+      <a href="#M000138">to_html</a>&nbsp;&nbsp;
+      <a href="#M000177">to_html_abbr</a>&nbsp;&nbsp;
+      <a href="#M000185">to_html_cell</a>&nbsp;&nbsp;
+      <a href="#M000163">to_html_code</a>&nbsp;&nbsp;
+      <a href="#M000164">to_html_code_using_pre</a>&nbsp;&nbsp;
+      <a href="#M000180">to_html_definition</a>&nbsp;&nbsp;
+      <a href="#M000182">to_html_definition_data</a>&nbsp;&nbsp;
+      <a href="#M000179">to_html_definition_list</a>&nbsp;&nbsp;
+      <a href="#M000181">to_html_definition_term</a>&nbsp;&nbsp;
+      <a href="#M000139">to_html_document</a>&nbsp;&nbsp;
+      <a href="#M000141">to_html_document_tree</a>&nbsp;&nbsp;
+      <a href="#M000173">to_html_email_address</a>&nbsp;&nbsp;
+      <a href="#M000158">to_html_emphasis</a>&nbsp;&nbsp;
+      <a href="#M000186">to_html_entity</a>&nbsp;&nbsp;
+      <a href="#M000137">to_html_eqref</a>&nbsp;&nbsp;
+      <a href="#M000136">to_html_equation</a>&nbsp;&nbsp;
+      <a href="#M000178">to_html_footnote_reference</a>&nbsp;&nbsp;
+      <a href="#M000184">to_html_head_cell</a>&nbsp;&nbsp;
+      <a href="#M000161">to_html_header</a>&nbsp;&nbsp;
+      <a href="#M000147">to_html_hrule</a>&nbsp;&nbsp;
+      <a href="#M000175">to_html_im_image</a>&nbsp;&nbsp;
+      <a href="#M000170">to_html_im_link</a>&nbsp;&nbsp;
+      <a href="#M000174">to_html_image</a>&nbsp;&nbsp;
+      <a href="#M000168">to_html_immediate_link</a>&nbsp;&nbsp;
+      <a href="#M000165">to_html_inline_code</a>&nbsp;&nbsp;
+      <a href="#M000135">to_html_inline_math</a>&nbsp;&nbsp;
+      <a href="#M000154">to_html_li</a>&nbsp;&nbsp;
+      <a href="#M000155">to_html_li_span</a>&nbsp;&nbsp;
+      <a href="#M000148">to_html_linebreak</a>&nbsp;&nbsp;
+      <a href="#M000169">to_html_link</a>&nbsp;&nbsp;
+      <a href="#M000153">to_html_ol</a>&nbsp;&nbsp;
+      <a href="#M000152">to_html_paragraph</a>&nbsp;&nbsp;
+      <a href="#M000156">to_html_quote</a>&nbsp;&nbsp;
+      <a href="#M000176">to_html_raw_html</a>&nbsp;&nbsp;
+      <a href="#M000190">to_html_ref_definition</a>&nbsp;&nbsp;
+      <a href="#M000157">to_html_strong</a>&nbsp;&nbsp;
+      <a href="#M000183">to_html_table</a>&nbsp;&nbsp;
+      <a href="#M000151">to_html_ul</a>&nbsp;&nbsp;
+      <a href="#M000187">to_html_xml_instr</a>&nbsp;&nbsp;
+      <a href="#M000191">to_latex_ref_definition</a>&nbsp;&nbsp;
+      <a href="#M000149">wrap_as_element</a>&nbsp;&nbsp;
+      <a href="#M000140">xml_newline</a>&nbsp;&nbsp;
+      </div>
+    </div>
+
+  </div>
+
+
+    <!-- if includes -->
+    <div id="includes">
+      <h3 class="section-bar">Included Modules</h3>
+
+      <div id="includes-list">
+        <span class="include-name"><a href="../../REXML.html">REXML</a></span>
+      </div>
+    </div>
+
+    <div id="section">
+
+
+    <div id="constants-list">
+      <h3 class="section-bar">Constants</h3>
+
+      <div class="name-list">
+        <table summary="Constants">
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">PNG</td>
+          <td>=</td>
+          <td class="context-item-value">Struct.new(:src,:depth,:height)</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">BlahtexCache</td>
+          <td>=</td>
+          <td class="context-item-value">PStore.new(&quot;blahtex_cache.pstore&quot;)</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">Xhtml10strict</td>
+          <td>=</td>
+          <td class="context-item-value">&quot; &lt;?xml version='1.0' encoding='utf-8'?&gt; &lt;!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Strict//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'&gt;\n&quot;</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">Xhtml11strict_mathml2</td>
+          <td>=</td>
+          <td class="context-item-value">'&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt; &lt;!DOCTYPE html PUBLIC &quot;-//W3C//DTD XHTML 1.1 plus MathML 2.0//EN&quot;                &quot;http://www.w3.org/TR/MathML2/dtd/xhtml-math11-f.dtd&quot; [   &lt;!ENTITY mathml &quot;http://www.w3.org/1998/Math/MathML&quot;&gt; ]&gt; '</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">Xhtml11_mathml2_svg11</td>
+          <td>=</td>
+          <td class="context-item-value">'&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt; &lt;!DOCTYPE html PUBLIC     &quot;-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN&quot;     &quot;http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd&quot;&gt; '</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">HTML4Attributes</td>
+          <td>=</td>
+          <td class="context-item-value">{}</td>
+        </tr>
+        </table>
+      </div>
+    </div>
+
+
+
+      
+
+
+    <!-- if method_list -->
+    <div id="methods">
+      <h3 class="section-bar">Public Instance methods</h3>
+
+      <div id="method-M000166" class="method-detail">
+        <a name="M000166"></a>
+
+        <div class="method-heading">
+          <a href="HTML.src/M000166.html" target="Code" class="method-signature"
+            onclick="popupCode('HTML.src/M000166.html');return false;">
+          <span class="method-name">add_class_to</span><span class="method-args">(el, cl)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000167" class="method-detail">
+        <a name="M000167"></a>
+
+        <div class="method-heading">
+          <a href="HTML.src/M000167.html" target="Code" class="method-signature"
+            onclick="popupCode('HTML.src/M000167.html');return false;">
+          <span class="method-name">add_class_to_link</span><span class="method-args">(a)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000142" class="method-detail">
+        <a name="M000142"></a>
+
+        <div class="method-heading">
+          <a href="HTML.src/M000142.html" target="Code" class="method-signature"
+            onclick="popupCode('HTML.src/M000142.html');return false;">
+          <span class="method-name">add_css_to</span><span class="method-args">(head)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000171" class="method-detail">
+        <a name="M000171"></a>
+
+        <div class="method-heading">
+          <a href="HTML.src/M000171.html" target="Code" class="method-signature"
+            onclick="popupCode('HTML.src/M000171.html');return false;">
+          <span class="method-name">add_ws</span><span class="method-args">(e)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000134" class="method-detail">
+        <a name="M000134"></a>
+
+        <div class="method-heading">
+          <a href="HTML.src/M000134.html" target="Code" class="method-signature"
+            onclick="popupCode('HTML.src/M000134.html');return false;">
+          <span class="method-name">adjust_png</span><span class="method-args">(png, use_depth)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000189" class="method-detail">
+        <a name="M000189"></a>
+
+        <div class="method-heading">
+          <a href="HTML.src/M000189.html" target="Code" class="method-signature"
+            onclick="popupCode('HTML.src/M000189.html');return false;">
+          <span class="method-name">array_to_html</span><span class="method-args">(array)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000188" class="method-detail">
+        <a name="M000188"></a>
+
+        <div class="method-heading">
+          <a href="HTML.src/M000188.html" target="Code" class="method-signature"
+            onclick="popupCode('HTML.src/M000188.html');return false;">
+          <span class="method-name">children_to_html</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Convert each child to html
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000126" class="method-detail">
+        <a name="M000126"></a>
+
+        <div class="method-heading">
+          <a href="HTML.src/M000126.html" target="Code" class="method-signature"
+            onclick="popupCode('HTML.src/M000126.html');return false;">
+          <span class="method-name">convert_to_mathml_blahtex</span><span class="method-args">(kind, tex)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000127" class="method-detail">
+        <a name="M000127"></a>
+
+        <div class="method-heading">
+          <a href="HTML.src/M000127.html" target="Code" class="method-signature"
+            onclick="popupCode('HTML.src/M000127.html');return false;">
+          <span class="method-name">convert_to_mathml_itex2mml</span><span class="method-args">(kind, tex)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000128" class="method-detail">
+        <a name="M000128"></a>
+
+        <div class="method-heading">
+          <a href="HTML.src/M000128.html" target="Code" class="method-signature"
+            onclick="popupCode('HTML.src/M000128.html');return false;">
+          <span class="method-name">convert_to_mathml_none</span><span class="method-args">(kind, tex)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000130" class="method-detail">
+        <a name="M000130"></a>
+
+        <div class="method-heading">
+          <a href="HTML.src/M000130.html" target="Code" class="method-signature"
+            onclick="popupCode('HTML.src/M000130.html');return false;">
+          <span class="method-name">convert_to_mathml_ritex</span><span class="method-args">(kind, tex)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000125" class="method-detail">
+        <a name="M000125"></a>
+
+        <div class="method-heading">
+          <a href="HTML.src/M000125.html" target="Code" class="method-signature"
+            onclick="popupCode('HTML.src/M000125.html');return false;">
+          <span class="method-name">convert_to_png_blahtex</span><span class="method-args">(kind, tex)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000129" class="method-detail">
+        <a name="M000129"></a>
+
+        <div class="method-heading">
+          <a href="HTML.src/M000129.html" target="Code" class="method-signature"
+            onclick="popupCode('HTML.src/M000129.html');return false;">
+          <span class="method-name">convert_to_png_none</span><span class="method-args">(kind, tex)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000150" class="method-detail">
+        <a name="M000150"></a>
+
+        <div class="method-heading">
+          <a href="HTML.src/M000150.html" target="Code" class="method-signature"
+            onclick="popupCode('HTML.src/M000150.html');return false;">
+          <span class="method-name">create_html_element</span><span class="method-args">(name, attributes_to_copy=[])</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000143" class="method-detail">
+        <a name="M000143"></a>
+
+        <div class="method-heading">
+          <a href="HTML.src/M000143.html" target="Code" class="method-signature"
+            onclick="popupCode('HTML.src/M000143.html');return false;">
+          <span class="method-name">day_suffix</span><span class="method-args">(day)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+returns &quot;st&quot;,&quot;nd&quot;,&quot;rd&quot; or &quot;th&quot; as
+appropriate
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000145" class="method-detail">
+        <a name="M000145"></a>
+
+        <div class="method-heading">
+          <a href="HTML.src/M000145.html" target="Code" class="method-signature"
+            onclick="popupCode('HTML.src/M000145.html');return false;">
+          <span class="method-name">maruku_html_signature</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000144" class="method-detail">
+        <a name="M000144"></a>
+
+        <div class="method-heading">
+          <a href="HTML.src/M000144.html" target="Code" class="method-signature"
+            onclick="popupCode('HTML.src/M000144.html');return false;">
+          <span class="method-name">nice_date</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+formats a nice date
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000172" class="method-detail">
+        <a name="M000172"></a>
+
+        <div class="method-heading">
+          <a href="HTML.src/M000172.html" target="Code" class="method-signature"
+            onclick="popupCode('HTML.src/M000172.html');return false;">
+          <span class="method-name">obfuscate</span><span class="method-args">(s)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Email address
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000133" class="method-detail">
+        <a name="M000133"></a>
+
+        <div class="method-heading">
+          <a href="HTML.src/M000133.html" target="Code" class="method-signature"
+            onclick="popupCode('HTML.src/M000133.html');return false;">
+          <span class="method-name">pixels_per_ex</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000146" class="method-detail">
+        <a name="M000146"></a>
+
+        <div class="method-heading">
+          <a href="HTML.src/M000146.html" target="Code" class="method-signature"
+            onclick="popupCode('HTML.src/M000146.html');return false;">
+          <span class="method-name">render_footnotes</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000131" class="method-detail">
+        <a name="M000131"></a>
+
+        <div class="method-heading">
+          <a href="HTML.src/M000131.html" target="Code" class="method-signature"
+            onclick="popupCode('HTML.src/M000131.html');return false;">
+          <span class="method-name">render_mathml</span><span class="method-args">(kind, tex)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Creates an xml Mathml document of self.math
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000132" class="method-detail">
+        <a name="M000132"></a>
+
+        <div class="method-heading">
+          <a href="HTML.src/M000132.html" target="Code" class="method-signature"
+            onclick="popupCode('HTML.src/M000132.html');return false;">
+          <span class="method-name">render_png</span><span class="method-args">(kind, tex)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Creates an xml Mathml document of self.math
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000160" class="method-detail">
+        <a name="M000160"></a>
+
+        <div class="method-heading">
+          <a href="HTML.src/M000160.html" target="Code" class="method-signature"
+            onclick="popupCode('HTML.src/M000160.html');return false;">
+          <span class="method-name">render_section_number</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+nil if not applicable, else SPAN element
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000159" class="method-detail">
+        <a name="M000159"></a>
+
+        <div class="method-heading">
+          <a href="HTML.src/M000159.html" target="Code" class="method-signature"
+            onclick="popupCode('HTML.src/M000159.html');return false;">
+          <span class="method-name">section_number</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+nil if not applicable, else string
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000162" class="method-detail">
+        <a name="M000162"></a>
+
+        <div class="method-heading">
+          <a href="HTML.src/M000162.html" target="Code" class="method-signature"
+            onclick="popupCode('HTML.src/M000162.html');return false;">
+          <span class="method-name">source2html</span><span class="method-args">(source)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000138" class="method-detail">
+        <a name="M000138"></a>
+
+        <div class="method-heading">
+          <a href="HTML.src/M000138.html" target="Code" class="method-signature"
+            onclick="popupCode('HTML.src/M000138.html');return false;">
+          <span class="method-name">to_html</span><span class="method-args">(context={})</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Render as an <a href="HTML.html">HTML</a> fragment (no head, just the
+content of BODY). (returns a string)
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000177" class="method-detail">
+        <a name="M000177"></a>
+
+        <div class="method-heading">
+          <a href="HTML.src/M000177.html" target="Code" class="method-signature"
+            onclick="popupCode('HTML.src/M000177.html');return false;">
+          <span class="method-name">to_html_abbr</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000185" class="method-detail">
+        <a name="M000185"></a>
+
+        <div class="method-heading">
+          <a href="HTML.src/M000185.html" target="Code" class="method-signature"
+            onclick="popupCode('HTML.src/M000185.html');return false;">
+          <span class="method-name">to_html_cell</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000163" class="method-detail">
+        <a name="M000163"></a>
+
+        <div class="method-heading">
+          <a href="HTML.src/M000163.html" target="Code" class="method-signature"
+            onclick="popupCode('HTML.src/M000163.html');return false;">
+          <span class="method-name">to_html_code</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000164" class="method-detail">
+        <a name="M000164"></a>
+
+        <div class="method-heading">
+          <a href="HTML.src/M000164.html" target="Code" class="method-signature"
+            onclick="popupCode('HTML.src/M000164.html');return false;">
+          <span class="method-name">to_html_code_using_pre</span><span class="method-args">(source)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000180" class="method-detail">
+        <a name="M000180"></a>
+
+        <div class="method-heading">
+          <a href="HTML.src/M000180.html" target="Code" class="method-signature"
+            onclick="popupCode('HTML.src/M000180.html');return false;">
+          <span class="method-name">to_html_definition</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000182" class="method-detail">
+        <a name="M000182"></a>
+
+        <div class="method-heading">
+          <a href="HTML.src/M000182.html" target="Code" class="method-signature"
+            onclick="popupCode('HTML.src/M000182.html');return false;">
+          <span class="method-name">to_html_definition_data</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000179" class="method-detail">
+        <a name="M000179"></a>
+
+        <div class="method-heading">
+          <a href="HTML.src/M000179.html" target="Code" class="method-signature"
+            onclick="popupCode('HTML.src/M000179.html');return false;">
+          <span class="method-name">to_html_definition_list</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Definition lists ###
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000181" class="method-detail">
+        <a name="M000181"></a>
+
+        <div class="method-heading">
+          <a href="HTML.src/M000181.html" target="Code" class="method-signature"
+            onclick="popupCode('HTML.src/M000181.html');return false;">
+          <span class="method-name">to_html_definition_term</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000139" class="method-detail">
+        <a name="M000139"></a>
+
+        <div class="method-heading">
+          <a href="HTML.src/M000139.html" target="Code" class="method-signature"
+            onclick="popupCode('HTML.src/M000139.html');return false;">
+          <span class="method-name">to_html_document</span><span class="method-args">(context={})</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Render to a complete <a href="HTML.html">HTML</a> document (returns a
+string)
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000141" class="method-detail">
+        <a name="M000141"></a>
+
+        <div class="method-heading">
+          <a href="HTML.src/M000141.html" target="Code" class="method-signature"
+            onclick="popupCode('HTML.src/M000141.html');return false;">
+          <span class="method-name">to_html_document_tree</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Render to a complete <a href="HTML.html">HTML</a> document (returns a <a
+href="../../REXML.html">REXML</a> document tree)
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000173" class="method-detail">
+        <a name="M000173"></a>
+
+        <div class="method-heading">
+          <a href="HTML.src/M000173.html" target="Code" class="method-signature"
+            onclick="popupCode('HTML.src/M000173.html');return false;">
+          <span class="method-name">to_html_email_address</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000158" class="method-detail">
+        <a name="M000158"></a>
+
+        <div class="method-heading">
+          <a href="HTML.src/M000158.html" target="Code" class="method-signature"
+            onclick="popupCode('HTML.src/M000158.html');return false;">
+          <span class="method-name">to_html_emphasis</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000186" class="method-detail">
+        <a name="M000186"></a>
+
+        <div class="method-heading">
+          <a href="HTML.src/M000186.html" target="Code" class="method-signature"
+            onclick="popupCode('HTML.src/M000186.html');return false;">
+          <span class="method-name">to_html_entity</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000137" class="method-detail">
+        <a name="M000137"></a>
+
+        <div class="method-heading">
+          <a href="HTML.src/M000137.html" target="Code" class="method-signature"
+            onclick="popupCode('HTML.src/M000137.html');return false;">
+          <span class="method-name">to_html_eqref</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000136" class="method-detail">
+        <a name="M000136"></a>
+
+        <div class="method-heading">
+          <a href="HTML.src/M000136.html" target="Code" class="method-signature"
+            onclick="popupCode('HTML.src/M000136.html');return false;">
+          <span class="method-name">to_html_equation</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000178" class="method-detail">
+        <a name="M000178"></a>
+
+        <div class="method-heading">
+          <a href="HTML.src/M000178.html" target="Code" class="method-signature"
+            onclick="popupCode('HTML.src/M000178.html');return false;">
+          <span class="method-name">to_html_footnote_reference</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000184" class="method-detail">
+        <a name="M000184"></a>
+
+        <div class="method-heading">
+          <a href="HTML.src/M000184.html" target="Code" class="method-signature"
+            onclick="popupCode('HTML.src/M000184.html');return false;">
+          <span class="method-name">to_html_head_cell</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000161" class="method-detail">
+        <a name="M000161"></a>
+
+        <div class="method-heading">
+          <a href="HTML.src/M000161.html" target="Code" class="method-signature"
+            onclick="popupCode('HTML.src/M000161.html');return false;">
+          <span class="method-name">to_html_header</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000147" class="method-detail">
+        <a name="M000147"></a>
+
+        <div class="method-heading">
+          <a href="HTML.src/M000147.html" target="Code" class="method-signature"
+            onclick="popupCode('HTML.src/M000147.html');return false;">
+          <span class="method-name">to_html_hrule</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000175" class="method-detail">
+        <a name="M000175"></a>
+
+        <div class="method-heading">
+          <a href="HTML.src/M000175.html" target="Code" class="method-signature"
+            onclick="popupCode('HTML.src/M000175.html');return false;">
+          <span class="method-name">to_html_im_image</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000170" class="method-detail">
+        <a name="M000170"></a>
+
+        <div class="method-heading">
+          <a href="HTML.src/M000170.html" target="Code" class="method-signature"
+            onclick="popupCode('HTML.src/M000170.html');return false;">
+          <span class="method-name">to_html_im_link</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000174" class="method-detail">
+        <a name="M000174"></a>
+
+        <div class="method-heading">
+          <a href="HTML.src/M000174.html" target="Code" class="method-signature"
+            onclick="popupCode('HTML.src/M000174.html');return false;">
+          <span class="method-name">to_html_image</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Images
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000168" class="method-detail">
+        <a name="M000168"></a>
+
+        <div class="method-heading">
+          <a href="HTML.src/M000168.html" target="Code" class="method-signature"
+            onclick="popupCode('HTML.src/M000168.html');return false;">
+          <span class="method-name">to_html_immediate_link</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000165" class="method-detail">
+        <a name="M000165"></a>
+
+        <div class="method-heading">
+          <a href="HTML.src/M000165.html" target="Code" class="method-signature"
+            onclick="popupCode('HTML.src/M000165.html');return false;">
+          <span class="method-name">to_html_inline_code</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000135" class="method-detail">
+        <a name="M000135"></a>
+
+        <div class="method-heading">
+          <a href="HTML.src/M000135.html" target="Code" class="method-signature"
+            onclick="popupCode('HTML.src/M000135.html');return false;">
+          <span class="method-name">to_html_inline_math</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000154" class="method-detail">
+        <a name="M000154"></a>
+
+        <div class="method-heading">
+          <a href="HTML.src/M000154.html" target="Code" class="method-signature"
+            onclick="popupCode('HTML.src/M000154.html');return false;">
+          <span class="method-name">to_html_li</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000155" class="method-detail">
+        <a name="M000155"></a>
+
+        <div class="method-heading">
+          <a href="HTML.src/M000155.html" target="Code" class="method-signature"
+            onclick="popupCode('HTML.src/M000155.html');return false;">
+          <span class="method-name">to_html_li_span</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000148" class="method-detail">
+        <a name="M000148"></a>
+
+        <div class="method-heading">
+          <a href="HTML.src/M000148.html" target="Code" class="method-signature"
+            onclick="popupCode('HTML.src/M000148.html');return false;">
+          <span class="method-name">to_html_linebreak</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000169" class="method-detail">
+        <a name="M000169"></a>
+
+        <div class="method-heading">
+          <a href="HTML.src/M000169.html" target="Code" class="method-signature"
+            onclick="popupCode('HTML.src/M000169.html');return false;">
+          <span class="method-name">to_html_link</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000153" class="method-detail">
+        <a name="M000153"></a>
+
+        <div class="method-heading">
+          <a href="HTML.src/M000153.html" target="Code" class="method-signature"
+            onclick="popupCode('HTML.src/M000153.html');return false;">
+          <span class="method-name">to_html_ol</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000152" class="method-detail">
+        <a name="M000152"></a>
+
+        <div class="method-heading">
+          <a href="HTML.src/M000152.html" target="Code" class="method-signature"
+            onclick="popupCode('HTML.src/M000152.html');return false;">
+          <span class="method-name">to_html_paragraph</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000156" class="method-detail">
+        <a name="M000156"></a>
+
+        <div class="method-heading">
+          <a href="HTML.src/M000156.html" target="Code" class="method-signature"
+            onclick="popupCode('HTML.src/M000156.html');return false;">
+          <span class="method-name">to_html_quote</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000176" class="method-detail">
+        <a name="M000176"></a>
+
+        <div class="method-heading">
+          <a href="HTML.src/M000176.html" target="Code" class="method-signature"
+            onclick="popupCode('HTML.src/M000176.html');return false;">
+          <span class="method-name">to_html_raw_html</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000190" class="method-detail">
+        <a name="M000190"></a>
+
+        <div class="method-heading">
+          <a href="HTML.src/M000190.html" target="Code" class="method-signature"
+            onclick="popupCode('HTML.src/M000190.html');return false;">
+          <span class="method-name">to_html_ref_definition</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000157" class="method-detail">
+        <a name="M000157"></a>
+
+        <div class="method-heading">
+          <a href="HTML.src/M000157.html" target="Code" class="method-signature"
+            onclick="popupCode('HTML.src/M000157.html');return false;">
+          <span class="method-name">to_html_strong</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000183" class="method-detail">
+        <a name="M000183"></a>
+
+        <div class="method-heading">
+          <a href="HTML.src/M000183.html" target="Code" class="method-signature"
+            onclick="popupCode('HTML.src/M000183.html');return false;">
+          <span class="method-name">to_html_table</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+FIXME: Ugly code
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000151" class="method-detail">
+        <a name="M000151"></a>
+
+        <div class="method-heading">
+          <a href="HTML.src/M000151.html" target="Code" class="method-signature"
+            onclick="popupCode('HTML.src/M000151.html');return false;">
+          <span class="method-name">to_html_ul</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000187" class="method-detail">
+        <a name="M000187"></a>
+
+        <div class="method-heading">
+          <a href="HTML.src/M000187.html" target="Code" class="method-signature"
+            onclick="popupCode('HTML.src/M000187.html');return false;">
+          <span class="method-name">to_html_xml_instr</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000191" class="method-detail">
+        <a name="M000191"></a>
+
+        <div class="method-heading">
+          <a href="HTML.src/M000191.html" target="Code" class="method-signature"
+            onclick="popupCode('HTML.src/M000191.html');return false;">
+          <span class="method-name">to_latex_ref_definition</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000149" class="method-detail">
+        <a name="M000149"></a>
+
+        <div class="method-heading">
+          <a href="HTML.src/M000149.html" target="Code" class="method-signature"
+            onclick="popupCode('HTML.src/M000149.html');return false;">
+          <span class="method-name">wrap_as_element</span><span class="method-args">(name, attributes_to_copy=[])</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+renders children as html and wraps into an element of given name
+</p>
+<p>
+Sets &#8216;id&#8217; if meta is set
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000140" class="method-detail">
+        <a name="M000140"></a>
+
+        <div class="method-heading">
+          <a href="HTML.src/M000140.html" target="Code" class="method-signature"
+            onclick="popupCode('HTML.src/M000140.html');return false;">
+          <span class="method-name">xml_newline</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+
+    </div>
+
+
+  </div>
+
+
+<div id="validator-badges">
+  <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+</div>
+
+</body>
+</html>

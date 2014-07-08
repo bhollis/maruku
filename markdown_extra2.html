@@ -1,0 +1,87 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Strict//EN'
+'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'>
+<html lang='en' xml:lang='en' xmlns='http://www.w3.org/1999/xhtml'>
+<head><meta content='text/html; charset=utf-8' http-equiv='Content-type' />
+<title></title>
+
+<link href='style.css' rel='stylesheet' type='text/css' />
+</head>
+<body>
+<h2 id='syntax_for_metadata'>Syntax for meta-data</h2>
+
+<h3 id='shortcuts'>Shortcuts</h3>
+
+<p>One sure thing is that in attributes list <code>#myid</code> is a shortcut for <code>id: myid</code> and <code>.myclass</code> is a shortcut for <code>class: myclass</code>.</p>
+
+<h3 id='metadata_for_headers'>Meta-data for headers</h3>
+
+<p>For headers, you want to put metadata in the <code>{}</code> on the same line:</p>
+
+<pre><code>### Header ###     {#myid}
+
+Header     {#myid .myclass}
+------
+</code></pre>
+
+<h3 id='metadata_for_blocklevel_elements'>Meta-data for block-level elements</h3>
+
+<p>For paragraphs and other block-level elements, you want to put the <code>{}</code> on the line below:</p>
+
+<pre><code>This is a paragraph.
+Line 2 of the paragraph.
+
+{#myid .myclass}
+
+A quote with a citation url:
+&gt; Who said that?
+{cite=google.com}
+</code></pre>
+
+<h3 id='metadata_for_spanlevel_elements'>Meta-data for span-level elements</h3>
+
+<p>Moreover, you want to use a similar syntax for span-level elements. For example, in this:</p>
+
+<pre><code>This is a paragraph. *chunky*{#id1}
+{#id2}</code></pre>
+
+<p>you are setting the id attribute to the <code>em</code> element to <code>id1</code> and the id of the paragraph to <code>id2</code>.</p>
+
+<p>This works also for links, like this:</p>
+
+<pre><code>This is [a link][ref]{#myid rel=abc rev=abc}
+</code></pre>
+
+<p>For images, it should be that </p>
+
+<pre><code>This is ![Alt text](url &quot;fresh carrots&quot;)
+</code></pre>
+
+<p>is equivalent to</p>
+
+<pre><code>This is ![Alt text](url){title=&quot;fresh carrots&quot;}
+</code></pre>
+
+<h3 id='using_references'>Using references</h3>
+
+<p>Then, it is possible to use references: <code>{&lt;number&gt;}</code> is threated as a reference (it is not ambiguous as attribute names cannot start with digits) and one can write:</p>
+
+<pre><code>### My header ### {1}
+This is a paragraph with 
+para para para
+{2}
+
+{1}: #header-id
+{2}: #paragraph-id</code></pre>
+
+<p>which is equivalent to:</p>
+
+<pre><code>### My header ### {#header-id}
+This is a paragraph with 
+para para para
+{#paragraph-id}</code></pre>
+
+<div class='maruku_signature'>
+<hr />
+<span style='font-size: small; font-style: italic'>Created by <a href='http://maruku.rubyforge.org' title='Maruku: a Markdown interpreter'>Maruku</a> at 01:28 on Wednesday, January 03rd, 2007.</span></div>
+</body></html>

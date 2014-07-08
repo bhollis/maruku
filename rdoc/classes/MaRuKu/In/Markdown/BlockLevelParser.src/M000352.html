@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>read_ald (MaRuKu::In::Markdown::BlockLevelParser)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/maruku/input/parse_block.rb, line 154</span>
+        <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">read_ald</span>(<span class="ruby-identifier">src</span>)
+                <span class="ruby-keyword kw">if</span> (<span class="ruby-identifier">l</span>=<span class="ruby-identifier">src</span>.<span class="ruby-identifier">shift_line</span>) <span class="ruby-operator">=~</span> <span class="ruby-constant">AttributeDefinitionList</span>
+                        <span class="ruby-identifier">id</span> = <span class="ruby-identifier">$1</span>;   <span class="ruby-identifier">al</span>=<span class="ruby-identifier">$2</span>;
+                        <span class="ruby-identifier">al</span> = <span class="ruby-identifier">read_attribute_list</span>(<span class="ruby-constant">CharSource</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">al</span>,<span class="ruby-identifier">src</span>), <span class="ruby-identifier">context</span>=<span class="ruby-keyword kw">nil</span>, <span class="ruby-identifier">break_on</span>=[<span class="ruby-keyword kw">nil</span>])
+                        <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">ald</span>[<span class="ruby-identifier">id</span>] = <span class="ruby-identifier">al</span>;
+                        <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">md_ald</span>(<span class="ruby-identifier">id</span>, <span class="ruby-identifier">al</span>)
+                <span class="ruby-keyword kw">else</span>
+                        <span class="ruby-identifier">maruku_error</span> <span class="ruby-node">&quot;Bug Bug:\n#{l.inspect}&quot;</span>
+                        <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">nil</span>
+                <span class="ruby-keyword kw">end</span>
+        <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

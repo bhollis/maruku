@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>read_abbreviation (MaRuKu::In::Markdown::BlockLevelParser)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/maruku/input/parse_block.rb, line 293</span>
+        <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">read_abbreviation</span>(<span class="ruby-identifier">src</span>)
+                <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">not</span> (<span class="ruby-identifier">l</span>=<span class="ruby-identifier">src</span>.<span class="ruby-identifier">shift_line</span>) <span class="ruby-operator">=~</span> <span class="ruby-constant">Abbreviation</span>
+                        <span class="ruby-identifier">maruku_error</span> <span class="ruby-node">&quot;Bug: it's Andrea's fault. Tell him.\n#{l.inspect}&quot;</span>
+                <span class="ruby-keyword kw">end</span>
+                
+                <span class="ruby-identifier">abbr</span> = <span class="ruby-identifier">$1</span>
+                <span class="ruby-identifier">desc</span> = <span class="ruby-identifier">$2</span>
+                
+                <span class="ruby-keyword kw">if</span> (<span class="ruby-keyword kw">not</span> <span class="ruby-identifier">abbr</span>) <span class="ruby-keyword kw">or</span> (<span class="ruby-identifier">abbr</span>.<span class="ruby-identifier">size</span><span class="ruby-operator">==</span><span class="ruby-value">0</span>)
+                        <span class="ruby-identifier">maruku_error</span> <span class="ruby-node">&quot;Bad abbrev. abbr=#{abbr.inspect} desc=#{desc.inspect}&quot;</span>
+                <span class="ruby-keyword kw">end</span>
+                
+                <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">abbreviations</span>[<span class="ruby-identifier">abbr</span>] = <span class="ruby-identifier">desc</span>
+                
+                <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">md_abbr_def</span>(<span class="ruby-identifier">abbr</span>, <span class="ruby-identifier">desc</span>)
+        <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

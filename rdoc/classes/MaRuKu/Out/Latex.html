@@ -1,0 +1,768 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>Module: MaRuKu::Out::Latex</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+  <script type="text/javascript">
+  // <![CDATA[
+
+  function popupCode( url ) {
+    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+  }
+
+  function toggleCode( id ) {
+    if ( document.getElementById )
+      elem = document.getElementById( id );
+    else if ( document.all )
+      elem = eval( "document.all." + id );
+    else
+      return false;
+
+    elemStyle = elem.style;
+    
+    if ( elemStyle.display != "block" ) {
+      elemStyle.display = "block"
+    } else {
+      elemStyle.display = "none"
+    }
+
+    return true;
+  }
+  
+  // Make codeblocks hidden by default
+  document.writeln( "<style type=\"text/css\">div.method-source-code { display: none }</style>" )
+  
+  // ]]>
+  </script>
+
+</head>
+<body>
+
+
+
+    <div id="classHeader">
+        <table class="header-table">
+        <tr class="top-aligned-row">
+          <td><strong>Module</strong></td>
+          <td class="class-name-in-header">MaRuKu::Out::Latex</td>
+        </tr>
+        <tr class="top-aligned-row">
+            <td><strong>In:</strong></td>
+            <td>
+                <a href="../../../files/lib/maruku/ext/math/to_latex_rb.html">
+                lib/maruku/ext/math/to_latex.rb
+                </a>
+        <br />
+                <a href="../../../files/lib/maruku/output/to_latex_rb.html">
+                lib/maruku/output/to_latex.rb
+                </a>
+        <br />
+                <a href="../../../files/lib/maruku/output/to_latex_entities_rb.html">
+                lib/maruku/output/to_latex_entities.rb
+                </a>
+        <br />
+                <a href="../../../files/lib/maruku_rb.html">
+                lib/maruku.rb
+                </a>
+        <br />
+            </td>
+        </tr>
+
+        </table>
+    </div>
+  <!-- banner header -->
+
+  <div id="bodyContent">
+
+
+
+  <div id="contextContent">
+
+    <div id="description">
+      <p>
+Functions for exporting to <a href="Latex.html">Latex</a>
+</p>
+
+    </div>
+
+
+   </div>
+
+    <div id="method-list">
+      <h3 class="section-bar">Methods</h3>
+
+      <div class="name-list">
+      <a href="#M000226">array_to_latex</a>&nbsp;&nbsp;
+      <a href="#M000225">children_to_latex</a>&nbsp;&nbsp;
+      <a href="#M000229">init_entity_table</a>&nbsp;&nbsp;
+      <a href="#M000198">latex_color</a>&nbsp;&nbsp;
+      <a href="#M000210">latex_escape</a>&nbsp;&nbsp;
+      <a href="#M000228">need_entity_table</a>&nbsp;&nbsp;
+      <a href="#M000223">to_latex_abbr</a>&nbsp;&nbsp;
+      <a href="#M000218">to_latex_cell</a>&nbsp;&nbsp;
+      <a href="#M000199">to_latex_code</a>&nbsp;&nbsp;
+      <a href="#M000222">to_latex_definition</a>&nbsp;&nbsp;
+      <a href="#M000221">to_latex_definition_list</a>&nbsp;&nbsp;
+      <a href="#M000215">to_latex_email_address</a>&nbsp;&nbsp;
+      <a href="#M000207">to_latex_emphasis</a>&nbsp;&nbsp;
+      <a href="#M000227">to_latex_entity</a>&nbsp;&nbsp;
+      <a href="#M000194">to_latex_eqref</a>&nbsp;&nbsp;
+      <a href="#M000193">to_latex_equation</a>&nbsp;&nbsp;
+      <a href="#M000219">to_latex_footnote_reference</a>&nbsp;&nbsp;
+      <a href="#M000217">to_latex_head_cell</a>&nbsp;&nbsp;
+      <a href="#M000200">to_latex_header</a>&nbsp;&nbsp;
+      <a href="#M000195">to_latex_hrule</a>&nbsp;&nbsp;
+      <a href="#M000213">to_latex_im_link</a>&nbsp;&nbsp;
+      <a href="#M000224">to_latex_image</a>&nbsp;&nbsp;
+      <a href="#M000212">to_latex_immediate_link</a>&nbsp;&nbsp;
+      <a href="#M000211">to_latex_inline_code</a>&nbsp;&nbsp;
+      <a href="#M000192">to_latex_inline_math</a>&nbsp;&nbsp;
+      <a href="#M000204">to_latex_li</a>&nbsp;&nbsp;
+      <a href="#M000205">to_latex_li_span</a>&nbsp;&nbsp;
+      <a href="#M000196">to_latex_linebreak</a>&nbsp;&nbsp;
+      <a href="#M000214">to_latex_link</a>&nbsp;&nbsp;
+      <a href="#M000203">to_latex_ol</a>&nbsp;&nbsp;
+      <a href="#M000197">to_latex_paragraph</a>&nbsp;&nbsp;
+      <a href="#M000202">to_latex_quote</a>&nbsp;&nbsp;
+      <a href="#M000220">to_latex_raw_html</a>&nbsp;&nbsp;
+      <a href="#M000206">to_latex_strong</a>&nbsp;&nbsp;
+      <a href="#M000216">to_latex_table</a>&nbsp;&nbsp;
+      <a href="#M000201">to_latex_ul</a>&nbsp;&nbsp;
+      <a href="#M000209">wrap_as_environment</a>&nbsp;&nbsp;
+      <a href="#M000208">wrap_as_span</a>&nbsp;&nbsp;
+      </div>
+    </div>
+
+  </div>
+
+
+    <!-- if includes -->
+    <div id="includes">
+      <h3 class="section-bar">Included Modules</h3>
+
+      <div id="includes-list">
+        <span class="include-name"><a href="../../REXML.html">REXML</a></span>
+      </div>
+    </div>
+
+    <div id="section">
+
+    <div id="class-list">
+      <h3 class="section-bar">Classes and Modules</h3>
+
+      Class <a href="Latex/LatexEntity.html" class="link">MaRuKu::Out::Latex::LatexEntity</a><br />
+
+    </div>
+
+    <div id="constants-list">
+      <h3 class="section-bar">Constants</h3>
+
+      <div class="name-list">
+        <table summary="Constants">
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">TexHeaders</td>
+          <td>=</td>
+          <td class="context-item-value">{                 1=&gt;'section',                 2=&gt;'subsection',                 3=&gt;'subsubsection',                 4=&gt;'paragraph'}</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">SAFE_CHARS</td>
+          <td>=</td>
+          <td class="context-item-value">Set.new((?a..?z).to_a + (?A..?Z).to_a)</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">ENTITY_TABLE</td>
+          <td>=</td>
+          <td class="context-item-value">{}</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">XML_TABLE</td>
+          <td>=</td>
+          <td class="context-item-value">&quot;         &lt;chars&gt;           &lt;char num='913' name='Alpha' convertTo='$A$' /&gt;           &lt;char num='914' name='Beta' convertTo='$B$' /&gt;           &lt;char num='915' name='Gamma' convertTo='$\\Gamma$' /&gt;           &lt;char num='916' name='Delta' convertTo='$\\Delta$' /&gt;           &lt;char num='917' name='Epsilon' convertTo='$E$' /&gt;           &lt;char num='918' name='Zeta' convertTo='$Z$' /&gt;           &lt;char num='919' name='Eta' convertTo='$H$' /&gt;           &lt;char num='920' name='Theta' convertTo='$\\Theta$' /&gt;           &lt;char num='921' name='Iota' convertTo='$I$' /&gt;           &lt;char num='922' name='Kappa' convertTo='$K$' /&gt;           &lt;char num='923' name='Lambda' convertTo='$\\Lambda$' /&gt;           &lt;char num='924' name='Mu' convertTo='$M$' /&gt;           &lt;char num='925' name='Nu' convertTo='$N$' /&gt;           &lt;char num='926' name='Xi' convertTo='$\\Xi$' /&gt;           &lt;char num='927' name='Omicron' convertTo='$O$' /&gt;           &lt;char num='928' name='Pi' convertTo='$\\Pi$' /&gt;           &lt;char num='929' name='Rho' convertTo='$P$' /&gt;           &lt;char num='931' name='Sigma' convertTo='$\\Sigma$' /&gt;           &lt;char num='932' name='Tau' convertTo='$T$' /&gt;           &lt;char num='933' name='Upsilon' convertTo='$Y$' /&gt;           &lt;char num='934' name='Phi' convertTo='$\\Phi$' /&gt;           &lt;char num='935' name='Chi' convertTo='$X$' /&gt;           &lt;char num='936' name='Psi' convertTo='$\\Psi$' /&gt;           &lt;char num='937' name='Omega' convertTo='$\\Omega$' /&gt;           &lt;char num='945' name='alpha' convertTo='$\\alpha$' /&gt;           &lt;char num='946' name='beta' convertTo='$\\beta$' /&gt;           &lt;char num='947' name='gamma' convertTo='$\\gamma$' /&gt;           &lt;char num='948' name='delta' convertTo='$\\delta$' /&gt;           &lt;char num='949' name='epsilon' convertTo='$\\epsilon$' /&gt;           &lt;char num='950' name='zeta' convertTo='$\\zeta$' /&gt;           &lt;char num='951' name='eta' convertTo='$\\eta$' /&gt;           &lt;char num='952' name='theta' convertTo='$\\theta$' /&gt;           &lt;char num='953' name='iota' convertTo='$\\iota$' /&gt;           &lt;char num='954' name='kappa' convertTo='$\\kappa$' /&gt;           &lt;char num='955' name='lambda' convertTo='$\\lambda$' /&gt;           &lt;char num='956' name='mu' convertTo='$\\mu$' /&gt;            &lt;char num='957' name='nu' convertTo='$\\nu$' /&gt;           &lt;char num='958' name='xi' convertTo='$\\xi$' /&gt;           &lt;char num='959' name='omicron' convertTo='$o$' /&gt;           &lt;char num='960' name='pi' convertTo='$\\pi$' /&gt;           &lt;char num='961' name='rho' convertTo='$\\rho$' /&gt;           &lt;char num='963' name='sigma' convertTo='$\\sigma$' /&gt;           &lt;char num='964' name='tau' convertTo='$\\tau$' /&gt;           &lt;char num='965' name='upsilon' convertTo='$\\upsilon$' /&gt;           &lt;char num='966' name='phi' convertTo='$\\phi$' /&gt;            &lt;char num='967' name='chi' convertTo='$\\chi$' /&gt;           &lt;char num='968' name='psi' convertTo='$\\psi$' /&gt;           &lt;char num='969' name='omega' convertTo='$\\omega$' /&gt;           &lt;char num='962' name='sigmaf' convertTo='$\\varsigma$' /&gt;           &lt;char num='977' name='thetasym' convertTo='$\\vartheta$' /&gt;           &lt;char num='982' name='piv' convertTo='$\\varpi$' /&gt;           &lt;char num='8230' name='hellip' convertTo='\\ldots' /&gt;           &lt;char num='8242' name='prime' convertTo='$\\prime$' /&gt;           &lt;char num='8254' name='oline' convertTo='-' /&gt;            &lt;char num='8260' name='frasl' convertTo='/' /&gt;           &lt;char num='8472' name='weierp' convertTo='$\\wp$' /&gt;           &lt;char num='8465' name='image' convertTo='$\\Im$' /&gt;           &lt;char num='8476' name='real' convertTo='$\\Re$' /&gt;           &lt;char num='8501' name='alefsym' convertTo='$\\aleph$' /&gt;           &lt;char num='8226' name='bull' convertTo='$\\bullet$' /&gt;           &lt;char num='8482' name='trade' convertTo='$^{\\rm TM}$' /&gt; &lt;!-- \texttrademark --&gt;           &lt;char num='8592' name='larr' convertTo='$\\leftarrow$' /&gt;            &lt;char num='8594' name='rarr' convertTo='$\\rightarrow$' /&gt;           &lt;char num='8593' name='uarr' convertTo='$\\uparrow$' /&gt;           &lt;char num='8595' name='darr' convertTo='$\\downarrow$' /&gt;           &lt;char num='8596' name='harr' convertTo='$\\leftrightarrow$' /&gt;           &lt;char num='8629' name='crarr' convertTo='$\\hookleftarrow$' /&gt;           &lt;char num='8657' name='uArr' convertTo='$\\Uparrow$' /&gt;           &lt;char num='8659' name='dArr' convertTo='$\\Downarrow$' /&gt;           &lt;char num='8656' name='lArr' convertTo='$\\Leftarrow$' /&gt;           &lt;char num='8658' name='rArr' convertTo='$\\Rightarrow$' /&gt;            &lt;char num='8660' name='hArr' convertTo='$\\Leftrightarrow$' /&gt;           &lt;char num='8704' name='forall' convertTo='$\\forall$' /&gt;           &lt;char num='8706' name='part' convertTo='$\\partial$' /&gt;           &lt;char num='8707' name='exist' convertTo='$\\exists$' /&gt;           &lt;char num='8709' name='empty' convertTo='$\\emptyset$' /&gt;           &lt;char num='8711' name='nabla' convertTo='$\\nabla$' /&gt;           &lt;char num='8712' name='isin' convertTo='$\\in$' /&gt;           &lt;char num='8715' name='ni' convertTo='$\\ni$' /&gt;           &lt;char num='8713' name='notin' convertTo='$\\notin$' /&gt;            &lt;char num='8721' name='sum' convertTo='$\\sum$' /&gt;           &lt;char num='8719' name='prod' convertTo='$\\prod$' /&gt;           &lt;char num='8722' name='minus' convertTo='$-$' /&gt;           &lt;char num='8727' name='lowast' convertTo='$\\ast$' /&gt;           &lt;char num='8730' name='radic' convertTo='$\\surd$' /&gt;           &lt;char num='8733' name='prop' convertTo='$\\propto$' /&gt;           &lt;char num='8734' name='infin' convertTo='$\\infty$' /&gt;           &lt;char num='8736' name='ang' convertTo='$\\angle$' /&gt;           &lt;char num='8743' name='and' convertTo='$\\wedge$' /&gt;            &lt;char num='8744' name='or' convertTo='$\\vee$' /&gt;           &lt;char num='8745' name='cup' convertTo='$\\cup$' /&gt;           &lt;char num='8746' name='cap' convertTo='$\\cap$' /&gt;           &lt;char num='8747' name='int' convertTo='$\\int$' /&gt;           &lt;char num='8756' name='there4' convertTo='$\\therefore$' package='amssymb' /&gt; &lt;!-- only AMS --&gt;           &lt;char num='8764' name='sim' convertTo='$\\sim$' /&gt;           &lt;char num='8776' name='asymp' convertTo='$\\approx$' /&gt;           &lt;char num='8773' name='cong' convertTo='$\\cong$' /&gt;            &lt;char num='8800' name='ne' convertTo='$\\neq$' /&gt;           &lt;char num='8801' name='equiv' convertTo='$\\equiv$' /&gt;           &lt;char num='8804' name='le' convertTo='$\\leq$' /&gt;           &lt;char num='8805' name='ge' convertTo='$\\geq$' /&gt;           &lt;char num='8834' name='sub' convertTo='$\\subset$' /&gt;           &lt;char num='8835' name='sup' convertTo='$\\supset$' /&gt; &lt;!--      &lt;char num='8838' name='sube' convertTo='$\\subseteq$' /&gt;--&gt;           &lt;char num='8839' name='supe' convertTo='$\\supseteq$' /&gt; &lt;!--      &lt;char num='8836' name='nsub' convertTo='$\\nsubset$'  /&gt; &lt;!-- only AMS --&gt;            &lt;char num='8853' name='oplus' convertTo='$\\oplus$' /&gt;           &lt;char num='8855' name='otimes' convertTo='$\\otimes$' /&gt;           &lt;char num='8869' name='perp' convertTo='$\\perp$' /&gt;           &lt;char num='8901' name='sdot' convertTo='$\\cdot$' /&gt;           &lt;char num='8968' name='rceil' convertTo='$\\rceil$' /&gt;           &lt;char num='8969' name='lceil' convertTo='$\\lceil$' /&gt;           &lt;char num='8970' name='lfloor' convertTo='$\\lfloor$' /&gt;           &lt;char num='8971' name='rfloor' convertTo='$\\rfloor$' /&gt;           &lt;char num='9001' name='rang' convertTo='$\\rangle$' /&gt;            &lt;char num='9002' name='lang' convertTo='$\\langle$' /&gt;           &lt;char num='9674' name='loz' convertTo='$\\lozenge$' package='amssymb' /&gt; &lt;!-- only AMS --&gt;           &lt;char num='9824' name='spades' convertTo='$\\spadesuit$' /&gt;           &lt;char num='9827' name='clubs' convertTo='$\\clubsuit$' /&gt;           &lt;char num='9829' name='hearts' convertTo='$\\heartsuit$' /&gt;           &lt;char num='9830' name='diams' convertTo='$\\diamondsuit$' /&gt;                                                &lt;char num='38' name='amp' convertTo='\\@AMP' /&gt;     &lt;!--      &lt;char num='34' name='quot' convertTo='\\@DOUBLEQUOT' /&gt;  XXX --&gt;         &lt;char num='34' name='quot' convertTo='\&quot;' /&gt;          &lt;char num='39' name='apos' convertTo=\&quot;'\&quot; /&gt;            &lt;char num='169' name='copy' convertTo='\\copyright' /&gt;            &lt;char num='60' name='lt' convertTo='$@LT$' /&gt;           &lt;char num='62' name='gt' convertTo='$@GT$' /&gt;           &lt;char num='338' name='OElig' convertTo='\\OE' /&gt;           &lt;char num='339' name='oelig' convertTo='\\oe' /&gt;           &lt;char num='352' name='Scaron' convertTo='\\v{S}' /&gt;           &lt;char num='353' name='scaron' convertTo='\\v{s}' /&gt;           &lt;char num='376' name='Yuml' convertTo='\\\&quot;Y' /&gt;           &lt;char num='710' name='circ' convertTo='\\textasciicircum' /&gt;           &lt;char num='732' name='tilde' convertTo='\\textasciitilde' /&gt;            &lt;char num='8211' name='ndash' convertTo='--' /&gt;           &lt;char num='8212' name='mdash' convertTo='---' /&gt;           &lt;char num='8216' name='lsquo' convertTo='`' /&gt;           &lt;char num='8217' name='rsquo' convertTo=\&quot;'\&quot; /&gt; &lt;!-- XXXX --&gt;           &lt;char num='8220' name='ldquo' convertTo='``' /&gt;           &lt;char num='8221' name='rdquo' convertTo=\&quot;''\&quot; /&gt; &lt;!-- XXXX --&gt;           &lt;char num='8224' name='dagger' convertTo='\\dag' /&gt;           &lt;char num='8225' name='Dagger' convertTo='\\ddag' /&gt;           &lt;char num='8240' name='permil' convertTo='\\permil' package='wasysym' /&gt; &lt;!-- wasysym package --&gt;            &lt;char num='8364' name='euro' convertTo='\\euro' package='eurosym' /&gt; &lt;!-- eurosym package --&gt;           &lt;char num='8249' name='lsaquo' convertTo='\\guilsinglleft' package='aeguill'/&gt;           &lt;char num='8250' name='rsaquo' convertTo='\\guilsinglright' package='aeguill' /&gt; &lt;!--      &lt;char num='160' name='nbsp' convertTo='\\nolinebreak' /&gt;--&gt;           &lt;char num='160' name='nbsp' convertTo='~' /&gt;           &lt;char num='161' name='iexcl' convertTo='\\textexclamdown' /&gt;           &lt;char num='163' name='pound' convertTo='\\pounds' /&gt;           &lt;char num='164' name='curren' convertTo='\\currency' package='wasysym' /&gt; &lt;!-- wasysym package --&gt;           &lt;char num='165' name='yen' convertTo='\\textyen' package='textcomp'/&gt; &lt;!-- textcomp --&gt;            &lt;char num='166' name='brvbar' convertTo='\\brokenvert' /&gt; &lt;!-- wasysym --&gt;           &lt;char num='167' name='sect' convertTo='\\S' /&gt;           &lt;char num='171' name='laquo' convertTo='\\guillemotleft' package='aeguill'/&gt;           &lt;char num='187' name='raquo' convertTo='\\guillemotright' package='aeguill'/&gt;           &lt;char num='174' name='reg' convertTo='\\textregistered' /&gt;           &lt;char num='170' name='ordf' convertTo='\\textordfeminine' /&gt;           &lt;char num='172' name='not' convertTo='$\\neg$' /&gt;         &lt;!--  &lt;char num='176' name='deg' convertTo='$\\degree$' /&gt; &lt;!-- mathabx --&gt;           &lt;char num='176' name='deg' convertTo='\\textdegree' package='textcomp'/&gt;            &lt;char num='177' name='plusmn' convertTo='$\\pm$' /&gt;           &lt;char num='180' name='acute' convertTo='@QUOT' /&gt;           &lt;char num='181' name='micro' convertTo='$\\mu$' /&gt;           &lt;char num='182' name='para' convertTo='\\P' /&gt;           &lt;char num='183' name='middot' convertTo='$\\cdot$' /&gt;           &lt;char num='186' name='ordm' convertTo='\\textordmasculine' /&gt;           &lt;char num='162' name='cent' convertTo='\\cent' package='wasysym' /&gt;            &lt;char num='185' name='sup1' convertTo='$^1$' /&gt;            &lt;char num='178' name='sup2' convertTo='$^2$' /&gt;           &lt;char num='179' name='sup3' convertTo='$^3$' /&gt;           &lt;char num='189' name='frac12' convertTo='$\\frac{1}{2}$' /&gt;           &lt;char num='188' name='frac14' convertTo='$\\frac{1}{4}$' /&gt;           &lt;char num='190' name='frac34' convertTo='$\\frac{3}{4}$' /&gt;           &lt;char num='192' name='Agrave' convertTo='\\`A' /&gt;           &lt;char num='193' name='Aacute' convertTo='\\@QUOTA' /&gt;           &lt;char num='194' name='Acirc' convertTo='\\^A' /&gt;           &lt;char num='195' name='Atilde' convertTo='\\~A' /&gt;            &lt;char num='196' name='Auml' convertTo='\\@DOUBLEQUOTA' /&gt;           &lt;char num='197' name='Aring' convertTo='\\AA' /&gt;           &lt;char num='198' name='AElig' convertTo='\\AE' /&gt;           &lt;char num='199' name='Ccedil' convertTo='\\c{C}' /&gt;           &lt;char num='200' name='Egrave' convertTo='\\`E' /&gt;           &lt;char num='201' name='Eacute' convertTo='\\@QUOTE' /&gt;           &lt;char num='202' name='Ecirc' convertTo='\\^E' /&gt;           &lt;char num='203' name='Euml' convertTo='\\@DOUBLEQUOTE' /&gt;           &lt;char num='204' name='Igrave' convertTo='\\`I' /&gt;           &lt;char num='205' name='Iacute' convertTo='\\@QUOTI' /&gt;           &lt;char num='206' name='Icirc' convertTo='\\^I' /&gt;           &lt;char num='207' name='Iuml' convertTo='\\\&quot;I' /&gt;           &lt;char num='208' name='ETH' convertTo='$\\eth$' /&gt; &lt;!-- AMS --&gt;           &lt;char num='209' name='Ntilde' convertTo='\\~N' /&gt;               &lt;char num='210' name='Ograve' convertTo='\\`O' /&gt;           &lt;char num='211' name='Oacute' convertTo='\\@QUOT O' /&gt;           &lt;char num='212' name='Ocirc' convertTo='\\^O' /&gt;           &lt;char num='213' name='Otilde' convertTo='\\~O' /&gt;           &lt;char num='214' name='Ouml' convertTo='\\@DOUBLEQUOTO' /&gt;           &lt;char num='215' name='times' convertTo='$\\times$' /&gt;           &lt;char num='216' name='Oslash' convertTo='\\O' /&gt;           &lt;char num='217' name='Ugrave' convertTo='\\`U' /&gt;           &lt;char num='218' name='Uacute' convertTo='\\@QUOTU' /&gt;           &lt;char num='219' name='Ucirc' convertTo='\\^U' /&gt;           &lt;char num='220' name='Uuml' convertTo='\\@DOUBLEQUOTU' /&gt;           &lt;char num='221' name='Yacute' convertTo='\\@QUOTY' /&gt;           &lt;char num='223' name='szlig' convertTo='\\ss' /&gt;           &lt;char num='224' name='agrave' convertTo='\\`a' /&gt;           &lt;char num='225' name='aacute' convertTo='\\@QUOTa' /&gt;           &lt;char num='226' name='acirc' convertTo='\\^a' /&gt;           &lt;char num='227' name='atilde' convertTo='\\~a' /&gt;           &lt;char num='228' name='auml' convertTo='\\@DOUBLEQUOTa' /&gt;           &lt;char num='229' name='aring' convertTo='\\aa' /&gt;           &lt;char num='230' name='aelig' convertTo='\\ae' /&gt;           &lt;char num='231' name='ccedil' convertTo='\\c{c}' /&gt;           &lt;char num='232' name='egrave' convertTo='\\`e' /&gt;           &lt;char num='233' name='eacute' convertTo='\\@QUOTe' /&gt;           &lt;char num='234' name='ecirc' convertTo='\\^e' /&gt;           &lt;char num='235' name='euml' convertTo='\\@DOUBLEQUOTe' /&gt;               &lt;char num='236' name='igrave' convertTo='\\`i' /&gt;           &lt;char num='237' name='iacute' convertTo='\\@QUOTi' /&gt;           &lt;char num='238' name='icirc' convertTo='\\^i' /&gt;           &lt;char num='239' name='iuml' convertTo='\\@DOUBLEQUOTi' /&gt;           &lt;char num='240' name='eth' convertTo='$\\eth$' package='amssymb'/&gt; &lt;!-- --&gt;           &lt;char num='241' name='ntilde' convertTo='\\~n' /&gt;           &lt;char num='242' name='ograve' convertTo='\\`o' /&gt;           &lt;char num='243' name='oacute' convertTo='\\@QUOTo' /&gt;           &lt;char num='244' name='ocirc' convertTo='\\^o' /&gt;           &lt;char num='245' name='otilde' convertTo='\\~o' /&gt;           &lt;char num='246' name='ouml' convertTo='\\@DOUBLEQUOTo' /&gt; &lt;!--   &lt;char num='247' name='divide' convertTo='$\\divide$' /&gt;       --&gt;           &lt;char num='248' name='oslash' convertTo='\\o' /&gt;            &lt;char num='249' name='ugrave' convertTo='\\`u' /&gt;           &lt;char num='250' name='uacute' convertTo='\\@QUOTu' /&gt;           &lt;char num='251' name='ucirc' convertTo='\\^u' /&gt;           &lt;char num='252' name='uuml' convertTo='\\@DOUBLEQUOTu' /&gt;           &lt;char num='253' name='yacute' convertTo='\\@QUOTy' /&gt;            &lt;char num='255' name='yuml' convertTo='\\@DOUBLEQUOTy' /&gt;                                    &lt;char num='222' name='THORN' convertTo='\\Thorn' package='wasysym' /&gt;                  &lt;char num='254' name='thorn' convertTo='\\thorn' package='wasysym' /&gt;         &lt;/chars&gt;&quot;</td>
+          <td width="3em">&nbsp;</td>
+          <td class="context-item-desc">
+The following is a conversion chart for html elements, courtesy of
+text2html
+
+</td>
+        </tr>
+        </table>
+      </div>
+    </div>
+
+
+
+      
+
+
+    <!-- if method_list -->
+    <div id="methods">
+      <h3 class="section-bar">Public Class methods</h3>
+
+      <div id="method-M000229" class="method-detail">
+        <a name="M000229"></a>
+
+        <div class="method-heading">
+          <a href="Latex.src/M000229.html" target="Code" class="method-signature"
+            onclick="popupCode('Latex.src/M000229.html');return false;">
+          <span class="method-name">init_entity_table</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+create hash @@entity_to_latex
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000228" class="method-detail">
+        <a name="M000228"></a>
+
+        <div class="method-heading">
+          <a href="Latex.src/M000228.html" target="Code" class="method-signature"
+            onclick="popupCode('Latex.src/M000228.html');return false;">
+          <span class="method-name">need_entity_table</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <h3 class="section-bar">Public Instance methods</h3>
+
+      <div id="method-M000226" class="method-detail">
+        <a name="M000226"></a>
+
+        <div class="method-heading">
+          <a href="Latex.src/M000226.html" target="Code" class="method-signature"
+            onclick="popupCode('Latex.src/M000226.html');return false;">
+          <span class="method-name">array_to_latex</span><span class="method-args">(array, join_char='')</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000225" class="method-detail">
+        <a name="M000225"></a>
+
+        <div class="method-heading">
+          <a href="Latex.src/M000225.html" target="Code" class="method-signature"
+            onclick="popupCode('Latex.src/M000225.html');return false;">
+          <span class="method-name">children_to_latex</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Convert each child to html
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000198" class="method-detail">
+        <a name="M000198"></a>
+
+        <div class="method-heading">
+          <a href="Latex.src/M000198.html" target="Code" class="method-signature"
+            onclick="popupCode('Latex.src/M000198.html');return false;">
+          <span class="method-name">latex_color</span><span class="method-args">(s, command='color')</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+\color[named]{name} \color[rgb]{1,0.2,0.3}
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000210" class="method-detail">
+        <a name="M000210"></a>
+
+        <div class="method-heading">
+          <a href="Latex.src/M000210.html" target="Code" class="method-signature"
+            onclick="popupCode('Latex.src/M000210.html');return false;">
+          <span class="method-name">latex_escape</span><span class="method-args">(source)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+the ultimate escaping (is much better than using \verb)
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000223" class="method-detail">
+        <a name="M000223"></a>
+
+        <div class="method-heading">
+          <a href="Latex.src/M000223.html" target="Code" class="method-signature"
+            onclick="popupCode('Latex.src/M000223.html');return false;">
+          <span class="method-name">to_latex_abbr</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000218" class="method-detail">
+        <a name="M000218"></a>
+
+        <div class="method-heading">
+          <a href="Latex.src/M000218.html" target="Code" class="method-signature"
+            onclick="popupCode('Latex.src/M000218.html');return false;">
+          <span class="method-name">to_latex_cell</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000199" class="method-detail">
+        <a name="M000199"></a>
+
+        <div class="method-heading">
+          <a href="Latex.src/M000199.html" target="Code" class="method-signature"
+            onclick="popupCode('Latex.src/M000199.html');return false;">
+          <span class="method-name">to_latex_code</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000222" class="method-detail">
+        <a name="M000222"></a>
+
+        <div class="method-heading">
+          <a href="Latex.src/M000222.html" target="Code" class="method-signature"
+            onclick="popupCode('Latex.src/M000222.html');return false;">
+          <span class="method-name">to_latex_definition</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000221" class="method-detail">
+        <a name="M000221"></a>
+
+        <div class="method-heading">
+          <a href="Latex.src/M000221.html" target="Code" class="method-signature"
+            onclick="popupCode('Latex.src/M000221.html');return false;">
+          <span class="method-name">to_latex_definition_list</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Definition lists ###
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000215" class="method-detail">
+        <a name="M000215"></a>
+
+        <div class="method-heading">
+          <a href="Latex.src/M000215.html" target="Code" class="method-signature"
+            onclick="popupCode('Latex.src/M000215.html');return false;">
+          <span class="method-name">to_latex_email_address</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000207" class="method-detail">
+        <a name="M000207"></a>
+
+        <div class="method-heading">
+          <a href="Latex.src/M000207.html" target="Code" class="method-signature"
+            onclick="popupCode('Latex.src/M000207.html');return false;">
+          <span class="method-name">to_latex_emphasis</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000227" class="method-detail">
+        <a name="M000227"></a>
+
+        <div class="method-heading">
+          <a href="Latex.src/M000227.html" target="Code" class="method-signature"
+            onclick="popupCode('Latex.src/M000227.html');return false;">
+          <span class="method-name">to_latex_entity</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000194" class="method-detail">
+        <a name="M000194"></a>
+
+        <div class="method-heading">
+          <a href="Latex.src/M000194.html" target="Code" class="method-signature"
+            onclick="popupCode('Latex.src/M000194.html');return false;">
+          <span class="method-name">to_latex_eqref</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000193" class="method-detail">
+        <a name="M000193"></a>
+
+        <div class="method-heading">
+          <a href="Latex.src/M000193.html" target="Code" class="method-signature"
+            onclick="popupCode('Latex.src/M000193.html');return false;">
+          <span class="method-name">to_latex_equation</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000219" class="method-detail">
+        <a name="M000219"></a>
+
+        <div class="method-heading">
+          <a href="Latex.src/M000219.html" target="Code" class="method-signature"
+            onclick="popupCode('Latex.src/M000219.html');return false;">
+          <span class="method-name">to_latex_footnote_reference</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000217" class="method-detail">
+        <a name="M000217"></a>
+
+        <div class="method-heading">
+          <a href="Latex.src/M000217.html" target="Code" class="method-signature"
+            onclick="popupCode('Latex.src/M000217.html');return false;">
+          <span class="method-name">to_latex_head_cell</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000200" class="method-detail">
+        <a name="M000200"></a>
+
+        <div class="method-heading">
+          <a href="Latex.src/M000200.html" target="Code" class="method-signature"
+            onclick="popupCode('Latex.src/M000200.html');return false;">
+          <span class="method-name">to_latex_header</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000195" class="method-detail">
+        <a name="M000195"></a>
+
+        <div class="method-heading">
+          <a href="Latex.src/M000195.html" target="Code" class="method-signature"
+            onclick="popupCode('Latex.src/M000195.html');return false;">
+          <span class="method-name">to_latex_hrule</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000213" class="method-detail">
+        <a name="M000213"></a>
+
+        <div class="method-heading">
+          <a href="Latex.src/M000213.html" target="Code" class="method-signature"
+            onclick="popupCode('Latex.src/M000213.html');return false;">
+          <span class="method-name">to_latex_im_link</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000224" class="method-detail">
+        <a name="M000224"></a>
+
+        <div class="method-heading">
+          <a href="Latex.src/M000224.html" target="Code" class="method-signature"
+            onclick="popupCode('Latex.src/M000224.html');return false;">
+          <span class="method-name">to_latex_image</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000212" class="method-detail">
+        <a name="M000212"></a>
+
+        <div class="method-heading">
+          <a href="Latex.src/M000212.html" target="Code" class="method-signature"
+            onclick="popupCode('Latex.src/M000212.html');return false;">
+          <span class="method-name">to_latex_immediate_link</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000211" class="method-detail">
+        <a name="M000211"></a>
+
+        <div class="method-heading">
+          <a href="Latex.src/M000211.html" target="Code" class="method-signature"
+            onclick="popupCode('Latex.src/M000211.html');return false;">
+          <span class="method-name">to_latex_inline_code</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000192" class="method-detail">
+        <a name="M000192"></a>
+
+        <div class="method-heading">
+          <a href="Latex.src/M000192.html" target="Code" class="method-signature"
+            onclick="popupCode('Latex.src/M000192.html');return false;">
+          <span class="method-name">to_latex_inline_math</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000204" class="method-detail">
+        <a name="M000204"></a>
+
+        <div class="method-heading">
+          <a href="Latex.src/M000204.html" target="Code" class="method-signature"
+            onclick="popupCode('Latex.src/M000204.html');return false;">
+          <span class="method-name">to_latex_li</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000205" class="method-detail">
+        <a name="M000205"></a>
+
+        <div class="method-heading">
+          <a href="Latex.src/M000205.html" target="Code" class="method-signature"
+            onclick="popupCode('Latex.src/M000205.html');return false;">
+          <span class="method-name">to_latex_li_span</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000196" class="method-detail">
+        <a name="M000196"></a>
+
+        <div class="method-heading">
+          <a href="Latex.src/M000196.html" target="Code" class="method-signature"
+            onclick="popupCode('Latex.src/M000196.html');return false;">
+          <span class="method-name">to_latex_linebreak</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000214" class="method-detail">
+        <a name="M000214"></a>
+
+        <div class="method-heading">
+          <a href="Latex.src/M000214.html" target="Code" class="method-signature"
+            onclick="popupCode('Latex.src/M000214.html');return false;">
+          <span class="method-name">to_latex_link</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000203" class="method-detail">
+        <a name="M000203"></a>
+
+        <div class="method-heading">
+          <a href="Latex.src/M000203.html" target="Code" class="method-signature"
+            onclick="popupCode('Latex.src/M000203.html');return false;">
+          <span class="method-name">to_latex_ol</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000197" class="method-detail">
+        <a name="M000197"></a>
+
+        <div class="method-heading">
+          <a href="Latex.src/M000197.html" target="Code" class="method-signature"
+            onclick="popupCode('Latex.src/M000197.html');return false;">
+          <span class="method-name">to_latex_paragraph</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000202" class="method-detail">
+        <a name="M000202"></a>
+
+        <div class="method-heading">
+          <a href="Latex.src/M000202.html" target="Code" class="method-signature"
+            onclick="popupCode('Latex.src/M000202.html');return false;">
+          <span class="method-name">to_latex_quote</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000220" class="method-detail">
+        <a name="M000220"></a>
+
+        <div class="method-heading">
+          <a href="Latex.src/M000220.html" target="Code" class="method-signature"
+            onclick="popupCode('Latex.src/M000220.html');return false;">
+          <span class="method-name">to_latex_raw_html</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000206" class="method-detail">
+        <a name="M000206"></a>
+
+        <div class="method-heading">
+          <a href="Latex.src/M000206.html" target="Code" class="method-signature"
+            onclick="popupCode('Latex.src/M000206.html');return false;">
+          <span class="method-name">to_latex_strong</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000216" class="method-detail">
+        <a name="M000216"></a>
+
+        <div class="method-heading">
+          <a href="Latex.src/M000216.html" target="Code" class="method-signature"
+            onclick="popupCode('Latex.src/M000216.html');return false;">
+          <span class="method-name">to_latex_table</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000201" class="method-detail">
+        <a name="M000201"></a>
+
+        <div class="method-heading">
+          <a href="Latex.src/M000201.html" target="Code" class="method-signature"
+            onclick="popupCode('Latex.src/M000201.html');return false;">
+          <span class="method-name">to_latex_ul</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000209" class="method-detail">
+        <a name="M000209"></a>
+
+        <div class="method-heading">
+          <a href="Latex.src/M000209.html" target="Code" class="method-signature"
+            onclick="popupCode('Latex.src/M000209.html');return false;">
+          <span class="method-name">wrap_as_environment</span><span class="method-args">(name)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000208" class="method-detail">
+        <a name="M000208"></a>
+
+        <div class="method-heading">
+          <a href="Latex.src/M000208.html" target="Code" class="method-signature"
+            onclick="popupCode('Latex.src/M000208.html');return false;">
+          <span class="method-name">wrap_as_span</span><span class="method-args">(c)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+
+    </div>
+
+
+  </div>
+
+
+<div id="validator-badges">
+  <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+</div>
+
+</body>
+</html>

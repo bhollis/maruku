@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>read_inline_html (MaRuKu::In::Markdown::SpanLevelParser)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/maruku/input/parse_span_better.rb, line 445</span>
+        <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">read_inline_html</span>(<span class="ruby-identifier">src</span>, <span class="ruby-identifier">con</span>)
+                <span class="ruby-identifier">h</span> = <span class="ruby-constant">HTMLHelper</span>.<span class="ruby-identifier">new</span>
+                <span class="ruby-keyword kw">begin</span>
+                        <span class="ruby-comment cmt"># This is our current buffer in the context</span>
+                        <span class="ruby-identifier">start</span> = <span class="ruby-identifier">src</span>.<span class="ruby-identifier">current_remaining_buffer</span>
+                        
+                        <span class="ruby-identifier">h</span>.<span class="ruby-identifier">eat_this</span> <span class="ruby-identifier">start</span>
+                        <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">not</span> <span class="ruby-identifier">h</span>.<span class="ruby-identifier">is_finished?</span>
+                                <span class="ruby-identifier">error</span> <span class="ruby-value str">&quot;inline_html: Malformed:\n &quot;</span><span class="ruby-operator">+</span>
+                                        <span class="ruby-node">&quot;#{start.inspect}\n #{h.inspect}&quot;</span>,<span class="ruby-identifier">src</span>,<span class="ruby-identifier">con</span>
+                        <span class="ruby-keyword kw">end</span>
+                        
+                        <span class="ruby-identifier">consumed</span> = <span class="ruby-identifier">start</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">h</span>.<span class="ruby-identifier">rest</span>.<span class="ruby-identifier">size</span> 
+                        <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">consumed</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>
+                                <span class="ruby-identifier">con</span>.<span class="ruby-identifier">push_element</span> <span class="ruby-identifier">md_html</span>(<span class="ruby-identifier">h</span>.<span class="ruby-identifier">stuff_you_read</span>)
+                                <span class="ruby-identifier">src</span>.<span class="ruby-identifier">ignore_chars</span>(<span class="ruby-identifier">consumed</span>)
+                        <span class="ruby-keyword kw">else</span>
+                                <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;HTML helper did not work on #{start.inspect}&quot;</span>
+                                <span class="ruby-identifier">con</span>.<span class="ruby-identifier">push_char</span> <span class="ruby-identifier">src</span>.<span class="ruby-identifier">shift_char</span>
+                        <span class="ruby-keyword kw">end</span>
+                <span class="ruby-keyword kw">rescue</span> <span class="ruby-constant">Exception</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
+                        <span class="ruby-identifier">maruku_error</span> <span class="ruby-value str">&quot;Bad html: \n&quot;</span> <span class="ruby-operator">+</span> 
+                                <span class="ruby-identifier">add_tabs</span>(<span class="ruby-identifier">e</span>.<span class="ruby-identifier">inspect</span><span class="ruby-operator">+</span><span class="ruby-identifier">e</span>.<span class="ruby-identifier">backtrace</span>.<span class="ruby-identifier">join</span>(<span class="ruby-value str">&quot;\n&quot;</span>),<span class="ruby-value">1</span>,<span class="ruby-value str">'&gt;'</span>),
+                                <span class="ruby-identifier">src</span>,<span class="ruby-identifier">con</span>
+                        <span class="ruby-identifier">maruku_recover</span> <span class="ruby-value str">&quot;I will try to continue after bad HTML.&quot;</span>, <span class="ruby-identifier">src</span>, <span class="ruby-identifier">con</span>
+                        <span class="ruby-identifier">con</span>.<span class="ruby-identifier">push_char</span> <span class="ruby-identifier">src</span>.<span class="ruby-identifier">shift_char</span>
+                <span class="ruby-keyword kw">end</span>
+        <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

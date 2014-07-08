@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>convert_to_mathml_none (MaRuKu::Out::HTML)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/maruku/ext/math/mathml_engines/none.rb, line 3</span>
+        <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">convert_to_mathml_none</span>(<span class="ruby-identifier">kind</span>, <span class="ruby-identifier">tex</span>)
+                <span class="ruby-comment cmt"># You can: either return a REXML::Element</span>
+                <span class="ruby-comment cmt">#    return Element.new 'div'    </span>
+                <span class="ruby-comment cmt"># or return an empty array on error</span>
+                <span class="ruby-comment cmt">#    return []  </span>
+                <span class="ruby-comment cmt"># or have a string parsed by REXML:</span>
+                <span class="ruby-identifier">tex</span> = <span class="ruby-identifier">tex</span>.<span class="ruby-identifier">gsub</span>(<span class="ruby-value str">'&amp;'</span>,<span class="ruby-value str">'&amp;amp;'</span>)
+                <span class="ruby-identifier">mathml</span> = <span class="ruby-node">&quot;&lt;code&gt;#{tex}&lt;/code&gt;&quot;</span>
+                <span class="ruby-keyword kw">return</span> <span class="ruby-constant">Document</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">mathml</span>).<span class="ruby-identifier">root</span>
+        <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

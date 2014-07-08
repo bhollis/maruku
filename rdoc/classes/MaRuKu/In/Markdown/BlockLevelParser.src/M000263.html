@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>safe_execute_code (MaRuKu::In::Markdown::BlockLevelParser)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/maruku/input/parse_doc.rb, line 138</span>
+        <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">safe_execute_code</span>(<span class="ruby-identifier">object</span>, <span class="ruby-identifier">code</span>)
+                <span class="ruby-keyword kw">begin</span>
+                        <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">object</span>.<span class="ruby-identifier">instance_eval</span>(<span class="ruby-identifier">code</span>)
+                <span class="ruby-keyword kw">rescue</span> <span class="ruby-constant">Exception</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
+                        <span class="ruby-identifier">maruku_error</span> <span class="ruby-value str">&quot;Exception while executing this:\n&quot;</span><span class="ruby-operator">+</span>
+                                <span class="ruby-identifier">add_tabs</span>(<span class="ruby-identifier">code</span>, <span class="ruby-value">1</span>, <span class="ruby-value str">&quot;&gt;&quot;</span>)<span class="ruby-operator">+</span>
+                                <span class="ruby-value str">&quot;\nThe error was:\n&quot;</span><span class="ruby-operator">+</span>
+                                <span class="ruby-identifier">add_tabs</span>(<span class="ruby-identifier">e</span>.<span class="ruby-identifier">inspect</span><span class="ruby-operator">+</span><span class="ruby-value str">&quot;\n&quot;</span><span class="ruby-operator">+</span><span class="ruby-identifier">e</span>.<span class="ruby-identifier">caller</span>.<span class="ruby-identifier">join</span>(<span class="ruby-value str">&quot;\n&quot;</span>), <span class="ruby-value">1</span>, <span class="ruby-value str">&quot;|&quot;</span>)
+                <span class="ruby-keyword kw">rescue</span> <span class="ruby-constant">RuntimeError</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
+                        <span class="ruby-identifier">maruku_error</span> <span class="ruby-value str">&quot;2: Exception while executing this:\n&quot;</span><span class="ruby-operator">+</span>
+                                <span class="ruby-identifier">add_tabs</span>(<span class="ruby-identifier">code</span>, <span class="ruby-value">1</span>, <span class="ruby-value str">&quot;&gt;&quot;</span>)<span class="ruby-operator">+</span>
+                                <span class="ruby-value str">&quot;\nThe error was:\n&quot;</span><span class="ruby-operator">+</span>
+                                <span class="ruby-identifier">add_tabs</span>(<span class="ruby-identifier">e</span>.<span class="ruby-identifier">inspect</span>, <span class="ruby-value">1</span>, <span class="ruby-value str">&quot;|&quot;</span>)
+                <span class="ruby-keyword kw">rescue</span> <span class="ruby-constant">SyntaxError</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
+                        <span class="ruby-identifier">maruku_error</span> <span class="ruby-value str">&quot;2: Exception while executing this:\n&quot;</span><span class="ruby-operator">+</span>
+                                <span class="ruby-identifier">add_tabs</span>(<span class="ruby-identifier">code</span>, <span class="ruby-value">1</span>, <span class="ruby-value str">&quot;&gt;&quot;</span>)<span class="ruby-operator">+</span>
+                                <span class="ruby-value str">&quot;\nThe error was:\n&quot;</span><span class="ruby-operator">+</span>
+                                <span class="ruby-identifier">add_tabs</span>(<span class="ruby-identifier">e</span>.<span class="ruby-identifier">inspect</span>, <span class="ruby-value">1</span>, <span class="ruby-value str">&quot;|&quot;</span>)
+                <span class="ruby-keyword kw">end</span>
+                <span class="ruby-keyword kw">nil</span>
+        <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

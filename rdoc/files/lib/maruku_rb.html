@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>File: maruku.rb</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+  <script type="text/javascript">
+  // <![CDATA[
+
+  function popupCode( url ) {
+    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+  }
+
+  function toggleCode( id ) {
+    if ( document.getElementById )
+      elem = document.getElementById( id );
+    else if ( document.all )
+      elem = eval( "document.all." + id );
+    else
+      return false;
+
+    elemStyle = elem.style;
+    
+    if ( elemStyle.display != "block" ) {
+      elemStyle.display = "block"
+    } else {
+      elemStyle.display = "none"
+    }
+
+    return true;
+  }
+  
+  // Make codeblocks hidden by default
+  document.writeln( "<style type=\"text/css\">div.method-source-code { display: none }</style>" )
+  
+  // ]]>
+  </script>
+
+</head>
+<body>
+
+
+
+  <div id="fileHeader">
+    <h1>maruku.rb</h1>
+    <table class="header-table">
+    <tr class="top-aligned-row">
+      <td><strong>Path:</strong></td>
+      <td>lib/maruku.rb
+      </td>
+    </tr>
+    <tr class="top-aligned-row">
+      <td><strong>Last Update:</strong></td>
+      <td>Thu Feb 15 16:01:58 CET 2007</td>
+    </tr>
+    </table>
+  </div>
+  <!-- banner header -->
+
+  <div id="bodyContent">
+
+
+
+  <div id="contextContent">
+
+
+    <div id="requires-list">
+      <h3 class="section-bar">Required files</h3>
+
+      <div class="name-list">
+      rexml/document&nbsp;&nbsp;
+      rexml/document&nbsp;&nbsp;
+      maruku/structures&nbsp;&nbsp;
+      maruku/structures_inspect&nbsp;&nbsp;
+      maruku/defaults&nbsp;&nbsp;
+      maruku/helpers&nbsp;&nbsp;
+      maruku/input/parse_doc&nbsp;&nbsp;
+      maruku/string_utils&nbsp;&nbsp;
+      maruku/input/linesource&nbsp;&nbsp;
+      maruku/input/type_detection&nbsp;&nbsp;
+      maruku/input/html_helper&nbsp;&nbsp;
+      maruku/input/parse_block&nbsp;&nbsp;
+      maruku/input/charsource&nbsp;&nbsp;
+      maruku/input/parse_span_better&nbsp;&nbsp;
+      maruku/input/rubypants&nbsp;&nbsp;
+      maruku/input/extensions&nbsp;&nbsp;
+      maruku/attributes&nbsp;&nbsp;
+      maruku/structures_iterators&nbsp;&nbsp;
+      maruku/errors_management&nbsp;&nbsp;
+      maruku/toc&nbsp;&nbsp;
+      maruku/version&nbsp;&nbsp;
+      maruku/output/to_html&nbsp;&nbsp;
+      maruku/output/to_latex&nbsp;&nbsp;
+      maruku/output/to_latex_strings&nbsp;&nbsp;
+      maruku/output/to_latex_entities&nbsp;&nbsp;
+      maruku/output/to_markdown&nbsp;&nbsp;
+      maruku/output/s5/to_s5&nbsp;&nbsp;
+      maruku/output/s5/fancy&nbsp;&nbsp;
+      maruku/output/to_s&nbsp;&nbsp;
+      maruku/maruku&nbsp;&nbsp;
+      </div>
+    </div>
+
+   </div>
+
+
+  </div>
+
+
+    <!-- if includes -->
+
+    <div id="section">
+
+
+
+
+
+      
+
+
+    <!-- if method_list -->
+
+
+  </div>
+
+
+<div id="validator-badges">
+  <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+</div>
+
+</body>
+</html>

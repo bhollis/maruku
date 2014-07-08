@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>read_text_chars (MaRuKu::In::Markdown::SpanLevelParser::CharSourceManual)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../../../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/maruku/input/charsource.rb, line 135</span>
+        <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">read_text_chars</span>(<span class="ruby-identifier">out</span>)
+                <span class="ruby-identifier">s</span> = <span class="ruby-ivar">@buffer</span>.<span class="ruby-identifier">size</span>; <span class="ruby-identifier">c</span>=<span class="ruby-keyword kw">nil</span>
+                <span class="ruby-keyword kw">while</span> <span class="ruby-ivar">@buffer_index</span> <span class="ruby-operator">&lt;</span> <span class="ruby-identifier">s</span> <span class="ruby-operator">&amp;&amp;</span> (<span class="ruby-identifier">c</span>=<span class="ruby-ivar">@buffer</span>[<span class="ruby-ivar">@buffer_index</span>]) <span class="ruby-operator">&amp;&amp;</span>
+                         ((<span class="ruby-identifier">c</span><span class="ruby-operator">&gt;=</span><span class="ruby-value">?a</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">c</span><span class="ruby-operator">&lt;=</span><span class="ruby-value">?z</span>) <span class="ruby-operator">||</span> (<span class="ruby-identifier">c</span><span class="ruby-operator">&gt;=</span><span class="ruby-value">?A</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">c</span><span class="ruby-operator">&lt;=</span><span class="ruby-value">?Z</span>))
+                                <span class="ruby-identifier">out</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">c</span>
+                                <span class="ruby-ivar">@buffer_index</span> <span class="ruby-operator">+=</span> <span class="ruby-value">1</span>
+                <span class="ruby-keyword kw">end</span>
+        <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

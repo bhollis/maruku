@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>merge_ial (MaRuKu::In::Markdown::SpanLevelParser)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/maruku/attributes.rb, line 198</span>
+        <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">merge_ial</span>(<span class="ruby-identifier">elements</span>, <span class="ruby-identifier">src</span>, <span class="ruby-identifier">con</span>)      
+
+                <span class="ruby-comment cmt"># Apply each IAL to the element before</span>
+                <span class="ruby-identifier">elements</span>.<span class="ruby-identifier">each_with_index</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">e</span>, <span class="ruby-identifier">i</span><span class="ruby-operator">|</span> 
+                <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">is_ial</span>(<span class="ruby-identifier">e</span>) <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">i</span><span class="ruby-operator">&gt;=</span> <span class="ruby-value">1</span> <span class="ruby-keyword kw">then</span>
+                        <span class="ruby-identifier">before</span> = <span class="ruby-identifier">elements</span>[<span class="ruby-identifier">i</span><span class="ruby-operator">-</span><span class="ruby-value">1</span>]
+                        <span class="ruby-identifier">after</span> = <span class="ruby-identifier">elements</span>[<span class="ruby-identifier">i</span><span class="ruby-operator">+</span><span class="ruby-value">1</span>]
+                        <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">before</span>.<span class="ruby-identifier">kind_of?</span> <span class="ruby-constant">MDElement</span>
+                                <span class="ruby-identifier">before</span>.<span class="ruby-identifier">al</span> = <span class="ruby-identifier">e</span>.<span class="ruby-identifier">ial</span>
+                        <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">after</span>.<span class="ruby-identifier">kind_of?</span> <span class="ruby-constant">MDElement</span>
+                                <span class="ruby-identifier">after</span>.<span class="ruby-identifier">al</span> = <span class="ruby-identifier">e</span>.<span class="ruby-identifier">ial</span>
+                        <span class="ruby-keyword kw">else</span>
+                                <span class="ruby-identifier">maruku_error</span> <span class="ruby-node">&quot;It is not clear to me what element this IAL {:#{e.ial.to_md}} \n&quot;</span><span class="ruby-operator">+</span>
+                                <span class="ruby-node">&quot;is referring to. The element before is a #{before.class.to_s}, \n&quot;</span><span class="ruby-operator">+</span>
+                                <span class="ruby-node">&quot;the element after is a #{after.class.to_s}.\n&quot;</span><span class="ruby-operator">+</span>
+                                <span class="ruby-node">&quot;\n before: #{before.inspect}&quot;</span><span class="ruby-operator">+</span>
+                                <span class="ruby-node">&quot;\n after: #{after.inspect}&quot;</span>,
+                                <span class="ruby-identifier">src</span>, <span class="ruby-identifier">con</span>
+                                <span class="ruby-comment cmt"># xxx dire se c'è empty vicino</span>
+                        <span class="ruby-keyword kw">end</span>
+                <span class="ruby-keyword kw">end</span> 
+                <span class="ruby-keyword kw">end</span>
+                
+                <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">not</span> <span class="ruby-constant">Globals</span>[<span class="ruby-identifier">:debug_keep_ials</span>]
+                        <span class="ruby-identifier">elements</span>.<span class="ruby-identifier">delete_if</span> {<span class="ruby-operator">|</span><span class="ruby-identifier">x</span><span class="ruby-operator">|</span> <span class="ruby-identifier">is_ial</span>(<span class="ruby-identifier">x</span>) <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">x</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">elements</span>.<span class="ruby-identifier">first</span>} 
+                <span class="ruby-keyword kw">end</span>
+        <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

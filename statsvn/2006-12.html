@@ -1,0 +1,1192 @@
+<?xml version="1.0"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>StatSVN - December 2006 Commit Log</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"/>
+    <meta name="Generator" content="StatSVN 0.3.0"/>
+    <link rel="stylesheet" href="statcvs.css" type="text/css"/>
+  </head>
+
+<body>
+
+<h1>December 2006 Commit Log</h1>
+<div id="parentlink">&#171; <a href="index.html">Development Statistics for  /trunk</a></div>
+
+<div id="nav" class="section">
+<h2>Commit Logs</h2>
+<ul>
+    <li><a href="2007-01.html">January 2007</a></li>
+    <li><span class="here">December 2006</span></li>
+</ul>
+</div><dl class="attributes">
+    <dt>Number of Commits:</dt>
+    <dd>36</dd>
+    <dt>Number of Active Developers:</dt>
+    <dd>1</dd>
+</dl>
+<dl class="commitlist">
+  <dt><a name="36"></a>
+    <a href="user_andrea.html" class="author">andrea</a>
+    <span class="date">2006-12-31 10:23</span>
+    <a class="permalink" title="Permalink to this commit" href="#36">#36</a>
+  </dt>
+  <dd>
+    <p class="comment">
+url, email, immediate links
+    </p>
+    <p class="commitdetails"><strong>128</strong> lines of code changed in:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>lib</strong>:
+        maruku.rb&#160;<span class="change">(+3)</span>
+      </li>
+      <li>
+        <strong>lib/maruku</strong>:
+        helpers.rb&#160;<span class="change">(+14&#160;-1)</span>,
+        parse_span_better.rb&#160;<span class="change">(+67&#160;-12)</span>,
+        to_html.rb&#160;<span class="change">(+25&#160;-13)</span>
+      </li>
+      <li>
+        <strong>lib/maruku/tests</strong>:
+        new_parser.rb&#160;<span class="change">(+17&#160;-7)</span>
+      </li>
+      <li>
+        <strong>tests/MarkdownTest_1.0/Tests</strong>:
+        Amps and angle encoding.text&#160;<span class="change">(+2)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="35"></a>
+    <a href="user_andrea.html" class="author">andrea</a>
+    <span class="date">2006-12-31 09:12</span>
+    <a class="permalink" title="Permalink to this commit" href="#35">#35</a>
+  </dt>
+  <dd>
+    <p class="comment">
+Finally, the right semantics of ticks
+    </p>
+    <p class="commitdetails"><strong>37</strong> lines of code changed in:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>lib/maruku</strong>:
+        parse_block.rb&#160;<span class="change">(+1&#160;-1)</span>,
+        parse_doc.rb&#160;<span class="change">(+1&#160;-1)</span>,
+        parse_span.rb&#160;<span class="change">(+1&#160;-2)</span>,
+        parse_span_better.rb&#160;<span class="change">(+29&#160;-34)</span>,
+        structures.rb&#160;<span class="change">(+2&#160;-2)</span>
+      </li>
+      <li>
+        <strong>lib/maruku/tests</strong>:
+        new_parser.rb&#160;<span class="change">(+3&#160;-2)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="34"></a>
+    <a href="user_andrea.html" class="author">andrea</a>
+    <span class="date">2006-12-31 08:32</span>
+    <a class="permalink" title="Permalink to this commit" href="#34">#34</a>
+  </dt>
+  <dd>
+    <p class="comment">
+Completate anche immagini
+    </p>
+    <p class="commitdetails"><strong>1889</strong> lines of code changed in:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>lib/maruku</strong>:
+        helpers.rb&#160;<span class="change">(+9&#160;-1)</span>,
+        html_helper.rb&#160;<span class="change">(+3&#160;-1)</span>,
+        parse_span_better.rb&#160;<span class="change">(+89&#160;-48)</span>,
+        structures.rb&#160;<span class="change">(+2&#160;-2)</span>
+      </li>
+      <li>
+        <strong>lib/maruku/tests</strong>:
+        new_parser.rb&#160;<span class="change">(+26&#160;-3)</span>
+      </li>
+      <li>
+        <strong>tests/unittest</strong>:
+        abbreviations.md&#160;<span class="change">(+22&#160;-22)</span>,
+        blank.md&#160;<span class="change">(+10&#160;-10)</span>,
+        blanks_in_code.md&#160;<span class="change">(+20&#160;-26)</span>,
+        code.md&#160;<span class="change">(+8&#160;-10)</span>,
+        code2.md&#160;<span class="change">(+24&#160;-26)</span>,
+        code3.md&#160;<span class="change">(+26&#160;-34)</span>,
+        email.md&#160;<span class="change">(+10&#160;-12)</span>,
+        entities.md&#160;<span class="change">(+74&#160;-98)</span>,
+        escaping.md&#160;<span class="change">(+48&#160;-56)</span>,
+        extra_dl.md&#160;<span class="change">(+466&#160;-484)</span>,
+        extra_header_id.md&#160;<span class="change">(+32&#160;-32)</span>,
+        extra_table1.md&#160;<span class="change">(+130&#160;-144)</span>,
+        footnotes.md&#160;<span class="change">(+16&#160;-22)</span>,
+        headers.md&#160;<span class="change">(+20&#160;-20)</span>,
+        hrule.md&#160;<span class="change">(+12&#160;-22)</span>,
+        images.md&#160;<span class="change">(+22&#160;-32)</span>,
+        inline_html.md&#160;<span class="change">(+36&#160;-54)</span>,
+        links.md&#160;<span class="change">(+75&#160;-81)</span>,
+        list1.md&#160;<span class="change">(+16&#160;-16)</span>,
+        list2.md&#160;<span class="change">(+14&#160;-14)</span>,
+        list3.md&#160;<span class="change">(+24&#160;-26)</span>,
+        lists.md&#160;<span class="change">(+68&#160;-68)</span>,
+        lists_after_paragraph.md&#160;<span class="change">(+82&#160;-94)</span>,
+        lists_ol.md&#160;<span class="change">(+82&#160;-82)</span>,
+        misc_sw.md&#160;<span class="change">(+342&#160;-344)</span>,
+        one.md&#160;<span class="change">(+6&#160;-6)</span>,
+        paragraph.md&#160;<span class="change">(+6&#160;-6)</span>,
+        paragraphs.md&#160;<span class="change">(+20&#160;-22)</span>,
+        syntax_hl.md&#160;<span class="change">(+14&#160;-18)</span>,
+        test.md&#160;<span class="change">(+4&#160;-6)</span>
+      </li>
+      <li>
+        <strong>tests/unittest/notyet</strong>:
+        escape.md&#160;<span class="change">(+31&#160;-12)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="33"></a>
+    <a href="user_andrea.html" class="author">andrea</a>
+    <span class="date">2006-12-31 07:44</span>
+    <a class="permalink" title="Permalink to this commit" href="#33">#33</a>
+  </dt>
+  <dd>
+    <p class="comment">
+Passed all tests (except encoding)
+    </p>
+    <p class="commitdetails"><strong>231</strong> lines of code changed in:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>lib/maruku</strong>:
+        helpers.rb&#160;<span class="change">(+1&#160;-5)</span>,
+        html_helper.rb&#160;<span class="change">(+2&#160;-2)</span>,
+        parse_block.rb&#160;<span class="change">(+1&#160;-4)</span>,
+        parse_doc.rb&#160;<span class="change">(+5)</span>,
+        parse_span_better.rb&#160;<span class="change">(+177&#160;-16)</span>,
+        structures.rb&#160;<span class="change">(+21&#160;-9)</span>
+      </li>
+      <li>
+        <strong>lib/maruku/tests</strong>:
+        new_parser.rb&#160;<span class="change">(+24&#160;-17)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="32"></a>
+    <a href="user_andrea.html" class="author">andrea</a>
+    <span class="date">2006-12-30 22:36</span>
+    <a class="permalink" title="Permalink to this commit" href="#32">#32</a>
+  </dt>
+  <dd>
+    <p class="comment">
+ Other unittests that do not pass
+    </p>
+    <p class="commitdetails"><strong>190</strong> lines of code changed in:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>lib/maruku</strong>:
+        helpers.rb&#160;<span class="new">(new&#160;43)</span>,
+        parse_span_better.rb&#160;<span class="change">(+5&#160;-5)</span>,
+        string_utils.rb&#160;<span class="change">(+1&#160;-1)</span>
+      </li>
+      <li>
+        <strong>lib/maruku/tests</strong>:
+        new_parser.rb&#160;<span class="change">(+141&#160;-25)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="31"></a>
+    <a href="user_andrea.html" class="author">andrea</a>
+    <span class="date">2006-12-30 18:19</span>
+    <a class="permalink" title="Permalink to this commit" href="#31">#31</a>
+  </dt>
+  <dd>
+    <p class="comment">
+Implemented basic functionality in new parser
+    </p>
+    <p class="commitdetails"><strong>220</strong> lines of code changed in:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>lib/maruku</strong>:
+        html_helper.rb&#160;<span class="change">(+15&#160;-8)</span>,
+        parse_block.rb&#160;<span class="change">(+1&#160;-1)</span>,
+        parse_span_better.rb&#160;<span class="change">(+164&#160;-82)</span>
+      </li>
+      <li>
+        <strong>lib/maruku/tests</strong>:
+        new_parser.rb&#160;<span class="change">(+40&#160;-36)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="30"></a>
+    <a href="user_andrea.html" class="author">andrea</a>
+    <span class="date">2006-12-30 16:32</span>
+    <a class="permalink" title="Permalink to this commit" href="#30">#30</a>
+  </dt>
+  <dd>
+    <p class="comment">
+Draft of new parser
+    </p>
+    <p class="commitdetails"><strong>234</strong> lines of code changed in:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>lib/maruku</strong>:
+        parse_block.rb&#160;<span class="change">(+2&#160;-1)</span>,
+        parse_span_better.rb&#160;<span class="new">(new&#160;82)</span>,
+        structures.rb&#160;<span class="change">(+11&#160;-1)</span>,
+        to_latex.rb&#160;<span class="change">(+8&#160;-7)</span>
+      </li>
+      <li>
+        <strong>lib/maruku/tests</strong>:
+        new_parser.rb&#160;<span class="new">(new&#160;131)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="29"></a>
+    <a href="user_andrea.html" class="author">andrea</a>
+    <span class="date">2006-12-29 18:11</span>
+    <a class="permalink" title="Permalink to this commit" href="#29">#29</a>
+  </dt>
+  <dd>
+    <p class="comment">
+Added unittests
+    </p>
+    <p class="commitdetails"><strong>10092</strong> lines of code changed in:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>bin</strong>:
+        maruku&#160;<span class="change">(+23&#160;-15)</span>,
+        marutest&#160;<span class="new">(new&#160;214)</span>
+      </li>
+      <li>
+        <strong>docs</strong>:
+        proposal.md&#160;<span class="change">(+1&#160;-6)</span>
+      </li>
+      <li>
+        <strong>lib/maruku</strong>:
+        parse_block.rb&#160;<span class="change">(+50&#160;-45)</span>,
+        parse_doc.rb&#160;<span class="change">(+1&#160;-1)</span>,
+        parse_span.rb&#160;<span class="change">(+15&#160;-9)</span>,
+        structures.rb&#160;<span class="change">(+14&#160;-5)</span>,
+        to_html.rb&#160;<span class="change">(+11&#160;-7)</span>
+      </li>
+      <li>
+        <strong>tests</strong>:
+        Makefile&#160;<span class="change">(+3)</span>
+      </li>
+      <li>
+        <strong>tests/others</strong>:
+        lists_after_paragraph.md&#160;<span class="change">(+20)</span>
+      </li>
+      <li>
+        <strong>tests/unittest</strong>:
+        abbreviations.md&#160;<span class="new">(new&#160;125)</span>,
+        blank.md&#160;<span class="new">(new&#160;68)</span>,
+        blanks_in_code.md&#160;<span class="new">(new&#160;215)</span>,
+        code.md&#160;<span class="new">(new&#160;93)</span>,
+        code2.md&#160;<span class="new">(new&#160;166)</span>,
+        code3.md&#160;<span class="new">(new&#160;205)</span>,
+        email.md&#160;<span class="new">(new&#160;64)</span>,
+        entities.md&#160;<span class="new">(new&#160;405)</span>,
+        escaping.md&#160;<span class="new">(new&#160;256)</span>,
+        extra_dl.md&#160;<span class="new">(new&#160;1470)</span>,
+        extra_header_id.md&#160;<span class="new">(new&#160;185)</span>,
+        extra_table1.md&#160;<span class="new">(new&#160;722)</span>,
+        footnotes.md&#160;<span class="new">(new&#160;202)</span>,
+        headers.md&#160;<span class="new">(new&#160;131)</span>,
+        hrule.md&#160;<span class="new">(new&#160;116)</span>,
+        images.md&#160;<span class="new">(new&#160;186)</span>,
+        inline_html.md&#160;<span class="new">(new&#160;330)</span>,
+        links.md&#160;<span class="new">(new&#160;411)</span>,
+        list1.md&#160;<span class="new">(new&#160;122)</span>,
+        list2.md&#160;<span class="new">(new&#160;106)</span>,
+        list3.md&#160;<span class="new">(new&#160;176)</span>,
+        lists.md&#160;<span class="new">(new&#160;405)</span>,
+        lists_after_paragraph.md&#160;<span class="new">(new&#160;490)</span>,
+        lists_ol.md&#160;<span class="new">(new&#160;496)</span>,
+        misc_sw.md&#160;<span class="new">(new&#160;1614)</span>,
+        one.md&#160;<span class="new">(new&#160;48)</span>,
+        paragraph.md&#160;<span class="new">(new&#160;49)</span>,
+        paragraphs.md&#160;<span class="new">(new&#160;131)</span>,
+        syntax_hl.md&#160;<span class="new">(new&#160;173)</span>,
+        test.md&#160;<span class="new">(new&#160;60)</span>
+      </li>
+      <li>
+        <strong>tests/unittest/notyet</strong>:
+        escape.md&#160;<span class="new">(new&#160;56)</span>,
+        header_after_par.md&#160;<span class="new">(new&#160;145)</span>,
+        triggering.md&#160;<span class="new">(new&#160;319)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="28"></a>
+    <a href="user_andrea.html" class="author">andrea</a>
+    <span class="date">2006-12-29 13:34</span>
+    <a class="permalink" title="Permalink to this commit" href="#28">#28</a>
+  </dt>
+  <dd>
+    <p class="comment">
+
+    </p>
+    <p class="commitdetails"><strong>47</strong> lines of code changed in:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>tests/others</strong>:
+        lists_after_paragraph.markdown-pl&#160;<span class="new">(new&#160;23)</span>,
+        lists_after_paragraph.md&#160;<span class="new">(new&#160;24)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="27"></a>
+    <a href="user_andrea.html" class="author">andrea</a>
+    <span class="date">2006-12-29 11:28</span>
+    <a class="permalink" title="Permalink to this commit" href="#27">#27</a>
+  </dt>
+  <dd>
+    <p class="comment">
+0.2.13
+    </p>
+    <p class="commitdetails"><strong>404</strong> lines of code changed in:</p>
+    <ul class="commitdetails">
+      <li>
+        Rakefile&#160;<span class="change">(+6&#160;-2)</span>,
+        maruku_gem.rb&#160;<span class="change">(+1&#160;-1)</span>
+      </li>
+      <li>
+        <strong>docs</strong>:
+        Makefile&#160;<span class="change">(+5)</span>,
+        proposal.md&#160;<span class="new">(new&#160;333)</span>
+      </li>
+      <li>
+        <strong>lib</strong>:
+        maruku.rb&#160;<span class="change">(+3)</span>
+      </li>
+      <li>
+        <strong>lib/maruku</strong>:
+        html_helper.rb&#160;<span class="new">(new&#160;8)</span>,
+        parse_block.rb&#160;<span class="change">(+25&#160;-23)</span>,
+        string_utils.rb&#160;<span class="change">(+2)</span>,
+        to_html.rb&#160;<span class="change">(+3&#160;-2)</span>,
+        version.rb&#160;<span class="change">(+1&#160;-1)</span>
+      </li>
+      <li>
+        <strong>lib/maruku/tests</strong>:
+        benchmark.rb&#160;<span class="change">(+6&#160;-3)</span>
+      </li>
+      <li>
+        <strong>tests</strong>:
+        convert_all.sh&#160;<span class="change">(+1&#160;-1)</span>
+      </li>
+      <li>
+        <strong>tests/others</strong>:
+        inline_html.md&#160;<span class="change">(+8&#160;-1)</span>,
+        style.css&#160;<span class="change">(+2)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="26"></a>
+    <a href="user_andrea.html" class="author">andrea</a>
+    <span class="date">2006-12-28 17:26</span>
+    <a class="permalink" title="Permalink to this commit" href="#26">#26</a>
+  </dt>
+  <dd>
+    <p class="comment">
+
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>lib/maruku/tests</strong>:
+        benchmark.rb&#160;<span class="change">(-3)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="25"></a>
+    <a href="user_andrea.html" class="author">andrea</a>
+    <span class="date">2006-12-28 17:19</span>
+    <a class="permalink" title="Permalink to this commit" href="#25">#25</a>
+  </dt>
+  <dd>
+    <p class="comment">
+benchmark
+    </p>
+    <p class="commitdetails"><strong>188</strong> lines of code changed in:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>docs</strong>:
+        Makefile&#160;<span class="change">(+3&#160;-2)</span>
+      </li>
+      <li>
+        <strong>lib/maruku</strong>:
+        parse_block.rb&#160;<span class="change">(+13&#160;-3)</span>,
+        parse_doc.rb&#160;<span class="change">(+3&#160;-1)</span>,
+        string_utils.rb&#160;<span class="change">(+3)</span>,
+        to_html.rb&#160;<span class="change">(+8&#160;-3)</span>
+      </li>
+      <li>
+        <strong>lib/maruku/tests</strong>:
+        benchmark.rb&#160;<span class="new">(new&#160;42)</span>,
+        tests.rb&#160;<span class="new">(new&#160;116)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="24"></a>
+    <a href="user_andrea.html" class="author">andrea</a>
+    <span class="date">2006-12-28 06:29</span>
+    <a class="permalink" title="Permalink to this commit" href="#24">#24</a>
+  </dt>
+  <dd>
+    <p class="comment">
+Fixed bug: removed too much newlines
+    </p>
+    <p class="commitdetails"><strong>2</strong> lines of code changed in:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>lib/maruku</strong>:
+        parse_block.rb&#160;<span class="change">(+1&#160;-1)</span>,
+        version.rb&#160;<span class="change">(+1&#160;-1)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="23"></a>
+    <a href="user_andrea.html" class="author">andrea</a>
+    <span class="date">2006-12-28 05:45</span>
+    <a class="permalink" title="Permalink to this commit" href="#23">#23</a>
+  </dt>
+  <dd>
+    <p class="comment">
+Parsing of entities
+    </p>
+    <p class="commitdetails"><strong>86</strong> lines of code changed in:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>bin</strong>:
+        marutex&#160;<span class="change">(+2&#160;-2)</span>
+      </li>
+      <li>
+        <strong>docs</strong>:
+        maruku.md&#160;<span class="change">(+25&#160;-15)</span>
+      </li>
+      <li>
+        <strong>lib</strong>:
+        maruku.rb&#160;<span class="change">(+1)</span>
+      </li>
+      <li>
+        <strong>lib/maruku</strong>:
+        parse_span.rb&#160;<span class="change">(+9)</span>,
+        to_html.rb&#160;<span class="change">(+4&#160;-1)</span>,
+        to_latex_entities.rb&#160;<span class="new">(new&#160;2)</span>,
+        to_latex_strings.rb&#160;<span class="change">(+10&#160;-321)</span>,
+        version.rb&#160;<span class="change">(+1&#160;-1)</span>
+      </li>
+      <li>
+        <strong>tests</strong>:
+        Makefile&#160;<span class="change">(+1&#160;-1)</span>,
+        convert_all.sh&#160;<span class="new">(new&#160;6)</span>,
+        parser.sh&#160;<span class="del">(del)</span>,
+        style.css&#160;<span class="del">(del)</span>
+      </li>
+      <li>
+        <strong>tests/others</strong>:
+        style.css&#160;<span class="new">(new&#160;25)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="22"></a>
+    <a href="user_andrea.html" class="author">andrea</a>
+    <span class="date">2006-12-28 04:28</span>
+    <a class="permalink" title="Permalink to this commit" href="#22">#22</a>
+  </dt>
+  <dd>
+    <p class="comment">
+Fixed escape bugs, lists bug
+    </p>
+    <p class="commitdetails"><strong>1101</strong> lines of code changed in:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>lib</strong>:
+        maruku.rb&#160;<span class="change">(+5&#160;-2)</span>
+      </li>
+      <li>
+        <strong>lib/maruku</strong>:
+        parse_block.rb&#160;<span class="change">(+5&#160;-87)</span>,
+        parse_doc.rb&#160;<span class="new">(new&#160;9)</span>,
+        string_utils.rb&#160;<span class="change">(+13&#160;-12)</span>,
+        to_latex.rb&#160;<span class="change">(+1&#160;-1)</span>,
+        to_latex_strings.rb&#160;<span class="change">(+33&#160;-4)</span>,
+        version.rb&#160;<span class="change">(+1&#160;-1)</span>
+      </li>
+      <li>
+        <strong>tests</strong>:
+        abbreviations.md&#160;<span class="del">(del)</span>,
+        blank.md&#160;<span class="del">(del)</span>,
+        code.md&#160;<span class="del">(del)</span>,
+        code2.md&#160;<span class="del">(del)</span>,
+        code3.md&#160;<span class="del">(del)</span>,
+        email.md&#160;<span class="del">(del)</span>,
+        entities.md&#160;<span class="del">(del)</span>,
+        escaping.md&#160;<span class="del">(del)</span>,
+        extra_dl.md&#160;<span class="del">(del)</span>,
+        extra_header_id.md&#160;<span class="del">(del)</span>,
+        extra_table1.md&#160;<span class="del">(del)</span>,
+        footnotes.md&#160;<span class="del">(del)</span>,
+        headers.md&#160;<span class="del">(del)</span>,
+        hrule.md&#160;<span class="del">(del)</span>,
+        images.md&#160;<span class="del">(del)</span>,
+        inline_html.md&#160;<span class="del">(del)</span>,
+        links.md&#160;<span class="del">(del)</span>,
+        list1.md&#160;<span class="del">(del)</span>,
+        list2.md&#160;<span class="del">(del)</span>,
+        list3.md&#160;<span class="del">(del)</span>,
+        lists.md&#160;<span class="del">(del)</span>,
+        lists_ol.md&#160;<span class="del">(del)</span>,
+        misc_sw.md&#160;<span class="del">(del)</span>,
+        one.md&#160;<span class="del">(del)</span>,
+        paragraphs.md&#160;<span class="del">(del)</span>,
+        sss06.md&#160;<span class="del">(del)</span>,
+        test.md&#160;<span class="del">(del)</span>
+      </li>
+      <li>
+        <strong>tests/others</strong>:
+        Backslash escapes.text&#160;<span class="new">(new&#160;106)</span>,
+        abbreviations.md&#160;<span class="new">(new&#160;11)</span>,
+        blank.md&#160;<span class="new">(new&#160;4)</span>,
+        code.md&#160;<span class="new">(new&#160;5)</span>,
+        code2.md&#160;<span class="new">(new&#160;8)</span>,
+        code3.md&#160;<span class="new">(new&#160;16)</span>,
+        email.md&#160;<span class="new">(new&#160;4)</span>,
+        entities.md&#160;<span class="new">(new&#160;19)</span>,
+        escaping.md&#160;<span class="new">(new&#160;14)</span>,
+        extra_dl.md&#160;<span class="new">(new&#160;101)</span>,
+        extra_header_id.md&#160;<span class="new">(new&#160;13)</span>,
+        extra_table1.md&#160;<span class="new">(new&#160;40)</span>,
+        footnotes.md&#160;<span class="new">(new&#160;17)</span>,
+        headers.md&#160;<span class="new">(new&#160;10)</span>,
+        hrule.md&#160;<span class="new">(new&#160;10)</span>,
+        images.md&#160;<span class="new">(new&#160;20)</span>,
+        inline_html.md&#160;<span class="new">(new&#160;35)</span>,
+        links.md&#160;<span class="new">(new&#160;38)</span>,
+        list1.md&#160;<span class="new">(new&#160;4)</span>,
+        list2.md&#160;<span class="new">(new&#160;5)</span>,
+        list3.md&#160;<span class="new">(new&#160;8)</span>,
+        lists.md&#160;<span class="new">(new&#160;32)</span>,
+        lists_ol.md&#160;<span class="new">(new&#160;39)</span>,
+        misc_sw.md&#160;<span class="new">(new&#160;105)</span>,
+        one.md&#160;<span class="new">(new&#160;1)</span>,
+        paragraphs.md&#160;<span class="new">(new&#160;13)</span>,
+        sss06.md&#160;<span class="new">(new&#160;352)</span>,
+        test.md&#160;<span class="new">(new&#160;4)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="21"></a>
+    <a href="user_andrea.html" class="author">andrea</a>
+    <span class="date">2006-12-28 04:27</span>
+    <a class="permalink" title="Permalink to this commit" href="#21">#21</a>
+  </dt>
+  <dd>
+    <p class="comment">
+
+    </p>
+    <p class="commitdetails"><strong>1</strong> lines of code changed in:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>tests</strong>:
+        lists_ol.md&#160;<span class="change">(+1&#160;-1)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="20"></a>
+    <a href="user_andrea.html" class="author">andrea</a>
+    <span class="date">2006-12-27 18:26</span>
+    <a class="permalink" title="Permalink to this commit" href="#20">#20</a>
+  </dt>
+  <dd>
+    <p class="comment">
+Added the tests, and fixed some bugs
+    </p>
+    <p class="commitdetails"><strong>3718</strong> lines of code changed in:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>lib/maruku</strong>:
+        parse_span.rb&#160;<span class="change">(+16&#160;-4)</span>,
+        string_utils.rb&#160;<span class="change">(+21&#160;-4)</span>
+      </li>
+      <li>
+        <strong>tests</strong>:
+        parser.sh&#160;<span class="change">(+1)</span>
+      </li>
+      <li>
+        <strong>tests/MarkdownTest_1.0</strong>:
+        MarkdownTest.pl&#160;<span class="new">(new&#160;157)</span>
+      </li>
+      <li>
+        <strong>tests/MarkdownTest_1.0/Tests</strong>:
+        Amps and angle encoding.html.dist&#160;<span class="new">(new&#160;17)</span>,
+        Amps and angle encoding.text&#160;<span class="new">(new&#160;21)</span>,
+        Auto links.html.dist&#160;<span class="new">(new&#160;18)</span>,
+        Auto links.text&#160;<span class="new">(new&#160;13)</span>,
+        Backslash escapes.html.dist&#160;<span class="new">(new&#160;102)</span>,
+        Backslash escapes.text&#160;<span class="new">(new&#160;104)</span>,
+        Blockquotes with code blocks.html.dist&#160;<span class="new">(new&#160;15)</span>,
+        Blockquotes with code blocks.text&#160;<span class="new">(new&#160;11)</span>,
+        Hard-wrapped paragraphs with list-like lines.html.dist&#160;<span class="new">(new&#160;8)</span>,
+        Hard-wrapped paragraphs with list-like lines.text&#160;<span class="new">(new&#160;8)</span>,
+        Horizontal rules.html.dist&#160;<span class="new">(new&#160;71)</span>,
+        Horizontal rules.text&#160;<span class="new">(new&#160;67)</span>,
+        Inline HTML (Advanced).html.dist&#160;<span class="new">(new&#160;14)</span>,
+        Inline HTML (Advanced).text&#160;<span class="new">(new&#160;14)</span>,
+        Inline HTML (Simple).html.dist&#160;<span class="new">(new&#160;72)</span>,
+        Inline HTML (Simple).text&#160;<span class="new">(new&#160;69)</span>,
+        Inline HTML comments.html.dist&#160;<span class="new">(new&#160;13)</span>,
+        Inline HTML comments.text&#160;<span class="new">(new&#160;13)</span>,
+        Links, inline style.html.dist&#160;<span class="new">(new&#160;9)</span>,
+        Links, inline style.text&#160;<span class="new">(new&#160;9)</span>,
+        Links, reference style.html.dist&#160;<span class="new">(new&#160;18)</span>,
+        Links, reference style.text&#160;<span class="new">(new&#160;31)</span>,
+        Literal quotes in titles.html.dist&#160;<span class="new">(new&#160;3)</span>,
+        Literal quotes in titles.text&#160;<span class="new">(new&#160;7)</span>,
+        Markdown Documentation - Basics.html.dist&#160;<span class="new">(new&#160;314)</span>,
+        Markdown Documentation - Basics.text&#160;<span class="new">(new&#160;306)</span>,
+        Markdown Documentation - Syntax.html.dist&#160;<span class="new">(new&#160;942)</span>,
+        Markdown Documentation - Syntax.text&#160;<span class="new">(new&#160;888)</span>,
+        Nested blockquotes.html.dist&#160;<span class="new">(new&#160;9)</span>,
+        Nested blockquotes.text&#160;<span class="new">(new&#160;5)</span>,
+        Ordered and unordered lists.html.dist&#160;<span class="new">(new&#160;137)</span>,
+        Ordered and unordered lists.text&#160;<span class="new">(new&#160;122)</span>,
+        Strong and em together.html.dist&#160;<span class="new">(new&#160;7)</span>,
+        Strong and em together.text&#160;<span class="new">(new&#160;7)</span>,
+        Tabs.html.dist&#160;<span class="new">(new&#160;25)</span>,
+        Tabs.text&#160;<span class="new">(new&#160;21)</span>,
+        Tidyness.html.dist&#160;<span class="new">(new&#160;8)</span>,
+        Tidyness.text&#160;<span class="new">(new&#160;5)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="19"></a>
+    <a href="user_andrea.html" class="author">andrea</a>
+    <span class="date">2006-12-27 16:40</span>
+    <a class="permalink" title="Permalink to this commit" href="#19">#19</a>
+  </dt>
+  <dd>
+    <p class="comment">
+- Fixed bug with very old REXML
+    </p>
+    <p class="commitdetails"><strong>198</strong> lines of code changed in:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>lib</strong>:
+        maruku.rb&#160;<span class="change">(+17)</span>
+      </li>
+      <li>
+        <strong>lib/maruku</strong>:
+        parse_block.rb&#160;<span class="change">(+17)</span>,
+        parse_span.rb&#160;<span class="change">(+18)</span>,
+        string_utils.rb&#160;<span class="change">(+19)</span>,
+        structures.rb&#160;<span class="change">(+20)</span>,
+        to_html.rb&#160;<span class="change">(+37&#160;-8)</span>,
+        to_latex.rb&#160;<span class="change">(+17)</span>,
+        to_s.rb&#160;<span class="change">(+17)</span>,
+        toc.rb&#160;<span class="change">(+18)</span>,
+        version.rb&#160;<span class="change">(+18&#160;-1)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="18"></a>
+    <a href="user_andrea.html" class="author">andrea</a>
+    <span class="date">2006-12-27 15:12</span>
+    <a class="permalink" title="Permalink to this commit" href="#18">#18</a>
+  </dt>
+  <dd>
+    <p class="comment">
+workaround for syntax library bug
+    </p>
+    <p class="commitdetails"><strong>47</strong> lines of code changed in:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>docs</strong>:
+        maruku.md&#160;<span class="change">(+1&#160;-1)</span>
+      </li>
+      <li>
+        <strong>lib/maruku</strong>:
+        parse_block.rb&#160;<span class="change">(+7&#160;-2)</span>,
+        to_html.rb&#160;<span class="change">(+38&#160;-28)</span>,
+        version.rb&#160;<span class="change">(+1&#160;-1)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="17"></a>
+    <a href="user_andrea.html" class="author">andrea</a>
+    <span class="date">2006-12-27 14:39</span>
+    <a class="permalink" title="Permalink to this commit" href="#17">#17</a>
+  </dt>
+  <dd>
+    <p class="comment">
+xspace bug
+    </p>
+    <p class="commitdetails"><strong>3</strong> lines of code changed in:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>lib/maruku</strong>:
+        to_latex_strings.rb&#160;<span class="change">(+3&#160;-3)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="16"></a>
+    <a href="user_andrea.html" class="author">andrea</a>
+    <span class="date">2006-12-27 14:37</span>
+    <a class="permalink" title="Permalink to this commit" href="#16">#16</a>
+  </dt>
+  <dd>
+    <p class="comment">
+Support for shortcut: .c =&gt; class: c, #i =&gt; id: i
+    </p>
+    <p class="commitdetails"><strong>91</strong> lines of code changed in:</p>
+    <ul class="commitdetails">
+      <li>
+        Rakefile&#160;<span class="change">(+2&#160;-3)</span>,
+        maruku_gem.rb&#160;<span class="change">(+3&#160;-2)</span>
+      </li>
+      <li>
+        <strong>docs</strong>:
+        maruku.md&#160;<span class="change">(+25&#160;-1)</span>
+      </li>
+      <li>
+        <strong>lib</strong>:
+        maruku.rb&#160;<span class="change">(+3)</span>
+      </li>
+      <li>
+        <strong>lib/maruku</strong>:
+        string_utils.rb&#160;<span class="change">(+17&#160;-7)</span>,
+        structures.rb&#160;<span class="change">(+35&#160;-3)</span>,
+        version.rb&#160;<span class="new">(new&#160;6)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="15"></a>
+    <a href="user_andrea.html" class="author">andrea</a>
+    <span class="date">2006-12-27 06:05</span>
+    <a class="permalink" title="Permalink to this commit" href="#15">#15</a>
+  </dt>
+  <dd>
+    <p class="comment">
+Documentazione, tag 0.2.6
+    </p>
+    <p class="commitdetails"><strong>97</strong> lines of code changed in:</p>
+    <ul class="commitdetails">
+      <li>
+        maruku_gem.rb&#160;<span class="change">(+1&#160;-1)</span>
+      </li>
+      <li>
+        <strong>docs</strong>:
+        maruku.md&#160;<span class="change">(+96&#160;-18)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="14"></a>
+    <a href="user_andrea.html" class="author">andrea</a>
+    <span class="date">2006-12-27 06:04</span>
+    <a class="permalink" title="Permalink to this commit" href="#14">#14</a>
+  </dt>
+  <dd>
+    <p class="comment">
+Bug: when substituting \LaTeX, space was ignored
+    </p>
+    <p class="commitdetails"><strong>4</strong> lines of code changed in:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>lib/maruku</strong>:
+        to_latex.rb&#160;<span class="change">(+1)</span>,
+        to_latex_strings.rb&#160;<span class="change">(+3&#160;-3)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="13"></a>
+    <a href="user_andrea.html" class="author">andrea</a>
+    <span class="date">2006-12-26 17:24</span>
+    <a class="permalink" title="Permalink to this commit" href="#13">#13</a>
+  </dt>
+  <dd>
+    <p class="comment">
+- Support for auto-generated table of contents
+    </p>
+    <p class="commitdetails"><strong>507</strong> lines of code changed in:</p>
+    <ul class="commitdetails">
+      <li>
+        Rakefile&#160;<span class="change">(+14&#160;-5)</span>
+      </li>
+      <li>
+        <strong>bin</strong>:
+        marutex&#160;<span class="change">(+3)</span>
+      </li>
+      <li>
+        <strong>docs</strong>:
+        markdown_syntax.md&#160;<span class="change">(+13&#160;-21)</span>,
+        maruku.md&#160;<span class="change">(+83&#160;-37)</span>,
+        todo.md&#160;<span class="change">(+7&#160;-1)</span>
+      </li>
+      <li>
+        <strong>lib</strong>:
+        maruku.rb&#160;<span class="change">(+6)</span>
+      </li>
+      <li>
+        <strong>lib/maruku</strong>:
+        parse_block.rb&#160;<span class="change">(+61&#160;-25)</span>,
+        string_utils.rb&#160;<span class="change">(+16&#160;-1)</span>,
+        structures.rb&#160;<span class="change">(+28&#160;-2)</span>,
+        to_html.rb&#160;<span class="change">(+84&#160;-3)</span>,
+        to_latex.rb&#160;<span class="change">(+33&#160;-45)</span>,
+        to_latex_strings.rb&#160;<span class="change">(+12&#160;-1)</span>,
+        to_s.rb&#160;<span class="new">(new)</span>,
+        toc.rb&#160;<span class="new">(new&#160;147)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="12"></a>
+    <a href="user_andrea.html" class="author">andrea</a>
+    <span class="date">2006-12-26 04:52</span>
+    <a class="permalink" title="Permalink to this commit" href="#12">#12</a>
+  </dt>
+  <dd>
+    <p class="comment">
+- Added rakefile release <br />
+- PDF: margins much smaller
+    </p>
+    <p class="commitdetails"><strong>25</strong> lines of code changed in:</p>
+    <ul class="commitdetails">
+      <li>
+        Rakefile&#160;<span class="change">(+19)</span>,
+        maruku_gem.rb&#160;<span class="change">(+5&#160;-2)</span>
+      </li>
+      <li>
+        <strong>lib/maruku</strong>:
+        to_latex.rb&#160;<span class="change">(+1)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="11"></a>
+    <a href="user_andrea.html" class="author">andrea</a>
+    <span class="date">2006-12-25 18:03</span>
+    <a class="permalink" title="Permalink to this commit" href="#11">#11</a>
+  </dt>
+  <dd>
+    <p class="comment">
+0.2.3
+    </p>
+    <p class="commitdetails"><strong>1</strong> lines of code changed in:</p>
+    <ul class="commitdetails">
+      <li>
+        maruku_gem.rb&#160;<span class="change">(+1&#160;-1)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="10"></a>
+    <a href="user_andrea.html" class="author">andrea</a>
+    <span class="date">2006-12-25 18:00</span>
+    <a class="permalink" title="Permalink to this commit" href="#10">#10</a>
+  </dt>
+  <dd>
+    <p class="comment">
+Fixed a little bug; deleted debug message
+    </p>
+    <p class="commitdetails"><strong>60</strong> lines of code changed in:</p>
+    <ul class="commitdetails">
+      <li>
+        maruku_gem.rb&#160;<span class="change">(+3&#160;-2)</span>
+      </li>
+      <li>
+        <strong>lib/maruku</strong>:
+        parse_block.rb&#160;<span class="change">(+1&#160;-1)</span>,
+        parse_span.rb&#160;<span class="change">(+56&#160;-22)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="9"></a>
+    <a href="user_andrea.html" class="author">andrea</a>
+    <span class="date">2006-12-25 17:40</span>
+    <a class="permalink" title="Permalink to this commit" href="#9">#9</a>
+  </dt>
+  <dd>
+    <p class="comment">
+Added rakefile; added ignore property
+    </p>
+    <p class="commitdetails"><strong>12</strong> lines of code changed in:</p>
+    <ul class="commitdetails">
+      <li>
+        Rakefile&#160;<span class="new">(new&#160;12)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="8"></a>
+    <a href="user_andrea.html" class="author">andrea</a>
+    <span class="date">2006-12-25 17:35</span>
+    <a class="permalink" title="Permalink to this commit" href="#8">#8</a>
+  </dt>
+  <dd>
+    <p class="comment">
+Added Rakefile
+    </p>
+    <p class="commitdetails"><strong>29</strong> lines of code changed in:</p>
+    <ul class="commitdetails">
+      <li>
+        maruku.gemspec&#160;<span class="del">(del)</span>,
+        maruku_gem.rb&#160;<span class="new">(new&#160;28)</span>
+      </li>
+      <li>
+        <strong>bin</strong>:
+        marutex&#160;<span class="change">(+1&#160;-1)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="7"></a>
+    <a href="user_andrea.html" class="author">andrea</a>
+    <span class="date">2006-12-25 17:05</span>
+    <a class="permalink" title="Permalink to this commit" href="#7">#7</a>
+  </dt>
+  <dd>
+    <p class="comment">
+Fixed bug with urls or emails at the beginning of the line
+    </p>
+    <p class="commitdetails"><strong>29</strong> lines of code changed in:</p>
+    <ul class="commitdetails">
+      <li>
+        maruku.gemspec&#160;<span class="change">(+1&#160;-1)</span>
+      </li>
+      <li>
+        <strong>docs</strong>:
+        maruku.md&#160;<span class="change">(+16&#160;-12)</span>
+      </li>
+      <li>
+        <strong>lib/maruku</strong>:
+        parse_block.rb&#160;<span class="change">(+4&#160;-2)</span>,
+        parse_span.rb&#160;<span class="change">(+1&#160;-1)</span>,
+        string_utils.rb&#160;<span class="change">(+7)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="6"></a>
+    <a href="user_andrea.html" class="author">andrea</a>
+    <span class="date">2006-12-25 15:04</span>
+    <a class="permalink" title="Permalink to this commit" href="#6">#6</a>
+  </dt>
+  <dd>
+    <p class="comment">
+Little bug
+    </p>
+    <p class="commitdetails"><strong>16</strong> lines of code changed in:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>lib/maruku</strong>:
+        parse_span.rb&#160;<span class="change">(+6&#160;-11)</span>
+      </li>
+      <li>
+        <strong>tests</strong>:
+        sss06.md&#160;<span class="change">(+10&#160;-10)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="5"></a>
+    <a href="user_andrea.html" class="author">andrea</a>
+    <span class="date">2006-12-25 14:50</span>
+    <a class="permalink" title="Permalink to this commit" href="#5">#5</a>
+  </dt>
+  <dd>
+    <p class="comment">
+
+    </p>
+    <p class="commitdetails"><strong>1</strong> lines of code changed in:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>docs</strong>:
+        todo.md&#160;<span class="change">(+1&#160;-2)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="4"></a>
+    <a href="user_andrea.html" class="author">andrea</a>
+    <span class="date">2006-12-25 14:46</span>
+    <a class="permalink" title="Permalink to this commit" href="#4">#4</a>
+  </dt>
+  <dd>
+    <p class="comment">
+Solved bug that would not allow code in link text
+    </p>
+    <p class="commitdetails"><strong>132</strong> lines of code changed in:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>lib/maruku</strong>:
+        parse_span.rb&#160;<span class="change">(+113&#160;-37)</span>
+      </li>
+      <li>
+        <strong>tests</strong>:
+        Makefile&#160;<span class="new">(new&#160;2)</span>,
+        links.md&#160;<span class="change">(+7)</span>
+      </li>
+      <li>
+        <strong>tests/bugs</strong>:
+        code_in_links.md&#160;<span class="change">(+10&#160;-2)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="3"></a>
+    <a href="user_andrea.html" class="author">andrea</a>
+    <span class="date">2006-12-25 13:22</span>
+    <a class="permalink" title="Permalink to this commit" href="#3">#3</a>
+  </dt>
+  <dd>
+    <p class="comment">
+Found a bug (code inside link text)
+    </p>
+    <p class="commitdetails"><strong>42</strong> lines of code changed in:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>bin</strong>:
+        marutex&#160;<span class="change">(-1)</span>
+      </li>
+      <li>
+        <strong>docs</strong>:
+        Makefile&#160;<span class="change">(+2&#160;-2)</span>,
+        maruku.md&#160;<span class="change">(+8&#160;-11)</span>,
+        todo.md&#160;<span class="change">(+1&#160;-9)</span>
+      </li>
+      <li>
+        <strong>lib/maruku</strong>:
+        to_latex.rb&#160;<span class="change">(+23&#160;-12)</span>
+      </li>
+      <li>
+        <strong>tests/bugs</strong>:
+        code_in_links.md&#160;<span class="new">(new&#160;8)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="2"></a>
+    <a href="user_andrea.html" class="author">andrea</a>
+    <span class="date">2006-12-25 11:43</span>
+    <a class="permalink" title="Permalink to this commit" href="#2">#2</a>
+  </dt>
+  <dd>
+    <p class="comment">
+
+    </p>
+    <p class="commitdetails"><strong>6</strong> lines of code changed in:</p>
+    <ul class="commitdetails">
+      <li>
+        maruku.gemspec&#160;<span class="change">(+6&#160;-5)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="1"></a>
+    <a href="user_andrea.html" class="author">andrea</a>
+    <span class="date">2006-12-25 10:59</span>
+    <a class="permalink" title="Permalink to this commit" href="#1">#1</a>
+  </dt>
+  <dd>
+    <p class="comment">
+Importing code into repository
+    </p>
+    <p class="commitdetails"><strong>2702</strong> lines of code changed in:</p>
+    <ul class="commitdetails">
+      <li>
+        AUTHORS&#160;<span class="new">(new&#160;10)</span>,
+        LICENSE&#160;<span class="new">(new&#160;340)</span>,
+        maruku.gemspec&#160;<span class="new">(new&#160;5)</span>
+      </li>
+      <li>
+        <strong>bin</strong>:
+        maruku&#160;<span class="new">(new&#160;25)</span>,
+        marutex&#160;<span class="new">(new&#160;29)</span>
+      </li>
+      <li>
+        <strong>docs</strong>:
+        Makefile&#160;<span class="new">(new&#160;25)</span>,
+        markdown_syntax.md&#160;<span class="new">(new&#160;920)</span>,
+        maruku.md&#160;<span class="new">(new&#160;409)</span>,
+        style.css&#160;<span class="new">(new&#160;65)</span>,
+        todo.md&#160;<span class="new">(new&#160;10)</span>
+      </li>
+      <li>
+        <strong>lib</strong>:
+        maruku.rb&#160;<span class="new">(new&#160;20)</span>
+      </li>
+      <li>
+        <strong>lib/maruku</strong>:
+        parse_block.rb&#160;<span class="new">(new&#160;166)</span>,
+        parse_span.rb&#160;<span class="new">(new&#160;37)</span>,
+        string_utils.rb&#160;<span class="new">(new&#160;270)</span>,
+        structures.rb&#160;<span class="new">(new&#160;31)</span>,
+        to_html.rb&#160;<span class="new">(new&#160;3)</span>,
+        to_latex.rb&#160;<span class="new">(new&#160;33)</span>,
+        to_latex_strings.rb&#160;<span class="new">(new&#160;293)</span>
+      </li>
+      <li>
+        <strong>tests</strong>:
+        abbreviations.md&#160;<span class="new">(new)</span>,
+        blank.md&#160;<span class="new">(new)</span>,
+        code.md&#160;<span class="new">(new)</span>,
+        code2.md&#160;<span class="new">(new)</span>,
+        code3.md&#160;<span class="new">(new)</span>,
+        email.md&#160;<span class="new">(new)</span>,
+        entities.md&#160;<span class="new">(new)</span>,
+        escaping.md&#160;<span class="new">(new)</span>,
+        extra_dl.md&#160;<span class="new">(new)</span>,
+        extra_header_id.md&#160;<span class="new">(new)</span>,
+        extra_table1.md&#160;<span class="new">(new)</span>,
+        footnotes.md&#160;<span class="new">(new)</span>,
+        headers.md&#160;<span class="new">(new)</span>,
+        hrule.md&#160;<span class="new">(new)</span>,
+        images.md&#160;<span class="new">(new)</span>,
+        inline_html.md&#160;<span class="new">(new)</span>,
+        links.md&#160;<span class="new">(new)</span>,
+        list1.md&#160;<span class="new">(new)</span>,
+        list2.md&#160;<span class="new">(new)</span>,
+        list3.md&#160;<span class="new">(new)</span>,
+        lists.md&#160;<span class="new">(new)</span>,
+        lists_ol.md&#160;<span class="new">(new&#160;1)</span>,
+        misc_sw.md&#160;<span class="new">(new)</span>,
+        one.md&#160;<span class="new">(new)</span>,
+        paragraphs.md&#160;<span class="new">(new)</span>,
+        parser.sh&#160;<span class="new">(new)</span>,
+        sss06.md&#160;<span class="new">(new&#160;10)</span>,
+        style.css&#160;<span class="new">(new)</span>,
+        test.md&#160;<span class="new">(new)</span>
+      </li>
+    </ul>
+  </dd>
+
+</dl>
+
+<div id="generatedby">Generated by <a href="http://www.statsvn.org">StatSVN</a> 0.3.0</div>
+</body>
+</html>

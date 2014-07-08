@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>init_entity_table (MaRuKu::Out::Latex)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/maruku/output/to_latex_entities.rb, line 69</span>
+        <span class="ruby-keyword kw">def</span> <span class="ruby-constant">Latex</span>.<span class="ruby-identifier">init_entity_table</span>
+                <span class="ruby-identifier">$stderr</span>.<span class="ruby-identifier">write</span> <span class="ruby-value str">&quot;Creating entity table..&quot;</span>
+                <span class="ruby-identifier">$stderr</span>.<span class="ruby-identifier">flush</span>
+                <span class="ruby-identifier">doc</span> = <span class="ruby-constant">Document</span>.<span class="ruby-identifier">new</span> <span class="ruby-constant">XML_TABLE</span>
+                <span class="ruby-identifier">doc</span>.<span class="ruby-identifier">elements</span>.<span class="ruby-identifier">each</span>(<span class="ruby-value str">&quot;//char&quot;</span>) <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">c</span><span class="ruby-operator">|</span> 
+                        <span class="ruby-identifier">num</span> =  <span class="ruby-identifier">c</span>.<span class="ruby-identifier">attributes</span>[<span class="ruby-value str">'num'</span>].<span class="ruby-identifier">to_i</span>
+                        <span class="ruby-identifier">name</span> =  <span class="ruby-identifier">c</span>.<span class="ruby-identifier">attributes</span>[<span class="ruby-value str">'name'</span>]
+                        <span class="ruby-identifier">package</span> =  <span class="ruby-identifier">c</span>.<span class="ruby-identifier">attributes</span>[<span class="ruby-value str">'package'</span>]
+                        
+                        <span class="ruby-identifier">convert</span> =  <span class="ruby-identifier">c</span>.<span class="ruby-identifier">attributes</span>[<span class="ruby-value str">'convertTo'</span>]
+                        <span class="ruby-identifier">convert</span>.<span class="ruby-identifier">gsub!</span>(<span class="ruby-regexp re">/@DOUBLEQUOT/</span>,<span class="ruby-value str">'&quot;'</span>)
+                        <span class="ruby-identifier">convert</span>.<span class="ruby-identifier">gsub!</span>(<span class="ruby-regexp re">/@QUOT/</span>,<span class="ruby-value str">&quot;'&quot;</span>)
+                        <span class="ruby-identifier">convert</span>.<span class="ruby-identifier">gsub!</span>(<span class="ruby-regexp re">/@GT/</span>,<span class="ruby-value str">&quot;&gt;&quot;</span>)
+                        <span class="ruby-identifier">convert</span>.<span class="ruby-identifier">gsub!</span>(<span class="ruby-regexp re">/@LT/</span>,<span class="ruby-value str">&quot;&lt;&quot;</span>)
+                        <span class="ruby-identifier">convert</span>.<span class="ruby-identifier">gsub!</span>(<span class="ruby-regexp re">/@AMP/</span>,<span class="ruby-value str">&quot;&amp;&quot;</span>)
+                        <span class="ruby-identifier">convert</span>.<span class="ruby-identifier">freeze</span>
+                        
+                        <span class="ruby-identifier">e</span> = <span class="ruby-constant">LatexEntity</span>.<span class="ruby-identifier">new</span>
+                        <span class="ruby-identifier">e</span>.<span class="ruby-identifier">html_num</span> = <span class="ruby-identifier">num</span>
+                        <span class="ruby-identifier">e</span>.<span class="ruby-identifier">html_entity</span> = <span class="ruby-identifier">name</span>
+                        <span class="ruby-identifier">e</span>.<span class="ruby-identifier">latex_string</span> = <span class="ruby-identifier">convert</span>
+                        <span class="ruby-identifier">e</span>.<span class="ruby-identifier">latex_packages</span> = <span class="ruby-identifier">package</span> <span class="ruby-value">? </span><span class="ruby-identifier">package</span>.<span class="ruby-identifier">split</span> <span class="ruby-operator">:</span> []
+                        
+                        <span class="ruby-constant">ENTITY_TABLE</span>[<span class="ruby-identifier">num</span>] = <span class="ruby-identifier">e</span>
+                        <span class="ruby-constant">ENTITY_TABLE</span>[<span class="ruby-identifier">name</span>] = <span class="ruby-identifier">e</span>
+                <span class="ruby-keyword kw">end</span>
+                <span class="ruby-identifier">$stderr</span>.<span class="ruby-identifier">puts</span> <span class="ruby-value str">&quot;..done.&quot;</span>
+        <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

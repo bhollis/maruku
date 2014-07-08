@@ -1,0 +1,338 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>Module: MaRuKu</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <link rel="stylesheet" href=".././rdoc-style.css" type="text/css" media="screen" />
+  <script type="text/javascript">
+  // <![CDATA[
+
+  function popupCode( url ) {
+    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+  }
+
+  function toggleCode( id ) {
+    if ( document.getElementById )
+      elem = document.getElementById( id );
+    else if ( document.all )
+      elem = eval( "document.all." + id );
+    else
+      return false;
+
+    elemStyle = elem.style;
+    
+    if ( elemStyle.display != "block" ) {
+      elemStyle.display = "block"
+    } else {
+      elemStyle.display = "none"
+    }
+
+    return true;
+  }
+  
+  // Make codeblocks hidden by default
+  document.writeln( "<style type=\"text/css\">div.method-source-code { display: none }</style>" )
+  
+  // ]]>
+  </script>
+
+</head>
+<body>
+
+
+
+    <div id="classHeader">
+        <table class="header-table">
+        <tr class="top-aligned-row">
+          <td><strong>Module</strong></td>
+          <td class="class-name-in-header">MaRuKu</td>
+        </tr>
+        <tr class="top-aligned-row">
+            <td><strong>In:</strong></td>
+            <td>
+                <a href="../files/lib/maruku/tests/new_parser_rb.html">
+                lib/maruku/tests/new_parser.rb
+                </a>
+        <br />
+                <a href="../files/lib/maruku/input/type_detection_rb.html">
+                lib/maruku/input/type_detection.rb
+                </a>
+        <br />
+                <a href="../files/lib/maruku/input/charsource_rb.html">
+                lib/maruku/input/charsource.rb
+                </a>
+        <br />
+                <a href="../files/lib/maruku/input/extensions_rb.html">
+                lib/maruku/input/extensions.rb
+                </a>
+        <br />
+                <a href="../files/lib/maruku/input/parse_doc_rb.html">
+                lib/maruku/input/parse_doc.rb
+                </a>
+        <br />
+                <a href="../files/lib/maruku/input/parse_span_better_rb.html">
+                lib/maruku/input/parse_span_better.rb
+                </a>
+        <br />
+                <a href="../files/lib/maruku/input/html_helper_rb.html">
+                lib/maruku/input/html_helper.rb
+                </a>
+        <br />
+                <a href="../files/lib/maruku/input/parse_block_rb.html">
+                lib/maruku/input/parse_block.rb
+                </a>
+        <br />
+                <a href="../files/lib/maruku/input/rubypants_rb.html">
+                lib/maruku/input/rubypants.rb
+                </a>
+        <br />
+                <a href="../files/lib/maruku/input/linesource_rb.html">
+                lib/maruku/input/linesource.rb
+                </a>
+        <br />
+                <a href="../files/lib/maruku/output/to_markdown_rb.html">
+                lib/maruku/output/to_markdown.rb
+                </a>
+        <br />
+                <a href="../files/lib/maruku/output/to_latex_rb.html">
+                lib/maruku/output/to_latex.rb
+                </a>
+        <br />
+                <a href="../files/lib/maruku/output/to_latex_entities_rb.html">
+                lib/maruku/output/to_latex_entities.rb
+                </a>
+        <br />
+                <a href="../files/lib/maruku/output/to_s_rb.html">
+                lib/maruku/output/to_s.rb
+                </a>
+        <br />
+                <a href="../files/lib/maruku/output/to_html_rb.html">
+                lib/maruku/output/to_html.rb
+                </a>
+        <br />
+                <a href="../files/lib/maruku/ext/math/mathml_engines/itex2mml_rb.html">
+                lib/maruku/ext/math/mathml_engines/itex2mml.rb
+                </a>
+        <br />
+                <a href="../files/lib/maruku/ext/math/mathml_engines/none_rb.html">
+                lib/maruku/ext/math/mathml_engines/none.rb
+                </a>
+        <br />
+                <a href="../files/lib/maruku/ext/math/mathml_engines/blahtex_rb.html">
+                lib/maruku/ext/math/mathml_engines/blahtex.rb
+                </a>
+        <br />
+                <a href="../files/lib/maruku/ext/math/mathml_engines/ritex_rb.html">
+                lib/maruku/ext/math/mathml_engines/ritex.rb
+                </a>
+        <br />
+                <a href="../files/lib/maruku/ext/math/to_latex_rb.html">
+                lib/maruku/ext/math/to_latex.rb
+                </a>
+        <br />
+                <a href="../files/lib/maruku/ext/math/parsing_rb.html">
+                lib/maruku/ext/math/parsing.rb
+                </a>
+        <br />
+                <a href="../files/lib/maruku/ext/math/to_html_rb.html">
+                lib/maruku/ext/math/to_html.rb
+                </a>
+        <br />
+                <a href="../files/lib/maruku/ext/math/elements_rb.html">
+                lib/maruku/ext/math/elements.rb
+                </a>
+        <br />
+                <a href="../files/lib/maruku/attributes_rb.html">
+                lib/maruku/attributes.rb
+                </a>
+        <br />
+                <a href="../files/lib/maruku/string_utils_rb.html">
+                lib/maruku/string_utils.rb
+                </a>
+        <br />
+                <a href="../files/lib/maruku/structures_rb.html">
+                lib/maruku/structures.rb
+                </a>
+        <br />
+                <a href="../files/lib/maruku/structures_iterators_rb.html">
+                lib/maruku/structures_iterators.rb
+                </a>
+        <br />
+                <a href="../files/lib/maruku/helpers_rb.html">
+                lib/maruku/helpers.rb
+                </a>
+        <br />
+                <a href="../files/lib/maruku/toc_rb.html">
+                lib/maruku/toc.rb
+                </a>
+        <br />
+                <a href="../files/lib/maruku/version_rb.html">
+                lib/maruku/version.rb
+                </a>
+        <br />
+                <a href="../files/lib/maruku/defaults_rb.html">
+                lib/maruku/defaults.rb
+                </a>
+        <br />
+                <a href="../files/lib/maruku/structures_inspect_rb.html">
+                lib/maruku/structures_inspect.rb
+                </a>
+        <br />
+                <a href="../files/lib/maruku/errors_management_rb.html">
+                lib/maruku/errors_management.rb
+                </a>
+        <br />
+                <a href="../files/lib/maruku_rb.html">
+                lib/maruku.rb
+                </a>
+        <br />
+            </td>
+        </tr>
+
+        </table>
+    </div>
+  <!-- banner header -->
+
+  <div id="bodyContent">
+
+
+
+  <div id="contextContent">
+
+    <div id="description">
+      <p>
+m Any method that detects formatting error calls the m maruku_error()
+method. m if @meta[:on_error] == m m - :warning write on the standard err
+(or @error_stream if defined), m then do your best. m - :ignore be shy and
+try to continue m - :raise raises a MarukuException m m default is :raise
+</p>
+
+    </div>
+
+
+   </div>
+
+    <div id="method-list">
+      <h3 class="section-bar">Methods</h3>
+
+      <div class="name-list">
+      <a href="#M000019">markdown_extra?</a>&nbsp;&nbsp;
+      <a href="#M000020">new_meta_data?</a>&nbsp;&nbsp;
+      </div>
+    </div>
+
+  </div>
+
+
+    <!-- if includes -->
+
+    <div id="section">
+
+    <div id="class-list">
+      <h3 class="section-bar">Classes and Modules</h3>
+
+      Module <a href="MaRuKu/Errors.html" class="link">MaRuKu::Errors</a><br />
+Module <a href="MaRuKu/Helpers.html" class="link">MaRuKu::Helpers</a><br />
+Module <a href="MaRuKu/In.html" class="link">MaRuKu::In</a><br />
+Module <a href="MaRuKu/Out.html" class="link">MaRuKu::Out</a><br />
+Module <a href="MaRuKu/Strings.html" class="link">MaRuKu::Strings</a><br />
+Module <a href="MaRuKu/Tests.html" class="link">MaRuKu::Tests</a><br />
+Class <a href="MaRuKu/AttributeList.html" class="link">MaRuKu::AttributeList</a><br />
+Class <a href="MaRuKu/Exception.html" class="link">MaRuKu::Exception</a><br />
+Class <a href="MaRuKu/MDDocument.html" class="link">MaRuKu::MDDocument</a><br />
+Class <a href="MaRuKu/MDElement.html" class="link">MaRuKu::MDElement</a><br />
+Class <a href="MaRuKu/Section.html" class="link">MaRuKu::Section</a><br />
+
+    </div>
+
+    <div id="constants-list">
+      <h3 class="section-bar">Constants</h3>
+
+      <div class="name-list">
+        <table summary="Constants">
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">MagicChar</td>
+          <td>=</td>
+          <td class="context-item-value">':'</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">Version</td>
+          <td>=</td>
+          <td class="context-item-value">'0.5.0'</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">MarukuURL</td>
+          <td>=</td>
+          <td class="context-item-value">'http://maruku.rubyforge.org/'</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">Globals</td>
+          <td>=</td>
+          <td class="context-item-value">{         :unsafe_features =&gt; false,         :on_error =&gt; :warning,                           :use_numbered_headers =&gt; false,                  :maruku_signature =&gt; true,         :code_background_color =&gt; '#fef',         :code_show_spaces =&gt; false,         :html_math_engine =&gt; 'none', #ritex, itex2mml                  :html_png_engine =&gt; 'none',         :html_png_dir =&gt; 'pngs',         :html_png_url =&gt; 'pngs/',         :html_png_resolution =&gt; 200,                  :html_use_syntax =&gt; false,                  :latex_use_listings =&gt; false,         :latex_cjk =&gt; false,                  :debug_keep_ials =&gt; false,          }</td>
+        </tr>
+        </table>
+      </div>
+    </div>
+
+
+
+      
+
+
+    <!-- if method_list -->
+    <div id="methods">
+      <h3 class="section-bar">Public Instance methods</h3>
+
+      <div id="method-M000019" class="method-detail">
+        <a name="M000019"></a>
+
+        <div class="method-heading">
+          <a href="MaRuKu.src/M000019.html" target="Code" class="method-signature"
+            onclick="popupCode('MaRuKu.src/M000019.html');return false;">
+          <span class="method-name">markdown_extra?</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+If true, use also PHP Markdown extra syntax
+</p>
+<p>
+Note: it is not guaranteed that if it&#8216;s false then no special
+features will be used.
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000020" class="method-detail">
+        <a name="M000020"></a>
+
+        <div class="method-heading">
+          <a href="MaRuKu.src/M000020.html" target="Code" class="method-signature"
+            onclick="popupCode('MaRuKu.src/M000020.html');return false;">
+          <span class="method-name">new_meta_data?</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+
+    </div>
+
+
+  </div>
+
+
+<div id="validator-badges">
+  <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+</div>
+
+</body>
+</html>

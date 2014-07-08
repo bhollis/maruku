@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>read_raw_html (MaRuKu::In::Markdown::BlockLevelParser)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/maruku/input/parse_block.rb, line 226</span>
+        <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">read_raw_html</span>(<span class="ruby-identifier">src</span>)
+                <span class="ruby-identifier">h</span> = <span class="ruby-constant">HTMLHelper</span>.<span class="ruby-identifier">new</span>
+                <span class="ruby-keyword kw">begin</span> 
+                        <span class="ruby-identifier">h</span>.<span class="ruby-identifier">eat_this</span>(<span class="ruby-identifier">l</span>=<span class="ruby-identifier">src</span>.<span class="ruby-identifier">shift_line</span>)
+<span class="ruby-comment cmt">#                       puts &quot;\nBLOCK:\nhtml -&gt; #{l.inspect}&quot;</span>
+                        <span class="ruby-keyword kw">while</span> <span class="ruby-identifier">src</span>.<span class="ruby-identifier">cur_line</span> <span class="ruby-keyword kw">and</span> <span class="ruby-keyword kw">not</span> <span class="ruby-identifier">h</span>.<span class="ruby-identifier">is_finished?</span> 
+                                <span class="ruby-identifier">l</span>=<span class="ruby-identifier">src</span>.<span class="ruby-identifier">shift_line</span>
+<span class="ruby-comment cmt">#                               puts &quot;html -&gt; #{l.inspect}&quot;</span>
+                                <span class="ruby-identifier">h</span>.<span class="ruby-identifier">eat_this</span> <span class="ruby-value str">&quot;\n&quot;</span><span class="ruby-operator">+</span><span class="ruby-identifier">l</span>
+                        <span class="ruby-keyword kw">end</span>
+                <span class="ruby-keyword kw">rescue</span> <span class="ruby-constant">Exception</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
+                        <span class="ruby-identifier">ex</span> = <span class="ruby-identifier">e</span>.<span class="ruby-identifier">inspect</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">e</span>.<span class="ruby-identifier">backtrace</span>.<span class="ruby-identifier">join</span>(<span class="ruby-value str">&quot;\n&quot;</span>)
+                        <span class="ruby-identifier">maruku_error</span> <span class="ruby-node">&quot;Bad block-level HTML:\n#{add_tabs(ex,1,'|')}\n&quot;</span>, <span class="ruby-identifier">src</span>
+                <span class="ruby-keyword kw">end</span>
+                <span class="ruby-identifier">raw_html</span> = <span class="ruby-identifier">h</span>.<span class="ruby-identifier">stuff_you_read</span>
+                <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">md_html</span>(<span class="ruby-identifier">raw_html</span>)
+        <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

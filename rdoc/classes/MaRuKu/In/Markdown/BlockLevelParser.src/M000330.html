@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>read_xml_instruction (MaRuKu::In::Markdown::BlockLevelParser)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/maruku/input/parse_block.rb, line 197</span>
+        <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">read_xml_instruction</span>(<span class="ruby-identifier">src</span>, <span class="ruby-identifier">output</span>)
+                <span class="ruby-identifier">m</span> = <span class="ruby-regexp re">/^\s*&lt;\?((\w+)\s*)?(.*)$/</span>.<span class="ruby-identifier">match</span> <span class="ruby-identifier">src</span>.<span class="ruby-identifier">shift_line</span>
+                <span class="ruby-identifier">raise</span> <span class="ruby-value str">&quot;BugBug&quot;</span> <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">not</span> <span class="ruby-identifier">m</span>
+                <span class="ruby-identifier">target</span> = <span class="ruby-identifier">m</span>[<span class="ruby-value">2</span>] <span class="ruby-operator">||</span> <span class="ruby-value str">''</span>
+                <span class="ruby-identifier">code</span> = <span class="ruby-identifier">m</span>[<span class="ruby-value">3</span>]
+                <span class="ruby-keyword kw">until</span> <span class="ruby-identifier">code</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp re">/\?&gt;/</span>
+                        <span class="ruby-identifier">code</span> <span class="ruby-operator">+=</span> <span class="ruby-value str">&quot;\n&quot;</span><span class="ruby-operator">+</span><span class="ruby-identifier">src</span>.<span class="ruby-identifier">shift_line</span>
+                <span class="ruby-keyword kw">end</span>
+                <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">not</span> <span class="ruby-identifier">code</span> <span class="ruby-operator">=~</span> (<span class="ruby-regexp re">/\?&gt;\s*$/</span>)
+                        <span class="ruby-identifier">garbage</span> = (<span class="ruby-regexp re">/\?&gt;(.*)$/</span>.<span class="ruby-identifier">match</span>(<span class="ruby-identifier">code</span>))[<span class="ruby-value">1</span>]
+                        <span class="ruby-identifier">maruku_error</span> <span class="ruby-node">&quot;Trailing garbage on last line: #{garbage.inspect}:\n&quot;</span><span class="ruby-operator">+</span>
+                                <span class="ruby-identifier">add_tabs</span>(<span class="ruby-identifier">code</span>, <span class="ruby-value">1</span>, <span class="ruby-value str">'|'</span>), <span class="ruby-identifier">src</span>
+                <span class="ruby-keyword kw">end</span>
+                <span class="ruby-identifier">code</span>.<span class="ruby-identifier">gsub!</span>(<span class="ruby-regexp re">/\?&gt;\s*$/</span>, <span class="ruby-value str">''</span>)
+                
+                <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">target</span> <span class="ruby-operator">==</span> <span class="ruby-value str">'mrk'</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-constant">MaRuKu</span><span class="ruby-operator">::</span><span class="ruby-constant">Globals</span>[<span class="ruby-identifier">:unsafe_features</span>]
+                        <span class="ruby-identifier">result</span> = <span class="ruby-identifier">safe_execute_code</span>(<span class="ruby-keyword kw">self</span>, <span class="ruby-identifier">code</span>)       
+                        <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">result</span>
+                                <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">result</span>.<span class="ruby-identifier">kind_of?</span> <span class="ruby-constant">String</span>
+                                        <span class="ruby-identifier">raise</span> <span class="ruby-value str">&quot;Not expected&quot;</span>
+                                <span class="ruby-keyword kw">else</span>
+                                        <span class="ruby-identifier">output</span>.<span class="ruby-identifier">push</span> <span class="ruby-operator">*</span><span class="ruby-identifier">result</span>
+                                <span class="ruby-keyword kw">end</span>
+                        <span class="ruby-keyword kw">end</span>
+                <span class="ruby-keyword kw">else</span>
+                        <span class="ruby-identifier">output</span>.<span class="ruby-identifier">push</span> <span class="ruby-identifier">md_xml_instr</span>(<span class="ruby-identifier">target</span>, <span class="ruby-identifier">code</span>)
+                <span class="ruby-keyword kw">end</span>
+        <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>to_html_raw_html (MaRuKu::Out::HTML)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/maruku/output/to_html.rb, line 744</span>
+        <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_html_raw_html</span>
+                <span class="ruby-identifier">raw_html</span> = <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">raw_html</span>
+                <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">rexml_doc</span> = <span class="ruby-ivar">@parsed_html</span>
+                        <span class="ruby-identifier">root</span> = <span class="ruby-identifier">rexml_doc</span>.<span class="ruby-identifier">root</span>
+                        <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">root</span>.<span class="ruby-identifier">nil?</span>
+                                <span class="ruby-identifier">s</span> = <span class="ruby-node">&quot;Bug in REXML: root() of Document is nil: \n#{rexml_doc.inspect}\n&quot;</span><span class="ruby-operator">+</span>
+                                <span class="ruby-node">&quot;Raw HTML:\n#{raw_html.inspect}&quot;</span>
+                                <span class="ruby-identifier">maruku_error</span> <span class="ruby-identifier">s</span>
+                                <span class="ruby-identifier">tell_user</span> <span class="ruby-value str">'The REXML version you have has a bug, omitting HTML'</span>
+                                <span class="ruby-identifier">div</span> = <span class="ruby-constant">Element</span>.<span class="ruby-identifier">new</span> <span class="ruby-value str">'div'</span>
+                                <span class="ruby-comment cmt">#div &lt;&lt; Text.new(s)</span>
+                                <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">div</span>
+                        <span class="ruby-keyword kw">end</span>
+                        
+                        <span class="ruby-comment cmt"># copies the @children array (FIXME is it deep?)</span>
+                        <span class="ruby-identifier">elements</span> =  <span class="ruby-identifier">root</span>.<span class="ruby-identifier">to_a</span> 
+                        <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">elements</span>
+                <span class="ruby-keyword kw">else</span> <span class="ruby-comment cmt"># invalid</span>
+                        <span class="ruby-comment cmt"># Creates red box with offending HTML</span>
+                        <span class="ruby-identifier">tell_user</span> <span class="ruby-value str">&quot;Wrapping bad html in a PRE with class 'markdown-html-error'\n&quot;</span><span class="ruby-operator">+</span>
+                                <span class="ruby-identifier">add_tabs</span>(<span class="ruby-identifier">raw_html</span>,<span class="ruby-value">1</span>,<span class="ruby-value str">'|'</span>)
+                        <span class="ruby-identifier">pre</span> = <span class="ruby-constant">Element</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value str">'pre'</span>)
+                        <span class="ruby-identifier">pre</span>.<span class="ruby-identifier">attributes</span>[<span class="ruby-value str">'style'</span>] = <span class="ruby-value str">'border: solid 3px red; background-color: pink'</span>
+                        <span class="ruby-identifier">pre</span>.<span class="ruby-identifier">attributes</span>[<span class="ruby-value str">'class'</span>] = <span class="ruby-value str">'markdown-html-error'</span>
+                        <span class="ruby-identifier">pre</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">Text</span>.<span class="ruby-identifier">new</span>(<span class="ruby-node">&quot;HTML parse error: \n#{raw_html}&quot;</span>, <span class="ruby-keyword kw">true</span>)
+                        <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">pre</span>
+                <span class="ruby-keyword kw">end</span>
+        <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

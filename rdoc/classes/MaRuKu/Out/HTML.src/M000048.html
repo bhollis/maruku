@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>render_footnotes (MaRuKu::Out::HTML)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/maruku/output/to_html.rb, line 250</span>
+        <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">render_footnotes</span>
+                <span class="ruby-identifier">div</span> = <span class="ruby-constant">Element</span>.<span class="ruby-identifier">new</span> <span class="ruby-value str">'div'</span>
+                <span class="ruby-identifier">div</span>.<span class="ruby-identifier">attributes</span>[<span class="ruby-value str">'class'</span>] = <span class="ruby-value str">'footnotes'</span>
+                <span class="ruby-identifier">div</span> <span class="ruby-operator">&lt;&lt;</span>  <span class="ruby-constant">Element</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value str">'hr'</span>)
+                        <span class="ruby-identifier">ol</span> = <span class="ruby-constant">Element</span>.<span class="ruby-identifier">new</span> <span class="ruby-value str">'ol'</span>
+                        <span class="ruby-ivar">@doc</span>.<span class="ruby-identifier">footnotes_order</span>.<span class="ruby-identifier">each_with_index</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">fid</span>, <span class="ruby-identifier">i</span><span class="ruby-operator">|</span> <span class="ruby-identifier">num</span> = <span class="ruby-identifier">i</span><span class="ruby-operator">+</span><span class="ruby-value">1</span>
+                                <span class="ruby-identifier">f</span> = <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">footnotes</span>[<span class="ruby-identifier">fid</span>]
+                                <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">f</span>
+                                        <span class="ruby-identifier">li</span> = <span class="ruby-identifier">f</span>.<span class="ruby-identifier">wrap_as_element</span>(<span class="ruby-value str">'li'</span>)
+                                        <span class="ruby-identifier">li</span>.<span class="ruby-identifier">attributes</span>[<span class="ruby-value str">'id'</span>] = <span class="ruby-node">&quot;fn:#{num}&quot;</span>
+                                        
+                                        <span class="ruby-identifier">a</span> = <span class="ruby-constant">Element</span>.<span class="ruby-identifier">new</span> <span class="ruby-value str">'a'</span>
+                                                <span class="ruby-identifier">a</span>.<span class="ruby-identifier">attributes</span>[<span class="ruby-value str">'href'</span>] = <span class="ruby-node">&quot;#fnref:#{num}&quot;</span>
+                                                <span class="ruby-identifier">a</span>.<span class="ruby-identifier">attributes</span>[<span class="ruby-value str">'rev'</span>] = <span class="ruby-value str">'footnote'</span>
+                                                <span class="ruby-identifier">a</span><span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">Text</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value str">'&amp;#8617;'</span>, <span class="ruby-keyword kw">true</span>, <span class="ruby-keyword kw">nil</span>, <span class="ruby-keyword kw">true</span>)
+                                        <span class="ruby-identifier">li</span>.<span class="ruby-identifier">insert_after</span>(<span class="ruby-identifier">li</span>.<span class="ruby-identifier">children</span>.<span class="ruby-identifier">last</span>, <span class="ruby-identifier">a</span>)
+                                        <span class="ruby-identifier">ol</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">li</span>
+                                <span class="ruby-keyword kw">else</span>
+                                        <span class="ruby-identifier">maruku_error</span><span class="ruby-node">&quot;Could not find footnote '#{fid}'&quot;</span>
+                                <span class="ruby-keyword kw">end</span>
+                        <span class="ruby-keyword kw">end</span>
+                <span class="ruby-identifier">div</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">ol</span>
+                <span class="ruby-identifier">div</span>
+        <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

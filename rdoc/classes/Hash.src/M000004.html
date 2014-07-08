@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>inspect_ordered (Hash)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/maruku/structures_inspect.rb, line 48</span>
+        <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">inspect_ordered</span>(<span class="ruby-identifier">a</span>=<span class="ruby-keyword kw">nil</span>,<span class="ruby-identifier">b</span>=<span class="ruby-keyword kw">nil</span>)
+                <span class="ruby-value str">&quot;{&quot;</span><span class="ruby-operator">+</span><span class="ruby-identifier">keys</span>.<span class="ruby-identifier">map</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">x</span><span class="ruby-operator">|</span><span class="ruby-identifier">x</span>.<span class="ruby-identifier">to_s</span>}.<span class="ruby-identifier">sort</span>.<span class="ruby-identifier">map</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">x</span><span class="ruby-operator">|</span><span class="ruby-identifier">x</span>.<span class="ruby-identifier">to_sym</span>}.
+                <span class="ruby-identifier">map</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">k</span><span class="ruby-operator">|</span> <span class="ruby-identifier">k</span>.<span class="ruby-identifier">inspect</span> <span class="ruby-operator">+</span> <span class="ruby-value str">&quot;=&gt;&quot;</span><span class="ruby-operator">+</span><span class="ruby-keyword kw">self</span>[<span class="ruby-identifier">k</span>].<span class="ruby-identifier">inspect</span>}.<span class="ruby-identifier">join</span>(<span class="ruby-value str">','</span>)<span class="ruby-operator">+</span><span class="ruby-value str">&quot;}&quot;</span>
+        <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

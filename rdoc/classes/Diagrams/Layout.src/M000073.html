@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>get_preferred (Diagrams::Layout)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/maruku/ext/diagrams/layout.rb, line 206</span>
+                <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">get_preferred</span>(<span class="ruby-identifier">var1</span>, <span class="ruby-identifier">var2</span>)
+                        <span class="ruby-identifier">hpaths</span> = <span class="ruby-identifier">rec_paths</span>(<span class="ruby-ivar">@hlink</span>, <span class="ruby-identifier">var1</span>, <span class="ruby-identifier">var2</span>)
+                        <span class="ruby-identifier">vpaths</span> = <span class="ruby-identifier">rec_paths</span>(<span class="ruby-ivar">@vlink</span>, <span class="ruby-identifier">var1</span>, <span class="ruby-identifier">var2</span>)
+                        <span class="ruby-identifier">puts</span> <span class="ruby-identifier">inspect</span>
+                        <span class="ruby-identifier">hpaths</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">h</span><span class="ruby-operator">|</span>
+                                <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;H: #{h.inspect}&quot;</span>
+                        <span class="ruby-keyword kw">end</span>
+                        <span class="ruby-identifier">vpaths</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">v</span><span class="ruby-operator">|</span>
+                                <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;V: #{v.inspect}&quot;</span>
+                        <span class="ruby-keyword kw">end</span>
+                        
+                        <span class="ruby-identifier">hsprings</span> = 
+                        <span class="ruby-identifier">hpaths</span>.<span class="ruby-identifier">map</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">h</span><span class="ruby-operator">|</span>
+                                <span class="ruby-identifier">ss</span> = []
+                                <span class="ruby-keyword kw">for</span> <span class="ruby-identifier">i</span> <span class="ruby-keyword kw">in</span> <span class="ruby-value">0</span><span class="ruby-operator">..</span>(<span class="ruby-identifier">h</span>.<span class="ruby-identifier">size</span><span class="ruby-operator">-</span><span class="ruby-value">2</span>)
+                                        <span class="ruby-identifier">v1</span>,<span class="ruby-identifier">v2</span> = <span class="ruby-identifier">h</span>[<span class="ruby-identifier">i</span>],<span class="ruby-identifier">h</span>[<span class="ruby-identifier">i</span><span class="ruby-operator">+</span><span class="ruby-value">1</span>]
+                                        <span class="ruby-identifier">ss</span>.<span class="ruby-identifier">push</span>  <span class="ruby-ivar">@hsprings</span>[[<span class="ruby-identifier">v1</span>,<span class="ruby-identifier">v2</span>]]
+                                <span class="ruby-keyword kw">end</span>
+                                <span class="ruby-identifier">ss</span>
+                        <span class="ruby-keyword kw">end</span>
+                        <span class="ruby-identifier">vsprings</span> = 
+                        <span class="ruby-identifier">vpaths</span>.<span class="ruby-identifier">map</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">h</span><span class="ruby-operator">|</span>
+                                <span class="ruby-identifier">ss</span> = []
+                                <span class="ruby-keyword kw">for</span> <span class="ruby-identifier">i</span> <span class="ruby-keyword kw">in</span> <span class="ruby-value">0</span><span class="ruby-operator">..</span>(<span class="ruby-identifier">h</span>.<span class="ruby-identifier">size</span><span class="ruby-operator">-</span><span class="ruby-value">2</span>)
+                                        <span class="ruby-identifier">v1</span>,<span class="ruby-identifier">v2</span> = <span class="ruby-identifier">h</span>[<span class="ruby-identifier">i</span>],<span class="ruby-identifier">h</span>[<span class="ruby-identifier">i</span><span class="ruby-operator">+</span><span class="ruby-value">1</span>]
+                                        <span class="ruby-identifier">ss</span>.<span class="ruby-identifier">push</span>  <span class="ruby-ivar">@vsprings</span>[[<span class="ruby-identifier">v1</span>,<span class="ruby-identifier">v2</span>]]
+                                <span class="ruby-keyword kw">end</span>
+                                <span class="ruby-identifier">ss</span>
+                        <span class="ruby-keyword kw">end</span>
+                        
+                        
+                        <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">go_up_parallel</span>(<span class="ruby-identifier">par</span>)
+                                <span class="ruby-identifier">final</span> = <span class="ruby-identifier">par</span>[<span class="ruby-value">0</span>]
+                                <span class="ruby-keyword kw">for</span> <span class="ruby-identifier">i</span> <span class="ruby-keyword kw">in</span> <span class="ruby-value">1</span><span class="ruby-operator">..</span>(<span class="ruby-identifier">par</span>.<span class="ruby-identifier">size</span><span class="ruby-operator">-</span><span class="ruby-value">1</span>)
+                                        <span class="ruby-identifier">final</span> = <span class="ruby-constant">Spring</span>.<span class="ruby-identifier">parallel</span>(<span class="ruby-identifier">final</span>, <span class="ruby-identifier">par</span>[<span class="ruby-identifier">i</span>])
+                                <span class="ruby-keyword kw">end</span>
+                                <span class="ruby-identifier">final</span>
+                        <span class="ruby-keyword kw">end</span>
+                        
+                        <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">go_up_series</span>(<span class="ruby-identifier">series</span>)
+                                <span class="ruby-identifier">tot</span> = <span class="ruby-identifier">series</span>[<span class="ruby-value">0</span>]
+                                <span class="ruby-keyword kw">for</span> <span class="ruby-identifier">i</span> <span class="ruby-keyword kw">in</span> <span class="ruby-value">1</span><span class="ruby-operator">..</span>(<span class="ruby-identifier">series</span>.<span class="ruby-identifier">size</span><span class="ruby-operator">-</span><span class="ruby-value">1</span>)
+                                        <span class="ruby-identifier">tot</span> = <span class="ruby-constant">Spring</span>.<span class="ruby-identifier">series</span>(<span class="ruby-identifier">tot</span>, <span class="ruby-identifier">series</span>[<span class="ruby-identifier">i</span>])
+                                <span class="ruby-keyword kw">end</span>
+                                <span class="ruby-identifier">tot</span>
+                        <span class="ruby-keyword kw">end</span>
+                        
+                        <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">compress</span>(<span class="ruby-identifier">x</span>)
+                                <span class="ruby-identifier">t</span> = <span class="ruby-identifier">x</span>.<span class="ruby-identifier">map</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">s</span><span class="ruby-operator">|</span> <span class="ruby-identifier">go_up_series</span>(<span class="ruby-identifier">s</span>) <span class="ruby-keyword kw">end</span>
+                                <span class="ruby-identifier">final</span> = <span class="ruby-identifier">go_up_parallel</span>(<span class="ruby-identifier">t</span>)
+                        <span class="ruby-keyword kw">end</span>
+                        
+                        <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">sum_of_shrink</span>(<span class="ruby-identifier">series</span>)
+                                <span class="ruby-identifier">sum</span> = <span class="ruby-value">0</span>
+                                <span class="ruby-identifier">series</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">s</span><span class="ruby-operator">|</span> <span class="ruby-identifier">sum</span> <span class="ruby-operator">+=</span> <span class="ruby-identifier">s</span>.<span class="ruby-identifier">shrink</span> <span class="ruby-keyword kw">end</span> 
+                                <span class="ruby-identifier">sum</span>
+                        <span class="ruby-keyword kw">end</span>
+                        
+                        <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">sum_of_stretch</span>(<span class="ruby-identifier">series</span>)
+                                <span class="ruby-identifier">sum</span> = <span class="ruby-value">0</span>
+                                <span class="ruby-identifier">series</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">s</span><span class="ruby-operator">|</span> <span class="ruby-identifier">sum</span> <span class="ruby-operator">+=</span> <span class="ruby-identifier">s</span>.<span class="ruby-identifier">stretch</span>  <span class="ruby-keyword kw">end</span>
+                                <span class="ruby-identifier">sum</span>
+                        <span class="ruby-keyword kw">end</span>
+                        
+                        <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">go_back</span>(<span class="ruby-identifier">imposed</span>, <span class="ruby-identifier">series</span>)
+                                <span class="ruby-identifier">pref</span> = <span class="ruby-identifier">go_up_series</span>(<span class="ruby-identifier">series</span>)
+                                <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">pref</span>.<span class="ruby-identifier">pref</span> <span class="ruby-operator">&gt;</span> <span class="ruby-identifier">imposed</span>
+                                        <span class="ruby-comment cmt"># must shrink</span>
+                                        <span class="ruby-identifier">shrink</span> = <span class="ruby-identifier">pref</span>.<span class="ruby-identifier">pref</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">imposed</span>
+                                        <span class="ruby-identifier">sum</span> = <span class="ruby-identifier">sum_of_shrink</span>(<span class="ruby-identifier">series</span>)
+                                        <span class="ruby-identifier">series</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">s</span><span class="ruby-operator">|</span>
+                                                <span class="ruby-identifier">its_shrink</span> = (<span class="ruby-identifier">s</span>.<span class="ruby-identifier">shrink</span> <span class="ruby-operator">/</span> <span class="ruby-identifier">sum</span>) <span class="ruby-operator">*</span> <span class="ruby-identifier">shrink</span>
+                                                <span class="ruby-identifier">its_imposed</span> = <span class="ruby-identifier">s</span>.<span class="ruby-identifier">pref</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">its_shrink</span>
+                                                <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">s</span>.<span class="ruby-identifier">imposed</span>
+                                                        <span class="ruby-identifier">s</span>.<span class="ruby-identifier">imposed</span> = (<span class="ruby-identifier">its_imposed</span><span class="ruby-operator">+</span> <span class="ruby-identifier">s</span>.<span class="ruby-identifier">imposed</span>)<span class="ruby-operator">*</span><span class="ruby-value">0</span><span class="ruby-value">.5</span>
+                                                <span class="ruby-keyword kw">else</span>
+                                                        <span class="ruby-identifier">s</span>.<span class="ruby-identifier">imposed</span> = <span class="ruby-identifier">its_imposed</span>
+                                                <span class="ruby-keyword kw">end</span>
+                                                <span class="ruby-identifier">s</span>.<span class="ruby-identifier">pref</span> = <span class="ruby-identifier">s</span>.<span class="ruby-identifier">pref</span><span class="ruby-operator">*</span><span class="ruby-value">0</span><span class="ruby-value">.5</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">s</span>.<span class="ruby-identifier">imposed</span><span class="ruby-operator">*</span><span class="ruby-value">0</span><span class="ruby-value">.5</span>
+                                        <span class="ruby-keyword kw">end</span>
+                                <span class="ruby-keyword kw">else</span>
+                                        <span class="ruby-comment cmt"># must stretch</span>
+                                        <span class="ruby-identifier">stretch</span> = <span class="ruby-identifier">imposed</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">pref</span>.<span class="ruby-identifier">pref</span> 
+                                        <span class="ruby-identifier">sum</span> = <span class="ruby-identifier">sum_of_stretch</span>(<span class="ruby-identifier">series</span>)
+                                        <span class="ruby-identifier">series</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">s</span><span class="ruby-operator">|</span>
+                                                <span class="ruby-identifier">its_stretch</span> = (<span class="ruby-identifier">s</span>.<span class="ruby-identifier">stretch</span> <span class="ruby-operator">/</span> <span class="ruby-identifier">sum</span>) <span class="ruby-operator">*</span> <span class="ruby-identifier">stretch</span>
+                                                <span class="ruby-identifier">its_imposed</span> = <span class="ruby-identifier">s</span>.<span class="ruby-identifier">pref</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">its_stretch</span>
+                                                <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">s</span>.<span class="ruby-identifier">imposed</span>
+                                                        <span class="ruby-identifier">s</span>.<span class="ruby-identifier">imposed</span> = (<span class="ruby-identifier">its_imposed</span><span class="ruby-operator">+</span> <span class="ruby-identifier">s</span>.<span class="ruby-identifier">imposed</span>)<span class="ruby-operator">*</span><span class="ruby-value">0</span><span class="ruby-value">.5</span>
+                                                <span class="ruby-keyword kw">else</span>
+                                                        <span class="ruby-identifier">s</span>.<span class="ruby-identifier">imposed</span> = <span class="ruby-identifier">its_imposed</span>
+                                                <span class="ruby-keyword kw">end</span>
+                                                <span class="ruby-identifier">s</span>.<span class="ruby-identifier">pref</span> = <span class="ruby-identifier">s</span>.<span class="ruby-identifier">pref</span><span class="ruby-operator">*</span><span class="ruby-value">0</span><span class="ruby-value">.5</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">s</span>.<span class="ruby-identifier">imposed</span><span class="ruby-operator">*</span><span class="ruby-value">0</span><span class="ruby-value">.5</span>
+                                        <span class="ruby-keyword kw">end</span>
+                                <span class="ruby-keyword kw">end</span>
+                        <span class="ruby-keyword kw">end</span>
+                        
+                        <span class="ruby-keyword kw">for</span> <span class="ruby-identifier">i</span> <span class="ruby-keyword kw">in</span> <span class="ruby-value">0</span><span class="ruby-operator">..</span><span class="ruby-value">100</span>
+                                <span class="ruby-identifier">hpref</span> = <span class="ruby-identifier">compress</span>(<span class="ruby-identifier">hsprings</span>)
+                                <span class="ruby-identifier">vpref</span> = <span class="ruby-identifier">compress</span>(<span class="ruby-identifier">vsprings</span>)
+                
+                                <span class="ruby-identifier">width</span> = <span class="ruby-identifier">hpref</span>.<span class="ruby-identifier">pref</span>
+                                <span class="ruby-identifier">height</span> = <span class="ruby-identifier">vpref</span>.<span class="ruby-identifier">pref</span>
+                        
+                                <span class="ruby-identifier">hsprings</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">series</span><span class="ruby-operator">|</span> <span class="ruby-identifier">go_back</span>(<span class="ruby-identifier">height</span>, <span class="ruby-identifier">series</span>) <span class="ruby-keyword kw">end</span>
+                                <span class="ruby-identifier">vsprings</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">series</span><span class="ruby-operator">|</span> <span class="ruby-identifier">go_back</span>(<span class="ruby-identifier">width</span>, <span class="ruby-identifier">series</span>) <span class="ruby-keyword kw">end</span>
+                        <span class="ruby-keyword kw">end</span>
+
+                        <span class="ruby-identifier">hpaths</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">h</span><span class="ruby-operator">|</span>
+                                <span class="ruby-identifier">ss</span> = []
+                                <span class="ruby-identifier">len</span> = <span class="ruby-value">0</span>
+                                <span class="ruby-keyword kw">for</span> <span class="ruby-identifier">i</span> <span class="ruby-keyword kw">in</span> <span class="ruby-value">0</span><span class="ruby-operator">..</span>(<span class="ruby-identifier">h</span>.<span class="ruby-identifier">size</span><span class="ruby-operator">-</span><span class="ruby-value">2</span>)
+                                        <span class="ruby-identifier">v1</span>,<span class="ruby-identifier">v2</span> = <span class="ruby-identifier">h</span>[<span class="ruby-identifier">i</span>],<span class="ruby-identifier">h</span>[<span class="ruby-identifier">i</span><span class="ruby-operator">+</span><span class="ruby-value">1</span>]
+                                        <span class="ruby-identifier">this</span> = <span class="ruby-ivar">@hsprings</span>[[<span class="ruby-identifier">v1</span>,<span class="ruby-identifier">v2</span>]].<span class="ruby-identifier">imposed</span>
+                                        <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;#{v1} - #{v2}   | &quot;</span><span class="ruby-operator">+</span>  (<span class="ruby-value str">&quot;%0.2f&quot;</span> <span class="ruby-operator">%</span> <span class="ruby-identifier">this</span>)
+                                        <span class="ruby-identifier">len</span> <span class="ruby-operator">+=</span> <span class="ruby-identifier">this</span>
+                                <span class="ruby-keyword kw">end</span>
+                                <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;LEN: #{len}&quot;</span>
+                                <span class="ruby-identifier">ss</span>
+                        <span class="ruby-keyword kw">end</span>
+                        
+                        <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">hpref</span>,<span class="ruby-identifier">vpref</span>
+                <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

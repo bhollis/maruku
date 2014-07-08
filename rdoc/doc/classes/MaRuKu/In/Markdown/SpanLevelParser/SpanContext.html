@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <head>
+    <title>Class: MaRuKu::In::Markdown::SpanLevelParser::SpanContext</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+    <link rel="stylesheet" href="../../../../.././rdoc-style.css" type="text/css" media="screen" />
+
+    <script language="JavaScript" type="text/javascript">
+    // <![CDATA[
+
+        function toggleSource( id )
+        {
+          var elem
+          var link
+
+          if( document.getElementById )
+          {
+            elem = document.getElementById( id )
+            link = document.getElementById( "l_" + id )
+          }
+          else if ( document.all )
+          {
+            elem = eval( "document.all." + id )
+            link = eval( "document.all.l_" + id )
+          }
+          else
+            return false;
+
+          if( elem.style.display == "block" )
+          {
+            elem.style.display = "none"
+            link.innerHTML = "show source"
+          }
+          else
+          {
+            elem.style.display = "block"
+            link.innerHTML = "hide source"
+          }
+        }
+
+        function openCode( url )
+        {
+          window.open( url, "SOURCE_CODE", "width=400,height=400,scrollbars=yes" )
+        }
+      // ]]>
+    </script>
+  </head>
+
+  <body>
+  <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'><tr>
+  <td class="file-title"><span class="file-title-prefix">Class</span><br />MaRuKu::In::Markdown::SpanLevelParser::SpanContext</td>
+  <td align="right">
+    <table cellspacing=0 cellpadding=2>
+      <tr valign="top">
+        <td>In:</td>
+        <td>
+<a href="../../../../../files/lib/maruku/input/parse_span_better_rb.html">lib/maruku/input/parse_span_better.rb</a>
+        </td>
+      </tr>
+    <tr>
+      <td>Parent:</td>
+      <td>
+Object
+     </td>
+   </tr>
+         </table>
+        </td>
+        </tr>
+      </table>
+ <!-- banner header -->
+
+  <div id="bodyContent">
+      <div id="content">
+
+
+
+
+  <div class="sectiontitle">Methods</div>
+  <ul>
+  <li><a href="#M000222">describe</a></li>
+  <li><a href="#M000216">new</a></li>
+  <li><a href="#M000220">push_char</a></li>
+  <li><a href="#M000217">push_element</a></li>
+  <li><a href="#M000218">push_elements</a></li>
+  <li><a href="#M000221">push_space</a></li>
+  <li><a href="#M000219">push_string_if_present</a></li>
+  </ul>
+
+<div class="sectiontitle">Included Modules</div>
+<ul>
+  <li><a href="../../../Strings.html">MaRuKu::Strings</a></li>
+</ul>
+
+
+
+
+  <div class="sectiontitle">Attributes</div>
+  <table border='0' cellpadding='5'>
+  <tr valign='top'>
+    <td class='attr-rw'>
+[RW]
+    </td>
+    <td class='attr-name'>cur_string</td>
+    <td class='attr-desc'></td>
+  </tr>
+  <tr valign='top'>
+    <td class='attr-rw'>
+[RW]
+    </td>
+    <td class='attr-name'>elements</td>
+    <td class='attr-desc'>
+Read elements
+
+</td>
+  </tr>
+  </table>
+
+<div class="sectiontitle">Public Class methods</div>
+<div class="method">
+  <div class="title">
+    <a name="M000216"></a><b>new</b>()
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000216_source')" id="l_M000216_source">show source</a> ]</p>
+  <div id="M000216_source" class="dyn-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/maruku/input/parse_span_better.rb, line 595</span>
+595:                 <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>
+596:                         <span class="ruby-ivar">@elements</span> = []
+597:                         <span class="ruby-ivar">@cur_string</span> = <span class="ruby-value str">&quot;&quot;</span>
+598:                 <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="sectiontitle">Public Instance methods</div>
+<div class="method">
+  <div class="title">
+    <a name="M000222"></a><b>describe</b>()
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000222_source')" id="l_M000222_source">show source</a> ]</p>
+  <div id="M000222_source" class="dyn-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/maruku/input/parse_span_better.rb, line 638</span>
+638:                 <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">describe</span>
+639:                         <span class="ruby-identifier">lines</span> = <span class="ruby-ivar">@elements</span>.<span class="ruby-identifier">map</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">x</span><span class="ruby-operator">|</span> <span class="ruby-identifier">x</span>.<span class="ruby-identifier">inspect</span>}.<span class="ruby-identifier">join</span>(<span class="ruby-value str">&quot;\n&quot;</span>)
+640:                         <span class="ruby-identifier">s</span> = <span class="ruby-value str">&quot;Elements read in span: \n&quot;</span> <span class="ruby-operator">+</span>
+641:                         <span class="ruby-identifier">add_tabs</span>(<span class="ruby-identifier">lines</span>,<span class="ruby-value">1</span>, <span class="ruby-value str">' -'</span>)<span class="ruby-operator">+</span><span class="ruby-value str">&quot;\n&quot;</span>
+642:                 
+643:                         <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@cur_string</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>
+644:                         <span class="ruby-identifier">s</span> <span class="ruby-operator">+=</span> <span class="ruby-node">&quot;Current string: \n  #{@cur_string.inspect}\n&quot;</span> 
+645:                         <span class="ruby-keyword kw">end</span>
+646:                         <span class="ruby-identifier">s</span>
+647:                 <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000220"></a><b>push_char</b>(c)
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000220_source')" id="l_M000220_source">show source</a> ]</p>
+  <div id="M000220_source" class="dyn-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/maruku/input/parse_span_better.rb, line 626</span>
+626:                 <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">push_char</span>(<span class="ruby-identifier">c</span>)
+627:                         <span class="ruby-ivar">@cur_string</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">c</span> 
+628:                         <span class="ruby-keyword kw">nil</span>
+629:                 <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000217"></a><b>push_element</b>(e)
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000217_source')" id="l_M000217_source">show source</a> ]</p>
+  <div id="M000217_source" class="dyn-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/maruku/input/parse_span_better.rb, line 600</span>
+600:                 <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">push_element</span>(<span class="ruby-identifier">e</span>)
+601:                         <span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;Only MDElement and String, please. You pushed #{e.class}: #{e.inspect} &quot;</span> <span class="ruby-keyword kw">if</span>
+602:                          <span class="ruby-keyword kw">not</span> (<span class="ruby-identifier">e</span>.<span class="ruby-identifier">kind_of?</span>(<span class="ruby-constant">String</span>) <span class="ruby-keyword kw">or</span> <span class="ruby-identifier">e</span>.<span class="ruby-identifier">kind_of?</span>(<span class="ruby-constant">MDElement</span>))
+603:                 
+604:                         <span class="ruby-identifier">push_string_if_present</span>
+605:                         <span class="ruby-ivar">@elements</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">e</span>
+606:                         <span class="ruby-keyword kw">nil</span>
+607:                 <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000218"></a><b>push_elements</b>(a)
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000218_source')" id="l_M000218_source">show source</a> ]</p>
+  <div id="M000218_source" class="dyn-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/maruku/input/parse_span_better.rb, line 609</span>
+609:                 <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">push_elements</span>(<span class="ruby-identifier">a</span>)
+610:                         <span class="ruby-keyword kw">for</span> <span class="ruby-identifier">e</span> <span class="ruby-keyword kw">in</span> <span class="ruby-identifier">a</span> 
+611:                                 <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">e</span>.<span class="ruby-identifier">kind_of?</span> <span class="ruby-constant">String</span>
+612:                                         <span class="ruby-identifier">e</span>.<span class="ruby-identifier">each_byte</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">b</span><span class="ruby-operator">|</span> <span class="ruby-identifier">push_char</span> <span class="ruby-identifier">b</span> <span class="ruby-keyword kw">end</span>
+613:                                 <span class="ruby-keyword kw">else</span>
+614:                                         <span class="ruby-identifier">push_element</span> <span class="ruby-identifier">e</span>
+615:                                 <span class="ruby-keyword kw">end</span>
+616:                         <span class="ruby-keyword kw">end</span>
+617:                 <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000221"></a><b>push_space</b>()
+  </div>
+  <div class="description">
+  <p>
+push space into current string if there isn&#8216;t one
+</p>
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000221_source')" id="l_M000221_source">show source</a> ]</p>
+  <div id="M000221_source" class="dyn-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/maruku/input/parse_span_better.rb, line 633</span>
+633:                 <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">push_space</span>
+634:                         <span class="ruby-identifier">last</span> = <span class="ruby-ivar">@cur_string</span>[<span class="ruby-ivar">@cur_string</span>.<span class="ruby-identifier">size</span><span class="ruby-operator">-</span><span class="ruby-value">1</span>]
+635:                         <span class="ruby-ivar">@cur_string</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-value">?\ </span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">last</span> <span class="ruby-operator">!=</span> <span class="ruby-value">?\ </span>
+636:                 <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000219"></a><b>push_string_if_present</b>()
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000219_source')" id="l_M000219_source">show source</a> ]</p>
+  <div id="M000219_source" class="dyn-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/maruku/input/parse_span_better.rb, line 618</span>
+618:                 <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">push_string_if_present</span>
+619:                         <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@cur_string</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>
+620:                                 <span class="ruby-ivar">@elements</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-ivar">@cur_string</span>
+621:                                 <span class="ruby-ivar">@cur_string</span> = <span class="ruby-value str">&quot;&quot;</span>
+622:                         <span class="ruby-keyword kw">end</span>
+623:                         <span class="ruby-keyword kw">nil</span>
+624:                 <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+</div>
+
+  </div>
+
+    </body>
+</html>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>substitute_markdown_inside_raw_html (MaRuKu::In::Markdown::BlockLevelParser)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/maruku/input/parse_doc.rb, line 188</span>
+        <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">substitute_markdown_inside_raw_html</span>
+                <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">each_element</span>(<span class="ruby-identifier">:raw_html</span>) <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">e</span><span class="ruby-operator">|</span>
+                        <span class="ruby-identifier">doc</span> = <span class="ruby-identifier">e</span>.<span class="ruby-identifier">instance_variable_get</span> <span class="ruby-identifier">:@parsed_html</span>
+                        <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">doc</span> <span class="ruby-comment cmt"># valid html</span>
+                                <span class="ruby-comment cmt"># parse block-level markdown elements in these HTML tags</span>
+                                <span class="ruby-identifier">block_tags</span> = [<span class="ruby-value str">'div'</span>]
+
+                                <span class="ruby-comment cmt"># use xpath to find elements with 'markdown' attribute</span>
+                                <span class="ruby-constant">XPath</span>.<span class="ruby-identifier">match</span>(<span class="ruby-identifier">doc</span>, <span class="ruby-value str">&quot;//*[attribute::markdown]&quot;</span> ).<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">e</span><span class="ruby-operator">|</span>
+<span class="ruby-comment cmt">#                                       puts &quot;Found #{e}&quot;</span>
+                                        <span class="ruby-comment cmt"># should we parse block-level or span-level?</span>
+                                        <span class="ruby-identifier">parse_blocks</span> = (<span class="ruby-identifier">e</span>.<span class="ruby-identifier">attributes</span>[<span class="ruby-value str">'markdown'</span>] <span class="ruby-operator">==</span> <span class="ruby-value str">'block'</span>) <span class="ruby-operator">||</span> 
+                                                       <span class="ruby-identifier">block_tags</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">e</span>.<span class="ruby-identifier">name</span>)
+                                        <span class="ruby-comment cmt"># remove 'markdown' attribute</span>
+                                        <span class="ruby-identifier">e</span>.<span class="ruby-identifier">delete_attribute</span> <span class="ruby-value str">'markdown'</span>
+                                        <span class="ruby-comment cmt"># Select all text elements of e</span>
+                                        <span class="ruby-constant">XPath</span>.<span class="ruby-identifier">match</span>(<span class="ruby-identifier">e</span>, <span class="ruby-value str">&quot;//text()&quot;</span> ).<span class="ruby-identifier">each</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">original_text</span><span class="ruby-operator">|</span> 
+                                                <span class="ruby-identifier">s</span> = <span class="ruby-identifier">original_text</span>.<span class="ruby-identifier">value</span>.<span class="ruby-identifier">strip</span>
+                                                <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">s</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>
+                                                        <span class="ruby-identifier">el</span> = <span class="ruby-identifier">md_el</span>(<span class="ruby-identifier">:dummy</span>,
+                                                                 <span class="ruby-identifier">parse_blocks</span> <span class="ruby-value">? </span><span class="ruby-identifier">parse_text_as_markdown</span>(<span class="ruby-identifier">s</span>) <span class="ruby-operator">:</span>
+                                                                          <span class="ruby-identifier">parse_lines_as_span</span>([<span class="ruby-identifier">s</span>]) )
+                                                        <span class="ruby-identifier">p</span> = <span class="ruby-identifier">original_text</span>.<span class="ruby-identifier">parent</span>
+                                                        <span class="ruby-identifier">el</span>.<span class="ruby-identifier">children_to_html</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">x</span><span class="ruby-operator">|</span>
+                                                                <span class="ruby-identifier">p</span>.<span class="ruby-identifier">insert_before</span>(<span class="ruby-identifier">original_text</span>, <span class="ruby-identifier">x</span>)
+                                                        <span class="ruby-keyword kw">end</span>
+                                                        <span class="ruby-identifier">p</span>.<span class="ruby-identifier">delete</span>(<span class="ruby-identifier">original_text</span>)
+                                                        
+                                                <span class="ruby-keyword kw">end</span>
+                                        }
+                                                
+                                <span class="ruby-keyword kw">end</span>
+                                
+                        <span class="ruby-keyword kw">end</span>
+                <span class="ruby-keyword kw">end</span>
+        <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

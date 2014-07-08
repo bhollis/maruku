@@ -1,0 +1,343 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <head>
+    <title>Class: MaRuKu::Section</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+    <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+
+    <script language="JavaScript" type="text/javascript">
+    // <![CDATA[
+
+        function toggleSource( id )
+        {
+          var elem
+          var link
+
+          if( document.getElementById )
+          {
+            elem = document.getElementById( id )
+            link = document.getElementById( "l_" + id )
+          }
+          else if ( document.all )
+          {
+            elem = eval( "document.all." + id )
+            link = eval( "document.all.l_" + id )
+          }
+          else
+            return false;
+
+          if( elem.style.display == "block" )
+          {
+            elem.style.display = "none"
+            link.innerHTML = "show source"
+          }
+          else
+          {
+            elem.style.display = "block"
+            link.innerHTML = "hide source"
+          }
+        }
+
+        function openCode( url )
+        {
+          window.open( url, "SOURCE_CODE", "width=400,height=400,scrollbars=yes" )
+        }
+      // ]]>
+    </script>
+  </head>
+
+  <body>
+  <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'><tr>
+  <td class="file-title"><span class="file-title-prefix">Class</span><br />MaRuKu::Section</td>
+  <td align="right">
+    <table cellspacing=0 cellpadding=2>
+      <tr valign="top">
+        <td>In:</td>
+        <td>
+<a href="../../files/lib/maruku/toc_rb.html">lib/maruku/toc.rb</a>
+        </td>
+      </tr>
+    <tr>
+      <td>Parent:</td>
+      <td>
+Object
+     </td>
+   </tr>
+         </table>
+        </td>
+        </tr>
+      </table>
+ <!-- banner header -->
+
+  <div id="bodyContent">
+      <div id="content">
+
+  <div class="description"><p>
+This represents a section in the TOC.
+</p>
+</div>
+
+
+
+  <div class="sectiontitle">Methods</div>
+  <ul>
+  <li><a href="#M000277">create_toc</a></li>
+  <li><a href="#M000274">inspect</a></li>
+  <li><a href="#M000273">new</a></li>
+  <li><a href="#M000275">numerate</a></li>
+  <li><a href="#M000276">to_html</a></li>
+  <li><a href="#M000278">to_latex</a></li>
+  <li><a href="#M000279">to_latex_rec</a></li>
+  </ul>
+
+<div class="sectiontitle">Included Modules</div>
+<ul>
+  <li><a href="../REXML.html">REXML</a></li>
+</ul>
+
+
+
+
+  <div class="sectiontitle">Attributes</div>
+  <table border='0' cellpadding='5'>
+  <tr valign='top'>
+    <td class='attr-rw'>
+[RW]
+    </td>
+    <td class='attr-name'>header_element</td>
+    <td class='attr-desc'>
+reference to header (header has h.meta[:section] to self)
+
+</td>
+  </tr>
+  <tr valign='top'>
+    <td class='attr-rw'>
+[RW]
+    </td>
+    <td class='attr-name'>immediate_children</td>
+    <td class='attr-desc'>
+<a href="../Array.html">Array</a> of immediate children of this element
+
+</td>
+  </tr>
+  <tr valign='top'>
+    <td class='attr-rw'>
+[RW]
+    </td>
+    <td class='attr-name'>section_children</td>
+    <td class='attr-desc'>
+<a href="../Array.html">Array</a> of <a href="Section.html">Section</a>
+inside this section
+
+</td>
+  </tr>
+  <tr valign='top'>
+    <td class='attr-rw'>
+[RW]
+    </td>
+    <td class='attr-name'>section_level</td>
+    <td class='attr-desc'>
+a Fixnum, is == header_element.level
+
+</td>
+  </tr>
+  <tr valign='top'>
+    <td class='attr-rw'>
+[RW]
+    </td>
+    <td class='attr-name'>section_number</td>
+    <td class='attr-desc'>
+An array of fixnum, like [1,2,5] for <a href="Section.html">Section</a>
+1.2.5
+
+</td>
+  </tr>
+  </table>
+
+<div class="sectiontitle">Public Class methods</div>
+<div class="method">
+  <div class="title">
+    <a name="M000273"></a><b>new</b>()
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000273_source')" id="l_M000273_source">show source</a> ]</p>
+  <div id="M000273_source" class="dyn-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/maruku/toc.rb, line 46</span>
+46:                 <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>
+47:                         <span class="ruby-ivar">@immediate_children</span> = []
+48:                         <span class="ruby-ivar">@section_children</span> = []
+49:                 <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="sectiontitle">Public Instance methods</div>
+<div class="method">
+  <div class="title">
+    <a name="M000277"></a><b>create_toc</b>()
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000277_source')" id="l_M000277_source">show source</a> ]</p>
+  <div id="M000277_source" class="dyn-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/maruku/toc.rb, line 90</span>
+ 90:                 <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">create_toc</span>
+ 91:                         <span class="ruby-identifier">ul</span> = <span class="ruby-constant">Element</span>.<span class="ruby-identifier">new</span> <span class="ruby-value str">'ul'</span>
+ 92:                         <span class="ruby-comment cmt"># let's remove the bullets</span>
+ 93:                         <span class="ruby-identifier">ul</span>.<span class="ruby-identifier">attributes</span>[<span class="ruby-value str">'style'</span>] = <span class="ruby-value str">'list-style: none;'</span> 
+ 94:                         <span class="ruby-ivar">@section_children</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">c</span><span class="ruby-operator">|</span>
+ 95:                                 <span class="ruby-identifier">li</span> = <span class="ruby-constant">Element</span>.<span class="ruby-identifier">new</span> <span class="ruby-value str">'li'</span>
+ 96:                                 <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">span</span> = <span class="ruby-identifier">c</span>.<span class="ruby-identifier">header_element</span>.<span class="ruby-identifier">render_section_number</span>
+ 97:                                         <span class="ruby-identifier">li</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">span</span>
+ 98:                                 <span class="ruby-keyword kw">end</span>
+ 99:                                 <span class="ruby-identifier">a</span> = <span class="ruby-identifier">c</span>.<span class="ruby-identifier">header_element</span>.<span class="ruby-identifier">wrap_as_element</span>(<span class="ruby-value str">'a'</span>)
+100:                                         <span class="ruby-identifier">a</span>.<span class="ruby-identifier">delete_attribute</span> <span class="ruby-value str">'id'</span>
+101:                                         <span class="ruby-identifier">a</span>.<span class="ruby-identifier">attributes</span>[<span class="ruby-value str">'href'</span>] = <span class="ruby-node">&quot;##{c.header_element.attributes[:id]}&quot;</span>
+102:                                 <span class="ruby-identifier">li</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">a</span>
+103:                                 <span class="ruby-identifier">li</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">c</span>.<span class="ruby-identifier">create_toc</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">c</span>.<span class="ruby-identifier">section_children</span>.<span class="ruby-identifier">size</span><span class="ruby-operator">&gt;</span><span class="ruby-value">0</span>
+104:                                 <span class="ruby-identifier">ul</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">li</span>
+105:                         <span class="ruby-keyword kw">end</span>
+106:                         <span class="ruby-identifier">ul</span>
+107:                 <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000274"></a><b>inspect</b>(indent=1)
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000274_source')" id="l_M000274_source">show source</a> ]</p>
+  <div id="M000274_source" class="dyn-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/maruku/toc.rb, line 53</span>
+53:                 <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">inspect</span>(<span class="ruby-identifier">indent</span>=<span class="ruby-value">1</span>)
+54:                         <span class="ruby-identifier">s</span> = <span class="ruby-value str">&quot;&quot;</span>
+55:                         <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@header_element</span>
+56:                                 <span class="ruby-identifier">s</span> <span class="ruby-operator">+=</span>  <span class="ruby-value str">&quot;\_&quot;</span><span class="ruby-operator">*</span><span class="ruby-identifier">indent</span> <span class="ruby-operator">+</span>  <span class="ruby-node">&quot;(#{@section_level})&gt;\t #{@section_number.join('.')} : &quot;</span>
+57:                                 <span class="ruby-identifier">s</span> <span class="ruby-operator">+=</span>  <span class="ruby-ivar">@header_element</span>.<span class="ruby-identifier">children_to_s</span> <span class="ruby-operator">+</span>
+58:                                  <span class="ruby-node">&quot; (id: '#{@header_element.attributes[:id]}')\n&quot;</span>
+59:                         <span class="ruby-keyword kw">else</span>
+60:                                 <span class="ruby-identifier">s</span> <span class="ruby-operator">+=</span> <span class="ruby-value str">&quot;Master\n&quot;</span>
+61:                         <span class="ruby-keyword kw">end</span>
+62:                         
+63:                         <span class="ruby-ivar">@section_children</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">c</span><span class="ruby-operator">|</span>
+64:                                 <span class="ruby-identifier">s</span><span class="ruby-operator">+=</span><span class="ruby-identifier">c</span>.<span class="ruby-identifier">inspect</span>(<span class="ruby-identifier">indent</span><span class="ruby-operator">+</span><span class="ruby-value">1</span>)
+65:                         <span class="ruby-keyword kw">end</span>
+66:                         <span class="ruby-identifier">s</span>
+67:                 <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000275"></a><b>numerate</b>(a=[])
+  </div>
+  <div class="description">
+  <p>
+Numerate this section and its children
+</p>
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000275_source')" id="l_M000275_source">show source</a> ]</p>
+  <div id="M000275_source" class="dyn-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/maruku/toc.rb, line 70</span>
+70:                 <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">numerate</span>(<span class="ruby-identifier">a</span>=[])
+71:                         <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">section_number</span> = <span class="ruby-identifier">a</span>
+72:                         <span class="ruby-identifier">section_children</span>.<span class="ruby-identifier">each_with_index</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">c</span>,<span class="ruby-identifier">i</span><span class="ruby-operator">|</span>
+73:                                 <span class="ruby-identifier">c</span>.<span class="ruby-identifier">numerate</span>(<span class="ruby-identifier">a</span>.<span class="ruby-identifier">clone</span>.<span class="ruby-identifier">push</span>(<span class="ruby-identifier">i</span><span class="ruby-operator">+</span><span class="ruby-value">1</span>))
+74:                         <span class="ruby-keyword kw">end</span>
+75:                         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">h</span> = <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">header_element</span>
+76:                                 <span class="ruby-identifier">h</span>.<span class="ruby-identifier">attributes</span>[<span class="ruby-identifier">:section_number</span>] = <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">section_number</span>
+77:                         <span class="ruby-keyword kw">end</span>
+78:                 <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000276"></a><b>to_html</b>()
+  </div>
+  <div class="description">
+  <p>
+Creates an HTML toc. Call this on the root
+</p>
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000276_source')" id="l_M000276_source">show source</a> ]</p>
+  <div id="M000276_source" class="dyn-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/maruku/toc.rb, line 83</span>
+83:                 <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_html</span>
+84:                         <span class="ruby-identifier">div</span> = <span class="ruby-constant">Element</span>.<span class="ruby-identifier">new</span> <span class="ruby-value str">'div'</span>
+85:                         <span class="ruby-identifier">div</span>.<span class="ruby-identifier">attributes</span>[<span class="ruby-value str">'class'</span>] = <span class="ruby-value str">'maruku_toc'</span>
+86:                         <span class="ruby-identifier">div</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">create_toc</span>
+87:                         <span class="ruby-identifier">div</span>
+88:                 <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000278"></a><b>to_latex</b>()
+  </div>
+  <div class="description">
+  <p>
+Creates a latex toc. Call this on the root
+</p>
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000278_source')" id="l_M000278_source">show source</a> ]</p>
+  <div id="M000278_source" class="dyn-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/maruku/toc.rb, line 111</span>
+111:                 <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_latex</span>
+112:                         <span class="ruby-identifier">to_latex_rec</span> <span class="ruby-operator">+</span> <span class="ruby-value str">&quot;\n\n&quot;</span>
+113:                 <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000279"></a><b>to_latex_rec</b>()
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000279_source')" id="l_M000279_source">show source</a> ]</p>
+  <div id="M000279_source" class="dyn-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/maruku/toc.rb, line 115</span>
+115:                 <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_latex_rec</span>
+116:                         <span class="ruby-identifier">s</span> = <span class="ruby-value str">&quot;&quot;</span>
+117:                         <span class="ruby-ivar">@section_children</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">c</span><span class="ruby-operator">|</span>
+118:                                 <span class="ruby-identifier">s</span> <span class="ruby-operator">+=</span> <span class="ruby-value str">&quot;\\noindent&quot;</span>
+119:                                 <span class="ruby-identifier">number</span> = <span class="ruby-identifier">c</span>.<span class="ruby-identifier">header_element</span>.<span class="ruby-identifier">section_number</span>
+120:                                 <span class="ruby-identifier">s</span> <span class="ruby-operator">+=</span> <span class="ruby-identifier">number</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">number</span>
+121:                                         <span class="ruby-identifier">text</span> = <span class="ruby-identifier">c</span>.<span class="ruby-identifier">header_element</span>.<span class="ruby-identifier">children_to_latex</span>
+122:                                         <span class="ruby-identifier">id</span> = <span class="ruby-identifier">c</span>.<span class="ruby-identifier">header_element</span>.<span class="ruby-identifier">attributes</span>[<span class="ruby-identifier">:id</span>]
+123:                                 <span class="ruby-identifier">s</span> <span class="ruby-operator">+=</span> <span class="ruby-node">&quot;\\hyperlink{#{id}}{#{text}}&quot;</span>
+124:                                 <span class="ruby-identifier">s</span> <span class="ruby-operator">+=</span> <span class="ruby-node">&quot;\\dotfill \\pageref*{#{id}} \\linebreak\n&quot;</span>
+125:                                 <span class="ruby-identifier">s</span> <span class="ruby-operator">+=</span> <span class="ruby-identifier">c</span>.<span class="ruby-identifier">to_latex_rec</span>  <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">c</span>.<span class="ruby-identifier">section_children</span>.<span class="ruby-identifier">size</span><span class="ruby-operator">&gt;</span><span class="ruby-value">0</span>
+126: 
+127:                         <span class="ruby-keyword kw">end</span>
+128:                         <span class="ruby-identifier">s</span>
+129:                 <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+</div>
+
+  </div>
+
+    </body>
+</html>

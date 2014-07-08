@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>t2_parse_blocks (MaRuKu::MDDocument)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/maruku/input_textile2/t2_parser.rb, line 109</span>
+                <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">t2_parse_blocks</span>(<span class="ruby-identifier">src</span>, <span class="ruby-identifier">output</span>)
+                        <span class="ruby-keyword kw">while</span> <span class="ruby-identifier">src</span>.<span class="ruby-identifier">cur_line</span>
+                                
+                                <span class="ruby-comment cmt"># ignore empty line</span>
+                                <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">l</span>.<span class="ruby-identifier">t2_empty?</span> <span class="ruby-keyword kw">then</span> 
+                                        <span class="ruby-identifier">src</span>.<span class="ruby-identifier">shift_line</span>
+                                        <span class="ruby-keyword kw">next</span> 
+                                <span class="ruby-keyword kw">end</span>
+                                
+                                <span class="ruby-identifier">l</span> = <span class="ruby-identifier">src</span>.<span class="ruby-identifier">shift_line</span>
+                                <span class="ruby-comment cmt"># TODO: lists</span>
+                                <span class="ruby-comment cmt"># TODO: xml</span>
+                                <span class="ruby-comment cmt"># TODO: `==`</span>
+
+                                <span class="ruby-identifier">signature</span>, <span class="ruby-identifier">l</span> =
+                                        <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">l</span>.<span class="ruby-identifier">t2_contains_signature?</span>
+                                                <span class="ruby-identifier">l</span>.<span class="ruby-identifier">t2_get_signature</span>
+                                        <span class="ruby-keyword kw">else</span>
+                                                [<span class="ruby-constant">Textile2Signature</span>.<span class="ruby-identifier">new</span>, <span class="ruby-identifier">l</span>]
+                                        <span class="ruby-keyword kw">end</span>
+
+                                <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">handling</span> = <span class="ruby-constant">T2_Handling</span>.<span class="ruby-identifier">has_key?</span>(<span class="ruby-identifier">signature</span>.<span class="ruby-identifier">block_name</span>)
+                                        <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">responds_to?</span> <span class="ruby-identifier">handling</span>.<span class="ruby-identifier">method</span>
+                                                <span class="ruby-comment cmt"># read as many non-empty lines that you can</span>
+                                                <span class="ruby-identifier">lines</span> = [<span class="ruby-identifier">l</span>]
+                                                <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">handling</span>.<span class="ruby-identifier">parse_lines</span>
+                                                        <span class="ruby-keyword kw">while</span> <span class="ruby-keyword kw">not</span> <span class="ruby-identifier">src</span>.<span class="ruby-identifier">cur_line</span>.<span class="ruby-identifier">t2_empty?</span>
+                                                                <span class="ruby-identifier">lines</span>.<span class="ruby-identifier">push</span> <span class="ruby-identifier">src</span>.<span class="ruby-identifier">shift_line</span>
+                                                        <span class="ruby-keyword kw">end</span>
+                                                <span class="ruby-keyword kw">end</span>
+                                        
+                                                <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">send</span>(<span class="ruby-identifier">handling</span>.<span class="ruby-identifier">method</span>, <span class="ruby-identifier">src</span>, <span class="ruby-identifier">output</span>, <span class="ruby-identifier">signature</span>, <span class="ruby-identifier">lines</span>)
+                                        <span class="ruby-keyword kw">else</span>
+                                                <span class="ruby-identifier">maruku_error</span>(<span class="ruby-node">&quot;We don't know about method #{handling.method.inspect}&quot;</span>)
+                                                <span class="ruby-keyword kw">next</span>
+                                        <span class="ruby-keyword kw">end</span>
+                                <span class="ruby-keyword kw">end</span>
+                                
+                                
+                        <span class="ruby-keyword kw">end</span>
+                <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

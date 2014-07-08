@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>to_latex_inline_code (MaRuKu::Out::Latex)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/maruku/output/to_latex.rb, line 359</span>
+        <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_latex_inline_code</span>; 
+                <span class="ruby-identifier">source</span> = <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">raw_code</span>
+                
+                <span class="ruby-comment cmt"># Convert to printable latex chars </span>
+                <span class="ruby-identifier">s</span> = <span class="ruby-identifier">latex_escape</span>(<span class="ruby-identifier">source</span>)
+                
+                <span class="ruby-identifier">color</span> = <span class="ruby-identifier">get_setting</span>(<span class="ruby-identifier">:code_background_color</span>)
+                <span class="ruby-identifier">colorspec</span> = <span class="ruby-identifier">latex_color</span>(<span class="ruby-identifier">color</span>, <span class="ruby-value str">'colorbox'</span>)
+
+                <span class="ruby-node">&quot;#{colorspec}{\\tt #{s}}&quot;</span>
+        <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

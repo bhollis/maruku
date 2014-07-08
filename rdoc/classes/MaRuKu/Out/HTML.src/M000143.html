@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>day_suffix (MaRuKu::Out::HTML)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/maruku/output/to_html.rb, line 226</span>
+        <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">day_suffix</span>(<span class="ruby-identifier">day</span>)
+                <span class="ruby-identifier">s</span> = {
+                        <span class="ruby-value">1</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">'st'</span>,
+                        <span class="ruby-value">2</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">'nd'</span>,
+                        <span class="ruby-value">3</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">'rd'</span>,
+                        <span class="ruby-value">21</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">'st'</span>,
+                        <span class="ruby-value">22</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">'nd'</span>,
+                        <span class="ruby-value">23</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">'rd'</span>,
+                        <span class="ruby-value">31</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">'st'</span>
+                }
+                <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">s</span>[<span class="ruby-identifier">day</span>] <span class="ruby-operator">||</span> <span class="ruby-value str">'th'</span>;
+        <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

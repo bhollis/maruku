@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>to_latex_entity (MaRuKu::Out::Latex)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/maruku/output/to_latex_entities.rb, line 28</span>
+        <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_latex_entity</span> 
+                <span class="ruby-constant">MaRuKu</span><span class="ruby-operator">::</span><span class="ruby-constant">Out</span><span class="ruby-operator">::</span><span class="ruby-constant">Latex</span>.<span class="ruby-identifier">need_entity_table</span>
+                
+                <span class="ruby-identifier">entity_name</span> = <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">entity_name</span>
+        
+                <span class="ruby-identifier">entity</span> = <span class="ruby-constant">ENTITY_TABLE</span>[<span class="ruby-identifier">entity_name</span>]
+                <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">not</span> <span class="ruby-identifier">entity</span>
+                        <span class="ruby-identifier">maruku_error</span> <span class="ruby-node">&quot;I don't know how to translate entity '#{entity_name}' &quot;</span><span class="ruby-operator">+</span>
+                        <span class="ruby-value str">&quot;to LaTeX.&quot;</span>
+                        <span class="ruby-keyword kw">return</span> <span class="ruby-value str">&quot;&quot;</span>
+                <span class="ruby-keyword kw">end</span>
+                <span class="ruby-identifier">replace</span> = <span class="ruby-identifier">entity</span>.<span class="ruby-identifier">latex_string</span>
+                
+                <span class="ruby-identifier">entity</span>.<span class="ruby-identifier">latex_packages</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">p</span><span class="ruby-operator">|</span>
+                        <span class="ruby-ivar">@doc</span>.<span class="ruby-identifier">latex_require_package</span> <span class="ruby-identifier">p</span>
+                <span class="ruby-keyword kw">end</span>
+                
+<span class="ruby-comment cmt">#               if replace =~ /^\\/</span>
+<span class="ruby-comment cmt">#                       replace = replace + &quot; &quot;</span>
+<span class="ruby-comment cmt">#               end</span>
+                
+                <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">replace</span>
+                        <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">replace</span> <span class="ruby-operator">+</span> <span class="ruby-value str">&quot;{}&quot;</span>
+                <span class="ruby-keyword kw">else</span>
+                        <span class="ruby-identifier">tell_user</span> <span class="ruby-node">&quot;Cannot translate entity #{entity_name.inspect} to LaTeX.&quot;</span>
+                        <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">entity_name</span>
+                <span class="ruby-keyword kw">end</span>
+        <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

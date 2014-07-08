@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>to_html_code (MaRuKu::Out::HTML)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/maruku/output/to_html.rb, line 493</span>
+        <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_html_code</span>; 
+                <span class="ruby-identifier">source</span> = <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">raw_code</span>
+
+                <span class="ruby-identifier">lang</span> = <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">attributes</span>[<span class="ruby-identifier">:lang</span>] <span class="ruby-operator">||</span> <span class="ruby-ivar">@doc</span>.<span class="ruby-identifier">attributes</span>[<span class="ruby-identifier">:code_lang</span>] 
+
+                <span class="ruby-identifier">lang</span> = <span class="ruby-value str">'xml'</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">lang</span><span class="ruby-operator">==</span><span class="ruby-value str">'html'</span>
+
+                <span class="ruby-identifier">use_syntax</span> = <span class="ruby-identifier">get_setting</span> <span class="ruby-identifier">:html_use_syntax</span>
+                
+                <span class="ruby-identifier">element</span> = 
+                <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">use_syntax</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">lang</span>
+                        <span class="ruby-keyword kw">begin</span>
+                                <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">not</span> <span class="ruby-identifier">$syntax_loaded</span>
+                                        <span class="ruby-identifier">require</span> <span class="ruby-value str">'rubygems'</span>
+                                        <span class="ruby-identifier">require</span> <span class="ruby-value str">'syntax'</span>
+                                        <span class="ruby-identifier">require</span> <span class="ruby-value str">'syntax/convertors/html'</span>
+                                        <span class="ruby-identifier">$syntax_loaded</span> = <span class="ruby-keyword kw">true</span>
+                                <span class="ruby-keyword kw">end</span>
+                                <span class="ruby-identifier">convertor</span> = <span class="ruby-constant">Syntax</span><span class="ruby-operator">::</span><span class="ruby-constant">Convertors</span><span class="ruby-operator">::</span><span class="ruby-constant">HTML</span>.<span class="ruby-identifier">for_syntax</span> <span class="ruby-identifier">lang</span>
+                                
+                                <span class="ruby-comment cmt"># eliminate trailing newlines otherwise Syntax crashes</span>
+                                <span class="ruby-identifier">source</span> = <span class="ruby-identifier">source</span>.<span class="ruby-identifier">gsub</span>(<span class="ruby-regexp re">/\n*\Z/</span>,<span class="ruby-value str">''</span>)
+                                
+                                <span class="ruby-identifier">html</span> = <span class="ruby-identifier">convertor</span>.<span class="ruby-identifier">convert</span>( <span class="ruby-identifier">source</span> )
+                                <span class="ruby-identifier">html</span> = <span class="ruby-identifier">html</span>.<span class="ruby-identifier">gsub</span>(<span class="ruby-regexp re">/\&amp;apos;/</span>,<span class="ruby-value str">'&amp;#39;'</span>) <span class="ruby-comment cmt"># IE bug</span>
+                                <span class="ruby-identifier">html</span> = <span class="ruby-identifier">html</span>.<span class="ruby-identifier">gsub</span>(<span class="ruby-regexp re">/'/</span>,<span class="ruby-value str">'&amp;#39;'</span>) <span class="ruby-comment cmt"># IE bug</span>
+        <span class="ruby-comment cmt">#                      html = html.gsub(/&amp;/,'&amp;amp;') </span>
+                                
+                                <span class="ruby-identifier">code</span> = <span class="ruby-constant">Document</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">html</span>, {<span class="ruby-identifier">:respect_whitespace</span> =<span class="ruby-operator">&gt;</span><span class="ruby-identifier">:all</span>}).<span class="ruby-identifier">root</span>
+                                <span class="ruby-identifier">code</span>.<span class="ruby-identifier">name</span> = <span class="ruby-value str">'code'</span>
+                                <span class="ruby-identifier">code</span>.<span class="ruby-identifier">attributes</span>[<span class="ruby-value str">'class'</span>] = <span class="ruby-identifier">lang</span>
+                                <span class="ruby-identifier">code</span>.<span class="ruby-identifier">attributes</span>[<span class="ruby-value str">'lang'</span>] = <span class="ruby-identifier">lang</span>
+                                
+                                <span class="ruby-identifier">pre</span> = <span class="ruby-constant">Element</span>.<span class="ruby-identifier">new</span> <span class="ruby-value str">'pre'</span>
+                                <span class="ruby-identifier">pre</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">code</span>
+                                <span class="ruby-identifier">pre</span>
+                        <span class="ruby-keyword kw">rescue</span> <span class="ruby-constant">LoadError</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
+                                <span class="ruby-identifier">maruku_error</span> <span class="ruby-value str">&quot;Could not load package 'syntax'.\n&quot;</span><span class="ruby-operator">+</span>
+                                        <span class="ruby-value str">&quot;Please install it, for example using 'gem install syntax'.&quot;</span>
+                                <span class="ruby-identifier">to_html_code_using_pre</span>(<span class="ruby-identifier">source</span>)      
+                        <span class="ruby-keyword kw">rescue</span> <span class="ruby-constant">Object</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
+                                <span class="ruby-identifier">maruku_error</span><span class="ruby-node">&quot;Error while using the syntax library for code:\n#{source.inspect}&quot;</span><span class="ruby-operator">+</span>
+                                 <span class="ruby-node">&quot;Lang is #{lang} object is: \n&quot;</span><span class="ruby-operator">+</span>
+                                  <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">inspect</span> <span class="ruby-operator">+</span> 
+                                <span class="ruby-node">&quot;\nException: #{e.class}: #{e.message}\n\t#{e.backtrace.join(&quot;\n\t&quot;)}&quot;</span>
+                                
+                                <span class="ruby-identifier">tell_user</span>(<span class="ruby-value str">&quot;Using normal PRE because the syntax library did not work.&quot;</span>)
+                                <span class="ruby-identifier">to_html_code_using_pre</span>(<span class="ruby-identifier">source</span>)
+                        <span class="ruby-keyword kw">end</span>
+                <span class="ruby-keyword kw">else</span>
+                        <span class="ruby-identifier">to_html_code_using_pre</span>(<span class="ruby-identifier">source</span>)
+                <span class="ruby-keyword kw">end</span>
+                
+                <span class="ruby-identifier">color</span> = <span class="ruby-identifier">get_setting</span>(<span class="ruby-identifier">:code_background_color</span>)
+                <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">color</span> <span class="ruby-operator">!=</span> <span class="ruby-constant">Globals</span>[<span class="ruby-identifier">:code_background_color</span>]
+                        <span class="ruby-identifier">element</span>.<span class="ruby-identifier">attributes</span>[<span class="ruby-value str">'style'</span>] = <span class="ruby-node">&quot;background-color: #{color};&quot;</span>
+                <span class="ruby-keyword kw">end</span>
+                <span class="ruby-identifier">add_ws</span> <span class="ruby-identifier">element</span>
+        <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

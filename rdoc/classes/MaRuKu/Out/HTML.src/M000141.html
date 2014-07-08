@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>to_html_document_tree (MaRuKu::Out::HTML)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/maruku/output/to_html.rb, line 159</span>
+        <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_html_document_tree</span>
+                <span class="ruby-identifier">doc</span> = <span class="ruby-constant">Document</span>.<span class="ruby-identifier">new</span>(<span class="ruby-keyword kw">nil</span>,{<span class="ruby-identifier">:respect_whitespace</span> =<span class="ruby-operator">&gt;</span><span class="ruby-identifier">:all</span>})
+        <span class="ruby-comment cmt">#      doc &lt;&lt; XMLDecl.new</span>
+                
+                <span class="ruby-identifier">root</span> = <span class="ruby-constant">Element</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value str">'html'</span>, <span class="ruby-identifier">doc</span>)
+                <span class="ruby-identifier">root</span>.<span class="ruby-identifier">add_namespace</span>(<span class="ruby-value str">'http://www.w3.org/1999/xhtml'</span>)
+                <span class="ruby-identifier">root</span>.<span class="ruby-identifier">add_namespace</span>(<span class="ruby-value str">'svg'</span>, <span class="ruby-value str">&quot;http://www.w3.org/2000/svg&quot;</span> )
+                <span class="ruby-identifier">lang</span> = <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">attributes</span>[<span class="ruby-identifier">:lang</span>] <span class="ruby-operator">||</span> <span class="ruby-value str">'en'</span>
+                <span class="ruby-identifier">root</span>.<span class="ruby-identifier">attributes</span>[<span class="ruby-value str">'xml:lang'</span>] = <span class="ruby-identifier">lang</span>
+                
+                <span class="ruby-identifier">root</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">xml_newline</span>
+                <span class="ruby-identifier">head</span> = <span class="ruby-constant">Element</span>.<span class="ruby-identifier">new</span> <span class="ruby-value str">'head'</span>, <span class="ruby-identifier">root</span>
+                
+                        <span class="ruby-comment cmt">#&lt;META HTTP-EQUIV=&quot;Content-Type&quot; CONTENT=&quot;text/html; charset=utf-8&quot;&gt;</span>
+                        <span class="ruby-identifier">me</span> = <span class="ruby-constant">Element</span>.<span class="ruby-identifier">new</span> <span class="ruby-value str">'meta'</span>, <span class="ruby-identifier">head</span>
+                        <span class="ruby-identifier">me</span>.<span class="ruby-identifier">attributes</span>[<span class="ruby-value str">'http-equiv'</span>] = <span class="ruby-value str">'Content-type'</span>
+<span class="ruby-comment cmt">#                       me.attributes['content'] = 'text/html;charset=utf-8'        </span>
+                        <span class="ruby-identifier">me</span>.<span class="ruby-identifier">attributes</span>[<span class="ruby-value str">'content'</span>] = <span class="ruby-value str">'application/xhtml+xml;charset=utf-8'</span>     
+                
+
+                        <span class="ruby-comment cmt"># Create title element</span>
+                        <span class="ruby-identifier">doc_title</span> = <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">attributes</span>[<span class="ruby-identifier">:title</span>] <span class="ruby-operator">||</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">attributes</span>[<span class="ruby-identifier">:subject</span>] <span class="ruby-operator">||</span> <span class="ruby-value str">&quot;&quot;</span>
+                        <span class="ruby-identifier">title</span> = <span class="ruby-constant">Element</span>.<span class="ruby-identifier">new</span> <span class="ruby-value str">'title'</span>, <span class="ruby-identifier">head</span>
+                                <span class="ruby-identifier">title</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">Text</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">doc_title</span>)
+                                                        
+                        <span class="ruby-identifier">add_css_to</span>(<span class="ruby-identifier">head</span>)
+                        
+                
+                <span class="ruby-identifier">root</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">xml_newline</span>
+                
+                <span class="ruby-identifier">body</span> = <span class="ruby-constant">Element</span>.<span class="ruby-identifier">new</span> <span class="ruby-value str">'body'</span>
+                
+                        <span class="ruby-identifier">children_to_html</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">e</span><span class="ruby-operator">|</span>
+                                <span class="ruby-identifier">body</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">e</span>
+                        <span class="ruby-keyword kw">end</span>
+
+                        <span class="ruby-comment cmt"># render footnotes</span>
+                        <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@doc</span>.<span class="ruby-identifier">footnotes_order</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>
+                                <span class="ruby-identifier">body</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">render_footnotes</span>
+                        <span class="ruby-keyword kw">end</span>
+                        
+                        <span class="ruby-comment cmt"># When we are rendering a whole document, we add a signature </span>
+                        <span class="ruby-comment cmt"># at the bottom. </span>
+                        <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">get_setting</span>(<span class="ruby-identifier">:maruku_signature</span>)
+                                <span class="ruby-identifier">body</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">maruku_html_signature</span> 
+                        <span class="ruby-keyword kw">end</span>
+                        
+                <span class="ruby-identifier">root</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">body</span>
+                
+                <span class="ruby-identifier">doc</span>
+        <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

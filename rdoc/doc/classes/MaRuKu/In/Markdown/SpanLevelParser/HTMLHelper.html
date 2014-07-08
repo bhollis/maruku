@@ -1,0 +1,326 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <head>
+    <title>Class: MaRuKu::In::Markdown::SpanLevelParser::HTMLHelper</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+    <link rel="stylesheet" href="../../../../.././rdoc-style.css" type="text/css" media="screen" />
+
+    <script language="JavaScript" type="text/javascript">
+    // <![CDATA[
+
+        function toggleSource( id )
+        {
+          var elem
+          var link
+
+          if( document.getElementById )
+          {
+            elem = document.getElementById( id )
+            link = document.getElementById( "l_" + id )
+          }
+          else if ( document.all )
+          {
+            elem = eval( "document.all." + id )
+            link = eval( "document.all.l_" + id )
+          }
+          else
+            return false;
+
+          if( elem.style.display == "block" )
+          {
+            elem.style.display = "none"
+            link.innerHTML = "show source"
+          }
+          else
+          {
+            elem.style.display = "block"
+            link.innerHTML = "hide source"
+          }
+        }
+
+        function openCode( url )
+        {
+          window.open( url, "SOURCE_CODE", "width=400,height=400,scrollbars=yes" )
+        }
+      // ]]>
+    </script>
+  </head>
+
+  <body>
+  <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'><tr>
+  <td class="file-title"><span class="file-title-prefix">Class</span><br />MaRuKu::In::Markdown::SpanLevelParser::HTMLHelper</td>
+  <td align="right">
+    <table cellspacing=0 cellpadding=2>
+      <tr valign="top">
+        <td>In:</td>
+        <td>
+<a href="../../../../../files/lib/maruku/input/html_helper_rb.html">lib/maruku/input/html_helper.rb</a>
+        </td>
+      </tr>
+    <tr>
+      <td>Parent:</td>
+      <td>
+Object
+     </td>
+   </tr>
+         </table>
+        </td>
+        </tr>
+      </table>
+ <!-- banner header -->
+
+  <div id="bodyContent">
+      <div id="content">
+
+  <div class="description"><p>
+I tried to do this with <a href="../../../../REXML.html">REXML</a>, but
+wasn&#8216;t able to. (suggestions?)
+</p>
+</div>
+
+
+
+  <div class="sectiontitle">Methods</div>
+  <ul>
+  <li><a href="#M000224">eat_this</a></li>
+  <li><a href="#M000225">error</a></li>
+  <li><a href="#M000226">inspect</a></li>
+  <li><a href="#M000228">is_finished?</a></li>
+  <li><a href="#M000223">new</a></li>
+  <li><a href="#M000227">stuff_you_read</a></li>
+  </ul>
+
+<div class="sectiontitle">Included Modules</div>
+<ul>
+  <li><a href="../../../Strings.html">MaRuKu::Strings</a></li>
+</ul>
+
+
+
+  <div class="sectiontitle">Constants</div>
+  <table border='0' cellpadding='5'>
+  <tr valign='top'>
+    <td class="attr-name">Tag</td>
+    <td>=</td>
+    <td class="attr-value">%r{^&lt;(/)?(\w+)\s*([^&gt;]*)&gt;}m</td>
+  </tr>
+  <tr valign='top'>
+    <td class="attr-name">EverythingElse</td>
+    <td>=</td>
+    <td class="attr-value">%r{^[^&lt;]+}m</td>
+  </tr>
+  <tr valign='top'>
+    <td class="attr-name">CommentStart</td>
+    <td>=</td>
+    <td class="attr-value">%r{^&lt;!--}x</td>
+  </tr>
+  <tr valign='top'>
+    <td class="attr-name">CommentEnd</td>
+    <td>=</td>
+    <td class="attr-value">%r{^.*--&gt;}</td>
+  </tr>
+  <tr valign='top'>
+    <td class="attr-name">TO_SANITIZE</td>
+    <td>=</td>
+    <td class="attr-value">['img','hr']</td>
+  </tr>
+  </table>
+
+  <div class="sectiontitle">Attributes</div>
+  <table border='0' cellpadding='5'>
+  <tr valign='top'>
+    <td class='attr-rw'>
+[R]
+    </td>
+    <td class='attr-name'>rest</td>
+    <td class='attr-desc'>
+attr_accessor :inside_comment
+
+</td>
+  </tr>
+  </table>
+
+<div class="sectiontitle">Public Class methods</div>
+<div class="method">
+  <div class="title">
+    <a name="M000223"></a><b>new</b>()
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000223_source')" id="l_M000223_source">show source</a> ]</p>
+  <div id="M000223_source" class="dyn-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/maruku/input/html_helper.rb, line 40</span>
+40:                 <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span> 
+41:                         <span class="ruby-ivar">@rest</span> = <span class="ruby-value str">&quot;&quot;</span>
+42:                         <span class="ruby-ivar">@tag_stack</span> = []
+43:                         <span class="ruby-ivar">@m</span> = <span class="ruby-keyword kw">nil</span>
+44:                         <span class="ruby-ivar">@already</span> = <span class="ruby-value str">&quot;&quot;</span>
+45:                         <span class="ruby-ivar">@inside_comment</span> = <span class="ruby-keyword kw">false</span>
+46:                 <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="sectiontitle">Public Instance methods</div>
+<div class="method">
+  <div class="title">
+    <a name="M000224"></a><b>eat_this</b>(line)
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000224_source')" id="l_M000224_source">show source</a> ]</p>
+  <div id="M000224_source" class="dyn-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/maruku/input/html_helper.rb, line 48</span>
+ 48:                 <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">eat_this</span>(<span class="ruby-identifier">line</span>)
+ 49:                         <span class="ruby-ivar">@rest</span> = <span class="ruby-identifier">line</span>  <span class="ruby-operator">+</span> <span class="ruby-ivar">@rest</span>
+ 50:                         <span class="ruby-identifier">things_read</span> = <span class="ruby-value">0</span>
+ 51:                         <span class="ruby-keyword kw">until</span> <span class="ruby-ivar">@rest</span>.<span class="ruby-identifier">empty?</span>
+ 52:                                 <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@inside_comment</span>
+ 53:                                         <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@m</span> = <span class="ruby-constant">CommentEnd</span>.<span class="ruby-identifier">match</span>(<span class="ruby-ivar">@rest</span>)
+ 54:                                                 <span class="ruby-ivar">@inside_comment</span> = <span class="ruby-keyword kw">false</span>
+ 55:                                                 <span class="ruby-ivar">@already</span> <span class="ruby-operator">+=</span> <span class="ruby-ivar">@m</span>.<span class="ruby-identifier">pre_match</span> <span class="ruby-operator">+</span> <span class="ruby-ivar">@m</span>.<span class="ruby-identifier">to_s</span>
+ 56:                                                 <span class="ruby-ivar">@rest</span> = <span class="ruby-ivar">@m</span>.<span class="ruby-identifier">post_match</span>
+ 57:                                         <span class="ruby-keyword kw">elsif</span> <span class="ruby-ivar">@m</span> = <span class="ruby-constant">EverythingElse</span>.<span class="ruby-identifier">match</span>(<span class="ruby-ivar">@rest</span>)
+ 58:                                                 <span class="ruby-ivar">@already</span> <span class="ruby-operator">+=</span> <span class="ruby-ivar">@m</span>.<span class="ruby-identifier">pre_match</span> <span class="ruby-operator">+</span> <span class="ruby-ivar">@m</span>.<span class="ruby-identifier">to_s</span>
+ 59:                                                 <span class="ruby-ivar">@rest</span> = <span class="ruby-ivar">@m</span>.<span class="ruby-identifier">post_match</span>
+ 60:                                         <span class="ruby-keyword kw">end</span>
+ 61:                                 <span class="ruby-keyword kw">else</span>
+ 62:                                         <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@m</span> = <span class="ruby-constant">CommentStart</span>.<span class="ruby-identifier">match</span>(<span class="ruby-ivar">@rest</span>)
+ 63:                                                 <span class="ruby-identifier">things_read</span> <span class="ruby-operator">+=</span> <span class="ruby-value">1</span>
+ 64:                                                 <span class="ruby-ivar">@inside_comment</span> = <span class="ruby-keyword kw">true</span>
+ 65:                                                 <span class="ruby-ivar">@already</span> <span class="ruby-operator">+=</span> <span class="ruby-ivar">@m</span>.<span class="ruby-identifier">pre_match</span> <span class="ruby-operator">+</span> <span class="ruby-ivar">@m</span>.<span class="ruby-identifier">to_s</span>
+ 66:                                                 <span class="ruby-ivar">@rest</span> = <span class="ruby-ivar">@m</span>.<span class="ruby-identifier">post_match</span>
+ 67:                                         <span class="ruby-keyword kw">elsif</span> <span class="ruby-ivar">@m</span> = <span class="ruby-constant">Tag</span>.<span class="ruby-identifier">match</span>(<span class="ruby-ivar">@rest</span>)
+ 68:                                                 <span class="ruby-identifier">things_read</span> <span class="ruby-operator">+=</span> <span class="ruby-value">1</span>
+ 69:                                                 <span class="ruby-ivar">@already</span> <span class="ruby-operator">+=</span> <span class="ruby-ivar">@m</span>.<span class="ruby-identifier">pre_match</span>
+ 70:                                                 <span class="ruby-ivar">@rest</span> = <span class="ruby-ivar">@m</span>.<span class="ruby-identifier">post_match</span>
+ 71:                                         
+ 72:                                                 <span class="ruby-identifier">is_closing</span> = <span class="ruby-operator">!</span><span class="ruby-operator">!</span><span class="ruby-ivar">@m</span>[<span class="ruby-value">1</span>]
+ 73:                                                 <span class="ruby-identifier">tag</span> = <span class="ruby-ivar">@m</span>[<span class="ruby-value">2</span>]
+ 74:                                                 <span class="ruby-identifier">attributes</span> = <span class="ruby-ivar">@m</span>[<span class="ruby-value">3</span>]
+ 75:                                                 
+ 76:                                                 <span class="ruby-identifier">is_single</span> = <span class="ruby-keyword kw">false</span>
+ 77:                                                 <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">attributes</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp re">/\A(.*)\/\Z/</span>
+ 78:                                                         <span class="ruby-identifier">attributes</span> = <span class="ruby-identifier">$1</span>
+ 79:                                                         <span class="ruby-identifier">is_single</span> = <span class="ruby-keyword kw">true</span>
+ 80:                                                 <span class="ruby-keyword kw">end</span>
+ 81:                                         
+ 82:                                                 <span class="ruby-keyword kw">if</span> <span class="ruby-constant">TO_SANITIZE</span>.<span class="ruby-identifier">include?</span> <span class="ruby-identifier">tag</span> 
+ 83:                                                         <span class="ruby-identifier">attributes</span>.<span class="ruby-identifier">strip!</span>
+ 84:                                         <span class="ruby-comment cmt">#          puts &quot;Attributes: #{attributes.inspect}&quot;</span>
+ 85:                                                         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">attributes</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>
+ 86:                                                                 <span class="ruby-ivar">@already</span> <span class="ruby-operator">+=</span>  <span class="ruby-value str">'&lt;%s %s /&gt;'</span> <span class="ruby-operator">%</span> [<span class="ruby-identifier">tag</span>, <span class="ruby-identifier">attributes</span>]
+ 87:                                                         <span class="ruby-keyword kw">else</span>
+ 88:                                                                 <span class="ruby-ivar">@already</span> <span class="ruby-operator">+=</span>  <span class="ruby-value str">'&lt;%s /&gt;'</span> <span class="ruby-operator">%</span> [<span class="ruby-identifier">tag</span>]
+ 89:                                                         <span class="ruby-keyword kw">end</span>
+ 90:                                                 <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">is_closing</span>
+ 91:                                                         <span class="ruby-ivar">@already</span> <span class="ruby-operator">+=</span> <span class="ruby-ivar">@m</span>.<span class="ruby-identifier">to_s</span>
+ 92:                                                         <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@tag_stack</span>.<span class="ruby-identifier">empty?</span>
+ 93:                                                                 <span class="ruby-identifier">error</span> <span class="ruby-node">&quot;Malformed: closing tag #{tag.inspect} &quot;</span><span class="ruby-operator">+</span>
+ 94:                                                                       <span class="ruby-value str">&quot;in empty list&quot;</span>
+ 95:                                                         <span class="ruby-keyword kw">end</span> 
+ 96:                                                         <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@tag_stack</span>.<span class="ruby-identifier">last</span> <span class="ruby-operator">!=</span> <span class="ruby-identifier">tag</span>
+ 97:                                                                 <span class="ruby-identifier">error</span> <span class="ruby-node">&quot;Malformed: tag &lt;#{tag}&gt; &quot;</span><span class="ruby-operator">+</span>
+ 98:                                                                       <span class="ruby-node">&quot;closes &lt;#{@tag_stack.last}&gt;&quot;</span>
+ 99:                                                         <span class="ruby-keyword kw">end</span>
+100:                                                         <span class="ruby-ivar">@tag_stack</span>.<span class="ruby-identifier">pop</span>
+101:                                                 <span class="ruby-keyword kw">elsif</span> <span class="ruby-keyword kw">not</span> <span class="ruby-identifier">is_single</span>
+102:                                                         <span class="ruby-ivar">@tag_stack</span>.<span class="ruby-identifier">push</span> <span class="ruby-identifier">tag</span>
+103:                                                         <span class="ruby-ivar">@already</span> <span class="ruby-operator">+=</span> <span class="ruby-ivar">@m</span>.<span class="ruby-identifier">to_s</span>
+104:                                                 <span class="ruby-keyword kw">end</span>
+105:                                         <span class="ruby-keyword kw">elsif</span> <span class="ruby-ivar">@m</span> = <span class="ruby-constant">EverythingElse</span>.<span class="ruby-identifier">match</span>(<span class="ruby-ivar">@rest</span>)
+106:                                                 <span class="ruby-ivar">@already</span> <span class="ruby-operator">+=</span> <span class="ruby-ivar">@m</span>.<span class="ruby-identifier">pre_match</span> <span class="ruby-operator">+</span> <span class="ruby-ivar">@m</span>.<span class="ruby-identifier">to_s</span>
+107:                                                 <span class="ruby-ivar">@rest</span> = <span class="ruby-ivar">@m</span>.<span class="ruby-identifier">post_match</span>
+108:                                         <span class="ruby-keyword kw">else</span>
+109:                                                 <span class="ruby-identifier">error</span> <span class="ruby-node">&quot;Malformed HTML: not complete: #{@rest.inspect}&quot;</span>
+110:                                         <span class="ruby-keyword kw">end</span>
+111:                                 <span class="ruby-keyword kw">end</span> <span class="ruby-comment cmt"># not inside comment</span>
+112:                                 
+113: <span class="ruby-comment cmt">#                               puts inspect</span>
+114: <span class="ruby-comment cmt">#                               puts &quot;Read: #{@tag_stack.inspect}&quot;</span>
+115:                                 <span class="ruby-keyword kw">break</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">is_finished?</span> <span class="ruby-keyword kw">and</span> <span class="ruby-identifier">things_read</span><span class="ruby-operator">&gt;</span><span class="ruby-value">0</span>     
+116:                         <span class="ruby-keyword kw">end</span>
+117:                 <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000225"></a><b>error</b>(s)
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000225_source')" id="l_M000225_source">show source</a> ]</p>
+  <div id="M000225_source" class="dyn-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/maruku/input/html_helper.rb, line 120</span>
+120:                 <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">error</span>(<span class="ruby-identifier">s</span>)
+121:                         <span class="ruby-identifier">raise</span> <span class="ruby-constant">Exception</span>, <span class="ruby-node">&quot;Error: #{s} \n&quot;</span><span class="ruby-operator">+</span> <span class="ruby-identifier">inspect</span>, <span class="ruby-identifier">caller</span>
+122:                 <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000226"></a><b>inspect</b>()
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000226_source')" id="l_M000226_source">show source</a> ]</p>
+  <div id="M000226_source" class="dyn-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/maruku/input/html_helper.rb, line 124</span>
+124:                 <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">inspect</span>; <span class="ruby-node">&quot;HTML READER\n comment=#{@inside_comment} &quot;</span><span class="ruby-operator">+</span>
+125:                         <span class="ruby-node">&quot;match=#{@m.to_s.inspect}\n&quot;</span><span class="ruby-operator">+</span>
+126:                         <span class="ruby-node">&quot;Tag stack = #{@tag_stack.inspect} \n&quot;</span><span class="ruby-operator">+</span>
+127:                         <span class="ruby-value str">&quot;Before:\n&quot;</span><span class="ruby-operator">+</span>
+128:                         <span class="ruby-identifier">add_tabs</span>(<span class="ruby-ivar">@already</span>,<span class="ruby-value">1</span>,<span class="ruby-value str">'|'</span>)<span class="ruby-operator">+</span><span class="ruby-value str">&quot;\n&quot;</span><span class="ruby-operator">+</span>
+129:                         <span class="ruby-value str">&quot;After:\n&quot;</span><span class="ruby-operator">+</span>
+130:                         <span class="ruby-identifier">add_tabs</span>(<span class="ruby-ivar">@rest</span>,<span class="ruby-value">1</span>,<span class="ruby-value str">'|'</span>)<span class="ruby-operator">+</span><span class="ruby-value str">&quot;\n&quot;</span>
+131:                         
+132:                 <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000228"></a><b>is_finished?</b>()
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000228_source')" id="l_M000228_source">show source</a> ]</p>
+  <div id="M000228_source" class="dyn-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/maruku/input/html_helper.rb, line 139</span>
+139:                 <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">is_finished?</span>
+140:                         <span class="ruby-keyword kw">not</span> <span class="ruby-ivar">@inside_comment</span> <span class="ruby-keyword kw">and</span> <span class="ruby-ivar">@tag_stack</span>.<span class="ruby-identifier">empty?</span>
+141:                 <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000227"></a><b>stuff_you_read</b>()
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000227_source')" id="l_M000227_source">show source</a> ]</p>
+  <div id="M000227_source" class="dyn-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/maruku/input/html_helper.rb, line 135</span>
+135:                 <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">stuff_you_read</span>
+136:                         <span class="ruby-ivar">@already</span>
+137:                 <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+</div>
+
+  </div>
+
+    </body>
+</html>

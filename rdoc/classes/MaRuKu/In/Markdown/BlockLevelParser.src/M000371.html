@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>expand_attribute_list (MaRuKu::In::Markdown::BlockLevelParser)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/maruku/input/parse_doc.rb, line 101</span>
+        <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">expand_attribute_list</span>(<span class="ruby-identifier">al</span>, <span class="ruby-identifier">result</span>)
+                <span class="ruby-identifier">al</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">k</span>, <span class="ruby-identifier">v</span><span class="ruby-operator">|</span>
+                        <span class="ruby-keyword kw">case</span> <span class="ruby-identifier">k</span>
+                        <span class="ruby-keyword kw">when</span> <span class="ruby-identifier">:class</span>
+                                <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">not</span> <span class="ruby-identifier">result</span>[<span class="ruby-identifier">:class</span>]
+                                        <span class="ruby-identifier">result</span>[<span class="ruby-identifier">:class</span>] = <span class="ruby-identifier">v</span>
+                                <span class="ruby-keyword kw">else</span>
+                                        <span class="ruby-identifier">result</span>[<span class="ruby-identifier">:class</span>] <span class="ruby-operator">+=</span> <span class="ruby-value str">&quot; &quot;</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">v</span>
+                                <span class="ruby-keyword kw">end</span>
+                        <span class="ruby-keyword kw">when</span> <span class="ruby-identifier">:id</span>; <span class="ruby-identifier">result</span>[<span class="ruby-identifier">:id</span>] = <span class="ruby-identifier">v</span>
+                        <span class="ruby-keyword kw">when</span> <span class="ruby-identifier">:ref</span>; 
+                                <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">ald</span>[<span class="ruby-identifier">v</span>]
+                                        <span class="ruby-identifier">already</span> = (<span class="ruby-identifier">result</span>[<span class="ruby-identifier">:expanded_references</span>] <span class="ruby-operator">||=</span> [])
+                                        <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">not</span> <span class="ruby-identifier">already</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">v</span>)
+                                                <span class="ruby-identifier">already</span>.<span class="ruby-identifier">push</span> <span class="ruby-identifier">v</span>
+                                                <span class="ruby-identifier">expand_attribute_list</span>(<span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">ald</span>[<span class="ruby-identifier">v</span>], <span class="ruby-identifier">result</span>)
+                                        <span class="ruby-keyword kw">else</span>
+                                                <span class="ruby-identifier">already</span>.<span class="ruby-identifier">push</span>  <span class="ruby-identifier">v</span>
+                                                <span class="ruby-identifier">maruku_error</span> <span class="ruby-value str">&quot;Circular reference between labels.\n\n&quot;</span><span class="ruby-operator">+</span>
+                                                <span class="ruby-node">&quot;Label #{v.inspect} calls itself via recursion.\nThe recursion is &quot;</span><span class="ruby-operator">+</span>
+                                                        (<span class="ruby-identifier">already</span>.<span class="ruby-identifier">map</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">x</span><span class="ruby-operator">|</span> <span class="ruby-identifier">x</span>.<span class="ruby-identifier">inspect</span>}.<span class="ruby-identifier">join</span>(<span class="ruby-value str">' =&gt; '</span>)) 
+                                        <span class="ruby-keyword kw">end</span>
+                                <span class="ruby-keyword kw">else</span>
+                                        <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">not</span> <span class="ruby-identifier">result</span>[<span class="ruby-identifier">:unresolved_references</span>]
+                                                <span class="ruby-identifier">result</span>[<span class="ruby-identifier">:unresolved_references</span>] = <span class="ruby-identifier">v</span>
+                                        <span class="ruby-keyword kw">else</span>
+                                                <span class="ruby-identifier">result</span>[<span class="ruby-identifier">:unresolved_references</span>] <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-node">&quot; #{v}&quot;</span>
+                                        <span class="ruby-keyword kw">end</span>
+                                        
+                                <span class="ruby-comment cmt">#   $stderr.puts &quot;Unresolved reference #{v.inspect} (avail: #{self.ald.keys.inspect})&quot;</span>
+                                        <span class="ruby-identifier">result</span>[<span class="ruby-identifier">v</span>.<span class="ruby-identifier">to_sym</span>] = <span class="ruby-keyword kw">true</span>
+                                <span class="ruby-keyword kw">end</span>
+                        <span class="ruby-keyword kw">else</span>
+                                <span class="ruby-identifier">result</span>[<span class="ruby-identifier">k</span>.<span class="ruby-identifier">to_sym</span>]=<span class="ruby-identifier">v</span>
+                        <span class="ruby-keyword kw">end</span>
+                <span class="ruby-keyword kw">end</span>
+        <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

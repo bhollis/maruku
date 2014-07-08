@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>safe_attr_accessor1 (Module)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/maruku/structures.rb, line 24</span>
+        <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">safe_attr_accessor1</span>(<span class="ruby-identifier">symbol</span>, <span class="ruby-identifier">klass</span>)
+                <span class="ruby-identifier">attr_reader</span> <span class="ruby-identifier">symbol</span>
+                <span class="ruby-identifier">code</span> = <span class="ruby-value str">&quot;def \#{symbol}=(val)\nif not val.kind_of? \#{klass}\ns = \&quot;\\nCould not assign an object of type \\\#{val.class} to \#{symbol}.\\n\\n\&quot;\ns += \&quot;Tried to assign object of class \\\#{val.class}:\\n\&quot;+\n\&quot;\\\#{val.inspect}\\n\&quot;+\n\&quot;to \\\#{self.class}::\#{symbol} constrained to be of class \#{klass}.\\n\&quot;\nraise s\nend\n@\#{symbol} = val\nend\n\n&quot;</span>
+                <span class="ruby-identifier">module_eval</span> <span class="ruby-identifier">code</span>
+  <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

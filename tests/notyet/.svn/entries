@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wc-entries
+   xmlns="svn:">
+<entry
+   committed-rev="102"
+   name=""
+   committed-date="2007-01-23T18:38:07.044621Z"
+   url="svn+ssh://rubyforge.org/var/svn/maruku/trunk/tests/unittest/notyet"
+   last-author="andrea"
+   kind="dir"
+   uuid="7e2f57f0-5a75-4fd6-9797-5817c466b243"
+   repos="svn+ssh://rubyforge.org/var/svn/maruku"
+   prop-time="2007-01-23T18:33:58.000000Z"
+   revision="117"/>
+<entry
+   committed-rev="66"
+   name="escape.md"
+   text-time="2007-02-16T13:22:11.000000Z"
+   committed-date="2007-01-08T22:20:02.356597Z"
+   checksum="04b2868f3fa714433e679f6312206257"
+   last-author="andrea"
+   kind="file"/>
+<entry
+   committed-rev="64"
+   name="triggering.md"
+   text-time="2007-02-16T13:22:12.000000Z"
+   committed-date="2007-01-07T19:37:36.404416Z"
+   checksum="83fa438fb243a08186d81704875fe67a"
+   last-author="andrea"
+   kind="file"/>
+<entry
+   committed-rev="64"
+   name="header_after_par.md"
+   text-time="2007-02-16T13:22:11.000000Z"
+   committed-date="2007-01-07T19:37:36.404416Z"
+   checksum="529356d56ccc59b3435451dcad1e6e84"
+   last-author="andrea"
+   kind="file"/>
+<entry
+   committed-rev="93"
+   name="ticks.md"
+   text-time="2007-02-16T13:22:12.000000Z"
+   committed-date="2007-01-22T23:43:49.690114Z"
+   checksum="9a0e7a3b588223a890fb6fd34fa88fb5"
+   last-author="andrea"
+   kind="file"/>
+</wc-entries>

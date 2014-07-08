@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>read_attribute_list (MaRuKu::In::Markdown::SpanLevelParser)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/maruku/attributes.rb, line 135</span>
+        <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">read_attribute_list</span>(<span class="ruby-identifier">src</span>, <span class="ruby-identifier">con</span>, <span class="ruby-identifier">break_on_chars</span>)
+                
+                <span class="ruby-identifier">separators</span> = <span class="ruby-identifier">break_on_chars</span> <span class="ruby-operator">+</span> [<span class="ruby-value">?=</span>,<span class="ruby-value">?\ </span>,<span class="ruby-value">?\t</span>]
+                <span class="ruby-identifier">escaped</span> = <span class="ruby-constant">Maruku</span><span class="ruby-operator">::</span><span class="ruby-constant">EscapedCharInQuotes</span>
+                        
+                <span class="ruby-identifier">al</span> = <span class="ruby-constant">AttributeList</span>.<span class="ruby-identifier">new</span>
+                <span class="ruby-keyword kw">while</span> <span class="ruby-keyword kw">true</span>
+                        <span class="ruby-identifier">src</span>.<span class="ruby-identifier">consume_whitespace</span>
+                        <span class="ruby-keyword kw">break</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">break_on_chars</span>.<span class="ruby-identifier">include?</span> <span class="ruby-identifier">src</span>.<span class="ruby-identifier">cur_char</span>
+        
+                        <span class="ruby-keyword kw">case</span> <span class="ruby-identifier">src</span>.<span class="ruby-identifier">cur_char</span>
+                        <span class="ruby-keyword kw">when</span> <span class="ruby-keyword kw">nil</span> 
+                                <span class="ruby-identifier">maruku_error</span> <span class="ruby-value str">&quot;Attribute list terminated by EOF:\n &quot;</span><span class="ruby-operator">+</span>
+                                             <span class="ruby-node">&quot;#{al.inspect}&quot;</span> , <span class="ruby-identifier">src</span>, <span class="ruby-identifier">con</span>
+                                <span class="ruby-identifier">tell_user</span> <span class="ruby-value str">&quot;I try to continue and return partial attribute list:\n&quot;</span><span class="ruby-operator">+</span>
+                                        <span class="ruby-identifier">al</span>.<span class="ruby-identifier">inspect</span>
+                                <span class="ruby-keyword kw">break</span>
+                        <span class="ruby-keyword kw">when</span> <span class="ruby-value">?=</span>     <span class="ruby-comment cmt"># error</span>
+                                <span class="ruby-identifier">maruku_error</span> <span class="ruby-value str">&quot;In attribute lists, cannot start identifier with `=`.&quot;</span>
+                                <span class="ruby-identifier">tell_user</span> <span class="ruby-value str">&quot;I try to continue&quot;</span>
+                                <span class="ruby-identifier">src</span>.<span class="ruby-identifier">ignore_char</span>
+                        <span class="ruby-keyword kw">when</span> <span class="ruby-value">?#</span>     <span class="ruby-comment cmt"># id definition</span>
+                                <span class="ruby-identifier">src</span>.<span class="ruby-identifier">ignore_char</span>
+                                <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">id</span> = <span class="ruby-identifier">read_quoted_or_unquoted</span>(<span class="ruby-identifier">src</span>, <span class="ruby-identifier">con</span>, <span class="ruby-identifier">escaped</span>, <span class="ruby-identifier">separators</span>)
+                                        <span class="ruby-identifier">al</span>.<span class="ruby-identifier">push_id</span> <span class="ruby-identifier">id</span>
+                                <span class="ruby-keyword kw">else</span>
+                                        <span class="ruby-identifier">maruku_error</span> <span class="ruby-value str">'Could not read `id` attribute.'</span>, <span class="ruby-identifier">src</span>, <span class="ruby-identifier">con</span>
+                                        <span class="ruby-identifier">tell_user</span> <span class="ruby-value str">'Trying to ignore bad `id` attribute.'</span>
+                                <span class="ruby-keyword kw">end</span>
+                        <span class="ruby-keyword kw">when</span> <span class="ruby-value">?.</span>     <span class="ruby-comment cmt"># class definition</span>
+                                <span class="ruby-identifier">src</span>.<span class="ruby-identifier">ignore_char</span>
+                                <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">klass</span> = <span class="ruby-identifier">read_quoted_or_unquoted</span>(<span class="ruby-identifier">src</span>, <span class="ruby-identifier">con</span>, <span class="ruby-identifier">escaped</span>, <span class="ruby-identifier">separators</span>)
+                                        <span class="ruby-identifier">al</span>.<span class="ruby-identifier">push_class</span> <span class="ruby-identifier">klass</span>
+                                <span class="ruby-keyword kw">else</span>
+                                        <span class="ruby-identifier">maruku_error</span> <span class="ruby-value str">'Could not read `class` attribute.'</span>, <span class="ruby-identifier">src</span>, <span class="ruby-identifier">con</span>
+                                        <span class="ruby-identifier">tell_user</span> <span class="ruby-value str">'Trying to ignore bad `class` attribute.'</span>
+                                <span class="ruby-keyword kw">end</span>
+                        <span class="ruby-keyword kw">else</span>
+                                <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">key</span> = <span class="ruby-identifier">read_quoted_or_unquoted</span>(<span class="ruby-identifier">src</span>, <span class="ruby-identifier">con</span>, <span class="ruby-identifier">escaped</span>, <span class="ruby-identifier">separators</span>)
+                                        <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">src</span>.<span class="ruby-identifier">cur_char</span> <span class="ruby-operator">==</span> <span class="ruby-value">?=</span>
+                                                <span class="ruby-identifier">src</span>.<span class="ruby-identifier">ignore_char</span> <span class="ruby-comment cmt"># skip the =</span>
+                                                <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">val</span> = <span class="ruby-identifier">read_quoted_or_unquoted</span>(<span class="ruby-identifier">src</span>, <span class="ruby-identifier">con</span>, <span class="ruby-identifier">escaped</span>, <span class="ruby-identifier">separators</span>)
+                                                        <span class="ruby-identifier">al</span>.<span class="ruby-identifier">push_key_val</span>(<span class="ruby-identifier">key</span>, <span class="ruby-identifier">val</span>)
+                                                <span class="ruby-keyword kw">else</span>
+                                                        <span class="ruby-identifier">maruku_error</span> <span class="ruby-node">&quot;Could not read value for key #{key.inspect}.&quot;</span>,
+                                                                <span class="ruby-identifier">src</span>, <span class="ruby-identifier">con</span>
+                                                        <span class="ruby-identifier">tell_user</span> <span class="ruby-node">&quot;Ignoring key #{key.inspect}.&quot;</span>
+                                                <span class="ruby-keyword kw">end</span>
+                                        <span class="ruby-keyword kw">else</span>
+                                                <span class="ruby-identifier">al</span>.<span class="ruby-identifier">push_ref</span> <span class="ruby-identifier">key</span>
+                                        <span class="ruby-keyword kw">end</span>
+                                <span class="ruby-keyword kw">else</span>
+                                        <span class="ruby-identifier">maruku_error</span> <span class="ruby-value str">'Could not read key or reference.'</span>
+                                <span class="ruby-keyword kw">end</span>
+                        <span class="ruby-keyword kw">end</span> <span class="ruby-comment cmt"># case</span>
+                <span class="ruby-keyword kw">end</span> <span class="ruby-comment cmt"># while true</span>
+                <span class="ruby-identifier">al</span>
+        <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

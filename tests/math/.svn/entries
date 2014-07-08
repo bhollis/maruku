@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wc-entries
+   xmlns="svn:">
+<entry
+   committed-rev="102"
+   name=""
+   committed-date="2007-01-23T18:38:07.044621Z"
+   url="svn+ssh://rubyforge.org/var/svn/maruku/trunk/tests/unittest/math"
+   last-author="andrea"
+   kind="dir"
+   uuid="7e2f57f0-5a75-4fd6-9797-5817c466b243"
+   repos="svn+ssh://rubyforge.org/var/svn/maruku"
+   prop-time="2007-01-23T18:33:58.000000Z"
+   revision="117"/>
+<entry
+   committed-rev="93"
+   name="table.md"
+   text-time="2007-02-16T13:22:10.000000Z"
+   committed-date="2007-01-22T23:43:49.690114Z"
+   checksum="dbb98ea9e0593d9e3ddc414bb4d6e860"
+   last-author="andrea"
+   kind="file"/>
+<entry
+   committed-rev="93"
+   name="equations.md"
+   text-time="2007-02-16T13:22:09.000000Z"
+   committed-date="2007-01-22T23:43:49.690114Z"
+   checksum="3fda1c4fa6b0988d8ae036a5b216a863"
+   last-author="andrea"
+   kind="file"/>
+<entry
+   committed-rev="118"
+   name="table2.md"
+   text-time="2007-02-16T13:22:10.000000Z"
+   committed-date="2007-02-04T18:56:36.919574Z"
+   checksum="ab10d24801096f77f8c6d5e7a0192579"
+   last-author="andrea"
+   kind="file"
+   revision="118"/>
+<entry
+   committed-rev="128"
+   name="notmath.md"
+   text-time="2007-02-16T13:22:10.000000Z"
+   committed-date="2007-02-14T22:12:30.406291Z"
+   checksum="c2e222e07ea4400be6076752a0aad3a1"
+   last-author="andrea"
+   kind="file"
+   revision="128"/>
+<entry
+   committed-rev="129"
+   name="math2.md"
+   text-time="2007-02-16T13:22:10.000000Z"
+   committed-date="2007-02-15T18:59:32.801815Z"
+   checksum="111c5ef0fd867ff86844e422a8d36bba"
+   last-author="andrea"
+   kind="file"
+   revision="129"/>
+<entry
+   committed-rev="118"
+   name="inline.md"
+   text-time="2007-02-16T13:22:09.000000Z"
+   committed-date="2007-02-04T18:56:36.919574Z"
+   checksum="b762d4baeed0212ba3e9a21343de418b"
+   last-author="andrea"
+   kind="file"
+   revision="118"/>
+</wc-entries>

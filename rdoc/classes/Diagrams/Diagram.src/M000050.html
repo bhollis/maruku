@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>detect_arrows (Diagrams::Diagram)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/maruku/ext/diagrams/parser.rb, line 48</span>
+        <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">detect_arrows</span>
+                [     [<span class="ruby-value">?|</span>, <span class="ruby-regexp re">/^\|*$/</span>, [<span class="ruby-value">?^</span>, <span class="ruby-value">?A</span>], [<span class="ruby-value">?v</span>, <span class="ruby-value">?V</span>],  <span class="ruby-value">0</span>, <span class="ruby-value">1</span>, <span class="ruby-identifier">:S</span>],
+                        [<span class="ruby-value">?-</span>, <span class="ruby-regexp re">/^\-*$/</span>, [<span class="ruby-value">?&lt;</span>], [<span class="ruby-value">?&gt;</span>],  <span class="ruby-value">1</span>, <span class="ruby-value">0</span>, <span class="ruby-identifier">:E</span>],
+                        [<span class="ruby-value">?\\</span>,<span class="ruby-regexp re">/^\\*$/</span>, [], [], <span class="ruby-value">1</span>, <span class="ruby-value">1</span>, <span class="ruby-identifier">:SE</span>],
+                        [<span class="ruby-value">?/</span>, <span class="ruby-regexp re">/^\/*$/</span>, [], [], <span class="ruby-value">-1</span>, <span class="ruby-value">1</span>, <span class="ruby-identifier">:SW</span>] 
+                ].<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">char</span>, <span class="ruby-identifier">reg</span>, <span class="ruby-identifier">cap1</span>, <span class="ruby-identifier">cap2</span>, <span class="ruby-identifier">inc_x</span>, <span class="ruby-identifier">inc_y</span>, <span class="ruby-identifier">ty</span><span class="ruby-operator">|</span>
+                        <span class="ruby-identifier">for_each_to_process</span>(<span class="ruby-identifier">char</span>) <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">x</span>,<span class="ruby-identifier">y</span>,<span class="ruby-identifier">e</span><span class="ruby-operator">|</span>
+                                <span class="ruby-identifier">find_arrow</span>(<span class="ruby-identifier">x</span>, <span class="ruby-identifier">y</span>, <span class="ruby-identifier">reg</span>, <span class="ruby-identifier">cap1</span>, <span class="ruby-identifier">cap2</span>, <span class="ruby-identifier">inc_x</span>, <span class="ruby-identifier">inc_y</span>)
+                        <span class="ruby-keyword kw">end</span>
+                <span class="ruby-keyword kw">end</span>
+        <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

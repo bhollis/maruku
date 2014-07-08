@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <head>
+    <title>Class: MaRuKu::AttributeList</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+    <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+
+    <script language="JavaScript" type="text/javascript">
+    // <![CDATA[
+
+        function toggleSource( id )
+        {
+          var elem
+          var link
+
+          if( document.getElementById )
+          {
+            elem = document.getElementById( id )
+            link = document.getElementById( "l_" + id )
+          }
+          else if ( document.all )
+          {
+            elem = eval( "document.all." + id )
+            link = eval( "document.all.l_" + id )
+          }
+          else
+            return false;
+
+          if( elem.style.display == "block" )
+          {
+            elem.style.display = "none"
+            link.innerHTML = "show source"
+          }
+          else
+          {
+            elem.style.display = "block"
+            link.innerHTML = "hide source"
+          }
+        }
+
+        function openCode( url )
+        {
+          window.open( url, "SOURCE_CODE", "width=400,height=400,scrollbars=yes" )
+        }
+      // ]]>
+    </script>
+  </head>
+
+  <body>
+  <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'><tr>
+  <td class="file-title"><span class="file-title-prefix">Class</span><br />MaRuKu::AttributeList</td>
+  <td align="right">
+    <table cellspacing=0 cellpadding=2>
+      <tr valign="top">
+        <td>In:</td>
+        <td>
+<a href="../../files/lib/maruku/attributes_rb.html">lib/maruku/attributes.rb</a>
+        </td>
+      </tr>
+    <tr>
+      <td>Parent:</td>
+      <td>
+        <a href="../Array.html">
+Array
+         </a>
+     </td>
+   </tr>
+         </table>
+        </td>
+        </tr>
+      </table>
+ <!-- banner header -->
+
+  <div id="bodyContent">
+      <div id="content">
+
+
+
+
+  <div class="sectiontitle">Methods</div>
+  <ul>
+  <li><a href="#M000263">push_class</a></li>
+  <li><a href="#M000264">push_id</a></li>
+  <li><a href="#M000261">push_key_val</a></li>
+  <li><a href="#M000262">push_ref</a></li>
+  <li><a href="#M000266">to_md</a></li>
+  <li><a href="#M000265">to_s</a></li>
+  </ul>
+
+
+
+
+
+
+<div class="sectiontitle">Public Instance methods</div>
+<div class="method">
+  <div class="title">
+    <a name="M000263"></a><b>push_class</b>(val)
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000263_source')" id="l_M000263_source">show source</a> ]</p>
+  <div id="M000263_source" class="dyn-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/maruku/attributes.rb, line 50</span>
+50:                 <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">push_class</span>(<span class="ruby-identifier">val</span>);        
+51:                         <span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;Bad :id #{val.inspect}&quot;</span> <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">not</span> <span class="ruby-identifier">val</span>
+52:                         <span class="ruby-identifier">push</span> [<span class="ruby-identifier">:class</span>,  <span class="ruby-identifier">val</span>] 
+53:                 <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000264"></a><b>push_id</b>(val)
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000264_source')" id="l_M000264_source">show source</a> ]</p>
+  <div id="M000264_source" class="dyn-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/maruku/attributes.rb, line 54</span>
+54:                 <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">push_id</span>(<span class="ruby-identifier">val</span>);           
+55:                         <span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;Bad :id #{val.inspect}&quot;</span> <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">not</span> <span class="ruby-identifier">val</span>
+56:                         <span class="ruby-identifier">push</span> [<span class="ruby-identifier">:id</span>,  <span class="ruby-identifier">val</span>] 
+57:                 <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000261"></a><b>push_key_val</b>(key, val)
+  </div>
+  <div class="description">
+  <p>
+An attribute list becomes {id .cl key=&quot;val&quot; ref} [ [:id,
+&#8216;id&#8217;], [:class, &#8216;id&#8217;], [&#8216;key&#8217;,
+&#8216;val&#8217;], [ :ref, &#8216;ref&#8217; ]]
+</p>
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000261_source')" id="l_M000261_source">show source</a> ]</p>
+  <div id="M000261_source" class="dyn-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/maruku/attributes.rb, line 42</span>
+42:                 <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">push_key_val</span>(<span class="ruby-identifier">key</span>, <span class="ruby-identifier">val</span>); 
+43:                         <span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;Bad #{key.inspect}=#{val.inspect}&quot;</span> <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">not</span> <span class="ruby-identifier">key</span> <span class="ruby-keyword kw">and</span> <span class="ruby-identifier">val</span>
+44:                         <span class="ruby-identifier">push</span> [<span class="ruby-identifier">key</span>, <span class="ruby-identifier">val</span>] 
+45:                 <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000262"></a><b>push_ref</b>(ref_id)
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000262_source')" id="l_M000262_source">show source</a> ]</p>
+  <div id="M000262_source" class="dyn-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/maruku/attributes.rb, line 46</span>
+46:                 <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">push_ref</span>(<span class="ruby-identifier">ref_id</span>);       
+47:                         <span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;Bad :ref #{ref_id.inspect}&quot;</span> <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">not</span> <span class="ruby-identifier">ref_id</span>
+48:                         <span class="ruby-identifier">push</span> [<span class="ruby-identifier">:ref</span>, <span class="ruby-identifier">ref_id</span>] 
+49:                 <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000266"></a><b>to_md</b>()
+  </div>
+  <div class="description">
+  <p>
+Alias for <a href="AttributeList.html#M000265">to_s</a>
+</p>
+  </div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000265"></a><b>to_s</b>()
+  </div>
+<div class="aka">
+  This method is also aliased as
+  <a href="AttributeList.html#M000266">to_md</a>
+</div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000265_source')" id="l_M000265_source">show source</a> ]</p>
+  <div id="M000265_source" class="dyn-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/maruku/attributes.rb, line 59</span>
+59:                 <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_s</span>
+60:                         <span class="ruby-identifier">map</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">k</span>,<span class="ruby-identifier">v</span><span class="ruby-operator">|</span>
+61:                                 <span class="ruby-keyword kw">case</span> <span class="ruby-identifier">k</span>
+62:                                 <span class="ruby-keyword kw">when</span> <span class="ruby-identifier">:id</span>;    <span class="ruby-value str">&quot;#&quot;</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">v</span>.<span class="ruby-identifier">quote_if_needed</span>
+63:                                 <span class="ruby-keyword kw">when</span> <span class="ruby-identifier">:class</span>; <span class="ruby-value str">&quot;.&quot;</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">v</span>.<span class="ruby-identifier">quote_if_needed</span>
+64:                                 <span class="ruby-keyword kw">when</span> <span class="ruby-identifier">:ref</span>;    <span class="ruby-identifier">v</span>.<span class="ruby-identifier">quote_if_needed</span>
+65:                                 <span class="ruby-keyword kw">else</span> <span class="ruby-identifier">k</span>.<span class="ruby-identifier">quote_if_needed</span> <span class="ruby-operator">+</span> <span class="ruby-value str">&quot;=&quot;</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">v</span>.<span class="ruby-identifier">quote_if_needed</span>
+66:                                 <span class="ruby-keyword kw">end</span>
+67:                         <span class="ruby-keyword kw">end</span> . <span class="ruby-identifier">join</span>(<span class="ruby-value str">' '</span>)
+68:                 <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+</div>
+
+  </div>
+
+    </body>
+</html>

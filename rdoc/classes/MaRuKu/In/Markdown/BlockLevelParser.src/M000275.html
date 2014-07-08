@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>read_list_item (MaRuKu::In::Markdown::BlockLevelParser)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/maruku/input/parse_block.rb, line 267</span>
+        <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">read_list_item</span>(<span class="ruby-identifier">src</span>)
+                <span class="ruby-identifier">parent_offset</span> = <span class="ruby-identifier">src</span>.<span class="ruby-identifier">cur_index</span>
+                
+                <span class="ruby-identifier">item_type</span> = <span class="ruby-identifier">src</span>.<span class="ruby-identifier">cur_line</span>.<span class="ruby-identifier">md_type</span>
+                <span class="ruby-identifier">first</span> = <span class="ruby-identifier">src</span>.<span class="ruby-identifier">shift_line</span>
+
+                <span class="ruby-comment cmt"># Ugly things going on inside `read_indented_content`</span>
+                <span class="ruby-identifier">indentation</span> = <span class="ruby-identifier">spaces_before_first_char</span>(<span class="ruby-identifier">first</span>)
+                <span class="ruby-identifier">break_list</span> = [<span class="ruby-identifier">:ulist</span>, <span class="ruby-identifier">:olist</span>, <span class="ruby-identifier">:ial</span>]
+                <span class="ruby-identifier">lines</span>, <span class="ruby-identifier">want_my_paragraph</span> = 
+                        <span class="ruby-identifier">read_indented_content</span>(<span class="ruby-identifier">src</span>,<span class="ruby-identifier">indentation</span>, <span class="ruby-identifier">break_list</span>, <span class="ruby-identifier">item_type</span>)
+
+                <span class="ruby-comment cmt"># add first line</span>
+                        <span class="ruby-comment cmt"># Strip first '*', '-', '+' from first line</span>
+                        <span class="ruby-identifier">stripped</span> = <span class="ruby-identifier">first</span>[<span class="ruby-identifier">indentation</span>, <span class="ruby-identifier">first</span>.<span class="ruby-identifier">size</span><span class="ruby-operator">-</span><span class="ruby-value">1</span>]
+                <span class="ruby-identifier">lines</span>.<span class="ruby-identifier">unshift</span> <span class="ruby-identifier">stripped</span>
+                
+                <span class="ruby-comment cmt">#dbg_describe_ary(lines, 'LIST ITEM ')</span>
+
+                <span class="ruby-identifier">src2</span> = <span class="ruby-constant">LineSource</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">lines</span>, <span class="ruby-identifier">src</span>, <span class="ruby-identifier">parent_offset</span>)
+                <span class="ruby-identifier">children</span> = <span class="ruby-identifier">parse_blocks</span>(<span class="ruby-identifier">src2</span>)
+                <span class="ruby-identifier">with_par</span> = <span class="ruby-identifier">want_my_paragraph</span> <span class="ruby-operator">||</span> (<span class="ruby-identifier">children</span>.<span class="ruby-identifier">size</span><span class="ruby-operator">&gt;</span><span class="ruby-value">1</span>)
+                
+                <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">md_li</span>(<span class="ruby-identifier">children</span>, <span class="ruby-identifier">with_par</span>)
+        <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

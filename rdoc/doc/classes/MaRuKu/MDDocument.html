@@ -1,0 +1,335 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <head>
+    <title>Class: MaRuKu::MDDocument</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+    <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+
+    <script language="JavaScript" type="text/javascript">
+    // <![CDATA[
+
+        function toggleSource( id )
+        {
+          var elem
+          var link
+
+          if( document.getElementById )
+          {
+            elem = document.getElementById( id )
+            link = document.getElementById( "l_" + id )
+          }
+          else if ( document.all )
+          {
+            elem = eval( "document.all." + id )
+            link = eval( "document.all.l_" + id )
+          }
+          else
+            return false;
+
+          if( elem.style.display == "block" )
+          {
+            elem.style.display = "none"
+            link.innerHTML = "show source"
+          }
+          else
+          {
+            elem.style.display = "block"
+            link.innerHTML = "hide source"
+          }
+        }
+
+        function openCode( url )
+        {
+          window.open( url, "SOURCE_CODE", "width=400,height=400,scrollbars=yes" )
+        }
+      // ]]>
+    </script>
+  </head>
+
+  <body>
+  <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'><tr>
+  <td class="file-title"><span class="file-title-prefix">Class</span><br />MaRuKu::MDDocument</td>
+  <td align="right">
+    <table cellspacing=0 cellpadding=2>
+      <tr valign="top">
+        <td>In:</td>
+        <td>
+<a href="../../files/lib/maruku_rb.html">lib/maruku.rb</a>
+<a href="../../files/lib/maruku/structures_rb.html">lib/maruku/structures.rb</a>
+<a href="../../files/lib/maruku/toc_rb.html">lib/maruku/toc.rb</a>
+<a href="../../files/lib/maruku/output/to_latex_rb.html">lib/maruku/output/to_latex.rb</a>
+<a href="../../files/lib/maruku/output/to_markdown_rb.html">lib/maruku/output/to_markdown.rb</a>
+        </td>
+      </tr>
+    <tr>
+      <td>Parent:</td>
+      <td>
+        <a href="MDElement.html">
+MDElement
+         </a>
+     </td>
+   </tr>
+         </table>
+        </td>
+        </tr>
+      </table>
+ <!-- banner header -->
+
+  <div id="bodyContent">
+      <div id="content">
+
+  <div class="description"><p>
+This represents the whole document and holds global data.
+</p>
+</div>
+
+
+
+  <div class="sectiontitle">Methods</div>
+  <ul>
+  <li><a href="#M000268">create_toc</a></li>
+  <li><a href="#M000267">new</a></li>
+  <li><a href="#M000271">render_latex_signature</a></li>
+  <li><a href="#M000269">to_latex</a></li>
+  <li><a href="#M000270">to_latex_document</a></li>
+  <li><a href="#M000272">to_md</a></li>
+  </ul>
+
+<div class="sectiontitle">Included Modules</div>
+<ul>
+  <li><a href="In/Markdown/SpanLevelParser.html">In::Markdown::SpanLevelParser</a></li>
+  <li><a href="In/Markdown/BlockLevelParser.html">In::Markdown::BlockLevelParser</a></li>
+</ul>
+
+
+
+
+  <div class="sectiontitle">Attributes</div>
+  <table border='0' cellpadding='5'>
+  <tr valign='top'>
+    <td class='attr-rw'>
+[RW]
+    </td>
+    <td class='attr-name'>toc</td>
+    <td class='attr-desc'>
+an instance of <a href="Section.html">Section</a> (see below)
+
+</td>
+  </tr>
+  </table>
+
+<div class="sectiontitle">Public Class methods</div>
+<div class="method">
+  <div class="title">
+    <a name="M000267"></a><b>new</b>(s=nil)
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000267_source')" id="l_M000267_source">show source</a> ]</p>
+  <div id="M000267_source" class="dyn-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/maruku/structures.rb, line 145</span>
+145:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">s</span>=<span class="ruby-keyword kw">nil</span>)
+146:                 <span class="ruby-keyword kw">super</span>(<span class="ruby-identifier">:document</span>)
+147:                 <span class="ruby-ivar">@doc</span>       = <span class="ruby-keyword kw">self</span>
+148: 
+149:                 <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">refs</span> = {}
+150:                 <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">footnotes</span> = {}
+151:                 <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">footnotes_order</span> = []
+152:                 <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">abbreviations</span> = {}
+153:                 <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">ald</span> = {}
+154:                 
+155:                 <span class="ruby-identifier">parse_doc</span>(<span class="ruby-identifier">s</span>) <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">s</span> 
+156:         <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="sectiontitle">Public Instance methods</div>
+<div class="method">
+  <div class="title">
+    <a name="M000268"></a><b>create_toc</b>()
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000268_source')" id="l_M000268_source">show source</a> ]</p>
+  <div id="M000268_source" class="dyn-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/maruku/toc.rb, line 135</span>
+135:                 <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">create_toc</span>
+136:                         <span class="ruby-identifier">each_element</span>(<span class="ruby-identifier">:header</span>) <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">h</span><span class="ruby-operator">|</span>
+137:                                 <span class="ruby-identifier">h</span>.<span class="ruby-identifier">attributes</span>[<span class="ruby-identifier">:id</span>] <span class="ruby-operator">||=</span> <span class="ruby-identifier">h</span>.<span class="ruby-identifier">generate_id</span>
+138:                         <span class="ruby-keyword kw">end</span>
+139:                 
+140:                         <span class="ruby-identifier">stack</span> = []
+141:                 
+142:                         <span class="ruby-comment cmt"># the ancestor section</span>
+143:                         <span class="ruby-identifier">s</span> = <span class="ruby-constant">Section</span>.<span class="ruby-identifier">new</span>
+144:                         <span class="ruby-identifier">s</span>.<span class="ruby-identifier">section_level</span> = <span class="ruby-value">0</span>
+145: 
+146:                         <span class="ruby-identifier">stack</span>.<span class="ruby-identifier">push</span> <span class="ruby-identifier">s</span>
+147:         
+148:                         <span class="ruby-identifier">i</span> = <span class="ruby-value">0</span>;
+149:                         <span class="ruby-keyword kw">while</span> <span class="ruby-identifier">i</span> <span class="ruby-operator">&lt;</span> <span class="ruby-ivar">@children</span>.<span class="ruby-identifier">size</span>
+150:                                 <span class="ruby-keyword kw">while</span> <span class="ruby-identifier">i</span> <span class="ruby-operator">&lt;</span> <span class="ruby-ivar">@children</span>.<span class="ruby-identifier">size</span> 
+151:                                         <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@children</span>[<span class="ruby-identifier">i</span>].<span class="ruby-identifier">node_type</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">:header</span>
+152:                                                 <span class="ruby-identifier">level</span> = <span class="ruby-ivar">@children</span>[<span class="ruby-identifier">i</span>].<span class="ruby-identifier">level</span>
+153:                                                 <span class="ruby-keyword kw">break</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">level</span> <span class="ruby-operator">&lt;=</span> <span class="ruby-identifier">stack</span>.<span class="ruby-identifier">last</span>.<span class="ruby-identifier">section_level</span><span class="ruby-operator">+</span><span class="ruby-value">1</span>
+154:                                         <span class="ruby-keyword kw">end</span>
+155:                                 
+156:                                         <span class="ruby-identifier">stack</span>.<span class="ruby-identifier">last</span>.<span class="ruby-identifier">immediate_children</span>.<span class="ruby-identifier">push</span> <span class="ruby-ivar">@children</span>[<span class="ruby-identifier">i</span>]
+157:                                         <span class="ruby-identifier">i</span> <span class="ruby-operator">+=</span> <span class="ruby-value">1</span>
+158:                                 <span class="ruby-keyword kw">end</span>
+159: 
+160:                                 <span class="ruby-keyword kw">break</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">i</span><span class="ruby-operator">&gt;=</span><span class="ruby-ivar">@children</span>.<span class="ruby-identifier">size</span>
+161:                         
+162:                                 <span class="ruby-identifier">header</span> = <span class="ruby-ivar">@children</span>[<span class="ruby-identifier">i</span>]
+163:                                 <span class="ruby-identifier">level</span> = <span class="ruby-identifier">header</span>.<span class="ruby-identifier">level</span>
+164:                         
+165:                                 <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">level</span> <span class="ruby-operator">&gt;</span> <span class="ruby-identifier">stack</span>.<span class="ruby-identifier">last</span>.<span class="ruby-identifier">section_level</span>
+166:                                         <span class="ruby-comment cmt"># this level is inside</span>
+167:                                 
+168:                                         <span class="ruby-identifier">s2</span> = <span class="ruby-constant">Section</span>.<span class="ruby-identifier">new</span>
+169:                                         <span class="ruby-identifier">s2</span>.<span class="ruby-identifier">section_level</span> = <span class="ruby-identifier">level</span>
+170:                                         <span class="ruby-identifier">s2</span>.<span class="ruby-identifier">header_element</span> = <span class="ruby-identifier">header</span>
+171:                                         <span class="ruby-identifier">header</span>.<span class="ruby-identifier">instance_variable_set</span> <span class="ruby-identifier">:@section</span>, <span class="ruby-identifier">s2</span>
+172:                                 
+173:                                         <span class="ruby-identifier">stack</span>.<span class="ruby-identifier">last</span>.<span class="ruby-identifier">section_children</span>.<span class="ruby-identifier">push</span> <span class="ruby-identifier">s2</span>
+174:                                         <span class="ruby-identifier">stack</span>.<span class="ruby-identifier">push</span> <span class="ruby-identifier">s2</span>
+175:                                 
+176:                                         <span class="ruby-identifier">i</span><span class="ruby-operator">+=</span><span class="ruby-value">1</span>
+177:                                 <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">level</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">stack</span>.<span class="ruby-identifier">last</span>.<span class="ruby-identifier">section_level</span>
+178:                                         <span class="ruby-comment cmt"># this level is a sibling</span>
+179:                                         <span class="ruby-identifier">stack</span>.<span class="ruby-identifier">pop</span>
+180:                                 <span class="ruby-keyword kw">else</span> 
+181:                                         <span class="ruby-comment cmt"># this level is a parent</span>
+182:                                         <span class="ruby-identifier">stack</span>.<span class="ruby-identifier">pop</span>
+183:                                 <span class="ruby-keyword kw">end</span>
+184:                         
+185:                         <span class="ruby-keyword kw">end</span>
+186: 
+187:                         <span class="ruby-comment cmt"># If there is only one big header, then assume</span>
+188:                         <span class="ruby-comment cmt"># it is the master</span>
+189:                         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">s</span>.<span class="ruby-identifier">section_children</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">==</span> <span class="ruby-value">1</span>
+190:                                 <span class="ruby-identifier">s</span> = <span class="ruby-identifier">s</span>.<span class="ruby-identifier">section_children</span>.<span class="ruby-identifier">first</span>
+191:                         <span class="ruby-keyword kw">end</span>
+192:                 
+193:                         <span class="ruby-comment cmt"># Assign section numbers</span>
+194:                         <span class="ruby-identifier">s</span>.<span class="ruby-identifier">numerate</span>
+195:         
+196:                         <span class="ruby-identifier">s</span>
+197:                 <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000271"></a><b>render_latex_signature</b>()
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000271_source')" id="l_M000271_source">show source</a> ]</p>
+  <div id="M000271_source" class="dyn-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/maruku/output/to_latex.rb, line 60</span>
+60:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">render_latex_signature</span>
+61: <span class="ruby-node">&quot;\\vfill
+62: \\hrule
+63: \\vspace{1.2mm}
+64: \\begin{tiny}
+65: Created by \\href{http://maruku.rubyforge.org}{Maruku} #{self.nice_date}.
+66: \\end{tiny}&quot;</span>
+67:         <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000269"></a><b>to_latex</b>()
+  </div>
+  <div class="description">
+  <p>
+Render as a LaTeX fragment
+</p>
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000269_source')" id="l_M000269_source">show source</a> ]</p>
+  <div id="M000269_source" class="dyn-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/maruku/output/to_latex.rb, line 28</span>
+28:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_latex</span>
+29:                 <span class="ruby-identifier">children_to_latex</span>
+30:         <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000270"></a><b>to_latex_document</b>()
+  </div>
+  <div class="description">
+  <p>
+Render as a complete LaTeX document
+</p>
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000270_source')" id="l_M000270_source">show source</a> ]</p>
+  <div id="M000270_source" class="dyn-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/maruku/output/to_latex.rb, line 33</span>
+33:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_latex_document</span>
+34:                 <span class="ruby-identifier">header</span> = <span class="ruby-value str">&quot;&quot;</span>
+35:                 
+36:                 <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@doc</span>.<span class="ruby-identifier">attributes</span>[<span class="ruby-identifier">:latex_use_listings</span>]
+37:                         <span class="ruby-identifier">header</span> <span class="ruby-operator">+=</span> <span class="ruby-value str">&quot;\\usepackage{listings}\n&quot;</span>
+38:                 <span class="ruby-keyword kw">end</span>
+39: 
+40:                 <span class="ruby-identifier">body</span> = <span class="ruby-identifier">to_latex</span>
+41:                 
+42:                 <span class="ruby-identifier">body</span> <span class="ruby-operator">+=</span> <span class="ruby-identifier">render_latex_signature</span>
+43: 
+44: <span class="ruby-node">&quot;\\documentclass{article}
+45: #{header}
+46: \\usepackage{hyperref}
+47: \\usepackage{xspace}
+48: \\usepackage[usenames,dvipsnames]{color}
+49: \\usepackage[margin=1in]{geometry}
+50: \\hypersetup{colorlinks=true}
+51: %\\usepackage{ucs}
+52: %\\usepackage[utf8x]{inputenc}
+53: \\begin{document} 
+54: #{body}
+55: \\end{document}
+56: &quot;</span>       
+57:         <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000272"></a><b>to_md</b>(context={})
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000272_source')" id="l_M000272_source">show source</a> ]</p>
+  <div id="M000272_source" class="dyn-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/maruku/output/to_markdown.rb, line 159</span>
+159:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_md</span>(<span class="ruby-identifier">context</span>={})
+160:                 <span class="ruby-identifier">s</span> = <span class="ruby-identifier">old_md</span>(<span class="ruby-identifier">context</span>)
+161: <span class="ruby-comment cmt">#               puts s</span>
+162:                 <span class="ruby-identifier">s</span>
+163:         <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+</div>
+
+  </div>
+
+    </body>
+</html>

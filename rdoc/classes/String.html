@@ -1,0 +1,384 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>Class: String</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <link rel="stylesheet" href=".././rdoc-style.css" type="text/css" media="screen" />
+  <script type="text/javascript">
+  // <![CDATA[
+
+  function popupCode( url ) {
+    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+  }
+
+  function toggleCode( id ) {
+    if ( document.getElementById )
+      elem = document.getElementById( id );
+    else if ( document.all )
+      elem = eval( "document.all." + id );
+    else
+      return false;
+
+    elemStyle = elem.style;
+    
+    if ( elemStyle.display != "block" ) {
+      elemStyle.display = "block"
+    } else {
+      elemStyle.display = "none"
+    }
+
+    return true;
+  }
+  
+  // Make codeblocks hidden by default
+  document.writeln( "<style type=\"text/css\">div.method-source-code { display: none }</style>" )
+  
+  // ]]>
+  </script>
+
+</head>
+<body>
+
+
+
+    <div id="classHeader">
+        <table class="header-table">
+        <tr class="top-aligned-row">
+          <td><strong>Class</strong></td>
+          <td class="class-name-in-header">String</td>
+        </tr>
+        <tr class="top-aligned-row">
+            <td><strong>In:</strong></td>
+            <td>
+                <a href="../files/lib/maruku/attributes_rb.html">
+                lib/maruku/attributes.rb
+                </a>
+        <br />
+                <a href="../files/lib/maruku/input/type_detection_rb.html">
+                lib/maruku/input/type_detection.rb
+                </a>
+        <br />
+                <a href="../files/lib/maruku/input_textile2/t2_parser_rb.html">
+                lib/maruku/input_textile2/t2_parser.rb
+                </a>
+        <br />
+                <a href="../files/lib/maruku/output/to_html_rb.html">
+                lib/maruku/output/to_html.rb
+                </a>
+        <br />
+                <a href="../files/lib/maruku/output/to_latex_strings_rb.html">
+                lib/maruku/output/to_latex_strings.rb
+                </a>
+        <br />
+                <a href="../files/lib/maruku/output/to_markdown_rb.html">
+                lib/maruku/output/to_markdown.rb
+                </a>
+        <br />
+                <a href="../files/lib/maruku/structures_inspect_rb.html">
+                lib/maruku/structures_inspect.rb
+                </a>
+        <br />
+            </td>
+        </tr>
+
+        <tr class="top-aligned-row">
+            <td><strong>Parent:</strong></td>
+            <td>
+                <a href="Object.html">
+                Object
+               </a>
+            </td>
+        </tr>
+        </table>
+    </div>
+  <!-- banner header -->
+
+  <div id="bodyContent">
+
+
+
+  <div id="contextContent">
+
+
+
+   </div>
+
+    <div id="method-list">
+      <h3 class="section-bar">Methods</h3>
+
+      <div class="name-list">
+      <a href="#M000020">escape_to_latex</a>&nbsp;&nbsp;
+      <a href="#M000024">inspect_more</a>&nbsp;&nbsp;
+      <a href="#M000015">md_type</a>&nbsp;&nbsp;
+      <a href="#M000023">mysplit</a>&nbsp;&nbsp;
+      <a href="#M000014">quote_if_needed</a>&nbsp;&nbsp;
+      <a href="#M000017">t2_contains_signature?</a>&nbsp;&nbsp;
+      <a href="#M000016">t2_empty?</a>&nbsp;&nbsp;
+      <a href="#M000018">t2_get_signature</a>&nbsp;&nbsp;
+      <a href="#M000019">to_html</a>&nbsp;&nbsp;
+      <a href="#M000021">to_latex</a>&nbsp;&nbsp;
+      <a href="#M000022">to_md</a>&nbsp;&nbsp;
+      </div>
+    </div>
+
+  </div>
+
+
+    <!-- if includes -->
+    <div id="includes">
+      <h3 class="section-bar">Included Modules</h3>
+
+      <div id="includes-list">
+        <span class="include-name"><a href="MaRuKu/Strings.html">MaRuKu::Strings</a></span>
+      </div>
+    </div>
+
+    <div id="section">
+
+
+    <div id="constants-list">
+      <h3 class="section-bar">Constants</h3>
+
+      <div class="name-list">
+        <table summary="Constants">
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">Textile2_EmptyLine</td>
+          <td>=</td>
+          <td class="context-item-value">/^\s*$/</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">Textile2_Signature</td>
+          <td>=</td>
+          <td class="context-item-value">/^(\S+\.?)\.\s(.*)/</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">LATEX_ADD_SLASH</td>
+          <td>=</td>
+          <td class="context-item-value">[ ?{, ?}, ?$, ?&amp;, ?#, ?_, ?%]</td>
+          <td width="3em">&nbsp;</td>
+          <td class="context-item-desc">
+These are TeX&#8217;s special characters
+
+</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">LATEX_TO_CHARCODE</td>
+          <td>=</td>
+          <td class="context-item-value">[ ?^, ?~, ?&gt;,?&lt;]</td>
+          <td width="3em">&nbsp;</td>
+          <td class="context-item-desc">
+These, we transform to {\tt \char&lt;ascii code&gt;}
+
+</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">OtherGoodies</td>
+          <td>=</td>
+          <td class="context-item-value">{                 /(\s)LaTeX/ =&gt; '\1\\LaTeX\\xspace ', # XXX not if already \LaTeX #               'HTML' =&gt; '\\textsc{html}\\xspace ', #               'PDF' =&gt; '\\textsc{pdf}\\xspace '         }</td>
+          <td width="3em">&nbsp;</td>
+          <td class="context-item-desc">
+other things that are good on the eyes
+
+</td>
+        </tr>
+        </table>
+      </div>
+    </div>
+
+
+
+      
+
+
+    <!-- if method_list -->
+    <div id="methods">
+      <h3 class="section-bar">Public Instance methods</h3>
+
+      <div id="method-M000020" class="method-detail">
+        <a name="M000020"></a>
+
+        <div class="method-heading">
+          <a href="String.src/M000020.html" target="Code" class="method-signature"
+            onclick="popupCode('String.src/M000020.html');return false;">
+          <span class="method-name">escape_to_latex</span><span class="method-args">(s)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000024" class="method-detail">
+        <a name="M000024"></a>
+
+        <div class="method-heading">
+          <a href="String.src/M000024.html" target="Code" class="method-signature"
+            onclick="popupCode('String.src/M000024.html');return false;">
+          <span class="method-name">inspect_more</span><span class="method-args">(a=nil,b=nil)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000015" class="method-detail">
+        <a name="M000015"></a>
+
+        <div class="method-heading">
+          <a href="String.src/M000015.html" target="Code" class="method-signature"
+            onclick="popupCode('String.src/M000015.html');return false;">
+          <span class="method-name">md_type</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000023" class="method-detail">
+        <a name="M000023"></a>
+
+        <div class="method-heading">
+          <a href="String.src/M000023.html" target="Code" class="method-signature"
+            onclick="popupCode('String.src/M000023.html');return false;">
+          <span class="method-name">mysplit</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+&quot; andrea censi &quot; =&gt; [&quot; andrea &quot;, &quot;censi &quot;]
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000014" class="method-detail">
+        <a name="M000014"></a>
+
+        <div class="method-heading">
+          <a href="String.src/M000014.html" target="Code" class="method-signature"
+            onclick="popupCode('String.src/M000014.html');return false;">
+          <span class="method-name">quote_if_needed</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000017" class="method-detail">
+        <a name="M000017"></a>
+
+        <div class="method-heading">
+          <a href="String.src/M000017.html" target="Code" class="method-signature"
+            onclick="popupCode('String.src/M000017.html');return false;">
+          <span class="method-name">t2_contains_signature?</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000016" class="method-detail">
+        <a name="M000016"></a>
+
+        <div class="method-heading">
+          <a href="String.src/M000016.html" target="Code" class="method-signature"
+            onclick="popupCode('String.src/M000016.html');return false;">
+          <span class="method-name">t2_empty?</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000018" class="method-detail">
+        <a name="M000018"></a>
+
+        <div class="method-heading">
+          <a href="String.src/M000018.html" target="Code" class="method-signature"
+            onclick="popupCode('String.src/M000018.html');return false;">
+          <span class="method-name">t2_get_signature</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+sig, rest = <a href="String.html#M000018">t2_get_signature</a>
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000019" class="method-detail">
+        <a name="M000019"></a>
+
+        <div class="method-heading">
+          <a href="String.src/M000019.html" target="Code" class="method-signature"
+            onclick="popupCode('String.src/M000019.html');return false;">
+          <span class="method-name">to_html</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+A string is rendered into HTML by creating a REXML::Text node. <a
+href="REXML.html">REXML</a> takes care of all the encoding.
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000021" class="method-detail">
+        <a name="M000021"></a>
+
+        <div class="method-heading">
+          <a href="String.src/M000021.html" target="Code" class="method-signature"
+            onclick="popupCode('String.src/M000021.html');return false;">
+          <span class="method-name">to_latex</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+escapes special characters
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000022" class="method-detail">
+        <a name="M000022"></a>
+
+        <div class="method-heading">
+          <a href="String.src/M000022.html" target="Code" class="method-signature"
+            onclick="popupCode('String.src/M000022.html');return false;">
+          <span class="method-name">to_md</span><span class="method-args">(c=nil)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+XXX: markdown escaping
+</p>
+        </div>
+      </div>
+
+
+    </div>
+
+
+  </div>
+
+
+<div id="validator-badges">
+  <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+</div>
+
+</body>
+</html>

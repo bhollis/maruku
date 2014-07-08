@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>spaces_before_first_char (MaRuKu::Strings)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/maruku/string_utils.rb, line 106</span>
+        <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">spaces_before_first_char</span>(<span class="ruby-identifier">s</span>)
+                <span class="ruby-keyword kw">case</span> <span class="ruby-identifier">s</span>.<span class="ruby-identifier">md_type</span>
+                <span class="ruby-keyword kw">when</span> <span class="ruby-identifier">:ulist</span>
+                        <span class="ruby-identifier">i</span>=<span class="ruby-value">0</span>;
+                        <span class="ruby-comment cmt"># skip whitespace if present</span>
+                        <span class="ruby-keyword kw">while</span> <span class="ruby-identifier">s</span>[<span class="ruby-identifier">i</span>,<span class="ruby-value">1</span>] <span class="ruby-operator">=~</span> <span class="ruby-regexp re">/\s/</span>; <span class="ruby-identifier">i</span><span class="ruby-operator">+=</span><span class="ruby-value">1</span> <span class="ruby-keyword kw">end</span>
+                        <span class="ruby-comment cmt"># skip indicator (+, -, *)</span>
+                        <span class="ruby-identifier">i</span><span class="ruby-operator">+=</span><span class="ruby-value">1</span>
+                        <span class="ruby-comment cmt"># skip optional whitespace</span>
+                        <span class="ruby-keyword kw">while</span> <span class="ruby-identifier">s</span>[<span class="ruby-identifier">i</span>,<span class="ruby-value">1</span>] <span class="ruby-operator">=~</span> <span class="ruby-regexp re">/\s/</span>; <span class="ruby-identifier">i</span><span class="ruby-operator">+=</span><span class="ruby-value">1</span> <span class="ruby-keyword kw">end</span>
+                        <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">i</span>
+                <span class="ruby-keyword kw">when</span> <span class="ruby-identifier">:olist</span>
+                        <span class="ruby-identifier">i</span>=<span class="ruby-value">0</span>;
+                        <span class="ruby-comment cmt"># skip whitespace</span>
+                        <span class="ruby-keyword kw">while</span> <span class="ruby-identifier">s</span>[<span class="ruby-identifier">i</span>,<span class="ruby-value">1</span>] <span class="ruby-operator">=~</span> <span class="ruby-regexp re">/\s/</span>; <span class="ruby-identifier">i</span><span class="ruby-operator">+=</span><span class="ruby-value">1</span> <span class="ruby-keyword kw">end</span>
+                        <span class="ruby-comment cmt"># skip digits</span>
+                        <span class="ruby-keyword kw">while</span> <span class="ruby-identifier">s</span>[<span class="ruby-identifier">i</span>,<span class="ruby-value">1</span>] <span class="ruby-operator">=~</span> <span class="ruby-regexp re">/\d/</span>; <span class="ruby-identifier">i</span><span class="ruby-operator">+=</span><span class="ruby-value">1</span> <span class="ruby-keyword kw">end</span>
+                        <span class="ruby-comment cmt"># skip dot</span>
+                        <span class="ruby-identifier">i</span><span class="ruby-operator">+=</span><span class="ruby-value">1</span>
+                        <span class="ruby-comment cmt"># skip whitespace</span>
+                        <span class="ruby-keyword kw">while</span> <span class="ruby-identifier">s</span>[<span class="ruby-identifier">i</span>,<span class="ruby-value">1</span>] <span class="ruby-operator">=~</span> <span class="ruby-regexp re">/\s/</span>; <span class="ruby-identifier">i</span><span class="ruby-operator">+=</span><span class="ruby-value">1</span> <span class="ruby-keyword kw">end</span>
+                        <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">i</span>
+                <span class="ruby-keyword kw">else</span>
+                        <span class="ruby-identifier">tell_user</span> <span class="ruby-node">&quot;BUG (my bad): '#{s}' is not a list&quot;</span>
+                        <span class="ruby-value">0</span>
+                <span class="ruby-keyword kw">end</span>
+        <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>to_latex_footnote_reference (MaRuKu::Out::Latex)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/maruku/output/to_latex.rb, line 461</span>
+        <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_latex_footnote_reference</span>
+                <span class="ruby-identifier">id</span> = <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">footnote_id</span>
+                <span class="ruby-identifier">f</span> = <span class="ruby-ivar">@doc</span>.<span class="ruby-identifier">footnotes</span>[<span class="ruby-identifier">id</span>]
+                <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">f</span>
+                        <span class="ruby-node">&quot;\\footnote{#{f.children_to_latex.strip}} &quot;</span>
+                <span class="ruby-keyword kw">else</span>
+                        <span class="ruby-identifier">$stderr</span>.<span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;Could not find footnote '#{fid}'&quot;</span>
+                <span class="ruby-keyword kw">end</span>
+        <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>new (Textile2Signature)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/maruku/input_textile2/t2_parser.rb, line 55</span>
+        <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">s</span>)
+                <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">m</span> = <span class="ruby-constant">Reg</span>.<span class="ruby-identifier">match</span>(<span class="ruby-identifier">s</span>)
+                        <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">block_name</span> = <span class="ruby-identifier">m</span>[<span class="ruby-value">1</span>]
+                        <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">style</span> = <span class="ruby-identifier">m</span>[<span class="ruby-value">3</span>]
+                        <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">lang</span> = <span class="ruby-identifier">m</span>[<span class="ruby-value">4</span>]
+                        <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">css_class</span> = <span class="ruby-identifier">m</span>[<span class="ruby-value">6</span>]
+                        <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">css_id</span> = <span class="ruby-identifier">m</span>[<span class="ruby-value">7</span>]
+                        <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">text_align</span> = {<span class="ruby-keyword kw">nil</span>=<span class="ruby-operator">&gt;</span><span class="ruby-keyword kw">nil</span>,<span class="ruby-value str">'&gt;'</span>=<span class="ruby-operator">&gt;</span><span class="ruby-value str">'right'</span>,<span class="ruby-value str">'&lt;'</span>=<span class="ruby-operator">&gt;</span><span class="ruby-value str">'left'</span>,
+                                <span class="ruby-value str">'&lt;&gt;'</span>=<span class="ruby-operator">&gt;</span><span class="ruby-value str">'center'</span>,<span class="ruby-value str">'='</span>=<span class="ruby-operator">&gt;</span><span class="ruby-value str">'justified'</span>}[<span class="ruby-identifier">m</span>[<span class="ruby-value">8</span>]]
+                        <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">num_left_pad</span> = <span class="ruby-identifier">m</span>[<span class="ruby-value">9</span>] <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">m</span>[<span class="ruby-value">9</span>].<span class="ruby-identifier">size</span>
+                        <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">num_right_pad</span> = <span class="ruby-identifier">m</span>[<span class="ruby-value">10</span>] <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">m</span>[<span class="ruby-value">10</span>].<span class="ruby-identifier">size</span>
+                        <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">filters</span> = <span class="ruby-identifier">m</span>[<span class="ruby-value">11</span>] <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">m</span>[<span class="ruby-value">11</span>].<span class="ruby-identifier">split</span>(<span class="ruby-value str">'|'</span>)
+                        <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">double_dot</span> = <span class="ruby-identifier">m</span>[<span class="ruby-value">12</span>] <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-keyword kw">true</span>
+                <span class="ruby-keyword kw">end</span>
+        <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

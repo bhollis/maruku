@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>adjust_png (MaRuKu::Out::HTML)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/maruku/ext/math/to_html.rb, line 87</span>
+        <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">adjust_png</span>(<span class="ruby-identifier">png</span>, <span class="ruby-identifier">use_depth</span>)
+                <span class="ruby-identifier">src</span> = <span class="ruby-identifier">png</span>.<span class="ruby-identifier">src</span>
+                
+                <span class="ruby-identifier">height_in_px</span> = <span class="ruby-identifier">png</span>.<span class="ruby-identifier">height</span>
+                <span class="ruby-identifier">depth_in_px</span> = <span class="ruby-identifier">png</span>.<span class="ruby-identifier">depth</span>
+                <span class="ruby-identifier">height_in_ex</span> = <span class="ruby-identifier">height_in_px</span> <span class="ruby-operator">/</span> <span class="ruby-identifier">pixels_per_ex</span>
+                <span class="ruby-identifier">depth_in_ex</span> = <span class="ruby-identifier">depth_in_px</span> <span class="ruby-operator">/</span> <span class="ruby-identifier">pixels_per_ex</span>
+                <span class="ruby-identifier">total_height_in_ex</span> = <span class="ruby-identifier">height_in_ex</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">depth_in_ex</span>
+                <span class="ruby-identifier">style</span> = <span class="ruby-value str">&quot;&quot;</span> 
+                <span class="ruby-identifier">style</span> <span class="ruby-operator">+=</span> <span class="ruby-node">&quot;vertical-align: -#{depth_in_ex}ex;&quot;</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">use_depth</span>
+                <span class="ruby-identifier">style</span> <span class="ruby-operator">+=</span> <span class="ruby-node">&quot;height: #{total_height_in_ex}ex;&quot;</span>
+                <span class="ruby-identifier">img</span> = <span class="ruby-constant">Element</span>.<span class="ruby-identifier">new</span> <span class="ruby-value str">'img'</span>
+                <span class="ruby-identifier">img</span>.<span class="ruby-identifier">attributes</span>[<span class="ruby-value str">'src'</span>] = <span class="ruby-identifier">src</span>
+                <span class="ruby-identifier">img</span>.<span class="ruby-identifier">attributes</span>[<span class="ruby-value str">'style'</span>] = <span class="ruby-identifier">style</span>
+                <span class="ruby-identifier">img</span>.<span class="ruby-identifier">attributes</span>[<span class="ruby-value str">'alt'</span>] = <span class="ruby-value str">&quot;equation&quot;</span>
+                <span class="ruby-identifier">img</span>
+        <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

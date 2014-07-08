@@ -1,0 +1,1411 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <head>
+    <title>Module: MaRuKu::Out::HTML</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+    <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+
+    <script language="JavaScript" type="text/javascript">
+    // <![CDATA[
+
+        function toggleSource( id )
+        {
+          var elem
+          var link
+
+          if( document.getElementById )
+          {
+            elem = document.getElementById( id )
+            link = document.getElementById( "l_" + id )
+          }
+          else if ( document.all )
+          {
+            elem = eval( "document.all." + id )
+            link = eval( "document.all.l_" + id )
+          }
+          else
+            return false;
+
+          if( elem.style.display == "block" )
+          {
+            elem.style.display = "none"
+            link.innerHTML = "show source"
+          }
+          else
+          {
+            elem.style.display = "block"
+            link.innerHTML = "hide source"
+          }
+        }
+
+        function openCode( url )
+        {
+          window.open( url, "SOURCE_CODE", "width=400,height=400,scrollbars=yes" )
+        }
+      // ]]>
+    </script>
+  </head>
+
+  <body>
+  <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'><tr>
+  <td class="file-title"><span class="file-title-prefix">Module</span><br />MaRuKu::Out::HTML</td>
+  <td align="right">
+    <table cellspacing=0 cellpadding=2>
+      <tr valign="top">
+        <td>In:</td>
+        <td>
+<a href="../../../files/lib/maruku_rb.html">lib/maruku.rb</a>
+<a href="../../../files/lib/maruku/output/to_html_rb.html">lib/maruku/output/to_html.rb</a>
+        </td>
+      </tr>
+         </table>
+        </td>
+        </tr>
+      </table>
+ <!-- banner header -->
+
+  <div id="bodyContent">
+      <div id="content">
+
+  <div class="description"><p>
+Functions for exporting to <a href="HTML.html">HTML</a>.
+</p>
+</div>
+
+
+
+  <div class="sectiontitle">Methods</div>
+  <ul>
+  <li><a href="#M000041">add_whitespace</a></li>
+  <li><a href="#M000068">add_ws</a></li>
+  <li><a href="#M000085">array_to_html</a></li>
+  <li><a href="#M000084">children_to_html</a></li>
+  <li><a href="#M000049">create_html_element</a></li>
+  <li><a href="#M000042">day_suffix</a></li>
+  <li><a href="#M000044">maruku_html_signature</a></li>
+  <li><a href="#M000043">nice_date</a></li>
+  <li><a href="#M000069">obfuscate</a></li>
+  <li><a href="#M000045">render_footnotes</a></li>
+  <li><a href="#M000059">render_section_number</a></li>
+  <li><a href="#M000058">section_number</a></li>
+  <li><a href="#M000061">source2html</a></li>
+  <li><a href="#M000038">to_html</a></li>
+  <li><a href="#M000074">to_html_abbr</a></li>
+  <li><a href="#M000082">to_html_cell</a></li>
+  <li><a href="#M000062">to_html_code</a></li>
+  <li><a href="#M000063">to_html_code_using_pre</a></li>
+  <li><a href="#M000077">to_html_definition</a></li>
+  <li><a href="#M000079">to_html_definition_data</a></li>
+  <li><a href="#M000076">to_html_definition_list</a></li>
+  <li><a href="#M000078">to_html_definition_term</a></li>
+  <li><a href="#M000039">to_html_document</a></li>
+  <li><a href="#M000040">to_html_document_tree</a></li>
+  <li><a href="#M000070">to_html_email_address</a></li>
+  <li><a href="#M000057">to_html_emphasis</a></li>
+  <li><a href="#M000083">to_html_entity</a></li>
+  <li><a href="#M000075">to_html_footnote_reference</a></li>
+  <li><a href="#M000081">to_html_head_cell</a></li>
+  <li><a href="#M000060">to_html_header</a></li>
+  <li><a href="#M000046">to_html_hrule</a></li>
+  <li><a href="#M000072">to_html_im_image</a></li>
+  <li><a href="#M000067">to_html_im_link</a></li>
+  <li><a href="#M000071">to_html_image</a></li>
+  <li><a href="#M000065">to_html_immediate_link</a></li>
+  <li><a href="#M000064">to_html_inline_code</a></li>
+  <li><a href="#M000053">to_html_li</a></li>
+  <li><a href="#M000054">to_html_li_span</a></li>
+  <li><a href="#M000047">to_html_linebreak</a></li>
+  <li><a href="#M000066">to_html_link</a></li>
+  <li><a href="#M000052">to_html_ol</a></li>
+  <li><a href="#M000051">to_html_paragraph</a></li>
+  <li><a href="#M000055">to_html_quote</a></li>
+  <li><a href="#M000073">to_html_raw_html</a></li>
+  <li><a href="#M000086">to_html_ref_definition</a></li>
+  <li><a href="#M000056">to_html_strong</a></li>
+  <li><a href="#M000080">to_html_table</a></li>
+  <li><a href="#M000050">to_html_ul</a></li>
+  <li><a href="#M000087">to_latex_ref_definition</a></li>
+  <li><a href="#M000048">wrap_as_element</a></li>
+  </ul>
+
+<div class="sectiontitle">Included Modules</div>
+<ul>
+  <li><a href="../../REXML.html">REXML</a></li>
+  <li><a href="../Defaults.html">MaRuKu::Defaults</a></li>
+</ul>
+
+
+
+
+
+<div class="sectiontitle">Public Instance methods</div>
+<div class="method">
+  <div class="title">
+    <a name="M000041"></a><b>add_whitespace</b>(element)
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000041_source')" id="l_M000041_source">show source</a> ]</p>
+  <div id="M000041_source" class="dyn-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/maruku/output/to_html.rb, line 152</span>
+152:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">add_whitespace</span>(<span class="ruby-identifier">element</span>)
+153:                 <span class="ruby-identifier">blocks</span> = [<span class="ruby-value str">'p'</span>,<span class="ruby-value str">'pre'</span>,<span class="ruby-value str">'h1'</span>,<span class="ruby-value str">'h2'</span>,<span class="ruby-value str">'h3'</span>,<span class="ruby-value str">'h4'</span>,<span class="ruby-value str">'h5'</span>,<span class="ruby-value str">'h6'</span>,
+154:                         <span class="ruby-value str">'style'</span>,<span class="ruby-value str">'table'</span>,<span class="ruby-value str">'div'</span>,<span class="ruby-value str">'ul'</span>,<span class="ruby-value str">'ol'</span>,<span class="ruby-value str">'li'</span>,<span class="ruby-value str">'dl'</span>,<span class="ruby-value str">'dt'</span>,
+155:                         <span class="ruby-value str">'head'</span>,<span class="ruby-value str">'blockquote'</span>,<span class="ruby-value str">'tr'</span>,<span class="ruby-value str">'thead'</span>,<span class="ruby-value str">'td'</span>,<span class="ruby-value str">'dd'</span>,<span class="ruby-value str">'title'</span>,
+156:                         <span class="ruby-value str">'link'</span>,<span class="ruby-value str">'hr'</span>]
+157:                         
+158:                 <span class="ruby-identifier">element</span>.<span class="ruby-identifier">get_elements</span>( <span class="ruby-value str">&quot;//*&quot;</span> ).<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">e</span><span class="ruby-operator">|</span>
+159:                         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">blocks</span>.<span class="ruby-identifier">include?</span> <span class="ruby-identifier">e</span>.<span class="ruby-identifier">name</span>
+160:                                 <span class="ruby-identifier">e</span>.<span class="ruby-identifier">parent</span>.<span class="ruby-identifier">insert_before</span>(<span class="ruby-identifier">e</span>, <span class="ruby-constant">Text</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value str">&quot;\n&quot;</span>))
+161:                                 <span class="ruby-identifier">e</span>.<span class="ruby-identifier">parent</span>.<span class="ruby-identifier">insert_after</span>(<span class="ruby-identifier">e</span>, <span class="ruby-constant">Text</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value str">&quot;\n&quot;</span>))
+162:                         <span class="ruby-keyword kw">end</span>
+163:                 <span class="ruby-keyword kw">end</span>
+164: 
+165:                 <span class="ruby-identifier">element</span>.<span class="ruby-identifier">get_elements</span>( <span class="ruby-value str">&quot;//br&quot;</span> ).<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">e</span><span class="ruby-operator">|</span>
+166:                         <span class="ruby-identifier">e</span>.<span class="ruby-identifier">parent</span>.<span class="ruby-identifier">insert_after</span>(<span class="ruby-identifier">e</span>, <span class="ruby-constant">Text</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value str">&quot;\n&quot;</span>))
+167:                 <span class="ruby-keyword kw">end</span>
+168:         <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000068"></a><b>add_ws</b>(e)
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000068_source')" id="l_M000068_source">show source</a> ]</p>
+  <div id="M000068_source" class="dyn-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/maruku/output/to_html.rb, line 439</span>
+439:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">add_ws</span>(<span class="ruby-identifier">e</span>)
+440:                 [<span class="ruby-constant">Text</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value str">&quot;\n&quot;</span>), <span class="ruby-identifier">e</span>, <span class="ruby-constant">Text</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value str">&quot;\n&quot;</span>)]
+441:         <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000085"></a><b>array_to_html</b>(array)
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000085_source')" id="l_M000085_source">show source</a> ]</p>
+  <div id="M000085_source" class="dyn-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/maruku/output/to_html.rb, line 615</span>
+615:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">array_to_html</span>(<span class="ruby-identifier">array</span>)
+616:                 <span class="ruby-identifier">e</span> = []
+617:                 <span class="ruby-identifier">array</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">c</span><span class="ruby-operator">|</span>
+618:                         <span class="ruby-identifier">method</span> = <span class="ruby-identifier">c</span>.<span class="ruby-identifier">kind_of?</span>(<span class="ruby-constant">MDElement</span>) <span class="ruby-operator">?</span> 
+619:                            <span class="ruby-node">&quot;to_html_#{c.node_type}&quot;</span> <span class="ruby-operator">:</span> <span class="ruby-value str">&quot;to_html&quot;</span>
+620: 
+621:                         <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">not</span> <span class="ruby-identifier">c</span>.<span class="ruby-identifier">respond_to?</span>(<span class="ruby-identifier">method</span>)
+622:                                 <span class="ruby-comment cmt">#raise &quot;Object does not answer to #{method}: #{c.class} #{c.inspect}&quot;</span>
+623:                                 <span class="ruby-keyword kw">next</span>
+624:                         <span class="ruby-keyword kw">end</span>
+625: 
+626:                         <span class="ruby-identifier">h</span> =  <span class="ruby-identifier">c</span>.<span class="ruby-identifier">send</span>(<span class="ruby-identifier">method</span>)
+627: 
+628:                         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">h</span>.<span class="ruby-identifier">nil?</span>
+629:                                 <span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;Nil html created by method  #{method}:\n#{h.inspect}\n&quot;</span><span class="ruby-operator">+</span>
+630:                                 <span class="ruby-node">&quot; for object #{c.inspect[0,300]}&quot;</span>
+631:                         <span class="ruby-keyword kw">end</span>
+632: 
+633:                         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">h</span>.<span class="ruby-identifier">kind_of?</span><span class="ruby-constant">Array</span>
+634:                                 <span class="ruby-identifier">e</span> = <span class="ruby-identifier">e</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">h</span> <span class="ruby-comment cmt">#h.each do |hh| e &lt;&lt; hh end</span>
+635:                         <span class="ruby-keyword kw">else</span>
+636:                                 <span class="ruby-identifier">e</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">h</span>
+637:                         <span class="ruby-keyword kw">end</span>
+638:                 <span class="ruby-keyword kw">end</span>
+639:                 <span class="ruby-identifier">e</span>
+640:         <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000084"></a><b>children_to_html</b>()
+  </div>
+  <div class="description">
+  <p>
+Convert each child to html
+</p>
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000084_source')" id="l_M000084_source">show source</a> ]</p>
+  <div id="M000084_source" class="dyn-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/maruku/output/to_html.rb, line 611</span>
+611:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">children_to_html</span>
+612:                 <span class="ruby-identifier">array_to_html</span>(<span class="ruby-ivar">@children</span>)
+613:         <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000049"></a><b>create_html_element</b>(name)
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000049_source')" id="l_M000049_source">show source</a> ]</p>
+  <div id="M000049_source" class="dyn-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/maruku/output/to_html.rb, line 245</span>
+245:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">create_html_element</span>(<span class="ruby-identifier">name</span>)
+246:                 <span class="ruby-identifier">m</span> = <span class="ruby-constant">Element</span>.<span class="ruby-identifier">new</span> <span class="ruby-identifier">name</span>
+247:                         <span class="ruby-keyword kw">if</span> (<span class="ruby-identifier">v</span>=<span class="ruby-ivar">@attributes</span>[<span class="ruby-identifier">:id</span>]   ) <span class="ruby-keyword kw">then</span> <span class="ruby-identifier">m</span>.<span class="ruby-identifier">attributes</span>[<span class="ruby-value str">'id'</span>   ] = <span class="ruby-identifier">v</span>.<span class="ruby-identifier">to_s</span> <span class="ruby-keyword kw">end</span>
+248:                         <span class="ruby-keyword kw">if</span> (<span class="ruby-identifier">v</span>=<span class="ruby-ivar">@attributes</span>[<span class="ruby-identifier">:style</span>]) <span class="ruby-keyword kw">then</span> <span class="ruby-identifier">m</span>.<span class="ruby-identifier">attributes</span>[<span class="ruby-value str">'style'</span>] = <span class="ruby-identifier">v</span>.<span class="ruby-identifier">to_s</span> <span class="ruby-keyword kw">end</span>
+249:                         <span class="ruby-keyword kw">if</span> (<span class="ruby-identifier">v</span>=<span class="ruby-ivar">@attributes</span>[<span class="ruby-identifier">:class</span>]) <span class="ruby-keyword kw">then</span> <span class="ruby-identifier">m</span>.<span class="ruby-identifier">attributes</span>[<span class="ruby-value str">'class'</span>] = <span class="ruby-identifier">v</span>.<span class="ruby-identifier">to_s</span> <span class="ruby-keyword kw">end</span>
+250:                 <span class="ruby-identifier">m</span>
+251:         <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000042"></a><b>day_suffix</b>(day)
+  </div>
+  <div class="description">
+  <p>
+returns &quot;st&quot;,&quot;nd&quot;,&quot;rd&quot; or &quot;th&quot; as
+appropriate
+</p>
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000042_source')" id="l_M000042_source">show source</a> ]</p>
+  <div id="M000042_source" class="dyn-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/maruku/output/to_html.rb, line 171</span>
+171:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">day_suffix</span>(<span class="ruby-identifier">day</span>)
+172:                 <span class="ruby-keyword kw">case</span> <span class="ruby-identifier">day</span><span class="ruby-operator">%</span><span class="ruby-value">10</span>
+173:                         <span class="ruby-keyword kw">when</span> <span class="ruby-value">1</span>; <span class="ruby-value str">'st'</span>
+174:                         <span class="ruby-keyword kw">when</span> <span class="ruby-value">2</span>; <span class="ruby-value str">'nd'</span>
+175:                         <span class="ruby-keyword kw">when</span> <span class="ruby-value">3</span>; <span class="ruby-value str">'rd'</span>
+176:                         <span class="ruby-keyword kw">else</span> <span class="ruby-value str">'th'</span>
+177:                 <span class="ruby-keyword kw">end</span>
+178:         <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000044"></a><b>maruku_html_signature</b>()
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000044_source')" id="l_M000044_source">show source</a> ]</p>
+  <div id="M000044_source" class="dyn-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/maruku/output/to_html.rb, line 189</span>
+189:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">maruku_html_signature</span>              
+190:                 <span class="ruby-identifier">div</span> = <span class="ruby-constant">Element</span>.<span class="ruby-identifier">new</span> <span class="ruby-value str">'div'</span>
+191:                         <span class="ruby-identifier">div</span>.<span class="ruby-identifier">attributes</span>[<span class="ruby-value str">'class'</span>] = <span class="ruby-value str">'maruku_signature'</span>
+192:                         <span class="ruby-constant">Element</span>.<span class="ruby-identifier">new</span> <span class="ruby-value str">'hr'</span>, <span class="ruby-identifier">div</span>
+193:                         <span class="ruby-identifier">span</span> = <span class="ruby-constant">Element</span>.<span class="ruby-identifier">new</span> <span class="ruby-value str">'span'</span>, <span class="ruby-identifier">div</span>
+194:                                 <span class="ruby-identifier">span</span>.<span class="ruby-identifier">attributes</span>[<span class="ruby-value str">'style'</span>] = <span class="ruby-value str">'font-size: small; font-style: italic'</span>
+195:                                 <span class="ruby-identifier">span</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">Text</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value str">'Created by '</span>)
+196:                                 <span class="ruby-identifier">a</span> = <span class="ruby-constant">Element</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value str">'a'</span>, <span class="ruby-identifier">span</span>)
+197:                                         <span class="ruby-identifier">a</span>.<span class="ruby-identifier">attributes</span>[<span class="ruby-value str">'href'</span>] = <span class="ruby-value str">'http://maruku.rubyforge.org'</span>
+198:                                         <span class="ruby-identifier">a</span>.<span class="ruby-identifier">attributes</span>[<span class="ruby-value str">'title'</span>] = <span class="ruby-value str">'Maruku: a Markdown interpreter'</span>
+199:                                         <span class="ruby-identifier">a</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">Text</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value str">'Maruku'</span>)
+200:                                 <span class="ruby-identifier">span</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">Text</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">nice_date</span><span class="ruby-operator">+</span><span class="ruby-value str">&quot;.&quot;</span>)
+201:                 <span class="ruby-identifier">div</span>
+202:         <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000043"></a><b>nice_date</b>()
+  </div>
+  <div class="description">
+  <p>
+formats a nice date
+</p>
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000043_source')" id="l_M000043_source">show source</a> ]</p>
+  <div id="M000043_source" class="dyn-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/maruku/output/to_html.rb, line 181</span>
+181:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">nice_date</span>
+182:                 <span class="ruby-identifier">t</span> = <span class="ruby-constant">Time</span>.<span class="ruby-identifier">now</span>
+183:                 <span class="ruby-identifier">t</span>.<span class="ruby-identifier">strftime</span>(<span class="ruby-value str">&quot; at %H:%M on &quot;</span>)<span class="ruby-operator">+</span>
+184:                 <span class="ruby-identifier">t</span>.<span class="ruby-identifier">strftime</span>(<span class="ruby-value str">&quot;%A, %B %d&quot;</span>)<span class="ruby-operator">+</span>
+185:                 <span class="ruby-identifier">day_suffix</span>(<span class="ruby-identifier">t</span>.<span class="ruby-identifier">day</span>)<span class="ruby-operator">+</span>
+186:                 <span class="ruby-identifier">t</span>.<span class="ruby-identifier">strftime</span>(<span class="ruby-value str">&quot;, %Y&quot;</span>)
+187:         <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000069"></a><b>obfuscate</b>(s)
+  </div>
+  <div class="description">
+  <p>
+Email address
+</p>
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000069_source')" id="l_M000069_source">show source</a> ]</p>
+  <div id="M000069_source" class="dyn-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/maruku/output/to_html.rb, line 444</span>
+444:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">obfuscate</span>(<span class="ruby-identifier">s</span>)
+445:                 <span class="ruby-identifier">res</span> = <span class="ruby-value str">''</span>
+446:                 <span class="ruby-identifier">s</span>.<span class="ruby-identifier">each_byte</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">char</span><span class="ruby-operator">|</span>
+447:                         <span class="ruby-identifier">res</span> <span class="ruby-operator">+=</span>  <span class="ruby-value str">&quot;&amp;#%03d;&quot;</span> <span class="ruby-operator">%</span> <span class="ruby-identifier">char</span>
+448:                 <span class="ruby-keyword kw">end</span>
+449:                 <span class="ruby-identifier">res</span>
+450:         <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000045"></a><b>render_footnotes</b>()
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000045_source')" id="l_M000045_source">show source</a> ]</p>
+  <div id="M000045_source" class="dyn-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/maruku/output/to_html.rb, line 204</span>
+204:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">render_footnotes</span>
+205:                 <span class="ruby-identifier">div</span> = <span class="ruby-constant">Element</span>.<span class="ruby-identifier">new</span> <span class="ruby-value str">'div'</span>
+206:                 <span class="ruby-identifier">div</span>.<span class="ruby-identifier">attributes</span>[<span class="ruby-value str">'class'</span>] = <span class="ruby-value str">'footnotes'</span>
+207:                 <span class="ruby-identifier">div</span> <span class="ruby-operator">&lt;&lt;</span>  <span class="ruby-constant">Element</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value str">'hr'</span>)
+208:                         <span class="ruby-identifier">ol</span> = <span class="ruby-constant">Element</span>.<span class="ruby-identifier">new</span> <span class="ruby-value str">'ol'</span>
+209:                         <span class="ruby-ivar">@doc</span>.<span class="ruby-identifier">footnotes_order</span>.<span class="ruby-identifier">each_with_index</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">fid</span>, <span class="ruby-identifier">i</span><span class="ruby-operator">|</span> <span class="ruby-identifier">num</span> = <span class="ruby-identifier">i</span><span class="ruby-operator">+</span><span class="ruby-value">1</span>
+210:                                 <span class="ruby-identifier">f</span> = <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">footnotes</span>[<span class="ruby-identifier">fid</span>]
+211:                                 <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">f</span>
+212:                                         <span class="ruby-identifier">li</span> = <span class="ruby-identifier">f</span>.<span class="ruby-identifier">wrap_as_element</span>(<span class="ruby-value str">'li'</span>)
+213:                                         <span class="ruby-identifier">li</span>.<span class="ruby-identifier">attributes</span>[<span class="ruby-value str">'id'</span>] = <span class="ruby-node">&quot;fn:#{num}&quot;</span>
+214:                                         
+215:                                         <span class="ruby-identifier">a</span> = <span class="ruby-constant">Element</span>.<span class="ruby-identifier">new</span> <span class="ruby-value str">'a'</span>
+216:                                                 <span class="ruby-identifier">a</span>.<span class="ruby-identifier">attributes</span>[<span class="ruby-value str">'href'</span>] = <span class="ruby-node">&quot;#fnref:#{num}&quot;</span>
+217:                                                 <span class="ruby-identifier">a</span>.<span class="ruby-identifier">attributes</span>[<span class="ruby-value str">'rev'</span>] = <span class="ruby-value str">'footnote'</span>
+218:                                                 <span class="ruby-identifier">a</span><span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">Text</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value str">'&amp;#8617;'</span>, <span class="ruby-keyword kw">true</span>, <span class="ruby-keyword kw">nil</span>, <span class="ruby-keyword kw">true</span>)
+219:                                         <span class="ruby-identifier">li</span>.<span class="ruby-identifier">insert_after</span>(<span class="ruby-identifier">li</span>.<span class="ruby-identifier">children</span>.<span class="ruby-identifier">last</span>, <span class="ruby-identifier">a</span>)
+220:                                         <span class="ruby-identifier">ol</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">li</span>
+221:                                 <span class="ruby-keyword kw">else</span>
+222:                                         <span class="ruby-identifier">maruku_error</span><span class="ruby-node">&quot;Could not find footnote '#{fid}'&quot;</span>
+223:                                 <span class="ruby-keyword kw">end</span>
+224:                         <span class="ruby-keyword kw">end</span>
+225:                 <span class="ruby-identifier">div</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">ol</span>
+226:                 <span class="ruby-identifier">div</span>
+227:         <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000059"></a><b>render_section_number</b>()
+  </div>
+  <div class="description">
+  <p>
+nil if not applicable, else SPAN element
+</p>
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000059_source')" id="l_M000059_source">show source</a> ]</p>
+  <div id="M000059_source" class="dyn-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/maruku/output/to_html.rb, line 286</span>
+286:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">render_section_number</span>
+287:                 <span class="ruby-comment cmt"># if we are bound to a section, add section number</span>
+288:                 <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">num</span> = <span class="ruby-identifier">section_number</span>
+289:                         <span class="ruby-identifier">span</span> = <span class="ruby-constant">Element</span>.<span class="ruby-identifier">new</span> <span class="ruby-value str">'span'</span>
+290:                         <span class="ruby-identifier">span</span>.<span class="ruby-identifier">attributes</span>[<span class="ruby-value str">'class'</span>] = <span class="ruby-value str">'maruku_section_number'</span>
+291:                         <span class="ruby-identifier">span</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">Text</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">section_number</span>)
+292:                         <span class="ruby-identifier">span</span>
+293:                 <span class="ruby-keyword kw">else</span>
+294:                         <span class="ruby-keyword kw">nil</span>
+295:                 <span class="ruby-keyword kw">end</span>
+296:         <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000058"></a><b>section_number</b>()
+  </div>
+  <div class="description">
+  <p>
+nil if not applicable, else string
+</p>
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000058_source')" id="l_M000058_source">show source</a> ]</p>
+  <div id="M000058_source" class="dyn-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/maruku/output/to_html.rb, line 274</span>
+274:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">section_number</span>
+275:                 <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">nil</span> <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">not</span> <span class="ruby-ivar">@doc</span>.<span class="ruby-identifier">attributes</span>[<span class="ruby-identifier">:use_numbered_headers</span>]
+276:                 
+277:                 <span class="ruby-identifier">n</span> = <span class="ruby-ivar">@attributes</span>[<span class="ruby-identifier">:section_number</span>]
+278:                 <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">n</span> <span class="ruby-operator">&amp;&amp;</span> (<span class="ruby-keyword kw">not</span> <span class="ruby-identifier">n</span>.<span class="ruby-identifier">empty?</span>)
+279:                          <span class="ruby-identifier">n</span>.<span class="ruby-identifier">join</span>(<span class="ruby-value str">'.'</span>)<span class="ruby-operator">+</span><span class="ruby-value str">&quot;. &quot;</span>
+280:                 <span class="ruby-keyword kw">else</span>
+281:                         <span class="ruby-keyword kw">nil</span>
+282:                 <span class="ruby-keyword kw">end</span>
+283:         <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000061"></a><b>source2html</b>(source)
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000061_source')" id="l_M000061_source">show source</a> ]</p>
+  <div id="M000061_source" class="dyn-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/maruku/output/to_html.rb, line 308</span>
+308:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">source2html</span>(<span class="ruby-identifier">source</span>)
+309:                 <span class="ruby-identifier">source</span> = <span class="ruby-identifier">source</span>.<span class="ruby-identifier">gsub</span>(<span class="ruby-regexp re">/&amp;/</span>,<span class="ruby-value str">'&amp;amp;'</span>)
+310:                 <span class="ruby-identifier">source</span> = <span class="ruby-constant">Text</span>.<span class="ruby-identifier">normalize</span>(<span class="ruby-identifier">source</span>)
+311:                 <span class="ruby-constant">Text</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">source</span>, <span class="ruby-keyword kw">true</span>, <span class="ruby-keyword kw">nil</span>, <span class="ruby-keyword kw">false</span> )
+312:         <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000038"></a><b>to_html</b>(context={})
+  </div>
+  <div class="description">
+  <p>
+Render as an <a href="HTML.html">HTML</a> fragment (no head, just the
+content of BODY). (returns a string)
+</p>
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000038_source')" id="l_M000038_source">show source</a> ]</p>
+  <div id="M000038_source" class="dyn-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/maruku/output/to_html.rb, line 51</span>
+51:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_html</span>(<span class="ruby-identifier">context</span>={})
+52:                 <span class="ruby-identifier">indent</span> = <span class="ruby-identifier">context</span>[<span class="ruby-identifier">:indent</span>] <span class="ruby-operator">||</span> <span class="ruby-value">-1</span>
+53:                 <span class="ruby-identifier">ie_hack</span> = <span class="ruby-identifier">context</span>[<span class="ruby-identifier">:ie_hack</span>] <span class="ruby-operator">||</span><span class="ruby-keyword kw">true</span>
+54:                 
+55:                 <span class="ruby-identifier">div</span> = <span class="ruby-constant">Element</span>.<span class="ruby-identifier">new</span> <span class="ruby-value str">'dummy'</span>
+56:                         <span class="ruby-identifier">children_to_html</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">e</span><span class="ruby-operator">|</span>
+57:                                 <span class="ruby-identifier">div</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">e</span>
+58:                         <span class="ruby-keyword kw">end</span>
+59: 
+60:                         <span class="ruby-comment cmt"># render footnotes</span>
+61:                         <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@doc</span>.<span class="ruby-identifier">footnotes_order</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>
+62:                                 <span class="ruby-identifier">div</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">render_footnotes</span>
+63:                         <span class="ruby-keyword kw">end</span>
+64:                 
+65:                 <span class="ruby-identifier">doc</span> = <span class="ruby-constant">Document</span>.<span class="ruby-identifier">new</span>(<span class="ruby-keyword kw">nil</span>,{<span class="ruby-identifier">:respect_whitespace</span> =<span class="ruby-operator">&gt;</span><span class="ruby-identifier">:all</span>})
+66:                 <span class="ruby-identifier">doc</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">div</span>
+67:                 <span class="ruby-comment cmt">#add_whitespace(doc)</span>
+68:                 
+69:                 <span class="ruby-comment cmt"># REXML Bug? if indent!=-1 whitespace is not respected for 'pre' elements</span>
+70:                 <span class="ruby-comment cmt"># containing code.</span>
+71:                 <span class="ruby-identifier">xml</span> =<span class="ruby-value str">&quot;&quot;</span>
+72:                 <span class="ruby-identifier">div</span>.<span class="ruby-identifier">write_children</span>(<span class="ruby-identifier">xml</span>,<span class="ruby-identifier">indent</span>,<span class="ruby-identifier">transitive</span>=<span class="ruby-keyword kw">true</span>,<span class="ruby-identifier">ie_hack</span>)
+73:                 <span class="ruby-identifier">xml</span>
+74:         <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000074"></a><b>to_html_abbr</b>()
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000074_source')" id="l_M000074_source">show source</a> ]</p>
+  <div id="M000074_source" class="dyn-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/maruku/output/to_html.rb, line 531</span>
+531:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_html_abbr</span>
+532:                 <span class="ruby-identifier">abbr</span> = <span class="ruby-constant">Element</span>.<span class="ruby-identifier">new</span> <span class="ruby-value str">'abbr'</span>
+533:                 <span class="ruby-identifier">abbr</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">Text</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">children</span>[<span class="ruby-value">0</span>])
+534:                 <span class="ruby-identifier">abbr</span>.<span class="ruby-identifier">attributes</span>[<span class="ruby-value str">'title'</span>] = <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">title</span> <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">title</span>
+535:                 <span class="ruby-identifier">abbr</span>
+536:         <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000082"></a><b>to_html_cell</b>()
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000082_source')" id="l_M000082_source">show source</a> ]</p>
+  <div id="M000082_source" class="dyn-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/maruku/output/to_html.rb, line 603</span>
+603:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_html_cell</span>; <span class="ruby-identifier">wrap_as_element</span>(<span class="ruby-value str">'td'</span>) <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000062"></a><b>to_html_code</b>()
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000062_source')" id="l_M000062_source">show source</a> ]</p>
+  <div id="M000062_source" class="dyn-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/maruku/output/to_html.rb, line 314</span>
+314:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_html_code</span>; 
+315:                 <span class="ruby-identifier">source</span> = <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">raw_code</span>
+316: 
+317:                 <span class="ruby-identifier">lang</span> = <span class="ruby-ivar">@attributes</span>[<span class="ruby-identifier">:lang</span>] <span class="ruby-operator">||</span> <span class="ruby-ivar">@doc</span>.<span class="ruby-identifier">attributes</span>[<span class="ruby-identifier">:code_lang</span>] 
+318: 
+319:                 <span class="ruby-identifier">lang</span> = <span class="ruby-value str">'xml'</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">lang</span><span class="ruby-operator">==</span><span class="ruby-value str">'html'</span>
+320:                 <span class="ruby-identifier">use_syntax</span> = <span class="ruby-identifier">get_setting</span>(<span class="ruby-identifier">:html_use_syntax</span>)
+321:                 
+322:                 <span class="ruby-identifier">element</span> = 
+323:                 <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">use_syntax</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">lang</span>
+324:                         <span class="ruby-keyword kw">begin</span>
+325:                                 <span class="ruby-identifier">convertor</span> = <span class="ruby-constant">Syntax</span><span class="ruby-operator">::</span><span class="ruby-constant">Convertors</span><span class="ruby-operator">::</span><span class="ruby-constant">HTML</span>.<span class="ruby-identifier">for_syntax</span> <span class="ruby-identifier">lang</span>
+326:                                 
+327:                                 <span class="ruby-comment cmt"># eliminate trailing newlines otherwise Syntax crashes</span>
+328:                                 <span class="ruby-identifier">source</span> = <span class="ruby-identifier">source</span>.<span class="ruby-identifier">gsub</span>(<span class="ruby-regexp re">/\n*\Z/</span>,<span class="ruby-value str">''</span>)
+329:                                 
+330:                                 <span class="ruby-identifier">html</span> = <span class="ruby-identifier">convertor</span>.<span class="ruby-identifier">convert</span>( <span class="ruby-identifier">source</span> )
+331:                         
+332:                                 <span class="ruby-identifier">show_spaces</span> = <span class="ruby-identifier">get_setting</span>(<span class="ruby-identifier">:code_show_spaces</span>) 
+333:                                 <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">show_spaces</span>
+334:                                         <span class="ruby-identifier">s</span>.<span class="ruby-identifier">gsub!</span>(<span class="ruby-regexp re">/\t/</span>,<span class="ruby-value str">'&amp;raquo;'</span><span class="ruby-operator">+</span><span class="ruby-value str">'&amp;nbsp;'</span><span class="ruby-operator">*</span><span class="ruby-value">3</span>)
+335:                                         <span class="ruby-identifier">s</span>.<span class="ruby-identifier">gsub!</span>(<span class="ruby-regexp re">/ /</span>,<span class="ruby-value str">'&amp;not;'</span>)
+336:                                 <span class="ruby-keyword kw">end</span>
+337:                         
+338:                                 <span class="ruby-identifier">pre</span> = <span class="ruby-constant">Document</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">html</span>, {<span class="ruby-identifier">:respect_whitespace</span> =<span class="ruby-operator">&gt;</span><span class="ruby-identifier">:all</span>}).<span class="ruby-identifier">root</span>
+339:                                 <span class="ruby-identifier">pre</span>.<span class="ruby-identifier">attributes</span>[<span class="ruby-value str">'class'</span>] = <span class="ruby-identifier">lang</span>
+340:                                 <span class="ruby-identifier">pre</span>
+341:                         <span class="ruby-keyword kw">rescue</span> <span class="ruby-constant">Object</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
+342:                                 <span class="ruby-identifier">maruku_error</span><span class="ruby-node">&quot;Error while using the syntax library for code:\n#{source.inspect}&quot;</span><span class="ruby-operator">+</span>
+343:                                  <span class="ruby-node">&quot;Lang is #{lang} object is: \n&quot;</span><span class="ruby-operator">+</span>
+344:                                   <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">inspect</span> <span class="ruby-operator">+</span> 
+345:                                 <span class="ruby-node">&quot;\nException: #{e.class}: #{e.message}\n\t#{e.backtrace.join(&quot;\n\t&quot;)}&quot;</span>
+346:                                 
+347:                                 <span class="ruby-identifier">tell_user</span>(<span class="ruby-value str">&quot;Using normal PRE because the syntax library did not work.&quot;</span>)
+348:                                 <span class="ruby-identifier">to_html_code_using_pre</span>(<span class="ruby-identifier">source</span>)
+349:                         <span class="ruby-keyword kw">end</span>
+350:                 <span class="ruby-keyword kw">else</span>
+351:                         <span class="ruby-identifier">to_html_code_using_pre</span>(<span class="ruby-identifier">source</span>)
+352:                 <span class="ruby-keyword kw">end</span>
+353:                 
+354:                 <span class="ruby-identifier">color</span> = <span class="ruby-identifier">get_setting</span>(<span class="ruby-identifier">:code_background_color</span>,<span class="ruby-constant">DEFAULT_CODE_COLOR</span>)
+355:                 <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">color</span> <span class="ruby-operator">!=</span> <span class="ruby-constant">DEFAULT_CODE_COLOR</span>
+356:                         <span class="ruby-identifier">element</span>.<span class="ruby-identifier">attributes</span>[<span class="ruby-value str">'style'</span>] = <span class="ruby-node">&quot;background-color: #{color};&quot;</span>
+357:                 <span class="ruby-keyword kw">end</span>
+358:                 <span class="ruby-identifier">element</span>
+359:         <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000063"></a><b>to_html_code_using_pre</b>(source)
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000063_source')" id="l_M000063_source">show source</a> ]</p>
+  <div id="M000063_source" class="dyn-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/maruku/output/to_html.rb, line 361</span>
+361:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_html_code_using_pre</span>(<span class="ruby-identifier">source</span>)
+362:                 <span class="ruby-identifier">pre</span> = <span class="ruby-constant">Element</span>.<span class="ruby-identifier">new</span> <span class="ruby-value str">'pre'</span>
+363:                 <span class="ruby-identifier">code</span> = <span class="ruby-constant">Element</span>.<span class="ruby-identifier">new</span> <span class="ruby-value str">'code'</span>, <span class="ruby-identifier">pre</span>
+364:                 <span class="ruby-identifier">s</span> = <span class="ruby-identifier">source</span>
+365:                 
+366:                 <span class="ruby-identifier">s</span>  = <span class="ruby-identifier">s</span>.<span class="ruby-identifier">gsub</span>(<span class="ruby-regexp re">/&amp;/</span>,<span class="ruby-value str">'&amp;amp;'</span>)
+367:                 <span class="ruby-identifier">s</span> = <span class="ruby-constant">Text</span>.<span class="ruby-identifier">normalize</span>(<span class="ruby-identifier">s</span>)
+368: 
+369:                 <span class="ruby-identifier">show_spaces</span> = <span class="ruby-identifier">get_setting</span>(<span class="ruby-identifier">:code_show_spaces</span>) 
+370:                 <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">show_spaces</span>
+371:                         <span class="ruby-identifier">s</span>.<span class="ruby-identifier">gsub!</span>(<span class="ruby-regexp re">/\t/</span>,<span class="ruby-value str">'&amp;raquo;'</span><span class="ruby-operator">+</span><span class="ruby-value str">'&amp;nbsp;'</span><span class="ruby-operator">*</span><span class="ruby-value">3</span>)
+372:                         <span class="ruby-identifier">s</span>.<span class="ruby-identifier">gsub!</span>(<span class="ruby-regexp re">/ /</span>,<span class="ruby-value str">'&amp;not;'</span>)
+373:                 <span class="ruby-keyword kw">end</span>
+374: 
+375:                 <span class="ruby-identifier">text</span> = <span class="ruby-constant">Text</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">s</span>, <span class="ruby-keyword kw">true</span>, <span class="ruby-keyword kw">nil</span>, <span class="ruby-keyword kw">false</span> )
+376:                 
+377:                 <span class="ruby-identifier">code</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">text</span>
+378:                 <span class="ruby-identifier">pre</span>
+379:         <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000077"></a><b>to_html_definition</b>()
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000077_source')" id="l_M000077_source">show source</a> ]</p>
+  <div id="M000077_source" class="dyn-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/maruku/output/to_html.rb, line 562</span>
+562:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_html_definition</span>         
+563:                 <span class="ruby-identifier">children_to_html</span>
+564:         <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000079"></a><b>to_html_definition_data</b>()
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000079_source')" id="l_M000079_source">show source</a> ]</p>
+  <div id="M000079_source" class="dyn-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/maruku/output/to_html.rb, line 566</span>
+566:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_html_definition_data</span>; <span class="ruby-identifier">wrap_as_element</span>(<span class="ruby-value str">'dd'</span>) <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000076"></a><b>to_html_definition_list</b>()
+  </div>
+  <div class="description">
+  <p>
+Definition lists ###
+</p>
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000076_source')" id="l_M000076_source">show source</a> ]</p>
+  <div id="M000076_source" class="dyn-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/maruku/output/to_html.rb, line 559</span>
+559:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_html_definition_list</span>
+560:                 <span class="ruby-identifier">wrap_as_element</span>(<span class="ruby-value str">'dl'</span>)
+561:         <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000078"></a><b>to_html_definition_term</b>()
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000078_source')" id="l_M000078_source">show source</a> ]</p>
+  <div id="M000078_source" class="dyn-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/maruku/output/to_html.rb, line 565</span>
+565:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_html_definition_term</span>; <span class="ruby-identifier">wrap_as_element</span>(<span class="ruby-value str">'dt'</span>) <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000039"></a><b>to_html_document</b>(context={})
+  </div>
+  <div class="description">
+  <p>
+Render to a complete <a href="HTML.html">HTML</a> document (returns a
+string)
+</p>
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000039_source')" id="l_M000039_source">show source</a> ]</p>
+  <div id="M000039_source" class="dyn-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/maruku/output/to_html.rb, line 77</span>
+77:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_html_document</span>(<span class="ruby-identifier">context</span>={})
+78:                 <span class="ruby-identifier">indent</span> = <span class="ruby-identifier">context</span>[<span class="ruby-identifier">:indent</span>] <span class="ruby-operator">||</span> <span class="ruby-value">-1</span>
+79:                 <span class="ruby-identifier">ie_hack</span> = <span class="ruby-identifier">context</span>[<span class="ruby-identifier">:ie_hack</span>] <span class="ruby-operator">||</span><span class="ruby-keyword kw">true</span>
+80:                 <span class="ruby-identifier">doc</span> = <span class="ruby-identifier">to_html_document_tree</span>
+81:                 <span class="ruby-identifier">xml</span>  = <span class="ruby-value str">&quot;&quot;</span> 
+82:                 
+83:                 <span class="ruby-comment cmt"># REXML Bug? if indent!=-1 whitespace is not respected for 'pre' elements</span>
+84:                 <span class="ruby-comment cmt"># containing code.</span>
+85:                 <span class="ruby-identifier">doc</span>.<span class="ruby-identifier">write</span>(<span class="ruby-identifier">xml</span>,<span class="ruby-identifier">indent</span>,<span class="ruby-identifier">transitive</span>=<span class="ruby-keyword kw">true</span>,<span class="ruby-identifier">ie_hack</span>);
+86:                                 
+87:                 <span class="ruby-identifier">xhtml10strict</span>  = <span class="ruby-value str">&quot;&lt;?xml version='1.0' encoding='utf-8'?&gt;
+88: &lt;!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Strict//EN'
+89: 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'&gt;\n&quot;</span>
+90:                 <span class="ruby-identifier">xhtml10strict</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">xml</span>
+91:         <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000040"></a><b>to_html_document_tree</b>()
+  </div>
+  <div class="description">
+  <p>
+Render to a complete <a href="HTML.html">HTML</a> document (returns a <a
+href="../../REXML.html">REXML</a> document tree)
+</p>
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000040_source')" id="l_M000040_source">show source</a> ]</p>
+  <div id="M000040_source" class="dyn-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/maruku/output/to_html.rb, line 94</span>
+ 94:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_html_document_tree</span>
+ 95:                 <span class="ruby-identifier">doc</span> = <span class="ruby-constant">Document</span>.<span class="ruby-identifier">new</span>(<span class="ruby-keyword kw">nil</span>,{<span class="ruby-identifier">:respect_whitespace</span> =<span class="ruby-operator">&gt;</span><span class="ruby-identifier">:all</span>})
+ 96:         <span class="ruby-comment cmt">#      doc &lt;&lt; XMLDecl.new</span>
+ 97:                 
+ 98:                 <span class="ruby-identifier">root</span> = <span class="ruby-constant">Element</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value str">'html'</span>, <span class="ruby-identifier">doc</span>)
+ 99:                 <span class="ruby-identifier">root</span>.<span class="ruby-identifier">add_namespace</span>(<span class="ruby-value str">'http://www.w3.org/1999/xhtml'</span>)
+100:                 
+101:                 <span class="ruby-identifier">lang</span> = <span class="ruby-ivar">@attributes</span>[<span class="ruby-identifier">:lang</span>] <span class="ruby-operator">||</span> <span class="ruby-value str">'en'</span>
+102:                 <span class="ruby-identifier">root</span>.<span class="ruby-identifier">attributes</span>[<span class="ruby-value str">'lang'</span>] = <span class="ruby-identifier">lang</span>
+103:                 <span class="ruby-identifier">root</span>.<span class="ruby-identifier">attributes</span>[<span class="ruby-value str">'xml:lang'</span>] = <span class="ruby-identifier">lang</span>
+104:                 
+105:                 <span class="ruby-identifier">head</span> = <span class="ruby-constant">Element</span>.<span class="ruby-identifier">new</span> <span class="ruby-value str">'head'</span>, <span class="ruby-identifier">root</span>
+106:                 
+107:                         <span class="ruby-comment cmt">#&lt;META HTTP-EQUIV=&quot;Content-Type&quot; CONTENT=&quot;text/html; charset=utf-8&quot;&gt;</span>
+108:                         <span class="ruby-identifier">me</span> = <span class="ruby-constant">Element</span>.<span class="ruby-identifier">new</span> <span class="ruby-value str">'meta'</span>, <span class="ruby-identifier">head</span>
+109:                         <span class="ruby-identifier">me</span>.<span class="ruby-identifier">attributes</span>[<span class="ruby-value str">'http-equiv'</span>] = <span class="ruby-value str">'Content-type'</span>
+110:                         <span class="ruby-identifier">me</span>.<span class="ruby-identifier">attributes</span>[<span class="ruby-value str">'content'</span>] = <span class="ruby-value str">'text/html; charset=utf-8'</span>        
+111:                 
+112:                         <span class="ruby-comment cmt"># Create title element</span>
+113:                         <span class="ruby-identifier">doc_title</span> = <span class="ruby-ivar">@attributes</span>[<span class="ruby-identifier">:title</span>] <span class="ruby-operator">||</span> <span class="ruby-ivar">@attributes</span>[<span class="ruby-identifier">:subject</span>] <span class="ruby-operator">||</span> <span class="ruby-value str">&quot;&quot;</span>
+114:                         <span class="ruby-identifier">title</span> = <span class="ruby-constant">Element</span>.<span class="ruby-identifier">new</span> <span class="ruby-value str">'title'</span>, <span class="ruby-identifier">head</span>
+115:                                 <span class="ruby-identifier">title</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">Text</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">doc_title</span>)
+116:                                 
+117:                         <span class="ruby-comment cmt"># Encoding</span>
+118:                         
+119:                         
+120:                         
+121:                         <span class="ruby-identifier">css</span> = <span class="ruby-ivar">@attributes</span>[<span class="ruby-identifier">:css</span>]
+122:                         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">css</span>
+123:                                 <span class="ruby-comment cmt"># &lt;link type=&quot;text/css&quot; rel=&quot;stylesheet&quot; href=&quot;...&quot; /&gt;</span>
+124:                                 <span class="ruby-identifier">link</span> = <span class="ruby-constant">Element</span>.<span class="ruby-identifier">new</span> <span class="ruby-value str">'link'</span>
+125:                                 <span class="ruby-identifier">link</span>.<span class="ruby-identifier">attributes</span>[<span class="ruby-value str">'type'</span>] = <span class="ruby-value str">'text/css'</span>
+126:                                 <span class="ruby-identifier">link</span>.<span class="ruby-identifier">attributes</span>[<span class="ruby-value str">'rel'</span>] = <span class="ruby-value str">'stylesheet'</span>
+127:                                 <span class="ruby-identifier">link</span>.<span class="ruby-identifier">attributes</span>[<span class="ruby-value str">'href'</span>] = <span class="ruby-identifier">css</span>
+128:                                 <span class="ruby-identifier">head</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">link</span>
+129:                         <span class="ruby-keyword kw">end</span>
+130:                         
+131:                 <span class="ruby-identifier">body</span> = <span class="ruby-constant">Element</span>.<span class="ruby-identifier">new</span> <span class="ruby-value str">'body'</span>
+132:                 
+133:                         <span class="ruby-identifier">children_to_html</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">e</span><span class="ruby-operator">|</span>
+134:                                 <span class="ruby-identifier">body</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">e</span>
+135:                         <span class="ruby-keyword kw">end</span>
+136: 
+137:                         <span class="ruby-comment cmt"># render footnotes</span>
+138:                         <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@doc</span>.<span class="ruby-identifier">footnotes_order</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>
+139:                                 <span class="ruby-identifier">body</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">render_footnotes</span>
+140:                         <span class="ruby-keyword kw">end</span>
+141:                         
+142:                         <span class="ruby-comment cmt"># When we are rendering a whole document, we add a signature </span>
+143:                         <span class="ruby-comment cmt"># at the bottom. </span>
+144:                         <span class="ruby-identifier">body</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">maruku_html_signature</span>
+145:                         
+146:                 <span class="ruby-identifier">root</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">body</span>
+147:                 
+148:         <span class="ruby-comment cmt">#      add_whitespace(doc)</span>
+149:                 <span class="ruby-identifier">doc</span>
+150:         <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000070"></a><b>to_html_email_address</b>()
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000070_source')" id="l_M000070_source">show source</a> ]</p>
+  <div id="M000070_source" class="dyn-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/maruku/output/to_html.rb, line 452</span>
+452:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_html_email_address</span>
+453:                 <span class="ruby-identifier">email</span> = <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">email</span>
+454:                 <span class="ruby-identifier">a</span> = <span class="ruby-constant">Element</span>.<span class="ruby-identifier">new</span> <span class="ruby-value str">'a'</span>
+455:                         <span class="ruby-comment cmt">#a.attributes['href'] = Text.new(&quot;mailto:&quot;+obfuscate(email),false,nil,true)</span>
+456:                         <span class="ruby-comment cmt">#a.attributes.add Attribute.new('href',Text.new(</span>
+457:                         <span class="ruby-comment cmt">#&quot;mailto:&quot;+obfuscate(email),false,nil,true))</span>
+458:                         <span class="ruby-comment cmt"># Sorry, for the moment it doesn't work</span>
+459:                         <span class="ruby-identifier">a</span>.<span class="ruby-identifier">attributes</span>[<span class="ruby-value str">'href'</span>] = <span class="ruby-node">&quot;mailto:#{email}&quot;</span>
+460:                         
+461:                         <span class="ruby-identifier">a</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">Text</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">obfuscate</span>(<span class="ruby-identifier">email</span>),<span class="ruby-keyword kw">false</span>,<span class="ruby-keyword kw">nil</span>,<span class="ruby-keyword kw">true</span>)
+462:                 <span class="ruby-identifier">a</span>
+463:         <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000057"></a><b>to_html_emphasis</b>()
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000057_source')" id="l_M000057_source">show source</a> ]</p>
+  <div id="M000057_source" class="dyn-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/maruku/output/to_html.rb, line 271</span>
+271:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_html_emphasis</span>;  <span class="ruby-identifier">wrap_as_element</span>(<span class="ruby-value str">'em'</span>)               <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000083"></a><b>to_html_entity</b>()
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000083_source')" id="l_M000083_source">show source</a> ]</p>
+  <div id="M000083_source" class="dyn-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/maruku/output/to_html.rb, line 605</span>
+605:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_html_entity</span> 
+606:                 <span class="ruby-identifier">entity_name</span> = <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">entity_name</span>
+607:                 <span class="ruby-constant">Text</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value str">'&amp;%s;'</span> <span class="ruby-operator">%</span> [<span class="ruby-identifier">entity_name</span>])
+608:         <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000075"></a><b>to_html_footnote_reference</b>()
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000075_source')" id="l_M000075_source">show source</a> ]</p>
+  <div id="M000075_source" class="dyn-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/maruku/output/to_html.rb, line 538</span>
+538:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_html_footnote_reference</span>
+539:                 <span class="ruby-identifier">id</span> = <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">footnote_id</span>
+540:                 
+541:                 <span class="ruby-comment cmt"># save the order of used footnotes</span>
+542:                 <span class="ruby-identifier">order</span> = <span class="ruby-ivar">@doc</span>.<span class="ruby-identifier">footnotes_order</span>
+543:                 
+544:                 <span class="ruby-comment cmt"># take next number</span>
+545:                 <span class="ruby-identifier">order</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">id</span>
+546:                 <span class="ruby-identifier">num</span> = <span class="ruby-identifier">order</span>.<span class="ruby-identifier">size</span>; 
+547:                 
+548:                 <span class="ruby-identifier">sup</span> = <span class="ruby-constant">Element</span>.<span class="ruby-identifier">new</span> <span class="ruby-value str">'sup'</span>
+549:                 <span class="ruby-identifier">sup</span>.<span class="ruby-identifier">attributes</span>[<span class="ruby-value str">'id'</span>] = <span class="ruby-node">&quot;fnref:#{num}&quot;</span>
+550:                         <span class="ruby-identifier">a</span> = <span class="ruby-constant">Element</span>.<span class="ruby-identifier">new</span> <span class="ruby-value str">'a'</span>
+551:                         <span class="ruby-identifier">a</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">Text</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">num</span>.<span class="ruby-identifier">to_s</span>)
+552:                         <span class="ruby-identifier">a</span>.<span class="ruby-identifier">attributes</span>[<span class="ruby-value str">'href'</span>] = <span class="ruby-node">&quot;\#fn:#{num}&quot;</span>
+553:                         <span class="ruby-identifier">a</span>.<span class="ruby-identifier">attributes</span>[<span class="ruby-value str">'rel'</span>] = <span class="ruby-value str">'footnote'</span>
+554:                 <span class="ruby-identifier">sup</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">a</span>
+555:                         
+556:                 <span class="ruby-identifier">sup</span>
+557:         <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000081"></a><b>to_html_head_cell</b>()
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000081_source')" id="l_M000081_source">show source</a> ]</p>
+  <div id="M000081_source" class="dyn-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/maruku/output/to_html.rb, line 602</span>
+602:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_html_head_cell</span>; <span class="ruby-identifier">wrap_as_element</span>(<span class="ruby-value str">'th'</span>) <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000060"></a><b>to_html_header</b>()
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000060_source')" id="l_M000060_source">show source</a> ]</p>
+  <div id="M000060_source" class="dyn-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/maruku/output/to_html.rb, line 298</span>
+298:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_html_header</span>
+299:                 <span class="ruby-identifier">element_name</span> = <span class="ruby-node">&quot;h#{self.level}&quot;</span> 
+300:                 <span class="ruby-identifier">h</span> = <span class="ruby-identifier">wrap_as_element</span> <span class="ruby-identifier">element_name</span>
+301:                 
+302:                 <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">span</span> = <span class="ruby-identifier">render_section_number</span>
+303:                         <span class="ruby-identifier">h</span>.<span class="ruby-identifier">insert_before</span>(<span class="ruby-identifier">h</span>.<span class="ruby-identifier">children</span>.<span class="ruby-identifier">first</span>, <span class="ruby-identifier">span</span>)
+304:                 <span class="ruby-keyword kw">end</span>
+305:                 <span class="ruby-identifier">add_ws</span> <span class="ruby-identifier">h</span>
+306:         <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000046"></a><b>to_html_hrule</b>()
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000046_source')" id="l_M000046_source">show source</a> ]</p>
+  <div id="M000046_source" class="dyn-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/maruku/output/to_html.rb, line 230</span>
+230:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_html_hrule</span>; <span class="ruby-constant">Element</span>.<span class="ruby-identifier">new</span> <span class="ruby-value str">'hr'</span> <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000072"></a><b>to_html_im_image</b>()
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000072_source')" id="l_M000072_source">show source</a> ]</p>
+  <div id="M000072_source" class="dyn-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/maruku/output/to_html.rb, line 487</span>
+487:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_html_im_image</span>
+488:                 <span class="ruby-identifier">a</span> =  <span class="ruby-constant">Element</span>.<span class="ruby-identifier">new</span> <span class="ruby-value str">'img'</span>
+489:                 <span class="ruby-identifier">url</span> = <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">url</span>
+490:                 <span class="ruby-identifier">title</span> = <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">title</span>
+491:                 <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">not</span> <span class="ruby-identifier">url</span>
+492:                         <span class="ruby-identifier">maruku_error</span><span class="ruby-node">&quot;Image with no url: #{self.inspect}&quot;</span>
+493:                         <span class="ruby-identifier">tell_user</span> <span class="ruby-node">&quot;Could not create image with ref_id = #{id.inspect};&quot;</span><span class="ruby-operator">+</span>
+494:                          <span class="ruby-operator">+</span><span class="ruby-value str">&quot; Using SPAN element as replacement.&quot;</span>
+495:                         <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">wrap_as_element</span>(<span class="ruby-value str">'span'</span>)
+496:                 <span class="ruby-keyword kw">end</span>
+497:                 <span class="ruby-identifier">a</span>.<span class="ruby-identifier">attributes</span>[<span class="ruby-value str">'src'</span>] = <span class="ruby-identifier">url</span>
+498:                 <span class="ruby-identifier">a</span>.<span class="ruby-identifier">attributes</span>[<span class="ruby-value str">'title'</span>] = <span class="ruby-identifier">title</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">title</span>
+499:                 <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">a</span>
+500:         <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000067"></a><b>to_html_im_link</b>()
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000067_source')" id="l_M000067_source">show source</a> ]</p>
+  <div id="M000067_source" class="dyn-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/maruku/output/to_html.rb, line 424</span>
+424:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_html_im_link</span>
+425:                 <span class="ruby-identifier">a</span> =  <span class="ruby-identifier">wrap_as_element</span> <span class="ruby-value str">'a'</span>
+426:                 <span class="ruby-identifier">url</span> = <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">url</span>
+427:                 <span class="ruby-identifier">title</span> = <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">title</span>
+428:                 <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">url</span>
+429:                         <span class="ruby-identifier">a</span>.<span class="ruby-identifier">attributes</span>[<span class="ruby-value str">'href'</span>] = <span class="ruby-identifier">url</span>
+430:                         <span class="ruby-identifier">a</span>.<span class="ruby-identifier">attributes</span>[<span class="ruby-value str">'title'</span>] = <span class="ruby-identifier">title</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">title</span>
+431:                 <span class="ruby-keyword kw">else</span>
+432:                         <span class="ruby-identifier">maruku_error</span><span class="ruby-node">&quot;Could not find url in #{self.inspect}&quot;</span>
+433:                         <span class="ruby-identifier">tell_user</span> <span class="ruby-node">&quot;Not creating a link for ref_id = #{id.inspect}.&quot;</span>
+434:                         <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">wrap_as_element</span>(<span class="ruby-value str">'span'</span>)
+435:                 <span class="ruby-keyword kw">end</span>
+436:                 <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">a</span>
+437:         <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000071"></a><b>to_html_image</b>()
+  </div>
+  <div class="description">
+  <p>
+Images
+</p>
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000071_source')" id="l_M000071_source">show source</a> ]</p>
+  <div id="M000071_source" class="dyn-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/maruku/output/to_html.rb, line 467</span>
+467:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_html_image</span>
+468:                 <span class="ruby-identifier">a</span> =  <span class="ruby-constant">Element</span>.<span class="ruby-identifier">new</span> <span class="ruby-value str">'img'</span>
+469:                 <span class="ruby-identifier">id</span> = <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">ref_id</span>
+470:                 <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">ref</span> = <span class="ruby-ivar">@doc</span>.<span class="ruby-identifier">refs</span>[<span class="ruby-identifier">id</span>]
+471:                         <span class="ruby-identifier">url</span> = <span class="ruby-identifier">ref</span>[<span class="ruby-identifier">:url</span>]
+472:                         <span class="ruby-identifier">a</span>.<span class="ruby-identifier">attributes</span>[<span class="ruby-value str">'src'</span>] = <span class="ruby-identifier">url</span>
+473:                         [<span class="ruby-identifier">:title</span>, <span class="ruby-identifier">:class</span>, <span class="ruby-identifier">:style</span>].<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">s</span><span class="ruby-operator">|</span> 
+474:                                 <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">ref</span>[<span class="ruby-identifier">s</span>] <span class="ruby-keyword kw">then</span>
+475:                                         <span class="ruby-identifier">a</span>.<span class="ruby-identifier">attributes</span>[<span class="ruby-identifier">s</span>.<span class="ruby-identifier">to_s</span>] = <span class="ruby-identifier">ref</span>[<span class="ruby-identifier">s</span>]
+476:                                 <span class="ruby-keyword kw">end</span>
+477:                         <span class="ruby-keyword kw">end</span>
+478:                 <span class="ruby-keyword kw">else</span>
+479:                         <span class="ruby-identifier">maruku_error</span><span class="ruby-node">&quot;Could not find id = #{id.inspect} for\n #{self.inspect}&quot;</span>
+480:                         <span class="ruby-identifier">tell_user</span> <span class="ruby-node">&quot;Could not create image with ref_id = #{id.inspect};&quot;</span><span class="ruby-operator">+</span>
+481:                                  <span class="ruby-operator">+</span><span class="ruby-value str">&quot; Using SPAN element as replacement.&quot;</span>
+482:                                 <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">wrap_as_element</span>(<span class="ruby-value str">'span'</span>)
+483:                 <span class="ruby-keyword kw">end</span>
+484:                 <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">a</span>
+485:         <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000065"></a><b>to_html_immediate_link</b>()
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000065_source')" id="l_M000065_source">show source</a> ]</p>
+  <div id="M000065_source" class="dyn-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/maruku/output/to_html.rb, line 394</span>
+394:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_html_immediate_link</span>
+395:                 <span class="ruby-identifier">a</span> = <span class="ruby-constant">Element</span>.<span class="ruby-identifier">new</span> <span class="ruby-value str">'a'</span>
+396:                 <span class="ruby-identifier">url</span> = <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">url</span>
+397:                 <span class="ruby-identifier">text</span> = <span class="ruby-identifier">url</span>.<span class="ruby-identifier">gsub</span>(<span class="ruby-regexp re">/^mailto:/</span>,<span class="ruby-value str">''</span>) <span class="ruby-comment cmt"># don't show mailto</span>
+398:                 <span class="ruby-identifier">a</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">Text</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">text</span>)
+399:                 <span class="ruby-identifier">a</span>.<span class="ruby-identifier">attributes</span>[<span class="ruby-value str">'href'</span>] = <span class="ruby-identifier">url</span>
+400:                 <span class="ruby-identifier">a</span>
+401:         <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000064"></a><b>to_html_inline_code</b>()
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000064_source')" id="l_M000064_source">show source</a> ]</p>
+  <div id="M000064_source" class="dyn-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/maruku/output/to_html.rb, line 381</span>
+381:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_html_inline_code</span>; 
+382:                 <span class="ruby-identifier">pre</span> = <span class="ruby-constant">Element</span>.<span class="ruby-identifier">new</span> <span class="ruby-value str">'code'</span>
+383:                         <span class="ruby-identifier">source</span> = <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">raw_code</span>
+384:                         <span class="ruby-identifier">pre</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">source2html</span>(<span class="ruby-identifier">source</span>) 
+385:                         
+386:                         <span class="ruby-identifier">color</span> = <span class="ruby-identifier">get_setting</span>(<span class="ruby-identifier">:code_background_color</span>, <span class="ruby-constant">DEFAULT_CODE_COLOR</span>)
+387:                         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">color</span> <span class="ruby-operator">!=</span> <span class="ruby-constant">DEFAULT_CODE_COLOR</span>
+388:                                 <span class="ruby-identifier">pre</span>.<span class="ruby-identifier">attributes</span>[<span class="ruby-value str">'style'</span>] = <span class="ruby-node">&quot;background-color: #{color};&quot;</span>
+389:                         <span class="ruby-keyword kw">end</span>
+390:                         
+391:                 <span class="ruby-identifier">pre</span>
+392:         <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000053"></a><b>to_html_li</b>()
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000053_source')" id="l_M000053_source">show source</a> ]</p>
+  <div id="M000053_source" class="dyn-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/maruku/output/to_html.rb, line 267</span>
+267:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_html_li</span>;        <span class="ruby-identifier">add_ws</span> <span class="ruby-identifier">wrap_as_element</span>(<span class="ruby-value str">'li'</span>)        <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000054"></a><b>to_html_li_span</b>()
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000054_source')" id="l_M000054_source">show source</a> ]</p>
+  <div id="M000054_source" class="dyn-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/maruku/output/to_html.rb, line 268</span>
+268:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_html_li_span</span>;   <span class="ruby-identifier">add_ws</span> <span class="ruby-identifier">wrap_as_element</span>(<span class="ruby-value str">'li'</span>)        <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000047"></a><b>to_html_linebreak</b>()
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000047_source')" id="l_M000047_source">show source</a> ]</p>
+  <div id="M000047_source" class="dyn-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/maruku/output/to_html.rb, line 231</span>
+231:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_html_linebreak</span>; <span class="ruby-constant">Element</span>.<span class="ruby-identifier">new</span> <span class="ruby-value str">'br'</span> <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000066"></a><b>to_html_link</b>()
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000066_source')" id="l_M000066_source">show source</a> ]</p>
+  <div id="M000066_source" class="dyn-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/maruku/output/to_html.rb, line 403</span>
+403:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_html_link</span>
+404:                 <span class="ruby-identifier">a</span> =  <span class="ruby-identifier">wrap_as_element</span> <span class="ruby-value str">'a'</span>
+405:                 <span class="ruby-identifier">id</span> = <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">ref_id</span>
+406:                 <span class="ruby-comment cmt"># if empty, use text</span>
+407:                 <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">id</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">==</span> <span class="ruby-value">0</span>
+408:                         <span class="ruby-identifier">id</span> = <span class="ruby-identifier">children</span>.<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">downcase</span>
+409:                 <span class="ruby-keyword kw">end</span>
+410:                 
+411:                 <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">ref</span> = <span class="ruby-ivar">@doc</span>.<span class="ruby-identifier">refs</span>[<span class="ruby-identifier">id</span>]
+412:                         <span class="ruby-identifier">url</span> = <span class="ruby-identifier">ref</span>[<span class="ruby-identifier">:url</span>]
+413:                         <span class="ruby-identifier">title</span> = <span class="ruby-identifier">ref</span>[<span class="ruby-identifier">:title</span>]
+414:                         <span class="ruby-identifier">a</span>.<span class="ruby-identifier">attributes</span>[<span class="ruby-value str">'href'</span>]=<span class="ruby-identifier">url</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">url</span>
+415:                         <span class="ruby-identifier">a</span>.<span class="ruby-identifier">attributes</span>[<span class="ruby-value str">'title'</span>]=<span class="ruby-identifier">title</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">title</span>
+416:                 <span class="ruby-keyword kw">else</span>
+417:                         <span class="ruby-identifier">maruku_error</span><span class="ruby-node">&quot;Could not find ref_id = #{id.inspect} for #{self.inspect}&quot;</span>
+418:                         <span class="ruby-identifier">tell_user</span> <span class="ruby-node">&quot;Not creating a link for ref_id = #{id.inspect}.&quot;</span>
+419:                         <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">wrap_as_element</span>(<span class="ruby-value str">'span'</span>)
+420:                 <span class="ruby-keyword kw">end</span>
+421:                 <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">a</span>
+422:         <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000052"></a><b>to_html_ol</b>()
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000052_source')" id="l_M000052_source">show source</a> ]</p>
+  <div id="M000052_source" class="dyn-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/maruku/output/to_html.rb, line 266</span>
+266:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_html_ol</span>;        <span class="ruby-identifier">add_ws</span> <span class="ruby-identifier">wrap_as_element</span>(<span class="ruby-value str">'ol'</span>)        <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000051"></a><b>to_html_paragraph</b>()
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000051_source')" id="l_M000051_source">show source</a> ]</p>
+  <div id="M000051_source" class="dyn-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/maruku/output/to_html.rb, line 265</span>
+265:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_html_paragraph</span>; <span class="ruby-identifier">add_ws</span> <span class="ruby-identifier">wrap_as_element</span>(<span class="ruby-value str">'p'</span>)                <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000055"></a><b>to_html_quote</b>()
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000055_source')" id="l_M000055_source">show source</a> ]</p>
+  <div id="M000055_source" class="dyn-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/maruku/output/to_html.rb, line 269</span>
+269:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_html_quote</span>;     <span class="ruby-identifier">add_ws</span> <span class="ruby-identifier">wrap_as_element</span>(<span class="ruby-value str">'blockquote'</span>)  <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000073"></a><b>to_html_raw_html</b>()
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000073_source')" id="l_M000073_source">show source</a> ]</p>
+  <div id="M000073_source" class="dyn-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/maruku/output/to_html.rb, line 502</span>
+502:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_html_raw_html</span>
+503:                 <span class="ruby-identifier">raw_html</span> = <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">raw_html</span>
+504:                 <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">rexml_doc</span> = <span class="ruby-ivar">@parsed_html</span>
+505:                         <span class="ruby-identifier">root</span> = <span class="ruby-identifier">rexml_doc</span>.<span class="ruby-identifier">root</span>
+506:                         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">root</span>.<span class="ruby-identifier">nil?</span>
+507:                                 <span class="ruby-identifier">s</span> = <span class="ruby-node">&quot;Bug in REXML: root() of Document is nil: \n#{rexml_doc.inspect}\n&quot;</span><span class="ruby-operator">+</span>
+508:                                 <span class="ruby-node">&quot;Raw HTML:\n#{raw_html.inspect}&quot;</span>
+509:                                 <span class="ruby-identifier">maruku_error</span> <span class="ruby-identifier">s</span>
+510:                                 <span class="ruby-identifier">tell_user</span> <span class="ruby-value str">'The REXML version you have has a bug, omitting HTML'</span>
+511:                                 <span class="ruby-identifier">div</span> = <span class="ruby-constant">Element</span>.<span class="ruby-identifier">new</span> <span class="ruby-value str">'div'</span>
+512:                                 <span class="ruby-comment cmt">#div &lt;&lt; Text.new(s)</span>
+513:                                 <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">div</span>
+514:                         <span class="ruby-keyword kw">end</span>
+515:                         
+516:                         <span class="ruby-comment cmt"># copies the @children array (FIXME is it deep?)</span>
+517:                         <span class="ruby-identifier">elements</span> =  <span class="ruby-identifier">root</span>.<span class="ruby-identifier">to_a</span> 
+518:                         <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">elements</span>
+519:                 <span class="ruby-keyword kw">else</span> <span class="ruby-comment cmt"># invalid</span>
+520:                         <span class="ruby-comment cmt"># Creates red box with offending HTML</span>
+521:                         <span class="ruby-identifier">tell_user</span> <span class="ruby-value str">&quot;Wrapping bad html in a PRE with class 'markdown-html-error'\n&quot;</span><span class="ruby-operator">+</span>
+522:                                 <span class="ruby-identifier">add_tabs</span>(<span class="ruby-identifier">raw_html</span>,<span class="ruby-value">1</span>,<span class="ruby-value str">'|'</span>)
+523:                         <span class="ruby-identifier">pre</span> = <span class="ruby-constant">Element</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value str">'pre'</span>)
+524:                         <span class="ruby-identifier">pre</span>.<span class="ruby-identifier">attributes</span>[<span class="ruby-value str">'style'</span>] = <span class="ruby-value str">'border: solid 3px red; background-color: pink'</span>
+525:                         <span class="ruby-identifier">pre</span>.<span class="ruby-identifier">attributes</span>[<span class="ruby-value str">'class'</span>] = <span class="ruby-value str">'markdown-html-error'</span>
+526:                         <span class="ruby-identifier">pre</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">Text</span>.<span class="ruby-identifier">new</span>(<span class="ruby-node">&quot;HTML parse error: \n#{raw_html}&quot;</span>, <span class="ruby-keyword kw">true</span>)
+527:                         <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">pre</span>
+528:                 <span class="ruby-keyword kw">end</span>
+529:         <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000086"></a><b>to_html_ref_definition</b>()
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000086_source')" id="l_M000086_source">show source</a> ]</p>
+  <div id="M000086_source" class="dyn-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/maruku/output/to_html.rb, line 642</span>
+642:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_html_ref_definition</span>; [] <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000056"></a><b>to_html_strong</b>()
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000056_source')" id="l_M000056_source">show source</a> ]</p>
+  <div id="M000056_source" class="dyn-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/maruku/output/to_html.rb, line 270</span>
+270:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_html_strong</span>;    <span class="ruby-identifier">wrap_as_element</span>(<span class="ruby-value str">'strong'</span>)           <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000080"></a><b>to_html_table</b>()
+  </div>
+  <div class="description">
+  <p>
+Table ###
+</p>
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000080_source')" id="l_M000080_source">show source</a> ]</p>
+  <div id="M000080_source" class="dyn-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/maruku/output/to_html.rb, line 569</span>
+569:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_html_table</span>
+570:                 <span class="ruby-identifier">align</span> = <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">align</span>
+571:                 <span class="ruby-identifier">num_columns</span> = <span class="ruby-identifier">align</span>.<span class="ruby-identifier">size</span>
+572: 
+573:                 <span class="ruby-identifier">head</span> = <span class="ruby-ivar">@children</span>.<span class="ruby-identifier">slice</span>(<span class="ruby-value">0</span>, <span class="ruby-identifier">num_columns</span>)
+574:                 <span class="ruby-identifier">rows</span> = []
+575:                 <span class="ruby-identifier">i</span> = <span class="ruby-identifier">num_columns</span>
+576:                 <span class="ruby-keyword kw">while</span> <span class="ruby-identifier">i</span><span class="ruby-operator">&lt;</span><span class="ruby-ivar">@children</span>.<span class="ruby-identifier">size</span>
+577:                         <span class="ruby-identifier">rows</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-ivar">@children</span>.<span class="ruby-identifier">slice</span>(<span class="ruby-identifier">i</span>, <span class="ruby-identifier">num_columns</span>)
+578:                         <span class="ruby-identifier">i</span><span class="ruby-operator">+=</span><span class="ruby-identifier">num_columns</span>
+579:                 <span class="ruby-keyword kw">end</span>
+580:                 
+581:                 <span class="ruby-identifier">table</span> = <span class="ruby-identifier">create_html_element</span> <span class="ruby-value str">'table'</span>
+582:                         <span class="ruby-identifier">thead</span> = <span class="ruby-constant">Element</span>.<span class="ruby-identifier">new</span> <span class="ruby-value str">'thead'</span>
+583:                         <span class="ruby-identifier">tr</span> = <span class="ruby-constant">Element</span>.<span class="ruby-identifier">new</span> <span class="ruby-value str">'tr'</span>
+584:                                 <span class="ruby-identifier">array_to_html</span>(<span class="ruby-identifier">head</span>).<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">x</span><span class="ruby-operator">|</span> <span class="ruby-identifier">tr</span><span class="ruby-operator">&lt;&lt;</span><span class="ruby-identifier">x</span> <span class="ruby-keyword kw">end</span>
+585:                         <span class="ruby-identifier">thead</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">tr</span>
+586:                         <span class="ruby-identifier">table</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">thead</span>
+587:                         
+588:                         <span class="ruby-identifier">tbody</span> = <span class="ruby-constant">Element</span>.<span class="ruby-identifier">new</span> <span class="ruby-value str">'tbody'</span>
+589:                         <span class="ruby-identifier">rows</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">row</span><span class="ruby-operator">|</span>
+590:                                 <span class="ruby-identifier">tr</span> = <span class="ruby-constant">Element</span>.<span class="ruby-identifier">new</span> <span class="ruby-value str">'tr'</span>
+591:                                         <span class="ruby-identifier">array_to_html</span>(<span class="ruby-identifier">row</span>).<span class="ruby-identifier">each_with_index</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">x</span>,<span class="ruby-identifier">i</span><span class="ruby-operator">|</span> 
+592:                                                 <span class="ruby-identifier">x</span>.<span class="ruby-identifier">attributes</span>[<span class="ruby-value str">'style'</span>] =<span class="ruby-node">&quot;text-align: #{align[i].to_s};&quot;</span> 
+593:                                                 <span class="ruby-identifier">tr</span><span class="ruby-operator">&lt;&lt;</span><span class="ruby-identifier">x</span> 
+594:                                         <span class="ruby-keyword kw">end</span>
+595:                                                 
+596:                                 <span class="ruby-identifier">tbody</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">tr</span>
+597:                         <span class="ruby-keyword kw">end</span>
+598:                         <span class="ruby-identifier">table</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">tbody</span>
+599:                 <span class="ruby-identifier">table</span>
+600:         <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000050"></a><b>to_html_ul</b>()
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000050_source')" id="l_M000050_source">show source</a> ]</p>
+  <div id="M000050_source" class="dyn-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/maruku/output/to_html.rb, line 254</span>
+254:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_html_ul</span>
+255:                 <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@attributes</span>[<span class="ruby-identifier">:toc</span>]
+256:                         <span class="ruby-comment cmt"># render toc</span>
+257:                         <span class="ruby-identifier">html_toc</span> = <span class="ruby-ivar">@doc</span>.<span class="ruby-identifier">toc</span>.<span class="ruby-identifier">to_html</span>
+258:                         <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">html_toc</span>
+259:                 <span class="ruby-keyword kw">else</span>
+260:                         <span class="ruby-identifier">add_ws</span>  <span class="ruby-identifier">wrap_as_element</span>(<span class="ruby-value str">'ul'</span>)               
+261:                 <span class="ruby-keyword kw">end</span>
+262:         <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000087"></a><b>to_latex_ref_definition</b>()
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000087_source')" id="l_M000087_source">show source</a> ]</p>
+  <div id="M000087_source" class="dyn-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/maruku/output/to_html.rb, line 643</span>
+643:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_latex_ref_definition</span>; [] <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000048"></a><b>wrap_as_element</b>(name)
+  </div>
+  <div class="description">
+  <p>
+renders children as html and wraps into an element of given name
+</p>
+<p>
+Sets &#8216;id&#8217; if meta is set
+</p>
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000048_source')" id="l_M000048_source">show source</a> ]</p>
+  <div id="M000048_source" class="dyn-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/maruku/output/to_html.rb, line 236</span>
+236:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">wrap_as_element</span>(<span class="ruby-identifier">name</span>)
+237:                 <span class="ruby-identifier">m</span> = <span class="ruby-identifier">create_html_element</span> <span class="ruby-identifier">name</span>
+238:                         <span class="ruby-identifier">children_to_html</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">e</span><span class="ruby-operator">|</span> <span class="ruby-identifier">m</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">e</span>; <span class="ruby-keyword kw">end</span>
+239:                         
+240: <span class="ruby-comment cmt">#                       m &lt;&lt; Comment.new( &quot;{&quot;+self.al.to_md+&quot;}&quot;) if not self.al.empty?</span>
+241: <span class="ruby-comment cmt">#                       m &lt;&lt; Comment.new( @attributes.inspect) if not @attributes.empty?</span>
+242:                 <span class="ruby-identifier">m</span>
+243:         <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+</div>
+
+  </div>
+
+    </body>
+</html>

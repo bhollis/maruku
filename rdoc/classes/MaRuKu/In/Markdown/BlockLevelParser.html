@@ -1,0 +1,568 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>Module: MaRuKu::In::Markdown::BlockLevelParser</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <link rel="stylesheet" href="../../../.././rdoc-style.css" type="text/css" media="screen" />
+  <script type="text/javascript">
+  // <![CDATA[
+
+  function popupCode( url ) {
+    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+  }
+
+  function toggleCode( id ) {
+    if ( document.getElementById )
+      elem = document.getElementById( id );
+    else if ( document.all )
+      elem = eval( "document.all." + id );
+    else
+      return false;
+
+    elemStyle = elem.style;
+    
+    if ( elemStyle.display != "block" ) {
+      elemStyle.display = "block"
+    } else {
+      elemStyle.display = "none"
+    }
+
+    return true;
+  }
+  
+  // Make codeblocks hidden by default
+  document.writeln( "<style type=\"text/css\">div.method-source-code { display: none }</style>" )
+  
+  // ]]>
+  </script>
+
+</head>
+<body>
+
+
+
+    <div id="classHeader">
+        <table class="header-table">
+        <tr class="top-aligned-row">
+          <td><strong>Module</strong></td>
+          <td class="class-name-in-header">MaRuKu::In::Markdown::BlockLevelParser</td>
+        </tr>
+        <tr class="top-aligned-row">
+            <td><strong>In:</strong></td>
+            <td>
+                <a href="../../../../files/lib/maruku/input/linesource_rb.html">
+                lib/maruku/input/linesource.rb
+                </a>
+        <br />
+                <a href="../../../../files/lib/maruku/input/parse_block_rb.html">
+                lib/maruku/input/parse_block.rb
+                </a>
+        <br />
+                <a href="../../../../files/lib/maruku/input/parse_doc_rb.html">
+                lib/maruku/input/parse_doc.rb
+                </a>
+        <br />
+                <a href="../../../../files/lib/maruku_rb.html">
+                lib/maruku.rb
+                </a>
+        <br />
+            </td>
+        </tr>
+
+        </table>
+    </div>
+  <!-- banner header -->
+
+  <div id="bodyContent">
+
+
+
+  <div id="contextContent">
+
+
+
+   </div>
+
+    <div id="method-list">
+      <h3 class="section-bar">Methods</h3>
+
+      <div class="name-list">
+      <a href="#M000368">eventually_comes_a_def_list</a>&nbsp;&nbsp;
+      <a href="#M000373">execute_code_blocks</a>&nbsp;&nbsp;
+      <a href="#M000371">expand_attribute_list</a>&nbsp;&nbsp;
+      <a href="#M000351">parse_blocks</a>&nbsp;&nbsp;
+      <a href="#M000370">parse_doc</a>&nbsp;&nbsp;
+      <a href="#M000350">parse_text_as_markdown</a>&nbsp;&nbsp;
+      <a href="#M000359">read_abbreviation</a>&nbsp;&nbsp;
+      <a href="#M000352">read_ald</a>&nbsp;&nbsp;
+      <a href="#M000363">read_code</a>&nbsp;&nbsp;
+      <a href="#M000369">read_definition</a>&nbsp;&nbsp;
+      <a href="#M000360">read_footnote_text</a>&nbsp;&nbsp;
+      <a href="#M000353">read_header12</a>&nbsp;&nbsp;
+      <a href="#M000354">read_header3</a>&nbsp;&nbsp;
+      <a href="#M000361">read_indented_content</a>&nbsp;&nbsp;
+      <a href="#M000358">read_list_item</a>&nbsp;&nbsp;
+      <a href="#M000364">read_metadata</a>&nbsp;&nbsp;
+      <a href="#M000357">read_paragraph</a>&nbsp;&nbsp;
+      <a href="#M000362">read_quote</a>&nbsp;&nbsp;
+      <a href="#M000356">read_raw_html</a>&nbsp;&nbsp;
+      <a href="#M000365">read_ref_definition</a>&nbsp;&nbsp;
+      <a href="#M000367">read_table</a>&nbsp;&nbsp;
+      <a href="#M000355">read_xml_instruction</a>&nbsp;&nbsp;
+      <a href="#M000372">safe_execute_code</a>&nbsp;&nbsp;
+      <a href="#M000374">search_abbreviations</a>&nbsp;&nbsp;
+      <a href="#M000366">split_cells</a>&nbsp;&nbsp;
+      <a href="#M000375">substitute_markdown_inside_raw_html</a>&nbsp;&nbsp;
+      </div>
+    </div>
+
+  </div>
+
+
+    <!-- if includes -->
+    <div id="includes">
+      <h3 class="section-bar">Included Modules</h3>
+
+      <div id="includes-list">
+        <span class="include-name"><a href="../../Helpers.html">Helpers</a></span>
+        <span class="include-name"><a href="../../Strings.html">MaRuKu::Strings</a></span>
+        <span class="include-name"><a href="SpanLevelParser.html">MaRuKu::In::Markdown::SpanLevelParser</a></span>
+        <span class="include-name"><a href="../../../REXML.html">REXML</a></span>
+      </div>
+    </div>
+
+    <div id="section">
+
+    <div id="class-list">
+      <h3 class="section-bar">Classes and Modules</h3>
+
+      Class <a href="BlockLevelParser/BlockContext.html" class="link">MaRuKu::In::Markdown::BlockLevelParser::BlockContext</a><br />
+Class <a href="BlockLevelParser/LineSource.html" class="link">MaRuKu::In::Markdown::BlockLevelParser::LineSource</a><br />
+
+    </div>
+
+
+
+
+      
+
+
+    <!-- if method_list -->
+    <div id="methods">
+      <h3 class="section-bar">Public Instance methods</h3>
+
+      <div id="method-M000368" class="method-detail">
+        <a name="M000368"></a>
+
+        <div class="method-heading">
+          <a href="BlockLevelParser.src/M000368.html" target="Code" class="method-signature"
+            onclick="popupCode('BlockLevelParser.src/M000368.html');return false;">
+          <span class="method-name">eventually_comes_a_def_list</span><span class="method-args">(src)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+If current line is text, a definition list is coming if 1)
+text,empty,[text,empty]*,definition
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000373" class="method-detail">
+        <a name="M000373"></a>
+
+        <div class="method-heading">
+          <a href="BlockLevelParser.src/M000373.html" target="Code" class="method-signature"
+            onclick="popupCode('BlockLevelParser.src/M000373.html');return false;">
+          <span class="method-name">execute_code_blocks</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000371" class="method-detail">
+        <a name="M000371"></a>
+
+        <div class="method-heading">
+          <a href="BlockLevelParser.src/M000371.html" target="Code" class="method-signature"
+            onclick="popupCode('BlockLevelParser.src/M000371.html');return false;">
+          <span class="method-name">expand_attribute_list</span><span class="method-args">(al, result)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Expands an attribute list in an <a href="../../../Hash.html">Hash</a>
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000351" class="method-detail">
+        <a name="M000351"></a>
+
+        <div class="method-heading">
+          <a href="BlockLevelParser.src/M000351.html" target="Code" class="method-signature"
+            onclick="popupCode('BlockLevelParser.src/M000351.html');return false;">
+          <span class="method-name">parse_blocks</span><span class="method-args">(src)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Input is a <a href="BlockLevelParser/LineSource.html">LineSource</a>
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000370" class="method-detail">
+        <a name="M000370"></a>
+
+        <div class="method-heading">
+          <a href="BlockLevelParser.src/M000370.html" target="Code" class="method-signature"
+            onclick="popupCode('BlockLevelParser.src/M000370.html');return false;">
+          <span class="method-name">parse_doc</span><span class="method-args">(s)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000350" class="method-detail">
+        <a name="M000350"></a>
+
+        <div class="method-heading">
+          <a href="BlockLevelParser.src/M000350.html" target="Code" class="method-signature"
+            onclick="popupCode('BlockLevelParser.src/M000350.html');return false;">
+          <span class="method-name">parse_text_as_markdown</span><span class="method-args">(text)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Splits the string and calls parse_lines_as_markdown
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000359" class="method-detail">
+        <a name="M000359"></a>
+
+        <div class="method-heading">
+          <a href="BlockLevelParser.src/M000359.html" target="Code" class="method-signature"
+            onclick="popupCode('BlockLevelParser.src/M000359.html');return false;">
+          <span class="method-name">read_abbreviation</span><span class="method-args">(src)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000352" class="method-detail">
+        <a name="M000352"></a>
+
+        <div class="method-heading">
+          <a href="BlockLevelParser.src/M000352.html" target="Code" class="method-signature"
+            onclick="popupCode('BlockLevelParser.src/M000352.html');return false;">
+          <span class="method-name">read_ald</span><span class="method-args">(src)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000363" class="method-detail">
+        <a name="M000363"></a>
+
+        <div class="method-heading">
+          <a href="BlockLevelParser.src/M000363.html" target="Code" class="method-signature"
+            onclick="popupCode('BlockLevelParser.src/M000363.html');return false;">
+          <span class="method-name">read_code</span><span class="method-args">(src)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000369" class="method-detail">
+        <a name="M000369"></a>
+
+        <div class="method-heading">
+          <a href="BlockLevelParser.src/M000369.html" target="Code" class="method-signature"
+            onclick="popupCode('BlockLevelParser.src/M000369.html');return false;">
+          <span class="method-name">read_definition</span><span class="method-args">(src)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000360" class="method-detail">
+        <a name="M000360"></a>
+
+        <div class="method-heading">
+          <a href="BlockLevelParser.src/M000360.html" target="Code" class="method-signature"
+            onclick="popupCode('BlockLevelParser.src/M000360.html');return false;">
+          <span class="method-name">read_footnote_text</span><span class="method-args">(src)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000353" class="method-detail">
+        <a name="M000353"></a>
+
+        <div class="method-heading">
+          <a href="BlockLevelParser.src/M000353.html" target="Code" class="method-signature"
+            onclick="popupCode('BlockLevelParser.src/M000353.html');return false;">
+          <span class="method-name">read_header12</span><span class="method-args">(src)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+reads a header (with &#8212;&#8212; or ========)
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000354" class="method-detail">
+        <a name="M000354"></a>
+
+        <div class="method-heading">
+          <a href="BlockLevelParser.src/M000354.html" target="Code" class="method-signature"
+            onclick="popupCode('BlockLevelParser.src/M000354.html');return false;">
+          <span class="method-name">read_header3</span><span class="method-args">(src)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+reads a header like &#8217;#### header ####&#8217;
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000361" class="method-detail">
+        <a name="M000361"></a>
+
+        <div class="method-heading">
+          <a href="BlockLevelParser.src/M000361.html" target="Code" class="method-signature"
+            onclick="popupCode('BlockLevelParser.src/M000361.html');return false;">
+          <span class="method-name">read_indented_content</span><span class="method-args">(src, indentation, break_list, item_type)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+This is the only ugly function in the code base. It is used to read list
+items, descriptions, footnote text
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000358" class="method-detail">
+        <a name="M000358"></a>
+
+        <div class="method-heading">
+          <a href="BlockLevelParser.src/M000358.html" target="Code" class="method-signature"
+            onclick="popupCode('BlockLevelParser.src/M000358.html');return false;">
+          <span class="method-name">read_list_item</span><span class="method-args">(src)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Reads one list item, either ordered or unordered.
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000364" class="method-detail">
+        <a name="M000364"></a>
+
+        <div class="method-heading">
+          <a href="BlockLevelParser.src/M000364.html" target="Code" class="method-signature"
+            onclick="popupCode('BlockLevelParser.src/M000364.html');return false;">
+          <span class="method-name">read_metadata</span><span class="method-args">(src)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Reads a series of metadata lines with empty lines in between
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000357" class="method-detail">
+        <a name="M000357"></a>
+
+        <div class="method-heading">
+          <a href="BlockLevelParser.src/M000357.html" target="Code" class="method-signature"
+            onclick="popupCode('BlockLevelParser.src/M000357.html');return false;">
+          <span class="method-name">read_paragraph</span><span class="method-args">(src)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000362" class="method-detail">
+        <a name="M000362"></a>
+
+        <div class="method-heading">
+          <a href="BlockLevelParser.src/M000362.html" target="Code" class="method-signature"
+            onclick="popupCode('BlockLevelParser.src/M000362.html');return false;">
+          <span class="method-name">read_quote</span><span class="method-args">(src)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000356" class="method-detail">
+        <a name="M000356"></a>
+
+        <div class="method-heading">
+          <a href="BlockLevelParser.src/M000356.html" target="Code" class="method-signature"
+            onclick="popupCode('BlockLevelParser.src/M000356.html');return false;">
+          <span class="method-name">read_raw_html</span><span class="method-args">(src)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000365" class="method-detail">
+        <a name="M000365"></a>
+
+        <div class="method-heading">
+          <a href="BlockLevelParser.src/M000365.html" target="Code" class="method-signature"
+            onclick="popupCode('BlockLevelParser.src/M000365.html');return false;">
+          <span class="method-name">read_ref_definition</span><span class="method-args">(src, out)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000367" class="method-detail">
+        <a name="M000367"></a>
+
+        <div class="method-heading">
+          <a href="BlockLevelParser.src/M000367.html" target="Code" class="method-signature"
+            onclick="popupCode('BlockLevelParser.src/M000367.html');return false;">
+          <span class="method-name">read_table</span><span class="method-args">(src)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000355" class="method-detail">
+        <a name="M000355"></a>
+
+        <div class="method-heading">
+          <a href="BlockLevelParser.src/M000355.html" target="Code" class="method-signature"
+            onclick="popupCode('BlockLevelParser.src/M000355.html');return false;">
+          <span class="method-name">read_xml_instruction</span><span class="method-args">(src, output)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000372" class="method-detail">
+        <a name="M000372"></a>
+
+        <div class="method-heading">
+          <a href="BlockLevelParser.src/M000372.html" target="Code" class="method-signature"
+            onclick="popupCode('BlockLevelParser.src/M000372.html');return false;">
+          <span class="method-name">safe_execute_code</span><span class="method-args">(object, code)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000374" class="method-detail">
+        <a name="M000374"></a>
+
+        <div class="method-heading">
+          <a href="BlockLevelParser.src/M000374.html" target="Code" class="method-signature"
+            onclick="popupCode('BlockLevelParser.src/M000374.html');return false;">
+          <span class="method-name">search_abbreviations</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000366" class="method-detail">
+        <a name="M000366"></a>
+
+        <div class="method-heading">
+          <a href="BlockLevelParser.src/M000366.html" target="Code" class="method-signature"
+            onclick="popupCode('BlockLevelParser.src/M000366.html');return false;">
+          <span class="method-name">split_cells</span><span class="method-args">(s)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000375" class="method-detail">
+        <a name="M000375"></a>
+
+        <div class="method-heading">
+          <a href="BlockLevelParser.src/M000375.html" target="Code" class="method-signature"
+            onclick="popupCode('BlockLevelParser.src/M000375.html');return false;">
+          <span class="method-name">substitute_markdown_inside_raw_html</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+(PHP <a href="../Markdown.html">Markdown</a> extra) Search for elements
+that have markdown=1 or markdown=block defined
+</p>
+        </div>
+      </div>
+
+
+    </div>
+
+
+  </div>
+
+
+<div id="validator-badges">
+  <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+</div>
+
+</body>
+</html>

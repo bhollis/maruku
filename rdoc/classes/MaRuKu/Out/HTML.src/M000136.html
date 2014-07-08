@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>to_html_equation (MaRuKu::Out::HTML)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/maruku/ext/math/to_html.rb, line 118</span>
+        <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_html_equation</span>
+                <span class="ruby-identifier">mathml</span>  = <span class="ruby-identifier">get_setting</span>(<span class="ruby-identifier">:html_math_output_mathml</span>) <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">render_mathml</span>(<span class="ruby-identifier">:equation</span>, <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">math</span>)
+                <span class="ruby-identifier">png</span>     = <span class="ruby-identifier">get_setting</span>(<span class="ruby-identifier">:html_math_output_png</span>)    <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">render_png</span>(<span class="ruby-identifier">:equation</span>, <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">math</span>)
+                
+                <span class="ruby-identifier">div</span> = <span class="ruby-identifier">create_html_element</span> <span class="ruby-value str">'div'</span>
+                <span class="ruby-identifier">add_class_to</span>(<span class="ruby-identifier">div</span>, <span class="ruby-value str">'maruku-equation'</span>)
+                        <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">label</span>  <span class="ruby-comment cmt"># then numerate</span>
+                                <span class="ruby-identifier">span</span> = <span class="ruby-constant">Element</span>.<span class="ruby-identifier">new</span> <span class="ruby-value str">'span'</span>
+                                <span class="ruby-identifier">span</span>.<span class="ruby-identifier">attributes</span>[<span class="ruby-value str">'class'</span>] = <span class="ruby-value str">'maruku-eq-number'</span>
+                                <span class="ruby-identifier">num</span> = <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">num</span>
+                                <span class="ruby-identifier">span</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">Text</span>.<span class="ruby-identifier">new</span>(<span class="ruby-node">&quot;(#{num})&quot;</span>)
+                                <span class="ruby-identifier">div</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">span</span>
+                                <span class="ruby-identifier">div</span>.<span class="ruby-identifier">attributes</span>[<span class="ruby-value str">'id'</span>] = <span class="ruby-node">&quot;eq:#{self.label}&quot;</span>
+                        <span class="ruby-keyword kw">end</span>
+                        
+                        <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">mathml</span>
+                                <span class="ruby-identifier">add_class_to</span>(<span class="ruby-identifier">mathml</span>, <span class="ruby-value str">'maruku-mathml'</span>)
+                                <span class="ruby-identifier">div</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">mathml</span> 
+                        <span class="ruby-keyword kw">end</span>
+                        
+                        <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">png</span>
+                                <span class="ruby-identifier">img</span> = <span class="ruby-identifier">adjust_png</span>(<span class="ruby-identifier">png</span>, <span class="ruby-identifier">use_depth</span>=<span class="ruby-keyword kw">false</span>)
+                                <span class="ruby-identifier">add_class_to</span>(<span class="ruby-identifier">img</span>, <span class="ruby-value str">'maruku-png'</span>)
+                                <span class="ruby-identifier">div</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">img</span>
+                        <span class="ruby-keyword kw">end</span>
+                        
+                        <span class="ruby-identifier">source_div</span> = <span class="ruby-constant">Element</span>.<span class="ruby-identifier">new</span> <span class="ruby-value str">'div'</span>
+                                <span class="ruby-identifier">add_class_to</span>(<span class="ruby-identifier">source_div</span>, <span class="ruby-value str">'maruku-eq-tex'</span>)
+                                <span class="ruby-identifier">code</span> = <span class="ruby-identifier">convert_to_mathml_none</span>(<span class="ruby-identifier">:equation</span>, <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">math</span>) 
+                                <span class="ruby-identifier">code</span>.<span class="ruby-identifier">attributes</span>[<span class="ruby-value str">'style'</span>] = <span class="ruby-value str">'display: none'</span>
+                        <span class="ruby-identifier">source_div</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">code</span>
+                        <span class="ruby-identifier">div</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">source_div</span>
+                <span class="ruby-identifier">div</span>
+        <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

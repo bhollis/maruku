@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>md_equation (MaRuKu::MDElement)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/maruku/ext/math/elements.rb, line 7</span>
+        <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">md_equation</span>(<span class="ruby-identifier">math</span>, <span class="ruby-identifier">label</span>, <span class="ruby-identifier">numerate</span>)
+                <span class="ruby-identifier">reglabel</span>= <span class="ruby-regexp re">/\\label\{(\w+)\}/</span>
+                <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">math</span> <span class="ruby-operator">=~</span> <span class="ruby-identifier">reglabel</span>
+                        <span class="ruby-identifier">label</span> = <span class="ruby-identifier">$1</span>
+                        <span class="ruby-identifier">math</span>.<span class="ruby-identifier">gsub!</span>(<span class="ruby-identifier">reglabel</span>,<span class="ruby-value str">''</span>)
+                <span class="ruby-keyword kw">end</span>
+<span class="ruby-comment cmt">#               puts &quot;Found label = #{label} math #{math.inspect} &quot;</span>
+                <span class="ruby-identifier">num</span> = <span class="ruby-keyword kw">nil</span>
+                <span class="ruby-keyword kw">if</span> (<span class="ruby-identifier">label</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">numerate</span>) <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-ivar">@doc</span> <span class="ruby-comment cmt">#take number</span>
+                        <span class="ruby-ivar">@doc</span>.<span class="ruby-identifier">eqid2eq</span> <span class="ruby-operator">||=</span> {}  
+                        <span class="ruby-identifier">num</span> = <span class="ruby-ivar">@doc</span>.<span class="ruby-identifier">eqid2eq</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">+</span> <span class="ruby-value">1</span>
+                        <span class="ruby-identifier">label</span> = <span class="ruby-node">&quot;eq#{num}&quot;</span> <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">not</span> <span class="ruby-identifier">label</span>      <span class="ruby-comment cmt"># FIXME do id for document</span>
+                <span class="ruby-keyword kw">end</span>
+                <span class="ruby-identifier">e</span> = <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">md_el</span>(<span class="ruby-identifier">:equation</span>, [], <span class="ruby-identifier">meta</span>={<span class="ruby-identifier">:math=</span><span class="ruby-operator">&gt;</span><span class="ruby-identifier">math</span>, <span class="ruby-identifier">:label=</span><span class="ruby-operator">&gt;</span><span class="ruby-identifier">label</span>,<span class="ruby-identifier">:num=</span><span class="ruby-operator">&gt;</span><span class="ruby-identifier">num</span>})
+                <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">label</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-ivar">@doc</span> <span class="ruby-comment cmt">#take number</span>
+                        <span class="ruby-ivar">@doc</span>.<span class="ruby-identifier">eqid2eq</span>[<span class="ruby-identifier">label</span>] = <span class="ruby-identifier">e</span>
+                <span class="ruby-keyword kw">end</span>
+                <span class="ruby-identifier">e</span>
+        <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

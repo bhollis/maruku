@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>read_quote (MaRuKu::In::Markdown::BlockLevelParser)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/maruku/input/parse_block.rb, line 401</span>
+        <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">read_quote</span>(<span class="ruby-identifier">src</span>)
+                <span class="ruby-identifier">parent_offset</span> = <span class="ruby-identifier">src</span>.<span class="ruby-identifier">cur_index</span>
+                        
+                <span class="ruby-identifier">lines</span> = []
+                <span class="ruby-comment cmt"># collect all indented lines</span>
+                <span class="ruby-keyword kw">while</span> <span class="ruby-identifier">src</span>.<span class="ruby-identifier">cur_line</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">src</span>.<span class="ruby-identifier">cur_line</span>.<span class="ruby-identifier">md_type</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">:quote</span>
+                        <span class="ruby-identifier">lines</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">unquote</span>(<span class="ruby-identifier">src</span>.<span class="ruby-identifier">shift_line</span>)
+                <span class="ruby-keyword kw">end</span>
+<span class="ruby-comment cmt">#               dbg_describe_ary(lines, 'QUOTE')</span>
+
+                <span class="ruby-identifier">src2</span> = <span class="ruby-constant">LineSource</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">lines</span>, <span class="ruby-identifier">src</span>, <span class="ruby-identifier">parent_offset</span>)
+                <span class="ruby-identifier">children</span> = <span class="ruby-identifier">parse_blocks</span>(<span class="ruby-identifier">src2</span>)
+                <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">md_quote</span>(<span class="ruby-identifier">children</span>)
+        <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

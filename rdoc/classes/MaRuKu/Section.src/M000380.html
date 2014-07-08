@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>to_latex_rec (MaRuKu::Section)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/maruku/toc.rb, line 115</span>
+                <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_latex_rec</span>
+                        <span class="ruby-identifier">s</span> = <span class="ruby-value str">&quot;&quot;</span>
+                        <span class="ruby-ivar">@section_children</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">c</span><span class="ruby-operator">|</span>
+                                <span class="ruby-identifier">s</span> <span class="ruby-operator">+=</span> <span class="ruby-value str">&quot;\\noindent&quot;</span>
+                                <span class="ruby-identifier">number</span> = <span class="ruby-identifier">c</span>.<span class="ruby-identifier">header_element</span>.<span class="ruby-identifier">section_number</span>
+                                <span class="ruby-identifier">s</span> <span class="ruby-operator">+=</span> <span class="ruby-identifier">number</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">number</span>
+                                        <span class="ruby-identifier">text</span> = <span class="ruby-identifier">c</span>.<span class="ruby-identifier">header_element</span>.<span class="ruby-identifier">children_to_latex</span>
+                                        <span class="ruby-identifier">id</span> = <span class="ruby-identifier">c</span>.<span class="ruby-identifier">header_element</span>.<span class="ruby-identifier">attributes</span>[<span class="ruby-identifier">:id</span>]
+                                <span class="ruby-identifier">s</span> <span class="ruby-operator">+=</span> <span class="ruby-node">&quot;\\hyperlink{#{id}}{#{text}}&quot;</span>
+                                <span class="ruby-identifier">s</span> <span class="ruby-operator">+=</span> <span class="ruby-node">&quot;\\dotfill \\pageref*{#{id}} \\linebreak\n&quot;</span>
+                                <span class="ruby-identifier">s</span> <span class="ruby-operator">+=</span> <span class="ruby-identifier">c</span>.<span class="ruby-identifier">to_latex_rec</span>  <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">c</span>.<span class="ruby-identifier">section_children</span>.<span class="ruby-identifier">size</span><span class="ruby-operator">&gt;</span><span class="ruby-value">0</span>
+
+                        <span class="ruby-keyword kw">end</span>
+                        <span class="ruby-identifier">s</span>
+                <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

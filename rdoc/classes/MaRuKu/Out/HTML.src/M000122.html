@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>maruku_html_signature (MaRuKu::Out::HTML)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/maruku/output/to_html.rb, line 235</span>
+        <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">maruku_html_signature</span>              
+                <span class="ruby-identifier">div</span> = <span class="ruby-constant">Element</span>.<span class="ruby-identifier">new</span> <span class="ruby-value str">'div'</span>
+                        <span class="ruby-identifier">div</span>.<span class="ruby-identifier">attributes</span>[<span class="ruby-value str">'class'</span>] = <span class="ruby-value str">'maruku_signature'</span>
+                        <span class="ruby-constant">Element</span>.<span class="ruby-identifier">new</span> <span class="ruby-value str">'hr'</span>, <span class="ruby-identifier">div</span>
+                        <span class="ruby-identifier">span</span> = <span class="ruby-constant">Element</span>.<span class="ruby-identifier">new</span> <span class="ruby-value str">'span'</span>, <span class="ruby-identifier">div</span>
+                                <span class="ruby-identifier">span</span>.<span class="ruby-identifier">attributes</span>[<span class="ruby-value str">'style'</span>] = <span class="ruby-value str">'font-size: small; font-style: italic'</span>
+                                <span class="ruby-identifier">span</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">Text</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value str">'Created by '</span>)
+                                <span class="ruby-identifier">a</span> = <span class="ruby-constant">Element</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value str">'a'</span>, <span class="ruby-identifier">span</span>)
+                                        <span class="ruby-identifier">a</span>.<span class="ruby-identifier">attributes</span>[<span class="ruby-value str">'href'</span>] = <span class="ruby-value str">'http://maruku.rubyforge.org'</span>
+                                        <span class="ruby-identifier">a</span>.<span class="ruby-identifier">attributes</span>[<span class="ruby-value str">'title'</span>] = <span class="ruby-value str">'Maruku: a Markdown-superset interpreter for Ruby'</span>
+                                        <span class="ruby-identifier">a</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">Text</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value str">'Maruku'</span>)
+                                <span class="ruby-identifier">span</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">Text</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">nice_date</span><span class="ruby-operator">+</span><span class="ruby-value str">&quot;.&quot;</span>)
+                <span class="ruby-identifier">div</span>
+        <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

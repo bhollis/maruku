@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <head>
+    <title>Class: MaRuKu::In::Markdown::SpanLevelParser::CharSourceDebug</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+    <link rel="stylesheet" href="../../../../.././rdoc-style.css" type="text/css" media="screen" />
+
+    <script language="JavaScript" type="text/javascript">
+    // <![CDATA[
+
+        function toggleSource( id )
+        {
+          var elem
+          var link
+
+          if( document.getElementById )
+          {
+            elem = document.getElementById( id )
+            link = document.getElementById( "l_" + id )
+          }
+          else if ( document.all )
+          {
+            elem = eval( "document.all." + id )
+            link = eval( "document.all.l_" + id )
+          }
+          else
+            return false;
+
+          if( elem.style.display == "block" )
+          {
+            elem.style.display = "none"
+            link.innerHTML = "show source"
+          }
+          else
+          {
+            elem.style.display = "block"
+            link.innerHTML = "hide source"
+          }
+        }
+
+        function openCode( url )
+        {
+          window.open( url, "SOURCE_CODE", "width=400,height=400,scrollbars=yes" )
+        }
+      // ]]>
+    </script>
+  </head>
+
+  <body>
+  <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'><tr>
+  <td class="file-title"><span class="file-title-prefix">Class</span><br />MaRuKu::In::Markdown::SpanLevelParser::CharSourceDebug</td>
+  <td align="right">
+    <table cellspacing=0 cellpadding=2>
+      <tr valign="top">
+        <td>In:</td>
+        <td>
+<a href="../../../../../files/lib/maruku/input/charsource_rb.html">lib/maruku/input/charsource.rb</a>
+        </td>
+      </tr>
+    <tr>
+      <td>Parent:</td>
+      <td>
+Object
+     </td>
+   </tr>
+         </table>
+        </td>
+        </tr>
+      </table>
+ <!-- banner header -->
+
+  <div id="bodyContent">
+      <div id="content">
+
+  <div class="description"><p>
+A debug scanner that checks the correctness of both by comparing their
+output
+</p>
+</div>
+
+
+
+  <div class="sectiontitle">Methods</div>
+  <ul>
+  <li><a href="#M000215">method_missing</a></li>
+  <li><a href="#M000214">new</a></li>
+  </ul>
+
+
+
+
+
+
+<div class="sectiontitle">Public Class methods</div>
+<div class="method">
+  <div class="title">
+    <a name="M000214"></a><b>new</b>(s)
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000214_source')" id="l_M000214_source">show source</a> ]</p>
+  <div id="M000214_source" class="dyn-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/maruku/input/charsource.rb, line 270</span>
+270:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">s</span>)
+271:                 <span class="ruby-ivar">@a</span> = <span class="ruby-constant">CharSourceManual</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">s</span>)
+272:                 <span class="ruby-ivar">@b</span> = <span class="ruby-constant">CharSourceStrscan</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">s</span>)
+273:         <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="sectiontitle">Public Instance methods</div>
+<div class="method">
+  <div class="title">
+    <a name="M000215"></a><b>method_missing</b>(methodname, *args)
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000215_source')" id="l_M000215_source">show source</a> ]</p>
+  <div id="M000215_source" class="dyn-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/maruku/input/charsource.rb, line 275</span>
+275:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">method_missing</span>(<span class="ruby-identifier">methodname</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">args</span>)
+276:                 <span class="ruby-identifier">a_bef</span> = <span class="ruby-ivar">@a</span>.<span class="ruby-identifier">describe</span>
+277:                 <span class="ruby-identifier">b_bef</span> = <span class="ruby-ivar">@b</span>.<span class="ruby-identifier">describe</span>
+278:                 
+279:                 <span class="ruby-identifier">a</span> = <span class="ruby-ivar">@a</span>.<span class="ruby-identifier">send</span>(<span class="ruby-identifier">methodname</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">args</span>)
+280:                 <span class="ruby-identifier">b</span> = <span class="ruby-ivar">@b</span>.<span class="ruby-identifier">send</span>(<span class="ruby-identifier">methodname</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">args</span>)
+281:                 
+282: <span class="ruby-comment cmt">#               if methodname == :describe</span>
+283: <span class="ruby-comment cmt">#                       return a</span>
+284: <span class="ruby-comment cmt">#               end</span>
+285:                 
+286:                 <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">a</span>.<span class="ruby-identifier">kind_of?</span> <span class="ruby-constant">MatchData</span>
+287:                         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">a</span>.<span class="ruby-identifier">to_a</span> <span class="ruby-operator">!=</span> <span class="ruby-identifier">b</span>.<span class="ruby-identifier">to_a</span>
+288:                                 <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;called: #{methodname}(#{args})&quot;</span>
+289:                                 <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;Matchdata:\na = #{a.to_a.inspect}\nb = #{b.to_a.inspect}&quot;</span>
+290:                                 <span class="ruby-identifier">puts</span> <span class="ruby-value str">&quot;AFTER: &quot;</span><span class="ruby-operator">+</span><span class="ruby-ivar">@a</span>.<span class="ruby-identifier">describe</span>
+291:                                 <span class="ruby-identifier">puts</span> <span class="ruby-value str">&quot;AFTER: &quot;</span><span class="ruby-operator">+</span><span class="ruby-ivar">@b</span>.<span class="ruby-identifier">describe</span>
+292:                                 <span class="ruby-identifier">puts</span> <span class="ruby-value str">&quot;BEFORE: &quot;</span><span class="ruby-operator">+</span><span class="ruby-identifier">a_bef</span>
+293:                                 <span class="ruby-identifier">puts</span> <span class="ruby-value str">&quot;BEFORE: &quot;</span><span class="ruby-operator">+</span><span class="ruby-identifier">b_bef</span>
+294:                                 <span class="ruby-identifier">puts</span> <span class="ruby-identifier">caller</span>.<span class="ruby-identifier">join</span>(<span class="ruby-value str">&quot;\n&quot;</span>)
+295:                                 <span class="ruby-identifier">exit</span>
+296:                         <span class="ruby-keyword kw">end</span>
+297:                 <span class="ruby-keyword kw">else</span>
+298:                         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">a!</span>=<span class="ruby-identifier">b</span>
+299:                                 <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;called: #{methodname}(#{args})&quot;</span>
+300:                                 <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;Attenzione!\na = #{a.inspect}\nb = #{b.inspect}&quot;</span>
+301:                                 <span class="ruby-identifier">puts</span> <span class="ruby-value str">&quot;&quot;</span><span class="ruby-operator">+</span><span class="ruby-ivar">@a</span>.<span class="ruby-identifier">describe</span>
+302:                                 <span class="ruby-identifier">puts</span> <span class="ruby-value str">&quot;&quot;</span><span class="ruby-operator">+</span><span class="ruby-ivar">@b</span>.<span class="ruby-identifier">describe</span>
+303:                                 <span class="ruby-identifier">puts</span> <span class="ruby-identifier">caller</span>.<span class="ruby-identifier">join</span>(<span class="ruby-value str">&quot;\n&quot;</span>)
+304:                                 <span class="ruby-identifier">exit</span>
+305:                         <span class="ruby-keyword kw">end</span>
+306:                 <span class="ruby-keyword kw">end</span>
+307:                 
+308:                 <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@a</span>.<span class="ruby-identifier">cur_char</span> <span class="ruby-operator">!=</span> <span class="ruby-ivar">@b</span>.<span class="ruby-identifier">cur_char</span>
+309:                         <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;Fuori sincronia dopo #{methodname}(#{args})&quot;</span>
+310:                         <span class="ruby-identifier">puts</span> <span class="ruby-value str">&quot;&quot;</span><span class="ruby-operator">+</span><span class="ruby-ivar">@a</span>.<span class="ruby-identifier">describe</span>
+311:                         <span class="ruby-identifier">puts</span> <span class="ruby-value str">&quot;&quot;</span><span class="ruby-operator">+</span><span class="ruby-ivar">@b</span>.<span class="ruby-identifier">describe</span>
+312:                         <span class="ruby-identifier">exit</span>
+313:                 <span class="ruby-keyword kw">end</span>
+314:                 
+315:                 <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">a</span>
+316:         <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+</div>
+
+  </div>
+
+    </body>
+</html>

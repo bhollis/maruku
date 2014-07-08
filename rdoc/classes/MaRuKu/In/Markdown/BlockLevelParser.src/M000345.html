@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>parse_doc (MaRuKu::In::Markdown::BlockLevelParser)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/maruku/input/parse_doc.rb, line 27</span>
+        <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">parse_doc</span>(<span class="ruby-identifier">s</span>)
+                
+                <span class="ruby-identifier">meta2</span> =  <span class="ruby-identifier">parse_email_headers</span>(<span class="ruby-identifier">s</span>)
+                <span class="ruby-identifier">data</span> = <span class="ruby-identifier">meta2</span>[<span class="ruby-identifier">:data</span>]
+                <span class="ruby-identifier">meta2</span>.<span class="ruby-identifier">delete</span> <span class="ruby-identifier">:data</span>
+                
+                <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">attributes</span>.<span class="ruby-identifier">merge!</span> <span class="ruby-identifier">meta2</span>
+                
+??
+
+                <span class="ruby-identifier">enc</span> = <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">attributes</span>[<span class="ruby-identifier">:encoding</span>]
+                <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">attributes</span>.<span class="ruby-identifier">delete</span> <span class="ruby-identifier">:encoding</span>
+                <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">enc</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">enc</span>.<span class="ruby-identifier">downcase</span> <span class="ruby-operator">!=</span> <span class="ruby-value str">'utf-8'</span>
+                        <span class="ruby-identifier">converted</span> = <span class="ruby-constant">Iconv</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value str">'utf-8'</span>, <span class="ruby-identifier">enc</span>).<span class="ruby-identifier">iconv</span>(<span class="ruby-identifier">data</span>)
+                        
+<span class="ruby-comment cmt">#                       puts &quot;Data: #{data.inspect}: #{data}&quot;</span>
+<span class="ruby-comment cmt">#                       puts &quot;Conv: #{converted.inspect}: #{converted}&quot;</span>
+                        
+                        <span class="ruby-identifier">data</span> = <span class="ruby-identifier">converted</span>
+                <span class="ruby-keyword kw">end</span>
+                
+                <span class="ruby-ivar">@children</span> = <span class="ruby-identifier">parse_text_as_markdown</span>(<span class="ruby-identifier">data</span>)
+                
+                <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">true</span> <span class="ruby-comment cmt">#markdown_extra? </span>
+                        <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">search_abbreviations</span>
+                        <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">substitute_markdown_inside_raw_html</span>
+                <span class="ruby-keyword kw">end</span>
+                
+                <span class="ruby-identifier">toc</span> = <span class="ruby-identifier">create_toc</span>
+
+                <span class="ruby-comment cmt"># use title if not set</span>
+                <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">not</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">attributes</span>[<span class="ruby-identifier">:title</span>] <span class="ruby-keyword kw">and</span> <span class="ruby-identifier">toc</span>.<span class="ruby-identifier">header_element</span>
+                        <span class="ruby-identifier">title</span> = <span class="ruby-identifier">toc</span>.<span class="ruby-identifier">header_element</span>.<span class="ruby-identifier">to_s</span>
+                        <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">attributes</span>[<span class="ruby-identifier">:title</span>]  = <span class="ruby-identifier">title</span>
+<span class="ruby-comment cmt">#                       puts &quot;Set document title to #{title}&quot;</span>
+                <span class="ruby-keyword kw">end</span>
+                
+                <span class="ruby-comment cmt"># save for later use</span>
+                <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">toc</span> = <span class="ruby-identifier">toc</span>
+                
+                <span class="ruby-comment cmt"># Now do the attributes magic</span>
+                <span class="ruby-identifier">each_element</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">e</span><span class="ruby-operator">|</span>
+                        <span class="ruby-comment cmt"># default attribute list</span>
+                        <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">default</span> = <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">ald</span>[<span class="ruby-identifier">e</span>.<span class="ruby-identifier">node_type</span>.<span class="ruby-identifier">to_s</span>]
+                                <span class="ruby-identifier">expand_attribute_list</span>(<span class="ruby-identifier">default</span>, <span class="ruby-identifier">e</span>.<span class="ruby-identifier">attributes</span>)
+                        <span class="ruby-keyword kw">end</span>
+                        <span class="ruby-identifier">expand_attribute_list</span>(<span class="ruby-identifier">e</span>.<span class="ruby-identifier">al</span>, <span class="ruby-identifier">e</span>.<span class="ruby-identifier">attributes</span>)
+<span class="ruby-comment cmt">#                       puts &quot;#{e.node_type}: #{e.attributes.inspect}&quot;</span>
+                <span class="ruby-keyword kw">end</span>
+        
+??
+
+                <span class="ruby-keyword kw">if</span> <span class="ruby-constant">Maruku</span><span class="ruby-operator">::</span><span class="ruby-constant">Globals</span>[<span class="ruby-identifier">:unsafe_features</span>]
+                        <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">execute_code_blocks</span>
+                        <span class="ruby-comment cmt"># TODO: remove executed code blocks</span>
+                <span class="ruby-keyword kw">end</span>
+        <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

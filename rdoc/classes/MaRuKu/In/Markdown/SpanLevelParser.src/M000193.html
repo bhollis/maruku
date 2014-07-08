@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>extension_meta (MaRuKu::In::Markdown::SpanLevelParser)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/maruku/input/parse_span_better.rb, line 280</span>
+        <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">extension_meta</span>(<span class="ruby-identifier">src</span>, <span class="ruby-identifier">con</span>, <span class="ruby-identifier">break_on_chars</span>)
+                <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">m</span> = <span class="ruby-identifier">src</span>.<span class="ruby-identifier">read_regexp</span>(<span class="ruby-regexp re">/(\w)+\:/</span>)
+                        <span class="ruby-identifier">name</span> = <span class="ruby-identifier">m</span>[<span class="ruby-value">1</span>]
+                        <span class="ruby-identifier">content</span> = <span class="ruby-identifier">m</span>[<span class="ruby-value">2</span>]
+                        <span class="ruby-identifier">al</span> = <span class="ruby-identifier">read_attribute_list</span>(<span class="ruby-identifier">src</span>, <span class="ruby-identifier">con</span>, <span class="ruby-identifier">break_on_chars</span>)
+                        <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">doc</span>.<span class="ruby-identifier">ald</span>[<span class="ruby-identifier">name</span>] = <span class="ruby-identifier">al</span>
+                      <span class="ruby-identifier">con</span>.<span class="ruby-identifier">push</span> <span class="ruby-identifier">md_ald</span>(<span class="ruby-identifier">name</span>, <span class="ruby-identifier">al</span>)
+                <span class="ruby-keyword kw">else</span>
+                        <span class="ruby-identifier">al</span> = <span class="ruby-identifier">read_attribute_list</span>(<span class="ruby-identifier">src</span>, <span class="ruby-identifier">con</span>, <span class="ruby-identifier">break_on_chars</span>)
+                        <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">doc</span>.<span class="ruby-identifier">ald</span>[<span class="ruby-identifier">name</span>] = <span class="ruby-identifier">al</span>
+                        <span class="ruby-identifier">con</span>.<span class="ruby-identifier">push</span> <span class="ruby-identifier">md_ial</span>(<span class="ruby-identifier">al</span>)
+                <span class="ruby-keyword kw">end</span>
+        <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

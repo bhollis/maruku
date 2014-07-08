@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>to_html_document (MaRuKu::Out::HTML)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/maruku/output/to_html.rb, line 68</span>
+        <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_html_document</span>(<span class="ruby-identifier">context</span>={})
+                <span class="ruby-identifier">indent</span> = <span class="ruby-identifier">context</span>[<span class="ruby-identifier">:indent</span>] <span class="ruby-operator">||</span> <span class="ruby-value">-1</span>
+                <span class="ruby-identifier">ie_hack</span> = <span class="ruby-identifier">context</span>[<span class="ruby-identifier">:ie_hack</span>] <span class="ruby-operator">||</span><span class="ruby-keyword kw">true</span>
+                <span class="ruby-identifier">doc</span> = <span class="ruby-identifier">to_html_document_tree</span>
+                <span class="ruby-identifier">xml</span>  = <span class="ruby-value str">&quot;&quot;</span> 
+                
+                <span class="ruby-comment cmt"># REXML Bug? if indent!=-1 whitespace is not respected for 'pre' elements</span>
+                <span class="ruby-comment cmt"># containing code.</span>
+                <span class="ruby-identifier">doc</span>.<span class="ruby-identifier">write</span>(<span class="ruby-identifier">xml</span>,<span class="ruby-identifier">indent</span>,<span class="ruby-identifier">transitive</span>=<span class="ruby-keyword kw">true</span>,<span class="ruby-identifier">ie_hack</span>);
+                                
+                <span class="ruby-identifier">xhtml10strict</span>  = <span class="ruby-value str">&quot;
+&lt;?xml version='1.0' encoding='utf-8'?&gt;
+&lt;!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Strict//EN'
+'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'&gt;\n&quot;</span>
+                
+                <span class="ruby-identifier">xhtml11strict_mathml2</span> = <span class="ruby-value str">'&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;!DOCTYPE html PUBLIC &quot;-//W3C//DTD XHTML 1.1 plus MathML 2.0//EN&quot;
+               &quot;http://www.w3.org/TR/MathML2/dtd/xhtml-math11-f.dtd&quot; [
+  &lt;!ENTITY mathml &quot;http://www.w3.org/1998/Math/MathML&quot;&gt;
+]&gt;
+'</span>
+
+<span class="ruby-identifier">xhtml11_mathml2_svg11</span> = 
+<span class="ruby-value str">'&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;!DOCTYPE html PUBLIC
+    &quot;-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN&quot;
+    &quot;http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd&quot;&gt;
+'</span>
+
+                <span class="ruby-identifier">xhtml11_mathml2_svg11</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">xml</span>
+        <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

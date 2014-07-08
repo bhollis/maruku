@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>write_latex_discovery (Diagrams::Diagram)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/maruku/ext/diagrams/to_latex.rb, line 18</span>
+                <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">write_latex_discovery</span>(<span class="ruby-identifier">diag_id</span>, <span class="ruby-identifier">output_file</span>)
+                        <span class="ruby-identifier">fid</span> = <span class="ruby-value">10</span>
+                        <span class="ruby-identifier">s</span>=<span class="ruby-value str">&quot;&quot;</span>
+<span class="ruby-comment cmt">#                       s +=&quot;\\documentclass{article}\\begin{document}&quot;</span>
+                        <span class="ruby-identifier">s</span> <span class="ruby-operator">+=</span> (<span class="ruby-value str">&quot;\\immediate\\openout%d=%s\n&quot;</span> <span class="ruby-operator">%</span> [<span class="ruby-identifier">fid</span>, <span class="ruby-identifier">output_file</span>])
+                        <span class="ruby-comment cmt"># s+= &quot;\\ifx\\already\\empty&quot;</span>
+                        <span class="ruby-comment cmt"># s+=&quot;\\def\\already{1}&quot;</span>
+                        <span class="ruby-comment cmt"># s+= &quot;\\newlength{\\mywd}\n&quot;</span>
+                        <span class="ruby-comment cmt"># s+= &quot;\\newlength{\\myht}\n&quot;</span>
+                        <span class="ruby-comment cmt"># s+= &quot;\\newlength{\\mydp}\n&quot;</span>
+                        <span class="ruby-comment cmt"># s+=&quot;\\fi&quot;</span>
+                        <span class="ruby-ivar">@boxes</span>.<span class="ruby-identifier">each_with_index</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">b</span>, <span class="ruby-identifier">i</span><span class="ruby-operator">|</span>
+                                <span class="ruby-identifier">s</span> <span class="ruby-operator">+=</span> (<span class="ruby-value str">&quot;\\settowidth{\\mywd}{\\hbox{%s}}\n&quot;</span> <span class="ruby-operator">%</span> <span class="ruby-identifier">b</span>.<span class="ruby-identifier">content</span>)
+                                <span class="ruby-identifier">s</span> <span class="ruby-operator">+=</span> (<span class="ruby-value str">&quot;\\settoheight{\\myht}{\\hbox{%s}}\n&quot;</span> <span class="ruby-operator">%</span> <span class="ruby-identifier">b</span>.<span class="ruby-identifier">content</span>)
+                                <span class="ruby-identifier">s</span> <span class="ruby-operator">+=</span> (<span class="ruby-value str">&quot;\\settodepth{\\mydp}{\\hbox{%s}}\n&quot;</span> <span class="ruby-operator">%</span> <span class="ruby-identifier">b</span>.<span class="ruby-identifier">content</span>)
+                                <span class="ruby-identifier">s</span> <span class="ruby-operator">+=</span> <span class="ruby-value str">&quot;\\immediate\\write%d{%s,%d,\\the\\mywd,\\the\\myht,\\the\\mydp}\n&quot;</span> <span class="ruby-operator">%</span> 
+                                [<span class="ruby-identifier">fid</span>, <span class="ruby-identifier">diag_id</span>, <span class="ruby-identifier">i</span>]
+                        <span class="ruby-keyword kw">end</span>
+                        <span class="ruby-identifier">s</span><span class="ruby-operator">+=</span>(<span class="ruby-value str">&quot;\\immediate\\closeout%d\n&quot;</span> <span class="ruby-operator">%</span> <span class="ruby-identifier">fid</span>)
+<span class="ruby-comment cmt">#                       s+=&quot;\\end{document}&quot;</span>
+                        <span class="ruby-identifier">s</span>
+                <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

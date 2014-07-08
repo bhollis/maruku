@@ -1,0 +1,617 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <head>
+    <title>Module: MaRuKu::Strings</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+    <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+
+    <script language="JavaScript" type="text/javascript">
+    // <![CDATA[
+
+        function toggleSource( id )
+        {
+          var elem
+          var link
+
+          if( document.getElementById )
+          {
+            elem = document.getElementById( id )
+            link = document.getElementById( "l_" + id )
+          }
+          else if ( document.all )
+          {
+            elem = eval( "document.all." + id )
+            link = eval( "document.all.l_" + id )
+          }
+          else
+            return false;
+
+          if( elem.style.display == "block" )
+          {
+            elem.style.display = "none"
+            link.innerHTML = "show source"
+          }
+          else
+          {
+            elem.style.display = "block"
+            link.innerHTML = "hide source"
+          }
+        }
+
+        function openCode( url )
+        {
+          window.open( url, "SOURCE_CODE", "width=400,height=400,scrollbars=yes" )
+        }
+      // ]]>
+    </script>
+  </head>
+
+  <body>
+  <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'><tr>
+  <td class="file-title"><span class="file-title-prefix">Module</span><br />MaRuKu::Strings</td>
+  <td align="right">
+    <table cellspacing=0 cellpadding=2>
+      <tr valign="top">
+        <td>In:</td>
+        <td>
+<a href="../../files/lib/maruku_rb.html">lib/maruku.rb</a>
+<a href="../../files/lib/maruku/string_utils_rb.html">lib/maruku/string_utils.rb</a>
+<a href="../../files/lib/maruku/input/type_detection_rb.html">lib/maruku/input/type_detection.rb</a>
+        </td>
+      </tr>
+         </table>
+        </td>
+        </tr>
+      </table>
+ <!-- banner header -->
+
+  <div id="bodyContent">
+      <div id="content">
+
+  <div class="description"><p>
+These are strings utilities.
+</p>
+</div>
+
+
+
+  <div class="sectiontitle">Methods</div>
+  <ul>
+  <li><a href="#M000025">add_tabs</a></li>
+  <li><a href="#M000035">dbg_describe_ary</a></li>
+  <li><a href="#M000036">force_linebreak?</a></li>
+  <li><a href="#M000037">line_md_type</a></li>
+  <li><a href="#M000028">normalize_key_and_value</a></li>
+  <li><a href="#M000031">num_leading_hashes</a></li>
+  <li><a href="#M000029">number_of_leading_spaces</a></li>
+  <li><a href="#M000027">parse_email_headers</a></li>
+  <li><a href="#M000030">spaces_before_first_char</a></li>
+  <li><a href="#M000026">split_lines</a></li>
+  <li><a href="#M000032">strip_hashes</a></li>
+  <li><a href="#M000034">strip_indent</a></li>
+  <li><a href="#M000033">unquote</a></li>
+  </ul>
+
+
+
+
+  <div class="sectiontitle">Constants</div>
+  <table border='0' cellpadding='5'>
+  <tr valign='top'>
+    <td class="attr-name">TabSize</td>
+    <td>=</td>
+    <td class="attr-value">4;</td>
+  </tr>
+  <tr valign='top'>
+    <td class="attr-name">AttributeDefinitionList</td>
+    <td>=</td>
+    <td class="attr-value">/^\s{0,3}\{([\w\d\s]+)\}:\s*(.*)\s*$/</td>
+  </tr>
+  <tr valign='top'>
+    <td>&nbsp;</td>
+    <td colspan="2" class="attr-desc">
+$1 = id $2 = attribute list
+
+</td>
+  </tr>
+  <tr valign='top'>
+    <td class="attr-name">Definition</td>
+    <td>=</td>
+    <td class="attr-value">%r{                  ^ # begin of line                 [ ]{0,3} # up to 3 spaces                 : # colon                 \s* # whitespace                 (\S.*) # the text    = $1                 $ # end of line         }x</td>
+  </tr>
+  <tr valign='top'>
+    <td>&nbsp;</td>
+    <td colspan="2" class="attr-desc">
+Example:
+
+<pre>
+    ^:blah blah
+    ^: blah blah
+    ^   : blah blah
+</pre>
+</td>
+  </tr>
+  <tr valign='top'>
+    <td class="attr-name">Abbreviation</td>
+    <td>=</td>
+    <td class="attr-value">%r{                 ^  # begin of line                 \* # one asterisk                 \[ # opening bracket                 ([^\]]+) # any non-closing bracket:  id = $1                 \] # closing bracket                 :  # colon                 \s* # whitespace                 (\S.*\S)* #           definition=$2                 \s* # strip this whitespace                 $   # end of line         }x</td>
+  </tr>
+  <tr valign='top'>
+    <td>&nbsp;</td>
+    <td colspan="2" class="attr-desc">
+Example:
+
+<pre>
+    *[HTML]: Hyper Text Markup Language
+</pre>
+</td>
+  </tr>
+  <tr valign='top'>
+    <td class="attr-name">FootnoteText</td>
+    <td>=</td>
+    <td class="attr-value">%r{                 ^\s*\[(\^.+)\]: # id = $1 (including '^')                 \s*(\S.*)?$    # text = $2 (not obb.)         }x</td>
+  </tr>
+  <tr valign='top'>
+    <td class="attr-name">LinkRegex</td>
+    <td>=</td>
+    <td class="attr-value">%r{                 ^[ ]*\[([^\]]+)\]:            # id = $1                   [ ]*                 &lt;?(\S+)&gt;?                             # url = $2                   [ ]*                 (?:# Titles are delimited by &quot;quotes&quot; or (parens).                         [&quot;(']                         (.+?)                        # title = $3                         [&quot;)']                        # Matching ) or &quot;                         \s*(.+)?   # stuff = $4                 )?    # title is optional           }x</td>
+  </tr>
+  <tr valign='top'>
+    <td>&nbsp;</td>
+    <td colspan="2" class="attr-desc">
+This regex is taken from BlueCloth sources Link defs are in the form:
+^[id]: \n? url &quot;optional title&quot;
+
+</td>
+  </tr>
+  <tr valign='top'>
+    <td class="attr-name">IncompleteLink</td>
+    <td>=</td>
+    <td class="attr-value">%r{^\s*\[(.+)\]:\s*$}</td>
+  </tr>
+  <tr valign='top'>
+    <td class="attr-name">HeaderWithId</td>
+    <td>=</td>
+    <td class="attr-value">/^(.*)\{\#([\w_-]+)\}\s*$/</td>
+  </tr>
+  <tr valign='top'>
+    <td class="attr-name">HeaderWithAttributes</td>
+    <td>=</td>
+    <td class="attr-value">/^(.*)\{(.*)\}\s*$/</td>
+  </tr>
+  <tr valign='top'>
+    <td class="attr-name">MightBeTableHeader</td>
+    <td>=</td>
+    <td class="attr-value">%r{\|}</td>
+  </tr>
+  <tr valign='top'>
+    <td>&nbsp;</td>
+    <td colspan="2" class="attr-desc">
+if contains a pipe, it could be a table header
+
+</td>
+  </tr>
+  <tr valign='top'>
+    <td class="attr-name">Sep</td>
+    <td>=</td>
+    <td class="attr-value">/\s*(\:)?\s*-+\s*(\:)?\s*/</td>
+  </tr>
+  <tr valign='top'>
+    <td>&nbsp;</td>
+    <td colspan="2" class="attr-desc">
+&#8212;&#8212;&#8212;&#8212;-:
+
+</td>
+  </tr>
+  <tr valign='top'>
+    <td class="attr-name">TableSeparator</td>
+    <td>=</td>
+    <td class="attr-value">%r{^(\|?#{Sep}\|?)+\s*$}</td>
+  </tr>
+  <tr valign='top'>
+    <td>&nbsp;</td>
+    <td colspan="2" class="attr-desc">
+| &#8212;&#8212;&#8212;&#8212;-:|
+&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212; |
+
+</td>
+  </tr>
+  <tr valign='top'>
+    <td class="attr-name">EMailAddress</td>
+    <td>=</td>
+    <td class="attr-value">/&lt;([^:]+@[^:]+)&gt;/</td>
+  </tr>
+  <tr valign='top'>
+    <td class="attr-name">URL</td>
+    <td>=</td>
+    <td class="attr-value">/^&lt;http:/</td>
+  </tr>
+  </table>
+
+
+<div class="sectiontitle">Public Instance methods</div>
+<div class="method">
+  <div class="title">
+    <a name="M000025"></a><b>add_tabs</b>(s,n=1,char=&quot;\t&quot;)
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000025_source')" id="l_M000025_source">show source</a> ]</p>
+  <div id="M000025_source" class="dyn-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/maruku/string_utils.rb, line 25</span>
+25:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">add_tabs</span>(<span class="ruby-identifier">s</span>,<span class="ruby-identifier">n</span>=<span class="ruby-value">1</span>,<span class="ruby-identifier">char</span>=<span class="ruby-value str">&quot;\t&quot;</span>)
+26:                 <span class="ruby-identifier">s</span>.<span class="ruby-identifier">split</span>(<span class="ruby-value str">&quot;\n&quot;</span>).<span class="ruby-identifier">map</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">x</span><span class="ruby-operator">|</span> <span class="ruby-identifier">char</span><span class="ruby-operator">*</span><span class="ruby-identifier">n</span><span class="ruby-operator">+</span><span class="ruby-identifier">x</span> }.<span class="ruby-identifier">join</span>(<span class="ruby-value str">&quot;\n&quot;</span>)
+27:         <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000035"></a><b>dbg_describe_ary</b>(a, prefix='')
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000035_source')" id="l_M000035_source">show source</a> ]</p>
+  <div id="M000035_source" class="dyn-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/maruku/string_utils.rb, line 170</span>
+170:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">dbg_describe_ary</span>(<span class="ruby-identifier">a</span>, <span class="ruby-identifier">prefix</span>=<span class="ruby-value str">''</span>)
+171:                 <span class="ruby-identifier">i</span> = <span class="ruby-value">0</span> 
+172:                 <span class="ruby-identifier">a</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">l</span><span class="ruby-operator">|</span>
+173:                         <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;#{prefix} (#{i+=1})# #{l.inspect}&quot;</span>
+174:                 <span class="ruby-keyword kw">end</span>
+175:         <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000036"></a><b>force_linebreak?</b>(l)
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000036_source')" id="l_M000036_source">show source</a> ]</p>
+  <div id="M000036_source" class="dyn-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/maruku/string_utils.rb, line 177</span>
+177:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">force_linebreak?</span>(<span class="ruby-identifier">l</span>)
+178:                 <span class="ruby-identifier">l</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp re">/  $/</span>
+179:         <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000037"></a><b>line_md_type</b>(l)
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000037_source')" id="l_M000037_source">show source</a> ]</p>
+  <div id="M000037_source" class="dyn-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/maruku/input/type_detection.rb, line 36</span>
+36:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">line_md_type</span>(<span class="ruby-identifier">l</span>)
+37:                 <span class="ruby-comment cmt"># The order of evaluation is important (:text is a catch-all)</span>
+38:                 <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">:text</span>   <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">l</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp re">/^[a-zA-Z]/</span>
+39:                 <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">:code</span>             <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">number_of_leading_spaces</span>(<span class="ruby-identifier">l</span>)<span class="ruby-operator">&gt;=</span><span class="ruby-value">4</span>
+40:                 <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">:empty</span>    <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">l</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp re">/^\s*$/</span>
+41:                 <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">:footnote_text</span>    <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">l</span> <span class="ruby-operator">=~</span> <span class="ruby-constant">FootnoteText</span>
+42:                 <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">:ref_definition</span>   <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">l</span> <span class="ruby-operator">=~</span> <span class="ruby-constant">LinkRegex</span> <span class="ruby-keyword kw">or</span> <span class="ruby-identifier">l</span><span class="ruby-operator">=~</span> <span class="ruby-constant">IncompleteLink</span>
+43:                 <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">:abbreviation</span>     <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">l</span> <span class="ruby-operator">=~</span> <span class="ruby-constant">Abbreviation</span>
+44:                 <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">:definition</span>       <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">l</span> <span class="ruby-operator">=~</span> <span class="ruby-constant">Definition</span>
+45:                 <span class="ruby-comment cmt"># I had a bug with emails and urls at the beginning of the </span>
+46:                 <span class="ruby-comment cmt"># line that were mistaken for raw_html</span>
+47:                 <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">:text</span>     <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">l</span><span class="ruby-operator">=~</span><span class="ruby-constant">EMailAddress</span> <span class="ruby-keyword kw">or</span> <span class="ruby-identifier">l</span><span class="ruby-operator">=~</span> <span class="ruby-constant">URL</span>
+48:                 <span class="ruby-comment cmt"># raw html is like PHP Markdown Extra: at most three spaces before</span>
+49:                 <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">:raw_html</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">l</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp re">%r{^[ ]?[ ]?[ ]?&lt;/?\s*\w+}</span>
+50:                 <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">:raw_html</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">l</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp re">%r{[ ]{0,3}&lt;\!\-\-}</span>
+51:                 <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">:ulist</span>    <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">l</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp re">/^\s?([\*\-\+])\s+.*\w+/</span>
+52:                 <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">:olist</span>    <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">l</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp re">/^\s?\d+\..*\w+/</span>
+53:                 <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">:header1</span>  <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">l</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp re">/^(=)+/</span> 
+54:                 <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">:header2</span>  <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">l</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp re">/^([-\s])+$/</span> 
+55:                 <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">:header3</span>  <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">l</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp re">/^(#)+\s*\S+/</span> 
+56:                 <span class="ruby-comment cmt"># at least three asterisks on a line, and only whitespace</span>
+57:                 <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">:hrule</span>    <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">l</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp re">/^(\s*\*\s*){3,1000}$/</span> 
+58:                 <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">:hrule</span>    <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">l</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp re">/^(\s*-\s*){3,1000}$/</span> <span class="ruby-comment cmt"># or hyphens</span>
+59:                 <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">:hrule</span>    <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">l</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp re">/^(\s*_\s*){3,1000}$/</span> <span class="ruby-comment cmt"># or underscores       </span>
+60:                 <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">:quote</span>    <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">l</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp re">/^&gt;/</span>
+61:                 <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">:metadata</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">l</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp re">/^@/</span>
+62: <span class="ruby-comment cmt">#               if @@new_meta_data?</span>
+63:                         <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">:ald</span>   <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">l</span> <span class="ruby-operator">=~</span> <span class="ruby-constant">AttributeDefinitionList</span>
+64:                         <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">:ial</span>   <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">l</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp re">/^\s{0,3}\{.*\}/</span>
+65: <span class="ruby-comment cmt">#               end</span>
+66:                 <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">:text</span> <span class="ruby-comment cmt"># else, it's just text</span>
+67:         <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000028"></a><b>normalize_key_and_value</b>(k,v)
+  </div>
+  <div class="description">
+  <p>
+`.xyz` =&gt; class: xyz `xyz` =&gt; id: xyz
+</p>
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000028_source')" id="l_M000028_source">show source</a> ]</p>
+  <div id="M000028_source" class="dyn-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/maruku/string_utils.rb, line 57</span>
+57:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">normalize_key_and_value</span>(<span class="ruby-identifier">k</span>,<span class="ruby-identifier">v</span>)
+58:                 <span class="ruby-identifier">v</span> = <span class="ruby-identifier">v</span> <span class="ruby-value">? </span><span class="ruby-identifier">v</span>.<span class="ruby-identifier">strip</span> <span class="ruby-operator">:</span> <span class="ruby-keyword kw">true</span> <span class="ruby-comment cmt"># no value defaults to true</span>
+59:                 <span class="ruby-identifier">k</span> = <span class="ruby-identifier">k</span>.<span class="ruby-identifier">strip</span>
+60:                 
+61:                 <span class="ruby-comment cmt"># `.xyz` =&gt; class: xyz</span>
+62:                 <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">k</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp re">/^\.([\w\d]+)/</span>
+63:                         <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">:class</span>, <span class="ruby-identifier">$1</span>
+64:                 <span class="ruby-comment cmt"># `#xyz` =&gt; id: xyz</span>
+65:                 <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">k</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp re">/^\#([\w\d]+)/</span>
+66:                         <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">:id</span>, <span class="ruby-identifier">$1</span>
+67:                 <span class="ruby-keyword kw">else</span>
+68:                         <span class="ruby-comment cmt"># check synonyms</span>
+69:                         <span class="ruby-identifier">v</span> = <span class="ruby-keyword kw">true</span> <span class="ruby-keyword kw">if</span> [<span class="ruby-value str">'yes'</span>,<span class="ruby-value str">'true'</span>].<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">v</span>.<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">downcase</span>)
+70:                         <span class="ruby-identifier">v</span> = <span class="ruby-keyword kw">false</span> <span class="ruby-keyword kw">if</span> [<span class="ruby-value str">'no'</span>,<span class="ruby-value str">'false'</span>].<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">v</span>.<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">downcase</span>)
+71:                 
+72:                         <span class="ruby-identifier">k</span> = <span class="ruby-identifier">k</span>.<span class="ruby-identifier">downcase</span>.<span class="ruby-identifier">gsub</span>(<span class="ruby-value str">' '</span>,<span class="ruby-value str">'_'</span>)
+73:                         <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">k</span>, <span class="ruby-identifier">v</span>
+74:                 <span class="ruby-keyword kw">end</span>
+75:         <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000031"></a><b>num_leading_hashes</b>(s)
+  </div>
+  <div class="description">
+  <p>
+Counts the number of leading &#8217;#&#8217; in the string
+</p>
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000031_source')" id="l_M000031_source">show source</a> ]</p>
+  <div id="M000031_source" class="dyn-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/maruku/string_utils.rb, line 133</span>
+133:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">num_leading_hashes</span>(<span class="ruby-identifier">s</span>)
+134:                 <span class="ruby-identifier">i</span>=<span class="ruby-value">0</span>;
+135:                 <span class="ruby-keyword kw">while</span> <span class="ruby-identifier">i</span><span class="ruby-operator">&lt;</span>(<span class="ruby-identifier">s</span>.<span class="ruby-identifier">size</span><span class="ruby-operator">-</span><span class="ruby-value">1</span>) <span class="ruby-operator">&amp;&amp;</span> (<span class="ruby-identifier">s</span>[<span class="ruby-identifier">i</span>,<span class="ruby-value">1</span>]<span class="ruby-operator">==</span><span class="ruby-value str">'#'</span>); <span class="ruby-identifier">i</span><span class="ruby-operator">+=</span><span class="ruby-value">1</span> <span class="ruby-keyword kw">end</span>
+136:                 <span class="ruby-identifier">i</span>     
+137:         <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000029"></a><b>number_of_leading_spaces</b>(s)
+  </div>
+  <div class="description">
+  <p>
+Returns the number of leading spaces, considering that a tab counts as
+`TabSize` spaces.
+</p>
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000029_source')" id="l_M000029_source">show source</a> ]</p>
+  <div id="M000029_source" class="dyn-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/maruku/string_utils.rb, line 79</span>
+79:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">number_of_leading_spaces</span>(<span class="ruby-identifier">s</span>)
+80:                 <span class="ruby-identifier">n</span>=<span class="ruby-value">0</span>; <span class="ruby-identifier">i</span>=<span class="ruby-value">0</span>;
+81:                 <span class="ruby-keyword kw">while</span> <span class="ruby-identifier">i</span> <span class="ruby-operator">&lt;</span> <span class="ruby-identifier">s</span>.<span class="ruby-identifier">size</span> 
+82:                         <span class="ruby-identifier">c</span> = <span class="ruby-identifier">s</span>[<span class="ruby-identifier">i</span>,<span class="ruby-value">1</span>]
+83:                         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">c</span> <span class="ruby-operator">==</span> <span class="ruby-value str">' '</span>
+84:                                 <span class="ruby-identifier">i</span><span class="ruby-operator">+=</span><span class="ruby-value">1</span>; <span class="ruby-identifier">n</span><span class="ruby-operator">+=</span><span class="ruby-value">1</span>;
+85:                         <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">c</span> <span class="ruby-operator">==</span> <span class="ruby-value str">&quot;\t&quot;</span>
+86:                                 <span class="ruby-identifier">i</span><span class="ruby-operator">+=</span><span class="ruby-value">1</span>; <span class="ruby-identifier">n</span><span class="ruby-operator">+=</span><span class="ruby-constant">TabSize</span>;
+87:                         <span class="ruby-keyword kw">else</span>
+88:                                 <span class="ruby-keyword kw">break</span>
+89:                         <span class="ruby-keyword kw">end</span>
+90:                 <span class="ruby-keyword kw">end</span>
+91:                 <span class="ruby-identifier">n</span>
+92:         <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000027"></a><b>parse_email_headers</b>(s)
+  </div>
+  <div class="description">
+  <p>
+This parses email headers. Returns an hash. hash[&#8216;data&#8217;] is the
+message.
+</p>
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000027_source')" id="l_M000027_source">show source</a> ]</p>
+  <div id="M000027_source" class="dyn-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/maruku/string_utils.rb, line 36</span>
+36:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">parse_email_headers</span>(<span class="ruby-identifier">s</span>)
+37:                 <span class="ruby-identifier">keys</span>={}
+38:                 <span class="ruby-identifier">match</span> = (<span class="ruby-identifier">s</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp re">/((\w+: .*\n)+)\n/</span>)
+39:                 <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">match</span> <span class="ruby-operator">!=</span> <span class="ruby-value">0</span>
+40:                         <span class="ruby-identifier">keys</span>[<span class="ruby-identifier">:data</span>] = <span class="ruby-identifier">s</span>
+41:                 <span class="ruby-keyword kw">else</span>
+42:                         <span class="ruby-identifier">keys</span>[<span class="ruby-identifier">:data</span>] = <span class="ruby-identifier">$'</span>
+43:                         <span class="ruby-identifier">headers</span> = <span class="ruby-identifier">$1</span>
+44:                         <span class="ruby-identifier">headers</span>.<span class="ruby-identifier">split</span>(<span class="ruby-value str">&quot;\n&quot;</span>).<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">l</span><span class="ruby-operator">|</span> 
+45:                                 <span class="ruby-identifier">k</span>, <span class="ruby-identifier">v</span> = <span class="ruby-identifier">l</span>.<span class="ruby-identifier">split</span>(<span class="ruby-value str">':'</span>)
+46:                                 <span class="ruby-identifier">k</span>, <span class="ruby-identifier">v</span> = <span class="ruby-identifier">normalize_key_and_value</span>(<span class="ruby-identifier">k</span>, <span class="ruby-identifier">v</span>)
+47:                                 <span class="ruby-identifier">k</span> = <span class="ruby-identifier">k</span>.<span class="ruby-identifier">to_sym</span>
+48: <span class="ruby-comment cmt">#                               puts &quot;K = #{k}, V=#{v}&quot;</span>
+49:                                 <span class="ruby-identifier">keys</span>[<span class="ruby-identifier">k</span>] = <span class="ruby-identifier">v</span>
+50:                         <span class="ruby-keyword kw">end</span>
+51:                 <span class="ruby-keyword kw">end</span>
+52:                 <span class="ruby-identifier">keys</span>
+53:         <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000030"></a><b>spaces_before_first_char</b>(s)
+  </div>
+  <div class="description">
+  <p>
+This returns the position of the first real char in a list item
+</p>
+<p>
+For example:
+</p>
+<pre>
+    '*Hello' # =&gt; 1
+    '* Hello' # =&gt; 2
+    ' * Hello' # =&gt; 3
+    ' *   Hello' # =&gt; 5
+    '1.Hello' # =&gt; 2
+    ' 1.  Hello' # =&gt; 5
+</pre>
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000030_source')" id="l_M000030_source">show source</a> ]</p>
+  <div id="M000030_source" class="dyn-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/maruku/string_utils.rb, line 104</span>
+104:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">spaces_before_first_char</span>(<span class="ruby-identifier">s</span>)
+105:                 <span class="ruby-keyword kw">case</span> <span class="ruby-identifier">s</span>.<span class="ruby-identifier">md_type</span>
+106:                 <span class="ruby-keyword kw">when</span> <span class="ruby-identifier">:ulist</span>
+107:                         <span class="ruby-identifier">i</span>=<span class="ruby-value">0</span>;
+108:                         <span class="ruby-comment cmt"># skip whitespace if present</span>
+109:                         <span class="ruby-keyword kw">while</span> <span class="ruby-identifier">s</span>[<span class="ruby-identifier">i</span>,<span class="ruby-value">1</span>] <span class="ruby-operator">=~</span> <span class="ruby-regexp re">/\s/</span>; <span class="ruby-identifier">i</span><span class="ruby-operator">+=</span><span class="ruby-value">1</span> <span class="ruby-keyword kw">end</span>
+110:                         <span class="ruby-comment cmt"># skip indicator (+, -, *)</span>
+111:                         <span class="ruby-identifier">i</span><span class="ruby-operator">+=</span><span class="ruby-value">1</span>
+112:                         <span class="ruby-comment cmt"># skip optional whitespace</span>
+113:                         <span class="ruby-keyword kw">while</span> <span class="ruby-identifier">s</span>[<span class="ruby-identifier">i</span>,<span class="ruby-value">1</span>] <span class="ruby-operator">=~</span> <span class="ruby-regexp re">/\s/</span>; <span class="ruby-identifier">i</span><span class="ruby-operator">+=</span><span class="ruby-value">1</span> <span class="ruby-keyword kw">end</span>
+114:                         <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">i</span>
+115:                 <span class="ruby-keyword kw">when</span> <span class="ruby-identifier">:olist</span>
+116:                         <span class="ruby-identifier">i</span>=<span class="ruby-value">0</span>;
+117:                         <span class="ruby-comment cmt"># skip whitespace</span>
+118:                         <span class="ruby-keyword kw">while</span> <span class="ruby-identifier">s</span>[<span class="ruby-identifier">i</span>,<span class="ruby-value">1</span>] <span class="ruby-operator">=~</span> <span class="ruby-regexp re">/\s/</span>; <span class="ruby-identifier">i</span><span class="ruby-operator">+=</span><span class="ruby-value">1</span> <span class="ruby-keyword kw">end</span>
+119:                         <span class="ruby-comment cmt"># skip digits</span>
+120:                         <span class="ruby-keyword kw">while</span> <span class="ruby-identifier">s</span>[<span class="ruby-identifier">i</span>,<span class="ruby-value">1</span>] <span class="ruby-operator">=~</span> <span class="ruby-regexp re">/\d/</span>; <span class="ruby-identifier">i</span><span class="ruby-operator">+=</span><span class="ruby-value">1</span> <span class="ruby-keyword kw">end</span>
+121:                         <span class="ruby-comment cmt"># skip dot</span>
+122:                         <span class="ruby-identifier">i</span><span class="ruby-operator">+=</span><span class="ruby-value">1</span>
+123:                         <span class="ruby-comment cmt"># skip whitespace</span>
+124:                         <span class="ruby-keyword kw">while</span> <span class="ruby-identifier">s</span>[<span class="ruby-identifier">i</span>,<span class="ruby-value">1</span>] <span class="ruby-operator">=~</span> <span class="ruby-regexp re">/\s/</span>; <span class="ruby-identifier">i</span><span class="ruby-operator">+=</span><span class="ruby-value">1</span> <span class="ruby-keyword kw">end</span>
+125:                         <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">i</span>
+126:                 <span class="ruby-keyword kw">else</span>
+127:                         <span class="ruby-identifier">tell_user</span> <span class="ruby-node">&quot;BUG (my bad): '#{s}' is not a list&quot;</span>
+128:                         <span class="ruby-value">0</span>
+129:                 <span class="ruby-keyword kw">end</span>
+130:         <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000026"></a><b>split_lines</b>(s)
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000026_source')" id="l_M000026_source">show source</a> ]</p>
+  <div id="M000026_source" class="dyn-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/maruku/string_utils.rb, line 31</span>
+31:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">split_lines</span>(<span class="ruby-identifier">s</span>)
+32:                 <span class="ruby-identifier">s</span>.<span class="ruby-identifier">split</span>(<span class="ruby-value str">&quot;\n&quot;</span>)
+33:         <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000032"></a><b>strip_hashes</b>(s)
+  </div>
+  <div class="description">
+  <p>
+Strips initial and final hashes
+</p>
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000032_source')" id="l_M000032_source">show source</a> ]</p>
+  <div id="M000032_source" class="dyn-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/maruku/string_utils.rb, line 140</span>
+140:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">strip_hashes</span>(<span class="ruby-identifier">s</span>)
+141:                 <span class="ruby-identifier">s</span> = <span class="ruby-identifier">s</span>[<span class="ruby-identifier">num_leading_hashes</span>(<span class="ruby-identifier">s</span>), <span class="ruby-identifier">s</span>.<span class="ruby-identifier">size</span>]
+142:                 <span class="ruby-identifier">i</span> = <span class="ruby-identifier">s</span>.<span class="ruby-identifier">size</span><span class="ruby-operator">-</span><span class="ruby-value">1</span>
+143:                 <span class="ruby-keyword kw">while</span> <span class="ruby-identifier">i</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span> <span class="ruby-operator">&amp;&amp;</span> (<span class="ruby-identifier">s</span>[<span class="ruby-identifier">i</span>,<span class="ruby-value">1</span>] <span class="ruby-operator">=~</span> <span class="ruby-regexp re">/(#|\s)/</span>); <span class="ruby-identifier">i</span><span class="ruby-operator">-=</span><span class="ruby-value">1</span>; <span class="ruby-keyword kw">end</span>
+144:                 <span class="ruby-identifier">s</span>[<span class="ruby-value">0</span>, <span class="ruby-identifier">i</span><span class="ruby-operator">+</span><span class="ruby-value">1</span>].<span class="ruby-identifier">strip</span>
+145:         <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000034"></a><b>strip_indent</b>(s, n)
+  </div>
+  <div class="description">
+  <p>
+toglie al massimo n caratteri
+</p>
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000034_source')" id="l_M000034_source">show source</a> ]</p>
+  <div id="M000034_source" class="dyn-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/maruku/string_utils.rb, line 154</span>
+154:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">strip_indent</span>(<span class="ruby-identifier">s</span>, <span class="ruby-identifier">n</span>) 
+155:                 <span class="ruby-identifier">i</span> = <span class="ruby-value">0</span>
+156:                 <span class="ruby-keyword kw">while</span> <span class="ruby-identifier">i</span> <span class="ruby-operator">&lt;</span> <span class="ruby-identifier">s</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">n</span><span class="ruby-operator">&gt;</span><span class="ruby-value">0</span>
+157:                         <span class="ruby-identifier">c</span> = <span class="ruby-identifier">s</span>[<span class="ruby-identifier">i</span>,<span class="ruby-value">1</span>]
+158:                         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">c</span> <span class="ruby-operator">==</span> <span class="ruby-value str">' '</span>
+159:                                 <span class="ruby-identifier">n</span><span class="ruby-operator">-=</span><span class="ruby-value">1</span>;
+160:                         <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">c</span> <span class="ruby-operator">==</span> <span class="ruby-value str">&quot;\t&quot;</span>
+161:                                 <span class="ruby-identifier">n</span><span class="ruby-operator">-=</span><span class="ruby-constant">TabSize</span>;
+162:                         <span class="ruby-keyword kw">else</span>
+163:                                 <span class="ruby-keyword kw">break</span>
+164:                         <span class="ruby-keyword kw">end</span>
+165:                         <span class="ruby-identifier">i</span><span class="ruby-operator">+=</span><span class="ruby-value">1</span>
+166:                 <span class="ruby-keyword kw">end</span>
+167:                 <span class="ruby-identifier">s</span>[<span class="ruby-identifier">i</span>, <span class="ruby-identifier">s</span>.<span class="ruby-identifier">size</span><span class="ruby-operator">-</span><span class="ruby-value">1</span>]
+168:         <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000033"></a><b>unquote</b>(s)
+  </div>
+  <div class="description">
+  <p>
+removes initial quote
+</p>
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000033_source')" id="l_M000033_source">show source</a> ]</p>
+  <div id="M000033_source" class="dyn-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/maruku/string_utils.rb, line 149</span>
+149:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">unquote</span>(<span class="ruby-identifier">s</span>)
+150:                 <span class="ruby-identifier">s</span>.<span class="ruby-identifier">gsub</span>(<span class="ruby-regexp re">/^&gt;\s?/</span>,<span class="ruby-value str">''</span>)
+151:         <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+</div>
+
+  </div>
+
+    </body>
+</html>

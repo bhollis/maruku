@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>parse_email_headers (MaRuKu::Strings)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/maruku/string_utils.rb, line 47</span>
+        <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">parse_email_headers</span>(<span class="ruby-identifier">s</span>)
+                <span class="ruby-identifier">keys</span>={}
+                <span class="ruby-identifier">match</span> = (<span class="ruby-identifier">s</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp re">/((\w[\w\s]+: .*\n)+)\n/</span>)
+                <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">match</span> <span class="ruby-operator">!=</span> <span class="ruby-value">0</span>
+                        <span class="ruby-identifier">keys</span>[<span class="ruby-identifier">:data</span>] = <span class="ruby-identifier">s</span>
+                <span class="ruby-keyword kw">else</span>
+                        <span class="ruby-identifier">keys</span>[<span class="ruby-identifier">:data</span>] = <span class="ruby-identifier">$'</span>
+                        <span class="ruby-identifier">headers</span> = <span class="ruby-identifier">$1</span>
+                        <span class="ruby-identifier">headers</span>.<span class="ruby-identifier">split</span>(<span class="ruby-value str">&quot;\n&quot;</span>).<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">l</span><span class="ruby-operator">|</span> 
+                                <span class="ruby-identifier">k</span>, <span class="ruby-identifier">v</span> = <span class="ruby-identifier">l</span>.<span class="ruby-identifier">split</span>(<span class="ruby-value str">':'</span>)
+                                <span class="ruby-identifier">k</span>, <span class="ruby-identifier">v</span> = <span class="ruby-identifier">normalize_key_and_value</span>(<span class="ruby-identifier">k</span>, <span class="ruby-identifier">v</span>)
+                                <span class="ruby-identifier">k</span> = <span class="ruby-identifier">k</span>.<span class="ruby-identifier">to_sym</span>
+<span class="ruby-comment cmt">#                               puts &quot;K = #{k}, V=#{v}&quot;</span>
+                                <span class="ruby-identifier">keys</span>[<span class="ruby-identifier">k</span>] = <span class="ruby-identifier">v</span>
+                        <span class="ruby-keyword kw">end</span>
+                <span class="ruby-keyword kw">end</span>
+                <span class="ruby-identifier">keys</span>
+        <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

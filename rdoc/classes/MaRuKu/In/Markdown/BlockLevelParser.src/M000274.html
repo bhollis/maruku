@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>read_paragraph (MaRuKu::In::Markdown::BlockLevelParser)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/maruku/input/parse_block.rb, line 244</span>
+        <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">read_paragraph</span>(<span class="ruby-identifier">src</span>)
+                <span class="ruby-identifier">lines</span> = []
+                <span class="ruby-keyword kw">while</span> <span class="ruby-identifier">src</span>.<span class="ruby-identifier">cur_line</span> 
+                        <span class="ruby-comment cmt"># :olist does not break</span>
+                        <span class="ruby-keyword kw">case</span> <span class="ruby-identifier">t</span> = <span class="ruby-identifier">src</span>.<span class="ruby-identifier">cur_line</span>.<span class="ruby-identifier">md_type</span>
+                                <span class="ruby-keyword kw">when</span> <span class="ruby-identifier">:quote</span>,<span class="ruby-identifier">:header3</span>,<span class="ruby-identifier">:empty</span>,<span class="ruby-identifier">:raw_html</span>,<span class="ruby-identifier">:ref_definition</span>,<span class="ruby-identifier">:ial</span>,<span class="ruby-identifier">:xml_instr</span>
+                                        <span class="ruby-keyword kw">break</span>
+                                <span class="ruby-keyword kw">when</span> <span class="ruby-identifier">:olist</span>,<span class="ruby-identifier">:ulist</span>
+                                        <span class="ruby-keyword kw">break</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">src</span>.<span class="ruby-identifier">next_line</span>.<span class="ruby-identifier">md_type</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">t</span>
+                        <span class="ruby-keyword kw">end</span>
+                        <span class="ruby-keyword kw">break</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">src</span>.<span class="ruby-identifier">cur_line</span>.<span class="ruby-identifier">strip</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">==</span> <span class="ruby-value">0</span>                        
+                        <span class="ruby-keyword kw">break</span> <span class="ruby-keyword kw">if</span> [<span class="ruby-identifier">:header1</span>,<span class="ruby-identifier">:header2</span>].<span class="ruby-identifier">include?</span> <span class="ruby-identifier">src</span>.<span class="ruby-identifier">next_line</span>.<span class="ruby-identifier">md_type</span>
+                        <span class="ruby-keyword kw">break</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">any_matching_block_extension?</span>(<span class="ruby-identifier">src</span>.<span class="ruby-identifier">cur_line</span>)
+                        
+                        <span class="ruby-identifier">lines</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">src</span>.<span class="ruby-identifier">shift_line</span>
+                <span class="ruby-keyword kw">end</span>
+<span class="ruby-comment cmt">#               dbg_describe_ary(lines, 'PAR')</span>
+                <span class="ruby-identifier">children</span> = <span class="ruby-identifier">parse_lines_as_span</span>(<span class="ruby-identifier">lines</span>, <span class="ruby-identifier">src</span>)
+
+                <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">md_par</span>(<span class="ruby-identifier">children</span>)
+        <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

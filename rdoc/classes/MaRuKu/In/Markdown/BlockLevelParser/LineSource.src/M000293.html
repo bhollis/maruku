@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>describe (MaRuKu::In::Markdown::BlockLevelParser::LineSource)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../../../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/maruku/input/linesource.rb, line 55</span>
+        <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">describe</span>
+                <span class="ruby-comment cmt">#s = &quot;At line ##{@lines_index} of #{@lines.size}:\n&quot;</span>
+                <span class="ruby-identifier">s</span> = <span class="ruby-node">&quot;At line #{original_line_number(@lines_index)}\n&quot;</span>
+                
+                <span class="ruby-identifier">context</span> = <span class="ruby-value">3</span> <span class="ruby-comment cmt"># lines</span>
+                <span class="ruby-identifier">from</span> = [<span class="ruby-ivar">@lines_index</span><span class="ruby-operator">-</span><span class="ruby-identifier">context</span>, <span class="ruby-value">0</span>].<span class="ruby-identifier">max</span>
+                <span class="ruby-identifier">to</span>   = [<span class="ruby-ivar">@lines_index</span><span class="ruby-operator">+</span><span class="ruby-identifier">context</span>, <span class="ruby-ivar">@lines</span>.<span class="ruby-identifier">size</span><span class="ruby-operator">-</span><span class="ruby-value">1</span>].<span class="ruby-identifier">min</span>
+                
+                <span class="ruby-keyword kw">for</span> <span class="ruby-identifier">i</span> <span class="ruby-keyword kw">in</span> <span class="ruby-identifier">from</span><span class="ruby-operator">..</span><span class="ruby-identifier">to</span>
+                        <span class="ruby-identifier">prefix</span> = (<span class="ruby-identifier">i</span> <span class="ruby-operator">==</span> <span class="ruby-ivar">@lines_index</span>) <span class="ruby-operator">?</span> <span class="ruby-value str">'--&gt; '</span> <span class="ruby-operator">:</span> <span class="ruby-value str">'    '</span>;
+                        <span class="ruby-identifier">l</span> = <span class="ruby-ivar">@lines</span>[<span class="ruby-identifier">i</span>]
+                        <span class="ruby-identifier">s</span> <span class="ruby-operator">+=</span> <span class="ruby-node">&quot;%10s %4s|#{l}&quot;</span> <span class="ruby-operator">%</span>
+                                [<span class="ruby-ivar">@lines</span>[<span class="ruby-identifier">i</span>].<span class="ruby-identifier">md_type</span>.<span class="ruby-identifier">to_s</span>, <span class="ruby-identifier">prefix</span>]
+                                
+                        <span class="ruby-identifier">s</span> <span class="ruby-operator">+=</span> <span class="ruby-value str">&quot;|\n&quot;</span>
+                <span class="ruby-keyword kw">end</span>
+                
+<span class="ruby-comment cmt">#               if @parent </span>
+<span class="ruby-comment cmt">#                       s &lt;&lt; &quot;Parent context is: \n&quot;</span>
+<span class="ruby-comment cmt">#                       s &lt;&lt; add_tabs(@parent.describe,1,'|')</span>
+<span class="ruby-comment cmt">#               end</span>
+                <span class="ruby-identifier">s</span>
+        <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

@@ -1,0 +1,428 @@
+<?xml version='1.0' encoding='ISO-8859-1'?>
+<root>
+  <label>[root]</label>
+    <branch>
+        <label>bin</label>
+        <leaf><label>marudown</label><weight>29</weight><value>100.0</value></leaf>
+        <leaf><label>maruku</label><weight>122</weight><value>100.0</value></leaf>
+        <leaf><label>marutest</label><weight>322</weight><value>100.0</value></leaf>
+        <leaf><label>marutex</label><weight>31</weight><value>100.0</value></leaf>
+    </branch>
+
+    <branch>
+        <label>docs</label>
+        <leaf><label>Makefile</label><weight>58</weight><value>100.0</value></leaf>
+        <leaf><label>changelog.md</label><weight>113</weight><value>100.0</value></leaf>
+        <leaf><label>entity_test.md</label><weight>23</weight><value>100.0</value></leaf>
+        <leaf><label>markdown_syntax.md</label><weight>899</weight><value>100.0</value></leaf>
+        <leaf><label>maruku.html</label><weight>634</weight><value>100.0</value></leaf>
+        <leaf><label>maruku.md</label><weight>655</weight><value>100.0</value></leaf>
+        <leaf><label>math.css</label><weight>40</weight><value>100.0</value></leaf>
+        <leaf><label>math.md</label><weight>124</weight><value>100.0</value></leaf>
+        <leaf><label>proposal.md</label><weight>309</weight><value>100.0</value></leaf>
+        <leaf><label>style.css</label><weight>79</weight><value>100.0</value></leaf>
+    </branch>
+
+    <branch>
+        <label>lib</label>
+      <branch>
+          <label>maruku</label>
+        <branch>
+            <label>attic</label>
+            <leaf><label>parse_span.rb.txt</label><weight>462</weight><value>100.0</value></leaf>
+        </branch>
+
+        <branch>
+            <label>ext</label>
+          <branch>
+              <label>math</label>
+            <branch>
+                <label>mathml_engines</label>
+                <leaf><label>itex2mml.rb</label><weight>35</weight><value>100.0</value></leaf>
+                <leaf><label>none.rb</label><weight>20</weight><value>100.0</value></leaf>
+                <leaf><label>ritex.rb</label><weight>34</weight><value>100.0</value></leaf>
+            </branch>
+              <leaf><label>elements.rb</label><weight>26</weight><value>100.0</value></leaf>
+              <leaf><label>parsing.rb</label><weight>82</weight><value>100.0</value></leaf>
+              <leaf><label>to_html.rb</label><weight>107</weight><value>100.0</value></leaf>
+              <leaf><label>to_latex.rb</label><weight>21</weight><value>100.0</value></leaf>
+          </branch>
+            <leaf><label>math.rb</label><weight>10</weight><value>100.0</value></leaf>
+        </branch>
+
+        <branch>
+            <label>input</label>            <leaf><label>charsource.rb</label><weight>325</weight><value>100.0</value></leaf>
+            <leaf><label>extensions.rb</label><weight>68</weight><value>100.0</value></leaf>
+            <leaf><label>html_helper.rb</label><weight>144</weight><value>100.0</value></leaf>
+            <leaf><label>linesource.rb</label><weight>111</weight><value>100.0</value></leaf>
+            <leaf><label>parse_block.rb</label><weight>594</weight><value>100.0</value></leaf>
+            <leaf><label>parse_doc.rb</label><weight>225</weight><value>100.0</value></leaf>
+            <leaf><label>parse_span_better.rb</label><weight>692</weight><value>100.0</value></leaf>
+            <leaf><label>rubypants.rb</label><weight>225</weight><value>100.0</value></leaf>
+            <leaf><label>type_detection.rb</label><weight>141</weight><value>100.0</value></leaf>
+        </branch>
+
+        <branch>
+            <label>output</label>
+            <leaf><label>to_html.rb</label><weight>689</weight><value>100.0</value></leaf>
+            <leaf><label>to_latex.rb</label><weight>538</weight><value>100.0</value></leaf>
+            <leaf><label>to_latex_entities.rb</label><weight>367</weight><value>100.0</value></leaf>
+            <leaf><label>to_latex_strings.rb</label><weight>64</weight><value>100.0</value></leaf>
+            <leaf><label>to_markdown.rb</label><weight>164</weight><value>100.0</value></leaf>
+            <leaf><label>to_s.rb</label><weight>53</weight><value>100.0</value></leaf>
+        </branch>
+
+        <branch>
+            <label>tests</label>
+            <leaf><label>benchmark.rb</label><weight>82</weight><value>100.0</value></leaf>
+            <leaf><label>new_parser.rb</label><weight>359</weight><value>100.0</value></leaf>
+            <leaf><label>tests.rb</label><weight>136</weight><value>100.0</value></leaf>
+        </branch>
+
+        <branch>
+            <label>usage</label>
+            <leaf><label>example1.rb</label><weight>33</weight><value>100.0</value></leaf>
+        </branch>
+          <leaf><label>attributes.rb</label><weight>218</weight><value>100.0</value></leaf>
+          <leaf><label>defaults.rb</label><weight>52</weight><value>100.0</value></leaf>
+          <leaf><label>errors_management.rb</label><weight>92</weight><value>100.0</value></leaf>
+          <leaf><label>helpers.rb</label><weight>259</weight><value>100.0</value></leaf>
+          <leaf><label>maruku.rb</label><weight>33</weight><value>100.0</value></leaf>
+          <leaf><label>string_utils.rb</label><weight>184</weight><value>100.0</value></leaf>
+          <leaf><label>structures.rb</label><weight>165</weight><value>100.0</value></leaf>
+          <leaf><label>structures_inspect.rb</label><weight>87</weight><value>100.0</value></leaf>
+          <leaf><label>structures_iterators.rb</label><weight>61</weight><value>100.0</value></leaf>
+          <leaf><label>toc.rb</label><weight>199</weight><value>100.0</value></leaf>
+          <leaf><label>version.rb</label><weight>38</weight><value>100.0</value></leaf>
+      </branch>
+        <leaf><label>maruku.rb</label><weight>133</weight><value>100.0</value></leaf>
+    </branch>
+
+    <branch>
+        <label>miscs</label>
+        <leaf><label>bug.rb</label><weight>3</weight><value>100.0</value></leaf>
+        <leaf><label>test.rb</label><weight>29</weight><value>100.0</value></leaf>
+    </branch>
+
+    <branch>
+        <label>rdoc</label>
+        <leaf><label>main.rdoc</label><weight>70</weight><value>100.0</value></leaf>
+    </branch>
+
+    <branch>
+        <label>tests</label>
+      <branch>
+          <label>MarkdownTest_1.0</label>
+        <branch>
+            <label>Tests</label>
+            <leaf><label>Amps and angle encoding.html</label><weight>38</weight><value>100.0</value></leaf>
+            <leaf><label>Amps and angle encoding.html.dist</label><weight>17</weight><value>100.0</value></leaf>
+            <leaf><label>Amps and angle encoding.text</label><weight>23</weight><value>100.0</value></leaf>
+            <leaf><label>Auto links.html</label><weight>36</weight><value>100.0</value></leaf>
+            <leaf><label>Auto links.html.dist</label><weight>18</weight><value>100.0</value></leaf>
+            <leaf><label>Auto links.text</label><weight>13</weight><value>100.0</value></leaf>
+            <leaf><label>Backslash escapes.html</label><weight>122</weight><value>100.0</value></leaf>
+            <leaf><label>Backslash escapes.html.dist</label><weight>102</weight><value>100.0</value></leaf>
+            <leaf><label>Backslash escapes.text</label><weight>104</weight><value>100.0</value></leaf>
+            <leaf><label>Blockquotes with code blocks.html</label><weight>33</weight><value>100.0</value></leaf>
+            <leaf><label>Blockquotes with code blocks.html.dist</label><weight>15</weight><value>100.0</value></leaf>
+            <leaf><label>Blockquotes with code blocks.text</label><weight>11</weight><value>100.0</value></leaf>
+            <leaf><label>Hard-wrapped paragraphs with list-like lines.html</label><weight>22</weight><value>100.0</value></leaf>
+            <leaf><label>Hard-wrapped paragraphs with list-like lines.html.dist</label><weight>8</weight><value>100.0</value></leaf>
+            <leaf><label>Hard-wrapped paragraphs with list-like lines.text</label><weight>8</weight><value>100.0</value></leaf>
+            <leaf><label>Horizontal rules.html</label><weight>91</weight><value>100.0</value></leaf>
+            <leaf><label>Horizontal rules.html.dist</label><weight>71</weight><value>100.0</value></leaf>
+            <leaf><label>Horizontal rules.text</label><weight>67</weight><value>100.0</value></leaf>
+            <leaf><label>Inline HTML (Advanced).html</label><weight>39</weight><value>100.0</value></leaf>
+            <leaf><label>Inline HTML (Advanced).html.dist</label><weight>14</weight><value>100.0</value></leaf>
+            <leaf><label>Inline HTML (Advanced).text</label><weight>14</weight><value>100.0</value></leaf>
+            <leaf><label>Inline HTML (Simple).html</label><weight>88</weight><value>100.0</value></leaf>
+            <leaf><label>Inline HTML (Simple).html.dist</label><weight>72</weight><value>100.0</value></leaf>
+            <leaf><label>Inline HTML (Simple).text</label><weight>69</weight><value>100.0</value></leaf>
+            <leaf><label>Inline HTML comments.html</label><weight>26</weight><value>100.0</value></leaf>
+            <leaf><label>Inline HTML comments.html.dist</label><weight>13</weight><value>100.0</value></leaf>
+            <leaf><label>Inline HTML comments.text</label><weight>13</weight><value>100.0</value></leaf>
+            <leaf><label>Links, inline style.html</label><weight>28</weight><value>100.0</value></leaf>
+            <leaf><label>Links, inline style.html.dist</label><weight>9</weight><value>100.0</value></leaf>
+            <leaf><label>Links, inline style.text</label><weight>9</weight><value>100.0</value></leaf>
+            <leaf><label>Links, reference style.html</label><weight>38</weight><value>100.0</value></leaf>
+            <leaf><label>Links, reference style.html.dist</label><weight>18</weight><value>100.0</value></leaf>
+            <leaf><label>Links, reference style.text</label><weight>31</weight><value>100.0</value></leaf>
+            <leaf><label>Literal quotes in titles.html</label><weight>22</weight><value>100.0</value></leaf>
+            <leaf><label>Literal quotes in titles.html.dist</label><weight>3</weight><value>100.0</value></leaf>
+            <leaf><label>Literal quotes in titles.text</label><weight>7</weight><value>100.0</value></leaf>
+            <leaf><label>Markdown Documentation - Basics.html</label><weight>322</weight><value>100.0</value></leaf>
+            <leaf><label>Markdown Documentation - Basics.html.dist</label><weight>314</weight><value>100.0</value></leaf>
+            <leaf><label>Markdown Documentation - Basics.text</label><weight>306</weight><value>100.0</value></leaf>
+            <leaf><label>Markdown Documentation - Syntax.html</label><weight>840</weight><value>100.0</value></leaf>
+            <leaf><label>Markdown Documentation - Syntax.html.dist</label><weight>942</weight><value>100.0</value></leaf>
+            <leaf><label>Markdown Documentation - Syntax.text</label><weight>888</weight><value>100.0</value></leaf>
+            <leaf><label>Nested blockquotes.html</label><weight>28</weight><value>100.0</value></leaf>
+            <leaf><label>Nested blockquotes.html.dist</label><weight>9</weight><value>100.0</value></leaf>
+            <leaf><label>Nested blockquotes.text</label><weight>5</weight><value>100.0</value></leaf>
+            <leaf><label>Ordered and unordered lists.html</label><weight>228</weight><value>100.0</value></leaf>
+            <leaf><label>Ordered and unordered lists.html.dist</label><weight>137</weight><value>100.0</value></leaf>
+            <leaf><label>Ordered and unordered lists.text</label><weight>122</weight><value>100.0</value></leaf>
+            <leaf><label>Strong and em together.html</label><weight>26</weight><value>100.0</value></leaf>
+            <leaf><label>Strong and em together.html.dist</label><weight>7</weight><value>100.0</value></leaf>
+            <leaf><label>Strong and em together.text</label><weight>7</weight><value>100.0</value></leaf>
+            <leaf><label>Tabs.html</label><weight>46</weight><value>100.0</value></leaf>
+            <leaf><label>Tabs.html.dist</label><weight>25</weight><value>100.0</value></leaf>
+            <leaf><label>Tabs.text</label><weight>21</weight><value>100.0</value></leaf>
+            <leaf><label>Tidyness.html</label><weight>30</weight><value>100.0</value></leaf>
+            <leaf><label>Tidyness.html.dist</label><weight>8</weight><value>100.0</value></leaf>
+            <leaf><label>Tidyness.text</label><weight>5</weight><value>100.0</value></leaf>
+        </branch>
+          <leaf><label>MarkdownTest.pl</label><weight>157</weight><value>100.0</value></leaf>
+      </branch>
+
+      <branch>
+          <label>bugs</label>
+          <leaf><label>code_in_links.md</label><weight>16</weight><value>100.0</value></leaf>
+          <leaf><label>complex_escaping.md</label><weight>4</weight><value>100.0</value></leaf>
+      </branch>
+
+      <branch>
+          <label>math</label>
+          <leaf><label>math.css</label><weight>40</weight><value>100.0</value></leaf>
+          <leaf><label>preamble.tex</label><weight>2</weight><value>100.0</value></leaf>
+          <leaf><label>run.sh</label><weight>7</weight><value>100.0</value></leaf>
+          <leaf><label>syntax.md</label><weight>46</weight><value>100.0</value></leaf>
+          <leaf><label>syntax.xhtml</label><weight>37</weight><value>100.0</value></leaf>
+          <leaf><label>use_itex.rb</label><weight>34</weight><value>100.0</value></leaf>
+      </branch>
+
+      <branch>
+          <label>others</label>
+          <leaf><label>Backslash escapes.text</label><weight>106</weight><value>100.0</value></leaf>
+          <leaf><label>abbreviations.html</label><weight>16</weight><value>100.0</value></leaf>
+          <leaf><label>abbreviations.md</label><weight>11</weight><value>100.0</value></leaf>
+          <leaf><label>blank.html</label><weight>16</weight><value>100.0</value></leaf>
+          <leaf><label>blank.md</label><weight>4</weight><value>100.0</value></leaf>
+          <leaf><label>code.html</label><weight>18</weight><value>100.0</value></leaf>
+          <leaf><label>code.md</label><weight>5</weight><value>100.0</value></leaf>
+          <leaf><label>code2.html</label><weight>26</weight><value>100.0</value></leaf>
+          <leaf><label>code2.md</label><weight>8</weight><value>100.0</value></leaf>
+          <leaf><label>code3.html</label><weight>29</weight><value>100.0</value></leaf>
+          <leaf><label>code3.md</label><weight>16</weight><value>100.0</value></leaf>
+          <leaf><label>email.html</label><weight>14</weight><value>100.0</value></leaf>
+          <leaf><label>email.md</label><weight>4</weight><value>100.0</value></leaf>
+          <leaf><label>entities.html</label><weight>59</weight><value>100.0</value></leaf>
+          <leaf><label>entities.md</label><weight>19</weight><value>100.0</value></leaf>
+          <leaf><label>escaping.html</label><weight>26</weight><value>100.0</value></leaf>
+          <leaf><label>escaping.md</label><weight>16</weight><value>100.0</value></leaf>
+          <leaf><label>extra_dl.html</label><weight>157</weight><value>100.0</value></leaf>
+          <leaf><label>extra_dl.md</label><weight>101</weight><value>100.0</value></leaf>
+          <leaf><label>extra_header_id.html</label><weight>22</weight><value>100.0</value></leaf>
+          <leaf><label>extra_header_id.md</label><weight>13</weight><value>100.0</value></leaf>
+          <leaf><label>extra_table1.html</label><weight>114</weight><value>100.0</value></leaf>
+          <leaf><label>extra_table1.md</label><weight>40</weight><value>100.0</value></leaf>
+          <leaf><label>footnotes.html</label><weight>38</weight><value>100.0</value></leaf>
+          <leaf><label>footnotes.md</label><weight>17</weight><value>100.0</value></leaf>
+          <leaf><label>headers.html</label><weight>18</weight><value>100.0</value></leaf>
+          <leaf><label>headers.md</label><weight>10</weight><value>100.0</value></leaf>
+          <leaf><label>hrule.html</label><weight>22</weight><value>100.0</value></leaf>
+          <leaf><label>hrule.md</label><weight>10</weight><value>100.0</value></leaf>
+          <leaf><label>images.html</label><weight>22</weight><value>100.0</value></leaf>
+          <leaf><label>images.md</label><weight>20</weight><value>100.0</value></leaf>
+          <leaf><label>inline_html.html</label><weight>54</weight><value>100.0</value></leaf>
+          <leaf><label>inline_html.md</label><weight>42</weight><value>100.0</value></leaf>
+          <leaf><label>links.html</label><weight>34</weight><value>100.0</value></leaf>
+          <leaf><label>links.md</label><weight>38</weight><value>100.0</value></leaf>
+          <leaf><label>list1.html</label><weight>22</weight><value>100.0</value></leaf>
+          <leaf><label>list1.md</label><weight>4</weight><value>100.0</value></leaf>
+          <leaf><label>list2.html</label><weight>20</weight><value>100.0</value></leaf>
+          <leaf><label>list2.md</label><weight>5</weight><value>100.0</value></leaf>
+          <leaf><label>list3.html</label><weight>28</weight><value>100.0</value></leaf>
+          <leaf><label>list3.md</label><weight>8</weight><value>100.0</value></leaf>
+          <leaf><label>lists.html</label><weight>52</weight><value>100.0</value></leaf>
+          <leaf><label>lists.md</label><weight>32</weight><value>100.0</value></leaf>
+          <leaf><label>lists_after_paragraph.html</label><weight>54</weight><value>100.0</value></leaf>
+          <leaf><label>lists_after_paragraph.markdown-pl</label><weight>23</weight><value>100.0</value></leaf>
+          <leaf><label>lists_after_paragraph.md</label><weight>44</weight><value>100.0</value></leaf>
+          <leaf><label>lists_ol.html</label><weight>60</weight><value>100.0</value></leaf>
+          <leaf><label>lists_ol.md</label><weight>39</weight><value>100.0</value></leaf>
+          <leaf><label>misc_sw.html</label><weight>92</weight><value>100.0</value></leaf>
+          <leaf><label>misc_sw.md</label><weight>105</weight><value>100.0</value></leaf>
+          <leaf><label>one.html</label><weight>14</weight><value>100.0</value></leaf>
+          <leaf><label>one.md</label><weight>1</weight><value>100.0</value></leaf>
+          <leaf><label>paragraphs.html</label><weight>21</weight><value>100.0</value></leaf>
+          <leaf><label>paragraphs.md</label><weight>13</weight><value>100.0</value></leaf>
+          <leaf><label>sss06.html</label><weight>227</weight><value>100.0</value></leaf>
+          <leaf><label>sss06.md</label><weight>352</weight><value>100.0</value></leaf>
+          <leaf><label>style.css</label><weight>27</weight><value>100.0</value></leaf>
+          <leaf><label>test.html</label><weight>24</weight><value>100.0</value></leaf>
+          <leaf><label>test.md</label><weight>4</weight><value>100.0</value></leaf>
+      </branch>
+
+      <branch>
+          <label>unittest</label>
+        <branch>
+            <label>attributes</label>
+            <leaf><label>att2.html</label><weight>5</weight><value>100.0</value></leaf>
+            <leaf><label>att2.md</label><weight>36</weight><value>100.0</value></leaf>
+            <leaf><label>att3.html</label><weight>9</weight><value>100.0</value></leaf>
+            <leaf><label>att3.md</label><weight>55</weight><value>100.0</value></leaf>
+            <leaf><label>attributes.html</label><weight>15</weight><value>100.0</value></leaf>
+            <leaf><label>attributes.md</label><weight>94</weight><value>100.0</value></leaf>
+            <leaf><label>circular.html</label><weight>7</weight><value>100.0</value></leaf>
+            <leaf><label>circular.md</label><weight>51</weight><value>100.0</value></leaf>
+            <leaf><label>default.html</label><weight>7</weight><value>100.0</value></leaf>
+            <leaf><label>default.md</label><weight>47</weight><value>100.0</value></leaf>
+        </branch>
+
+        <branch>
+            <label>encoding</label>
+            <leaf><label>iso-8859-1.html</label><weight>7</weight><value>100.0</value></leaf>
+            <leaf><label>iso-8859-1.md</label><weight>46</weight><value>100.0</value></leaf>
+            <leaf><label>utf-8.html</label><weight>7</weight><value>100.0</value></leaf>
+            <leaf><label>utf-8.md</label><weight>39</weight><value>100.0</value></leaf>
+        </branch>
+
+        <branch>
+            <label>math</label>
+            <leaf><label>equations.html</label><weight>5</weight><value>100.0</value></leaf>
+            <leaf><label>equations.md</label><weight>72</weight><value>100.0</value></leaf>
+            <leaf><label>inline.html</label><weight>19</weight><value>100.0</value></leaf>
+            <leaf><label>inline.md</label><weight>210</weight><value>100.0</value></leaf>
+            <leaf><label>table.html</label><weight>5</weight><value>100.0</value></leaf>
+            <leaf><label>table.md</label><weight>51</weight><value>100.0</value></leaf>
+            <leaf><label>table2.html</label><weight>7</weight><value>100.0</value></leaf>
+            <leaf><label>table2.md</label><weight>99</weight><value>100.0</value></leaf>
+        </branch>
+
+        <branch>
+            <label>notyet</label>
+            <leaf><label>escape.html</label><weight>9</weight><value>100.0</value></leaf>
+            <leaf><label>escape.md</label><weight>46</weight><value>100.0</value></leaf>
+            <leaf><label>header_after_par.html</label><weight>17</weight><value>100.0</value></leaf>
+            <leaf><label>header_after_par.md</label><weight>91</weight><value>100.0</value></leaf>
+            <leaf><label>ticks.html</label><weight>7</weight><value>100.0</value></leaf>
+            <leaf><label>ticks.md</label><weight>40</weight><value>100.0</value></leaf>
+            <leaf><label>triggering.html</label><weight>35</weight><value>100.0</value></leaf>
+            <leaf><label>triggering.md</label><weight>237</weight><value>100.0</value></leaf>
+        </branch>
+
+        <branch>
+            <label>paragraph_rules</label>
+            <leaf><label>dont_merge_ref.html</label><weight>11</weight><value>100.0</value></leaf>
+            <leaf><label>dont_merge_ref.md</label><weight>66</weight><value>100.0</value></leaf>
+            <leaf><label>tab_is_blank.html</label><weight>9</weight><value>100.0</value></leaf>
+            <leaf><label>tab_is_blank.md</label><weight>47</weight><value>100.0</value></leaf>
+        </branch>
+
+        <branch>
+            <label>recover</label>
+            <leaf><label>recover_links.html</label><weight>7</weight><value>100.0</value></leaf>
+            <leaf><label>recover_links.md</label><weight>33</weight><value>100.0</value></leaf>
+        </branch>
+
+        <branch>
+            <label>references</label>
+            <leaf><label>long_example.html</label><weight>9</weight><value>100.0</value></leaf>
+            <leaf><label>long_example.md</label><weight>104</weight><value>100.0</value></leaf>
+            <leaf><label>spaces_and_numbers.html</label><weight>5</weight><value>100.0</value></leaf>
+            <leaf><label>spaces_and_numbers.md</label><weight>27</weight><value>100.0</value></leaf>
+        </branch>
+          <leaf><label>abbreviations.html</label><weight>9</weight><value>100.0</value></leaf>
+          <leaf><label>abbreviations.md</label><weight>82</weight><value>100.0</value></leaf>
+          <leaf><label>blank.html</label><weight>9</weight><value>100.0</value></leaf>
+          <leaf><label>blank.md</label><weight>47</weight><value>100.0</value></leaf>
+          <leaf><label>blanks_in_code.html</label><weight>19</weight><value>100.0</value></leaf>
+          <leaf><label>blanks_in_code.md</label><weight>131</weight><value>100.0</value></leaf>
+          <leaf><label>code.html</label><weight>10</weight><value>100.0</value></leaf>
+          <leaf><label>code.md</label><weight>64</weight><value>100.0</value></leaf>
+          <leaf><label>code2.html</label><weight>9</weight><value>100.0</value></leaf>
+          <leaf><label>code2.md</label><weight>59</weight><value>100.0</value></leaf>
+          <leaf><label>code3.html</label><weight>14</weight><value>100.0</value></leaf>
+          <leaf><label>code3.md</label><weight>121</weight><value>100.0</value></leaf>
+          <leaf><label>easy.html</label><weight>7</weight><value>100.0</value></leaf>
+          <leaf><label>easy.md</label><weight>38</weight><value>100.0</value></leaf>
+          <leaf><label>email.html</label><weight>7</weight><value>100.0</value></leaf>
+          <leaf><label>email.md</label><weight>41</weight><value>100.0</value></leaf>
+          <leaf><label>entities.html</label><weight>14</weight><value>100.0</value></leaf>
+          <leaf><label>entities.md</label><weight>146</weight><value>100.0</value></leaf>
+          <leaf><label>escaping.html</label><weight>15</weight><value>100.0</value></leaf>
+          <leaf><label>escaping.md</label><weight>109</weight><value>100.0</value></leaf>
+          <leaf><label>extra_dl.html</label><weight>15</weight><value>100.0</value></leaf>
+          <leaf><label>extra_dl.md</label><weight>81</weight><value>100.0</value></leaf>
+          <leaf><label>extra_header_id.html</label><weight>15</weight><value>100.0</value></leaf>
+          <leaf><label>extra_header_id.md</label><weight>103</weight><value>100.0</value></leaf>
+          <leaf><label>extra_table1.html</label><weight>5</weight><value>100.0</value></leaf>
+          <leaf><label>extra_table1.md</label><weight>60</weight><value>100.0</value></leaf>
+          <leaf><label>footnotes.html</label><weight>29</weight><value>100.0</value></leaf>
+          <leaf><label>footnotes.md</label><weight>146</weight><value>100.0</value></leaf>
+          <leaf><label>headers.html</label><weight>11</weight><value>100.0</value></leaf>
+          <leaf><label>headers.md</label><weight>64</weight><value>100.0</value></leaf>
+          <leaf><label>hrule.html</label><weight>5</weight><value>100.0</value></leaf>
+          <leaf><label>hrule.md</label><weight>67</weight><value>100.0</value></leaf>
+          <leaf><label>images.html</label><weight>15</weight><value>100.0</value></leaf>
+          <leaf><label>images.md</label><weight>131</weight><value>100.0</value></leaf>
+          <leaf><label>inline_html.html</label><weight>26</weight><value>100.0</value></leaf>
+          <leaf><label>inline_html.md</label><weight>257</weight><value>100.0</value></leaf>
+          <leaf><label>inline_html2.html</label><weight>5</weight><value>100.0</value></leaf>
+          <leaf><label>inline_html2.md</label><weight>38</weight><value>100.0</value></leaf>
+          <leaf><label>links.html</label><weight>25</weight><value>100.0</value></leaf>
+          <leaf><label>links.md</label><weight>183</weight><value>100.0</value></leaf>
+          <leaf><label>list1.html</label><weight>15</weight><value>100.0</value></leaf>
+          <leaf><label>list1.md</label><weight>84</weight><value>100.0</value></leaf>
+          <leaf><label>list2.html</label><weight>17</weight><value>100.0</value></leaf>
+          <leaf><label>list2.md</label><weight>96</weight><value>100.0</value></leaf>
+          <leaf><label>list3.html</label><weight>19</weight><value>100.0</value></leaf>
+          <leaf><label>list3.md</label><weight>114</weight><value>100.0</value></leaf>
+          <leaf><label>list4.html</label><weight>25</weight><value>100.0</value></leaf>
+          <leaf><label>list4.md</label><weight>134</weight><value>100.0</value></leaf>
+          <leaf><label>lists.html</label><weight>45</weight><value>100.0</value></leaf>
+          <leaf><label>lists.md</label><weight>299</weight><value>100.0</value></leaf>
+          <leaf><label>lists6.html</label><weight>5</weight><value>100.0</value></leaf>
+          <leaf><label>lists6.md</label><weight>53</weight><value>100.0</value></leaf>
+          <leaf><label>lists7.html</label><weight>5</weight><value>100.0</value></leaf>
+          <leaf><label>lists7.md</label><weight>31</weight><value>100.0</value></leaf>
+          <leaf><label>lists_after_paragraph.html</label><weight>43</weight><value>100.0</value></leaf>
+          <leaf><label>lists_after_paragraph.md</label><weight>314</weight><value>100.0</value></leaf>
+          <leaf><label>lists_ol.html</label><weight>67</weight><value>100.0</value></leaf>
+          <leaf><label>lists_ol.md</label><weight>404</weight><value>100.0</value></leaf>
+          <leaf><label>misc_sw.html</label><weight>83</weight><value>100.0</value></leaf>
+          <leaf><label>misc_sw.md</label><weight>807</weight><value>100.0</value></leaf>
+          <leaf><label>olist.html</label><weight>15</weight><value>100.0</value></leaf>
+          <leaf><label>olist.md</label><weight>78</weight><value>100.0</value></leaf>
+          <leaf><label>one.html</label><weight>7</weight><value>100.0</value></leaf>
+          <leaf><label>one.md</label><weight>35</weight><value>100.0</value></leaf>
+          <leaf><label>paragraph.html</label><weight>7</weight><value>100.0</value></leaf>
+          <leaf><label>paragraph.md</label><weight>36</weight><value>100.0</value></leaf>
+          <leaf><label>paragraphs.html</label><weight>11</weight><value>100.0</value></leaf>
+          <leaf><label>paragraphs.md</label><weight>79</weight><value>100.0</value></leaf>
+          <leaf><label>smartypants.html</label><weight>15</weight><value>100.0</value></leaf>
+          <leaf><label>smartypants.md</label><weight>148</weight><value>100.0</value></leaf>
+          <leaf><label>syntax_hl.html</label><weight>12</weight><value>100.0</value></leaf>
+          <leaf><label>syntax_hl.md</label><weight>99</weight><value>100.0</value></leaf>
+          <leaf><label>test.html</label><weight>5</weight><value>100.0</value></leaf>
+          <leaf><label>test.md</label><weight>34</weight><value>100.0</value></leaf>
+          <leaf><label>wrapping.html</label><weight>13</weight><value>100.0</value></leaf>
+          <leaf><label>wrapping.md</label><weight>105</weight><value>100.0</value></leaf>
+          <leaf><label>xml_instruction.html</label><weight>9</weight><value>100.0</value></leaf>
+          <leaf><label>xml_instruction.md</label><weight>81</weight><value>100.0</value></leaf>
+      </branch>
+
+      <branch>
+          <label>utf8-files</label>
+          <leaf><label>TeX.html</label><weight>229</weight><value>100.0</value></leaf>
+          <leaf><label>TeX.tex</label><weight>219</weight><value>100.0</value></leaf>
+          <leaf><label>TeX.txt</label><weight>210</weight><value>100.0</value></leaf>
+          <leaf><label>simple.tex</label><weight>18</weight><value>100.0</value></leaf>
+          <leaf><label>ucs.sty</label><weight>749</weight><value>100.0</value></leaf>
+      </branch>
+        <leaf><label>Makefile</label><weight>5</weight><value>100.0</value></leaf>
+        <leaf><label>convert_all.sh</label><weight>6</weight><value>100.0</value></leaf>
+    </branch>
+
+  <branch>
+      <label>[root]</label>
+      <leaf><label>AUTHORS</label><weight>10</weight><value>100.0</value></leaf>
+      <leaf><label>LICENSE</label><weight>340</weight><value>100.0</value></leaf>
+      <leaf><label>Rakefile</label><weight>58</weight><value>100.0</value></leaf>
+      <leaf><label>maruku_gem.rb</label><weight>33</weight><value>100.0</value></leaf>
+      <leaf><label>unit_test_block.sh</label><weight>5</weight><value>100.0</value></leaf>
+      <leaf><label>unit_test_span.sh</label><weight>2</weight><value>100.0</value></leaf>
+  </branch>
+</root>

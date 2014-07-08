@@ -1,0 +1,635 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <head>
+    <title>Module: MaRuKu::Helpers</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+    <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+
+    <script language="JavaScript" type="text/javascript">
+    // <![CDATA[
+
+        function toggleSource( id )
+        {
+          var elem
+          var link
+
+          if( document.getElementById )
+          {
+            elem = document.getElementById( id )
+            link = document.getElementById( "l_" + id )
+          }
+          else if ( document.all )
+          {
+            elem = eval( "document.all." + id )
+            link = eval( "document.all.l_" + id )
+          }
+          else
+            return false;
+
+          if( elem.style.display == "block" )
+          {
+            elem.style.display = "none"
+            link.innerHTML = "show source"
+          }
+          else
+          {
+            elem.style.display = "block"
+            link.innerHTML = "hide source"
+          }
+        }
+
+        function openCode( url )
+        {
+          window.open( url, "SOURCE_CODE", "width=400,height=400,scrollbars=yes" )
+        }
+      // ]]>
+    </script>
+  </head>
+
+  <body>
+  <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'><tr>
+  <td class="file-title"><span class="file-title-prefix">Module</span><br />MaRuKu::Helpers</td>
+  <td align="right">
+    <table cellspacing=0 cellpadding=2>
+      <tr valign="top">
+        <td>In:</td>
+        <td>
+<a href="../../files/lib/maruku_rb.html">lib/maruku.rb</a>
+<a href="../../files/lib/maruku/helpers_rb.html">lib/maruku/helpers.rb</a>
+        </td>
+      </tr>
+         </table>
+        </td>
+        </tr>
+      </table>
+ <!-- banner header -->
+
+  <div id="bodyContent">
+      <div id="content">
+
+
+
+
+  <div class="sectiontitle">Methods</div>
+  <ul>
+  <li><a href="#M000142">md_abbr</a></li>
+  <li><a href="#M000141">md_abbr_def</a></li>
+  <li><a href="#M000160">md_ald</a></li>
+  <li><a href="#M000149">md_br</a></li>
+  <li><a href="#M000136">md_code</a></li>
+  <li><a href="#M000137">md_codeblock</a></li>
+  <li><a href="#M000134">md_el</a></li>
+  <li><a href="#M000148">md_em</a></li>
+  <li><a href="#M000154">md_email</a></li>
+  <li><a href="#M000152">md_emstrong</a></li>
+  <li><a href="#M000155">md_entity</a></li>
+  <li><a href="#M000156">md_foot_ref</a></li>
+  <li><a href="#M000140">md_footnote</a></li>
+  <li><a href="#M000135">md_header</a></li>
+  <li><a href="#M000150">md_hrule</a></li>
+  <li><a href="#M000143">md_html</a></li>
+  <li><a href="#M000159">md_ial</a></li>
+  <li><a href="#M000147">md_im_image</a></li>
+  <li><a href="#M000145">md_im_link</a></li>
+  <li><a href="#M000146">md_image</a></li>
+  <li><a href="#M000139">md_li</a></li>
+  <li><a href="#M000144">md_link</a></li>
+  <li><a href="#M000157">md_par</a></li>
+  <li><a href="#M000138">md_quote</a></li>
+  <li><a href="#M000158">md_ref_def</a></li>
+  <li><a href="#M000161">md_server</a></li>
+  <li><a href="#M000151">md_strong</a></li>
+  <li><a href="#M000153">md_url</a></li>
+  </ul>
+
+
+
+
+
+
+<div class="sectiontitle">Public Instance methods</div>
+<div class="method">
+  <div class="title">
+    <a name="M000142"></a><b>md_abbr</b>(abbr, title)
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000142_source')" id="l_M000142_source">show source</a> ]</p>
+  <div id="M000142_source" class="dyn-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/maruku/helpers.rb, line 69</span>
+69:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">md_abbr</span>(<span class="ruby-identifier">abbr</span>, <span class="ruby-identifier">title</span>)
+70:                 <span class="ruby-identifier">md_el</span>(<span class="ruby-identifier">:abbr</span>, [<span class="ruby-identifier">abbr</span>], {<span class="ruby-identifier">:title=</span><span class="ruby-operator">&gt;</span><span class="ruby-identifier">title</span>})
+71:         <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000141"></a><b>md_abbr_def</b>(abbr, text, al=nil)
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000141_source')" id="l_M000141_source">show source</a> ]</p>
+  <div id="M000141_source" class="dyn-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/maruku/helpers.rb, line 65</span>
+65:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">md_abbr_def</span>(<span class="ruby-identifier">abbr</span>, <span class="ruby-identifier">text</span>, <span class="ruby-identifier">al</span>=<span class="ruby-keyword kw">nil</span>)
+66:                 <span class="ruby-identifier">md_el</span>(<span class="ruby-identifier">:abbr_def</span>, [], {<span class="ruby-identifier">:abbr=</span><span class="ruby-operator">&gt;</span><span class="ruby-identifier">abbr</span>, <span class="ruby-identifier">:text=</span><span class="ruby-operator">&gt;</span><span class="ruby-identifier">text</span>}, <span class="ruby-identifier">al</span>)
+67:         <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000160"></a><b>md_ald</b>(id, al)
+  </div>
+  <div class="description">
+  <p>
+Attribute list definition
+</p>
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000160_source')" id="l_M000160_source">show source</a> ]</p>
+  <div id="M000160_source" class="dyn-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/maruku/helpers.rb, line 168</span>
+168:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">md_ald</span>(<span class="ruby-identifier">id</span>, <span class="ruby-identifier">al</span>)
+169:                 <span class="ruby-identifier">md_el</span>(<span class="ruby-identifier">:ald</span>, [], {<span class="ruby-identifier">:ald_id=</span><span class="ruby-operator">&gt;</span><span class="ruby-identifier">id</span>,<span class="ruby-identifier">:ald=</span><span class="ruby-operator">&gt;</span><span class="ruby-identifier">al</span>})
+170:         <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000149"></a><b>md_br</b>()
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000149_source')" id="l_M000149_source">show source</a> ]</p>
+  <div id="M000149_source" class="dyn-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/maruku/helpers.rb, line 112</span>
+112:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">md_br</span>()
+113:                 <span class="ruby-identifier">md_el</span>(<span class="ruby-identifier">:linebreak</span>, [], {}, <span class="ruby-keyword kw">nil</span>)
+114:         <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000136"></a><b>md_code</b>(code, al=nil)
+  </div>
+  <div class="description">
+  <p>
+Inline code
+</p>
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000136_source')" id="l_M000136_source">show source</a> ]</p>
+  <div id="M000136_source" class="dyn-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/maruku/helpers.rb, line 44</span>
+44:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">md_code</span>(<span class="ruby-identifier">code</span>, <span class="ruby-identifier">al</span>=<span class="ruby-keyword kw">nil</span>)
+45:                 <span class="ruby-identifier">md_el</span>(<span class="ruby-identifier">:inline_code</span>, [], {<span class="ruby-identifier">:raw_code</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">code</span>}, <span class="ruby-identifier">al</span>)
+46:         <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000137"></a><b>md_codeblock</b>(source, al=nil)
+  </div>
+  <div class="description">
+  <p>
+Code block
+</p>
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000137_source')" id="l_M000137_source">show source</a> ]</p>
+  <div id="M000137_source" class="dyn-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/maruku/helpers.rb, line 49</span>
+49:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">md_codeblock</span>(<span class="ruby-identifier">source</span>, <span class="ruby-identifier">al</span>=<span class="ruby-keyword kw">nil</span>)
+50:                 <span class="ruby-identifier">md_el</span>(<span class="ruby-identifier">:code</span>, [], {<span class="ruby-identifier">:raw_code</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">source</span>}, <span class="ruby-identifier">al</span>)
+51:         <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000134"></a><b>md_el</b>(node_type, children=[], meta={}, al=nil)
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000134_source')" id="l_M000134_source">show source</a> ]</p>
+  <div id="M000134_source" class="dyn-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/maruku/helpers.rb, line 33</span>
+33:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">md_el</span>(<span class="ruby-identifier">node_type</span>, <span class="ruby-identifier">children</span>=[], <span class="ruby-identifier">meta</span>={}, <span class="ruby-identifier">al</span>=<span class="ruby-keyword kw">nil</span>)
+34:                 <span class="ruby-identifier">e</span> = <span class="ruby-constant">MDElement</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">node_type</span>, <span class="ruby-identifier">children</span>, <span class="ruby-identifier">meta</span>, <span class="ruby-identifier">al</span>)
+35:                 <span class="ruby-identifier">e</span>.<span class="ruby-identifier">doc</span> = <span class="ruby-keyword kw">self</span>
+36:                 <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">e</span>
+37:         <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000148"></a><b>md_em</b>(children, al=nil)
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000148_source')" id="l_M000148_source">show source</a> ]</p>
+  <div id="M000148_source" class="dyn-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/maruku/helpers.rb, line 108</span>
+108:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">md_em</span>(<span class="ruby-identifier">children</span>, <span class="ruby-identifier">al</span>=<span class="ruby-keyword kw">nil</span>)
+109:                 <span class="ruby-identifier">md_el</span>(<span class="ruby-identifier">:emphasis</span>, [<span class="ruby-identifier">children</span>].<span class="ruby-identifier">flatten</span>, {}, <span class="ruby-identifier">al</span>)
+110:         <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000154"></a><b>md_email</b>(email, al=nil)
+  </div>
+  <div class="description">
+  <p>
+&lt;andrea@rubyforge.org&gt; &lt;<a
+href="mailto:andrea@rubyforge.org">andrea@rubyforge.org</a>&gt;
+</p>
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000154_source')" id="l_M000154_source">show source</a> ]</p>
+  <div id="M000154_source" class="dyn-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/maruku/helpers.rb, line 135</span>
+135:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">md_email</span>(<span class="ruby-identifier">email</span>, <span class="ruby-identifier">al</span>=<span class="ruby-keyword kw">nil</span>)
+136:                 <span class="ruby-identifier">md_el</span>(<span class="ruby-identifier">:email_address</span>, [], {<span class="ruby-identifier">:email=</span><span class="ruby-operator">&gt;</span><span class="ruby-identifier">email</span>}, <span class="ruby-identifier">al</span>)
+137:         <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000152"></a><b>md_emstrong</b>(children, al=nil)
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000152_source')" id="l_M000152_source">show source</a> ]</p>
+  <div id="M000152_source" class="dyn-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/maruku/helpers.rb, line 124</span>
+124:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">md_emstrong</span>(<span class="ruby-identifier">children</span>, <span class="ruby-identifier">al</span>=<span class="ruby-keyword kw">nil</span>)
+125:                 <span class="ruby-identifier">md_strong</span>(<span class="ruby-identifier">md_em</span>(<span class="ruby-identifier">children</span>), <span class="ruby-identifier">al</span>)
+126:         <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000155"></a><b>md_entity</b>(entity_name, al=nil)
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000155_source')" id="l_M000155_source">show source</a> ]</p>
+  <div id="M000155_source" class="dyn-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/maruku/helpers.rb, line 139</span>
+139:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">md_entity</span>(<span class="ruby-identifier">entity_name</span>, <span class="ruby-identifier">al</span>=<span class="ruby-keyword kw">nil</span>)
+140:                 <span class="ruby-identifier">md_el</span>(<span class="ruby-identifier">:entity</span>, [], {<span class="ruby-identifier">:entity_name=</span><span class="ruby-operator">&gt;</span><span class="ruby-identifier">entity_name</span>}, <span class="ruby-identifier">al</span>)
+141:         <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000156"></a><b>md_foot_ref</b>(ref_id, al=nil)
+  </div>
+  <div class="description">
+  <p>
+Markdown extra
+</p>
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000156_source')" id="l_M000156_source">show source</a> ]</p>
+  <div id="M000156_source" class="dyn-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/maruku/helpers.rb, line 144</span>
+144:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">md_foot_ref</span>(<span class="ruby-identifier">ref_id</span>, <span class="ruby-identifier">al</span>=<span class="ruby-keyword kw">nil</span>)
+145:                 <span class="ruby-identifier">md_el</span>(<span class="ruby-identifier">:footnote_reference</span>, [], {<span class="ruby-identifier">:footnote_id=</span><span class="ruby-operator">&gt;</span><span class="ruby-identifier">ref_id</span>}, <span class="ruby-identifier">al</span>)
+146:         <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000140"></a><b>md_footnote</b>(footnote_id, children, al=nil)
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000140_source')" id="l_M000140_source">show source</a> ]</p>
+  <div id="M000140_source" class="dyn-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/maruku/helpers.rb, line 61</span>
+61:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">md_footnote</span>(<span class="ruby-identifier">footnote_id</span>, <span class="ruby-identifier">children</span>, <span class="ruby-identifier">al</span>=<span class="ruby-keyword kw">nil</span>)
+62:                 <span class="ruby-identifier">md_el</span>(<span class="ruby-identifier">:footnote</span>, <span class="ruby-identifier">children</span>, {<span class="ruby-identifier">:footnote_id=</span><span class="ruby-operator">&gt;</span><span class="ruby-identifier">footnote_id</span>}, <span class="ruby-identifier">al</span>)
+63:         <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000135"></a><b>md_header</b>(level, children, al=nil)
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000135_source')" id="l_M000135_source">show source</a> ]</p>
+  <div id="M000135_source" class="dyn-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/maruku/helpers.rb, line 39</span>
+39:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">md_header</span>(<span class="ruby-identifier">level</span>, <span class="ruby-identifier">children</span>, <span class="ruby-identifier">al</span>=<span class="ruby-keyword kw">nil</span>)
+40:                 <span class="ruby-identifier">md_el</span>(<span class="ruby-identifier">:header</span>, <span class="ruby-identifier">children</span>, {<span class="ruby-identifier">:level</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">level</span>}, <span class="ruby-identifier">al</span>)
+41:         <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000150"></a><b>md_hrule</b>()
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000150_source')" id="l_M000150_source">show source</a> ]</p>
+  <div id="M000150_source" class="dyn-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/maruku/helpers.rb, line 116</span>
+116:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">md_hrule</span>()
+117:                 <span class="ruby-identifier">md_el</span>(<span class="ruby-identifier">:hrule</span>, [], {}, <span class="ruby-keyword kw">nil</span>)
+118:         <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000143"></a><b>md_html</b>(raw_html, al=nil)
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000143_source')" id="l_M000143_source">show source</a> ]</p>
+  <div id="M000143_source" class="dyn-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/maruku/helpers.rb, line 73</span>
+73:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">md_html</span>(<span class="ruby-identifier">raw_html</span>, <span class="ruby-identifier">al</span>=<span class="ruby-keyword kw">nil</span>)
+74:                 <span class="ruby-identifier">e</span> = <span class="ruby-identifier">md_el</span>(<span class="ruby-identifier">:raw_html</span>, [], {<span class="ruby-identifier">:raw_html=</span><span class="ruby-operator">&gt;</span><span class="ruby-identifier">raw_html</span>})
+75:                 <span class="ruby-keyword kw">begin</span>
+76:                         <span class="ruby-comment cmt"># remove newlines and whitespace at begin</span>
+77:                         <span class="ruby-comment cmt"># end end of string, or else REXML gets confused</span>
+78:                         <span class="ruby-identifier">raw_html</span> = <span class="ruby-identifier">raw_html</span>.<span class="ruby-identifier">gsub</span>(<span class="ruby-regexp re">/\A\s*&lt;/</span>,<span class="ruby-value str">'&lt;'</span>).
+79:                                             <span class="ruby-identifier">gsub</span>(<span class="ruby-regexp re">/&gt;[\s\n]*\Z/</span>,<span class="ruby-value str">'&gt;'</span>)
+80:                         
+81:                         <span class="ruby-identifier">raw_html</span> = <span class="ruby-node">&quot;&lt;marukuwrap&gt;#{raw_html}&lt;/marukuwrap&gt;&quot;</span>
+82:                         <span class="ruby-identifier">e</span>.<span class="ruby-identifier">instance_variable_set</span> <span class="ruby-identifier">:@parsed_html</span>,
+83:                              <span class="ruby-constant">REXML</span><span class="ruby-operator">::</span><span class="ruby-constant">Document</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">raw_html</span>)
+84:                 <span class="ruby-keyword kw">rescue</span> 
+85: <span class="ruby-comment cmt">#                       tell_user &quot;Malformed block of HTML:\n&quot;+</span>
+86: <span class="ruby-comment cmt">#                       add_tabs(raw_html,1,'|')</span>
+87: <span class="ruby-comment cmt">#                       &quot;  #{raw_html.inspect}\n\n&quot;+ex.inspect</span>
+88:                 <span class="ruby-keyword kw">end</span>
+89:                 <span class="ruby-identifier">e</span>
+90:         <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000159"></a><b>md_ial</b>(al)
+  </div>
+  <div class="description">
+  <p>
+inline attribute list
+</p>
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000159_source')" id="l_M000159_source">show source</a> ]</p>
+  <div id="M000159_source" class="dyn-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/maruku/helpers.rb, line 161</span>
+161:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">md_ial</span>(<span class="ruby-identifier">al</span>)
+162:                 <span class="ruby-identifier">al</span> = <span class="ruby-constant">Maruku</span><span class="ruby-operator">::</span><span class="ruby-constant">AttributeList</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">al</span>) <span class="ruby-keyword kw">if</span> 
+163:                         <span class="ruby-keyword kw">not</span> <span class="ruby-identifier">al</span>.<span class="ruby-identifier">kind_of?</span><span class="ruby-constant">Maruku</span><span class="ruby-operator">::</span><span class="ruby-constant">AttributeList</span>
+164:                 <span class="ruby-identifier">md_el</span>(<span class="ruby-identifier">:ial</span>, [], {<span class="ruby-identifier">:ial=</span><span class="ruby-operator">&gt;</span><span class="ruby-identifier">al</span>})
+165:         <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000147"></a><b>md_im_image</b>(children, url, title=nil, al=nil)
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000147_source')" id="l_M000147_source">show source</a> ]</p>
+  <div id="M000147_source" class="dyn-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/maruku/helpers.rb, line 104</span>
+104:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">md_im_image</span>(<span class="ruby-identifier">children</span>, <span class="ruby-identifier">url</span>, <span class="ruby-identifier">title</span>=<span class="ruby-keyword kw">nil</span>, <span class="ruby-identifier">al</span>=<span class="ruby-keyword kw">nil</span>)
+105:                 <span class="ruby-identifier">md_el</span>(<span class="ruby-identifier">:im_image</span>, <span class="ruby-identifier">children</span>, {<span class="ruby-identifier">:url=</span><span class="ruby-operator">&gt;</span><span class="ruby-identifier">url</span>,<span class="ruby-identifier">:title=</span><span class="ruby-operator">&gt;</span><span class="ruby-identifier">title</span>},<span class="ruby-identifier">al</span>)
+106:         <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000145"></a><b>md_im_link</b>(children, url, title=nil, al=nil)
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000145_source')" id="l_M000145_source">show source</a> ]</p>
+  <div id="M000145_source" class="dyn-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/maruku/helpers.rb, line 96</span>
+96:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">md_im_link</span>(<span class="ruby-identifier">children</span>, <span class="ruby-identifier">url</span>, <span class="ruby-identifier">title</span>=<span class="ruby-keyword kw">nil</span>, <span class="ruby-identifier">al</span>=<span class="ruby-keyword kw">nil</span>)
+97:                 <span class="ruby-identifier">md_el</span>(<span class="ruby-identifier">:im_link</span>, <span class="ruby-identifier">children</span>, {<span class="ruby-identifier">:url=</span><span class="ruby-operator">&gt;</span><span class="ruby-identifier">url</span>,<span class="ruby-identifier">:title=</span><span class="ruby-operator">&gt;</span><span class="ruby-identifier">title</span>}, <span class="ruby-identifier">al</span>)
+98:         <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000146"></a><b>md_image</b>(children, ref_id, al=nil)
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000146_source')" id="l_M000146_source">show source</a> ]</p>
+  <div id="M000146_source" class="dyn-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/maruku/helpers.rb, line 100</span>
+100:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">md_image</span>(<span class="ruby-identifier">children</span>, <span class="ruby-identifier">ref_id</span>, <span class="ruby-identifier">al</span>=<span class="ruby-keyword kw">nil</span>)
+101:                 <span class="ruby-identifier">md_el</span>(<span class="ruby-identifier">:image</span>, <span class="ruby-identifier">children</span>, {<span class="ruby-identifier">:ref_id=</span><span class="ruby-operator">&gt;</span><span class="ruby-identifier">ref_id</span>}, <span class="ruby-identifier">al</span>)
+102:         <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000139"></a><b>md_li</b>(children, want_my_par, al=nil)
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000139_source')" id="l_M000139_source">show source</a> ]</p>
+  <div id="M000139_source" class="dyn-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/maruku/helpers.rb, line 57</span>
+57:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">md_li</span>(<span class="ruby-identifier">children</span>, <span class="ruby-identifier">want_my_par</span>, <span class="ruby-identifier">al</span>=<span class="ruby-keyword kw">nil</span>)
+58:                 <span class="ruby-identifier">md_el</span>(<span class="ruby-identifier">:li</span>, <span class="ruby-identifier">children</span>, {<span class="ruby-identifier">:want_my_paragraph=</span><span class="ruby-operator">&gt;</span><span class="ruby-identifier">want_my_par</span>}, <span class="ruby-identifier">al</span>)
+59:         <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000144"></a><b>md_link</b>(children, ref_id, al=nil)
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000144_source')" id="l_M000144_source">show source</a> ]</p>
+  <div id="M000144_source" class="dyn-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/maruku/helpers.rb, line 92</span>
+92:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">md_link</span>(<span class="ruby-identifier">children</span>, <span class="ruby-identifier">ref_id</span>, <span class="ruby-identifier">al</span>=<span class="ruby-keyword kw">nil</span>)
+93:                 <span class="ruby-identifier">md_el</span>(<span class="ruby-identifier">:link</span>, <span class="ruby-identifier">children</span>, {<span class="ruby-identifier">:ref_id=</span><span class="ruby-operator">&gt;</span><span class="ruby-identifier">ref_id</span>.<span class="ruby-identifier">downcase</span>}, <span class="ruby-identifier">al</span>)
+94:         <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000157"></a><b>md_par</b>(children, al=nil)
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000157_source')" id="l_M000157_source">show source</a> ]</p>
+  <div id="M000157_source" class="dyn-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/maruku/helpers.rb, line 148</span>
+148:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">md_par</span>(<span class="ruby-identifier">children</span>, <span class="ruby-identifier">al</span>=<span class="ruby-keyword kw">nil</span>)
+149:                 <span class="ruby-identifier">md_el</span>(<span class="ruby-identifier">:paragraph</span>, <span class="ruby-identifier">children</span>, <span class="ruby-identifier">meta</span>={}, <span class="ruby-identifier">al</span>)
+150:         <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000138"></a><b>md_quote</b>(children, al=nil)
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000138_source')" id="l_M000138_source">show source</a> ]</p>
+  <div id="M000138_source" class="dyn-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/maruku/helpers.rb, line 53</span>
+53:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">md_quote</span>(<span class="ruby-identifier">children</span>, <span class="ruby-identifier">al</span>=<span class="ruby-keyword kw">nil</span>)
+54:                 <span class="ruby-identifier">md_el</span>(<span class="ruby-identifier">:quote</span>, <span class="ruby-identifier">children</span>, {}, <span class="ruby-identifier">al</span>)
+55:         <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000158"></a><b>md_ref_def</b>(ref_id, url, title=nil, meta={}, al=nil)
+  </div>
+  <div class="description">
+  <p>
+[1]: <a href="http://url">url</a> [properties]
+</p>
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000158_source')" id="l_M000158_source">show source</a> ]</p>
+  <div id="M000158_source" class="dyn-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/maruku/helpers.rb, line 153</span>
+153:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">md_ref_def</span>(<span class="ruby-identifier">ref_id</span>, <span class="ruby-identifier">url</span>, <span class="ruby-identifier">title</span>=<span class="ruby-keyword kw">nil</span>, <span class="ruby-identifier">meta</span>={}, <span class="ruby-identifier">al</span>=<span class="ruby-keyword kw">nil</span>)
+154:                 <span class="ruby-identifier">meta</span>[<span class="ruby-identifier">:url</span>] = <span class="ruby-identifier">url</span>
+155:                 <span class="ruby-identifier">meta</span>[<span class="ruby-identifier">:ref_id</span>] = <span class="ruby-identifier">ref_id</span>
+156:                 <span class="ruby-identifier">meta</span>[<span class="ruby-identifier">:title</span>] = <span class="ruby-identifier">title</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">title</span>
+157:                 <span class="ruby-identifier">md_el</span>(<span class="ruby-identifier">:ref_definition</span>, [], <span class="ruby-identifier">meta</span>, <span class="ruby-identifier">al</span>)
+158:         <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000161"></a><b>md_server</b>(code)
+  </div>
+  <div class="description">
+  <p>
+Server directive &lt;? code ?&gt;
+</p>
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000161_source')" id="l_M000161_source">show source</a> ]</p>
+  <div id="M000161_source" class="dyn-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/maruku/helpers.rb, line 173</span>
+173:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">md_server</span>(<span class="ruby-identifier">code</span>)
+174:                 <span class="ruby-identifier">md_el</span>(<span class="ruby-identifier">:server</span>, [], {<span class="ruby-identifier">:code=</span><span class="ruby-operator">&gt;</span><span class="ruby-identifier">code</span>})
+175:         <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000151"></a><b>md_strong</b>(children, al=nil)
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000151_source')" id="l_M000151_source">show source</a> ]</p>
+  <div id="M000151_source" class="dyn-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/maruku/helpers.rb, line 120</span>
+120:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">md_strong</span>(<span class="ruby-identifier">children</span>, <span class="ruby-identifier">al</span>=<span class="ruby-keyword kw">nil</span>)
+121:                 <span class="ruby-identifier">md_el</span>(<span class="ruby-identifier">:strong</span>, [<span class="ruby-identifier">children</span>].<span class="ruby-identifier">flatten</span>, {}, <span class="ruby-identifier">al</span>)
+122:         <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000153"></a><b>md_url</b>(url, al=nil)
+  </div>
+  <div class="description">
+  <p>
+&lt;<a href="http://www.example.com">www.example.com</a>/&gt;
+</p>
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000153_source')" id="l_M000153_source">show source</a> ]</p>
+  <div id="M000153_source" class="dyn-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/maruku/helpers.rb, line 129</span>
+129:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">md_url</span>(<span class="ruby-identifier">url</span>, <span class="ruby-identifier">al</span>=<span class="ruby-keyword kw">nil</span>)
+130:                 <span class="ruby-identifier">md_el</span>(<span class="ruby-identifier">:immediate_link</span>, [], {<span class="ruby-identifier">:url=</span><span class="ruby-operator">&gt;</span><span class="ruby-identifier">url</span>}, <span class="ruby-identifier">al</span>)
+131:         <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+</div>
+
+  </div>
+
+    </body>
+</html>

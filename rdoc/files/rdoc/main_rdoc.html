@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <head>
+    <title>File: main.rdoc</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+    <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+
+    <script language="JavaScript" type="text/javascript">
+    // <![CDATA[
+
+        function toggleSource( id )
+        {
+          var elem
+          var link
+
+          if( document.getElementById )
+          {
+            elem = document.getElementById( id )
+            link = document.getElementById( "l_" + id )
+          }
+          else if ( document.all )
+          {
+            elem = eval( "document.all." + id )
+            link = eval( "document.all.l_" + id )
+          }
+          else
+            return false;
+
+          if( elem.style.display == "block" )
+          {
+            elem.style.display = "none"
+            link.innerHTML = "show source"
+          }
+          else
+          {
+            elem.style.display = "block"
+            link.innerHTML = "hide source"
+          }
+        }
+
+        function openCode( url )
+        {
+          window.open( url, "SOURCE_CODE", "width=400,height=400,scrollbars=yes" )
+        }
+      // ]]>
+    </script>
+  </head>
+
+  <body>
+  <table border='0' cellpadding='0' cellspacing='0' width="100%" class='banner'>
+  <tr><td>
+    <table width="100%" border='0' cellpadding='0' cellspacing='0'><tr>
+      <td class="file-title" colspan="2"><span class="file-title-prefix">File</span><br />main.rdoc</td>
+      <td align="right">
+        <table border='0' cellspacing="0" cellpadding="2">
+          <tr>
+            <td>Path:</td>
+            <td>rdoc/main.rdoc
+            </td>
+          </tr>
+          <tr>
+            <td>Modified:</td>
+            <td>Sat Jan 06 20:17:57 +0100 2007</td>
+          </tr>
+        </table>
+      </td></tr>
+    </table>
+  </td></tr>
+</table><br>
+ <!-- banner header -->
+
+  <div id="bodyContent">
+      <div id="content">
+
+  <div class="description"><h1><a href="../../classes/Maruku.html">Maruku</a></h1>
+<p>
+<a href="../../classes/Maruku.html">Maruku</a> is a Markdown-superset
+interpreter.
+</p>
+<p>
+<a href="../../classes/Maruku.html">Maruku</a> implements:
+</p>
+<ul>
+<li>The original Markdown syntax.
+
+</li>
+<li>All the improvements in PHP Markdown Extra.
+
+</li>
+<li>A new meta-data syntax.
+
+</li>
+</ul>
+<p>
+More documentation about <a href="../../classes/Maruku.html">Maruku</a> can
+be found on the project&#8216;s website: <a
+href="http://maruku.rubyforge.org">maruku.rubyforge.org</a>
+</p>
+<h2>Basic use</h2>
+<p>
+The basic use is to create a new document, and then write its HTML
+representation with the method <tt>to_html</tt>:
+</p>
+<pre>
+    doc = Maruku.new(markdown_string)
+    puts doc.to_html
+</pre>
+<p>
+Method MaRuKu::MDDocument::to_html() returns a string, representing only an
+HTML fragment.
+</p>
+<pre>
+    Maruku.new(&quot;## Header ##&quot;).to_html
+    # =&gt; &quot;&lt;h2 id='header'&gt;header&lt;/h2&gt;&quot;
+</pre>
+<p>
+This is useful to use <a href="../../classes/Maruku.html">Maruku</a> inside
+other programs.
+</p>
+<p>
+If you want to create whole HTML documents, use the function
+<tt>to_html_document</tt>.
+</p>
+<h3>Errors management</h3>
+<p>
+<a href="../../classes/Maruku.html">Maruku</a> has a real parser, so it
+warns you if something is wrong with the input.
+</p>
+<p>
+The default behaviour is to warn by printing a message on the standard
+error, and then try to continue.
+</p>
+<p>
+You can change this behaviour. If you create the <a
+href="../../classes/Maruku.html">Maruku</a> object in this way:
+</p>
+<pre>
+    Maruku.new(string, {:on_error =&gt; :raise})
+</pre>
+<p>
+then <a href="../../classes/Maruku.html">Maruku</a> will raise an
+exception.
+</p>
+<p>
+To change the error stream, use this construct:
+</p>
+<pre>
+    errors = &quot;Errors reported by Maruku:\n&quot;
+    Maruku.new(invalid, {:error_stream =&gt; errors})
+</pre>
+<p>
+You can pass any object that supports operator &lt;&lt; .
+</p>
+<h2>Command-line usage</h2>
+<p>
+There are two command-line programs installed: <tt>maruku</tt> and
+<tt>marutex</tt>.
+</p>
+<p>
+<tt>maruku</tt> converts Markdown to HTML:
+</p>
+<pre>
+    $ maruku file.md  # creates file.html
+</pre>
+<p>
+<tt>marutex</tt> converts Markdown to LaTeX, then calls <tt>pdflatex</tt>
+to transform to PDF:
+</p>
+<pre>
+    $ marutex file.md  # creates file.tex and file.pdf
+</pre>
+<h2>Code organization</h2>
+<p>
+The main interface is class <a href="../../classes/Maruku.html">Maruku</a>.
+Everything else is in the module <a
+href="../../classes/MaRuKu.html">MaRuKu</a>.
+</p>
+</div>
+
+
+
+
+
+
+
+
+
+</div>
+
+  </div>
+
+    </body>
+</html>

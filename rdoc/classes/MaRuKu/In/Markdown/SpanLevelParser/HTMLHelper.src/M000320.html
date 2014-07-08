@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>handle_tag (MaRuKu::In::Markdown::SpanLevelParser::HTMLHelper)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../../../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/maruku/input/html_helper.rb, line 109</span>
+                <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">handle_tag</span>()
+                        <span class="ruby-ivar">@already</span> <span class="ruby-operator">+=</span> <span class="ruby-ivar">@m</span>.<span class="ruby-identifier">pre_match</span>
+                        <span class="ruby-ivar">@rest</span> = <span class="ruby-ivar">@m</span>.<span class="ruby-identifier">post_match</span>
+
+                        <span class="ruby-identifier">is_closing</span> = <span class="ruby-operator">!</span><span class="ruby-operator">!</span><span class="ruby-ivar">@m</span>[<span class="ruby-value">1</span>]
+                        <span class="ruby-identifier">tag</span> = <span class="ruby-ivar">@m</span>[<span class="ruby-value">2</span>]
+                        <span class="ruby-identifier">attributes</span> = <span class="ruby-ivar">@m</span>[<span class="ruby-value">3</span>]
+
+                
+                        <span class="ruby-identifier">is_single</span> = <span class="ruby-keyword kw">false</span>
+                        <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">attributes</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp re">/\A(.*)\/\Z/</span>
+                                <span class="ruby-identifier">attributes</span> = <span class="ruby-identifier">$1</span>
+                                <span class="ruby-identifier">is_single</span> = <span class="ruby-keyword kw">true</span>
+                        <span class="ruby-keyword kw">end</span>
+
+<span class="ruby-comment cmt">#                       puts &quot;READ TAG #{@m.to_s.inspect} tag = #{tag} closing? #{is_closing} single = #{is_single}&quot;</span>
+        
+                        <span class="ruby-keyword kw">if</span> <span class="ruby-constant">TO_SANITIZE</span>.<span class="ruby-identifier">include?</span> <span class="ruby-identifier">tag</span> 
+                                <span class="ruby-identifier">attributes</span>.<span class="ruby-identifier">strip!</span>
+                <span class="ruby-comment cmt">#             puts &quot;Attributes: #{attributes.inspect}&quot;</span>
+                                <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">attributes</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>
+                                        <span class="ruby-ivar">@already</span> <span class="ruby-operator">+=</span>  <span class="ruby-value str">'&lt;%s %s /&gt;'</span> <span class="ruby-operator">%</span> [<span class="ruby-identifier">tag</span>, <span class="ruby-identifier">attributes</span>]
+                                <span class="ruby-keyword kw">else</span>
+                                        <span class="ruby-ivar">@already</span> <span class="ruby-operator">+=</span>  <span class="ruby-value str">'&lt;%s /&gt;'</span> <span class="ruby-operator">%</span> [<span class="ruby-identifier">tag</span>]
+                                <span class="ruby-keyword kw">end</span>
+                        <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">is_closing</span>
+                                <span class="ruby-ivar">@already</span> <span class="ruby-operator">+=</span> <span class="ruby-ivar">@m</span>.<span class="ruby-identifier">to_s</span>
+                                <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@tag_stack</span>.<span class="ruby-identifier">empty?</span>
+                                        <span class="ruby-identifier">error</span> <span class="ruby-node">&quot;Malformed: closing tag #{tag.inspect} &quot;</span><span class="ruby-operator">+</span>
+                                              <span class="ruby-value str">&quot;in empty list&quot;</span>
+                                <span class="ruby-keyword kw">end</span> 
+                                <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@tag_stack</span>.<span class="ruby-identifier">last</span> <span class="ruby-operator">!=</span> <span class="ruby-identifier">tag</span>
+                                        <span class="ruby-identifier">error</span> <span class="ruby-node">&quot;Malformed: tag &lt;#{tag}&gt; &quot;</span><span class="ruby-operator">+</span>
+                                              <span class="ruby-node">&quot;closes &lt;#{@tag_stack.last}&gt;&quot;</span>
+                                <span class="ruby-keyword kw">end</span>
+                                <span class="ruby-ivar">@tag_stack</span>.<span class="ruby-identifier">pop</span>
+                        <span class="ruby-keyword kw">else</span> 
+                                <span class="ruby-ivar">@already</span> <span class="ruby-operator">+=</span> <span class="ruby-ivar">@m</span>.<span class="ruby-identifier">to_s</span>
+                                
+                                <span class="ruby-ivar">@tag_stack</span>.<span class="ruby-identifier">push</span>(<span class="ruby-identifier">tag</span>) <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">is_single</span>
+                        <span class="ruby-keyword kw">end</span>
+                <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

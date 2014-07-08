@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>read_image (MaRuKu::In::Markdown::SpanLevelParser)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/maruku/input/parse_span_better.rb, line 579</span>
+        <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">read_image</span>(<span class="ruby-identifier">src</span>, <span class="ruby-identifier">con</span>)
+                <span class="ruby-identifier">src</span>.<span class="ruby-identifier">ignore_chars</span>(<span class="ruby-value">2</span>) <span class="ruby-comment cmt"># opening &quot;![&quot;</span>
+                <span class="ruby-identifier">alt_text</span> = <span class="ruby-identifier">read_span</span>(<span class="ruby-identifier">src</span>, <span class="ruby-constant">EscapedCharInText</span>, [<span class="ruby-value">?]</span>])
+                <span class="ruby-identifier">src</span>.<span class="ruby-identifier">ignore_char</span> <span class="ruby-comment cmt"># closing bracket</span>
+                <span class="ruby-comment cmt"># ignore space</span>
+                <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">src</span>.<span class="ruby-identifier">cur_char</span> <span class="ruby-operator">==</span> <span class="ruby-constant">SPACE</span> <span class="ruby-keyword kw">and</span> 
+                        (<span class="ruby-identifier">src</span>.<span class="ruby-identifier">next_char</span> <span class="ruby-operator">==</span> <span class="ruby-value">?[</span> <span class="ruby-keyword kw">or</span> <span class="ruby-identifier">src</span>.<span class="ruby-identifier">next_char</span> <span class="ruby-operator">==</span> <span class="ruby-value">?(</span> )
+                        <span class="ruby-identifier">src</span>.<span class="ruby-identifier">ignore_char</span>
+                <span class="ruby-keyword kw">end</span>
+                <span class="ruby-keyword kw">case</span> <span class="ruby-identifier">src</span>.<span class="ruby-identifier">cur_char</span>
+                <span class="ruby-keyword kw">when</span> <span class="ruby-value">?(</span>
+                        <span class="ruby-identifier">src</span>.<span class="ruby-identifier">ignore_char</span> <span class="ruby-comment cmt"># opening (</span>
+                        <span class="ruby-identifier">src</span>.<span class="ruby-identifier">consume_whitespace</span>
+                        <span class="ruby-identifier">url</span> = <span class="ruby-identifier">read_url</span>(<span class="ruby-identifier">src</span>, [<span class="ruby-constant">SPACE</span>,<span class="ruby-value">?\t</span>,<span class="ruby-value">?)</span>])
+                        <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">not</span> <span class="ruby-identifier">url</span>
+                                <span class="ruby-identifier">error</span> <span class="ruby-node">&quot;Could not read url from #{src.cur_chars(10).inspect}&quot;</span>,
+                                        <span class="ruby-identifier">src</span>,<span class="ruby-identifier">con</span>
+                        <span class="ruby-keyword kw">end</span>
+                        <span class="ruby-identifier">src</span>.<span class="ruby-identifier">consume_whitespace</span>
+                        <span class="ruby-identifier">title</span> = <span class="ruby-keyword kw">nil</span>
+                        <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">src</span>.<span class="ruby-identifier">cur_char</span> <span class="ruby-operator">!=</span> <span class="ruby-value">?)</span> <span class="ruby-comment cmt"># we have a title</span>
+                                <span class="ruby-identifier">quote_char</span> = <span class="ruby-identifier">src</span>.<span class="ruby-identifier">cur_char</span>
+                                <span class="ruby-identifier">title</span> = <span class="ruby-identifier">read_quoted</span>(<span class="ruby-identifier">src</span>,<span class="ruby-identifier">con</span>)
+                                <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">not</span> <span class="ruby-identifier">title</span>
+                                        <span class="ruby-identifier">maruku_error</span> <span class="ruby-value str">'Must quote title'</span>,<span class="ruby-identifier">src</span>,<span class="ruby-identifier">con</span>
+                                <span class="ruby-keyword kw">else</span>                                
+                                        <span class="ruby-comment cmt"># Tries to read a title with quotes: ![a](url &quot;ti&quot;tle&quot;)</span>
+                                        <span class="ruby-comment cmt"># this is the most ugly thing in Markdown</span>
+                                        <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">not</span> <span class="ruby-identifier">src</span>.<span class="ruby-identifier">next_matches</span>(<span class="ruby-regexp re">/\s*\)/</span>)
+                                                <span class="ruby-comment cmt"># if there is not a closing par ), then read</span>
+                                                <span class="ruby-comment cmt"># the rest and guess it's title with quotes</span>
+                                                <span class="ruby-identifier">rest</span> = <span class="ruby-identifier">read_simple</span>(<span class="ruby-identifier">src</span>, <span class="ruby-identifier">escaped</span>=[], <span class="ruby-identifier">break_on_chars</span>=[<span class="ruby-value">?)</span>], 
+                                                        <span class="ruby-identifier">break_on_strings</span>=[])
+                                                <span class="ruby-comment cmt"># chop the closing char</span>
+                                                <span class="ruby-identifier">rest</span>.<span class="ruby-identifier">chop!</span>
+                                                <span class="ruby-identifier">title</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">quote_char</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">rest</span>
+                                        <span class="ruby-keyword kw">end</span>
+                                <span class="ruby-keyword kw">end</span>
+                        <span class="ruby-keyword kw">end</span>
+                        <span class="ruby-identifier">src</span>.<span class="ruby-identifier">consume_whitespace</span>
+                        <span class="ruby-identifier">closing</span> = <span class="ruby-identifier">src</span>.<span class="ruby-identifier">shift_char</span> <span class="ruby-comment cmt"># closing )</span>
+                        <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">closing</span> <span class="ruby-operator">!=</span> <span class="ruby-value">?)</span>
+                                <span class="ruby-identifier">error</span> (<span class="ruby-value str">&quot;Unclosed link: '&quot;</span><span class="ruby-operator">&lt;&lt;</span><span class="ruby-identifier">closing</span><span class="ruby-operator">&lt;&lt;</span><span class="ruby-value str">&quot;'&quot;</span>)<span class="ruby-operator">+</span>
+                                        <span class="ruby-node">&quot; Read url=#{url.inspect} title=#{title.inspect}&quot;</span>,<span class="ruby-identifier">src</span>,<span class="ruby-identifier">con</span>
+                        <span class="ruby-keyword kw">end</span>
+                        <span class="ruby-identifier">con</span>.<span class="ruby-identifier">push_element</span> <span class="ruby-identifier">md_im_image</span>(<span class="ruby-identifier">alt_text</span>, <span class="ruby-identifier">url</span>, <span class="ruby-identifier">title</span>)
+                <span class="ruby-keyword kw">when</span> <span class="ruby-value">?[</span> <span class="ruby-comment cmt"># link ref</span>
+                        <span class="ruby-identifier">ref_id</span> = <span class="ruby-identifier">read_ref_id</span>(<span class="ruby-identifier">src</span>,<span class="ruby-identifier">con</span>)
+                        <span class="ruby-identifier">con</span>.<span class="ruby-identifier">push_element</span> <span class="ruby-identifier">md_image</span>(<span class="ruby-identifier">alt_text</span>, <span class="ruby-identifier">ref_id</span>)
+                <span class="ruby-keyword kw">else</span> <span class="ruby-comment cmt"># no stuff</span>
+                        <span class="ruby-identifier">con</span>.<span class="ruby-identifier">push_elements</span> <span class="ruby-identifier">children</span>
+                <span class="ruby-keyword kw">end</span>
+        <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

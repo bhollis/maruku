@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>to_html_code_using_pre (MaRuKu::Out::HTML)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/maruku/output/to_html.rb, line 506</span>
+        <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_html_code_using_pre</span>(<span class="ruby-identifier">source</span>)
+                <span class="ruby-identifier">pre</span> = <span class="ruby-identifier">create_html_element</span>  <span class="ruby-value str">'pre'</span>
+                <span class="ruby-identifier">code</span> = <span class="ruby-constant">Element</span>.<span class="ruby-identifier">new</span> <span class="ruby-value str">'code'</span>, <span class="ruby-identifier">pre</span>
+                <span class="ruby-identifier">s</span> = <span class="ruby-identifier">source</span>
+                
+                <span class="ruby-identifier">s</span>  = <span class="ruby-identifier">s</span>.<span class="ruby-identifier">gsub</span>(<span class="ruby-regexp re">/&amp;/</span>,<span class="ruby-value str">'&amp;amp;'</span>)
+                <span class="ruby-identifier">s</span> = <span class="ruby-constant">Text</span>.<span class="ruby-identifier">normalize</span>(<span class="ruby-identifier">s</span>)
+                <span class="ruby-identifier">s</span>  = <span class="ruby-identifier">s</span>.<span class="ruby-identifier">gsub</span>(<span class="ruby-regexp re">/\&amp;apos;/</span>,<span class="ruby-value str">'&amp;#39;'</span>) <span class="ruby-comment cmt"># IE bug</span>
+                <span class="ruby-identifier">s</span>  = <span class="ruby-identifier">s</span>.<span class="ruby-identifier">gsub</span>(<span class="ruby-regexp re">/'/</span>,<span class="ruby-value str">'&amp;#39;'</span>) <span class="ruby-comment cmt"># IE bug</span>
+
+                <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">get_setting</span>(<span class="ruby-identifier">:code_show_spaces</span>) 
+                        <span class="ruby-comment cmt"># 187 = raquo</span>
+                        <span class="ruby-comment cmt"># 160 = nbsp</span>
+                        <span class="ruby-comment cmt"># 172 = not</span>
+                        <span class="ruby-identifier">s</span>.<span class="ruby-identifier">gsub!</span>(<span class="ruby-regexp re">/\t/</span>,<span class="ruby-value str">'&amp;#187;'</span><span class="ruby-operator">+</span><span class="ruby-value str">'&amp;#160;'</span><span class="ruby-operator">*</span><span class="ruby-value">3</span>)
+                        <span class="ruby-identifier">s</span>.<span class="ruby-identifier">gsub!</span>(<span class="ruby-regexp re">/ /</span>,<span class="ruby-value str">'&amp;#172;'</span>)
+                <span class="ruby-keyword kw">end</span>
+
+                <span class="ruby-identifier">text</span> = <span class="ruby-constant">Text</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">s</span>, <span class="ruby-identifier">respect_ws</span>=<span class="ruby-keyword kw">true</span>, <span class="ruby-identifier">parent</span>=<span class="ruby-keyword kw">nil</span>, <span class="ruby-identifier">raw</span>=<span class="ruby-keyword kw">true</span> )
+                
+                <span class="ruby-identifier">code</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">text</span>
+                <span class="ruby-identifier">pre</span>
+        <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

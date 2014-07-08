@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>method_missing (MaRuKu::In::Markdown::SpanLevelParser::CharSourceDebug)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../../../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/maruku/input/charsource.rb, line 281</span>
+        <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">method_missing</span>(<span class="ruby-identifier">methodname</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">args</span>)
+                <span class="ruby-identifier">a_bef</span> = <span class="ruby-ivar">@a</span>.<span class="ruby-identifier">describe</span>
+                <span class="ruby-identifier">b_bef</span> = <span class="ruby-ivar">@b</span>.<span class="ruby-identifier">describe</span>
+                
+                <span class="ruby-identifier">a</span> = <span class="ruby-ivar">@a</span>.<span class="ruby-identifier">send</span>(<span class="ruby-identifier">methodname</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">args</span>)
+                <span class="ruby-identifier">b</span> = <span class="ruby-ivar">@b</span>.<span class="ruby-identifier">send</span>(<span class="ruby-identifier">methodname</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">args</span>)
+                
+<span class="ruby-comment cmt">#               if methodname == :describe</span>
+<span class="ruby-comment cmt">#                       return a</span>
+<span class="ruby-comment cmt">#               end</span>
+                
+                <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">a</span>.<span class="ruby-identifier">kind_of?</span> <span class="ruby-constant">MatchData</span>
+                        <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">a</span>.<span class="ruby-identifier">to_a</span> <span class="ruby-operator">!=</span> <span class="ruby-identifier">b</span>.<span class="ruby-identifier">to_a</span>
+                                <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;called: #{methodname}(#{args})&quot;</span>
+                                <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;Matchdata:\na = #{a.to_a.inspect}\nb = #{b.to_a.inspect}&quot;</span>
+                                <span class="ruby-identifier">puts</span> <span class="ruby-value str">&quot;AFTER: &quot;</span><span class="ruby-operator">+</span><span class="ruby-ivar">@a</span>.<span class="ruby-identifier">describe</span>
+                                <span class="ruby-identifier">puts</span> <span class="ruby-value str">&quot;AFTER: &quot;</span><span class="ruby-operator">+</span><span class="ruby-ivar">@b</span>.<span class="ruby-identifier">describe</span>
+                                <span class="ruby-identifier">puts</span> <span class="ruby-value str">&quot;BEFORE: &quot;</span><span class="ruby-operator">+</span><span class="ruby-identifier">a_bef</span>
+                                <span class="ruby-identifier">puts</span> <span class="ruby-value str">&quot;BEFORE: &quot;</span><span class="ruby-operator">+</span><span class="ruby-identifier">b_bef</span>
+                                <span class="ruby-identifier">puts</span> <span class="ruby-identifier">caller</span>.<span class="ruby-identifier">join</span>(<span class="ruby-value str">&quot;\n&quot;</span>)
+                                <span class="ruby-identifier">exit</span>
+                        <span class="ruby-keyword kw">end</span>
+                <span class="ruby-keyword kw">else</span>
+                        <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">a!</span>=<span class="ruby-identifier">b</span>
+                                <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;called: #{methodname}(#{args})&quot;</span>
+                                <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;Attenzione!\na = #{a.inspect}\nb = #{b.inspect}&quot;</span>
+                                <span class="ruby-identifier">puts</span> <span class="ruby-value str">&quot;&quot;</span><span class="ruby-operator">+</span><span class="ruby-ivar">@a</span>.<span class="ruby-identifier">describe</span>
+                                <span class="ruby-identifier">puts</span> <span class="ruby-value str">&quot;&quot;</span><span class="ruby-operator">+</span><span class="ruby-ivar">@b</span>.<span class="ruby-identifier">describe</span>
+                                <span class="ruby-identifier">puts</span> <span class="ruby-identifier">caller</span>.<span class="ruby-identifier">join</span>(<span class="ruby-value str">&quot;\n&quot;</span>)
+                                <span class="ruby-identifier">exit</span>
+                        <span class="ruby-keyword kw">end</span>
+                <span class="ruby-keyword kw">end</span>
+                
+                <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@a</span>.<span class="ruby-identifier">cur_char</span> <span class="ruby-operator">!=</span> <span class="ruby-ivar">@b</span>.<span class="ruby-identifier">cur_char</span>
+                        <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;Fuori sincronia dopo #{methodname}(#{args})&quot;</span>
+                        <span class="ruby-identifier">puts</span> <span class="ruby-value str">&quot;&quot;</span><span class="ruby-operator">+</span><span class="ruby-ivar">@a</span>.<span class="ruby-identifier">describe</span>
+                        <span class="ruby-identifier">puts</span> <span class="ruby-value str">&quot;&quot;</span><span class="ruby-operator">+</span><span class="ruby-ivar">@b</span>.<span class="ruby-identifier">describe</span>
+                        <span class="ruby-identifier">exit</span>
+                <span class="ruby-keyword kw">end</span>
+                
+                <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">a</span>
+        <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

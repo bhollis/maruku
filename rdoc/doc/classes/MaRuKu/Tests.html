@@ -1,0 +1,476 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <head>
+    <title>Module: MaRuKu::Tests</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+    <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+
+    <script language="JavaScript" type="text/javascript">
+    // <![CDATA[
+
+        function toggleSource( id )
+        {
+          var elem
+          var link
+
+          if( document.getElementById )
+          {
+            elem = document.getElementById( id )
+            link = document.getElementById( "l_" + id )
+          }
+          else if ( document.all )
+          {
+            elem = eval( "document.all." + id )
+            link = eval( "document.all.l_" + id )
+          }
+          else
+            return false;
+
+          if( elem.style.display == "block" )
+          {
+            elem.style.display = "none"
+            link.innerHTML = "show source"
+          }
+          else
+          {
+            elem.style.display = "block"
+            link.innerHTML = "hide source"
+          }
+        }
+
+        function openCode( url )
+        {
+          window.open( url, "SOURCE_CODE", "width=400,height=400,scrollbars=yes" )
+        }
+      // ]]>
+    </script>
+  </head>
+
+  <body>
+  <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'><tr>
+  <td class="file-title"><span class="file-title-prefix">Module</span><br />MaRuKu::Tests</td>
+  <td align="right">
+    <table cellspacing=0 cellpadding=2>
+      <tr valign="top">
+        <td>In:</td>
+        <td>
+<a href="../../files/lib/maruku/tests/new_parser_rb.html">lib/maruku/tests/new_parser.rb</a>
+        </td>
+      </tr>
+         </table>
+        </td>
+        </tr>
+      </table>
+ <!-- banner header -->
+
+  <div id="bodyContent">
+      <div id="content">
+
+
+
+
+  <div class="sectiontitle">Methods</div>
+  <ul>
+  <li><a href="#M000133">describe_difference</a></li>
+  <li><a href="#M000132">print_status</a></li>
+  <li><a href="#M000131">test_span_parser</a></li>
+  </ul>
+
+
+
+
+  <div class="sectiontitle">Constants</div>
+  <table border='0' cellpadding='5'>
+  <tr valign='top'>
+    <td class="attr-name">AccIta8</td>
+    <td>=</td>
+    <td class="attr-value">&quot;\303\240\303\250\303\254\303\262\303\271&quot;</td>
+  </tr>
+  <tr valign='top'>
+    <td>&nbsp;</td>
+    <td colspan="2" class="attr-desc">
+5 accented letters in italian, encoded as UTF-8
+
+</td>
+  </tr>
+  <tr valign='top'>
+    <td class="attr-name">AccIta1</td>
+    <td>=</td>
+    <td class="attr-value">&quot;\340\350\354\362\371&quot;</td>
+  </tr>
+  <tr valign='top'>
+    <td>&nbsp;</td>
+    <td colspan="2" class="attr-desc">
+Same letters, written in ISO-8859-1 (one byte per letter)
+
+</td>
+  </tr>
+  <tr valign='top'>
+    <td class="attr-name">Maruku8</td>
+    <td>=</td>
+    <td class="attr-value">&quot;\343\203\236\343\203\253\343\202\257&quot;</td>
+  </tr>
+  <tr valign='top'>
+    <td>&nbsp;</td>
+    <td colspan="2" class="attr-desc">
+The word MA-RU-KU, written in katakana using UTF-8
+
+</td>
+  </tr>
+  <tr valign='top'>
+    <td class="attr-name">PAD</td>
+    <td>=</td>
+    <td class="attr-value">40</td>
+  </tr>
+  </table>
+
+
+<div class="sectiontitle">Public Instance methods</div>
+<div class="method">
+  <div class="title">
+    <a name="M000133"></a><b>describe_difference</b>(input, expected, output)
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000133_source')" id="l_M000133_source">show source</a> ]</p>
+  <div id="M000133_source" class="dyn-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/maruku/tests/new_parser.rb, line 333</span>
+333:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">describe_difference</span>(<span class="ruby-identifier">input</span>, <span class="ruby-identifier">expected</span>, <span class="ruby-identifier">output</span>)
+334:                 <span class="ruby-node">&quot;\nInput:\n  #{input.inspect}&quot;</span> <span class="ruby-operator">+</span>
+335:                     <span class="ruby-node">&quot;\nExpected:\n  #{expected.inspect}&quot;</span> <span class="ruby-operator">+</span>
+336:                         <span class="ruby-node">&quot;\nOutput:\n  #{output.inspect}\n&quot;</span>
+337:         <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000132"></a><b>print_status</b>(comment, status, verbose_text=nil)
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000132_source')" id="l_M000132_source">show source</a> ]</p>
+  <div id="M000132_source" class="dyn-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/maruku/tests/new_parser.rb, line 322</span>
+322:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">print_status</span>(<span class="ruby-identifier">comment</span>, <span class="ruby-identifier">status</span>, <span class="ruby-identifier">verbose_text</span>=<span class="ruby-keyword kw">nil</span>)
+323:                 <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">comment</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">&lt;</span> <span class="ruby-constant">PAD</span>
+324:                         <span class="ruby-identifier">comment</span> = <span class="ruby-identifier">comment</span> <span class="ruby-operator">+</span> (<span class="ruby-value str">&quot; &quot;</span><span class="ruby-operator">*</span>(<span class="ruby-constant">PAD</span><span class="ruby-operator">-</span><span class="ruby-identifier">comment</span>.<span class="ruby-identifier">size</span>))
+325:                 <span class="ruby-keyword kw">end</span>
+326:                 <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;- #{comment} #{status}&quot;</span>
+327:                 <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@verbose</span> <span class="ruby-keyword kw">and</span> <span class="ruby-identifier">verbose_text</span>
+328:                         <span class="ruby-identifier">puts</span> <span class="ruby-identifier">verbose_text</span>
+329:                 <span class="ruby-keyword kw">end</span>
+330:         <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000131"></a><b>test_span_parser</b>(verbose, break_on_first_error, quiet)
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000131_source')" id="l_M000131_source">show source</a> ]</p>
+  <div id="M000131_source" class="dyn-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/maruku/tests/new_parser.rb, line 34</span>
+ 34:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">test_span_parser</span>(<span class="ruby-identifier">verbose</span>, <span class="ruby-identifier">break_on_first_error</span>, <span class="ruby-identifier">quiet</span>)
+ 35:         <span class="ruby-identifier">good_cases</span> = [
+ 36:                 
+ 37:                 [<span class="ruby-value str">&quot;&quot;</span>,       [],         <span class="ruby-value str">'Empty string gives empty list'</span>],
+ 38:                 [<span class="ruby-value str">&quot;a&quot;</span>,      [<span class="ruby-value str">&quot;a&quot;</span>],      <span class="ruby-value str">'Easy char'</span>],
+ 39:                 [<span class="ruby-value str">&quot; a&quot;</span>,     [<span class="ruby-value str">&quot;a&quot;</span>],      <span class="ruby-value str">'First space in the paragraph is ignored'</span>],
+ 40:                 [<span class="ruby-value str">&quot;a\n \n&quot;</span>, [<span class="ruby-value str">&quot;a&quot;</span>],      <span class="ruby-value str">'Last spaces in the paragraphs are ignored'</span>],
+ 41:                 [<span class="ruby-value str">' '</span>,      [],      <span class="ruby-value str">'One char =&gt; nothing'</span>],
+ 42:                 [<span class="ruby-value str">'  '</span>,     [],      <span class="ruby-value str">'Two chars =&gt; nothing'</span>],
+ 43:                 [<span class="ruby-value str">'a  b'</span>,   [<span class="ruby-value str">'a b'</span>],    <span class="ruby-value str">'Spaces are compressed'</span>],
+ 44:                 [<span class="ruby-value str">'a  b'</span>,   [<span class="ruby-value str">'a b'</span>],    <span class="ruby-value str">'Newlines are spaces'</span>],
+ 45:                 [<span class="ruby-value str">&quot;a\nb&quot;</span>,   [<span class="ruby-value str">'a b'</span>],    <span class="ruby-value str">'Newlines are spaces'</span>],
+ 46:                 [<span class="ruby-value str">&quot;a\n b&quot;</span>,  [<span class="ruby-value str">'a b'</span>],    <span class="ruby-value str">'Compress newlines 1'</span>],
+ 47:                 [<span class="ruby-value str">&quot;a \nb&quot;</span>,  [<span class="ruby-value str">'a b'</span>],    <span class="ruby-value str">'Compress newlines 2'</span>],
+ 48:                 [<span class="ruby-value str">&quot; \nb&quot;</span>,   [<span class="ruby-value str">'b'</span>],      <span class="ruby-value str">'Compress newlines 3'</span>],
+ 49:                 [<span class="ruby-value str">&quot;\nb&quot;</span>,    [<span class="ruby-value str">'b'</span>],      <span class="ruby-value str">'Compress newlines 4'</span>],
+ 50:                 [<span class="ruby-value str">&quot;b\n&quot;</span>,    [<span class="ruby-value str">'b'</span>],     <span class="ruby-value str">'Compress newlines 5'</span>],
+ 51:                 [<span class="ruby-value str">&quot;\n&quot;</span>,     [],      <span class="ruby-value str">'Compress newlines 6'</span>],
+ 52:                 [<span class="ruby-value str">&quot;\n\n\n&quot;</span>, [],      <span class="ruby-value str">'Compress newlines 7'</span>],
+ 53:                 
+ 54:                 [<span class="ruby-keyword kw">nil</span>, <span class="ruby-identifier">:throw</span>, <span class="ruby-value str">&quot;Should throw on nil input&quot;</span>],
+ 55:                 
+ 56:                 <span class="ruby-comment cmt"># Code blocks</span>
+ 57:                 [<span class="ruby-value str">&quot;`&quot;</span> ,   <span class="ruby-identifier">:throw</span>,  <span class="ruby-value str">'Unclosed single ticks'</span>],
+ 58:                 [<span class="ruby-value str">&quot;``&quot;</span> ,  <span class="ruby-identifier">:throw</span>,  <span class="ruby-value str">'Unclosed double ticks'</span>],
+ 59:                 [<span class="ruby-value str">&quot;`a`&quot;</span> ,     [<span class="ruby-identifier">md_code</span>(<span class="ruby-value str">'a'</span>)],    <span class="ruby-value str">'Simple inline code'</span>],
+ 60:                 [<span class="ruby-value str">&quot;`` ` ``&quot;</span> ,    [<span class="ruby-identifier">md_code</span>(<span class="ruby-value str">'`'</span>)],   ],
+ 61:                 [<span class="ruby-value str">&quot;`` \\` ``&quot;</span> ,    [<span class="ruby-identifier">md_code</span>(<span class="ruby-value str">'\\`'</span>)],   ],
+ 62:                 [<span class="ruby-value str">&quot;``a``&quot;</span> ,   [<span class="ruby-identifier">md_code</span>(<span class="ruby-value str">'a'</span>)],    ],
+ 63:                 [<span class="ruby-value str">&quot;`` a ``&quot;</span> ,   [<span class="ruby-identifier">md_code</span>(<span class="ruby-value str">'a'</span>)],    ],
+ 64:                 
+ 65:                 <span class="ruby-comment cmt"># Newlines </span>
+ 66:                 [<span class="ruby-value str">&quot;a  \n&quot;</span>, [<span class="ruby-value str">'a'</span>,<span class="ruby-identifier">md_el</span>(<span class="ruby-identifier">:linebreak</span>)], <span class="ruby-value str">'Two spaces give br.'</span>],
+ 67:                 [<span class="ruby-value str">&quot;a \n&quot;</span>,  [<span class="ruby-value str">'a'</span>], <span class="ruby-value str">'Newlines 2'</span>],
+ 68:                 [<span class="ruby-value str">&quot;  \n&quot;</span>,  [<span class="ruby-identifier">md_el</span>(<span class="ruby-identifier">:linebreak</span>)], <span class="ruby-value str">'Newlines 3'</span>],
+ 69:                 [<span class="ruby-value str">&quot;  \n  \n&quot;</span>,  [<span class="ruby-identifier">md_el</span>(<span class="ruby-identifier">:linebreak</span>),<span class="ruby-identifier">md_el</span>(<span class="ruby-identifier">:linebreak</span>)],<span class="ruby-value str">'Newlines 3'</span>],
+ 70:                 [<span class="ruby-value str">&quot;  \na  \n&quot;</span>,  [<span class="ruby-identifier">md_el</span>(<span class="ruby-identifier">:linebreak</span>),<span class="ruby-value str">'a'</span>,<span class="ruby-identifier">md_el</span>(<span class="ruby-identifier">:linebreak</span>)],<span class="ruby-value str">'Newlines 3'</span>],
+ 71:                 
+ 72:                 <span class="ruby-comment cmt"># Inline HTML</span>
+ 73:                 [<span class="ruby-value str">&quot;a &lt; b&quot;</span>, [<span class="ruby-value str">'a &lt; b'</span>], <span class="ruby-value str">'&lt; can be on itself'</span>],
+ 74:                 [<span class="ruby-value str">&quot;&lt;hr&gt;&quot;</span>,  [<span class="ruby-identifier">md_html</span>(<span class="ruby-value str">'&lt;hr /&gt;'</span>)], <span class="ruby-value str">'HR will be sanitized'</span>],
+ 75:                 [<span class="ruby-value str">&quot;&lt;hr/&gt;&quot;</span>, [<span class="ruby-identifier">md_html</span>(<span class="ruby-value str">'&lt;hr /&gt;'</span>)], <span class="ruby-value str">'Closed tag is ok'</span>],
+ 76:                 [<span class="ruby-value str">&quot;&lt;hr  /&gt;&quot;</span>, [<span class="ruby-identifier">md_html</span>(<span class="ruby-value str">'&lt;hr /&gt;'</span>)], <span class="ruby-value str">'Closed tag is ok 2'</span>],
+ 77:                 [<span class="ruby-value str">&quot;&lt;hr/&gt;a&quot;</span>, [<span class="ruby-identifier">md_html</span>(<span class="ruby-value str">'&lt;hr /&gt;'</span>),<span class="ruby-value str">'a'</span>], <span class="ruby-value str">'Closed tag is ok 2'</span>],
+ 78:                 [<span class="ruby-value str">&quot;&lt;em&gt;&lt;/em&gt;a&quot;</span>, [<span class="ruby-identifier">md_html</span>(<span class="ruby-value str">'&lt;em&gt;&lt;/em&gt;'</span>),<span class="ruby-value str">'a'</span>], <span class="ruby-value str">'Inline HTML 1'</span>],
+ 79:                 [<span class="ruby-value str">&quot;&lt;em&gt;e&lt;/em&gt;a&quot;</span>, [<span class="ruby-identifier">md_html</span>(<span class="ruby-value str">'&lt;em&gt;e&lt;/em&gt;'</span>),<span class="ruby-value str">'a'</span>], <span class="ruby-value str">'Inline HTML 2'</span>],
+ 80:                 [<span class="ruby-value str">&quot;a&lt;em&gt;e&lt;/em&gt;b&quot;</span>, [<span class="ruby-value str">'a'</span>,<span class="ruby-identifier">md_html</span>(<span class="ruby-value str">'&lt;em&gt;e&lt;/em&gt;'</span>),<span class="ruby-value str">'b'</span>], <span class="ruby-value str">'Inline HTML 3'</span>],
+ 81:                 [<span class="ruby-value str">&quot;&lt;em&gt;e&lt;/em&gt;a&lt;em&gt;f&lt;/em&gt;&quot;</span>, 
+ 82:                         [<span class="ruby-identifier">md_html</span>(<span class="ruby-value str">'&lt;em&gt;e&lt;/em&gt;'</span>),<span class="ruby-value str">'a'</span>,<span class="ruby-identifier">md_html</span>(<span class="ruby-value str">'&lt;em&gt;f&lt;/em&gt;'</span>)], 
+ 83:                         <span class="ruby-value str">'Inline HTML 4'</span>],
+ 84:                 [<span class="ruby-value str">&quot;&lt;em&gt;e&lt;/em&gt;&lt;em&gt;f&lt;/em&gt;a&quot;</span>, 
+ 85:                         [<span class="ruby-identifier">md_html</span>(<span class="ruby-value str">'&lt;em&gt;e&lt;/em&gt;'</span>),<span class="ruby-identifier">md_html</span>(<span class="ruby-value str">'&lt;em&gt;f&lt;/em&gt;'</span>),<span class="ruby-value str">'a'</span>], 
+ 86:                         <span class="ruby-value str">'Inline HTML 5'</span>],
+ 87:                         
+ 88:                         [<span class="ruby-value str">&quot;&lt;img src='a' /&gt;&quot;</span>, [<span class="ruby-identifier">md_html</span>(<span class="ruby-value str">&quot;&lt;img src='a' /&gt;&quot;</span>)], <span class="ruby-value str">'Attributes'</span>],
+ 89:                         [<span class="ruby-value str">&quot;&lt;img src='a'/&gt;&quot;</span>],
+ 90:                 
+ 91:                 <span class="ruby-comment cmt"># emphasis</span>
+ 92:                 [<span class="ruby-value str">&quot;**&quot;</span>, <span class="ruby-identifier">:throw</span>, <span class="ruby-value str">'Unclosed double **'</span>],
+ 93:                 [<span class="ruby-value str">&quot;\\*&quot;</span>, [<span class="ruby-value str">'*'</span>], <span class="ruby-value str">'Escaping of *'</span>],
+ 94:                 [<span class="ruby-value str">&quot;a *b* &quot;</span>, [<span class="ruby-value str">'a '</span>, <span class="ruby-identifier">md_em</span>(<span class="ruby-value str">'b'</span>)], <span class="ruby-value str">'Emphasis 1'</span>],
+ 95:                 [<span class="ruby-value str">&quot;a *b*&quot;</span>, [<span class="ruby-value str">'a '</span>, <span class="ruby-identifier">md_em</span>(<span class="ruby-value str">'b'</span>)], <span class="ruby-value str">'Emphasis 2'</span>],
+ 96:                 [<span class="ruby-value str">&quot;a * b&quot;</span>, [<span class="ruby-value str">'a * b'</span>], <span class="ruby-value str">'Emphasis 3'</span>],
+ 97:                 [<span class="ruby-value str">&quot;a * b*&quot;</span>, <span class="ruby-identifier">:throw</span>, <span class="ruby-value str">'Unclosed emphasis'</span>],
+ 98:                 <span class="ruby-comment cmt"># same with underscore</span>
+ 99:                 [<span class="ruby-value str">&quot;__&quot;</span>, <span class="ruby-identifier">:throw</span>, <span class="ruby-value str">'Unclosed double __'</span>],
+100:                 [<span class="ruby-value str">&quot;\\_&quot;</span>, [<span class="ruby-value str">'_'</span>], <span class="ruby-value str">'Escaping of _'</span>],
+101:                 [<span class="ruby-value str">&quot;a _b_ &quot;</span>, [<span class="ruby-value str">'a '</span>, <span class="ruby-identifier">md_em</span>(<span class="ruby-value str">'b'</span>)], <span class="ruby-value str">'Emphasis 4'</span>],
+102:                 [<span class="ruby-value str">&quot;a _b_&quot;</span>, [<span class="ruby-value str">'a '</span>, <span class="ruby-identifier">md_em</span>(<span class="ruby-value str">'b'</span>)], <span class="ruby-value str">'Emphasis 5'</span>],
+103:                 [<span class="ruby-value str">&quot;a _ b&quot;</span>, [<span class="ruby-value str">'a _ b'</span>], <span class="ruby-value str">'Emphasis 6'</span>],
+104:                 [<span class="ruby-value str">&quot;a _ b_&quot;</span>, <span class="ruby-identifier">:throw</span>, <span class="ruby-value str">'Unclosed emphasis'</span>],
+105:                 [<span class="ruby-value str">&quot;_b_&quot;</span>, [<span class="ruby-identifier">md_em</span>(<span class="ruby-value str">'b'</span>)], <span class="ruby-value str">'Emphasis 7'</span>],
+106:                 [<span class="ruby-value str">&quot;_b_ _c_&quot;</span>, [<span class="ruby-identifier">md_em</span>(<span class="ruby-value str">'b'</span>),<span class="ruby-value str">' '</span>,<span class="ruby-identifier">md_em</span>(<span class="ruby-value str">'c'</span>)], <span class="ruby-value str">'Emphasis 8'</span>],
+107:                 [<span class="ruby-value str">&quot;_b__c_&quot;</span>, [<span class="ruby-identifier">md_em</span>(<span class="ruby-value str">'b'</span>),<span class="ruby-identifier">md_em</span>(<span class="ruby-value str">'c'</span>)], <span class="ruby-value str">'Emphasis 9'</span>],
+108:                 <span class="ruby-comment cmt"># strong</span>
+109:                 [<span class="ruby-value str">&quot;**a*&quot;</span>, <span class="ruby-identifier">:throw</span>, <span class="ruby-value str">'Unclosed double ** 2'</span>],
+110:                 [<span class="ruby-value str">&quot;\\**a*&quot;</span>, [<span class="ruby-value str">'*'</span>, <span class="ruby-identifier">md_em</span>(<span class="ruby-value str">'a'</span>)], <span class="ruby-value str">'Escaping of *'</span>],
+111:                 [<span class="ruby-value str">&quot;a **b** &quot;</span>, [<span class="ruby-value str">'a '</span>, <span class="ruby-identifier">md_strong</span>(<span class="ruby-value str">'b'</span>)], <span class="ruby-value str">'Emphasis 1'</span>],
+112:                 [<span class="ruby-value str">&quot;a **b**&quot;</span>, [<span class="ruby-value str">'a '</span>, <span class="ruby-identifier">md_strong</span>(<span class="ruby-value str">'b'</span>)], <span class="ruby-value str">'Emphasis 2'</span>],
+113:                 [<span class="ruby-value str">&quot;a ** b&quot;</span>, [<span class="ruby-value str">'a ** b'</span>], <span class="ruby-value str">'Emphasis 3'</span>],
+114:                 [<span class="ruby-value str">&quot;a ** b**&quot;</span>, <span class="ruby-identifier">:throw</span>, <span class="ruby-value str">'Unclosed emphasis'</span>],
+115:                 [<span class="ruby-value str">&quot;**b****c**&quot;</span>, [<span class="ruby-identifier">md_strong</span>(<span class="ruby-value str">'b'</span>),<span class="ruby-identifier">md_strong</span>(<span class="ruby-value str">'c'</span>)], <span class="ruby-value str">'Emphasis 9'</span>],
+116:                 <span class="ruby-comment cmt"># strong (with underscore)</span>
+117:                 [<span class="ruby-value str">&quot;__a_&quot;</span>, <span class="ruby-identifier">:throw</span>, <span class="ruby-value str">'Unclosed double __ 2'</span>],
+118:                 [<span class="ruby-value str">&quot;\\__a_&quot;</span>, [<span class="ruby-value str">'_'</span>, <span class="ruby-identifier">md_em</span>(<span class="ruby-value str">'a'</span>)], <span class="ruby-value str">'Escaping of _'</span>],
+119:                 [<span class="ruby-value str">&quot;a __b__ &quot;</span>, [<span class="ruby-value str">'a '</span>, <span class="ruby-identifier">md_strong</span>(<span class="ruby-value str">'b'</span>)], <span class="ruby-value str">'Emphasis 1'</span>],
+120:                 [<span class="ruby-value str">&quot;a __b__&quot;</span>, [<span class="ruby-value str">'a '</span>, <span class="ruby-identifier">md_strong</span>(<span class="ruby-value str">'b'</span>)], <span class="ruby-value str">'Emphasis 2'</span>],
+121:                 [<span class="ruby-value str">&quot;a __ b&quot;</span>, [<span class="ruby-value str">'a __ b'</span>], <span class="ruby-value str">'Emphasis 3'</span>],
+122:                 [<span class="ruby-value str">&quot;a __ b__&quot;</span>, <span class="ruby-identifier">:throw</span>, <span class="ruby-value str">'Unclosed emphasis'</span>],
+123:                 [<span class="ruby-value str">&quot;__b____c__&quot;</span>, [<span class="ruby-identifier">md_strong</span>(<span class="ruby-value str">'b'</span>),<span class="ruby-identifier">md_strong</span>(<span class="ruby-value str">'c'</span>)], <span class="ruby-value str">'Emphasis 9'</span>],
+124:                 <span class="ruby-comment cmt"># extra strong</span>
+125:                 [<span class="ruby-value str">&quot;***a**&quot;</span>, <span class="ruby-identifier">:throw</span>, <span class="ruby-value str">'Unclosed triple *** '</span>],
+126:                 [<span class="ruby-value str">&quot;\\***a**&quot;</span>, [<span class="ruby-value str">'*'</span>, <span class="ruby-identifier">md_strong</span>(<span class="ruby-value str">'a'</span>)], <span class="ruby-value str">'Escaping of *'</span>],
+127:                 [<span class="ruby-value str">&quot;a ***b*** &quot;</span>, [<span class="ruby-value str">'a '</span>, <span class="ruby-identifier">md_emstrong</span>(<span class="ruby-value str">'b'</span>)], <span class="ruby-value str">'Strong elements'</span>],
+128:                 [<span class="ruby-value str">&quot;a ***b***&quot;</span>, [<span class="ruby-value str">'a '</span>, <span class="ruby-identifier">md_emstrong</span>(<span class="ruby-value str">'b'</span>)]],
+129:                 [<span class="ruby-value str">&quot;a *** b&quot;</span>, [<span class="ruby-value str">'a *** b'</span>]],
+130:                 [<span class="ruby-value str">&quot;a ** * b&quot;</span>, [<span class="ruby-value str">'a ** * b'</span>]],
+131:                 [<span class="ruby-value str">&quot;***b******c***&quot;</span>, [<span class="ruby-identifier">md_emstrong</span>(<span class="ruby-value str">'b'</span>),<span class="ruby-identifier">md_emstrong</span>(<span class="ruby-value str">'c'</span>)]],
+132:                 [<span class="ruby-value str">&quot;a *** b***&quot;</span>, <span class="ruby-identifier">:throw</span>, <span class="ruby-value str">'Unclosed emphasis'</span>],
+133:                 <span class="ruby-comment cmt"># same with underscores</span>
+134:                 [<span class="ruby-value str">&quot;___a__&quot;</span>, <span class="ruby-identifier">:throw</span>, <span class="ruby-value str">'Unclosed triple *** '</span>],
+135:                 [<span class="ruby-value str">&quot;\\___a__&quot;</span>, [<span class="ruby-value str">'_'</span>, <span class="ruby-identifier">md_strong</span>(<span class="ruby-value str">'a'</span>)], <span class="ruby-value str">'Escaping of *'</span>],
+136:                 [<span class="ruby-value str">&quot;a ___b___ &quot;</span>, [<span class="ruby-value str">'a '</span>, <span class="ruby-identifier">md_emstrong</span>(<span class="ruby-value str">'b'</span>)], <span class="ruby-value str">'Strong elements'</span>],
+137:                 [<span class="ruby-value str">&quot;a ___b___&quot;</span>, [<span class="ruby-value str">'a '</span>, <span class="ruby-identifier">md_emstrong</span>(<span class="ruby-value str">'b'</span>)]],
+138:                 [<span class="ruby-value str">&quot;a ___ b&quot;</span>, [<span class="ruby-value str">'a ___ b'</span>]],
+139:                 [<span class="ruby-value str">&quot;a __ _ b&quot;</span>, [<span class="ruby-value str">'a __ _ b'</span>]],
+140:                 [<span class="ruby-value str">&quot;___b______c___&quot;</span>, [<span class="ruby-identifier">md_emstrong</span>(<span class="ruby-value str">'b'</span>),<span class="ruby-identifier">md_emstrong</span>(<span class="ruby-value str">'c'</span>)]],
+141:                 [<span class="ruby-value str">&quot;a ___ b___&quot;</span>, <span class="ruby-identifier">:throw</span>, <span class="ruby-value str">'Unclosed emphasis'</span>],
+142:                 <span class="ruby-comment cmt"># mixing is bad</span>
+143:                 [<span class="ruby-value str">&quot;*a_&quot;</span>, <span class="ruby-identifier">:throw</span>, <span class="ruby-value str">'Mixing is bad'</span>],
+144:                 [<span class="ruby-value str">&quot;_a*&quot;</span>, <span class="ruby-identifier">:throw</span>],
+145:                 [<span class="ruby-value str">&quot;**a__&quot;</span>, <span class="ruby-identifier">:throw</span>],
+146:                 [<span class="ruby-value str">&quot;__a**&quot;</span>, <span class="ruby-identifier">:throw</span>],
+147:                 [<span class="ruby-value str">&quot;___a***&quot;</span>, <span class="ruby-identifier">:throw</span>],
+148:                 [<span class="ruby-value str">&quot;***a___&quot;</span>, <span class="ruby-identifier">:throw</span>],
+149:                 <span class="ruby-comment cmt"># links of the form [text][ref]</span>
+150:                 [<span class="ruby-value str">&quot;\\[a]&quot;</span>,  [<span class="ruby-value str">&quot;[a]&quot;</span>], <span class="ruby-value str">'Escaping 1'</span>],
+151:                 [<span class="ruby-value str">&quot;\\[a\\]&quot;</span>, [<span class="ruby-value str">&quot;[a]&quot;</span>], <span class="ruby-value str">'Escaping 2'</span>],
+152:                 [<span class="ruby-value str">&quot;[a]&quot;</span>,   [<span class="ruby-value str">&quot;a&quot;</span>],   <span class="ruby-value str">'Not a link'</span>],
+153:                 [<span class="ruby-value str">&quot;[a][]&quot;</span>,   [ <span class="ruby-identifier">md_link</span>([<span class="ruby-value str">&quot;a&quot;</span>],<span class="ruby-value str">''</span>)], <span class="ruby-value str">'Empty link'</span>],
+154:                 [<span class="ruby-value str">&quot;[a][]b&quot;</span>,   [ <span class="ruby-identifier">md_link</span>([<span class="ruby-value str">&quot;a&quot;</span>],<span class="ruby-value str">''</span>),<span class="ruby-value str">'b'</span>], <span class="ruby-value str">'Empty link'</span>],
+155:                 [<span class="ruby-value str">&quot;[a\\]][]&quot;</span>, [ <span class="ruby-identifier">md_link</span>([<span class="ruby-value str">&quot;a]&quot;</span>],<span class="ruby-value str">''</span>)], <span class="ruby-value str">'Escape inside link'</span>],
+156:                 
+157:                 [<span class="ruby-value str">&quot;[a&quot;</span>,  <span class="ruby-identifier">:throw</span>,   <span class="ruby-value str">'Link not closed'</span>],
+158:                 [<span class="ruby-value str">&quot;[a][&quot;</span>,  <span class="ruby-identifier">:throw</span>,   <span class="ruby-value str">'Ref not closed'</span>],
+159:                 
+160:                 <span class="ruby-comment cmt"># links of the form [text](url)</span>
+161:                 [<span class="ruby-value str">&quot;\\[a](b)&quot;</span>,  [<span class="ruby-value str">&quot;[a](b)&quot;</span>], <span class="ruby-value str">'Links'</span>],
+162:                 [<span class="ruby-value str">&quot;[a](url)c&quot;</span>,  [<span class="ruby-identifier">md_im_link</span>([<span class="ruby-value str">'a'</span>],<span class="ruby-value str">'url'</span>),<span class="ruby-value str">'c'</span>], <span class="ruby-value str">'url'</span>],
+163:                 [<span class="ruby-value str">&quot;[a]( url )c&quot;</span> ],
+164:                 [<span class="ruby-value str">&quot;[a] (       url )c&quot;</span> ],
+165:                 [<span class="ruby-value str">&quot;[a] (       url)c&quot;</span> ],
+166:                 
+167:                 [<span class="ruby-value str">&quot;[a](ur:/l/ 'Title')&quot;</span>,  [<span class="ruby-identifier">md_im_link</span>([<span class="ruby-value str">'a'</span>],<span class="ruby-value str">'ur:/l/'</span>,<span class="ruby-value str">'Title'</span>)],
+168:                       <span class="ruby-value str">'url and title'</span>],
+169:                 [<span class="ruby-value str">&quot;[a] (       ur:/l/ \&quot;Title\&quot;)&quot;</span> ],
+170:                 [<span class="ruby-value str">&quot;[a] (       ur:/l/ \&quot;Title\&quot;)&quot;</span> ],
+171:                 [<span class="ruby-value str">&quot;[a]( ur:/l/ Title)&quot;</span>, <span class="ruby-identifier">:throw</span>, <span class="ruby-value str">&quot;Must quote title&quot;</span> ],
+172: 
+173:                 [<span class="ruby-value str">&quot;[a](url 'Tit\\\&quot;l\\\\e')&quot;</span>, [<span class="ruby-identifier">md_im_link</span>([<span class="ruby-value str">'a'</span>],<span class="ruby-value str">'url'</span>,<span class="ruby-value str">'Tit&quot;l\\e'</span>)],
+174:                       <span class="ruby-value str">'url and title escaped'</span>],
+175:                 [<span class="ruby-value str">&quot;[a] (       url \&quot;Tit\\\&quot;l\\\\e\&quot;)&quot;</span> ],
+176:                 [<span class="ruby-value str">&quot;[a] (       url   \&quot;Tit\\\&quot;l\\\\e\&quot;  )&quot;</span> ],
+177:                 [<span class="ruby-value str">'[a] (       url   &quot;Tit\\&quot;l\\\\e&quot;  )'</span> ],
+178:                 [<span class="ruby-value str">&quot;[a]()&quot;</span>, [<span class="ruby-identifier">md_im_link</span>([<span class="ruby-value str">'a'</span>],<span class="ruby-value str">''</span>)], <span class="ruby-value str">'No URL is OK'</span>],
+179:         
+180:                 [<span class="ruby-value str">&quot;[a](\&quot;Title\&quot;)&quot;</span>, <span class="ruby-identifier">:throw</span>, <span class="ruby-value str">&quot;No url specified&quot;</span> ],
+181:                 [<span class="ruby-value str">&quot;[a](url \&quot;Title)&quot;</span>, <span class="ruby-identifier">:throw</span>, <span class="ruby-value str">&quot;Unclosed quotes&quot;</span> ],
+182:                 [<span class="ruby-value str">&quot;[a](url \&quot;Title\\\&quot;)&quot;</span>, <span class="ruby-identifier">:throw</span>],
+183:                 [<span class="ruby-value str">&quot;[a](url \&quot;Title\&quot; &quot;</span>, <span class="ruby-identifier">:throw</span>],
+184: 
+185:                 [<span class="ruby-value str">&quot;[a](url \'Title\&quot;)&quot;</span>, <span class="ruby-identifier">:throw</span>, <span class="ruby-value str">&quot;Mixing is bad&quot;</span> ],
+186:                 [<span class="ruby-value str">&quot;[a](url \&quot;Title\')&quot;</span>],
+187:                 
+188:                 [<span class="ruby-value str">&quot;[a](/url)&quot;</span>, [<span class="ruby-identifier">md_im_link</span>([<span class="ruby-value str">'a'</span>],<span class="ruby-value str">'/url'</span>)], <span class="ruby-value str">'Funny chars in url'</span>],
+189:                 [<span class="ruby-value str">&quot;[a](#url)&quot;</span>, [<span class="ruby-identifier">md_im_link</span>([<span class="ruby-value str">'a'</span>],<span class="ruby-value str">'#url'</span>)]],
+190:                 [<span class="ruby-value str">&quot;[a](&lt;/script?foo=1&amp;bar=2&gt;)&quot;</span>, [<span class="ruby-identifier">md_im_link</span>([<span class="ruby-value str">'a'</span>],<span class="ruby-value str">'/script?foo=1&amp;bar=2'</span>)]],
+191:                 
+192:                 
+193:                 <span class="ruby-comment cmt"># Images</span>
+194:                 [<span class="ruby-value str">&quot;\\![a](url)&quot;</span>,  [<span class="ruby-value str">'!'</span>, <span class="ruby-identifier">md_im_link</span>([<span class="ruby-value str">'a'</span>],<span class="ruby-value str">'url'</span>) ], <span class="ruby-value str">'Escaping images'</span>],
+195:                 
+196:                 [<span class="ruby-value str">&quot;![a](url)&quot;</span>,  [<span class="ruby-identifier">md_im_image</span>([<span class="ruby-value str">'a'</span>],<span class="ruby-value str">'url'</span>)], <span class="ruby-value str">'Image no title'</span>],
+197:                 [<span class="ruby-value str">&quot;![a]( url )&quot;</span> ],
+198:                 [<span class="ruby-value str">&quot;![a] (      url )&quot;</span> ],
+199:                 [<span class="ruby-value str">&quot;![a] (      url)&quot;</span> ],
+200: 
+201:                 [<span class="ruby-value str">&quot;![a](url 'ti\&quot;tle')&quot;</span>,  [<span class="ruby-identifier">md_im_image</span>([<span class="ruby-value str">'a'</span>],<span class="ruby-value str">'url'</span>,<span class="ruby-value str">'ti&quot;tle'</span>)], <span class="ruby-value str">'Image with title'</span>],
+202:                 [<span class="ruby-value str">'![a]( url &quot;ti\\&quot;tle&quot;)'</span> ],
+203: 
+204:                 [<span class="ruby-value str">&quot;![a](url&quot;</span>, <span class="ruby-identifier">:throw</span>, <span class="ruby-value str">'Invalid images'</span>],
+205:                 [<span class="ruby-value str">&quot;![a( url )&quot;</span> ],
+206:                 [<span class="ruby-value str">&quot;![a] ('url )&quot;</span> ],
+207: 
+208:                 [<span class="ruby-value str">&quot;![a][imref]&quot;</span>,  [<span class="ruby-identifier">md_image</span>([<span class="ruby-value str">'a'</span>],<span class="ruby-value str">'imref'</span>)], <span class="ruby-value str">'Image with ref'</span>],
+209:                 [<span class="ruby-value str">&quot;![a][ imref]&quot;</span>],
+210:                 [<span class="ruby-value str">&quot;![a][ imref ]&quot;</span>],
+211:                 [<span class="ruby-value str">&quot;![a][\timref\t]&quot;</span>],
+212:                 
+213:                 [<span class="ruby-value str">'&lt;http://example.com/?foo=1&amp;bar=2&gt;'</span>, 
+214:                         [<span class="ruby-identifier">md_url</span>(<span class="ruby-value str">'http://example.com/?foo=1&amp;bar=2'</span>)], <span class="ruby-value str">'Immediate link'</span>],
+215:                         [<span class="ruby-value str">'a&lt;http://example.com/?foo=1&amp;bar=2&gt;b'</span>, 
+216:                                 [<span class="ruby-value str">'a'</span>,<span class="ruby-identifier">md_url</span>(<span class="ruby-value str">'http://example.com/?foo=1&amp;bar=2'</span>),<span class="ruby-value str">'b'</span>]  ],
+217:                 [<span class="ruby-value str">'&lt;andrea@censi.org&gt;'</span>, 
+218:                         [<span class="ruby-identifier">md_email</span>(<span class="ruby-value str">'andrea@censi.org'</span>)], <span class="ruby-value str">'Email address'</span>],
+219:                 [<span class="ruby-value str">'&lt;mailto:andrea@censi.org&gt;'</span>],
+220:                                 
+221:                 [<span class="ruby-value str">&quot;a&lt;!-- --&gt;b&quot;</span>, [<span class="ruby-value str">'a'</span>,<span class="ruby-identifier">md_html</span>(<span class="ruby-value str">'&lt;!-- --&gt;'</span>),<span class="ruby-value str">'b'</span>], 
+222:                         <span class="ruby-value str">'HTML Comment'</span>],
+223: 
+224:                 [<span class="ruby-value str">&quot;a&lt;!--&quot;</span>, <span class="ruby-identifier">:throw</span>, <span class="ruby-value str">'Bad HTML Comment'</span>],
+225:                 [<span class="ruby-value str">&quot;a&lt;!-- &quot;</span>, <span class="ruby-identifier">:throw</span>, <span class="ruby-value str">'Bad HTML Comment'</span>],
+226: 
+227:                 [<span class="ruby-value str">&quot;&lt;? &lt;?!--!`3  ?&gt;&quot;</span>, [<span class="ruby-identifier">md_server</span>(<span class="ruby-value str">'&lt;?!--!`3'</span>)], <span class="ruby-value str">'Server directive'</span>],
+228: 
+229:                 [<span class="ruby-value str">&quot;&lt;? &quot;</span>, <span class="ruby-identifier">:throw</span>, <span class="ruby-value str">'Bad Server directive'</span>],
+230: 
+231:                 [<span class="ruby-value str">&quot;a &lt;b&quot;</span>, <span class="ruby-identifier">:throw</span>, <span class="ruby-value str">'Bad HTML 1'</span>],
+232:                 [<span class="ruby-value str">&quot;&lt;b&quot;</span>,   <span class="ruby-identifier">:throw</span>, <span class="ruby-value str">'Bad HTML 2'</span>],
+233:                 [<span class="ruby-value str">&quot;&lt;b!&quot;</span>,  <span class="ruby-identifier">:throw</span>, <span class="ruby-value str">'Bad HTML 3'</span>],
+234:                 [<span class="ruby-value str">'`&lt;div&gt;`, `&lt;table&gt;`, `&lt;pre&gt;`, `&lt;p&gt;`'</span>,
+235:                         [<span class="ruby-identifier">md_code</span>(<span class="ruby-value str">'&lt;div&gt;'</span>),<span class="ruby-value str">', '</span>,<span class="ruby-identifier">md_code</span>(<span class="ruby-value str">'&lt;table&gt;'</span>),<span class="ruby-value str">', '</span>,
+236:                                 <span class="ruby-identifier">md_code</span>(<span class="ruby-value str">'&lt;pre&gt;'</span>),<span class="ruby-value str">', '</span>,<span class="ruby-identifier">md_code</span>(<span class="ruby-value str">'&lt;p&gt;'</span>)],
+237:                                 <span class="ruby-value str">'Multiple HTLM tags'</span>],
+238:                                 
+239:                 [<span class="ruby-value str">&quot;&amp;andrea&quot;</span>, [<span class="ruby-value str">&quot;&amp;andrea&quot;</span>], <span class="ruby-value str">'Parsing of entities'</span>],
+240: <span class="ruby-comment cmt"># no escaping is allowed</span>
+241: <span class="ruby-comment cmt">#                       [&quot;\\&amp;andrea;&quot;, [&quot;&amp;andrea;&quot;]],</span>
+242:                 [<span class="ruby-value str">&quot;l&amp;andrea;&quot;</span>, [<span class="ruby-value str">&quot;l&quot;</span>, <span class="ruby-identifier">md_entity</span>(<span class="ruby-value str">'andrea'</span>)] ],
+243:                 [<span class="ruby-value str">&quot;&amp;&amp;andrea;&quot;</span>, [<span class="ruby-value str">&quot;&amp;&quot;</span>, <span class="ruby-identifier">md_entity</span>(<span class="ruby-value str">'andrea'</span>)] ],
+244:                 [<span class="ruby-value str">&quot;&amp;123;;&amp;amp;&quot;</span>,[<span class="ruby-identifier">md_entity</span>(<span class="ruby-value str">'123'</span>),<span class="ruby-value str">';'</span>,<span class="ruby-identifier">md_entity</span>(<span class="ruby-value str">'amp'</span>)]],
+245:                 
+246:                 [<span class="ruby-value str">&quot;a\nThe [syntax page] [s] provides&quot;</span>, 
+247:                         [<span class="ruby-value str">'a The '</span>, <span class="ruby-identifier">md_link</span>([<span class="ruby-value str">'syntax page'</span>],<span class="ruby-value str">'s'</span>), <span class="ruby-value str">' provides'</span>], <span class="ruby-value str">'Regression'</span>],
+248:                 
+249:                 [<span class="ruby-value str">'![a](url &quot;ti&quot;tle&quot;)'</span>, [<span class="ruby-identifier">md_im_image</span>([<span class="ruby-value str">'a'</span>],<span class="ruby-value str">'url'</span>,<span class="ruby-value str">'ti&quot;tle'</span>)], 
+250:                         <span class="ruby-value str">&quot;Image with quotes&quot;</span>],
+251:                 [<span class="ruby-value str">'![a](url \'ti&quot;tle\')'</span> ],
+252:                 
+253:                 [<span class="ruby-value str">'[bar](/url/ &quot;Title with &quot;quotes&quot; inside&quot;)'</span>, 
+254:                         [<span class="ruby-identifier">md_im_link</span>([<span class="ruby-value str">&quot;bar&quot;</span>],<span class="ruby-value str">'/url/'</span>, <span class="ruby-value str">'Title with &quot;quotes&quot; inside'</span>)],
+255:                         <span class="ruby-value str">&quot;Link with quotes&quot;</span>],
+256:                 
+257:                 [<span class="ruby-node">&quot;#{Maruku8}&quot;</span>, [<span class="ruby-constant">Maruku8</span>], <span class="ruby-value str">&quot;Reading UTF-8&quot;</span>],
+258:                 [<span class="ruby-node">&quot;#{AccIta1}&quot;</span>, [<span class="ruby-constant">AccIta8</span>], <span class="ruby-value str">&quot;Converting ISO-8859-1 to UTF-8&quot;</span>, 
+259:                         {<span class="ruby-identifier">:encoding</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">'iso-8859-1'</span>}],
+260:         ]
+261: 
+262:                 <span class="ruby-identifier">good_cases</span> = <span class="ruby-identifier">unit_tests_for_attribute_lists</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">good_cases</span>
+263:                 
+264:                 <span class="ruby-identifier">count</span> = <span class="ruby-value">1</span>; <span class="ruby-identifier">last_comment</span>=<span class="ruby-value str">&quot;&quot;</span>; <span class="ruby-identifier">last_expected</span>=<span class="ruby-identifier">:throw</span>
+265:                 <span class="ruby-identifier">good_cases</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">t</span><span class="ruby-operator">|</span>
+266:                         <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">not</span> <span class="ruby-identifier">t</span>[<span class="ruby-value">1</span>]
+267:                                 <span class="ruby-identifier">t</span>[<span class="ruby-value">1</span>] = <span class="ruby-identifier">last_expected</span>
+268:                         <span class="ruby-keyword kw">else</span>
+269:                                 <span class="ruby-identifier">last_expected</span> = <span class="ruby-identifier">t</span>[<span class="ruby-value">1</span>]
+270:                         <span class="ruby-keyword kw">end</span>                          
+271:                         <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">not</span> <span class="ruby-identifier">t</span>[<span class="ruby-value">2</span>]
+272:                                 <span class="ruby-identifier">t</span>[<span class="ruby-value">2</span>] = <span class="ruby-identifier">last_comment</span> <span class="ruby-operator">+</span> <span class="ruby-node">&quot; #{count+=1}&quot;</span>
+273:                         <span class="ruby-keyword kw">else</span>
+274:                                 <span class="ruby-identifier">last_comment</span> = <span class="ruby-identifier">t</span>[<span class="ruby-value">2</span>]; <span class="ruby-identifier">count</span>=<span class="ruby-value">1</span>
+275:                         <span class="ruby-keyword kw">end</span>
+276:                 <span class="ruby-keyword kw">end</span>
+277:                 
+278:                         
+279:                 <span class="ruby-ivar">@verbose</span> = <span class="ruby-identifier">verbose</span>
+280:                 <span class="ruby-identifier">m</span> = <span class="ruby-constant">Maruku</span>.<span class="ruby-identifier">new</span>
+281:                 <span class="ruby-identifier">m</span>.<span class="ruby-identifier">attributes</span>[<span class="ruby-identifier">:on_error</span>] = <span class="ruby-identifier">:raise</span>
+282:                 
+283:                 <span class="ruby-identifier">good_cases</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">input</span>, <span class="ruby-identifier">expected</span>, <span class="ruby-identifier">comment</span><span class="ruby-operator">|</span>
+284:                                 <span class="ruby-identifier">output</span> = <span class="ruby-keyword kw">nil</span>
+285:                                 <span class="ruby-keyword kw">begin</span>
+286:                                         <span class="ruby-identifier">output</span> = <span class="ruby-identifier">m</span>.<span class="ruby-identifier">parse_span_better</span>(<span class="ruby-identifier">input</span>)
+287:                                         <span class="ruby-comment cmt">#lines = Maruku.split_lines input</span>
+288:                                         <span class="ruby-comment cmt">#output = m.parse_lines_as_span(lines)</span>
+289:                                 <span class="ruby-keyword kw">rescue</span> <span class="ruby-constant">Exception</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
+290:                                         <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">not</span> <span class="ruby-identifier">expected</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">:throw</span>
+291:                                                 <span class="ruby-identifier">ex</span> = <span class="ruby-identifier">e</span>.<span class="ruby-identifier">inspect</span><span class="ruby-operator">+</span> <span class="ruby-value str">&quot;\n&quot;</span><span class="ruby-operator">+</span> <span class="ruby-identifier">e</span>.<span class="ruby-identifier">backtrace</span>.<span class="ruby-identifier">join</span>(<span class="ruby-value str">&quot;\n&quot;</span>)
+292:                                                 <span class="ruby-identifier">s</span> = <span class="ruby-identifier">comment</span><span class="ruby-operator">+</span><span class="ruby-identifier">describe_difference</span>(<span class="ruby-identifier">input</span>, <span class="ruby-identifier">expected</span>, <span class="ruby-identifier">output</span>)
+293:                                                         
+294:                                                 <span class="ruby-identifier">print_status</span>(<span class="ruby-identifier">comment</span>,<span class="ruby-value str">'CRASHED :-('</span>, <span class="ruby-identifier">ex</span><span class="ruby-operator">+</span><span class="ruby-identifier">s</span>)
+295:                                                 <span class="ruby-identifier">raise</span> <span class="ruby-identifier">e</span> <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@break_on_first_error</span> 
+296:                                         <span class="ruby-keyword kw">else</span>
+297:                                                 <span class="ruby-identifier">quiet</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">print_status</span>(<span class="ruby-identifier">comment</span>,<span class="ruby-value str">'OK'</span>)
+298:                                         <span class="ruby-keyword kw">end</span>
+299:                                 <span class="ruby-keyword kw">end</span>
+300:                                 
+301:                                 <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">not</span> <span class="ruby-identifier">expected</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">:throw</span>
+302:                                         <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">not</span> (<span class="ruby-identifier">expected</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">output</span>)
+303:                                                 <span class="ruby-identifier">s</span> = <span class="ruby-identifier">comment</span><span class="ruby-operator">+</span><span class="ruby-identifier">describe_difference</span>(<span class="ruby-identifier">input</span>, <span class="ruby-identifier">expected</span>, <span class="ruby-identifier">output</span>)
+304:                                                 <span class="ruby-identifier">print_status</span>(<span class="ruby-identifier">comment</span>, <span class="ruby-value str">'FAILED'</span>, <span class="ruby-identifier">s</span>)
+305:                                                 <span class="ruby-keyword kw">break</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">break_on_first_error</span>
+306:                                         <span class="ruby-keyword kw">else</span>
+307:                                                 <span class="ruby-identifier">quiet</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">print_status</span>(<span class="ruby-identifier">comment</span>, <span class="ruby-value str">'OK'</span>)
+308:                                         <span class="ruby-keyword kw">end</span>
+309:                                 <span class="ruby-keyword kw">else</span> <span class="ruby-comment cmt"># I expected a raise</span>
+310:                                         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">output</span>
+311:                                                 <span class="ruby-identifier">s</span> = <span class="ruby-identifier">comment</span><span class="ruby-operator">+</span><span class="ruby-identifier">describe_difference</span>(<span class="ruby-identifier">input</span>, <span class="ruby-identifier">expected</span>, <span class="ruby-identifier">output</span>)
+312:                                                 
+313:                                                 <span class="ruby-identifier">print_status</span>(<span class="ruby-identifier">comment</span>, <span class="ruby-value str">'FAILED (no throw)'</span>, <span class="ruby-identifier">s</span>)
+314:                                                 <span class="ruby-keyword kw">break</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">break_on_first_error</span>
+315:                                         <span class="ruby-keyword kw">end</span>
+316:                                 <span class="ruby-keyword kw">end</span>
+317:                                 
+318:                 <span class="ruby-keyword kw">end</span>
+319:         <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+</div>
+
+  </div>
+
+    </body>
+</html>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>convert_to_mathml_itex2mml (MaRuKu::Out::HTML)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/maruku/ext/math/mathml_engines/itex2mml.rb, line 4</span>
+        <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">convert_to_mathml_itex2mml</span>(<span class="ruby-identifier">kind</span>, <span class="ruby-identifier">tex</span>)
+                <span class="ruby-keyword kw">begin</span>
+                        <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">not</span> <span class="ruby-identifier">$itex2mml_parser</span>
+                                <span class="ruby-identifier">require</span> <span class="ruby-value str">'itextomml'</span>
+                                <span class="ruby-identifier">$itex2mml_parser</span> =  <span class="ruby-constant">Itex2MML</span><span class="ruby-operator">::</span><span class="ruby-constant">Parser</span>.<span class="ruby-identifier">new</span>
+                        <span class="ruby-keyword kw">end</span>
+                        
+                        <span class="ruby-identifier">itex_method</span> = {<span class="ruby-identifier">:equation=</span><span class="ruby-operator">&gt;</span><span class="ruby-identifier">:block_filter</span>,<span class="ruby-identifier">:inline=</span><span class="ruby-operator">&gt;</span><span class="ruby-identifier">:inline_filter</span>}
+                        
+                        <span class="ruby-identifier">mathml</span> =  <span class="ruby-identifier">$itex2mml_parser</span>.<span class="ruby-identifier">send</span>(<span class="ruby-identifier">itex_method</span>[<span class="ruby-identifier">kind</span>], <span class="ruby-identifier">tex</span>)
+                        <span class="ruby-identifier">doc</span> = <span class="ruby-constant">Document</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">mathml</span>, {<span class="ruby-identifier">:respect_whitespace</span> =<span class="ruby-operator">&gt;</span><span class="ruby-identifier">:all</span>}).<span class="ruby-identifier">root</span>
+                        <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">doc</span>
+                <span class="ruby-keyword kw">rescue</span> <span class="ruby-constant">LoadError</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
+                        <span class="ruby-identifier">maruku_error</span> <span class="ruby-value str">&quot;Could not load package 'itex2mml'.\n&quot;</span><span class="ruby-operator">+</span>
+                        <span class="ruby-value str">&quot;Please install it.&quot;</span>
+                <span class="ruby-keyword kw">rescue</span> <span class="ruby-constant">REXML</span><span class="ruby-operator">::</span><span class="ruby-constant">ParseException</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
+                        <span class="ruby-identifier">maruku_error</span> <span class="ruby-node">&quot;Invalid MathML TeX: \n#{add_tabs(tex,1,'tex&gt;')}&quot;</span><span class="ruby-operator">+</span>
+                                <span class="ruby-node">&quot;\n\n #{e.inspect}&quot;</span>
+                <span class="ruby-keyword kw">rescue</span> 
+                        <span class="ruby-identifier">maruku_error</span> <span class="ruby-node">&quot;Could not produce MathML TeX: \n#{tex}&quot;</span><span class="ruby-operator">+</span>
+                                <span class="ruby-node">&quot;\n\n #{e.inspect}&quot;</span>
+                <span class="ruby-keyword kw">end</span>
+                <span class="ruby-keyword kw">nil</span>
+        <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

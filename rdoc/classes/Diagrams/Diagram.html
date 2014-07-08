@@ -1,0 +1,565 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>Class: Diagrams::Diagram</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+  <script type="text/javascript">
+  // <![CDATA[
+
+  function popupCode( url ) {
+    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+  }
+
+  function toggleCode( id ) {
+    if ( document.getElementById )
+      elem = document.getElementById( id );
+    else if ( document.all )
+      elem = eval( "document.all." + id );
+    else
+      return false;
+
+    elemStyle = elem.style;
+    
+    if ( elemStyle.display != "block" ) {
+      elemStyle.display = "block"
+    } else {
+      elemStyle.display = "none"
+    }
+
+    return true;
+  }
+  
+  // Make codeblocks hidden by default
+  document.writeln( "<style type=\"text/css\">div.method-source-code { display: none }</style>" )
+  
+  // ]]>
+  </script>
+
+</head>
+<body>
+
+
+
+    <div id="classHeader">
+        <table class="header-table">
+        <tr class="top-aligned-row">
+          <td><strong>Class</strong></td>
+          <td class="class-name-in-header">Diagrams::Diagram</td>
+        </tr>
+        <tr class="top-aligned-row">
+            <td><strong>In:</strong></td>
+            <td>
+                <a href="../../files/lib/maruku/ext/diagrams/layout_rb.html">
+                lib/maruku/ext/diagrams/layout.rb
+                </a>
+        <br />
+                <a href="../../files/lib/maruku/ext/diagrams/parser_rb.html">
+                lib/maruku/ext/diagrams/parser.rb
+                </a>
+        <br />
+                <a href="../../files/lib/maruku/ext/diagrams/structures_rb.html">
+                lib/maruku/ext/diagrams/structures.rb
+                </a>
+        <br />
+                <a href="../../files/lib/maruku/ext/diagrams/to_html_rb.html">
+                lib/maruku/ext/diagrams/to_html.rb
+                </a>
+        <br />
+                <a href="../../files/lib/maruku/ext/diagrams/to_latex_rb.html">
+                lib/maruku/ext/diagrams/to_latex.rb
+                </a>
+        <br />
+            </td>
+        </tr>
+
+        <tr class="top-aligned-row">
+            <td><strong>Parent:</strong></td>
+            <td>
+                <a href="../Object.html">
+                Object
+               </a>
+            </td>
+        </tr>
+        </table>
+    </div>
+  <!-- banner header -->
+
+  <div id="bodyContent">
+
+
+
+  <div id="contextContent">
+
+
+
+   </div>
+
+    <div id="method-list">
+      <h3 class="section-bar">Methods</h3>
+
+      <div class="name-list">
+      <a href="#M000045">arrow_con</a>&nbsp;&nbsp;
+      <a href="#M000042">assign_variables</a>&nbsp;&nbsp;
+      <a href="#M000048">create_grid_from_string</a>&nbsp;&nbsp;
+      <a href="#M000050">detect_arrows</a>&nbsp;&nbsp;
+      <a href="#M000053">detect_boxes</a>&nbsp;&nbsp;
+      <a href="#M000049">detect_points</a>&nbsp;&nbsp;
+      <a href="#M000043">do_layout</a>&nbsp;&nbsp;
+      <a href="#M000051">find_arrow</a>&nbsp;&nbsp;
+      <a href="#M000055">find_box</a>&nbsp;&nbsp;
+      <a href="#M000054">for_each_to_process</a>&nbsp;&nbsp;
+      <a href="#M000052">iterate</a>&nbsp;&nbsp;
+      <a href="#M000044">margin_con</a>&nbsp;&nbsp;
+      <a href="#M000056">match</a>&nbsp;&nbsp;
+      <a href="#M000057">match_horiz</a>&nbsp;&nbsp;
+      <a href="#M000058">match_vert</a>&nbsp;&nbsp;
+      <a href="#M000059">new</a>&nbsp;&nbsp;
+      <a href="#M000047">positive_con</a>&nbsp;&nbsp;
+      <a href="#M000063">read_tex_discovery</a>&nbsp;&nbsp;
+      <a href="#M000065">to_dev</a>&nbsp;&nbsp;
+      <a href="#M000060">to_html</a>&nbsp;&nbsp;
+      <a href="#M000064">to_latex</a>&nbsp;&nbsp;
+      <a href="#M000041">top_right</a>&nbsp;&nbsp;
+      <a href="#M000062">write_latex_discovery</a>&nbsp;&nbsp;
+      <a href="#M000061">write_tex_discovery</a>&nbsp;&nbsp;
+      <a href="#M000046">zero_con</a>&nbsp;&nbsp;
+      </div>
+    </div>
+
+  </div>
+
+
+    <!-- if includes -->
+    <div id="includes">
+      <h3 class="section-bar">Included Modules</h3>
+
+      <div id="includes-list">
+        <span class="include-name"><a href="../REXML.html">REXML</a></span>
+      </div>
+    </div>
+
+    <div id="section">
+
+
+
+
+
+    <div id="attribute-list">
+      <h3 class="section-bar">Attributes</h3>
+
+      <div class="name-list">
+        <table>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">arrows</td>
+          <td class="context-item-value">&nbsp;[RW]&nbsp;</td>
+          <td class="context-item-desc"></td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">boxes</td>
+          <td class="context-item-value">&nbsp;[RW]&nbsp;</td>
+          <td class="context-item-desc"></td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">occup</td>
+          <td class="context-item-value">&nbsp;[RW]&nbsp;</td>
+          <td class="context-item-desc"></td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">points</td>
+          <td class="context-item-value">&nbsp;[RW]&nbsp;</td>
+          <td class="context-item-desc"></td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">text</td>
+          <td class="context-item-value">&nbsp;[RW]&nbsp;</td>
+          <td class="context-item-desc"></td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">to_process</td>
+          <td class="context-item-value">&nbsp;[RW]&nbsp;</td>
+          <td class="context-item-desc"></td>
+        </tr>
+        </table>
+      </div>
+    </div>
+      
+
+
+    <!-- if method_list -->
+    <div id="methods">
+      <h3 class="section-bar">Public Class methods</h3>
+
+      <div id="method-M000059" class="method-detail">
+        <a name="M000059"></a>
+
+        <div class="method-heading">
+          <a href="Diagram.src/M000059.html" target="Code" class="method-signature"
+            onclick="popupCode('Diagram.src/M000059.html');return false;">
+          <span class="method-name">new</span><span class="method-args">(s)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <h3 class="section-bar">Public Instance methods</h3>
+
+      <div id="method-M000045" class="method-detail">
+        <a name="M000045"></a>
+
+        <div class="method-heading">
+          <a href="Diagram.src/M000045.html" target="Code" class="method-signature"
+            onclick="popupCode('Diagram.src/M000045.html');return false;">
+          <span class="method-name">arrow_con</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000042" class="method-detail">
+        <a name="M000042"></a>
+
+        <div class="method-heading">
+          <a href="Diagram.src/M000042.html" target="Code" class="method-signature"
+            onclick="popupCode('Diagram.src/M000042.html');return false;">
+          <span class="method-name">assign_variables</span><span class="method-args">(diag_id)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000048" class="method-detail">
+        <a name="M000048"></a>
+
+        <div class="method-heading">
+          <a href="Diagram.src/M000048.html" target="Code" class="method-signature"
+            onclick="popupCode('Diagram.src/M000048.html');return false;">
+          <span class="method-name">create_grid_from_string</span><span class="method-args">(string)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000050" class="method-detail">
+        <a name="M000050"></a>
+
+        <div class="method-heading">
+          <a href="Diagram.src/M000050.html" target="Code" class="method-signature"
+            onclick="popupCode('Diagram.src/M000050.html');return false;">
+          <span class="method-name">detect_arrows</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000053" class="method-detail">
+        <a name="M000053"></a>
+
+        <div class="method-heading">
+          <a href="Diagram.src/M000053.html" target="Code" class="method-signature"
+            onclick="popupCode('Diagram.src/M000053.html');return false;">
+          <span class="method-name">detect_boxes</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000049" class="method-detail">
+        <a name="M000049"></a>
+
+        <div class="method-heading">
+          <a href="Diagram.src/M000049.html" target="Code" class="method-signature"
+            onclick="popupCode('Diagram.src/M000049.html');return false;">
+          <span class="method-name">detect_points</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000043" class="method-detail">
+        <a name="M000043"></a>
+
+        <div class="method-heading">
+          <a href="Diagram.src/M000043.html" target="Code" class="method-signature"
+            onclick="popupCode('Diagram.src/M000043.html');return false;">
+          <span class="method-name">do_layout</span><span class="method-args">(diag_id)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000051" class="method-detail">
+        <a name="M000051"></a>
+
+        <div class="method-heading">
+          <a href="Diagram.src/M000051.html" target="Code" class="method-signature"
+            onclick="popupCode('Diagram.src/M000051.html');return false;">
+          <span class="method-name">find_arrow</span><span class="method-args">(x, y, reg, cap1, cap2, inc_x, inc_y)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000055" class="method-detail">
+        <a name="M000055"></a>
+
+        <div class="method-heading">
+          <a href="Diagram.src/M000055.html" target="Code" class="method-signature"
+            onclick="popupCode('Diagram.src/M000055.html');return false;">
+          <span class="method-name">find_box</span><span class="method-args">(x,y,hmatch,vmatch)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000054" class="method-detail">
+        <a name="M000054"></a>
+
+        <div class="method-heading">
+          <a href="Diagram.src/M000054.html" target="Code" class="method-signature"
+            onclick="popupCode('Diagram.src/M000054.html');return false;">
+          <span class="method-name">for_each_to_process</span><span class="method-args">(char) {|x, y, e| ...}</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000052" class="method-detail">
+        <a name="M000052"></a>
+
+        <div class="method-heading">
+          <a href="Diagram.src/M000052.html" target="Code" class="method-signature"
+            onclick="popupCode('Diagram.src/M000052.html');return false;">
+          <span class="method-name">iterate</span><span class="method-args">(pos1,pos2) {|x,y| ...}</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000044" class="method-detail">
+        <a name="M000044"></a>
+
+        <div class="method-heading">
+          <a href="Diagram.src/M000044.html" target="Code" class="method-signature"
+            onclick="popupCode('Diagram.src/M000044.html');return false;">
+          <span class="method-name">margin_con</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000056" class="method-detail">
+        <a name="M000056"></a>
+
+        <div class="method-heading">
+          <a href="Diagram.src/M000056.html" target="Code" class="method-signature"
+            onclick="popupCode('Diagram.src/M000056.html');return false;">
+          <span class="method-name">match</span><span class="method-args">(x,y,reg,inc_x,inc_y)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000057" class="method-detail">
+        <a name="M000057"></a>
+
+        <div class="method-heading">
+          <a href="Diagram.src/M000057.html" target="Code" class="method-signature"
+            onclick="popupCode('Diagram.src/M000057.html');return false;">
+          <span class="method-name">match_horiz</span><span class="method-args">(x,y,reg)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000058" class="method-detail">
+        <a name="M000058"></a>
+
+        <div class="method-heading">
+          <a href="Diagram.src/M000058.html" target="Code" class="method-signature"
+            onclick="popupCode('Diagram.src/M000058.html');return false;">
+          <span class="method-name">match_vert</span><span class="method-args">(x,y,reg)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000047" class="method-detail">
+        <a name="M000047"></a>
+
+        <div class="method-heading">
+          <a href="Diagram.src/M000047.html" target="Code" class="method-signature"
+            onclick="popupCode('Diagram.src/M000047.html');return false;">
+          <span class="method-name">positive_con</span><span class="method-args">(pref)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000063" class="method-detail">
+        <a name="M000063"></a>
+
+        <div class="method-heading">
+          <a href="Diagram.src/M000063.html" target="Code" class="method-signature"
+            onclick="popupCode('Diagram.src/M000063.html');return false;">
+          <span class="method-name">read_tex_discovery</span><span class="method-args">(my_diag_id, s)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000065" class="method-detail">
+        <a name="M000065"></a>
+
+        <div class="method-heading">
+          <a href="Diagram.src/M000065.html" target="Code" class="method-signature"
+            onclick="popupCode('Diagram.src/M000065.html');return false;">
+          <span class="method-name">to_dev</span><span class="method-args">(x)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+in points
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000060" class="method-detail">
+        <a name="M000060"></a>
+
+        <div class="method-heading">
+          <a href="Diagram.src/M000060.html" target="Code" class="method-signature"
+            onclick="popupCode('Diagram.src/M000060.html');return false;">
+          <span class="method-name">to_html</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000064" class="method-detail">
+        <a name="M000064"></a>
+
+        <div class="method-heading">
+          <a href="Diagram.src/M000064.html" target="Code" class="method-signature"
+            onclick="popupCode('Diagram.src/M000064.html');return false;">
+          <span class="method-name">to_latex</span><span class="method-args">(job=&quot;anon_diagram&quot;)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000041" class="method-detail">
+        <a name="M000041"></a>
+
+        <div class="method-heading">
+          <a href="Diagram.src/M000041.html" target="Code" class="method-signature"
+            onclick="popupCode('Diagram.src/M000041.html');return false;">
+          <span class="method-name">top_right</span><span class="method-args">(i)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000062" class="method-detail">
+        <a name="M000062"></a>
+
+        <div class="method-heading">
+          <a href="Diagram.src/M000062.html" target="Code" class="method-signature"
+            onclick="popupCode('Diagram.src/M000062.html');return false;">
+          <span class="method-name">write_latex_discovery</span><span class="method-args">(diag_id, output_file)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000061" class="method-detail">
+        <a name="M000061"></a>
+
+        <div class="method-heading">
+          <a href="Diagram.src/M000061.html" target="Code" class="method-signature"
+            onclick="popupCode('Diagram.src/M000061.html');return false;">
+          <span class="method-name">write_tex_discovery</span><span class="method-args">(diag_id, output_file)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000046" class="method-detail">
+        <a name="M000046"></a>
+
+        <div class="method-heading">
+          <a href="Diagram.src/M000046.html" target="Code" class="method-signature"
+            onclick="popupCode('Diagram.src/M000046.html');return false;">
+          <span class="method-name">zero_con</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+
+    </div>
+
+
+  </div>
+
+
+<div id="validator-badges">
+  <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wc-entries
+   xmlns="svn:">
+<entry
+   committed-rev="102"
+   name=""
+   committed-date="2007-01-23T18:38:07.044621Z"
+   url="svn+ssh://rubyforge.org/var/svn/maruku/trunk/tests/unittest/paragraph_rules"
+   last-author="andrea"
+   kind="dir"
+   uuid="7e2f57f0-5a75-4fd6-9797-5817c466b243"
+   repos="svn+ssh://rubyforge.org/var/svn/maruku"
+   prop-time="2007-01-23T18:33:58.000000Z"
+   revision="117"/>
+<entry
+   committed-rev="64"
+   name="tab_is_blank.md"
+   text-time="2007-02-16T13:22:13.000000Z"
+   committed-date="2007-01-07T19:37:36.404416Z"
+   checksum="995c6eefd5067a7fa4bc00fbb56b096f"
+   last-author="andrea"
+   kind="file"/>
+<entry
+   committed-rev="64"
+   name="dont_merge_ref.md"
+   text-time="2007-02-16T13:22:13.000000Z"
+   committed-date="2007-01-07T19:37:36.404416Z"
+   checksum="3443c89db989d191504c943ec21e96ec"
+   last-author="andrea"
+   kind="file"/>
+</wc-entries>

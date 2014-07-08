@@ -1,0 +1,305 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <head>
+    <title>Class: String</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+    <link rel="stylesheet" href=".././rdoc-style.css" type="text/css" media="screen" />
+
+    <script language="JavaScript" type="text/javascript">
+    // <![CDATA[
+
+        function toggleSource( id )
+        {
+          var elem
+          var link
+
+          if( document.getElementById )
+          {
+            elem = document.getElementById( id )
+            link = document.getElementById( "l_" + id )
+          }
+          else if ( document.all )
+          {
+            elem = eval( "document.all." + id )
+            link = eval( "document.all.l_" + id )
+          }
+          else
+            return false;
+
+          if( elem.style.display == "block" )
+          {
+            elem.style.display = "none"
+            link.innerHTML = "show source"
+          }
+          else
+          {
+            elem.style.display = "block"
+            link.innerHTML = "hide source"
+          }
+        }
+
+        function openCode( url )
+        {
+          window.open( url, "SOURCE_CODE", "width=400,height=400,scrollbars=yes" )
+        }
+      // ]]>
+    </script>
+  </head>
+
+  <body>
+  <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'><tr>
+  <td class="file-title"><span class="file-title-prefix">Class</span><br />String</td>
+  <td align="right">
+    <table cellspacing=0 cellpadding=2>
+      <tr valign="top">
+        <td>In:</td>
+        <td>
+<a href="../files/lib/maruku/attributes_rb.html">lib/maruku/attributes.rb</a>
+<a href="../files/lib/maruku/structures_inspect_rb.html">lib/maruku/structures_inspect.rb</a>
+<a href="../files/lib/maruku/input/type_detection_rb.html">lib/maruku/input/type_detection.rb</a>
+<a href="../files/lib/maruku/output/to_html_rb.html">lib/maruku/output/to_html.rb</a>
+<a href="../files/lib/maruku/output/to_latex_strings_rb.html">lib/maruku/output/to_latex_strings.rb</a>
+<a href="../files/lib/maruku/output/to_markdown_rb.html">lib/maruku/output/to_markdown.rb</a>
+        </td>
+      </tr>
+    <tr>
+      <td>Parent:</td>
+      <td>
+Object
+     </td>
+   </tr>
+         </table>
+        </td>
+        </tr>
+      </table>
+ <!-- banner header -->
+
+  <div id="bodyContent">
+      <div id="content">
+
+
+
+
+  <div class="sectiontitle">Methods</div>
+  <ul>
+  <li><a href="#M000012">escape_to_latex</a></li>
+  <li><a href="#M000010">md_type</a></li>
+  <li><a href="#M000015">mysplit</a></li>
+  <li><a href="#M000009">quote_if_needed</a></li>
+  <li><a href="#M000011">to_html</a></li>
+  <li><a href="#M000013">to_latex</a></li>
+  <li><a href="#M000014">to_md</a></li>
+  </ul>
+
+<div class="sectiontitle">Included Modules</div>
+<ul>
+  <li><a href="MaRuKu/Strings.html">MaRuKu::Strings</a></li>
+</ul>
+
+
+
+  <div class="sectiontitle">Constants</div>
+  <table border='0' cellpadding='5'>
+  <tr valign='top'>
+    <td class="attr-name">LATEX_ADD_SLASH</td>
+    <td>=</td>
+    <td class="attr-value">[ ?{, ?}, ?$, ?&amp;, ?#, ?_, ?%]</td>
+  </tr>
+  <tr valign='top'>
+    <td>&nbsp;</td>
+    <td colspan="2" class="attr-desc">
+These are TeX&#8216;s special characters
+
+</td>
+  </tr>
+  <tr valign='top'>
+    <td class="attr-name">LATEX_TO_CHARCODE</td>
+    <td>=</td>
+    <td class="attr-value">[ ?^, ?~, ?&gt;,?&lt;]</td>
+  </tr>
+  <tr valign='top'>
+    <td>&nbsp;</td>
+    <td colspan="2" class="attr-desc">
+These, we transform to {\tt \char&lt;ascii code&gt;}
+
+</td>
+  </tr>
+  <tr valign='top'>
+    <td class="attr-name">OtherGoodies</td>
+    <td>=</td>
+    <td class="attr-value">{                 /(\s)LaTeX/ =&gt; '\1\\LaTeX\\xspace ', # XXX not if already \LaTeX #               'HTML' =&gt; '\\textsc{html}\\xspace ', #               'PDF' =&gt; '\\textsc{pdf}\\xspace '         }</td>
+  </tr>
+  <tr valign='top'>
+    <td>&nbsp;</td>
+    <td colspan="2" class="attr-desc">
+other things that are good on the eyes
+
+</td>
+  </tr>
+  </table>
+
+
+<div class="sectiontitle">Public Instance methods</div>
+<div class="method">
+  <div class="title">
+    <a name="M000012"></a><b>escape_to_latex</b>(s)
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000012_source')" id="l_M000012_source">show source</a> ]</p>
+  <div id="M000012_source" class="dyn-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/maruku/output/to_latex_strings.rb, line 31</span>
+31:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">escape_to_latex</span>(<span class="ruby-identifier">s</span>)
+32:                 <span class="ruby-identifier">s2</span> = <span class="ruby-value str">&quot;&quot;</span>
+33:                 <span class="ruby-identifier">s</span>.<span class="ruby-identifier">each_byte</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">b</span><span class="ruby-operator">|</span>
+34:                         <span class="ruby-keyword kw">if</span> <span class="ruby-constant">LATEX_TO_CHARCODE</span>.<span class="ruby-identifier">include?</span> <span class="ruby-identifier">b</span>
+35:                                 <span class="ruby-identifier">s2</span> <span class="ruby-operator">+=</span> <span class="ruby-node">&quot;{\\tt \\char#{b}}&quot;</span> 
+36:                         <span class="ruby-keyword kw">elsif</span> <span class="ruby-constant">LATEX_ADD_SLASH</span>.<span class="ruby-identifier">include?</span> <span class="ruby-identifier">b</span>
+37:                                 <span class="ruby-identifier">s2</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-value">?\\</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">b</span>
+38:                         <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">b</span> <span class="ruby-operator">==</span> <span class="ruby-value">?\\</span>
+39:                         <span class="ruby-comment cmt"># there is no backslash in cmr10 fonts</span>
+40:                                 <span class="ruby-identifier">s2</span> <span class="ruby-operator">+=</span> <span class="ruby-value str">&quot;$\\backslash$&quot;</span>
+41:                         <span class="ruby-keyword kw">else</span>
+42:                                 <span class="ruby-identifier">s2</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">b</span>
+43:                         <span class="ruby-keyword kw">end</span>
+44:                 <span class="ruby-keyword kw">end</span>
+45:                 <span class="ruby-identifier">s2</span>
+46:         <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000010"></a><b>md_type</b>()
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000010_source')" id="l_M000010_source">show source</a> ]</p>
+  <div id="M000010_source" class="dyn-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/maruku/input/type_detection.rb, line 23</span>
+23:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">md_type</span>()
+24:                 <span class="ruby-ivar">@md_type</span> <span class="ruby-operator">||=</span> <span class="ruby-identifier">line_md_type</span>(<span class="ruby-keyword kw">self</span>)
+25:         <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000015"></a><b>mysplit</b>()
+  </div>
+  <div class="description">
+  <p>
+&quot; andrea censi &quot; =&gt; [&quot; andrea &quot;, &quot;censi &quot;]
+</p>
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000015_source')" id="l_M000015_source">show source</a> ]</p>
+  <div id="M000015_source" class="dyn-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/maruku/output/to_markdown.rb, line 29</span>
+29:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">mysplit</span>
+30:                 <span class="ruby-identifier">split</span>.<span class="ruby-identifier">map</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">x</span><span class="ruby-operator">|</span> <span class="ruby-identifier">x</span><span class="ruby-operator">+</span><span class="ruby-value str">&quot; &quot;</span>}
+31:         <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000009"></a><b>quote_if_needed</b>()
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000009_source')" id="l_M000009_source">show source</a> ]</p>
+  <div id="M000009_source" class="dyn-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/maruku/attributes.rb, line 23</span>
+23:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">quote_if_needed</span>
+24:                 <span class="ruby-keyword kw">if</span> <span class="ruby-regexp re">/[\s\'\&quot;]/</span>.<span class="ruby-identifier">match</span> <span class="ruby-keyword kw">self</span>
+25:                         <span class="ruby-identifier">inspect</span>
+26:                 <span class="ruby-keyword kw">else</span>
+27:                         <span class="ruby-keyword kw">self</span>
+28:                 <span class="ruby-keyword kw">end</span>
+29:         <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000011"></a><b>to_html</b>()
+  </div>
+  <div class="description">
+  <p>
+A string is rendered into HTML by creating a REXML::Text node. <a
+href="REXML.html">REXML</a> takes care of all the encoding.
+</p>
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000011_source')" id="l_M000011_source">show source</a> ]</p>
+  <div id="M000011_source" class="dyn-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/maruku/output/to_html.rb, line 32</span>
+32:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_html</span>
+33:                 <span class="ruby-constant">REXML</span><span class="ruby-operator">::</span><span class="ruby-constant">Text</span>.<span class="ruby-identifier">new</span>(<span class="ruby-keyword kw">self</span>)
+34:         <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000013"></a><b>to_latex</b>()
+  </div>
+  <div class="description">
+  <p>
+escapes special characters
+</p>
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000013_source')" id="l_M000013_source">show source</a> ]</p>
+  <div id="M000013_source" class="dyn-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/maruku/output/to_latex_strings.rb, line 49</span>
+49:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_latex</span>
+50:                 <span class="ruby-identifier">s</span> = <span class="ruby-identifier">escape_to_latex</span>(<span class="ruby-keyword kw">self</span>)
+51:                 <span class="ruby-constant">OtherGoodies</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">k</span>, <span class="ruby-identifier">v</span><span class="ruby-operator">|</span>
+52:                         <span class="ruby-identifier">s</span>.<span class="ruby-identifier">gsub!</span>(<span class="ruby-identifier">k</span>, <span class="ruby-identifier">v</span>)
+53:                 <span class="ruby-keyword kw">end</span>
+54:                 <span class="ruby-identifier">s</span>
+55:         <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000014"></a><b>to_md</b>(c=nil)
+  </div>
+  <div class="description">
+  <p>
+XXX: markdown escaping
+</p>
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000014_source')" id="l_M000014_source">show source</a> ]</p>
+  <div id="M000014_source" class="dyn-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/maruku/output/to_markdown.rb, line 24</span>
+24:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_md</span>(<span class="ruby-identifier">c</span>=<span class="ruby-keyword kw">nil</span>)
+25:                 <span class="ruby-identifier">to_s</span>
+26:         <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+</div>
+
+  </div>
+
+    </body>
+</html>

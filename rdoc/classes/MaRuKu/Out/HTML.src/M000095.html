@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>convert_to_png_blahtex (MaRuKu::Out::HTML)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/maruku/ext/math/mathml_engines/blahtex.rb, line 11</span>
+        <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">convert_to_png_blahtex</span>(<span class="ruby-identifier">kind</span>, <span class="ruby-identifier">tex</span>)
+                <span class="ruby-keyword kw">begin</span>
+                        <span class="ruby-constant">FileUtils</span><span class="ruby-operator">::</span><span class="ruby-identifier">mkdir_p</span> <span class="ruby-constant">MaRuKu</span><span class="ruby-operator">::</span><span class="ruby-constant">Globals</span>[<span class="ruby-identifier">:html_png_dir</span>]
+
+                        <span class="ruby-comment cmt"># first, we check whether this image has already been processed</span>
+                        <span class="ruby-identifier">md5sum</span> = <span class="ruby-constant">Digest</span><span class="ruby-operator">::</span><span class="ruby-constant">MD5</span>.<span class="ruby-identifier">hexdigest</span>(<span class="ruby-identifier">tex</span><span class="ruby-operator">+</span><span class="ruby-value str">&quot; params: &quot;</span>)
+                        <span class="ruby-identifier">result_file</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-constant">MaRuKu</span><span class="ruby-operator">::</span><span class="ruby-constant">Globals</span>[<span class="ruby-identifier">:html_png_dir</span>], <span class="ruby-identifier">md5sum</span><span class="ruby-operator">+</span><span class="ruby-value str">&quot;.txt&quot;</span>)
+                        
+                        <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">not</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">exists?</span>(<span class="ruby-identifier">result_file</span>) 
+                                <span class="ruby-identifier">tmp_in</span> = <span class="ruby-constant">Tempfile</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value str">'maruku_blahtex'</span>)
+                                <span class="ruby-identifier">f</span> = <span class="ruby-identifier">tmp_in</span>.<span class="ruby-identifier">open</span>
+                                <span class="ruby-identifier">f</span>.<span class="ruby-identifier">write</span> <span class="ruby-identifier">tex</span>
+                                <span class="ruby-identifier">f</span>.<span class="ruby-identifier">close</span>
+                                
+                                <span class="ruby-identifier">resolution</span> = <span class="ruby-identifier">get_setting</span>(<span class="ruby-identifier">:html_png_resolution</span>)
+                        
+                                <span class="ruby-identifier">options</span> = <span class="ruby-node">&quot;--png --use-preview-package --shell-dvipng 'dvipng -D #{resolution}' &quot;</span>
+                                <span class="ruby-identifier">options</span> <span class="ruby-operator">+=</span> (<span class="ruby-value str">&quot;--png-directory '%s'&quot;</span> <span class="ruby-operator">%</span> <span class="ruby-constant">MaRuKu</span><span class="ruby-operator">::</span><span class="ruby-constant">Globals</span>[<span class="ruby-identifier">:html_png_dir</span>])
+                        
+                                <span class="ruby-identifier">cmd</span> = <span class="ruby-node">&quot;blahtex #{options} &lt; #{tmp_in.path} &gt; #{result_file}&quot;</span>
+                                <span class="ruby-identifier">$stderr</span>.<span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;$ #{cmd}&quot;</span>
+                                <span class="ruby-identifier">system</span> <span class="ruby-identifier">cmd</span>
+                                <span class="ruby-identifier">tmp_in</span>.<span class="ruby-identifier">delete</span>
+                                
+                        <span class="ruby-keyword kw">end</span>
+                        
+                        <span class="ruby-identifier">result</span> = <span class="ruby-keyword kw">nil</span>
+                        <span class="ruby-identifier">f</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">open</span>(<span class="ruby-identifier">result_file</span>)
+                        <span class="ruby-identifier">result</span> = <span class="ruby-identifier">f</span>.<span class="ruby-identifier">read</span>
+                        <span class="ruby-identifier">f</span>.<span class="ruby-identifier">close</span>
+                        
+                        
+                        <span class="ruby-identifier">doc</span> = <span class="ruby-constant">Document</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">result</span>, {<span class="ruby-identifier">:respect_whitespace</span> =<span class="ruby-operator">&gt;</span><span class="ruby-identifier">:all</span>})
+                        <span class="ruby-identifier">png</span> = <span class="ruby-identifier">doc</span>.<span class="ruby-identifier">root</span>.<span class="ruby-identifier">elements</span>[<span class="ruby-value">1</span>]
+                        <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">png</span>.<span class="ruby-identifier">name</span> <span class="ruby-operator">!=</span> <span class="ruby-value str">'png'</span>
+                                <span class="ruby-identifier">maruku_error</span> <span class="ruby-node">&quot;Blahtex error: \n#{doc}&quot;</span>
+                                <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">nil</span>
+                        <span class="ruby-keyword kw">end</span>
+                        <span class="ruby-identifier">depth</span> = <span class="ruby-identifier">png</span>.<span class="ruby-identifier">elements</span>[<span class="ruby-value str">'depth'</span>] <span class="ruby-operator">||</span> (<span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;No depth element in:\n #{doc}&quot;</span>)
+                        <span class="ruby-identifier">height</span> = <span class="ruby-identifier">png</span>.<span class="ruby-identifier">elements</span>[<span class="ruby-value str">'height'</span>] <span class="ruby-operator">||</span> (<span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;No height element in:\n #{doc}&quot;</span>)
+                        <span class="ruby-identifier">md5</span> = <span class="ruby-identifier">png</span>.<span class="ruby-identifier">elements</span>[<span class="ruby-value str">'md5'</span>] <span class="ruby-operator">||</span> (<span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;No md5 element in:\n #{doc}&quot;</span>)
+                        
+                        <span class="ruby-identifier">depth</span> = <span class="ruby-identifier">depth</span>.<span class="ruby-identifier">text</span>.<span class="ruby-identifier">to_f</span>
+                        <span class="ruby-identifier">height</span> = <span class="ruby-identifier">height</span>.<span class="ruby-identifier">text</span>.<span class="ruby-identifier">to_f</span> <span class="ruby-comment cmt"># XXX check != 0</span>
+                        <span class="ruby-identifier">md5</span> = <span class="ruby-identifier">md5</span>.<span class="ruby-identifier">text</span>
+                        
+                        <span class="ruby-identifier">dir_url</span> = <span class="ruby-constant">MaRuKu</span><span class="ruby-operator">::</span><span class="ruby-constant">Globals</span>[<span class="ruby-identifier">:html_png_url</span>]
+                        <span class="ruby-keyword kw">return</span> <span class="ruby-constant">PNG</span>.<span class="ruby-identifier">new</span>(<span class="ruby-node">&quot;#{dir_url}#{md5}.png&quot;</span>, <span class="ruby-identifier">depth</span>, <span class="ruby-identifier">height</span>)
+                        
+                <span class="ruby-keyword kw">rescue</span> <span class="ruby-constant">Exception</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
+                        <span class="ruby-identifier">maruku_error</span> <span class="ruby-node">&quot;Error: #{e}&quot;</span>
+                <span class="ruby-keyword kw">end</span>
+                <span class="ruby-keyword kw">nil</span>
+        <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

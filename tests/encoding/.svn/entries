@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wc-entries
+   xmlns="svn:">
+<entry
+   committed-rev="102"
+   name=""
+   committed-date="2007-01-23T18:38:07.044621Z"
+   url="svn+ssh://rubyforge.org/var/svn/maruku/trunk/tests/unittest/encoding"
+   last-author="andrea"
+   kind="dir"
+   uuid="7e2f57f0-5a75-4fd6-9797-5817c466b243"
+   repos="svn+ssh://rubyforge.org/var/svn/maruku"
+   prop-time="2007-01-23T18:33:58.000000Z"
+   revision="117"/>
+<entry
+   committed-rev="93"
+   name="iso-8859-1.md"
+   text-time="2007-02-16T13:22:02.000000Z"
+   committed-date="2007-01-22T23:43:49.690114Z"
+   checksum="31efdc592ee463b7371c00782f9b536a"
+   last-author="andrea"
+   kind="file"/>
+<entry
+   committed-rev="93"
+   name="utf-8.md"
+   text-time="2007-02-16T13:22:02.000000Z"
+   committed-date="2007-01-22T23:43:49.690114Z"
+   checksum="9ab253c2296daf908bfec38d687b1950"
+   last-author="andrea"
+   kind="file"/>
+</wc-entries>

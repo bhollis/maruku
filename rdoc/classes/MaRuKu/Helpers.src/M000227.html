@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>md_html (MaRuKu::Helpers)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/maruku/helpers.rb, line 83</span>
+        <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">md_html</span>(<span class="ruby-identifier">raw_html</span>, <span class="ruby-identifier">al</span>=<span class="ruby-keyword kw">nil</span>)
+                <span class="ruby-identifier">e</span> = <span class="ruby-identifier">md_el</span>(<span class="ruby-identifier">:raw_html</span>, [], {<span class="ruby-identifier">:raw_html=</span><span class="ruby-operator">&gt;</span><span class="ruby-identifier">raw_html</span>})
+                <span class="ruby-keyword kw">begin</span>
+                        <span class="ruby-comment cmt"># remove newlines and whitespace at begin</span>
+                        <span class="ruby-comment cmt"># end end of string, or else REXML gets confused</span>
+                        <span class="ruby-identifier">raw_html</span> = <span class="ruby-identifier">raw_html</span>.<span class="ruby-identifier">gsub</span>(<span class="ruby-regexp re">/\A\s*&lt;/</span>,<span class="ruby-value str">'&lt;'</span>).
+                                            <span class="ruby-identifier">gsub</span>(<span class="ruby-regexp re">/&gt;[\s\n]*\Z/</span>,<span class="ruby-value str">'&gt;'</span>)
+                        
+                        <span class="ruby-identifier">raw_html</span> = <span class="ruby-node">&quot;&lt;marukuwrap&gt;#{raw_html}&lt;/marukuwrap&gt;&quot;</span>
+                        <span class="ruby-identifier">e</span>.<span class="ruby-identifier">instance_variable_set</span> <span class="ruby-identifier">:@parsed_html</span>,
+                             <span class="ruby-constant">REXML</span><span class="ruby-operator">::</span><span class="ruby-constant">Document</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">raw_html</span>)
+                <span class="ruby-keyword kw">rescue</span> 
+<span class="ruby-comment cmt">#                       tell_user &quot;Malformed block of HTML:\n&quot;+</span>
+<span class="ruby-comment cmt">#                       add_tabs(raw_html,1,'|')</span>
+<span class="ruby-comment cmt">#                       &quot;  #{raw_html.inspect}\n\n&quot;+ex.inspect</span>
+                <span class="ruby-keyword kw">end</span>
+                <span class="ruby-identifier">e</span>
+        <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

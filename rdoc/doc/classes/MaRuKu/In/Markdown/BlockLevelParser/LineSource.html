@@ -1,0 +1,305 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <head>
+    <title>Class: MaRuKu::In::Markdown::BlockLevelParser::LineSource</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+    <link rel="stylesheet" href="../../../../.././rdoc-style.css" type="text/css" media="screen" />
+
+    <script language="JavaScript" type="text/javascript">
+    // <![CDATA[
+
+        function toggleSource( id )
+        {
+          var elem
+          var link
+
+          if( document.getElementById )
+          {
+            elem = document.getElementById( id )
+            link = document.getElementById( "l_" + id )
+          }
+          else if ( document.all )
+          {
+            elem = eval( "document.all." + id )
+            link = eval( "document.all.l_" + id )
+          }
+          else
+            return false;
+
+          if( elem.style.display == "block" )
+          {
+            elem.style.display = "none"
+            link.innerHTML = "show source"
+          }
+          else
+          {
+            elem.style.display = "block"
+            link.innerHTML = "hide source"
+          }
+        }
+
+        function openCode( url )
+        {
+          window.open( url, "SOURCE_CODE", "width=400,height=400,scrollbars=yes" )
+        }
+      // ]]>
+    </script>
+  </head>
+
+  <body>
+  <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'><tr>
+  <td class="file-title"><span class="file-title-prefix">Class</span><br />MaRuKu::In::Markdown::BlockLevelParser::LineSource</td>
+  <td align="right">
+    <table cellspacing=0 cellpadding=2>
+      <tr valign="top">
+        <td>In:</td>
+        <td>
+<a href="../../../../../files/lib/maruku/input/linesource_rb.html">lib/maruku/input/linesource.rb</a>
+        </td>
+      </tr>
+    <tr>
+      <td>Parent:</td>
+      <td>
+Object
+     </td>
+   </tr>
+         </table>
+        </td>
+        </tr>
+      </table>
+ <!-- banner header -->
+
+  <div id="bodyContent">
+      <div id="content">
+
+  <div class="description"><p>
+This represents a source of lines that can be consumed.
+</p>
+<p>
+It is the twin of CharSource.
+</p>
+</div>
+
+
+
+  <div class="sectiontitle">Methods</div>
+  <ul>
+  <li><a href="#M000259">cur_index</a></li>
+  <li><a href="#M000253">cur_line</a></li>
+  <li><a href="#M000257">describe</a></li>
+  <li><a href="#M000256">ignore_line</a></li>
+  <li><a href="#M000252">new</a></li>
+  <li><a href="#M000254">next_line</a></li>
+  <li><a href="#M000258">original_line_number</a></li>
+  <li><a href="#M000255">shift_line</a></li>
+  <li><a href="#M000260">tell_me_the_future</a></li>
+  </ul>
+
+<div class="sectiontitle">Included Modules</div>
+<ul>
+  <li><a href="../../../Strings.html">MaRuKu::Strings</a></li>
+</ul>
+
+
+
+
+
+<div class="sectiontitle">Public Class methods</div>
+<div class="method">
+  <div class="title">
+    <a name="M000252"></a><b>new</b>(lines, parent=nil, parent_offset=nil)
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000252_source')" id="l_M000252_source">show source</a> ]</p>
+  <div id="M000252_source" class="dyn-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/maruku/input/linesource.rb, line 32</span>
+32:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">lines</span>, <span class="ruby-identifier">parent</span>=<span class="ruby-keyword kw">nil</span>, <span class="ruby-identifier">parent_offset</span>=<span class="ruby-keyword kw">nil</span>)
+33:                 <span class="ruby-identifier">raise</span> <span class="ruby-value str">&quot;NIL lines? &quot;</span> <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">not</span> <span class="ruby-identifier">lines</span>
+34:                 <span class="ruby-ivar">@lines</span> = <span class="ruby-identifier">lines</span>
+35:                 <span class="ruby-ivar">@lines_index</span> = <span class="ruby-value">0</span>
+36:                 <span class="ruby-ivar">@parent</span> = <span class="ruby-identifier">parent</span>
+37:                 <span class="ruby-ivar">@parent_offset</span> = <span class="ruby-identifier">parent_offset</span>
+38:         <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="sectiontitle">Public Instance methods</div>
+<div class="method">
+  <div class="title">
+    <a name="M000259"></a><b>cur_index</b>()
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000259_source')" id="l_M000259_source">show source</a> ]</p>
+  <div id="M000259_source" class="dyn-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/maruku/input/linesource.rb, line 87</span>
+87:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">cur_index</span>
+88:                 <span class="ruby-ivar">@lines_index</span>
+89:         <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000253"></a><b>cur_line</b>()
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000253_source')" id="l_M000253_source">show source</a> ]</p>
+  <div id="M000253_source" class="dyn-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/maruku/input/linesource.rb, line 40</span>
+40:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">cur_line</span>()  <span class="ruby-ivar">@lines</span>[<span class="ruby-ivar">@lines_index</span>] <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000257"></a><b>describe</b>()
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000257_source')" id="l_M000257_source">show source</a> ]</p>
+  <div id="M000257_source" class="dyn-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/maruku/input/linesource.rb, line 55</span>
+55:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">describe</span>
+56:                 <span class="ruby-comment cmt">#s = &quot;At line ##{@lines_index} of #{@lines.size}:\n&quot;</span>
+57:                 <span class="ruby-identifier">s</span> = <span class="ruby-node">&quot;At line #{original_line_number(@lines_index)}\n&quot;</span>
+58:                 
+59:                 <span class="ruby-identifier">context</span> = <span class="ruby-value">3</span> <span class="ruby-comment cmt"># lines</span>
+60:                 <span class="ruby-identifier">from</span> = [<span class="ruby-ivar">@lines_index</span><span class="ruby-operator">-</span><span class="ruby-identifier">context</span>, <span class="ruby-value">0</span>].<span class="ruby-identifier">max</span>
+61:                 <span class="ruby-identifier">to</span>   = [<span class="ruby-ivar">@lines_index</span><span class="ruby-operator">+</span><span class="ruby-identifier">context</span>, <span class="ruby-ivar">@lines</span>.<span class="ruby-identifier">size</span><span class="ruby-operator">-</span><span class="ruby-value">1</span>].<span class="ruby-identifier">min</span>
+62:                 
+63:                 <span class="ruby-keyword kw">for</span> <span class="ruby-identifier">i</span> <span class="ruby-keyword kw">in</span> <span class="ruby-identifier">from</span><span class="ruby-operator">..</span><span class="ruby-identifier">to</span>
+64:                         <span class="ruby-identifier">prefix</span> = (<span class="ruby-identifier">i</span> <span class="ruby-operator">==</span> <span class="ruby-ivar">@lines_index</span>) <span class="ruby-operator">?</span> <span class="ruby-value str">'--&gt; '</span> <span class="ruby-operator">:</span> <span class="ruby-value str">'    '</span>;
+65:                         <span class="ruby-identifier">l</span> = <span class="ruby-ivar">@lines</span>[<span class="ruby-identifier">i</span>]
+66:                         <span class="ruby-identifier">s</span> <span class="ruby-operator">+=</span> <span class="ruby-node">&quot;%10s %4s|#{l}&quot;</span> <span class="ruby-operator">%</span>
+67:                                 [<span class="ruby-ivar">@lines</span>[<span class="ruby-identifier">i</span>].<span class="ruby-identifier">md_type</span>.<span class="ruby-identifier">to_s</span>, <span class="ruby-identifier">prefix</span>]
+68:                                 
+69:                         <span class="ruby-identifier">s</span> <span class="ruby-operator">+=</span> <span class="ruby-value str">&quot;|\n&quot;</span>
+70:                 <span class="ruby-keyword kw">end</span>
+71:                 
+72: <span class="ruby-comment cmt">#               if @parent </span>
+73: <span class="ruby-comment cmt">#                       s &lt;&lt; &quot;Parent context is: \n&quot;</span>
+74: <span class="ruby-comment cmt">#                       s &lt;&lt; add_tabs(@parent.describe,1,'|')</span>
+75: <span class="ruby-comment cmt">#               end</span>
+76:                 <span class="ruby-identifier">s</span>
+77:         <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000256"></a><b>ignore_line</b>()
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000256_source')" id="l_M000256_source">show source</a> ]</p>
+  <div id="M000256_source" class="dyn-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/maruku/input/linesource.rb, line 50</span>
+50:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">ignore_line</span>
+51:                 <span class="ruby-identifier">raise</span> <span class="ruby-value str">&quot;Over the rainbow&quot;</span> <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@lines_index</span> <span class="ruby-operator">&gt;=</span> <span class="ruby-ivar">@lines</span>.<span class="ruby-identifier">size</span> 
+52:                 <span class="ruby-ivar">@lines_index</span> <span class="ruby-operator">+=</span> <span class="ruby-value">1</span>
+53:         <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000254"></a><b>next_line</b>()
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000254_source')" id="l_M000254_source">show source</a> ]</p>
+  <div id="M000254_source" class="dyn-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/maruku/input/linesource.rb, line 41</span>
+41:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">next_line</span>() <span class="ruby-ivar">@lines</span>[<span class="ruby-ivar">@lines_index</span><span class="ruby-operator">+</span><span class="ruby-value">1</span>] <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000258"></a><b>original_line_number</b>(index)
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000258_source')" id="l_M000258_source">show source</a> ]</p>
+  <div id="M000258_source" class="dyn-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/maruku/input/linesource.rb, line 79</span>
+79:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">original_line_number</span>(<span class="ruby-identifier">index</span>)
+80:                 <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@parent</span>
+81:                         <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">index</span> <span class="ruby-operator">+</span> <span class="ruby-ivar">@parent</span>.<span class="ruby-identifier">original_line_number</span>(<span class="ruby-ivar">@parent_offset</span>)
+82:                 <span class="ruby-keyword kw">else</span>
+83:                         <span class="ruby-value">1</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">index</span>
+84:                 <span class="ruby-keyword kw">end</span>
+85:         <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000255"></a><b>shift_line</b>()
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000255_source')" id="l_M000255_source">show source</a> ]</p>
+  <div id="M000255_source" class="dyn-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/maruku/input/linesource.rb, line 43</span>
+43:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">shift_line</span>() 
+44:                 <span class="ruby-identifier">raise</span> <span class="ruby-value str">&quot;Over the rainbow&quot;</span> <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@lines_index</span> <span class="ruby-operator">&gt;=</span> <span class="ruby-ivar">@lines</span>.<span class="ruby-identifier">size</span> 
+45:                 <span class="ruby-identifier">l</span> = <span class="ruby-ivar">@lines</span>[<span class="ruby-ivar">@lines_index</span>]
+46:                 <span class="ruby-ivar">@lines_index</span> <span class="ruby-operator">+=</span> <span class="ruby-value">1</span>
+47:                 <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">l</span>
+48:         <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000260"></a><b>tell_me_the_future</b>()
+  </div>
+  <div class="description">
+  <p>
+Returns the type of next line as a string breaks at first :definition
+</p>
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000260_source')" id="l_M000260_source">show source</a> ]</p>
+  <div id="M000260_source" class="dyn-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/maruku/input/linesource.rb, line 93</span>
+ 93:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">tell_me_the_future</span>
+ 94:                 <span class="ruby-identifier">s</span> = <span class="ruby-value str">&quot;&quot;</span>; <span class="ruby-identifier">num_e</span> = <span class="ruby-value">0</span>;
+ 95:                 <span class="ruby-keyword kw">for</span> <span class="ruby-identifier">i</span> <span class="ruby-keyword kw">in</span> <span class="ruby-ivar">@lines_index</span><span class="ruby-operator">..</span><span class="ruby-ivar">@lines</span>.<span class="ruby-identifier">size</span><span class="ruby-operator">-</span><span class="ruby-value">1</span>
+ 96:                         <span class="ruby-identifier">c</span> = <span class="ruby-keyword kw">case</span> <span class="ruby-ivar">@lines</span>[<span class="ruby-identifier">i</span>].<span class="ruby-identifier">md_type</span>
+ 97:                                 <span class="ruby-keyword kw">when</span> <span class="ruby-identifier">:text</span>; <span class="ruby-value str">&quot;t&quot;</span>
+ 98:                                 <span class="ruby-keyword kw">when</span> <span class="ruby-identifier">:empty</span>; <span class="ruby-identifier">num_e</span><span class="ruby-operator">+=</span><span class="ruby-value">1</span>; <span class="ruby-value str">&quot;e&quot;</span>
+ 99:                                 <span class="ruby-keyword kw">when</span> <span class="ruby-identifier">:definition</span>; <span class="ruby-value str">&quot;d&quot;</span>
+100:                                 <span class="ruby-keyword kw">else</span> <span class="ruby-value str">&quot;o&quot;</span>
+101:                         <span class="ruby-keyword kw">end</span>
+102:                         <span class="ruby-identifier">s</span> <span class="ruby-operator">+=</span> <span class="ruby-identifier">c</span>
+103:                         <span class="ruby-keyword kw">break</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">c</span> <span class="ruby-operator">==</span> <span class="ruby-value str">&quot;d&quot;</span> <span class="ruby-keyword kw">or</span> <span class="ruby-identifier">num_e</span><span class="ruby-operator">&gt;</span><span class="ruby-value">1</span>
+104:                 <span class="ruby-keyword kw">end</span>
+105:                 <span class="ruby-identifier">s</span>     
+106:         <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+</div>
+
+  </div>
+
+    </body>
+</html>

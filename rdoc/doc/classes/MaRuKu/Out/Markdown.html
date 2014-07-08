@@ -1,0 +1,352 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <head>
+    <title>Module: MaRuKu::Out::Markdown</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+    <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+
+    <script language="JavaScript" type="text/javascript">
+    // <![CDATA[
+
+        function toggleSource( id )
+        {
+          var elem
+          var link
+
+          if( document.getElementById )
+          {
+            elem = document.getElementById( id )
+            link = document.getElementById( "l_" + id )
+          }
+          else if ( document.all )
+          {
+            elem = eval( "document.all." + id )
+            link = eval( "document.all.l_" + id )
+          }
+          else
+            return false;
+
+          if( elem.style.display == "block" )
+          {
+            elem.style.display = "none"
+            link.innerHTML = "show source"
+          }
+          else
+          {
+            elem.style.display = "block"
+            link.innerHTML = "hide source"
+          }
+        }
+
+        function openCode( url )
+        {
+          window.open( url, "SOURCE_CODE", "width=400,height=400,scrollbars=yes" )
+        }
+      // ]]>
+    </script>
+  </head>
+
+  <body>
+  <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'><tr>
+  <td class="file-title"><span class="file-title-prefix">Module</span><br />MaRuKu::Out::Markdown</td>
+  <td align="right">
+    <table cellspacing=0 cellpadding=2>
+      <tr valign="top">
+        <td>In:</td>
+        <td>
+<a href="../../../files/lib/maruku_rb.html">lib/maruku.rb</a>
+<a href="../../../files/lib/maruku/output/to_markdown_rb.html">lib/maruku/output/to_markdown.rb</a>
+        </td>
+      </tr>
+         </table>
+        </td>
+        </tr>
+      </table>
+ <!-- banner header -->
+
+  <div id="bodyContent">
+      <div id="content">
+
+  <div class="description"><p>
+Functions for exporting to MarkDown.
+</p>
+</div>
+
+
+
+  <div class="sectiontitle">Methods</div>
+  <ul>
+  <li><a href="#M000127">add_indent</a></li>
+  <li><a href="#M000130">array_to_md</a></li>
+  <li><a href="#M000128">children_to_md</a></li>
+  <li><a href="#M000121">to_md</a></li>
+  <li><a href="#M000124">to_md_abbr_def</a></li>
+  <li><a href="#M000123">to_md_li_span</a></li>
+  <li><a href="#M000125">to_md_ol</a></li>
+  <li><a href="#M000122">to_md_paragraph</a></li>
+  <li><a href="#M000126">to_md_ul</a></li>
+  <li><a href="#M000129">wrap</a></li>
+  </ul>
+
+
+
+
+  <div class="sectiontitle">Constants</div>
+  <table border='0' cellpadding='5'>
+  <tr valign='top'>
+    <td class="attr-name">DefaultLineLength</td>
+    <td>=</td>
+    <td class="attr-value">40</td>
+  </tr>
+  </table>
+
+
+<div class="sectiontitle">Public Instance methods</div>
+<div class="method">
+  <div class="title">
+    <a name="M000127"></a><b>add_indent</b>(s,char=&quot; &quot;)
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000127_source')" id="l_M000127_source">show source</a> ]</p>
+  <div id="M000127_source" class="dyn-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/maruku/output/to_markdown.rb, line 85</span>
+85:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">add_indent</span>(<span class="ruby-identifier">s</span>,<span class="ruby-identifier">char</span>=<span class="ruby-value str">&quot;    &quot;</span>)
+86:                 <span class="ruby-identifier">t</span> = <span class="ruby-identifier">s</span>.<span class="ruby-identifier">split</span>(<span class="ruby-value str">&quot;\n&quot;</span>).<span class="ruby-identifier">map</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">x</span><span class="ruby-operator">|</span> <span class="ruby-identifier">char</span><span class="ruby-operator">+</span><span class="ruby-identifier">x</span> }.<span class="ruby-identifier">join</span>(<span class="ruby-value str">&quot;\n&quot;</span>)
+87:                 <span class="ruby-identifier">s</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-value">?\n</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">t</span>[<span class="ruby-value">-1</span>] <span class="ruby-operator">==</span> <span class="ruby-value">?\n</span>
+88:                 <span class="ruby-identifier">s</span>
+89:         <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000130"></a><b>array_to_md</b>(array, context, join_char='')
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000130_source')" id="l_M000130_source">show source</a> ]</p>
+  <div id="M000130_source" class="dyn-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/maruku/output/to_markdown.rb, line 127</span>
+127:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">array_to_md</span>(<span class="ruby-identifier">array</span>, <span class="ruby-identifier">context</span>, <span class="ruby-identifier">join_char</span>=<span class="ruby-value str">''</span>)
+128:                 <span class="ruby-identifier">e</span> = []
+129:                 <span class="ruby-identifier">array</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">c</span><span class="ruby-operator">|</span>
+130:                         <span class="ruby-identifier">method</span> = <span class="ruby-identifier">c</span>.<span class="ruby-identifier">kind_of?</span>(<span class="ruby-constant">MDElement</span>) <span class="ruby-operator">?</span> 
+131:                            <span class="ruby-node">&quot;to_md_#{c.node_type}&quot;</span> <span class="ruby-operator">:</span> <span class="ruby-value str">&quot;to_md&quot;</span>
+132:                         
+133:                         <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">not</span> <span class="ruby-identifier">c</span>.<span class="ruby-identifier">respond_to?</span>(<span class="ruby-identifier">method</span>)
+134:                                 <span class="ruby-comment cmt">#raise &quot;Object does not answer to #{method}: #{c.class} #{c.inspect[0,100]}&quot;</span>
+135: <span class="ruby-comment cmt">#                               tell_user &quot;Using default for #{c.node_type}&quot;</span>
+136:                                 <span class="ruby-identifier">method</span> = <span class="ruby-value str">'to_md'</span>
+137:                         <span class="ruby-keyword kw">end</span>
+138:                         
+139: <span class="ruby-comment cmt">#                       puts &quot;#{c.inspect} created with method #{method}&quot;</span>
+140:                         <span class="ruby-identifier">h</span> =  <span class="ruby-identifier">c</span>.<span class="ruby-identifier">send</span>(<span class="ruby-identifier">method</span>, <span class="ruby-identifier">context</span>)
+141:                         
+142:                         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">h</span>.<span class="ruby-identifier">nil?</span>
+143:                                 <span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;Nil md for #{c.inspect} created with method #{method}&quot;</span>
+144:                         <span class="ruby-keyword kw">end</span>
+145:                         
+146:                         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">h</span>.<span class="ruby-identifier">kind_of?</span><span class="ruby-constant">Array</span>
+147:                                 <span class="ruby-identifier">e</span> = <span class="ruby-identifier">e</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">h</span>
+148:                         <span class="ruby-keyword kw">else</span>
+149:                                 <span class="ruby-identifier">e</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">h</span>
+150:                         <span class="ruby-keyword kw">end</span>
+151:                 <span class="ruby-keyword kw">end</span>
+152:                 <span class="ruby-identifier">e</span>.<span class="ruby-identifier">join</span>(<span class="ruby-identifier">join_char</span>)
+153:         <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000128"></a><b>children_to_md</b>(context)
+  </div>
+  <div class="description">
+  <p>
+Convert each child to html
+</p>
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000128_source')" id="l_M000128_source">show source</a> ]</p>
+  <div id="M000128_source" class="dyn-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/maruku/output/to_markdown.rb, line 92</span>
+92:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">children_to_md</span>(<span class="ruby-identifier">context</span>)
+93:                 <span class="ruby-identifier">array_to_md</span>(<span class="ruby-ivar">@children</span>, <span class="ruby-identifier">context</span>)
+94:         <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000121"></a><b>to_md</b>(context={})
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000121_source')" id="l_M000121_source">show source</a> ]</p>
+  <div id="M000121_source" class="dyn-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/maruku/output/to_markdown.rb, line 39</span>
+39:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_md</span>(<span class="ruby-identifier">context</span>={})
+40:                 <span class="ruby-identifier">children_to_md</span>(<span class="ruby-identifier">context</span>)
+41:         <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000124"></a><b>to_md_abbr_def</b>(context)
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000124_source')" id="l_M000124_source">show source</a> ]</p>
+  <div id="M000124_source" class="dyn-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/maruku/output/to_markdown.rb, line 55</span>
+55:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_md_abbr_def</span>(<span class="ruby-identifier">context</span>)
+56:                 <span class="ruby-node">&quot;*[#{self.abbr}]: #{self.text}\n&quot;</span>
+57:         <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000123"></a><b>to_md_li_span</b>(context)
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000123_source')" id="l_M000123_source">show source</a> ]</p>
+  <div id="M000123_source" class="dyn-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/maruku/output/to_markdown.rb, line 48</span>
+48:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_md_li_span</span>(<span class="ruby-identifier">context</span>)
+49:                 <span class="ruby-identifier">len</span> = (<span class="ruby-identifier">context</span>[<span class="ruby-identifier">:line_length</span>] <span class="ruby-operator">||</span> <span class="ruby-constant">DefaultLineLength</span>) <span class="ruby-operator">-</span> <span class="ruby-value">2</span>
+50:                 <span class="ruby-identifier">s</span> = <span class="ruby-identifier">add_tabs</span>(<span class="ruby-identifier">wrap</span>(<span class="ruby-ivar">@children</span>, <span class="ruby-identifier">len</span><span class="ruby-operator">-</span><span class="ruby-value">2</span>, <span class="ruby-identifier">context</span>), <span class="ruby-value">1</span>, <span class="ruby-value str">'  '</span>)
+51:                 <span class="ruby-identifier">s</span>[<span class="ruby-value">0</span>] = <span class="ruby-value">?*</span>
+52:                 <span class="ruby-identifier">s</span> <span class="ruby-operator">+</span> <span class="ruby-value str">&quot;\n&quot;</span>
+53:         <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000125"></a><b>to_md_ol</b>(context)
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000125_source')" id="l_M000125_source">show source</a> ]</p>
+  <div id="M000125_source" class="dyn-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/maruku/output/to_markdown.rb, line 59</span>
+59:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_md_ol</span>(<span class="ruby-identifier">context</span>)
+60:                 <span class="ruby-identifier">len</span> = (<span class="ruby-identifier">context</span>[<span class="ruby-identifier">:line_length</span>] <span class="ruby-operator">||</span> <span class="ruby-constant">DefaultLineLength</span>) <span class="ruby-operator">-</span> <span class="ruby-value">2</span>
+61:                 <span class="ruby-identifier">md</span> = <span class="ruby-value str">&quot;&quot;</span>
+62:                 <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">children</span>.<span class="ruby-identifier">each_with_index</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">li</span>, <span class="ruby-identifier">i</span><span class="ruby-operator">|</span>
+63:                         <span class="ruby-identifier">s</span> = <span class="ruby-identifier">add_tabs</span>(<span class="ruby-identifier">w</span>=<span class="ruby-identifier">wrap</span>(<span class="ruby-identifier">li</span>.<span class="ruby-identifier">children</span>, <span class="ruby-identifier">len</span><span class="ruby-operator">-</span><span class="ruby-value">2</span>, <span class="ruby-identifier">context</span>), <span class="ruby-value">1</span>, <span class="ruby-value str">'    '</span>)<span class="ruby-operator">+</span><span class="ruby-value str">&quot;\n&quot;</span>
+64:                         <span class="ruby-identifier">s</span>[<span class="ruby-value">0</span>,<span class="ruby-value">4</span>] = <span class="ruby-node">&quot;#{i+1}.  &quot;</span>[<span class="ruby-value">0</span>,<span class="ruby-value">4</span>]
+65: <span class="ruby-comment cmt">#                       puts w.inspect</span>
+66:                         <span class="ruby-identifier">md</span> <span class="ruby-operator">+=</span> <span class="ruby-identifier">s</span>
+67:                 <span class="ruby-keyword kw">end</span>
+68:                 <span class="ruby-identifier">md</span> <span class="ruby-operator">+</span> <span class="ruby-value str">&quot;\n&quot;</span>
+69:         <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000122"></a><b>to_md_paragraph</b>(context)
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000122_source')" id="l_M000122_source">show source</a> ]</p>
+  <div id="M000122_source" class="dyn-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/maruku/output/to_markdown.rb, line 43</span>
+43:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_md_paragraph</span>(<span class="ruby-identifier">context</span>)
+44:                 <span class="ruby-identifier">line_length</span> = <span class="ruby-identifier">context</span>[<span class="ruby-identifier">:line_length</span>] <span class="ruby-operator">||</span> <span class="ruby-constant">DefaultLineLength</span>
+45:                 <span class="ruby-identifier">wrap</span>(<span class="ruby-ivar">@children</span>, <span class="ruby-identifier">line_length</span>, <span class="ruby-identifier">context</span>)<span class="ruby-operator">+</span><span class="ruby-value str">&quot;\n&quot;</span>
+46:         <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000126"></a><b>to_md_ul</b>(context)
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000126_source')" id="l_M000126_source">show source</a> ]</p>
+  <div id="M000126_source" class="dyn-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/maruku/output/to_markdown.rb, line 71</span>
+71:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_md_ul</span>(<span class="ruby-identifier">context</span>)
+72:                 <span class="ruby-identifier">len</span> = (<span class="ruby-identifier">context</span>[<span class="ruby-identifier">:line_length</span>] <span class="ruby-operator">||</span> <span class="ruby-constant">DefaultLineLength</span>) <span class="ruby-operator">-</span> <span class="ruby-value">2</span>
+73:                 <span class="ruby-identifier">md</span> = <span class="ruby-value str">&quot;&quot;</span>
+74:                 <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">children</span>.<span class="ruby-identifier">each_with_index</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">li</span>, <span class="ruby-identifier">i</span><span class="ruby-operator">|</span>
+75:                         <span class="ruby-identifier">w</span> = <span class="ruby-identifier">wrap</span>(<span class="ruby-identifier">li</span>.<span class="ruby-identifier">children</span>, <span class="ruby-identifier">len</span><span class="ruby-operator">-</span><span class="ruby-value">2</span>, <span class="ruby-identifier">context</span>)
+76: <span class="ruby-comment cmt">#                       puts &quot;W: &quot;+ w.inspect</span>
+77:                         <span class="ruby-identifier">s</span> = <span class="ruby-identifier">add_indent</span>(<span class="ruby-identifier">w</span>)
+78: <span class="ruby-comment cmt">#                       puts &quot;S: &quot; +s.inspect</span>
+79:                         <span class="ruby-identifier">s</span>[<span class="ruby-value">0</span>,<span class="ruby-value">1</span>] = <span class="ruby-value str">&quot;-&quot;</span>
+80:                         <span class="ruby-identifier">md</span> <span class="ruby-operator">+=</span> <span class="ruby-identifier">s</span>
+81:                 <span class="ruby-keyword kw">end</span>
+82:                 <span class="ruby-identifier">md</span> <span class="ruby-operator">+</span> <span class="ruby-value str">&quot;\n&quot;</span>
+83:         <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000129"></a><b>wrap</b>(array, line_length, context)
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000129_source')" id="l_M000129_source">show source</a> ]</p>
+  <div id="M000129_source" class="dyn-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/maruku/output/to_markdown.rb, line 96</span>
+ 96:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">wrap</span>(<span class="ruby-identifier">array</span>, <span class="ruby-identifier">line_length</span>, <span class="ruby-identifier">context</span>)
+ 97:                 <span class="ruby-identifier">out</span> = <span class="ruby-value str">&quot;&quot;</span>
+ 98:                 <span class="ruby-identifier">line</span> = <span class="ruby-value str">&quot;&quot;</span>
+ 99:                 <span class="ruby-identifier">array</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">c</span><span class="ruby-operator">|</span>
+100:                         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">c</span>.<span class="ruby-identifier">kind_of?</span>(<span class="ruby-constant">MDElement</span>) <span class="ruby-operator">&amp;&amp;</span>  <span class="ruby-identifier">c</span>.<span class="ruby-identifier">node_type</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">:linebreak</span>
+101:                                 <span class="ruby-identifier">out</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">line</span>.<span class="ruby-identifier">strip</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-value str">&quot;  \n&quot;</span>; <span class="ruby-identifier">line</span>=<span class="ruby-value str">&quot;&quot;</span>;
+102:                                 <span class="ruby-keyword kw">next</span>
+103:                         <span class="ruby-keyword kw">end</span>
+104:                 
+105:                         <span class="ruby-identifier">pieces</span> =
+106:                         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">c</span>.<span class="ruby-identifier">kind_of?</span> <span class="ruby-constant">String</span>
+107:                                 <span class="ruby-identifier">c</span>.<span class="ruby-identifier">to_md</span>.<span class="ruby-identifier">mysplit</span>
+108:                         <span class="ruby-keyword kw">else</span>
+109:                                 [<span class="ruby-identifier">c</span>.<span class="ruby-identifier">to_md</span>(<span class="ruby-identifier">context</span>)].<span class="ruby-identifier">flatten</span>
+110:                         <span class="ruby-keyword kw">end</span>
+111:                 
+112:         <span class="ruby-comment cmt">#                      puts &quot;Pieces: #{pieces.inspect}&quot;</span>
+113:                         <span class="ruby-identifier">pieces</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">p</span><span class="ruby-operator">|</span>
+114:                                 <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">p</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">line</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">&gt;</span> <span class="ruby-identifier">line_length</span>
+115:                                         <span class="ruby-identifier">out</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">line</span>.<span class="ruby-identifier">strip</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-value str">&quot;\n&quot;</span>; 
+116:                                         <span class="ruby-identifier">line</span> = <span class="ruby-value str">&quot;&quot;</span>
+117:                                 <span class="ruby-keyword kw">end</span>
+118:                                 <span class="ruby-identifier">line</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">p</span>
+119:                         <span class="ruby-keyword kw">end</span>
+120:                 <span class="ruby-keyword kw">end</span>
+121:                 <span class="ruby-identifier">out</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">line</span>.<span class="ruby-identifier">strip</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-value str">&quot;\n&quot;</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">line</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>
+122:                 <span class="ruby-identifier">out</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-value">?\n</span> <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">not</span> <span class="ruby-identifier">out</span>[<span class="ruby-value">-1</span>] <span class="ruby-operator">==</span> <span class="ruby-value">?\n</span>
+123:                 <span class="ruby-identifier">out</span>
+124:         <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+</div>
+
+  </div>
+
+    </body>
+</html>

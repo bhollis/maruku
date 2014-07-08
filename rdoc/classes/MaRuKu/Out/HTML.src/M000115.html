@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>to_html_eqref (MaRuKu::Out::HTML)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/maruku/ext/math/to_html.rb, line 161</span>
+        <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_html_eqref</span>
+                <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">eq</span> = <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">doc</span>.<span class="ruby-identifier">eqid2eq</span>[<span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">eqid</span>]
+                        <span class="ruby-identifier">num</span> = <span class="ruby-identifier">eq</span>.<span class="ruby-identifier">num</span>
+                        <span class="ruby-identifier">a</span> = <span class="ruby-constant">Element</span>.<span class="ruby-identifier">new</span> <span class="ruby-value str">'a'</span>
+                        <span class="ruby-identifier">a</span>.<span class="ruby-identifier">attributes</span>[<span class="ruby-value str">'class'</span>] = <span class="ruby-value str">'maruku-eqref'</span>
+                        <span class="ruby-identifier">a</span>.<span class="ruby-identifier">attributes</span>[<span class="ruby-value str">'href'</span>] = <span class="ruby-node">&quot;#eq:#{self.eqid}&quot;</span>
+                        <span class="ruby-identifier">a</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">Text</span>.<span class="ruby-identifier">new</span>(<span class="ruby-node">&quot;(#{num})&quot;</span>)
+                        <span class="ruby-identifier">a</span>
+                <span class="ruby-keyword kw">else</span>
+                        <span class="ruby-identifier">maruku_error</span> <span class="ruby-node">&quot;Cannot find equation #{self.eqid.inspect}&quot;</span>
+                        <span class="ruby-constant">Text</span>.<span class="ruby-identifier">new</span> <span class="ruby-node">&quot;(eq:#{self.eqid})&quot;</span>
+                <span class="ruby-keyword kw">end</span>
+        <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

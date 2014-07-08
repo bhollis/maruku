@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>to_latex_code (MaRuKu::Out::Latex)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/maruku/output/to_latex.rb, line 252</span>
+        <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_latex_code</span>;
+                <span class="ruby-identifier">raw_code</span> = <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">raw_code</span>
+                
+                <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">get_setting</span>(<span class="ruby-identifier">:latex_use_listings</span>)
+                        <span class="ruby-ivar">@doc</span>.<span class="ruby-identifier">latex_require_package</span>(<span class="ruby-value str">'listings'</span>)
+                                
+                        <span class="ruby-identifier">s</span> = <span class="ruby-value str">&quot;\\lstset{columns=fixed,frame=shadowbox}&quot;</span>
+
+                        <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">get_setting</span>(<span class="ruby-identifier">:code_show_spaces</span>) 
+                                <span class="ruby-identifier">s</span><span class="ruby-operator">+=</span> <span class="ruby-value str">&quot;\\lstset{showspaces=true,showtabs=true}\n&quot;</span>
+                        <span class="ruby-keyword kw">else</span>
+                                <span class="ruby-identifier">s</span><span class="ruby-operator">+=</span> <span class="ruby-value str">&quot;\\lstset{showspaces=false,showtabs=false}\n&quot;</span>
+                        <span class="ruby-keyword kw">end</span>
+                        
+                        <span class="ruby-identifier">color</span> = <span class="ruby-identifier">latex_color</span> <span class="ruby-identifier">get_setting</span>(<span class="ruby-identifier">:code_background_color</span>)
+                        
+                        <span class="ruby-identifier">s</span><span class="ruby-operator">+=</span> <span class="ruby-node">&quot;\\lstset{backgroundcolor=#{color}}\n&quot;</span> 
+                        
+                        <span class="ruby-identifier">s</span><span class="ruby-operator">+=</span> <span class="ruby-value str">&quot;\\lstset{basicstyle=\\ttfamily\\footnotesize}\n&quot;</span> 
+                        
+                        
+                        <span class="ruby-identifier">lang</span> = <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">attributes</span>[<span class="ruby-identifier">:lang</span>] <span class="ruby-operator">||</span> <span class="ruby-ivar">@doc</span>.<span class="ruby-identifier">attributes</span>[<span class="ruby-identifier">:code_lang</span>] <span class="ruby-operator">||</span> <span class="ruby-value str">'{}'</span>
+                        <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">lang</span>
+                                <span class="ruby-identifier">s</span> <span class="ruby-operator">+=</span> <span class="ruby-node">&quot;\\lstset{language=#{lang}}\n&quot;</span>
+                        <span class="ruby-keyword kw">end</span>
+                        
+                        <span class="ruby-node">&quot;#{s}\n\\begin{lstlisting}\n#{raw_code}\n\\end{lstlisting}&quot;</span>
+                <span class="ruby-keyword kw">else</span>
+                        <span class="ruby-node">&quot;\\begin{verbatim}#{raw_code}\\end{verbatim}\n&quot;</span>
+                <span class="ruby-keyword kw">end</span>
+        <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

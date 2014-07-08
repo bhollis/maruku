@@ -1,0 +1,877 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <head>
+    <title>Module: MaRuKu::Out::Latex</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+    <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+
+    <script language="JavaScript" type="text/javascript">
+    // <![CDATA[
+
+        function toggleSource( id )
+        {
+          var elem
+          var link
+
+          if( document.getElementById )
+          {
+            elem = document.getElementById( id )
+            link = document.getElementById( "l_" + id )
+          }
+          else if ( document.all )
+          {
+            elem = eval( "document.all." + id )
+            link = eval( "document.all.l_" + id )
+          }
+          else
+            return false;
+
+          if( elem.style.display == "block" )
+          {
+            elem.style.display = "none"
+            link.innerHTML = "show source"
+          }
+          else
+          {
+            elem.style.display = "block"
+            link.innerHTML = "hide source"
+          }
+        }
+
+        function openCode( url )
+        {
+          window.open( url, "SOURCE_CODE", "width=400,height=400,scrollbars=yes" )
+        }
+      // ]]>
+    </script>
+  </head>
+
+  <body>
+  <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'><tr>
+  <td class="file-title"><span class="file-title-prefix">Module</span><br />MaRuKu::Out::Latex</td>
+  <td align="right">
+    <table cellspacing=0 cellpadding=2>
+      <tr valign="top">
+        <td>In:</td>
+        <td>
+<a href="../../../files/lib/maruku_rb.html">lib/maruku.rb</a>
+<a href="../../../files/lib/maruku/output/to_latex_rb.html">lib/maruku/output/to_latex.rb</a>
+<a href="../../../files/lib/maruku/output/to_latex_entities_rb.html">lib/maruku/output/to_latex_entities.rb</a>
+        </td>
+      </tr>
+         </table>
+        </td>
+        </tr>
+      </table>
+ <!-- banner header -->
+
+  <div id="bodyContent">
+      <div id="content">
+
+  <div class="description"><p>
+Functions for exporting to <a href="Latex.html">Latex</a>
+</p>
+</div>
+
+
+
+  <div class="sectiontitle">Methods</div>
+  <ul>
+  <li><a href="#M000119">array_to_latex</a></li>
+  <li><a href="#M000118">children_to_latex</a></li>
+  <li><a href="#M000091">get_setting</a></li>
+  <li><a href="#M000092">latex_color</a></li>
+  <li><a href="#M000104">latex_escape</a></li>
+  <li><a href="#M000116">to_latex_abbr</a></li>
+  <li><a href="#M000111">to_latex_cell</a></li>
+  <li><a href="#M000093">to_latex_code</a></li>
+  <li><a href="#M000115">to_latex_definition</a></li>
+  <li><a href="#M000114">to_latex_definition_list</a></li>
+  <li><a href="#M000108">to_latex_email_address</a></li>
+  <li><a href="#M000101">to_latex_emphasis</a></li>
+  <li><a href="#M000120">to_latex_entity</a></li>
+  <li><a href="#M000112">to_latex_footnote_reference</a></li>
+  <li><a href="#M000110">to_latex_head_cell</a></li>
+  <li><a href="#M000094">to_latex_header</a></li>
+  <li><a href="#M000088">to_latex_hrule</a></li>
+  <li><a href="#M000117">to_latex_image</a></li>
+  <li><a href="#M000106">to_latex_immediate_link</a></li>
+  <li><a href="#M000105">to_latex_inline_code</a></li>
+  <li><a href="#M000098">to_latex_li</a></li>
+  <li><a href="#M000099">to_latex_li_span</a></li>
+  <li><a href="#M000089">to_latex_linebreak</a></li>
+  <li><a href="#M000107">to_latex_link</a></li>
+  <li><a href="#M000097">to_latex_ol</a></li>
+  <li><a href="#M000090">to_latex_paragraph</a></li>
+  <li><a href="#M000096">to_latex_quote</a></li>
+  <li><a href="#M000113">to_latex_raw_html</a></li>
+  <li><a href="#M000100">to_latex_strong</a></li>
+  <li><a href="#M000109">to_latex_table</a></li>
+  <li><a href="#M000095">to_latex_ul</a></li>
+  <li><a href="#M000103">wrap_as_environment</a></li>
+  <li><a href="#M000102">wrap_as_span</a></li>
+  </ul>
+
+<div class="sectiontitle">Included Modules</div>
+<ul>
+  <li>Maruku::Defaults</li>
+  <li><a href="../../REXML.html">REXML</a></li>
+</ul>
+
+
+
+  <div class="sectiontitle">Constants</div>
+  <table border='0' cellpadding='5'>
+  <tr valign='top'>
+    <td class="attr-name">TexHeaders</td>
+    <td>=</td>
+    <td class="attr-value">{                 1=&gt;'section',                 2=&gt;'subsection',                 3=&gt;'subsubsection',                 4=&gt;'paragraph'}</td>
+  </tr>
+  <tr valign='top'>
+    <td class="attr-name">XML_TABLE</td>
+    <td>=</td>
+    <td class="attr-value">&quot;         &lt;chars&gt;           &lt;char num='913' name='Alpha' convertTo='$A$' /&gt;           &lt;char num='914' name='Beta' convertTo='$B$' /&gt;           &lt;char num='915' name='Gamma' convertTo='$\\Gamma$' /&gt;           &lt;char num='916' name='Delta' convertTo='$\\Delta$' /&gt;           &lt;char num='917' name='Epsilon' convertTo='$E$' /&gt;           &lt;char num='918' name='Zeta' convertTo='$Z$' /&gt;           &lt;char num='919' name='Eta' convertTo='$H$' /&gt;           &lt;char num='920' name='Theta' convertTo='$\\Theta$' /&gt;           &lt;char num='921' name='Iota' convertTo='$I$' /&gt;           &lt;char num='922' name='Kappa' convertTo='$K$' /&gt;           &lt;char num='923' name='Lambda' convertTo='$\\Lambda$' /&gt;           &lt;char num='924' name='Mu' convertTo='$M$' /&gt;           &lt;char num='925' name='Nu' convertTo='$N$' /&gt;           &lt;char num='926' name='Xi' convertTo='$\\Xi$' /&gt;           &lt;char num='927' name='Omicron' convertTo='$O$' /&gt;           &lt;char num='928' name='Pi' convertTo='$\\Pi$' /&gt;           &lt;char num='929' name='Rho' convertTo='$P$' /&gt;           &lt;char num='931' name='Sigma' convertTo='$\\Sigma$' /&gt;           &lt;char num='932' name='Tau' convertTo='$T$' /&gt;           &lt;char num='933' name='Upsilon' convertTo='$Y$' /&gt;           &lt;char num='934' name='Phi' convertTo='$\\Phi$' /&gt;           &lt;char num='935' name='Chi' convertTo='$X$' /&gt;           &lt;char num='936' name='Psi' convertTo='$\\Psi$' /&gt;           &lt;char num='937' name='Omega' convertTo='$\\Omega$' /&gt;           &lt;char num='945' name='alpha' convertTo='$\\alpha$' /&gt;           &lt;char num='946' name='beta' convertTo='$\\beta$' /&gt;           &lt;char num='947' name='gamma' convertTo='$\\gamma$' /&gt;           &lt;char num='948' name='delta' convertTo='$\\delta$' /&gt;           &lt;char num='949' name='epsilon' convertTo='$\\epsilon$' /&gt;           &lt;char num='950' name='zeta' convertTo='$\\zeta$' /&gt;           &lt;char num='951' name='eta' convertTo='$\\eta$' /&gt;           &lt;char num='952' name='theta' convertTo='$\\theta$' /&gt;           &lt;char num='953' name='iota' convertTo='$\\iota$' /&gt;           &lt;char num='954' name='kappa' convertTo='$\\kappa$' /&gt;           &lt;char num='955' name='lambda' convertTo='$\\lambda$' /&gt;           &lt;char num='956' name='mu' convertTo='$\\mu$' /&gt;            &lt;char num='957' name='nu' convertTo='$\\nu$' /&gt;           &lt;char num='958' name='xi' convertTo='$\\xi$' /&gt;           &lt;char num='959' name='omicron' convertTo='$o$' /&gt;           &lt;char num='960' name='pi' convertTo='$\\pi$' /&gt;           &lt;char num='961' name='rho' convertTo='$\\rho$' /&gt;           &lt;char num='963' name='sigma' convertTo='$\\sigma$' /&gt;           &lt;char num='964' name='tau' convertTo='$\\tau$' /&gt;           &lt;char num='965' name='upsilon' convertTo='$\\upsilon$' /&gt;           &lt;char num='966' name='phi' convertTo='$\\phi$' /&gt;            &lt;char num='967' name='chi' convertTo='$\\chi$' /&gt;           &lt;char num='968' name='psi' convertTo='$\\psi$' /&gt;           &lt;char num='969' name='omega' convertTo='$\\omega$' /&gt;           &lt;char num='962' name='sigmaf' convertTo='$\\varsigma$' /&gt;           &lt;char num='977' name='thetasym' convertTo='$\\vartheta$' /&gt;           &lt;char num='982' name='piv' convertTo='$\\varpi$' /&gt;           &lt;char num='8230' name='hellip' convertTo='\\ldots' /&gt;           &lt;char num='8242' name='prime' convertTo='$\\prime$' /&gt;           &lt;char num='8254' name='oline' convertTo='-' /&gt;            &lt;char num='8260' name='frasl' convertTo='/' /&gt;           &lt;char num='8472' name='weierp' convertTo='$\\wp$' /&gt;           &lt;char num='8465' name='image' convertTo='$\\Im$' /&gt;           &lt;char num='8476' name='real' convertTo='$\\Re$' /&gt;           &lt;char num='8501' name='alefsym' convertTo='$\\aleph$' /&gt;           &lt;char num='8226' name='bull' convertTo='$\\bullet$' /&gt;           &lt;char num='8482' name='trade' convertTo='$^{\\rm TM}$' /&gt; &lt;!-- \texttrademark --&gt;           &lt;char num='8592' name='larr' convertTo='$\\leftarrow$' /&gt;            &lt;char num='8594' name='rarr' convertTo='$\\rightarrow$' /&gt;           &lt;char num='8593' name='uarr' convertTo='$\\uparrow$' /&gt;           &lt;char num='8595' name='darr' convertTo='$\\downarrow$' /&gt;           &lt;char num='8596' name='harr' convertTo='$\\leftrightarrow$' /&gt;           &lt;char num='8629' name='crarr' convertTo='$\\hookleftarrow$' /&gt;           &lt;char num='8657' name='uArr' convertTo='$\\Uparrow$' /&gt;           &lt;char num='8659' name='dArr' convertTo='$\\Downarrow$' /&gt;           &lt;char num='8656' name='lArr' convertTo='$\\Leftarrow$' /&gt;           &lt;char num='8658' name='rArr' convertTo='$\\Rightarrow$' /&gt;            &lt;char num='8660' name='hArr' convertTo='$\\Leftrightarrow$' /&gt;           &lt;char num='8704' name='forall' convertTo='$\\forall$' /&gt;           &lt;char num='8706' name='part' convertTo='$\\partial$' /&gt;           &lt;char num='8707' name='exist' convertTo='$\\exists$' /&gt;           &lt;char num='8709' name='empty' convertTo='$\\emptyset$' /&gt;           &lt;char num='8711' name='nabla' convertTo='$\\nabla$' /&gt;           &lt;char num='8712' name='isin' convertTo='$\\in$' /&gt;           &lt;char num='8715' name='ni' convertTo='$\\ni$' /&gt;           &lt;char num='8713' name='notin' convertTo='$\\notin$' /&gt;            &lt;char num='8721' name='sum' convertTo='$\\sum$' /&gt;           &lt;char num='8719' name='prod' convertTo='$\\prod$' /&gt;           &lt;char num='8722' name='minus' convertTo='$-$' /&gt;           &lt;char num='8727' name='lowast' convertTo='$\\ast$' /&gt;           &lt;char num='8730' name='radic' convertTo='$\\surd$' /&gt;           &lt;char num='8733' name='prop' convertTo='$\\propto$' /&gt;           &lt;char num='8734' name='infin' convertTo='$\\infty$' /&gt;           &lt;char num='8736' name='ang' convertTo='$\\angle$' /&gt;           &lt;char num='8743' name='and' convertTo='$\\wedge$' /&gt;            &lt;char num='8744' name='or' convertTo='$\\vee$' /&gt;           &lt;char num='8745' name='cup' convertTo='$\\cup$' /&gt;           &lt;char num='8746' name='cap' convertTo='$\\cap$' /&gt;           &lt;char num='8747' name='int' convertTo='$\\int$' /&gt;           &lt;char num='8756' name='there4' convertTo='$\\therefore$' /&gt; &lt;!-- only AMS --&gt;           &lt;char num='8764' name='sim' convertTo='$\\sim$' /&gt;           &lt;char num='8776' name='asymp' convertTo='$\\approx$' /&gt;           &lt;char num='8773' name='cong' convertTo='$\\cong$' /&gt;            &lt;char num='8800' name='ne' convertTo='$\\neq$' /&gt;           &lt;char num='8801' name='equiv' convertTo='$\\equiv$' /&gt;           &lt;char num='8804' name='le' convertTo='$\\leq$' /&gt;           &lt;char num='8805' name='ge' convertTo='$\\geq$' /&gt;           &lt;char num='8834' name='sub' convertTo='$\\subset$' /&gt;           &lt;char num='8835' name='sup' convertTo='$\\supset$' /&gt;           &lt;char num='8838' name='sube' convertTo='$\\subseteq$' /&gt;           &lt;char num='8839' name='supe' convertTo='$\\supseteq$' /&gt;           &lt;char num='8836' name='nsub' convertTo='$\\nsubset$' /&gt; &lt;!-- only AMS --&gt;            &lt;char num='8853' name='oplus' convertTo='$\\oplus$' /&gt;           &lt;char num='8855' name='otimes' convertTo='$\\otimes$' /&gt;           &lt;char num='8869' name='perp' convertTo='$\\perp$' /&gt;           &lt;char num='8901' name='sdot' convertTo='$\\cdot$' /&gt;           &lt;char num='8968' name='rceil' convertTo='$\\rceil$' /&gt;           &lt;char num='8969' name='lceil' convertTo='$\\lceil$' /&gt;           &lt;char num='8970' name='lfloor' convertTo='$\\lfloor$' /&gt;           &lt;char num='8971' name='rfloor' convertTo='$\\rfloor$' /&gt;           &lt;char num='9001' name='rang' convertTo='$\\rangle$' /&gt;            &lt;char num='9002' name='lang' convertTo='$\\langle$' /&gt;           &lt;char num='9674' name='loz' convertTo='$\\lozenge$' /&gt; &lt;!-- only AMS --&gt;           &lt;char num='9824' name='spades' convertTo='$\\spadesuit$' /&gt;           &lt;char num='9827' name='clubs' convertTo='$\\clubsuit$' /&gt;           &lt;char num='9829' name='hearts' convertTo='$\\heartsuit$' /&gt;           &lt;char num='9830' name='diams' convertTo='$\\diamondsuit$' /&gt;                                                &lt;char num='38' name='amp' convertTo='\\@AMP' /&gt;               &lt;char num='34' name='quot' convertTo='@DOUBLEQUOT' /&gt;           &lt;char num='169' name='copy' convertTo='\\copyright' /&gt;            &lt;char num='60' name='lt' convertTo='$@LT$' /&gt;           &lt;char num='62' name='gt' convertTo='$@GT$' /&gt;           &lt;char num='338' name='OElig' convertTo='\\OE' /&gt;           &lt;char num='339' name='oelig' convertTo='\\oe' /&gt;           &lt;char num='352' name='Scaron' convertTo='\\v{S}' /&gt;           &lt;char num='353' name='scaron' convertTo='\\v{s}' /&gt;           &lt;char num='376' name='Yuml' convertTo='\\\&quot;Y' /&gt;           &lt;char num='710' name='circ' convertTo='\\textasciicircum' /&gt;           &lt;char num='732' name='tilde' convertTo='\\textasciitilde' /&gt;            &lt;char num='8211' name='ndash' convertTo='--' /&gt;           &lt;char num='8212' name='mdash' convertTo='---' /&gt;           &lt;char num='8216' name='lsquo' convertTo='`' /&gt;           &lt;char num='8217' name='rsquo' convertTo='@QUOT' /&gt;           &lt;char num='8220' name='ldquo' convertTo='``' /&gt;           &lt;char num='8221' name='rdquo' convertTo='@QUOT@QUOT' /&gt;           &lt;char num='8224' name='dagger' convertTo='\\dag' /&gt;           &lt;char num='8225' name='Dagger' convertTo='\\ddag' /&gt;           &lt;char num='8240' name='permil' convertTo='\\permil' /&gt; &lt;!-- wasysym package --&gt;            &lt;char num='8364' name='euro' convertTo='\\euro' /&gt; &lt;!-- eurosym package --&gt;           &lt;char num='8249' name='lsaquo' convertTo='\\guilsinglleft' /&gt;           &lt;char num='8250' name='rsaquo' convertTo='\\guilsinglright' /&gt; &lt;!--      &lt;char num='160' name='nbsp' convertTo='\\nolinebreak' /&gt;--&gt;           &lt;char num='160' name='nbsp' convertTo='~' /&gt;           &lt;char num='161' name='iexcl' convertTo='\\textexclamdown' /&gt;           &lt;char num='163' name='pound' convertTo='\\pounds' /&gt;           &lt;char num='164' name='curren' convertTo='\\currency' /&gt; &lt;!-- wasysym package --&gt;           &lt;char num='165' name='yen' convertTo='\\textyen' /&gt; &lt;!-- textcomp --&gt;            &lt;char num='166' name='brvbar' convertTo='\\brokenvert' /&gt; &lt;!-- wasysym --&gt;           &lt;char num='167' name='sect' convertTo='\\S' /&gt;           &lt;char num='171' name='laquo' convertTo='\\guillemotleft' /&gt;           &lt;char num='187' name='raquo' convertTo='\\guillemotright' /&gt;           &lt;char num='174' name='reg' convertTo='\\textregistered' /&gt;           &lt;char num='170' name='ordf' convertTo='\\textordfeminine' /&gt;           &lt;char num='172' name='not' convertTo='$\\neg$' /&gt;           &lt;char num='176' name='deg' convertTo='$\\degree$' /&gt; &lt;!-- mathabx --&gt;            &lt;char num='177' name='plusmn' convertTo='$\\pm$' /&gt;           &lt;char num='180' name='acute' convertTo='@QUOT' /&gt;           &lt;char num='181' name='micro' convertTo='$\\mu$' /&gt;           &lt;char num='182' name='para' convertTo='\\P' /&gt;           &lt;char num='183' name='middot' convertTo='$\\cdot$' /&gt;           &lt;char num='186' name='ordm' convertTo='\\textordmasculine' /&gt;           &lt;char num='162' name='cent' convertTo='\\cent' /&gt; &lt;!-- wasysym --&gt;           &lt;char num='185' name='sup1' convertTo='$^1$' /&gt;            &lt;char num='178' name='sup2' convertTo='$^2$' /&gt;           &lt;char num='179' name='sup3' convertTo='$^3$' /&gt;           &lt;char num='189' name='frac12' convertTo='$\\frac{1}{2}$' /&gt;           &lt;char num='188' name='frac14' convertTo='$\\frac{1}{4}$' /&gt;           &lt;char num='190' name='frac34' convertTo='$\\frac{3}{4}' /&gt;           &lt;char num='192' name='Agrave' convertTo='\\`A' /&gt;           &lt;char num='193' name='Aacute' convertTo='\\@QUOTA' /&gt;           &lt;char num='194' name='Acirc' convertTo='\\^A' /&gt;           &lt;char num='195' name='Atilde' convertTo='\\~A' /&gt;            &lt;char num='196' name='Auml' convertTo='\\@DOUBLEQUOTA' /&gt;           &lt;char num='197' name='Aring' convertTo='\\AA' /&gt;           &lt;char num='198' name='AElig' convertTo='\\AE' /&gt;           &lt;char num='199' name='Ccedil' convertTo='\\cC' /&gt;           &lt;char num='200' name='Egrave' convertTo='\\`E' /&gt;           &lt;char num='201' name='Eacute' convertTo='\\@QUOTE' /&gt;           &lt;char num='202' name='Ecirc' convertTo='\\^E' /&gt;           &lt;char num='203' name='Euml' convertTo='\\@DOUBLEQUOTE' /&gt;           &lt;char num='204' name='Igrave' convertTo='\\`I' /&gt;           &lt;char num='205' name='Iacute' convertTo='\\@QUOTI' /&gt;           &lt;char num='206' name='Icirc' convertTo='\\^I' /&gt;           &lt;char num='207' name='Iuml' convertTo='\\\&quot;I' /&gt;           &lt;char num='208' name='ETH' convertTo='$\\eth$' /&gt; &lt;!-- AMS --&gt;           &lt;char num='209' name='Ntilde' convertTo='\\~N' /&gt;               &lt;char num='210' name='Ograve' convertTo='\\`O' /&gt;           &lt;char num='211' name='Oacute' convertTo='\\@QUOTO' /&gt;           &lt;char num='212' name='Ocirc' convertTo='\\^O' /&gt;           &lt;char num='213' name='Otilde' convertTo='\\~O' /&gt;           &lt;char num='214' name='Ouml' convertTo='\\@DOUBLEQUOTO' /&gt;           &lt;char num='215' name='times' convertTo='$\\times$' /&gt;           &lt;char num='216' name='Oslash' convertTo='\\O' /&gt;           &lt;char num='217' name='Ugrave' convertTo='\\`U' /&gt;           &lt;char num='218' name='Uacute' convertTo='\\@QUOTU' /&gt;           &lt;char num='219' name='Ucirc' convertTo='\\^U' /&gt;           &lt;char num='220' name='Uuml' convertTo='\\@DOUBLEQUOTU' /&gt;           &lt;char num='221' name='Yacute' convertTo='\\@QUOTY' /&gt;           &lt;char num='222' name='THORN' convertTo='\\Thorn' /&gt;    &lt;!-- wasysym --&gt;           &lt;char num='223' name='szlig' convertTo='\\ss' /&gt;           &lt;char num='224' name='agrave' convertTo='\\`a' /&gt;           &lt;char num='225' name='aacute' convertTo='\\@QUOTa' /&gt;           &lt;char num='226' name='acirc' convertTo='\\^a' /&gt;           &lt;char num='227' name='atilde' convertTo='\\~a' /&gt;           &lt;char num='228' name='auml' convertTo='\\@DOUBLEQUOTa' /&gt;           &lt;char num='229' name='aring' convertTo='\\aa' /&gt;           &lt;char num='230' name='aelig' convertTo='\\ae' /&gt;           &lt;char num='231' name='ccedil' convertTo='\\cc' /&gt;           &lt;char num='232' name='egrave' convertTo='\\`e' /&gt;           &lt;char num='233' name='eacute' convertTo='\\@QUOTe' /&gt;           &lt;char num='234' name='ecirc' convertTo='\\^e' /&gt;           &lt;char num='235' name='euml' convertTo='\\@DOUBLEQUOTe' /&gt;               &lt;char num='236' name='igrave' convertTo='\\`i' /&gt;           &lt;char num='237' name='iacute' convertTo='\\@QUOTi' /&gt;           &lt;char num='238' name='icirc' convertTo='\\^i' /&gt;           &lt;char num='239' name='iuml' convertTo='\\@DOUBLEQUOTi' /&gt;           &lt;char num='240' name='eth' convertTo='$\\eth$' /&gt; &lt;!-- --&gt;           &lt;char num='241' name='ntilde' convertTo='\\~n' /&gt;           &lt;char num='242' name='ograve' convertTo='\\`o' /&gt;           &lt;char num='243' name='oacute' convertTo='\\@QUOTo' /&gt;           &lt;char num='244' name='ocirc' convertTo='\\^o' /&gt;           &lt;char num='245' name='otilde' convertTo='\\~o' /&gt;           &lt;char num='246' name='ouml' convertTo='\\@DOUBLEQUOTo' /&gt;           &lt;char num='247' name='divide' convertTo='$\\divide$' /&gt;                  &lt;char num='248' name='oslash' convertTo='\\o' /&gt;            &lt;char num='249' name='ugrave' convertTo='\\`u' /&gt;           &lt;char num='250' name='uacute' convertTo='\\@QUOTu' /&gt;           &lt;char num='251' name='ucirc' convertTo='\\^u' /&gt;           &lt;char num='252' name='uuml' convertTo='\\@DOUBLEQUOTu' /&gt;           &lt;char num='253' name='yacute' convertTo='\\@QUOTy' /&gt;           &lt;char num='254' name='thorn' convertTo='\\thorn' /&gt; &lt;!-- wasysym --&gt;           &lt;char num='255' name='yuml' convertTo='\\@DOUBLEQUOTy' /&gt;                           &lt;/chars&gt;&quot;</td>
+  </tr>
+  <tr valign='top'>
+    <td>&nbsp;</td>
+    <td colspan="2" class="attr-desc">
+The following is a conversion chart for html elements, courtesy of
+text2html
+
+</td>
+  </tr>
+  </table>
+
+
+<div class="sectiontitle">Public Instance methods</div>
+<div class="method">
+  <div class="title">
+    <a name="M000119"></a><b>array_to_latex</b>(array, join_char='')
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000119_source')" id="l_M000119_source">show source</a> ]</p>
+  <div id="M000119_source" class="dyn-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/maruku/output/to_latex.rb, line 351</span>
+351:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">array_to_latex</span>(<span class="ruby-identifier">array</span>, <span class="ruby-identifier">join_char</span>=<span class="ruby-value str">''</span>)
+352:                 <span class="ruby-identifier">e</span> = []
+353:                 <span class="ruby-identifier">array</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">c</span><span class="ruby-operator">|</span>
+354:                         <span class="ruby-identifier">method</span> = <span class="ruby-identifier">c</span>.<span class="ruby-identifier">kind_of?</span>(<span class="ruby-constant">MDElement</span>) <span class="ruby-operator">?</span> 
+355:                            <span class="ruby-node">&quot;to_latex_#{c.node_type}&quot;</span> <span class="ruby-operator">:</span> <span class="ruby-value str">&quot;to_latex&quot;</span>
+356:                         
+357:                         <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">not</span> <span class="ruby-identifier">c</span>.<span class="ruby-identifier">respond_to?</span>(<span class="ruby-identifier">method</span>)
+358:                 <span class="ruby-comment cmt">#             raise &quot;Object does not answer to #{method}: #{c.class} #{c.inspect[0,100]}&quot;</span>
+359:                                 <span class="ruby-keyword kw">next</span>
+360:                         <span class="ruby-keyword kw">end</span>
+361:                         
+362:                         <span class="ruby-identifier">h</span> =  <span class="ruby-identifier">c</span>.<span class="ruby-identifier">send</span>(<span class="ruby-identifier">method</span>)
+363:                         
+364:                         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">h</span>.<span class="ruby-identifier">nil?</span>
+365:                                 <span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;Nil html for #{c.inspect} created with method #{method}&quot;</span>
+366:                         <span class="ruby-keyword kw">end</span>
+367:                         
+368:                         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">h</span>.<span class="ruby-identifier">kind_of?</span><span class="ruby-constant">Array</span>
+369:                                 <span class="ruby-identifier">e</span> = <span class="ruby-identifier">e</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">h</span>
+370:                         <span class="ruby-keyword kw">else</span>
+371:                                 <span class="ruby-identifier">e</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">h</span>
+372:                         <span class="ruby-keyword kw">end</span>
+373:                 <span class="ruby-keyword kw">end</span>
+374:                 <span class="ruby-identifier">e</span>.<span class="ruby-identifier">join</span>(<span class="ruby-identifier">join_char</span>)
+375:         <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000118"></a><b>children_to_latex</b>()
+  </div>
+  <div class="description">
+  <p>
+Convert each child to html
+</p>
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000118_source')" id="l_M000118_source">show source</a> ]</p>
+  <div id="M000118_source" class="dyn-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/maruku/output/to_latex.rb, line 347</span>
+347:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">children_to_latex</span>
+348:                 <span class="ruby-identifier">array_to_latex</span>(<span class="ruby-ivar">@children</span>)
+349:         <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000091"></a><b>get_setting</b>(name, default=nil)
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000091_source')" id="l_M000091_source">show source</a> ]</p>
+  <div id="M000091_source" class="dyn-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/maruku/output/to_latex.rb, line 81</span>
+81:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">get_setting</span>(<span class="ruby-identifier">name</span>, <span class="ruby-identifier">default</span>=<span class="ruby-keyword kw">nil</span>)
+82:                 <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">attributes</span>[<span class="ruby-identifier">name</span>] <span class="ruby-operator">||</span> <span class="ruby-ivar">@doc</span>.<span class="ruby-identifier">attributes</span>[<span class="ruby-identifier">name</span>] <span class="ruby-operator">||</span> <span class="ruby-identifier">default</span>
+83:         <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000092"></a><b>latex_color</b>(s, command='color')
+  </div>
+  <div class="description">
+  <p>
+\color[named]{name} \color[rgb]{1,0.2,0.3}
+</p>
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000092_source')" id="l_M000092_source">show source</a> ]</p>
+  <div id="M000092_source" class="dyn-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/maruku/output/to_latex.rb, line 87</span>
+87:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">latex_color</span>(<span class="ruby-identifier">s</span>, <span class="ruby-identifier">command</span>=<span class="ruby-value str">'color'</span>)
+88:                 <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">s</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp re">/^\#(\w\w)(\w\w)(\w\w)$/</span>
+89:                         <span class="ruby-identifier">r</span> = <span class="ruby-identifier">$1</span>.<span class="ruby-identifier">hex</span>; <span class="ruby-identifier">g</span> = <span class="ruby-identifier">$2</span>.<span class="ruby-identifier">hex</span>; <span class="ruby-identifier">b</span>=<span class="ruby-identifier">$3</span>.<span class="ruby-identifier">hex</span>                             
+90:                         <span class="ruby-comment cmt"># convert from 0-255 to 0.0-1.0</span>
+91:                         <span class="ruby-identifier">r</span> = <span class="ruby-identifier">r</span> <span class="ruby-operator">/</span> <span class="ruby-value">255.0</span> 
+92:                         <span class="ruby-identifier">g</span> = <span class="ruby-identifier">g</span> <span class="ruby-operator">/</span> <span class="ruby-value">255.0</span> 
+93:                         <span class="ruby-identifier">b</span> = <span class="ruby-identifier">b</span> <span class="ruby-operator">/</span> <span class="ruby-value">255.0</span> 
+94:                         
+95:                         <span class="ruby-node">&quot;\\#{command}[rgb]{%0.2f,%0.2f,%0.2f}&quot;</span> <span class="ruby-operator">%</span> [<span class="ruby-identifier">r</span>,<span class="ruby-identifier">g</span>,<span class="ruby-identifier">b</span>]
+96:                 <span class="ruby-keyword kw">else</span>
+97:                         <span class="ruby-node">&quot;\\#{command}{#{s}}&quot;</span>
+98:                 <span class="ruby-keyword kw">end</span>
+99:         <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000104"></a><b>latex_escape</b>(source)
+  </div>
+  <div class="description">
+  <p>
+the ultimate escaping (is much better than using \verb)
+</p>
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000104_source')" id="l_M000104_source">show source</a> ]</p>
+  <div id="M000104_source" class="dyn-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/maruku/output/to_latex.rb, line 188</span>
+188:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">latex_escape</span>(<span class="ruby-identifier">source</span>)
+189:                 <span class="ruby-identifier">s</span>=<span class="ruby-value str">&quot;&quot;</span>; 
+190:                 <span class="ruby-identifier">source</span>.<span class="ruby-identifier">each_byte</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">b</span><span class="ruby-operator">|</span> <span class="ruby-identifier">s</span><span class="ruby-operator">+=</span> <span class="ruby-value str">&quot;\\char%d&quot;</span> <span class="ruby-operator">%</span> <span class="ruby-identifier">b</span> <span class="ruby-keyword kw">end</span>
+191:                 <span class="ruby-identifier">s</span>
+192:         <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000116"></a><b>to_latex_abbr</b>()
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000116_source')" id="l_M000116_source">show source</a> ]</p>
+  <div id="M000116_source" class="dyn-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/maruku/output/to_latex.rb, line 328</span>
+328:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_latex_abbr</span>
+329:                 <span class="ruby-identifier">children_to_latex</span>
+330:         <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000111"></a><b>to_latex_cell</b>()
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000111_source')" id="l_M000111_source">show source</a> ]</p>
+  <div id="M000111_source" class="dyn-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/maruku/output/to_latex.rb, line 286</span>
+286:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_latex_cell</span>; <span class="ruby-identifier">children_to_latex</span> <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000093"></a><b>to_latex_code</b>()
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000093_source')" id="l_M000093_source">show source</a> ]</p>
+  <div id="M000093_source" class="dyn-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/maruku/output/to_latex.rb, line 101</span>
+101:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_latex_code</span>;
+102:                 <span class="ruby-identifier">raw_code</span> = <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">raw_code</span>
+103:                 
+104:                 <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@doc</span>.<span class="ruby-identifier">attributes</span>[<span class="ruby-identifier">:latex_use_listings</span>]
+105:                         <span class="ruby-identifier">s</span> = <span class="ruby-value str">&quot;\\lstset{columns=fixed,frame=shadowbox}&quot;</span>
+106: 
+107:                         <span class="ruby-identifier">show_spaces</span> = <span class="ruby-identifier">get_setting</span>(<span class="ruby-identifier">:code_show_spaces</span>) 
+108:                         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">show_spaces</span>
+109:                                 <span class="ruby-identifier">s</span><span class="ruby-operator">+=</span> <span class="ruby-value str">&quot;\\lstset{showspaces=true,showtabs=true}\n&quot;</span>
+110:                         <span class="ruby-keyword kw">else</span>
+111:                                 <span class="ruby-identifier">s</span><span class="ruby-operator">+=</span> <span class="ruby-value str">&quot;\\lstset{showspaces=false,showtabs=false}\n&quot;</span>
+112:                         <span class="ruby-keyword kw">end</span>
+113:                         
+114:                         <span class="ruby-identifier">color</span> = <span class="ruby-identifier">latex_color</span> <span class="ruby-identifier">get_setting</span>(<span class="ruby-identifier">:code_background_color</span>,<span class="ruby-constant">DEFAULT_CODE_COLOR</span>)
+115:                         
+116:                         <span class="ruby-identifier">s</span><span class="ruby-operator">+=</span> <span class="ruby-node">&quot;\\lstset{backgroundcolor=#{color}}\n&quot;</span> 
+117:                         
+118:                         <span class="ruby-identifier">s</span><span class="ruby-operator">+=</span> <span class="ruby-value str">&quot;\\lstset{basicstyle=\\ttfamily\\footnotesize}\n&quot;</span> 
+119:                         
+120:                         
+121:                         <span class="ruby-identifier">lang</span> = <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">attributes</span>[<span class="ruby-identifier">:lang</span>] <span class="ruby-operator">||</span> <span class="ruby-ivar">@doc</span>.<span class="ruby-identifier">attributes</span>[<span class="ruby-identifier">:code_lang</span>] <span class="ruby-operator">||</span> <span class="ruby-value str">'{}'</span>
+122:                         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">lang</span>
+123:                                 <span class="ruby-identifier">s</span> <span class="ruby-operator">+=</span> <span class="ruby-node">&quot;\\lstset{language=#{lang}}\n&quot;</span>
+124:                         <span class="ruby-keyword kw">end</span>
+125:                         
+126:                         <span class="ruby-node">&quot;#{s}\n\\begin{lstlisting}\n#{raw_code}\n\\end{lstlisting}&quot;</span>
+127:                 <span class="ruby-keyword kw">else</span>
+128:                         <span class="ruby-node">&quot;\\begin{verbatim}#{raw_code}\\end{verbatim}\n&quot;</span>
+129:                 <span class="ruby-keyword kw">end</span>
+130:         <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000115"></a><b>to_latex_definition</b>()
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000115_source')" id="l_M000115_source">show source</a> ]</p>
+  <div id="M000115_source" class="dyn-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/maruku/output/to_latex.rb, line 311</span>
+311:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_latex_definition</span>                
+312:                 <span class="ruby-identifier">terms</span> = <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">terms</span>
+313:                 <span class="ruby-identifier">definitions</span> = <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">definitions</span>
+314:                 
+315:                 <span class="ruby-identifier">s</span> = <span class="ruby-value str">&quot;&quot;</span>
+316:                 <span class="ruby-identifier">terms</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">t</span><span class="ruby-operator">|</span>
+317:                         <span class="ruby-identifier">s</span> <span class="ruby-operator">+=</span><span class="ruby-node">&quot;\n\\item[#{t.children_to_latex}] &quot;</span>
+318:                 <span class="ruby-keyword kw">end</span>
+319: 
+320:                 <span class="ruby-identifier">definitions</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">d</span><span class="ruby-operator">|</span>
+321:                         <span class="ruby-identifier">s</span> <span class="ruby-operator">+=</span> <span class="ruby-node">&quot;#{d.children_to_latex} \n&quot;</span>
+322:                 <span class="ruby-keyword kw">end</span>
+323:                 
+324:                 <span class="ruby-identifier">s</span>
+325:         <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000114"></a><b>to_latex_definition_list</b>()
+  </div>
+  <div class="description">
+  <p>
+Definition lists ###
+</p>
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000114_source')" id="l_M000114_source">show source</a> ]</p>
+  <div id="M000114_source" class="dyn-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/maruku/output/to_latex.rb, line 304</span>
+304:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_latex_definition_list</span>
+305:                 <span class="ruby-identifier">s</span> = <span class="ruby-value str">&quot;\\begin{description}\n&quot;</span>
+306:                 <span class="ruby-identifier">s</span> <span class="ruby-operator">+=</span> <span class="ruby-identifier">children_to_latex</span>
+307:                 <span class="ruby-identifier">s</span> <span class="ruby-operator">+=</span> <span class="ruby-value str">&quot;\\end{description}\n&quot;</span>
+308:                 <span class="ruby-identifier">s</span>
+309:         <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000108"></a><b>to_latex_email_address</b>()
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000108_source')" id="l_M000108_source">show source</a> ]</p>
+  <div id="M000108_source" class="dyn-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/maruku/output/to_latex.rb, line 245</span>
+245:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_latex_email_address</span>
+246:                 <span class="ruby-identifier">email</span> = <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">email</span>
+247:                 <span class="ruby-node">&quot;\\href{mailto:#{email}}{#{latex_escape(email)}}&quot;</span>
+248:         <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000101"></a><b>to_latex_emphasis</b>()
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000101_source')" id="l_M000101_source">show source</a> ]</p>
+  <div id="M000101_source" class="dyn-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/maruku/output/to_latex.rb, line 174</span>
+174:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_latex_emphasis</span>;  <span class="ruby-identifier">wrap_as_span</span>(<span class="ruby-value str">'\em'</span>)               <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000120"></a><b>to_latex_entity</b>()
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000120_source')" id="l_M000120_source">show source</a> ]</p>
+  <div id="M000120_source" class="dyn-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/maruku/output/to_latex_entities.rb, line 28</span>
+28:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_latex_entity</span> 
+29:                 <span class="ruby-identifier">entity_name</span> = <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">entity_name</span>
+30:                 
+31:                 <span class="ruby-constant">MDElement</span>.<span class="ruby-identifier">init_tables</span>
+32:                 
+33:                 <span class="ruby-identifier">replace</span> = <span class="ruby-ivar">@@entity_to_latex</span>[<span class="ruby-identifier">entity_name</span>]
+34:                 <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">replace</span>
+35: <span class="ruby-comment cmt">#                       puts &quot;#{entity_name} -&gt; #{replace.inspect}&quot;</span>
+36:                         <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">replace</span>
+37:                 <span class="ruby-keyword kw">else</span>
+38:                         <span class="ruby-identifier">$stderr</span>.<span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;Cannot translate #{entity_name}&quot;</span>
+39:                         <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">entity_name</span>
+40:                 <span class="ruby-keyword kw">end</span>
+41:         <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000112"></a><b>to_latex_footnote_reference</b>()
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000112_source')" id="l_M000112_source">show source</a> ]</p>
+  <div id="M000112_source" class="dyn-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/maruku/output/to_latex.rb, line 289</span>
+289:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_latex_footnote_reference</span>
+290:                 <span class="ruby-identifier">id</span> = <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">footnote_id</span>
+291:                 <span class="ruby-identifier">f</span> = <span class="ruby-ivar">@doc</span>.<span class="ruby-identifier">footnotes</span>[<span class="ruby-identifier">id</span>]
+292:                 <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">f</span>
+293:                         <span class="ruby-node">&quot;\\footnote{#{f.children_to_latex.strip}} &quot;</span>
+294:                 <span class="ruby-keyword kw">else</span>
+295:                         <span class="ruby-identifier">$stderr</span>.<span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;Could not find footnote '#{fid}'&quot;</span>
+296:                 <span class="ruby-keyword kw">end</span>
+297:         <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000110"></a><b>to_latex_head_cell</b>()
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000110_source')" id="l_M000110_source">show source</a> ]</p>
+  <div id="M000110_source" class="dyn-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/maruku/output/to_latex.rb, line 285</span>
+285:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_latex_head_cell</span>; <span class="ruby-identifier">children_to_latex</span> <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000094"></a><b>to_latex_header</b>()
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000094_source')" id="l_M000094_source">show source</a> ]</p>
+  <div id="M000094_source" class="dyn-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/maruku/output/to_latex.rb, line 138</span>
+138:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_latex_header</span>
+139:                 <span class="ruby-identifier">h</span> = <span class="ruby-constant">TexHeaders</span>[<span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">level</span>] <span class="ruby-operator">||</span> <span class="ruby-value str">'paragraph'</span>
+140:                 
+141:                 <span class="ruby-identifier">title</span> = <span class="ruby-identifier">children_to_latex</span>
+142:                 <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">number</span> = <span class="ruby-identifier">section_number</span>
+143:                         <span class="ruby-identifier">title</span> = <span class="ruby-identifier">number</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">title</span>
+144:                 <span class="ruby-keyword kw">end</span>
+145:                 
+146:                 <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">id</span> = <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">attributes</span>[<span class="ruby-identifier">:id</span>]
+147:                         <span class="ruby-comment cmt"># drop '#' at the beginning</span>
+148:                         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">id</span>[<span class="ruby-value">0</span>,<span class="ruby-value">1</span>] <span class="ruby-operator">==</span> <span class="ruby-value str">'#'</span> <span class="ruby-keyword kw">then</span> <span class="ruby-identifier">id</span> = [<span class="ruby-value">1</span>,<span class="ruby-identifier">id</span>.<span class="ruby-identifier">size</span>] <span class="ruby-keyword kw">end</span>
+149:                         <span class="ruby-value str">%{\\hypertarget{%s}{}\\%s*{{%s}}\\label{%s}\n\n}</span> <span class="ruby-operator">%</span> [ <span class="ruby-identifier">id</span>, <span class="ruby-identifier">h</span>, <span class="ruby-identifier">title</span>, <span class="ruby-identifier">id</span> ]
+150:                 <span class="ruby-keyword kw">else</span>
+151:                         <span class="ruby-value str">%{\\%s*{%s}\n\n}</span> <span class="ruby-operator">%</span> [ <span class="ruby-identifier">h</span>, <span class="ruby-identifier">title</span>]
+152:                 <span class="ruby-keyword kw">end</span>
+153:         <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000088"></a><b>to_latex_hrule</b>()
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000088_source')" id="l_M000088_source">show source</a> ]</p>
+  <div id="M000088_source" class="dyn-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/maruku/output/to_latex.rb, line 74</span>
+74:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_latex_hrule</span>; <span class="ruby-value str">&quot;\n\\vspace{.5em} \\hrule \\vspace{.5em}\n&quot;</span> <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000117"></a><b>to_latex_image</b>()
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000117_source')" id="l_M000117_source">show source</a> ]</p>
+  <div id="M000117_source" class="dyn-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/maruku/output/to_latex.rb, line 332</span>
+332:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_latex_image</span>
+333:                 <span class="ruby-identifier">id</span> = <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">ref_id</span>
+334:                 <span class="ruby-identifier">ref</span> = <span class="ruby-ivar">@doc</span>.<span class="ruby-identifier">refs</span>[<span class="ruby-identifier">id</span>]
+335:                 <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">not</span> <span class="ruby-identifier">ref</span>
+336:                         <span class="ruby-identifier">$stderr</span>.<span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;Could not find id = '#{id}'&quot;</span>
+337:                         <span class="ruby-value str">&quot;&quot;</span>
+338:                 <span class="ruby-keyword kw">else</span>
+339:                         <span class="ruby-identifier">url</span> = <span class="ruby-identifier">ref</span>[<span class="ruby-identifier">:url</span>]
+340:                         <span class="ruby-node">&quot;{\\bf Images not supported yet (#{latex_escape(url)})}&quot;</span>
+341:                 <span class="ruby-keyword kw">end</span>
+342: 
+343:         <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000106"></a><b>to_latex_immediate_link</b>()
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000106_source')" id="l_M000106_source">show source</a> ]</p>
+  <div id="M000106_source" class="dyn-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/maruku/output/to_latex.rb, line 206</span>
+206:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_latex_immediate_link</span>
+207:                 <span class="ruby-identifier">url</span> = <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">url</span>
+208:                 <span class="ruby-keyword kw">return</span> <span class="ruby-node">&quot;\\href{#{url}}{#{url.to_latex}}&quot;</span>
+209:         <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000105"></a><b>to_latex_inline_code</b>()
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000105_source')" id="l_M000105_source">show source</a> ]</p>
+  <div id="M000105_source" class="dyn-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/maruku/output/to_latex.rb, line 194</span>
+194:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_latex_inline_code</span>; 
+195:                 <span class="ruby-identifier">source</span> = <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">raw_code</span>
+196:                 
+197:                 <span class="ruby-comment cmt"># Convert to printable latex chars </span>
+198:                 <span class="ruby-identifier">s</span> = <span class="ruby-identifier">latex_escape</span>(<span class="ruby-identifier">source</span>)
+199:                 
+200:                 <span class="ruby-identifier">color</span> = <span class="ruby-identifier">get_setting</span>(<span class="ruby-identifier">:code_background_color</span>,<span class="ruby-constant">DEFAULT_CODE_COLOR</span>)
+201:                 <span class="ruby-identifier">colorspec</span> = <span class="ruby-identifier">latex_color</span>(<span class="ruby-identifier">color</span>, <span class="ruby-value str">'colorbox'</span>)
+202: 
+203:                 <span class="ruby-node">&quot;#{colorspec}{\\tt #{s}}&quot;</span>
+204:         <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000098"></a><b>to_latex_li</b>()
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000098_source')" id="l_M000098_source">show source</a> ]</p>
+  <div id="M000098_source" class="dyn-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/maruku/output/to_latex.rb, line 166</span>
+166:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_latex_li</span>;        
+167:                 <span class="ruby-node">&quot;\\item #{children_to_latex}\n&quot;</span>  
+168:         <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000099"></a><b>to_latex_li_span</b>()
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000099_source')" id="l_M000099_source">show source</a> ]</p>
+  <div id="M000099_source" class="dyn-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/maruku/output/to_latex.rb, line 169</span>
+169:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_latex_li_span</span>;
+170:                 <span class="ruby-node">&quot;\\item #{children_to_latex}\n&quot;</span>
+171:         <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000089"></a><b>to_latex_linebreak</b>()
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000089_source')" id="l_M000089_source">show source</a> ]</p>
+  <div id="M000089_source" class="dyn-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/maruku/output/to_latex.rb, line 75</span>
+75:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_latex_linebreak</span>; <span class="ruby-value str">&quot;\\linebreak &quot;</span> <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000107"></a><b>to_latex_link</b>()
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000107_source')" id="l_M000107_source">show source</a> ]</p>
+  <div id="M000107_source" class="dyn-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/maruku/output/to_latex.rb, line 211</span>
+211:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_latex_link</span>
+212:                 <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">id</span> = <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">ref_id</span>
+213:                         <span class="ruby-comment cmt"># if empty, use text</span>
+214:                         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">id</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">==</span> <span class="ruby-value">0</span>
+215:                                 <span class="ruby-identifier">id</span> = <span class="ruby-identifier">children</span>.<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">downcase</span>
+216:                         <span class="ruby-keyword kw">end</span>
+217:                         
+218:                         <span class="ruby-identifier">ref</span> = <span class="ruby-ivar">@doc</span>.<span class="ruby-identifier">refs</span>[<span class="ruby-identifier">id</span>]
+219:                         <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">not</span> <span class="ruby-identifier">ref</span>
+220:                                 <span class="ruby-identifier">$stderr</span>.<span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;Could not find id = '#{id}'&quot;</span>
+221:                                 <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">children_to_latex</span>
+222:                         <span class="ruby-keyword kw">else</span>
+223:                                 <span class="ruby-identifier">url</span> = <span class="ruby-identifier">ref</span>[<span class="ruby-identifier">:url</span>]
+224:                                 <span class="ruby-comment cmt">#title = ref[:title] || 'no title'</span>
+225: 
+226:                                 <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">url</span>[<span class="ruby-value">0</span>,<span class="ruby-value">1</span>] <span class="ruby-operator">==</span> <span class="ruby-value str">'#'</span>
+227:                                         <span class="ruby-identifier">url</span> = <span class="ruby-identifier">url</span>[<span class="ruby-value">1</span>,<span class="ruby-identifier">url</span>.<span class="ruby-identifier">size</span>]
+228:                                         <span class="ruby-keyword kw">return</span> <span class="ruby-node">&quot;\\hyperlink{#{url}}{#{children_to_latex}}&quot;</span>
+229:                                 <span class="ruby-keyword kw">else</span>
+230:                                         <span class="ruby-keyword kw">return</span> <span class="ruby-node">&quot;\\href{#{url}}{#{children_to_latex}}&quot;</span>
+231:                                 <span class="ruby-keyword kw">end</span>
+232:                         <span class="ruby-keyword kw">end</span>
+233:                 <span class="ruby-keyword kw">else</span>
+234:                         <span class="ruby-identifier">url</span> = <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">url</span>
+235: 
+236:                         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">url</span>[<span class="ruby-value">0</span>,<span class="ruby-value">1</span>] <span class="ruby-operator">==</span> <span class="ruby-value str">'#'</span>
+237:                                 <span class="ruby-identifier">url</span> = <span class="ruby-identifier">url</span>[<span class="ruby-value">1</span>,<span class="ruby-identifier">url</span>.<span class="ruby-identifier">size</span>]
+238:                                 <span class="ruby-keyword kw">return</span> <span class="ruby-node">&quot;\\hyperlink{#{url}}{#{children_to_latex}}&quot;</span>
+239:                         <span class="ruby-keyword kw">else</span>
+240:                                 <span class="ruby-keyword kw">return</span> <span class="ruby-node">&quot;\\href{#{url}}{#{children_to_latex}}&quot;</span>
+241:                         <span class="ruby-keyword kw">end</span>
+242:                 <span class="ruby-keyword kw">end</span>
+243:         <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000097"></a><b>to_latex_ol</b>()
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000097_source')" id="l_M000097_source">show source</a> ]</p>
+  <div id="M000097_source" class="dyn-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/maruku/output/to_latex.rb, line 165</span>
+165:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_latex_ol</span>;        <span class="ruby-identifier">wrap_as_environment</span>(<span class="ruby-value str">'enumerate'</span>)               <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000090"></a><b>to_latex_paragraph</b>()
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000090_source')" id="l_M000090_source">show source</a> ]</p>
+  <div id="M000090_source" class="dyn-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/maruku/output/to_latex.rb, line 77</span>
+77:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_latex_paragraph</span>; 
+78:                 <span class="ruby-identifier">children_to_latex</span><span class="ruby-operator">+</span><span class="ruby-value str">&quot;\n\n&quot;</span>
+79:         <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000096"></a><b>to_latex_quote</b>()
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000096_source')" id="l_M000096_source">show source</a> ]</p>
+  <div id="M000096_source" class="dyn-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/maruku/output/to_latex.rb, line 164</span>
+164:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_latex_quote</span>;        <span class="ruby-identifier">wrap_as_environment</span>(<span class="ruby-value str">'quote'</span>)               <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000113"></a><b>to_latex_raw_html</b>()
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000113_source')" id="l_M000113_source">show source</a> ]</p>
+  <div id="M000113_source" class="dyn-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/maruku/output/to_latex.rb, line 299</span>
+299:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_latex_raw_html</span>
+300:                 <span class="ruby-value str">'{\bf Raw HTML removed in latex version }'</span>
+301:         <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000100"></a><b>to_latex_strong</b>()
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000100_source')" id="l_M000100_source">show source</a> ]</p>
+  <div id="M000100_source" class="dyn-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/maruku/output/to_latex.rb, line 173</span>
+173:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_latex_strong</span>;    <span class="ruby-identifier">wrap_as_span</span>(<span class="ruby-value str">'\bf'</span>)           <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000109"></a><b>to_latex_table</b>()
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000109_source')" id="l_M000109_source">show source</a> ]</p>
+  <div id="M000109_source" class="dyn-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/maruku/output/to_latex.rb, line 251</span>
+251:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_latex_table</span>
+252:                 <span class="ruby-identifier">align</span> = <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">align</span>
+253:                 <span class="ruby-identifier">num_columns</span> = <span class="ruby-identifier">align</span>.<span class="ruby-identifier">size</span>
+254: 
+255:                 <span class="ruby-identifier">head</span> = <span class="ruby-ivar">@children</span>.<span class="ruby-identifier">slice</span>(<span class="ruby-value">0</span>, <span class="ruby-identifier">num_columns</span>)
+256:                 <span class="ruby-identifier">rows</span> = []
+257:                 <span class="ruby-identifier">i</span> = <span class="ruby-identifier">num_columns</span>
+258:                 <span class="ruby-keyword kw">while</span> <span class="ruby-identifier">i</span><span class="ruby-operator">&lt;</span><span class="ruby-ivar">@children</span>.<span class="ruby-identifier">size</span>
+259:                         <span class="ruby-identifier">rows</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-ivar">@children</span>.<span class="ruby-identifier">slice</span>(<span class="ruby-identifier">i</span>, <span class="ruby-identifier">num_columns</span>)
+260:                         <span class="ruby-identifier">i</span><span class="ruby-operator">+=</span><span class="ruby-identifier">num_columns</span>
+261:                 <span class="ruby-keyword kw">end</span>
+262:                 
+263:                 <span class="ruby-identifier">h</span> = {<span class="ruby-identifier">:center=</span><span class="ruby-operator">&gt;</span><span class="ruby-value str">'c'</span>,<span class="ruby-identifier">:left=</span><span class="ruby-operator">&gt;</span><span class="ruby-value str">'l'</span>,<span class="ruby-identifier">:right=</span><span class="ruby-operator">&gt;</span><span class="ruby-value str">'r'</span>}
+264:                 <span class="ruby-identifier">align_string</span> = <span class="ruby-identifier">align</span>.<span class="ruby-identifier">map</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">a</span><span class="ruby-operator">|</span> <span class="ruby-identifier">h</span>[<span class="ruby-identifier">a</span>]}.<span class="ruby-identifier">join</span>(<span class="ruby-value str">'|'</span>)
+265:                 
+266:                 <span class="ruby-identifier">s</span> = <span class="ruby-node">&quot;\\begin{tabular}{#{align_string}}\n&quot;</span>
+267:                         
+268:                         <span class="ruby-identifier">s</span> <span class="ruby-operator">+=</span> <span class="ruby-identifier">array_to_latex</span>(<span class="ruby-identifier">head</span>, <span class="ruby-value str">'&amp;'</span>) <span class="ruby-operator">+</span> <span class="ruby-value str">&quot;\\\\&quot;</span> <span class="ruby-operator">+</span><span class="ruby-value str">&quot;\n&quot;</span>
+269:                         
+270:                         <span class="ruby-identifier">s</span> <span class="ruby-operator">+=</span> <span class="ruby-value str">&quot;\\hline \n&quot;</span>
+271:                         
+272:                         <span class="ruby-identifier">rows</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">row</span><span class="ruby-operator">|</span>
+273:                                 <span class="ruby-identifier">s</span> <span class="ruby-operator">+=</span> <span class="ruby-identifier">array_to_latex</span>(<span class="ruby-identifier">row</span>, <span class="ruby-value str">'&amp;'</span>) <span class="ruby-operator">+</span> <span class="ruby-value str">&quot;\\\\&quot;</span> <span class="ruby-operator">+</span><span class="ruby-value str">&quot;\n&quot;</span>
+274:                         <span class="ruby-keyword kw">end</span>
+275:                         
+276:                 <span class="ruby-identifier">s</span> <span class="ruby-operator">+=</span> <span class="ruby-value str">&quot;\\end{tabular}&quot;</span>
+277:                 
+278:                 <span class="ruby-comment cmt"># puts table in its own paragraph</span>
+279:                 <span class="ruby-identifier">s</span> <span class="ruby-operator">+=</span> <span class="ruby-value str">&quot;\n\n&quot;</span>
+280:                 
+281:                 <span class="ruby-identifier">s</span>
+282:         <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000095"></a><b>to_latex_ul</b>()
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000095_source')" id="l_M000095_source">show source</a> ]</p>
+  <div id="M000095_source" class="dyn-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/maruku/output/to_latex.rb, line 156</span>
+156:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_latex_ul</span>;       
+157:                 <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">attributes</span>[<span class="ruby-identifier">:toc</span>]
+158:                         <span class="ruby-ivar">@doc</span>.<span class="ruby-identifier">toc</span>.<span class="ruby-identifier">to_latex</span>
+159:                 <span class="ruby-keyword kw">else</span>
+160:                         <span class="ruby-identifier">wrap_as_environment</span>(<span class="ruby-value str">'itemize'</span>)
+161:                 <span class="ruby-keyword kw">end</span>
+162:         <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000103"></a><b>wrap_as_environment</b>(name)
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000103_source')" id="l_M000103_source">show source</a> ]</p>
+  <div id="M000103_source" class="dyn-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/maruku/output/to_latex.rb, line 180</span>
+180:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">wrap_as_environment</span>(<span class="ruby-identifier">name</span>)
+181: <span class="ruby-node">&quot;\\begin{#{name}}%
+182: #{children_to_latex}
+183: \\end{#{name}}\n&quot;</span>       
+184:         <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000102"></a><b>wrap_as_span</b>(c)
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000102_source')" id="l_M000102_source">show source</a> ]</p>
+  <div id="M000102_source" class="dyn-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/maruku/output/to_latex.rb, line 176</span>
+176:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">wrap_as_span</span>(<span class="ruby-identifier">c</span>)
+177:                 <span class="ruby-node">&quot;{#{c} #{children_to_latex}}&quot;</span>
+178:         <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+</div>
+
+  </div>
+
+    </body>
+</html>
