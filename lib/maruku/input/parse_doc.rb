@@ -115,7 +115,7 @@ Disabled by default because of security concerns.
       maruku_error "Exception while executing this:\n" +
         code.gsub(/^/, ">") +
         "\nThe error was:\n" +
-        (e.inspect + "\n" + e.caller.join("\n")).gsub(/^/, "|")
+        (e.inspect + "\n" + e.send(:caller).join("\n")).gsub(/^/, "|")
       nil
     end
   end
