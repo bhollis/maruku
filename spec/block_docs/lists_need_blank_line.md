@@ -1,4 +1,4 @@
-PENDING - list syntax needs a newline before it to be a valid list!
+list syntax needs a newline before it to be a valid list!
 *** Parameters: ***
 {}
 *** Markdown input: ***
@@ -29,30 +29,18 @@ ciao
 
 *** Output of inspect ***
 md_el(:document,[
-	md_par(["This is not a list:\n* one\n* two"]),
+	md_par(["This is not a list: * one * two"]),
 	md_par(["This is a list:"]),
-	md_el(:ul,[
-		md_el(:li_span,["one"],{:want_my_paragraph=>false},[]),
-		md_el(:li_span,["two"],{:want_my_paragraph=>false},[])
-	],{},[]),
+	md_el(:ul,[md_li("one", false), md_li("two", false)],{},[]),
 	md_par(["This is a list:"]),
-  md_el(:ul,[
-		md_el(:li_span,["one ciao"],{:want_my_paragraph=>false},[])
-	],{},[]),
+  md_el(:ul,md_li("one ciao", false),{},[]),
 	md_par(["This is a list:"]),
-	md_el(:ol,[
-		md_el(:li_span,["one"],{:want_my_paragraph=>false},[]),
-		md_el(:li_span,["two"],{:want_my_paragraph=>false},[])
-	],{},[]),
+	md_el(:ol,[md_li("one", false), md_li("two", false)],{},[]),
   md_par(["This is a list:"]),
-	md_el(:ol,[
-    md_el(:li_span,["one ciao"],{:want_my_paragraph=>false},[])
-  ],{},[])
+	md_el(:ol,md_li("one ciao", false),{},[])
 ],{},[])
 *** Output of to_html ***
-<p>This is not a list:
-* one
-* two</p>
+<p>This is not a list: * one * two</p>
 
 <p>This is a list:</p>
 
@@ -82,9 +70,7 @@ md_el(:document,[
 <li>one ciao</li>
 </ol>
 *** Output of to_latex ***
-This is not a list:
-* one
-* two
+This is not a list: * one * two
 
 This is a list:
 
