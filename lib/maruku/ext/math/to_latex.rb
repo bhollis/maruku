@@ -21,6 +21,10 @@ module MaRuKu
         "\\ref{#{self.refid}}"
       end
 
+      def to_latex_citation
+        "\\cite{#{self.cites.join(',')}}"
+      end
+
       private
 
       def fix_latex(str)
