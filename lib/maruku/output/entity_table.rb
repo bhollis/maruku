@@ -28,6 +28,10 @@ module MaRuKu::Out
     def entity(name)
       @entity_table[name]
     end
+
+    def each
+      @entity_table.each
+    end
   end
 end
 

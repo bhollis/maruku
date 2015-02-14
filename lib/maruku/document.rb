@@ -35,6 +35,7 @@ module MaRuKu
       self.footnotes_order = []
       self.abbreviations = {}
       self.ald = {}
+      self.refid2ref = {}
       self.id_counter = 0
 
       parse_doc(s) if s

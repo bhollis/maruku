@@ -7,6 +7,7 @@ Ruby on Rails is a web-framework[^framework]. It uses the MVC[^MVC] architecture
 [^framework]: a reusable set of libraries
 [^MVC]: Model View Controller
 [^points]: Here are its good points
+
      1. Ease of use
      2. Rapid development
 

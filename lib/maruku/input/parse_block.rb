@@ -198,6 +198,10 @@ module MaRuKu; module In; module Markdown; module BlockLevelParser
       al = read_attribute_list(CharSource.new(ial, src))
     end
     level = line[/^#+/].size
+    if level > 6
+      text = parse_span line
+      return md_par(text, al)
+    end
     text = parse_span line.gsub(/\A#+|#+\z/, '')
     if text.empty?
       text = "{#{ial}}"
@@ -275,8 +279,6 @@ module MaRuKu; module In; module Markdown; module BlockLevelParser
       case t = src.cur_line.md_type
       when :quote, :header3, :empty, :ref_definition, :ial, :xml_instr
         break
-      when :olist, :ulist
-        break if !src.next_line || src.next_line.md_type == t
       end
       break if src.cur_line.strip.empty?
       break if src.next_line && [:header1, :header2].include?(src.next_line.md_type)
@@ -419,7 +421,7 @@ module MaRuKu; module In; module Markdown; module BlockLevelParser
 
     while src.cur_line
       num_leading_spaces = src.cur_line.number_of_leading_spaces
-      break if num_leading_spaces < len && ![:text, :empty].include?(src.cur_line.md_type)
+      break if num_leading_spaces < len && ![:text, :empty, :code].include?(src.cur_line.md_type)
 
       line = strip_indent(src.cur_line, indentation)
       md_type = line.md_type
@@ -445,6 +447,12 @@ module MaRuKu; module In; module Markdown; module BlockLevelParser
         saw_anything_after = true
       else
         break if break_list.include?(md_type)
+      end
+
+      if md_type == :code && num_leading_spaces > len+6
+        lines << strip_indent(src.cur_line, num_leading_spaces-4)
+        src.shift_line
+        next
       end
 
       lines << line

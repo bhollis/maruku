@@ -1,4 +1,5 @@
 require 'set'
+require 'maruku/output/entity_table'
 
 module MaRuKu::Out::Latex
   module MDDocumentExtensions
