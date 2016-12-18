@@ -81,7 +81,7 @@ inMenu: true
 [impress]:   http://www.openoffice.org/product/impress.html
 [ooolatex]:  http://ooolatex.sourceforge.net/
 [texpoint]:  http://texpoint.necula.org/
-[jabref]:    http://jabref.sourceforge.net/
+[jabref]:    https://www.jabref.org/
 [camino]:    http://www.caminobrowser.org/
 [switch]:    http://www.apple.com/getamac/
 [textmate]:  http://www.apple.com/getamac/
@@ -300,7 +300,7 @@ md_el(:document,[
 	md_ref_def("impress", "http://www.openoffice.org/product/impress.html", {:title=>nil}),
 	md_ref_def("ooolatex", "http://ooolatex.sourceforge.net/", {:title=>nil}),
 	md_ref_def("texpoint", "http://texpoint.necula.org/", {:title=>nil}),
-	md_ref_def("jabref", "http://jabref.sourceforge.net/", {:title=>nil}),
+	md_ref_def("jabref", "https://www.jabref.org/", {:title=>nil}),
 	md_ref_def("camino", "http://www.caminobrowser.org/", {:title=>nil}),
 	md_ref_def("switch", "http://www.apple.com/getamac/", {:title=>nil}),
 	md_ref_def("textmate", "http://www.apple.com/getamac/", {:title=>nil}),
@@ -402,7 +402,7 @@ Type "help", "copyright", "credits" or "license" for more information.
 
 <li><em>The occasional presentation with many graphical content</em>: <a href="http://www.openoffice.org/product/impress.html">OpenOffice Impress</a> (using the <a href="http://ooolatex.sourceforge.net/">OOOlatex plugin</a>); the alternative is PowerPoint with the <a href="http://texpoint.necula.org/">TexPoint</a> plugin.</li>
 
-<li><em>Managing BibTeX</em>: <a href="http://jabref.sourceforge.net/">jabref</a>: multi-platform, for all your bibtex needs.</li>
+<li><em>Managing BibTeX</em>: <a href="https://www.jabref.org/">jabref</a>: multi-platform, for all your bibtex needs.</li>
 
 <li><em>IEEExplore and BibTeX</em>: convert citations using <a href="http://www.bibconverter.net/ieeexplore/">BibConverter</a>.</li>
 </ul>
@@ -476,7 +476,7 @@ Type "help", "copyright", "credits" or "license" for more information.
 \item \emph{Writing papers \& enjoying the process}: \href{http://www.lyx.org}{LyX}
 \item \emph{Handsome figures in your papers}: \href{http://www.xfig.org/}{xfig} or, better, \href{http://tams-www.informatik.uni-hamburg.de/applets/jfig/}{jfig}.
 \item \emph{The occasional presentation with many graphical content}: \href{http://www.openoffice.org/product/impress.html}{OpenOffice Impress} (using the \href{http://ooolatex.sourceforge.net/}{OOOlatex plugin}); the alternative is PowerPoint with the \href{http://texpoint.necula.org/}{TexPoint} plugin.
-\item \emph{Managing BibTeX}: \href{http://jabref.sourceforge.net/}{jabref}: multi-platform, for all your bibtex needs.
+\item \emph{Managing BibTeX}: \href{https://www.jabref.org/}{jabref}: multi-platform, for all your bibtex needs.
 \item \emph{IEEExplore and BibTeX}: convert citations using \href{http://www.bibconverter.net/ieeexplore/}{BibConverter}.
 
 \end{itemize}
@@ -569,7 +569,7 @@ inMenu: true
 [impress]:   http://www.openoffice.org/product/impress.html
 [ooolatex]:  http://ooolatex.sourceforge.net/
 [texpoint]:  http://texpoint.necula.org/
-[jabref]:    http://jabref.sourceforge.net/
+[jabref]:    https://www.jabref.org/
 [camino]:    http://www.caminobrowser.org/
 [switch]:    http://www.apple.com/getamac/
 [textmate]:  http://www.apple.com/getamac/
