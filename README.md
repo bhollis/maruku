@@ -97,13 +97,12 @@ implementations:
 * Ruby 1.8.7
 * Ruby 1.9.2
 * Ruby 1.9.3
-* Ruby 2.0.0
-* Ruby 2.1.0
-* Ruby 2.2.0
-* Ruby 2.3.0
-* Ruby 2.4.0
-* JRuby (Travis' version, 1.8 and 1.9 modes)
-* Rubinius (Travis' version)
+* Ruby 2.0
+* Ruby 2.1
+* Ruby 2.2
+* Ruby 2.3
+* Ruby 2.4
+* JRuby (Travis' version, 1.9 mode)
 
 If something doesn't work on one of these interpreters, it's a bug.
 
