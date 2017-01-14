@@ -6,7 +6,7 @@ gemspec
 
 # Optional dependencies that we want to test with
 gem 'syntax', '~> 1.1.0'
-gem 'nokogiri', '~> 1.5'
+gem 'nokogiri', ['~> 1.5', '< 1.7']
 
 if RUBY_PLATFORM != 'java'
    # itextomml won't build for jRuby, but we should test with it otherwise
@@ -27,4 +27,7 @@ gem 'rspec', '~> 2.14.1'
 gem 'yard', '~> 0.8.7'
 gem 'nokogiri-diff', '~> 0.2.0'
 gem 'simplecov', '~> 0.7.1'
-gem 'coveralls', :require => false
+gem 'coveralls', '~> 0.7.2', :require => false
+
+# These are locked to old versions because old-Ruby support is passe
+gem 'mime-types', '< 3'
