@@ -27,4 +27,4 @@ gem 'rspec', '~> 2.14.1'
 gem 'yard', '~> 0.8.7'
 gem 'nokogiri-diff', '~> 0.2.0'
 gem 'simplecov', '~> 0.7.1'
-gem 'coveralls', :require => false
+gem 'coveralls', '~> 0.7.2', :require => false
