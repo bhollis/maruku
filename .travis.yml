@@ -33,10 +33,7 @@ branches:
   only:
     - master
 
-# Fix broken RubyGems on Travis - https://github.com/rubygems/rubygems/pull/763
-# Remove when Travis has 2.2.1
 before_install:
-  - gem update --system
-  - gem --version
+  - gem install bundler
 
 script: "bundle exec rake test_with_coveralls"
