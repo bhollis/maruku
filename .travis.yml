@@ -14,9 +14,9 @@ matrix:
       gemfile: Gemfile
     - rvm: 2.2
       gemfile: Gemfile
-    - rvm: 2.3
+    - rvm: 2.3.0
       gemfile: Gemfile
-    - rvm: 2.4
+    - rvm: 2.4.0
       gemfile: Gemfile
     - rvm: jruby-19mode
       gemfile: Gemfile-oldruby
