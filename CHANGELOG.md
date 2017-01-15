@@ -1,3 +1,8 @@
+0.7.3
+-----
+
+* Compatibility with Ruby 2.4's unified integers. #141
+
 0.7.2
 -----
 
