@@ -6,7 +6,7 @@ module MaRuKu
     attr_accessor :eqid2eq
 
     def eqid2eq
-      @eqid2eq || {}
+      @eqid2eq ||= {}
     end
 
     def is_math_enabled?
