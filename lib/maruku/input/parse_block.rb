@@ -354,7 +354,7 @@ module MaRuKu; module In; module Markdown; module BlockLevelParser
     first_changed = first.gsub(/([^\t]*)(\t)/) { $1 + " " * (TAB_SIZE - $1.length % TAB_SIZE) }
     stripped = first_changed[indentation, first_changed.size - 1]
     lines.unshift stripped
-    src2 = LineSource.new(lines, src, parent_offset)
+    src2 = LineSource.new(lines, src, parent_offset, true)
     children = parse_blocks(src2)
 
     md_li(children, want_my_paragraph, al)
@@ -491,7 +491,7 @@ module MaRuKu; module In; module Markdown; module BlockLevelParser
       lines << unquote(src.shift_line)
     end
 
-    src2 = LineSource.new(lines, src, parent_offset)
+    src2 = LineSource.new(lines, src, parent_offset, true)
     children = parse_blocks(src2)
     md_quote(children)
   end
