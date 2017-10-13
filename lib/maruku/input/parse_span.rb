@@ -70,7 +70,22 @@ module MaRuKu::In::Markdown::SpanLevelParser
           src.ignore_char
           con.push_space
         end
-      when "\n", "\t"
+      when "\n" 
+        src.ignore_char
+        con.push_space 
+        
+        multiline = false
+        p = src
+        while p && !multiline
+          multiline = p.respond_to?(:multiline) && p.multiline
+          p = p.respond_to?(:parent) && p.parent
+        end
+        
+        unless multiline
+          con.push_space 
+          con.push_element md_br()
+        end
+      when "\t"
         src.ignore_char
         con.push_space
       when '`'
