@@ -50,8 +50,8 @@ module MaRuKu
       return :header3        if self =~ /\A(#)+\s*\S+/
       # at least three asterisks/hyphens/underscores on a line, and only whitespace
       return :hrule          if self =~ /\A(\s*[\*\-_]\s*){3,}\z/
-      return :ulist          if self =~ /^[ ]{0,1}([\*\-\+])\s+.*\w+/
-      return :olist          if self =~ /^[ ]{0,1}\d+\.\s.*\w+/
+      return :ulist          if self =~ /\A[ ]{0,3}([\*\-\+])\s+.*/
+      return :olist          if self =~ /\A[ ]{0,3}\d+\.\s+.*/
       return :code           if number_of_leading_spaces >= 4
       return :quote          if self =~ /\A>/
       return :ald            if self =~ AttributeDefinitionList
