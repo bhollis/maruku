@@ -14,35 +14,6 @@ module MaRuKu
       s.split(/\r\n|\r|\n/)
     end
 
-    # Parses email headers, returning a hash.
-    # `hash[:data]` is the message;
-    # that is, anything past the headers.
-    #
-    # Keys are downcased and converted to symbols;
-    # spaces become underscores. For example:
-    #
-    #     !!!plain
-    #     My key: true
-    #
-    # becomes:
-    #
-    #     {:my_key => true}
-    #
-    # @param s [String] The email
-    # @return [Symbol => String] The header values
-    def parse_email_headers(s)
-      headers = {}
-      scanner = StringScanner.new(s)
-
-      while scanner.scan(/(\w[\w\s\-]+): +(.*)\n/)
-        k, v = normalize_key_and_value(scanner[1], scanner[2])
-        headers[k.to_sym] = v
-      end
-
-      headers[:data] = scanner.rest
-      headers
-    end
-
     # This returns the position of the first non-list character
     # in a list item.
     #
