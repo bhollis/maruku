@@ -239,14 +239,8 @@ module MaRuKu::In::Markdown::SpanLevelParser
           src.ignore_char
           con.push_element md_entity('rsquo')
         else
-          if prev_char =~ /[[:alpha:]]/
-            src.ignore_char
-            con.push_element md_entity('rsquo')
-          else
-            src.ignore_char
-            con.push_element md_entity('lsquo')
-            squote_state = :open
-          end
+          src.ignore_char
+          con.push_element md_entity('rsquo')
         end
       else # normal text
         con.push_char src.shift_char
