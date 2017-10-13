@@ -29,7 +29,7 @@ module MaRuKu::In::Markdown::SpanLevelParser
 
       # This is only an optimization which cuts 50% of the time used.
       # (but you can't use a-zA-z in exit_on_chars)
-      if c && c =~  /[[:alnum:]]/
+      if c && c =~  /[[:alpha:]]/
         con.push_char src.shift_char
         prev_char = c
         next
@@ -61,6 +61,11 @@ module MaRuKu::In::Markdown::SpanLevelParser
           src.ignore_chars(2)
           con.push_space
           con.push_element md_entity('rsquo')
+        elsif src.cur_chars_are ' "' # opening double-quote
+          src.ignore_chars(2)
+          con.push_space
+          con.push_element md_entity('ldquo')
+          dquote_state = :open
         elsif src.cur_chars_are " '" # opening single-quote
           src.ignore_chars(2)
           con.push_space
@@ -69,6 +74,15 @@ module MaRuKu::In::Markdown::SpanLevelParser
         else
           src.ignore_char
           con.push_space
+        end
+      when /\d/
+        if src.cur_chars(2) =~ /\d"/ 
+          # special case: measurements (7"), etc
+          con.push_char src.shift_char
+          src.ignore_char
+          con.push_element md_entity('rdquo')
+        else
+          con.push_char src.shift_char
         end
       when "\n" 
         src.ignore_char
@@ -221,11 +235,7 @@ module MaRuKu::In::Markdown::SpanLevelParser
           con.push_char src.shift_char
         end
       when '"'
-        if dquote_state == :closed && src.cur_chars(2) =~ /"\s/ 
-          # special case: measurements (7"), etc
-          src.ignore_char
-          con.push_element md_entity('rdquo')
-        elsif dquote_state == :closed
+        if dquote_state == :closed
           dquote_state = :open
           src.ignore_char
           con.push_element md_entity('ldquo')
