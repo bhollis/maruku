@@ -37,7 +37,6 @@ module MaRuKu
       return :footnote_text  if self =~ FootnoteText
       return :ref_definition if self =~ LinkRegex || self =~ IncompleteLink
       return :abbreviation   if self =~ Abbreviation
-      return :definition     if self =~ Definition
       # I had a bug with emails and urls at the beginning of the
       # line that were mistaken for raw_html
       return :text           if self =~ /\A[ ]{0,3}#{EMailAddress}/
