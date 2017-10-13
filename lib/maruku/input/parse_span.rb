@@ -196,34 +196,6 @@ module MaRuKu::In::Markdown::SpanLevelParser
             con.push_char src.shift_char
           end
         end
-      when '_'
-        if !src.next_char
-          maruku_error "Opening _ as last char", src, con, 'Treating as literal'
-          con.push_char src.shift_char
-        else
-          # we don't want "mod_ruby" to start an emphasis
-          # so we start one only if
-          # 1) there's nothing else in the span (first char)
-          # or 2) the last char was a space
-          # or 3) the current string is empty
-          #if con.elements.empty? ||
-          if con.is_end?
-            # also, we check the next characters
-            follows = src.cur_chars(4)
-            if  follows =~ /^\_\_\_[^\s\_]/
-              con.push_element read_emstrong(src, '___')
-            elsif follows  =~ /^\_\_[^\s\_]/
-              con.push_element read_strong(src, '__')
-            elsif follows =~ /^\_[^\s\_]/
-              con.push_element read_em(src, '_')
-            else # _ is just a normal char
-              con.push_char src.shift_char
-            end
-          else
-            # _ is just a normal char
-            con.push_char src.shift_char
-          end
-        end
       when '{' # extension
         if ['#', '.', ':'].include? src.next_char
           src.ignore_char # {
