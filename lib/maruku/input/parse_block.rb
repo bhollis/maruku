@@ -272,6 +272,7 @@ module MaRuKu; module In; module Markdown; module BlockLevelParser
     end
   end
 
+
   def read_paragraph(src)
     lines = [src.shift_line]
     while src.cur_line
@@ -279,6 +280,8 @@ module MaRuKu; module In; module Markdown; module BlockLevelParser
       case t = src.cur_line.md_type
       when :quote, :header3, :empty, :ref_definition, :ial, :xml_instr
         break
+      when :olist,:ulist
+        break if src.next_line.md_type == t
       end
       break if src.cur_line.strip.empty?
       break if src.next_line && [:header1, :header2].include?(src.next_line.md_type)
