@@ -223,6 +223,7 @@ module MaRuKu::In::Markdown::SpanLevelParser
       when '"'
         if dquote_state == :closed && src.cur_chars(2) =~ /"\s/ 
           # special case: measurements (7"), etc
+          src.ignore_char
           con.push_element md_entity('rdquo')
         elsif dquote_state == :closed
           dquote_state = :open
