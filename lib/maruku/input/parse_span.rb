@@ -223,18 +223,6 @@ module MaRuKu::In::Markdown::SpanLevelParser
                       [ exit_on_chars ? "#{exit_on_chars.inspect} or" : "" ],
                       src, con)
         break
-      when '-' # dashes
-        if src.next_char == '-'
-          if src.cur_chars_are '---'
-            src.ignore_chars(3)
-            con.push_element md_entity('mdash')
-          else
-            src.ignore_chars(2)
-            con.push_element md_entity('ndash')
-          end
-        else
-          con.push_char src.shift_char
-        end
       when '.' # ellipses
         if src.cur_chars_are '...'
           src.ignore_chars(3)
