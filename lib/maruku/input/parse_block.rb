@@ -97,6 +97,11 @@ module MaRuKu; module In; module Markdown; module BlockLevelParser
         output << read_abbreviation(src)
       when :xml_instr
         read_xml_instruction(src, output)
+      when :header1
+        md_type = src.cur_line.md_type
+        line = src.cur_line
+        maruku_error "Ignoring line '#{line}' type = #{md_type}", src
+        src.shift_line
       else # unhandled line type at this level
         # Just treat it as raw text
         read_text_material(src, output)
@@ -281,7 +286,7 @@ module MaRuKu; module In; module Markdown; module BlockLevelParser
       when :quote, :header3, :empty, :ref_definition, :ial, :xml_instr
         break
       when :olist,:ulist
-        break if src.next_line.md_type == t
+        break if src.next_line && src.next_line.md_type == t
       end
       break if src.cur_line.strip.empty?
       break if src.next_line && [:header1, :header2].include?(src.next_line.md_type)
