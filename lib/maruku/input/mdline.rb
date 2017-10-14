@@ -43,8 +43,6 @@ module MaRuKu
       return :text           if self =~ /\A[ ]{0,3}<\w+:\/\//
       # raw html is like PHP Markdown Extra: at most three spaces before
       return :xml_instr      if self =~ /\A\s*<\?/
-      return :raw_html       if self =~ %r{\A[ ]{0,3}</?\s*\w+}
-      return :raw_html       if self =~ /\A[ ]{0,3}<\!\-\-/
       return :header1        if self =~ /\A(=)+/
       return :header2        if self =~ /\A([-\s])+\z/
       return :header3        if self =~ /\A(#)+\s*\S+/ && !(self =~ /\A(#)+\d+\s+/)
