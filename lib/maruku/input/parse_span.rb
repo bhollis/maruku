@@ -485,7 +485,6 @@ module MaRuKu::In::Markdown::SpanLevelParser
       while true
         if consumed >= next_stuff.size
           maruku_error "Malformed HTML starting at #{next_stuff.inspect}", src, con
-          break
         end
 
         h.eat_this next_stuff[consumed].chr
