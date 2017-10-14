@@ -37,18 +37,15 @@ module MaRuKu
       return :footnote_text  if self =~ FootnoteText
       return :ref_definition if self =~ LinkRegex || self =~ IncompleteLink
       return :abbreviation   if self =~ Abbreviation
-      return :definition     if self =~ Definition
       # I had a bug with emails and urls at the beginning of the
       # line that were mistaken for raw_html
       return :text           if self =~ /\A[ ]{0,3}#{EMailAddress}/
       return :text           if self =~ /\A[ ]{0,3}<\w+:\/\//
       # raw html is like PHP Markdown Extra: at most three spaces before
       return :xml_instr      if self =~ /\A\s*<\?/
-      return :raw_html       if self =~ %r{\A[ ]{0,3}</?\s*\w+}
-      return :raw_html       if self =~ /\A[ ]{0,3}<\!\-\-/
       return :header1        if self =~ /\A(=)+/
       return :header2        if self =~ /\A([-\s])+\z/
-      return :header3        if self =~ /\A(#)+\s*\S+/
+      return :header3        if self =~ /\A(#)+\s*\S+/ && !(self =~ /\A(#)+\d+\s+/)
       # at least three asterisks/hyphens/underscores on a line, and only whitespace
       return :hrule          if self =~ /\A(\s*[\*\-_]\s*){3,}\z/
       return :ulist          if self =~ /\A[ ]{0,3}([\*\-\+])\s+.*/

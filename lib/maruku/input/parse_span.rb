@@ -29,7 +29,7 @@ module MaRuKu::In::Markdown::SpanLevelParser
 
       # This is only an optimization which cuts 50% of the time used.
       # (but you can't use a-zA-z in exit_on_chars)
-      if c && c =~  /[[:alnum:]]/
+      if c && c =~  /[[:alpha:]]/
         con.push_char src.shift_char
         prev_char = c
         next
@@ -61,6 +61,11 @@ module MaRuKu::In::Markdown::SpanLevelParser
           src.ignore_chars(2)
           con.push_space
           con.push_element md_entity('rsquo')
+        elsif src.cur_chars_are ' "' # opening double-quote
+          src.ignore_chars(2)
+          con.push_space
+          con.push_element md_entity('ldquo')
+          dquote_state = :open
         elsif src.cur_chars_are " '" # opening single-quote
           src.ignore_chars(2)
           con.push_space
@@ -70,7 +75,31 @@ module MaRuKu::In::Markdown::SpanLevelParser
           src.ignore_char
           con.push_space
         end
-      when "\n", "\t"
+      when /\d/
+        if src.cur_chars(2) =~ /\d"/ 
+          # special case: measurements (7"), etc
+          con.push_char src.shift_char
+          src.ignore_char
+          con.push_element md_entity('rdquo')
+        else
+          con.push_char src.shift_char
+        end
+      when "\n" 
+        src.ignore_char
+        con.push_space 
+        
+        multiline = false
+        p = src
+        while p && !multiline
+          multiline = p.respond_to?(:multiline) && p.multiline
+          p = p.respond_to?(:parent) && p.parent
+        end
+        
+        unless multiline
+          con.push_space 
+          con.push_element md_br()
+        end
+      when "\t"
         src.ignore_char
         con.push_space
       when '`'
@@ -110,7 +139,7 @@ module MaRuKu::In::Markdown::SpanLevelParser
             read_email_el(src, con)
           elsif src.next_matches(/<\w+:/)
             read_url_el(src, con)
-          elsif src.next_matches(/<\w/)
+          elsif src.next_matches(/<\w+.*?>/)
             #puts "This is HTML: #{src.cur_chars(20)}"
             read_inline_html(src, con)
           else
@@ -181,34 +210,6 @@ module MaRuKu::In::Markdown::SpanLevelParser
             con.push_char src.shift_char
           end
         end
-      when '_'
-        if !src.next_char
-          maruku_error "Opening _ as last char", src, con, 'Treating as literal'
-          con.push_char src.shift_char
-        else
-          # we don't want "mod_ruby" to start an emphasis
-          # so we start one only if
-          # 1) there's nothing else in the span (first char)
-          # or 2) the last char was a space
-          # or 3) the current string is empty
-          #if con.elements.empty? ||
-          if con.is_end?
-            # also, we check the next characters
-            follows = src.cur_chars(4)
-            if  follows =~ /^\_\_\_[^\s\_]/
-              con.push_element read_emstrong(src, '___')
-            elsif follows  =~ /^\_\_[^\s\_]/
-              con.push_element read_strong(src, '__')
-            elsif follows =~ /^\_[^\s\_]/
-              con.push_element read_em(src, '_')
-            else # _ is just a normal char
-              con.push_char src.shift_char
-            end
-          else
-            # _ is just a normal char
-            con.push_char src.shift_char
-          end
-        end
       when '{' # extension
         if ['#', '.', ':'].include? src.next_char
           src.ignore_char # {
@@ -223,18 +224,6 @@ module MaRuKu::In::Markdown::SpanLevelParser
                       [ exit_on_chars ? "#{exit_on_chars.inspect} or" : "" ],
                       src, con)
         break
-      when '-' # dashes
-        if src.next_char == '-'
-          if src.cur_chars_are '---'
-            src.ignore_chars(3)
-            con.push_element md_entity('mdash')
-          else
-            src.ignore_chars(2)
-            con.push_element md_entity('ndash')
-          end
-        else
-          con.push_char src.shift_char
-        end
       when '.' # ellipses
         if src.cur_chars_are '...'
           src.ignore_chars(3)
@@ -264,14 +253,8 @@ module MaRuKu::In::Markdown::SpanLevelParser
           src.ignore_char
           con.push_element md_entity('rsquo')
         else
-          if prev_char =~ /[[:alpha:]]/
-            src.ignore_char
-            con.push_element md_entity('rsquo')
-          else
-            src.ignore_char
-            con.push_element md_entity('lsquo')
-            squote_state = :open
-          end
+          src.ignore_char
+          con.push_element md_entity('rsquo')
         end
       else # normal text
         con.push_char src.shift_char
@@ -502,7 +485,6 @@ module MaRuKu::In::Markdown::SpanLevelParser
       while true
         if consumed >= next_stuff.size
           maruku_error "Malformed HTML starting at #{next_stuff.inspect}", src, con
-          break
         end
 
         h.eat_this next_stuff[consumed].chr

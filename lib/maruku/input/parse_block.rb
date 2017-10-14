@@ -97,6 +97,11 @@ module MaRuKu; module In; module Markdown; module BlockLevelParser
         output << read_abbreviation(src)
       when :xml_instr
         read_xml_instruction(src, output)
+      when :header1
+        md_type = src.cur_line.md_type
+        line = src.cur_line
+        maruku_error "Ignoring line '#{line}' type = #{md_type}", src
+        src.shift_line
       else # unhandled line type at this level
         # Just treat it as raw text
         read_text_material(src, output)
@@ -272,6 +277,7 @@ module MaRuKu; module In; module Markdown; module BlockLevelParser
     end
   end
 
+
   def read_paragraph(src)
     lines = [src.shift_line]
     while src.cur_line
@@ -279,6 +285,8 @@ module MaRuKu; module In; module Markdown; module BlockLevelParser
       case t = src.cur_line.md_type
       when :quote, :header3, :empty, :ref_definition, :ial, :xml_instr
         break
+      when :olist,:ulist
+        break if src.next_line && src.next_line.md_type == t
       end
       break if src.cur_line.strip.empty?
       break if src.next_line && [:header1, :header2].include?(src.next_line.md_type)
@@ -354,7 +362,7 @@ module MaRuKu; module In; module Markdown; module BlockLevelParser
     first_changed = first.gsub(/([^\t]*)(\t)/) { $1 + " " * (TAB_SIZE - $1.length % TAB_SIZE) }
     stripped = first_changed[indentation, first_changed.size - 1]
     lines.unshift stripped
-    src2 = LineSource.new(lines, src, parent_offset)
+    src2 = LineSource.new(lines, src, parent_offset, true)
     children = parse_blocks(src2)
 
     md_li(children, want_my_paragraph, al)
@@ -491,7 +499,7 @@ module MaRuKu; module In; module Markdown; module BlockLevelParser
       lines << unquote(src.shift_line)
     end
 
-    src2 = LineSource.new(lines, src, parent_offset)
+    src2 = LineSource.new(lines, src, parent_offset, true)
     children = parse_blocks(src2)
     md_quote(children)
   end
