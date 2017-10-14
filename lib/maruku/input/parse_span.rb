@@ -139,7 +139,7 @@ module MaRuKu::In::Markdown::SpanLevelParser
             read_email_el(src, con)
           elsif src.next_matches(/<\w+:/)
             read_url_el(src, con)
-          elsif src.next_matches(/<\w/)
+          elsif src.next_matches(/<\w+.*?>/)
             #puts "This is HTML: #{src.cur_chars(20)}"
             read_inline_html(src, con)
           else
