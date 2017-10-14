@@ -47,7 +47,7 @@ module MaRuKu
       return :raw_html       if self =~ /\A[ ]{0,3}<\!\-\-/
       return :header1        if self =~ /\A(=)+/
       return :header2        if self =~ /\A([-\s])+\z/
-      return :header3        if self =~ /\A(#)+\s*\S+/
+      return :header3        if self =~ /\A(#)+\s*\S+/ && !(self =~ /\A(#)+\d+\s+/)
       # at least three asterisks/hyphens/underscores on a line, and only whitespace
       return :hrule          if self =~ /\A(\s*[\*\-_]\s*){3,}\z/
       return :ulist          if self =~ /\A[ ]{0,3}([\*\-\+])\s+.*/
