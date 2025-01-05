@@ -10,15 +10,11 @@ Maruku implements:
 
 Read more about [Maruku's Markdown syntax](https://github.com/bhollis/maruku/blob/master/docs/markdown_syntax.md). It also supports [inline math](https://github.com/bhollis/maruku/blob/master/docs/math.md). [Maruku docs](http://rdoc.info/github/bhollis/maruku/master/).
 
-News about Maruku is posted at [http://benhollis.net/blog/category/maruku/](http://benhollis.net/blog/category/maruku/)
-
-[![Build Status](https://api.travis-ci.org/bhollis/maruku.png?branch=master)][travis]
 [![Gem Version](https://fury-badge.herokuapp.com/rb/maruku.png)](http://badge.fury.io/rb/maruku)
 [![Dependency Status](https://gemnasium.com/bhollis/maruku.png)](https://gemnasium.com/bhollis/maruku)
-[![Code Climate](https://codeclimate.com/github/bhollis/maruku.png)](https://codeclimate.com/github/bhollis/maruku)
 [![Coverage Status](https://coveralls.io/repos/bhollis/maruku/badge.png)](https://coveralls.io/r/bhollis/maruku)
 
-**Note**: [Maruku should be considered obsolete](http://benhollis.net/blog/2013/10/20/maruku-is-obsolete/), as it has been superceded by better libraries like Kramdown. It is still supported, so feel free to continue filing bug reports.
+**Note**: [Maruku should be considered obsolete](http://benhollis.net/blog/2013/10/20/maruku-is-obsolete/), as it has been superceded by better libraries like Kramdown.
 
 ## Installing
 
